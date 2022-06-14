@@ -1,0 +1,78 @@
+﻿File:
+  Name:                           DEPTAB
+  File Type:                      LANSA File
+  Library:                        DC@DEMOLIB
+  Record Format Name:             DEPTAB
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              No
+  Enabled For Long Names:         No
+  Share Data Path:                Yes
+  Secure From File Overrides:     No
+  Strip Debug On Compile:         No
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            No
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             No
+  Convert Special Characters:     Yes
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE(10000     2000      3         ) LVLCHK(*YES)  SHARE(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Department code table"
+
+  - FRA:
+      Description:        "Table des codes département"
+
+  Real Fields:
+  - DEPTMENT:
+      Type:               Alphanumeric
+      Length:             4
+      Decimals:           0
+
+  - DEPTDESC:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  Primary Keys:
+  - DEPTMENT
+
+  Access Routes:
+  - DEPTAB01:
+      Description:        Personnel who work in this department
+      File:               PSLMST1
+      Library:            "*FIRST"
+      Association Type:   Derive
+      Association Rule:   Derive
+      Documentation Only: No
+      Maximum Records:    9999
+      Default Action:     Ignore
+      Keep Last:          0
+      Derivation:         After Virtual Fields
+
+      Keys:
+      - DEPTMENT
+
+  - DEPTAB02:
+      Description:        Sections within this department
+      File:               SECTAB
+      Library:            "*FIRST"
+      Association Type:   Derive
+      Association Rule:   Derive
+      Documentation Only: No
+      Maximum Records:    999
+      Default Action:     Ignore
+      Keep Last:          0
+      Derivation:         After Virtual Fields
+
+      Keys:
+      - DEPTMENT
