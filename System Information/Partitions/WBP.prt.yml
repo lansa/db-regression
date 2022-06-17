@@ -1,0 +1,1142 @@
+﻿Partition:
+  Name:                             WBP
+  Description:                      Web performance benchmarks
+  Unique Prefix:                    0
+  Security Officer:                 DEVUSER
+  Default File Library:             DEVWBPLIBF
+  Include in Library List:          Yes
+  Module Library:                   DEVWBPLIB
+  Create Relative Record Number:    Yes
+  Apply SAA/CUA Standards:          Yes
+  Enable Documentor:                No
+  User Access Enforced:             No
+  Check Before Propagating:         Yes
+  Ignore Propagated Deletes:        Yes
+  Force *ENDWHERESQL:               No
+
+  RDMLX Settings:
+    Enable For Full RDMLX:          Yes
+    Create Field As RDMLX:          Yes
+    Create File As RDMLX:           Yes
+    Create Component As Full RDMLX: Yes
+    Create Function As Full RDMLX:  Yes
+    Enable Short Char:              Disable
+
+  Available Field Types:
+  - Alphanumeric:
+      Enabled:            Yes
+      Length:             10
+      Decimals:           0
+      Default Value:      "*BLANKS"
+
+      Input Attributes:
+      - FE
+
+  - Decimal:
+      Enabled:            Yes
+      Length:             15
+      Decimals:           0
+      Default Value:      "*ZERO"
+      Edit Code:          J
+
+      Input Attributes:
+      - FE
+      - RB
+
+  - Signed:
+      Enabled:            Yes
+      Length:             15
+      Decimals:           0
+      Default Value:      "*ZERO"
+      Edit Code:          J
+
+      Input Attributes:
+      - FE
+      - RB
+
+  - Char:
+      Enabled:            Yes
+      Length:             10
+      Decimals:           0
+      Default Value:      "*NULL"
+
+      Input Attributes:
+      - FE
+
+  - NChar:
+      Enabled:            Yes
+      Length:             10
+      Decimals:           0
+      Default Value:      "*NULL"
+
+      Input Attributes:
+      - FE
+
+  - Date Time:
+      Enabled:            Yes
+      Length:             26
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+      - ISO
+      - SUTC
+
+  - String:
+      Enabled:            Yes
+      Length:             512
+      Decimals:           0
+      Default Value:      "*NULL"
+
+      Input Attributes:
+      - FE
+
+  - NVarChar:
+      Enabled:            Yes
+      Length:             512
+      Decimals:           0
+      Default Value:      "*NULL"
+
+      Input Attributes:
+      - FE
+
+  - Binary:
+      Enabled:            Yes
+      Length:             256
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+
+  - VarBinary:
+      Enabled:            Yes
+      Length:             256
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+
+  - Date:
+      Enabled:            Yes
+      Length:             10
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+      - ISO
+
+  - Time:
+      Enabled:            Yes
+      Length:             8
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+      - ISO
+
+  - Integer:
+      Enabled:            Yes
+      Length:             4
+      Decimals:           0
+      Default Value:      "*NULL"
+      Edit Code:          J
+
+      Input Attributes:
+      - FE
+      - RB
+
+  - Float:
+      Enabled:            No
+      Length:             8
+      Decimals:           0
+      Default Value:      "*NULL"
+
+      Input Attributes:
+      - FE
+      - RB
+
+  - CLOB:
+      Enabled:            Yes
+      Length:             0
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+      - LC
+
+  - BLOB:
+      Enabled:            Yes
+      Length:             0
+      Decimals:           0
+      Default Value:      "*SQLNULL"
+
+      Input Attributes:
+      - ASQN
+      - FE
+      - LC
+
+  - Boolean:
+      Enabled:            Yes
+      Length:             1
+      Decimals:           0
+      Default Value:      "*NULL"
+
+  Universal Interface Options:
+    Process Menu Style:             Number
+    Uppercase Process Title:        No
+    Uppercase Function Title:       No
+    Display Process Date And Time:  Yes
+    Display Function Date And Time: Yes
+    Display Panel ID:               Yes
+    Function Key Line 1:            23
+    Function Key Line 2:            24
+    Message Line Number:            22
+
+  Supported Database Products:
+  - SQLANYWHERE:
+      Enabled:            Yes
+
+  - MSSQLS:
+      Enabled:            Yes
+
+  - SQLAZURE:
+      Enabled:            Yes
+
+  - ODBCORACLE:
+      Enabled:            Yes
+
+  - DB2ISERIES:
+      Enabled:            Yes
+
+  - MYSQL:
+      Enabled:            Yes
+
+  Language Settings:
+  - DAN:
+      Description:                 Danish
+      Partition Description:       Web performance benchmarks
+      Default Language:            No
+      Development Language:        No
+      DBCS Support Required:       No
+      RLTB Support Required:       No
+      Locale Uppercasing Required: No
+      IGC Conversion Required:     No
+      IGC Conversion Function Key: 00
+      IGC Conversion Line Number:  00
+      IBM i EBCDIC CCSID:          277
+      Windows ANSI Code Page:      1252
+
+      Menu Options:
+        Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
+        Help Option On Menus:        Display process or function HELP text
+        Return Prefix On Menus:      Return to
+        Exit Option On Menus:        Exit from system
+
+      Function Keys:
+      - Cancel:
+          Caption:            Cancel
+          Key:                12
+
+      - Enter:
+          Caption:            Enter
+          Key:                RA
+
+      - Help:
+          Caption:            Help
+          Key:                01
+
+      - Prompt:
+          Caption:            Prompt
+          Key:                04
+
+      - Refresh:
+          Caption:            Refresh
+          Key:                05
+
+      - Messages:
+          Caption:            Messages
+          Key:                14
+
+      - Backward:
+          Caption:            Bkwd
+          Key:                07
+
+      - Command:
+          Caption:            Command
+          Key:                09
+
+      - Keys:
+          Caption:            Keys
+          Key:                13
+
+      - Exit:
+          Caption:            Exit
+          Key:                03
+
+      - Exit Level:
+          Caption:            Exit
+          Key:                03
+
+      - Home:
+          Caption:            Home
+          Key:                HM
+
+      - Forward:
+          Caption:            Forward
+          Key:                08
+
+      - Contents:
+          Caption:            Contents
+          Key:                23
+
+      - Extended Help:
+          Caption:            Ex Help
+          Key:                02
+
+      - Help Index:
+          Caption:            Help index
+          Key:                11
+
+      - Help Keys:
+          Caption:            Keys help
+          Key:                09
+
+      - Left:
+          Caption:            Left
+          Key:                19
+
+      - Retrieve:
+          Caption:            Retrieve
+          Key:                09
+
+      - Right:
+          Caption:            Right
+          Key:                20
+
+      - Switch Backward:
+          Caption:            Switchbkwd
+          Key:                18
+
+      - Switch Forward:
+          Caption:            Switch fwd
+          Key:                06
+
+      - Actions:
+          Caption:            Actions
+          Key:                10
+
+      - Create:
+          Caption:            Add/Create
+          Key:                06
+
+      - Change:
+          Caption:            Change
+          Key:                21
+
+      - Delete:
+          Caption:            Delete
+          Key:                22
+
+  - ENG:
+      Description:                 English
+      Partition Description:       Web performance benchmarks
+      Default Language:            Yes
+      Development Language:        Yes
+      DBCS Support Required:       No
+      RLTB Support Required:       No
+      Locale Uppercasing Required: No
+      IGC Conversion Required:     No
+      IGC Conversion Function Key: 00
+      IGC Conversion Line Number:  00
+
+      Menu Options:
+        Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
+        Help Option On Menus:        Display process or function HELP text
+        Return Prefix On Menus:      Return to
+        Exit Option On Menus:        Exit from system
+
+      Function Keys:
+      - Cancel:
+          Caption:            Cancel
+          Key:                12
+
+      - Enter:
+          Caption:            Enter
+          Key:                RA
+
+      - Help:
+          Caption:            Help
+          Key:                01
+
+      - Prompt:
+          Caption:            Prompt
+          Key:                04
+
+      - Refresh:
+          Caption:            Refresh
+          Key:                05
+
+      - Messages:
+          Caption:            Messages
+          Key:                14
+
+      - Backward:
+          Caption:            Bkwd
+          Key:                07
+
+      - Command:
+          Caption:            Command
+          Key:                09
+
+      - Keys:
+          Caption:            Keys
+          Key:                13
+
+      - Exit:
+          Caption:            Exit
+          Key:                03
+
+      - Exit Level:
+          Caption:            Exit
+          Key:                03
+
+      - Home:
+          Caption:            Home
+          Key:                HM
+
+      - Forward:
+          Caption:            Forward
+          Key:                08
+
+      - Contents:
+          Caption:            Contents
+          Key:                23
+
+      - Extended Help:
+          Caption:            Ex Help
+          Key:                02
+
+      - Help Index:
+          Caption:            Help index
+          Key:                11
+
+      - Help Keys:
+          Caption:            Keys help
+          Key:                09
+
+      - Left:
+          Caption:            Left
+          Key:                19
+
+      - Retrieve:
+          Caption:            Retrieve
+          Key:                09
+
+      - Right:
+          Caption:            Right
+          Key:                20
+
+      - Switch Backward:
+          Caption:            Switchbkwd
+          Key:                18
+
+      - Switch Forward:
+          Caption:            Switch fwd
+          Key:                06
+
+      - Actions:
+          Caption:            Actions
+          Key:                10
+
+      - Create:
+          Caption:            Add/Create
+          Key:                06
+
+      - Change:
+          Caption:            Change
+          Key:                21
+
+      - Delete:
+          Caption:            Delete
+          Key:                22
+
+  - FRA:
+      Description:                 French
+      Partition Description:       Web performance benchmarks
+      Default Language:            No
+      Development Language:        No
+      DBCS Support Required:       No
+      RLTB Support Required:       No
+      Locale Uppercasing Required: No
+      IGC Conversion Required:     No
+      IGC Conversion Function Key: 00
+      IGC Conversion Line Number:  00
+      IBM i EBCDIC CCSID:          "     "
+      Windows ANSI Code Page:      "     "
+
+      Menu Options:
+        Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
+        Help Option On Menus:        Display process or function HELP text
+        Return Prefix On Menus:      Return to
+        Exit Option On Menus:        Exit from system
+
+      Function Keys:
+      - Cancel:
+          Caption:            Cancel
+          Key:                12
+
+      - Enter:
+          Caption:            Enter
+          Key:                RA
+
+      - Help:
+          Caption:            Help
+          Key:                01
+
+      - Prompt:
+          Caption:            Prompt
+          Key:                04
+
+      - Refresh:
+          Caption:            Refresh
+          Key:                05
+
+      - Messages:
+          Caption:            Messages
+          Key:                14
+
+      - Backward:
+          Caption:            Bkwd
+          Key:                07
+
+      - Command:
+          Caption:            Command
+          Key:                09
+
+      - Keys:
+          Caption:            Keys
+          Key:                13
+
+      - Exit:
+          Caption:            Exit
+          Key:                03
+
+      - Exit Level:
+          Caption:            Exit
+          Key:                03
+
+      - Home:
+          Caption:            Home
+          Key:                HM
+
+      - Forward:
+          Caption:            Forward
+          Key:                08
+
+      - Contents:
+          Caption:            Contents
+          Key:                23
+
+      - Extended Help:
+          Caption:            Ex Help
+          Key:                02
+
+      - Help Index:
+          Caption:            Help index
+          Key:                11
+
+      - Help Keys:
+          Caption:            Keys help
+          Key:                09
+
+      - Left:
+          Caption:            Left
+          Key:                19
+
+      - Retrieve:
+          Caption:            Retrieve
+          Key:                09
+
+      - Right:
+          Caption:            Right
+          Key:                20
+
+      - Switch Backward:
+          Caption:            Switchbkwd
+          Key:                18
+
+      - Switch Forward:
+          Caption:            Switch fwd
+          Key:                06
+
+      - Actions:
+          Caption:            Actions
+          Key:                10
+
+      - Create:
+          Caption:            Add/Create
+          Key:                06
+
+      - Change:
+          Caption:            Change
+          Key:                21
+
+      - Delete:
+          Caption:            Delete
+          Key:                22
+
+  - JPN:
+      Description:                 Japanese
+      Partition Description:       Web performance benchmarks
+      Default Language:            No
+      Development Language:        No
+      DBCS Support Required:       Yes
+      RLTB Support Required:       No
+      Locale Uppercasing Required: No
+      IGC Conversion Required:     No
+      IGC Conversion Function Key: 00
+      IGC Conversion Line Number:  00
+      IBM i EBCDIC CCSID:          5035
+      Windows ANSI Code Page:      932
+
+      Menu Options:
+        Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
+        Help Option On Menus:        Display process or function HELP text
+        Return Prefix On Menus:      Return to
+        Exit Option On Menus:        Exit from system
+
+      Function Keys:
+      - Cancel:
+          Caption:            Cancel
+          Key:                12
+
+      - Enter:
+          Caption:            Enter
+          Key:                RA
+
+      - Help:
+          Caption:            Help
+          Key:                01
+
+      - Prompt:
+          Caption:            Prompt
+          Key:                04
+
+      - Refresh:
+          Caption:            Refresh
+          Key:                05
+
+      - Messages:
+          Caption:            Messages
+          Key:                14
+
+      - Backward:
+          Caption:            Bkwd
+          Key:                07
+
+      - Command:
+          Caption:            Command
+          Key:                09
+
+      - Keys:
+          Caption:            Keys
+          Key:                13
+
+      - Exit:
+          Caption:            Exit
+          Key:                03
+
+      - Exit Level:
+          Caption:            Exit
+          Key:                03
+
+      - Home:
+          Caption:            Home
+          Key:                HM
+
+      - Forward:
+          Caption:            Forward
+          Key:                08
+
+      - Contents:
+          Caption:            Contents
+          Key:                23
+
+      - Extended Help:
+          Caption:            Ex Help
+          Key:                02
+
+      - Help Index:
+          Caption:            Help index
+          Key:                11
+
+      - Help Keys:
+          Caption:            Keys help
+          Key:                09
+
+      - Left:
+          Caption:            Left
+          Key:                19
+
+      - Retrieve:
+          Caption:            Retrieve
+          Key:                09
+
+      - Right:
+          Caption:            Right
+          Key:                20
+
+      - Switch Backward:
+          Caption:            Switchbkwd
+          Key:                18
+
+      - Switch Forward:
+          Caption:            Switch fwd
+          Key:                06
+
+      - Actions:
+          Caption:            Actions
+          Key:                10
+
+      - Create:
+          Caption:            Add/Create
+          Key:                06
+
+      - Change:
+          Caption:            Change
+          Key:                21
+
+      - Delete:
+          Caption:            Delete
+          Key:                22
+
+  - TRK:
+      Description:                 Turkish
+      Partition Description:       Web performance benchmarks
+      Default Language:            No
+      Development Language:        No
+      DBCS Support Required:       No
+      RLTB Support Required:       No
+      Locale Uppercasing Required: No
+      IGC Conversion Required:     No
+      IGC Conversion Function Key: 00
+      IGC Conversion Line Number:  00
+
+      Menu Options:
+        Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
+        Help Option On Menus:        Display process or function HELP text
+        Return Prefix On Menus:      Return to
+        Exit Option On Menus:        Exit from system
+
+      Function Keys:
+      - Cancel:
+          Caption:            Cancel
+          Key:                12
+
+      - Enter:
+          Caption:            Enter
+          Key:                RA
+
+      - Help:
+          Caption:            Help
+          Key:                01
+
+      - Prompt:
+          Caption:            Prompt
+          Key:                04
+
+      - Refresh:
+          Caption:            Refresh
+          Key:                05
+
+      - Messages:
+          Caption:            Messages
+          Key:                14
+
+      - Backward:
+          Caption:            Bkwd
+          Key:                07
+
+      - Command:
+          Caption:            Command
+          Key:                09
+
+      - Keys:
+          Caption:            Keys
+          Key:                13
+
+      - Exit:
+          Caption:            Exit
+          Key:                03
+
+      - Exit Level:
+          Caption:            Exit
+          Key:                03
+
+      - Home:
+          Caption:            Home
+          Key:                HM
+
+      - Forward:
+          Caption:            Forward
+          Key:                08
+
+      - Contents:
+          Caption:            Contents
+          Key:                23
+
+      - Extended Help:
+          Caption:            Ex Help
+          Key:                02
+
+      - Help Index:
+          Caption:            Help index
+          Key:                11
+
+      - Help Keys:
+          Caption:            Keys help
+          Key:                09
+
+      - Left:
+          Caption:            Left
+          Key:                19
+
+      - Retrieve:
+          Caption:            Retrieve
+          Key:                09
+
+      - Right:
+          Caption:            Right
+          Key:                20
+
+      - Switch Backward:
+          Caption:            Switchbkwd
+          Key:                18
+
+      - Switch Forward:
+          Caption:            Switch fwd
+          Key:                06
+
+      - Actions:
+          Caption:            Actions
+          Key:                10
+
+      - Create:
+          Caption:            Add/Create
+          Key:                06
+
+      - Change:
+          Caption:            Change
+          Key:                21
+
+      - Delete:
+          Caption:            Delete
+          Key:                22
+
+  Frameworks:
+  - COMMON:
+      Identifier 1:       6518
+      Identifier 2:       100
+      System Framework:   Yes
+      Description:        Common
+
+  - CONTROLS:
+      Identifier 1:       10240
+      Identifier 2:       10
+      System Framework:   Yes
+      Description:        Control Components
+
+  - INTERNAL SYSTEM:
+      Identifier 1:       10240
+      Identifier 2:       20
+      System Framework:   Yes
+      Description:        Internal System Components
+
+  - ADMINISTRATION:
+      Identifier 1:       10240
+      Identifier 2:       30
+      System Framework:   No
+      Description:        Administration
+
+  - HUMAN RESOURCES:
+      Identifier 1:       10240
+      Identifier 2:       40
+      System Framework:   No
+      Description:        Personnel & Payroll
+
+  - MANUFACTURING:
+      Identifier 1:       10240
+      Identifier 2:       50
+      System Framework:   No
+      Description:        Purchasing & Scheduling
+
+  - FINANCIAL CONTROL:
+      Identifier 1:       10240
+      Identifier 2:       60
+      System Framework:   No
+      Description:        Budgeting & Accounting
+
+  - SALES & MARKETING:
+      Identifier 1:       10240
+      Identifier 2:       70
+      System Framework:   No
+      Description:        Sales & Marketing
+
+  - WAREHOUSING:
+      Identifier 1:       10240
+      Identifier 2:       80
+      System Framework:   No
+      Description:        Inventory Control & Dispatch
+
+  - EXECUTIVE INFORMATN:
+      Identifier 1:       10240
+      Identifier 2:       90
+      System Framework:   No
+      Description:        Executive Information Systems
+
+  - CUSTOMER SERVICES:
+      Identifier 1:       44480
+      Identifier 2:       30
+      System Framework:   No
+      Description:        Customer Service Components
+
+  - ADMINISTRATION:
+      Identifier 1:       44480
+      Identifier 2:       40
+      System Framework:   No
+      Description:        Administration Components
+
+  - SLIGRO WEB:
+      Identifier 1:       65905
+      Identifier 2:       30
+      System Framework:   Yes
+      Description:        Sligro webcomponenten
+
+  - SLIGRO CS:
+      Identifier 1:       65905
+      Identifier 2:       40
+      System Framework:   Yes
+      Description:        Sligro Client/Server
+
+  - QA:
+      Identifier 1:       7824810
+      Identifier 2:       10
+      System Framework:   No
+      Description:        Quality Assurance
+
+  Groups:
+  - ACTIVEX CONTROLS:
+      Identifier 1:       1021
+      Identifier 2:       1600
+      System Group:       Yes
+      Description:        ActiveX Controls
+
+  - BARS:
+      Identifier 1:       6518
+      Identifier 2:       100
+      System Group:       Yes
+      Description:        Progress, Status and Tool Bars
+
+  - BARS:
+      Identifier 1:       10240
+      Identifier 2:       100
+      System Group:       Yes
+      Description:        Progress, Status and Tool Bars
+
+  - BASIC CONTROLS:
+      Identifier 1:       10240
+      Identifier 2:       200
+      System Group:       Yes
+      Description:        Basic Controls
+
+  - BASIC CONTROLS:
+      Identifier 1:       6518
+      Identifier 2:       200
+      System Group:       Yes
+      Description:        Basic Controls
+
+  - BOXES:
+      Identifier 1:       6518
+      Identifier 2:       300
+      System Group:       Yes
+      Description:        Check, Edit and Group Boxes
+
+  - BOXES:
+      Identifier 1:       10240
+      Identifier 2:       300
+      System Group:       Yes
+      Description:        Check, Edit and Group Boxes
+
+  - BUTTONS:
+      Identifier 1:       10240
+      Identifier 2:       400
+      System Group:       Yes
+      Description:        Push, Radio and Spin Buttons
+
+  - BUTTONS:
+      Identifier 1:       6518
+      Identifier 2:       400
+      System Group:       Yes
+      Description:        Push, Radio and Spin Buttons
+
+  - COLLECTIONS:
+      Identifier 1:       6518
+      Identifier 2:       1600
+      System Group:       Yes
+      Description:        Collections
+
+  - COM AUTOMATION:
+      Identifier 1:       1021
+      Identifier 2:       1700
+      System Group:       Yes
+      Description:        COM Automation components
+
+  - CURRENCY & AMOUNTS:
+      Identifier 1:       10240
+      Identifier 2:       500
+      System Group:       Yes
+      Description:        Currency Formatting and Monetary Values
+
+  - CURRENCY & TIMES:
+      Identifier 1:       6518
+      Identifier 2:       500
+      System Group:       Yes
+      Description:        Currency Formatting, and Monetary Values
+
+  - DATES & TIMES:
+      Identifier 1:       6518
+      Identifier 2:       600
+      System Group:       Yes
+      Description:        Dates, Date Formating, and Timestamping
+
+  - DATES & TIMES:
+      Identifier 1:       10240
+      Identifier 2:       600
+      System Group:       Yes
+      Description:        Dates, Date Formatting, and Timestamping
+
+  - DBA VELDEN:
+      Identifier 1:       65905
+      Identifier 2:       1300
+      System Group:       Yes
+      Description:        Database velden
+
+  - DEMONSTRATION:
+      Identifier 1:       10240
+      Identifier 2:       1200
+      System Group:       No
+      Description:        Demonstration Material
+
+  - DEVICES:
+      Identifier 1:       6518
+      Identifier 2:       900
+      System Group:       Yes
+      Description:        Devices Components
+
+  - DEVICES:
+      Identifier 1:       10240
+      Identifier 2:       900
+      System Group:       Yes
+      Description:        Device Components
+
+  - EMPLOYEE:
+      Identifier 1:       10240
+      Identifier 2:       1300
+      System Group:       No
+      Description:        Employee Interface
+
+  - GUI VELDEN:
+      Identifier 1:       65905
+      Identifier 2:       1200
+      System Group:       Yes
+      Description:        Grafische velden
+
+  - LIBRARIES:
+      Identifier 1:       6518
+      Identifier 2:       1800
+      System Group:       Yes
+      Description:        Libraries
+
+  - LISTS & GRIDS:
+      Identifier 1:       10240
+      Identifier 2:       700
+      System Group:       Yes
+      Description:        List and Grid Components
+
+  - LISTS & GRIDS:
+      Identifier 1:       6518
+      Identifier 2:       700
+      System Group:       Yes
+      Description:        List and Grid Componts
+
+  - MENUS:
+      Identifier 1:       6518
+      Identifier 2:       800
+      System Group:       Yes
+      Description:        Menu and Menu Item Components
+
+  - MENUS:
+      Identifier 1:       10240
+      Identifier 2:       800
+      System Group:       Yes
+      Description:        Menu and Menu Item Components
+
+  - PICTURES & SOUND:
+      Identifier 1:       10240
+      Identifier 2:       1000
+      System Group:       Yes
+      Description:        Picture, Image, Graph, Video and Sound
+
+  - PICTURES & SOUND:
+      Identifier 1:       6518
+      Identifier 2:       1000
+      System Group:       Yes
+      Description:        Picture, Image, Graph, Vido and Sound
+
+  - PRODUCT:
+      Identifier 1:       10240
+      Identifier 2:       1400
+      System Group:       No
+      Description:        Product Interface
+
+  - REFLECTIONS:
+      Identifier 1:       6518
+      Identifier 2:       1700
+      System Group:       Yes
+      Description:        Reflections
+
+  - SECURITY & AUTHORITY:
+      Identifier 1:       10240
+      Identifier 2:       1100
+      System Group:       Yes
+      Description:        System Security & Authority
+
+  - SECURITY & AUTHORITY:
+      Identifier 1:       6518
+      Identifier 2:       1100
+      System Group:       Yes
+      Description:        System Security & Authority
+
+  - UTILITIES:
+      Identifier 1:       10240
+      Identifier 2:       1500
+      System Group:       No
+      Description:        Standard Calculations & Routines
+
+  - VL:
+      Identifier 1:       7824810
+      Identifier 2:       999
+      System Group:       No
+      Description:        Visual LANSA
