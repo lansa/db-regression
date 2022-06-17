@@ -1,0 +1,7 @@
+# CloudFormation templates must use LF
+*.template text eol=lf
+# Powershell scripts uploaded to AWS must use LF, and they still work on Windows
+*.ps1 text eol=lf
+*.pol binary
+*.xslx binary
+*.lic binary
