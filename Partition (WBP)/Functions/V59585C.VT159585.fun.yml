@@ -1,0 +1,1560 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Data table.
+    Define Field(#LF_Skip_Non_Full_Sized_Binary_Data) Reffld(#BIFB001A)
+    Define Field(#LF_Skip_NChar_Key) Reffld(#BIFB001A)
+    Define Field(#LF_Data_Counter) Reffld(#Std_Count)
+    Def_List Name(#wl_Data) Fields(#LF_Skip_Non_Full_Sized_Binary_Data #LF_Skip_NChar_Key #F15958511 #F15958512 #F1595853 #F1595854 #F15958581 #F15958582 #F15958591 #F15958592 #F159585A1 #F159585A2 #F159585B1 #F159585B2 #F159585E #F159585H1 #F159585H2 #F159585I1 #F159585I2 #F159585I4 #F159585I8 #F159585M #F159585P1 #F159585P2 #F159585S1 #F159585S2 #F159585Y #F159585Z1 #F159585Z2) Counter(#LF_Data_Counter) Type(*WORKING)
+    
+    * Space Name table.
+    Define Field(#LF_Space_Name) Reffld(#BIFA256A)
+    Define Field(#LF_Space_Counter) Reffld(#Std_Count)
+    Def_List Name(#wl_Space_Name) Fields(#LF_Space_Name) Counter(#LF_Space_Counter) Type(*WORKING)
+    
+    * Space Field Data.
+    Define Field(#LF_F15958511) Reffld(#F15958511)
+    Define Field(#LF_F15958512) Reffld(#F15958512)
+    Define Field(#LF_F15958581) Reffld(#F15958581)
+    Define Field(#LF_F15958582) Reffld(#F15958582)
+    Define Field(#LF_F15958591) Reffld(#F15958591)
+    Define Field(#LF_F15958592) Reffld(#F15958592)
+    Define Field(#LF_F159585A1) Reffld(#F159585A1)
+    Define Field(#LF_F159585A2) Reffld(#F159585A2)
+    Define Field(#LF_F159585H1) Reffld(#F159585H1)
+    Define Field(#LF_F159585H2) Reffld(#F159585H2)
+    Define Field(#LF_F159585B1) Reffld(#F159585B1)
+    Define Field(#LF_F159585B2) Reffld(#F159585B2)
+    Define Field(#LF_F1595853) Reffld(#F1595853)
+    Define Field(#LF_F1595854) Reffld(#F1595854)
+    Define Field(#LF_F159585E) Reffld(#F159585E)
+    Define Field(#LF_F159585I1) Reffld(#F159585I1)
+    Define Field(#LF_F159585I2) Reffld(#F159585I2)
+    Define Field(#LF_F159585I4) Reffld(#F159585I4)
+    Define Field(#LF_F159585I8) Reffld(#F159585I8)
+    Define Field(#LF_F159585M) Reffld(#F159585M)
+    Define Field(#LF_F159585P1) Reffld(#F159585P1)
+    Define Field(#LF_F159585P2) Reffld(#F159585P2)
+    Define Field(#LF_F159585S1) Reffld(#F159585S1)
+    Define Field(#LF_F159585S2) Reffld(#F159585S2)
+    Define Field(#LF_F159585Y) Reffld(#F159585Y)
+    Define Field(#LF_F159585Z1) Reffld(#F159585Z1)
+    Define Field(#LF_F159585Z2) Reffld(#F159585Z2)
+    
+    * Define_Space_Cell return code.
+    Define Field(#LF_Define_1) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_2) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_3) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_4) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_5) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_6) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_7) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_8) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_9) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_A) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_B) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_C) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_D) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_E) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_F) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_G) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Define_H) Reffld(#BIFA002A) Default(OK)
+    Group_By Name(#g_Define) Fields(#LF_Define_1 #LF_Define_2 #LF_Define_3 #LF_Define_4 #LF_Define_5 #LF_Define_6 #LF_Define_7 #LF_Define_8 #LF_Define_9 #LF_Define_A #LF_Define_B #LF_Define_C #LF_Define_D #LF_Define_E #LF_Define_F #LF_Define_G #LF_Define_H)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_i_Data) Reffld(#Std_Count)
+    Define Field(#LF_i_Test_Case) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_Differences) Type(*CHAR) Length(200)
+    
+    Define Field(#LF_Support_NChar) Reffld(#Std_Bool)
+    
+    Define Field(#LF_Test_ID) Reffld(#Std_Num)
+    Define Field(#LF_Test_Description) Reffld(#BIFC256A)
+    Define Field(#LF_Test_Create_Space) Reffld(#Std_Bool)
+    Define Field(#LF_Test_Define_Space_Cell) Reffld(#Std_Bool)
+    Define Field(#LF_Test_Insert_In_Space) Reffld(#Std_Bool)
+    Define Field(#LF_Test_Fetch_In_Space) Reffld(#Std_Bool)
+    Define Field(#LF_Test_Select_In_Space) Reffld(#Std_Bool)
+    Define Field(#LF_Test_Combination_Operations) Reffld(#Std_Bool)
+    Define Field(#LF_Test_Case_Counter) Reffld(#Std_Count)
+    Def_List Name(#w_lTestCase) Fields(#LF_Test_ID #LF_Test_Description #LF_Test_Define_Space_Cell #LF_Test_Insert_In_Space #LF_Test_Fetch_In_Space #LF_Test_Select_In_Space #LF_Test_Combination_Operations) Counter(#LF_Test_Case_Counter) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_TEST_CASE_Dummy) Reffld(#Std_Num) Default(1)
+    Define Field(#LF_TEST_CASE_Key_Varchar_1) Reffld(#Std_Num) Default(2)
+    Define Field(#LF_TEST_CASE_Key_Varchar_2) Reffld(#Std_Num) Default(3)
+    Define Field(#LF_TEST_CASE_Key_NChar) Reffld(#Std_Num) Default(4)
+    Define Field(#LF_TEST_CASE_Key_NVChar) Reffld(#Std_Num) Default(5)
+    Define Field(#LF_TEST_CASE_Key_Mix_Char) Reffld(#Std_Num) Default(6)
+    Define Field(#LF_TEST_CASE_Key_Char) Reffld(#Std_Num) Default(7)
+    Define Field(#LF_TEST_CASE_Key_Binary) Reffld(#Std_Num) Default(8)
+    Define Field(#LF_TEST_CASE_Key_Integer) Reffld(#Std_Num) Default(9)
+    Define Field(#LF_TEST_CASE_Key_Packed) Reffld(#Std_Num) Default(10)
+    Define Field(#LF_TEST_CASE_Key_Signed) Reffld(#Std_Num) Default(11)
+    Define Field(#LF_TEST_CASE_Big_Tree_Test) Reffld(#Std_Num) Default(12)
+    Define Field(#LF_TEST_CASE_Kelvin_Test) Reffld(#Std_Num) Default(13)
+    
+    Define Field(#LF_Data_Index) Reffld(#F159585S)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    #LF_rc := OK
+    #Com_Owner.mthInit_Data
+    
+    * NChar Support.
+    #LF_Support_NChar := True
+    
+    Clr_List Named(#w_lTestCase)
+    
+    * mthAdd_Test_Case's boolean arguments are:
+    * - #this_test_create_space
+    * - #this_test_define_space_cell
+    * - #this_test_insert_in_space
+    * - #this_test_fetch_in_space
+    * - #this_test_select_in_space
+    * - #this_test_combination_operation_in_space
+    
+    * A dummy empty space.
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Dummy 'Empty space' True False False False False False )
+    * NChar Key and Data only.
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_NChar '2 NChar Keys' True True True True True True )
+    * VChar, NChar and Alpha Key.
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Varchar_1 '1 VChar Key' True True True True True False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Varchar_2 '2 VChar Keys' True True True True False False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_NVChar '2 NVarchar Keys' True True True True True False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Mix_Char '1 Alpha & 1 Char Keys' True True True True False False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Char '2 Char Keys' True True True True False False )
+    * Other Key Types.
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Binary '2 Binary Keys' True True True True True False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Integer '2 Integer Keys' True True True True False False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Packed '2 Packed Keys' True True True True False False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Key_Signed '2 Signed Keys' True True True True False False )
+    #Com_Owner.mthTest_Cases( #LF_rc )
+    
+    Clr_List Named(#w_lTestCase)
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Big_Tree_Test 'Large number of data' True True True False False False )
+    #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Kelvin_Test 'Kelvin''s Insert_In_Space error' True True True False False False )
+    #Com_Owner.mthTest_Cases( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthAdd_Test_Case)
+    Define_Map For(*INPUT) Class(#Std_Num) Name(#this_test_id)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_test_description)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_test_create_space)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_test_define_space_cell)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_test_insert_in_space)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_test_fetch_in_space)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_test_select_in_space)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_test_combination_operation_in_space)
+    
+    #LF_Test_ID := #this_test_id
+    #LF_Test_Description := #this_test_description
+    #LF_Test_Create_Space := #this_test_create_space
+    #LF_Test_Define_Space_Cell := #this_test_define_space_cell
+    #LF_Test_Insert_In_Space := #this_test_insert_in_space
+    #LF_Test_Fetch_In_Space := #this_test_fetch_in_space
+    #LF_Test_Select_In_Space := #this_test_select_in_space
+    #LF_Test_Combination_Operations := #this_test_combination_operation_in_space
+    Add_Entry To_List(#w_lTestCase)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInit_Data)
+    Clr_List Named(#wl_Data)
+    
+    * Sqlnull.
+    #LF_Skip_Non_Full_Sized_Binary_Data := True
+    #LF_Skip_NChar_Key := True
+    #F15958511 := *Sqlnull
+    #F15958512 := *Sqlnull
+    #F1595853 := *Sqlnull
+    #F1595854 := *Sqlnull
+    #F15958581 := *Sqlnull
+    #F15958582 := *Sqlnull
+    #F15958591 := *Sqlnull
+    #F15958592 := *Sqlnull
+    #F159585A1 := *Sqlnull
+    #F159585A2 := *Sqlnull
+    #F159585B1 := *Sqlnull
+    #F159585B2 := *Sqlnull
+    #F159585E := *Sqlnull
+    #F159585H1 := *Sqlnull
+    #F159585H2 := *Sqlnull
+    #F159585I1 := *Sqlnull
+    #F159585I2 := *Sqlnull
+    #F159585I4 := *Sqlnull
+    #F159585I8 := *Sqlnull
+    #F159585M := *Sqlnull
+    #F159585P1 := *Sqlnull
+    #F159585P2 := *Sqlnull
+    #F159585S1 := *Sqlnull
+    #F159585S2 := *Sqlnull
+    #F159585Y := *Sqlnull
+    #F159585Z1 := *Sqlnull
+    #F159585Z2 := *Sqlnull
+    * Space BIF can only handle Field Data, not Field Status. Therefore *SQLNULL is not appropriate.
+    * Add_Entry To_List(#wl_Data)
+    
+    * Null.
+    #LF_Skip_Non_Full_Sized_Binary_Data := True
+    #LF_Skip_NChar_Key := False
+    #F15958511 := *Null
+    #F15958512 := *Null
+    #F1595853 := *Null
+    #F1595854 := *Null
+    #F15958581 := *Null
+    #F15958582 := *Null
+    #F15958591 := *Null
+    #F15958592 := *Null
+    #F159585A1 := *Null
+    #F159585A2 := *Null
+    #F159585B1 := *Null
+    #F159585B2 := *Null
+    #F159585E := *Null
+    #F159585H1 := *Null
+    #F159585H2 := *Null
+    #F159585I1 := *Null
+    #F159585I2 := *Null
+    #F159585I4 := *Null
+    #F159585I8 := *Null
+    #F159585M := *Null
+    #F159585P1 := *Null
+    #F159585P2 := *Null
+    #F159585S1 := *Null
+    #F159585S2 := *Null
+    #F159585Y := *Null
+    #F159585Z1 := *Null
+    #F159585Z2 := *Null
+    Add_Entry To_List(#wl_Data)
+    
+    * Min Size Data.
+    #LF_Skip_Non_Full_Sized_Binary_Data := True
+    #LF_Skip_NChar_Key := False
+    #F15958511 := '1'
+    #F15958512 := #F15958511
+    #F1595853 := #F15958511
+    #F1595854 := #F15958511
+    #F15958581 := *MTXT_159585_DBCS_1
+    #F15958582 := #F15958581
+    #F15958591 := #F15958581
+    #F15958592 := #F15958581
+    #F159585A1 := '1'
+    #F159585A2 := #F159585A1
+    #F159585B1 := #F15958511
+    #F159585B2 := #F159585B1
+    #F159585E := #F159585E.Now
+    #F159585H1 := '1'
+    #F159585H2 := #F159585H1
+    #F159585I1 := 1
+    #F159585I2 := #F159585I1
+    #F159585I4 := #F159585I1
+    #F159585I8 := #F159585I1
+    #F159585M := #F159585M.Now
+    #F159585P1 := 1
+    #F159585P2 := #F159585P1
+    #F159585S1 := #F159585P1
+    #F159585S2 := #F159585P1
+    #F159585Y := True
+    #F159585Z1 := #F159585Z1.Now
+    #F159585Z2 := #F159585Z2.Now
+    Add_Entry To_List(#wl_Data)
+    
+    * Max Size Data.
+    #LF_Skip_Non_Full_Sized_Binary_Data := False
+    #LF_Skip_NChar_Key := False
+    #F15958511 := '2'
+    #F15958512 := #F15958511.Repeat( #F15958512.FieldLength )
+    #F1595853 := #F15958511
+    #F1595854 := #F15958511
+    #F15958581 := *MTXT_159585_DBCS_1
+    #F15958582 := #F15958581.Repeat( #F15958582.FieldLength )
+    #F15958591 := #F15958581
+    #F15958592 := #F15958581.Repeat( #F15958592.FieldLength )
+    #F159585A1 := '2'
+    #F159585A2 := #F159585A1.Repeat( #F159585A2.FieldLength )
+    #F159585B1 := #F15958511
+    #F159585B2 := #F15958512
+    #F159585E := #F159585E.Now
+    #F159585H1 := '2'
+    #F159585H2 := #F15958511.Repeat( #F159585H2.FieldLength )
+    #F159585I1 := 2
+    #F159585I2 := #F159585I1
+    #F159585I4 := #F159585I1
+    #F159585I8 := #F159585I1
+    #F159585M := #F159585M.Now
+    #F159585P1 := 2
+    #F159585P2 := #F159585P1
+    #F159585S1 := #F159585P1
+    #F159585S2 := #F159585P1
+    #F159585Y := True
+    #F159585Z1 := #F159585Z1.Now
+    #F159585Z2 := #F159585Z2.Now
+    Add_Entry To_List(#wl_Data)
+    
+    * Middle Size Data. Binary Key will not work.
+    #LF_Skip_Non_Full_Sized_Binary_Data := True
+    #LF_Skip_NChar_Key := False
+    #F15958511 := '3'
+    #F15958512 := #F15958511.Repeat( 5 )
+    #F1595853 := #F15958511
+    #F1595854 := #F15958511
+    #F15958581 := *MTXT_159585_DBCS_1
+    #F15958582 := *MTXT_159585_DBCS_1
+    #F15958591 := *MTXT_159585_DBCS_1
+    #F15958592 := *MTXT_159585_DBCS_1
+    #F159585A1 := #F15958511
+    #F159585A2 := #F159585A1.Repeat( 5 )
+    #F159585B1 := #F15958511
+    #F159585B2 := #F15958512
+    #F159585E := #F159585E.Now
+    #F159585H1 := #F15958511
+    #F159585H2 := #F15958511.Repeat( 5 )
+    #F159585I1 := 3
+    #F159585I2 := #F159585I1
+    #F159585I4 := #F159585I1
+    #F159585I8 := #F159585I1
+    #F159585M := #F159585M.Now
+    #F159585P1 := 3
+    #F159585P2 := #F159585P1
+    #F159585S1 := #F159585P1
+    #F159585S2 := #F159585P1
+    #F159585Y := True
+    #F159585Z1 := #F159585Z1.Now
+    #F159585Z2 := #F159585Z2.Now
+    Add_Entry To_List(#wl_Data)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Number of test data: ' + #LF_Data_Counter.AsString) '' )
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthTest_Cases)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Number of registered test cases: ' + #LF_Test_Case_Counter.AsString) '' )
+    
+    #this_rc := OK
+    Begin_Loop Using(#LF_i_Test_Case) To(#LF_Test_Case_Counter)
+    If (#this_rc <> OK)
+    Leave
+    Else
+    Get_Entry Number(#LF_i_Test_Case) From_List(#w_lTestCase) Ret_Status(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( OK ('- (' + #LF_Test_Id.AsDisplayString + ') ' + #LF_Test_Description) '' )
+    
+    #Com_Owner.mthCreate_Space( #LF_Test_Id #LF_Test_Create_Space #LF_Test_Define_Space_Cell #this_rc #LF_Space_Name )
+    If (#LF_Test_Define_Space_Cell = True)
+    If ((#this_rc = OK) *And (#LF_Test_Insert_In_Space = True))
+    #Com_Owner.mthInsert_In_Space( #LF_Test_Id #LF_Space_Name #this_rc )
+    Endif
+    
+    If ((#this_rc = OK) *And (#LF_Test_Fetch_In_Space = True))
+    #Com_Owner.mthFetch_In_Space_With_Key( #LF_Test_Id #LF_Space_Name #this_rc )
+    Endif
+    
+    If ((#this_rc = OK) *And (#LF_Test_Combination_Operations = True))
+    #Com_Owner.mthCombination_Operation_In_Space( #LF_Test_Id #LF_Space_Name #this_rc )
+    Endif
+    
+    If ((#this_rc = OK) *And (#LF_Test_Select_In_Space = True))
+    #Com_Owner.mthSelect_In_Space( #LF_Test_Id #LF_Space_Name #this_rc )
+    Endif
+    Endif
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthDestroy_Space( #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthDestroy_Space)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#LF_Space_Counter > 0)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Destroy_Space') '' )
+    
+    Begin_Loop Using(#LF_i) To(#LF_Space_Counter)
+    Get_Entry Number(#LF_i) From_List(#wl_Space_Name) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #this_rc := OK
+    Else
+    Use Builtin(Destroy_Space) With_Args(#LF_Space_Name) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected return code (' + #this_rc + ') on ' + *Quote + #LF_Space_Name + *Quote) '' )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' + Deleted ' + *Quote + #LF_Space_Name + *Quote) '' )
+    Endif
+    Endif
+    End_Loop
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCreate_Space)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_test_id)
+    Define_Map For(*BOTH) Class(#Std_Bool) Name(#this_create_space)
+    Define_Map For(*BOTH) Class(#Std_Bool) Name(#this_define_space_cell)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#BIFA256A) Name(#this_newly_created_space_name)
+    
+    #g_Define := *Default
+    #this_rc := OK
+    #this_newly_created_space_name := *Blank
+    
+    * Define Space Name and Space Structure.
+    Case Of_Field(#this_test_id)
+    When Value_Is(= #LF_TEST_CASE_Dummy)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Dummy'
+    When Value_Is(= #LF_TEST_CASE_Key_Varchar_1)
+    #this_newly_created_space_name := #this_test_id.AsString + '_VChar_1'
+    When Value_Is(= #LF_TEST_CASE_Key_Varchar_2)
+    #this_newly_created_space_name := #this_test_id.AsString + '_VChar_2'
+    When Value_Is(= #LF_TEST_CASE_Key_NChar)
+    #this_newly_created_space_name := #this_test_id.AsString + '_NChar'
+    When Value_Is(= #LF_TEST_CASE_Key_NVChar)
+    #this_newly_created_space_name := #this_test_id.AsString + '_NVChar'
+    When Value_Is(= #LF_TEST_CASE_Key_Mix_Char)
+    #this_newly_created_space_name := #this_test_id.AsString + '_MixChar'
+    When Value_Is(= #LF_TEST_CASE_Key_Char)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Char'
+    When Value_Is(= #LF_TEST_CASE_Key_Binary)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Binery'
+    When Value_Is(= #LF_TEST_CASE_Key_Integer)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Integer'
+    When Value_Is(= #LF_TEST_CASE_Key_Packed)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Packed'
+    When Value_Is(= #LF_TEST_CASE_Key_Signed)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Signed'
+    When Value_Is(= #LF_TEST_CASE_Big_Tree_Test)
+    #this_newly_created_space_name := #this_test_id.AsString + '_100_Empty_Strings'
+    When Value_Is(= #LF_TEST_CASE_Kelvin_Test)
+    #this_newly_created_space_name := #this_test_id.AsString + '_Kelvin'
+    Otherwise
+    #Com_Owner.mthAdd_SubMsg( ER (' - Undefined test case (' + #this_test_id.AsString + ')') '' )
+    #this_rc := ER
+    Endcase
+    
+    If (#this_newly_created_space_name <> *Blank)
+    * Create_Space.
+    If (#this_create_space = True)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Create_Space: ' + *Quote + #this_newly_created_space_name + *Quote) '' )
+    Use Builtin(CREATE_SPACE) With_Args(#this_newly_created_space_name) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Create_Space errror (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Else
+    * Save the Space Name.
+    #LF_Space_Name := #this_newly_created_space_name
+    Add_Entry To_List(#wl_Space_Name)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Successful') '' )
+    Endif
+    Endif
+    
+    * Define_Space_Cell.
+    If ((#this_define_space_cell = True) *And (#this_rc = OK))
+    #Com_Owner.mthAdd_SubMsg( OK (' + Define_Space_Cell') '' )
+    
+    Case Of_Field(#this_test_id)
+    When Value_Is(= #LF_TEST_CASE_Key_Varchar_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958511 Key) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958512) To_Get(#LF_Define_2)
+    If (#LF_Support_NChar = True)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958581) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958582) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958591) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958592) To_Get(#LF_Define_6)
+    Endif
+    
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A1) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A2) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H1) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H2) To_Get(#LF_Define_A)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Varchar_2)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958511 Key) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958512 Key) To_Get(#LF_Define_2)
+    If (#LF_Support_NChar = True)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958581) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958582) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958591) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958592) To_Get(#LF_Define_6)
+    Endif
+    
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A1) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A2) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H1) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H2) To_Get(#LF_Define_A)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_NChar)
+    If (#LF_Support_NChar = True)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958581 Key) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958582 Key) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958591) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958592) To_Get(#LF_Define_6)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    Else
+    #this_rc := NA
+    #this_define_space_cell := False
+    #Com_Owner.mthAdd_SubMsg( OK ('  - * Skipped *') 'NChar Support not enabled' )
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_NVChar)
+    If (#LF_Support_NChar = True)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958581) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958582) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958591 Key) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958592 Key) To_Get(#LF_Define_6)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    Else
+    #this_rc := NA
+    #this_define_space_cell := False
+    #Com_Owner.mthAdd_SubMsg( OK ('  - * Skipped') 'NChar Support not enabled' )
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Mix_Char)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958511) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958512) To_Get(#LF_Define_2)
+    If (#LF_Support_NChar = True)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958581) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958582) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958591) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958592) To_Get(#LF_Define_6)
+    Endif
+    
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A1) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A2 Key) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H1 Key) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H2) To_Get(#LF_Define_A)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Char)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958511) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958512) To_Get(#LF_Define_2)
+    If (#LF_Support_NChar = True)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958581) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958582) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958591) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F15958592) To_Get(#LF_Define_6)
+    Endif
+    
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A1) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A2) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H1 Key) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H2 Key) To_Get(#LF_Define_A)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Binary)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B1 Key) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B2 Key) To_Get(#LF_Define_2)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595853) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595854) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585E) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I1) To_Get(#LF_Define_6)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I2) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I4) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I8) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585M) To_Get(#LF_Define_A)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P1) To_Get(#LF_Define_B)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P2) To_Get(#LF_Define_C)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S1) To_Get(#LF_Define_D)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S2) To_Get(#LF_Define_E)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Y) To_Get(#LF_Define_F)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z1) To_Get(#LF_Define_G)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z2) To_Get(#LF_Define_H)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK) *Or (#LF_Define_B <> OK) *Or (#LF_Define_C <> OK) *Or (#LF_Define_D <> OK) *Or (#LF_Define_E <> OK) *Or (#LF_Define_F <> OK) *Or (#LF_Define_G <> OK) *Or (#LF_Define_H <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Integer)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B1) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B2) To_Get(#LF_Define_2)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595853) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595854) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585E) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I1) To_Get(#LF_Define_6)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I2 Key) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I4 Key) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I8) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585M) To_Get(#LF_Define_A)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P1) To_Get(#LF_Define_B)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P2) To_Get(#LF_Define_C)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S1) To_Get(#LF_Define_D)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S2) To_Get(#LF_Define_E)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Y) To_Get(#LF_Define_F)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z1) To_Get(#LF_Define_G)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z2) To_Get(#LF_Define_H)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK) *Or (#LF_Define_B <> OK) *Or (#LF_Define_C <> OK) *Or (#LF_Define_D <> OK) *Or (#LF_Define_E <> OK) *Or (#LF_Define_F <> OK) *Or (#LF_Define_G <> OK) *Or (#LF_Define_H <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Packed)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B1) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B2) To_Get(#LF_Define_2)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595853) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595854) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585E) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I1) To_Get(#LF_Define_6)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I2) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I4) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I8) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585M) To_Get(#LF_Define_A)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P1 Key) To_Get(#LF_Define_B)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P2 Key) To_Get(#LF_Define_C)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S1) To_Get(#LF_Define_D)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S2) To_Get(#LF_Define_E)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Y) To_Get(#LF_Define_F)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z1) To_Get(#LF_Define_G)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z2) To_Get(#LF_Define_H)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK) *Or (#LF_Define_B <> OK) *Or (#LF_Define_C <> OK) *Or (#LF_Define_D <> OK) *Or (#LF_Define_E <> OK) *Or (#LF_Define_F <> OK) *Or (#LF_Define_G <> OK) *Or (#LF_Define_H <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Key_Signed)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S) To_Get(#this_rc)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B1) To_Get(#LF_Define_1)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585B2) To_Get(#LF_Define_2)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595853) To_Get(#LF_Define_3)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F1595854) To_Get(#LF_Define_4)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585E) To_Get(#LF_Define_5)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I1) To_Get(#LF_Define_6)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I2) To_Get(#LF_Define_7)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I4) To_Get(#LF_Define_8)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585I8) To_Get(#LF_Define_9)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585M) To_Get(#LF_Define_A)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P1) To_Get(#LF_Define_B)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585P2) To_Get(#LF_Define_C)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S1 Key) To_Get(#LF_Define_D)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585S2 Key) To_Get(#LF_Define_E)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Y) To_Get(#LF_Define_F)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z1) To_Get(#LF_Define_G)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585Z2) To_Get(#LF_Define_H)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK) *Or (#LF_Define_B <> OK) *Or (#LF_Define_C <> OK) *Or (#LF_Define_D <> OK) *Or (#LF_Define_E <> OK) *Or (#LF_Define_F <> OK) *Or (#LF_Define_G <> OK) *Or (#LF_Define_H <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Big_Tree_Test)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585H2) To_Get(#LF_Define_A)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK) *Or (#LF_Define_B <> OK) *Or (#LF_Define_C <> OK) *Or (#LF_Define_D <> OK) *Or (#LF_Define_E <> OK) *Or (#LF_Define_F <> OK) *Or (#LF_Define_G <> OK) *Or (#LF_Define_H <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    When Value_Is(= #LF_TEST_CASE_Kelvin_Test)
+    Use Builtin(Define_Space_Cell) With_Args(#this_newly_created_space_name F159585A2) To_Get(#LF_Define_A)
+    
+    If ((#this_rc <> OK) *Or (#LF_Define_1 <> OK) *Or (#LF_Define_2 <> OK) *Or (#LF_Define_3 <> OK) *Or (#LF_Define_4 <> OK) *Or (#LF_Define_5 <> OK) *Or (#LF_Define_6 <> OK) *Or (#LF_Define_7 <> OK) *Or (#LF_Define_8 <> OK) *Or (#LF_Define_9 <> OK) *Or (#LF_Define_A <> OK) *Or (#LF_Define_B <> OK) *Or (#LF_Define_C <> OK) *Or (#LF_Define_D <> OK) *Or (#LF_Define_E <> OK) *Or (#LF_Define_F <> OK) *Or (#LF_Define_G <> OK) *Or (#LF_Define_H <> OK))
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Define_Space_Cell error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    Otherwise
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Undefined') '' )
+    #this_rc := ER
+    Endcase
+    
+    Case Of_Field(#this_rc)
+    When Value_Is(= OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Successful') '' )
+    When Value_Is(= NA)
+    * Skipped.
+    #this_rc := OK
+    Endcase
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert_In_Space)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_test_id)
+    Define_Map For(*INPUT) Class(#BIFA256A) Name(#this_space_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + Insert_In_Space: ' + *Quote + #this_space_name + *Quote) '' )
+    
+    If ((#this_test_id = #LF_TEST_CASE_Key_Varchar_1) *Or (#this_test_id = #LF_TEST_CASE_Key_Varchar_2) *Or (#this_test_id = #LF_TEST_CASE_Key_Mix_Char) *Or (#this_test_id = #LF_TEST_CASE_Key_Char))
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    If (#LF_Support_NChar = True)
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name #LF_i_Data #F15958511 #F15958512 #F15958581 #F15958582 #F15958591 #F15958592 #F159585A1 #F159585A2 #F159585H1 #F159585H2) To_Get(#this_rc)
+    Else
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name #LF_i_Data #F15958511 #F15958512 #F159585A1 #F159585A2 #F159585H1 #F159585H2) To_Get(#this_rc)
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ' on record ' + #LF_i_Data.AsString) ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Else
+    * NChar Support.
+    If ((#this_test_id = #LF_TEST_CASE_Key_NChar) *Or (#this_test_id = #LF_TEST_CASE_Key_NVChar))
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name #LF_i_Data #F15958581 #F15958582 #F15958591 #F15958592) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ' on record ' + #LF_i_Data.AsString) ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Else
+    If ((#this_test_id = #LF_TEST_CASE_Key_Binary) *Or (#this_test_id = #LF_TEST_CASE_Key_Integer) *Or (#this_test_id = #LF_TEST_CASE_Key_Packed) *Or (#this_test_id = #LF_TEST_CASE_Key_Signed))
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name #LF_i_Data #F159585B1 #F159585B2 #F1595853 #F1595854 #F159585E #F159585I1 #F159585I2 #F159585I4 #F159585I8 #F159585M #F159585P1 #F159585P2 #F159585S1 #F159585S2 #F159585Y #F159585Z1 #F159585Z2) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ' on record ' + #LF_i_Data.AsString) ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Else
+    Case Of_Field(#this_test_id)
+    When Value_Is(= #LF_TEST_CASE_Big_Tree_Test)
+    #F159585H2 := ''
+    Begin_Loop Using(#LF_i_Data) To(100)
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name #F159585H2) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ' on record ' + #LF_i_Data.AsString) ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    
+    #F159585H2 := #LF_i_Data.AsString.Repeat( #F159585H2.FieldLength )
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Kelvin_Test)
+    #F159585A2 := ''
+    Begin_Loop Using(#LF_i_Data) To(1000)
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name #F159585A2) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ' on record ' + #LF_i_Data.AsString) ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    
+    #F159585A2 := #LF_i_Data.AsString.Repeat( #F159585A2.FieldLength )
+    End_Loop
+    Otherwise
+    #this_rc := NA
+    Endcase
+    Endif
+    Endif
+    Endif
+    
+    Case Of_Field(#this_rc)
+    When Value_Is(= OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Successful, ' + (#LF_i_Data - 1).AsString + ' records') ('') )
+    When Value_Is(= NA)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Undefined ') ('') )
+    Endcase
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFetch_In_Space_With_Key)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_test_id)
+    Define_Map For(*INPUT) Class(#BIFA256A) Name(#this_space_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + Fetch_In_Space (With Key): ' + *Quote + #this_space_name + *Quote) '' )
+    
+    Case Of_Field(#this_test_id)
+    When Value_Is(= #LF_TEST_CASE_Key_Varchar_1)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    If (#LF_Support_NChar = True)
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958511) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Else
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958511) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Leave
+    Else
+    #Com_Owner.mthCompare_AlphaNumeric( False #LF_i_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Varchar_2)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    If (#LF_Support_NChar = True)
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958511 #F15958512) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Else
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958511 #F15958512) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Leave
+    Else
+    #Com_Owner.mthCompare_AlphaNumeric( False #LF_i_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_NChar)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958581 #F15958582) To_Get(#this_rc #LF_Data_Index #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Leave
+    Else
+    #Com_Owner.mthCompare_Unicode( False #LF_i_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_NVChar)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958591 #F15958592) To_Get(#this_rc #LF_Data_Index #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Leave
+    Else
+    #Com_Owner.mthCompare_Unicode( False #LF_i_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Mix_Char)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    If (#LF_Support_NChar = True)
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585A2 #F159585H1) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Else
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585A2 #F159585H1) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Leave
+    Else
+    #Com_Owner.mthCompare_AlphaNumeric( False #LF_i_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Char)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    If (#LF_Support_NChar = True)
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585H1 #F159585H2) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Else
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585H1 #F159585H2) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Leave
+    Else
+    #Com_Owner.mthCompare_AlphaNumeric( False #LF_i_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Binary)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    * Skip non-full size Binary key data.
+    If (#LF_Skip_Non_Full_Sized_Binary_Data = False)
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585B1 #F159585B2) To_Get(#this_rc #LF_Data_Index #LF_F159585B1 #LF_F159585B2 #LF_F1595853 #LF_F1595854 #LF_F159585E #LF_F159585I1 #LF_F159585I2 #LF_F159585I4 #LF_F159585I8 #LF_F159585M #LF_F159585P1 #LF_F159585P2 #LF_F159585S1 #LF_F159585S2 #LF_F159585Y #LF_F159585Z1 #LF_F159585Z2)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Else
+    #Com_Owner.mthCompare_Others( False #LF_i_Data #LF_Skip_Non_Full_Sized_Binary_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Skipped non-full sized Binary data') ('On record' + #LF_i_Data.AsString) )
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Integer)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585I2 #F159585I4) To_Get(#this_rc #LF_Data_Index #LF_F159585B1 #LF_F159585B2 #LF_F1595853 #LF_F1595854 #LF_F159585E #LF_F159585I1 #LF_F159585I2 #LF_F159585I4 #LF_F159585I8 #LF_F159585M #LF_F159585P1 #LF_F159585P2 #LF_F159585S1 #LF_F159585S2 #LF_F159585Y #LF_F159585Z1 #LF_F159585Z2)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Else
+    #Com_Owner.mthCompare_Others( False #LF_i_Data #LF_Skip_Non_Full_Sized_Binary_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Packed)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585P1 #F159585P2) To_Get(#this_rc #LF_Data_Index #LF_F159585B1 #LF_F159585B2 #LF_F1595853 #LF_F1595854 #LF_F159585E #LF_F159585I1 #LF_F159585I2 #LF_F159585I4 #LF_F159585I8 #LF_F159585M #LF_F159585P1 #LF_F159585P2 #LF_F159585S1 #LF_F159585S2 #LF_F159585Y #LF_F159585Z1 #LF_F159585Z2)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Else
+    #Com_Owner.mthCompare_Others( False #LF_i_Data #LF_Skip_Non_Full_Sized_Binary_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    When Value_Is(= #LF_TEST_CASE_Key_Signed)
+    Begin_Loop Using(#LF_i_Data) To(#LF_Data_Counter)
+    Get_Entry Number(#LF_i_Data) From_List(#wl_Data)
+    
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F159585S1 #F159585S2) To_Get(#this_rc #LF_Data_Index #LF_F159585B1 #LF_F159585B2 #LF_F1595853 #LF_F1595854 #LF_F159585E #LF_F159585I1 #LF_F159585I2 #LF_F159585I4 #LF_F159585I8 #LF_F159585M #LF_F159585P1 #LF_F159585P2 #LF_F159585S1 #LF_F159585S2 #LF_F159585Y #LF_F159585Z1 #LF_F159585Z2)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('') )
+    Else
+    #Com_Owner.mthCompare_Others( False #LF_i_Data #LF_Skip_Non_Full_Sized_Binary_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    Endif
+    End_Loop
+    Otherwise
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Undefined') '' )
+    Endcase
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Successful, ' + #LF_Data_Counter.AsString + ' records') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSelect_In_Space)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_test_id)
+    Define_Map For(*INPUT) Class(#BIFA256A) Name(#this_space_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + Select_In_Space: ' + *Quote + #this_space_name + *Quote) '' )
+    
+    #LF_i_Data := 0
+    
+    * Alphanumeric data.
+    If ((#this_test_id = #LF_TEST_CASE_Key_Varchar_1) *Or (#this_test_id = #LF_TEST_CASE_Key_Varchar_2) *Or (#this_test_id = #LF_TEST_CASE_Key_Mix_Char) *Or (#this_test_id = #LF_TEST_CASE_Key_Char))
+    If (#LF_Support_NChar = True)
+    Use Builtin(Select_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Else
+    Use Builtin(Select_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Endif
+    
+    If (#this_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('From Select_In_Space') )
+    Else
+    If (#this_rc = NR)
+    * No record.
+    #this_rc := OK
+    Else
+    Dowhile Cond(#this_rc = OK)
+    #LF_i_Data += 1
+    #Com_Owner.mthCompare_AlphaNumeric( True #LF_Data_Index #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Else
+    If (#LF_Support_NChar = True)
+    Use Builtin(SelectNext_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Else
+    Use Builtin(SelectNext_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F15958511 #LF_F15958512 #LF_F159585A1 #LF_F159585A2 #LF_F159585H1 #LF_F159585H2)
+    Endif
+    
+    Case Of_Field(#this_rc)
+    When Value_Is(= ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('From SelectNext_In_Space') )
+    Leave
+    When Value_Is(= NR)
+    * No record.
+    #this_rc := OK
+    Leave
+    Endcase
+    Endif
+    Endwhile
+    Endif
+    Endif
+    Else
+    * NChar Support.
+    If ((#this_test_id = #LF_TEST_CASE_Key_NChar) *Or (#this_test_id = #LF_TEST_CASE_Key_NVChar))
+    Use Builtin(Select_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592)
+    If (#this_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('From Select_In_Space') )
+    Else
+    If (#this_rc = NR)
+    * No record.
+    #this_rc := OK
+    Else
+    Dowhile Cond(#this_rc = OK)
+    #LF_i_Data += 1
+    #Com_Owner.mthCompare_Unicode( True #LF_Data_Index #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Else
+    Use Builtin(SelectNext_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592)
+    Case Of_Field(#this_rc)
+    When Value_Is(= ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('From SelectNext_In_Space') )
+    Leave
+    When Value_Is(= NR)
+    * No record.
+    #this_rc := OK
+    Leave
+    Endcase
+    Endif
+    Endwhile
+    Endif
+    Endif
+    Else
+    If ((#this_test_id = #LF_TEST_CASE_Key_Binary) *Or (#this_test_id = #LF_TEST_CASE_Key_Integer) *Or (#this_test_id = #LF_TEST_CASE_Key_Packed) *Or (#this_test_id = #LF_TEST_CASE_Key_Signed))
+    Use Builtin(Select_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F159585B1 #LF_F159585B2 #LF_F1595853 #LF_F1595854 #LF_F159585E #LF_F159585I1 #LF_F159585I2 #LF_F159585I4 #LF_F159585I8 #LF_F159585M #LF_F159585P1 #LF_F159585P2 #LF_F159585S1 #LF_F159585S2 #LF_F159585Y #LF_F159585Z1 #LF_F159585Z2)
+    If (#this_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('From Select_In_Space') )
+    Else
+    If (#this_rc = NR)
+    * No record.
+    #this_rc := OK
+    Else
+    Dowhile Cond(#this_rc = OK)
+    #LF_i_Data += 1
+    #Com_Owner.mthCompare_Others( True #LF_Data_Index #LF_Skip_Non_Full_Sized_Binary_Data #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Else
+    Use Builtin(SelectNext_In_Space) With_Args(#this_space_name) To_Get(#this_rc #LF_Data_Index #LF_F159585B1 #LF_F159585B2 #LF_F1595853 #LF_F1595854 #LF_F159585E #LF_F159585I1 #LF_F159585I2 #LF_F159585I4 #LF_F159585I8 #LF_F159585M #LF_F159585P1 #LF_F159585P2 #LF_F159585S1 #LF_F159585S2 #LF_F159585Y #LF_F159585Z1 #LF_F159585Z2)
+    Case Of_Field(#this_rc)
+    When Value_Is(= ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected return code (' + #this_rc + ') on record ' + #LF_i_Data.AsString) ('From SelectNext_In_Space') )
+    Leave
+    When Value_Is(= NR)
+    * No record.
+    #this_rc := OK
+    Leave
+    Endcase
+    Endif
+    Endwhile
+    Endif
+    Endif
+    Else
+    * Undefined.
+    #this_rc := NA
+    Endif
+    Endif
+    Endif
+    
+    Case Of_Field(#this_rc)
+    When Value_Is(= NA)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Undefined') ('') )
+    When Value_Is(= OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Successful, ' + #LF_i_Data.AsString + ' records') ('') )
+    If (#LF_i_Data <> #LF_Data_Counter)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - * Warning') ('Different numbers of searching items and inserted data') )
+    Endif
+    Endcase
+    Endroutine
+    
+    *
+    * Combination Options.
+    *
+    Mthroutine Name(mthCombination_Operation_In_Space)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_test_id)
+    Define_Map For(*INPUT) Class(#BIFA256A) Name(#this_space_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + Combination Operations(' + #this_test_id.AsString + ') ' + *Quote + #this_space_name + *Quote) '' )
+    
+    Case Of_Field(#this_test_id)
+    When Value_Is(= #LF_TEST_CASE_Key_NChar)
+    * Insert a new test record.
+    #F15958581 := *MTXT_159585_DBCS_2
+    #F15958582 := *MTXT_159585_DBCS_2
+    #F15958591 := *MTXT_159585_DBCS_2 + *MTXT_159585_DBCS_1
+    #F15958592 := *MTXT_159585_DBCS_2 + *MTXT_159585_DBCS_1
+    Use Builtin(Insert_In_Space) With_Args(#this_space_name 0 #F15958581 #F15958582 #F15958591 #F15958592) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected from Insert_In_Space ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Insert_In_Space') ('') )
+    
+    * Fetch to ensure the record has been inserted.
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958581 #F15958582) To_Get(#this_rc #LF_Data_Index #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Fetch_In_Space after insert ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Fetch_In_Space after insert ' + *Quote + #this_rc + *Quote) ('') )
+    
+    * Compare the data to ensure the space data is the same as the inserted one.
+    #Com_Owner.mthCompare_Unicode( False 0 #this_rc )
+    If (#this_rc = OK)
+    * Update the data to be something different.
+    #F15958591 := *MTXT_159585_DBCS_2 + *MTXT_159585_DBCS_1 + *MTXT_159585_DBCS_2
+    #F15958592 := *MTXT_159585_DBCS_2 + *MTXT_159585_DBCS_1 + *MTXT_159585_DBCS_2
+    Use Builtin(Update_In_Space) With_Args(#this_space_name 0 #F15958581 #F15958582 #F15958591 #F15958592) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected from Update_In_Space ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Update_In_Space') ('') )
+    
+    * Fetch to ensure the updated record is still valid.
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958581 #F15958582) To_Get(#this_rc #LF_Data_Index #LF_F15958581 #LF_F15958582 #LF_F15958591 #LF_F15958592)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Fetch_In_Space after update ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Fetch_In_Space after update ' + *Quote + #this_rc + *Quote) ('') )
+    
+    * Compare the data to ensure the space data is the same as the updated one.
+    #Com_Owner.mthCompare_Unicode( False 0 #this_rc )
+    If (#this_rc = OK)
+    * Delete the record.
+    Use Builtin(Delete_In_Space) With_Args(#this_space_name #F15958581 #F15958582) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected from Delete_In_Space ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Delete_In_Space') ('') )
+    
+    * Fetch to ensure the deleted record is no longer valid.
+    Use Builtin(Fetch_In_Space) With_Args(#this_space_name #F15958581 #F15958582) To_Get(#this_rc)
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected Fetch_In_Space after delete ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Fetch_In_Space after delete ' + *Quote + #this_rc + *Quote) ('') )
+    #this_rc := OK
+    Endif
+    Endif
+    Endif
+    Endif
+    Endif
+    Endif
+    Endif
+    Endif
+    
+    Otherwise
+    #this_rc := NA
+    Endcase
+    
+    Case Of_Field(#this_rc)
+    When Value_Is(= NA)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Undefined') ('') )
+    When Value_Is(= OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Successful') ('') )
+    Endcase
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCompare_AlphaNumeric)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_fetch_i_data)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_i_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_fetch_i_data = True)
+    Get_Entry Number(#this_i_data) From_List(#wl_Data) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected fetch i_data error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    Endif
+    
+    If (#this_rc = OK)
+    #LF_Differences := *Blank
+    
+    If (#F15958511 <> #LF_F15958511)
+    #LF_Differences += ' 11'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958511') (*Quote + #F15958511 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958511') (*Quote + #LF_F15958511 + *Quote) )
+    Endif
+    
+    If (#F15958512 <> #LF_F15958512)
+    #LF_Differences += ' 12'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958512') (*Quote + #F15958512 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958512') (*Quote + #LF_F15958512 + *Quote) )
+    Endif
+    
+    If (#LF_Support_NChar = True)
+    If (#F15958581 <> #LF_F15958581)
+    #LF_Differences += ' 81'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958581 (AsNativeString)') (*Quote + #F15958581.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958581 (AsNativeString)') (*Quote + #LF_F15958581.AsNativeString + *Quote) )
+    Endif
+    
+    If (#F15958582 <> #LF_F15958582)
+    #LF_Differences += ' 82'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958582 (AsNativeString)') (*Quote + #F15958582.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958582 (AsNativeString)') (*Quote + #LF_F15958582.AsNativeString + *Quote) )
+    Endif
+    
+    If (#F15958591 <> #LF_F15958591)
+    #LF_Differences += ' 91'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958591 (AsNativeString)') (*Quote + #F15958591.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958591 (AsNativeString)') (*Quote + #LF_F15958591.AsNativeString + *Quote) )
+    Endif
+    
+    If (#F15958592 <> #LF_F15958592)
+    #LF_Differences += ' 92'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958592 (AsNativeString)') (*Quote + #F15958592.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958592 (AsNativeString)') (*Quote + #LF_F15958592.AsNativeString + *Quote) )
+    Endif
+    Endif
+    
+    If (#F159585A1 <> #LF_F159585A1)
+    #LF_Differences += ' A1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585A1') (*Quote + #F159585A1 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585A1') (*Quote + #LF_F159585A1 + *Quote) )
+    Endif
+    
+    If (#F159585A2 <> #LF_F159585A2)
+    #LF_Differences += ' A2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585A2') (*Quote + #F159585A2 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585A2') (*Quote + #LF_F159585A2 + *Quote) )
+    Endif
+    
+    If (#F159585H1 <> #LF_F159585H1)
+    #LF_Differences += ' H1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585H1') (*Quote + #F159585H1 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585H1') (*Quote + #LF_F159585H1 + *Quote) )
+    Endif
+    
+    If (#F159585H2 <> #LF_F159585H2)
+    #LF_Differences += ' H2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585H2') (*Quote + #F159585H2 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585H2') (*Quote + #LF_F159585H2 + *Quote) )
+    Endif
+    
+    If (#LF_Differences <> *Blank)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Mismatch on record ' + #this_i_data.AsString + ': (' + #LF_Differences + ')') ('') )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCompare_Unicode)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_fetch_i_data)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_i_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_fetch_i_data = True)
+    Get_Entry Number(#this_i_data) From_List(#wl_Data) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected fetch i_data error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Endif
+    Endif
+    
+    If (#this_rc = OK)
+    #LF_Differences := *Blank
+    
+    If (#F15958581 <> #LF_F15958581)
+    #LF_Differences += ' 81'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958581 (AsNativeString)') (*Quote + #F15958581.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958581 (AsNativeString)') (*Quote + #LF_F15958581.AsNativeString + *Quote) )
+    Endif
+    
+    If (#F15958582 <> #LF_F15958582)
+    #LF_Differences += ' 82'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958582 (AsNativeString)') (*Quote + #F15958582.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958582 (AsNativeString)') (*Quote + #LF_F15958582.AsNativeString + *Quote) )
+    Endif
+    
+    If (#F15958591 <> #LF_F15958591)
+    #LF_Differences += ' 91'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958591 (AsNativeString)') (*Quote + #F15958591.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958591 (AsNativeString)') (*Quote + #LF_F15958591.AsNativeString + *Quote) )
+    Endif
+    
+    If (#F15958592 <> #LF_F15958592)
+    #LF_Differences += ' 92'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F15958592 (AsNativeString)') (*Quote + #F15958592.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F15958592 (AsNativeString)') (*Quote + #LF_F15958592.AsNativeString + *Quote) )
+    Endif
+    
+    If (#LF_Differences <> *Blank)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Mismatch on record ' + #this_i_data.AsString + ': (' + #LF_Differences + ')') ('') )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCompare_Others)
+    Define_Map For(*INPUT) Class(#Std_Bool) Name(#this_fetch_i_data)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_i_data)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_skip_binary_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_fetch_i_data = True)
+    Get_Entry Number(#this_i_data) From_List(#wl_Data) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected fetch i_data error (' + #this_rc + ')') '' )
+    #this_rc := ER
+    Else
+    #this_skip_binary_data := #LF_Skip_Non_Full_Sized_Binary_Data
+    Endif
+    Endif
+    
+    If (#this_rc = OK)
+    #LF_Differences := *Blank
+    
+    If ((#this_skip_binary_data = False) *And (#F159585B1.AsHexString <> #LF_F159585B1.AsHexString))
+    #LF_Differences += ' B1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585B1 (In Hex)') (*Quote + #F159585B1.AsHexString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585B1 (In Hex)') (*Quote + #LF_F159585B1.AsHexString + *Quote) )
+    Endif
+    
+    If ((#this_skip_binary_data = False) *And (#F159585B2.AsHexString <> #LF_F159585B2.AsHexString))
+    #LF_Differences += ' B2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585B2 (In Hex)') (*Quote + #F159585B2.AsHexString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585B2 (In Hex)') (*Quote + #LF_F159585B2.AsHexString + *Quote) )
+    Endif
+    
+    If ((#this_skip_binary_data = False) *And (#F1595853 <> #LF_F1595853))
+    #LF_Differences += ' 3'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F1595853') (*Quote + #F1595853 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F1595853') (*Quote + #LF_F1595853 + *Quote) )
+    Endif
+    
+    If ((#this_skip_binary_data = False) *And (#F1595854 <> #LF_F1595854))
+    #LF_Differences += ' 4'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F1595854') (*Quote + #F1595854 + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F1595854') (*Quote + #LF_F1595854 + *Quote) )
+    Endif
+    
+    If (#F159585E <> #LF_F159585E)
+    #LF_Differences += ' E'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585E') (*Quote + #F159585E.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585E') (*Quote + #LF_F159585E.AsString + *Quote) )
+    Endif
+    
+    If (#F159585I1 <> #LF_F159585I1)
+    #LF_Differences += ' I1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585I1') (*Quote + #F159585I1.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585I1') (*Quote + #LF_F159585I1.AsString + *Quote) )
+    Endif
+    
+    If (#F159585I2 <> #LF_F159585I2)
+    #LF_Differences += ' I2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585I2') (*Quote + #F159585I2.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585I2') (*Quote + #LF_F159585I2.AsString + *Quote) )
+    Endif
+    
+    If (#F159585I4 <> #LF_F159585I4)
+    #LF_Differences += ' I4'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585I4') (*Quote + #F159585I4.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585I4') (*Quote + #LF_F159585I4.AsString + *Quote) )
+    Endif
+    
+    If (#F159585I8 <> #LF_F159585I8)
+    #LF_Differences += ' I8'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585I8') (*Quote + #F159585I8.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585I8') (*Quote + #LF_F159585I8.AsString + *Quote) )
+    Endif
+    
+    If (#F159585M <> #LF_F159585M)
+    #LF_Differences += ' M'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585M') (*Quote + #F159585M.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585M') (*Quote + #LF_F159585M.AsString + *Quote) )
+    Endif
+    
+    If (#F159585P1 <> #LF_F159585P1)
+    #LF_Differences += ' P1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585P1') (*Quote + #F159585P1.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585P1') (*Quote + #LF_F159585P1.AsString + *Quote) )
+    Endif
+    
+    If (#F159585P2 <> #LF_F159585P2)
+    #LF_Differences += ' P2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585P2') (*Quote + #F159585P2.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585P2') (*Quote + #LF_F159585P2.AsString + *Quote) )
+    Endif
+    
+    If (#F159585S1 <> #LF_F159585S1)
+    #LF_Differences += ' S1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585S1') (*Quote + #F159585S1.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585S1') (*Quote + #LF_F159585S1.AsString + *Quote) )
+    Endif
+    
+    If (#F159585S2 <> #LF_F159585S2)
+    #LF_Differences += ' S2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585S2') (*Quote + #F159585S2.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585S2') (*Quote + #LF_F159585S2.AsString + *Quote) )
+    Endif
+    
+    If (#F159585Y <> #LF_F159585Y)
+    #LF_Differences += ' Y'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585Y') (*Quote + #F159585Y.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585Y') (*Quote + #LF_F159585S2.AsString + *Quote) )
+    Endif
+    
+    If (#F159585Z1 <> #LF_F159585Z1)
+    #LF_Differences += ' Z1'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585Z1') (*Quote + #F159585Z1.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585Z1') (*Quote + #LF_F159585Z1.AsString + *Quote) )
+    Endif
+    
+    If (#F159585Z2 <> #LF_F159585Z2)
+    #LF_Differences += ' Z2'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('   #F159585Z2') (*Quote + #F159585Z2.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( OK ('   #LF_F159585Z2') (*Quote + #LF_F159585Z2.AsString + *Quote) )
+    Endif
+    
+    If (#LF_Differences <> *Blank)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Mismatch on ' + #this_i_data.AsString + ' (' + #LF_Differences + ')') ('') )
+    Endif
+    Endif
+    Endroutine

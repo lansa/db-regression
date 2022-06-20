@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               F159585I2
+  Type:               Integer
+  Length:             2
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Integer(2)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(2)"
+
+  - ENG:
+      Description:        "159585 - Integer(2)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(2)"
+
+  - FRA:
+      Description:        "159585 - Integer(2)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(2)"
+
+  - JPN:
+      Description:        "159585 - Integer(2)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(2)"
+
+  - TRK:
+      Description:        "159585 - Integer(2)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(2)"

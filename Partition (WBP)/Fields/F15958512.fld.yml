@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               F15958512
+  Type:               String
+  Length:             65535
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - String(65535)"
+      Label:              "159585 - String"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "String(65535)"
+
+  - ENG:
+      Description:        "159585 - String(65535)"
+      Label:              "159585 - String"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "String(65535)"
+
+  - FRA:
+      Description:        "159585 - String(65535)"
+      Label:              "159585 - String"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "String(65535)"
+
+  - JPN:
+      Description:        "159585 - String(65535)"
+      Label:              "159585 - String"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "String(65535)"
+
+  - TRK:
+      Description:        "159585 - String(65535)"
+      Label:              "159585 - String"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "String(65535)"

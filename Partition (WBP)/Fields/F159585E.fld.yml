@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               F159585E
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Date"
+      Label:              "159585 - Date"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - ENG:
+      Description:        "159585 - Date"
+      Label:              "159585 - Date"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - FRA:
+      Description:        "159585 - Date"
+      Label:              "159585 - Date"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - JPN:
+      Description:        "159585 - Date"
+      Label:              "159585 - Date"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - TRK:
+      Description:        "159585 - Date"
+      Label:              "159585 - Date"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Date"

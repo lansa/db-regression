@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               F159585B2
+  Type:               Binary
+  Length:             32767
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Binary(32767)"
+      Label:              "159585 - Binary"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Binary(32767)"
+
+  - ENG:
+      Description:        "159585 - Binary(32767)"
+      Label:              "159585 - Binary"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Binary(32767)"
+
+  - FRA:
+      Description:        "159585 - Binary(32767)"
+      Label:              "159585 - Binary"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Binary(32767)"
+
+  - JPN:
+      Description:        "159585 - Binary(32767)"
+      Label:              "159585 - Binary"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Binary(32767)"
+
+  - TRK:
+      Description:        "159585 - Binary(32767)"
+      Label:              "159585 - Binary"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Binary(32767)"

@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               F159585A2
+  Type:               Alpha
+  Length:             256
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Alpha(256)"
+      Label:              "159585 - Alpha("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Alpha(256)"
+
+  - ENG:
+      Description:        "159585 - Alpha(256)"
+      Label:              "159585 - Alpha("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Alpha(256)"
+
+  - FRA:
+      Description:        "159585 - Alpha(256)"
+      Label:              "159585 - Alpha("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Alpha(256)"
+
+  - JPN:
+      Description:        "159585 - Alpha(256)"
+      Label:              "159585 - Alpha("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Alpha(256)"
+
+  - TRK:
+      Description:        "159585 - Alpha(256)"
+      Label:              "159585 - Alpha("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Alpha(256)"

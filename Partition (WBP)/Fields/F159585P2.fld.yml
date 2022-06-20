@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               F159585P2
+  Type:               Packed
+  Length:             15
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Packed(15,0)"
+      Label:              "159585 - Packed"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Packed(15,0)"
+
+  - ENG:
+      Description:        "159585 - Packed(15,0)"
+      Label:              "159585 - Packed"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Packed(15,0)"
+
+  - FRA:
+      Description:        "159585 - Packed(15,0)"
+      Label:              "159585 - Packed"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Packed(15,0)"
+
+  - JPN:
+      Description:        "159585 - Packed(15,0)"
+      Label:              "159585 - Packed"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Packed(15,0)"
+
+  - TRK:
+      Description:        "159585 - Packed(15,0)"
+      Label:              "159585 - Packed"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Packed(15,0)"

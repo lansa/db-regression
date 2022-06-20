@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               F159585I4
+  Type:               Integer
+  Length:             4
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Integer(4)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(4)"
+
+  - ENG:
+      Description:        "159585 - Integer(4)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(4)"
+
+  - FRA:
+      Description:        "159585 - Integer(4)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(4)"
+
+  - JPN:
+      Description:        "159585 - Integer(4)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(4)"
+
+  - TRK:
+      Description:        "159585 - Integer(4)"
+      Label:              "159585 - Intege"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Integer(4)"

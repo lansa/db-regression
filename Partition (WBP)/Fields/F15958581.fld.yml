@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               F15958581
+  Type:               NChar
+  Length:             1
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - NChar(1)"
+      Label:              "159585 - NChar("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "NChar(1)"
+
+  - ENG:
+      Description:        "159585 - NChar(1)"
+      Label:              "159585 - NChar("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "NChar(1)"
+
+  - FRA:
+      Description:        "159585 - NChar(1)"
+      Label:              "159585 - NChar("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "NChar(1)"
+
+  - JPN:
+      Description:        "159585 - NChar(1)"
+      Label:              "159585 - NChar("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "NChar(1)"
+
+  - TRK:
+      Description:        "159585 - NChar(1)"
+      Label:              "159585 - NChar("
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "NChar(1)"

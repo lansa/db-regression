@@ -1,0 +1,65 @@
+﻿Field:
+  Name:               F159585Y
+  Type:               Boolean
+  Length:             1
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Boolean"
+      Label:              "159585 - Boolea"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Boolean"
+
+  - ENG:
+      Description:        "159585 - Boolean"
+      Label:              "159585 - Boolea"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Boolean"
+
+  - FRA:
+      Description:        "159585 - Boolean(1)"
+      Label:              "159585 - Boolea"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Boolean(1)"
+
+  - JPN:
+      Description:        "159585 - Boolean(1)"
+      Label:              "159585 - Boolea"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Boolean(1)"
+
+  - TRK:
+      Description:        "159585 - Boolean"
+      Label:              "159585 - Boolea"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Boolean"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*picklist) Name(#Picklist)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#False) Caption('False') Default(True) Parent(#Picklist) Value('False')
+    Define_Com Class(#PRIM_PKIT) Name(#True) Caption('True') Parent(#Picklist) Value('True')
+    
+    End_Com
+    
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Width(209)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_boolean.std_boolean') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT159585
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Space BIF to support Unicode"
+
+  - ENG:
+      Description:        "159585 - Space BIF to support Unicode"
+
+  - FRA:
+      Description:        "159585 - Space BIF to support Unicode"
+
+  - JPN:
+      Description:        "159585 - Space BIF to support Unicode"
+
+  - TRK:
+      Description:        "159585 - Space BIF to support Unicode"
+
+  Functions:
+  - V59585A:
+      Name:               V59585A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 159585 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 159585 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 159585 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 159585 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 159585 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V59585C:
+      Name:               V59585C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "159585 - Space BIF"
+
+      - ENG:
+          Description:        "159585 - Space BIF"
+
+      - FRA:
+          Description:        "159585 - Space BIF"
+
+      - JPN:
+          Description:        "159585 - Space BIF"
+
+      - TRK:
+          Description:        "159585 - Space BIF"
+
+      Allowed Next Functions:
+      - "*ANY"

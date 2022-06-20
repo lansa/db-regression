@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               F1595853
+  Type:               CLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Clob"
+      Label:              "159585 - Clob"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Clob"
+
+  - ENG:
+      Description:        "159585 - Clob"
+      Label:              "159585 - Clob"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Clob"
+
+  - FRA:
+      Description:        "159585 - Clob"
+      Label:              "159585 - Clob"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Clob"
+
+  - JPN:
+      Description:        "159585 - Clob"
+      Label:              "159585 - Clob"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Clob"
+
+  - TRK:
+      Description:        "159585 - Clob"
+      Label:              "159585 - Clob"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Clob"

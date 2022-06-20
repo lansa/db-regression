@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               F159585S
+  Type:               Packed
+  Length:             7
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Reference Field:    STD_COUNT
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159585 - Data Index Value"
+      Label:              "159585 - Data I"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Data"
+
+  - ENG:
+      Description:        "159585 - Data Index Value"
+      Label:              "159585 - Data I"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Data"
+
+  - FRA:
+      Description:        "159585 - Data Index Value"
+      Label:              "159585 - Data I"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Data"
+
+  - JPN:
+      Description:        "159585 - Data Index Value"
+      Label:              "159585 - Data I"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Data"
+
+  - TRK:
+      Description:        "159585 - Data Index Value"
+      Label:              "159585 - Data I"
+      Heading1:           "159585"
+      Heading2:           "-"
+      Heading3:           "Data"
