@@ -1,0 +1,399 @@
+﻿File:
+  Name:                           VTL159821C
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL159821C
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "OAM returns FE when *Generic on Date"
+
+  - ENG:
+      Description:        "OAM returns FE when *Generic on Date"
+
+  - FRA:
+      Description:        "OAM returns FE when *Generic on Date"
+
+  - JPN:
+      Description:        "OAM returns FE when *Generic on Date"
+
+  - TRK:
+      Description:        "OAM returns FE when *Generic on Date"
+
+  Real Fields:
+  - F159821IK:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+      Identity Column:    Yes
+
+  - F1598211D:
+      Type:               String
+      Length:             256
+      Decimals:           0
+
+  - F159821H:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F1598212:
+      Type:               String
+      Length:             50
+      Decimals:           0
+
+  - F1598218:
+      Type:               NChar
+      Length:             50
+      Decimals:           0
+
+  - F1598219:
+      Type:               NVarChar
+      Length:             50
+      Decimals:           0
+
+  - F159821I:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - F159821E:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - F159821M:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - F159821Z:
+      Type:               Date Time
+      Length:             19
+      Decimals:           0
+
+  Primary Keys:
+  - F159821IK
+
+  Logical Views:
+  - L159821C1:
+      Identifier:         L159821C1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - Char"
+
+      - ENG:
+          Description:        "Last Key - Char"
+
+      - FRA:
+          Description:        "Last Key - Char"
+
+      - JPN:
+          Description:        "Last Key - Char"
+
+      - TRK:
+          Description:        "Last Key - Char"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F159821H:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C2:
+      Identifier:         L159821C2
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C2
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - VarChar"
+
+      - ENG:
+          Description:        "Last Key - VarChar"
+
+      - FRA:
+          Description:        "Last Key - VarChar"
+
+      - JPN:
+          Description:        "Last Key - VarChar"
+
+      - TRK:
+          Description:        "Last Key - VarChar"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1598212:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C3:
+      Identifier:         L159821C3
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C3
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - NChar"
+
+      - ENG:
+          Description:        "Last Key - NChar"
+
+      - FRA:
+          Description:        "Last Key - NChar"
+
+      - JPN:
+          Description:        "Last Key - NChar"
+
+      - TRK:
+          Description:        "Last Key - NChar"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1598218:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C4:
+      Identifier:         L159821C4
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C4
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - NVarChar"
+
+      - ENG:
+          Description:        "Last Key - NVarChar"
+
+      - FRA:
+          Description:        "Last Key - NVarChar"
+
+      - JPN:
+          Description:        "Last Key - NVarChar"
+
+      - TRK:
+          Description:        "Last Key - NVarChar"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1598219:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C5:
+      Identifier:         L159821C5
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C5
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - Integer"
+
+      - ENG:
+          Description:        "Last Key - Integer"
+
+      - FRA:
+          Description:        "Last Key - Integer"
+
+      - JPN:
+          Description:        "Last Key - Integer"
+
+      - TRK:
+          Description:        "Last Key - Integer"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F159821I:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L159821C6:
+      Identifier:         L159821C6
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C6
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - Date"
+
+      - ENG:
+          Description:        "Last Key - Date"
+
+      - FRA:
+          Description:        "Last Key - Date"
+
+      - JPN:
+          Description:        "Last Key - Date"
+
+      - TRK:
+          Description:        "Last Key - Date"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F159821E:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C7:
+      Identifier:         L159821C7
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C7
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - Time"
+
+      - ENG:
+          Description:        "Last Key - Time"
+
+      - FRA:
+          Description:        "Last Key - Time"
+
+      - JPN:
+          Description:        "Last Key - Time"
+
+      - TRK:
+          Description:        "Last Key - Time"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F159821M:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C8:
+      Identifier:         L159821C8
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C8
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key - DateTime"
+
+      - ENG:
+          Description:        "Last Key - DateTime"
+
+      - FRA:
+          Description:        "Last Key - DateTime"
+
+      - JPN:
+          Description:        "Last Key - DateTime"
+
+      - TRK:
+          Description:        "Last Key - DateTime"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F159821Z:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L159821C9:
+      Identifier:         L159821C9
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L159821C9
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "3 Kyes"
+
+      - ENG:
+          Description:        "3 Kyes"
+
+      - FRA:
+          Description:        "3 Kyes"
+
+      - JPN:
+          Description:        "3 Kyes"
+
+      - TRK:
+          Description:        "3 Kyes"
+
+      Keys:
+      - F1598211D:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F159821Z:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1598212:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

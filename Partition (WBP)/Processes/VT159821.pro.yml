@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT159821
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "OAM - FE when *Generic Search on Date"
+
+  - ENG:
+      Description:        "OAM - FE when *Generic Search on Date"
+
+  - FRA:
+      Description:        "OAM - FE when *Generic Search on Date"
+
+  - JPN:
+      Description:        "OAM - FE when *Generic Search on Date"
+
+  - TRK:
+      Description:        "OAM - FE when *Generic Search on Date"
+
+  Functions:
+  - V59821A:
+      Name:               V59821A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 159821 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 159821 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 159821 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 159821 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 159821 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V59821C:
+      Name:               V59821C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "*Generic Search Various Cases"
+
+      - ENG:
+          Description:        "*Generic Search Various Cases"
+
+      - FRA:
+          Description:        "*Generic Search Various Cases"
+
+      - JPN:
+          Description:        "*Generic Search Various Cases"
+
+      - TRK:
+          Description:        "*Generic Search Various Cases"
+
+      Allowed Next Functions:
+      - "*ANY"

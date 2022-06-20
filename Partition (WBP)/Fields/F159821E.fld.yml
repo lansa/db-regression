@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               F159821E
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159821 - Date"
+      Label:              "159821 - Date"
+      Heading1:           "159821"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - ENG:
+      Description:        "159821 - Date"
+      Label:              "159821 - Date"
+      Heading1:           "159821"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - FRA:
+      Description:        "159821 - Date"
+      Label:              "159821 - Date"
+      Heading1:           "159821"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - JPN:
+      Description:        "159821 - Date"
+      Label:              "159821 - Date"
+      Heading1:           "159821"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - TRK:
+      Description:        "159821 - Date"
+      Label:              "159821 - Date"
+      Heading1:           "159821"
+      Heading2:           "-"
+      Heading3:           "Date"

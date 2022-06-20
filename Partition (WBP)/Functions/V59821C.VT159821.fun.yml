@@ -1,0 +1,1062 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Field Type Constants.
+    Define Field(#LF_Constant_Type_Char) Reffld(#Std_Count) Default(1)
+    Define Field(#LF_Constant_Type_VarChar) Reffld(#Std_Count) Default(2)
+    Define Field(#LF_Constant_Type_NChar) Reffld(#Std_Count) Default(3)
+    Define Field(#LF_Constant_Type_NVarChar) Reffld(#Std_Count) Default(4)
+    Define Field(#LF_Constant_Type_Integer) Reffld(#Std_Count) Default(5)
+    Define Field(#LF_Constant_Type_Date) Reffld(#Std_Count) Default(6)
+    Define Field(#LF_Constant_Type_Time) Reffld(#Std_Count) Default(7)
+    Define Field(#LF_Constant_Type_DateTime) Reffld(#Std_Count) Default(8)
+    Define Field(#LF_Constant_Type_All) Reffld(#Std_Count) Default(9)
+    
+    Define Field(#LF_Constant_DateTime) Reffld(#F159821Z)
+    
+    Define Field(#LF_F159821IK) Reffld(#F159821IK)
+    Define Field(#LF_F1598211D) Reffld(#F1598211D)
+    Define Field(#LF_F159821H) Reffld(#F159821H)
+    Define Field(#LF_F1598212) Reffld(#F1598212)
+    Define Field(#LF_F1598218) Reffld(#F1598218)
+    Define Field(#LF_F1598219) Reffld(#F1598219)
+    Define Field(#LF_F159821I) Reffld(#F159821I)
+    Define Field(#LF_F159821E) Reffld(#F159821E)
+    Define Field(#LF_F159821M) Reffld(#F159821M)
+    Define Field(#LF_F159821Z) Reffld(#F159821Z)
+    Define Field(#LF_Index_Field_Type) Reffld(#Std_Count)
+    Define Field(#LF_Field_Type_Extra_Record) Reffld(#BIFB001A)
+    Define Field(#LF_List_Items) Reffld(#Std_Count)
+    Def_List Name(#w_lData) Fields(#LF_F159821IK #LF_F1598211D #LF_F159821H #LF_F1598212 #LF_F1598218 #LF_F1598219 #LF_F159821I #LF_F159821E #LF_F159821M #LF_F159821Z #LF_Index_Field_Type #LF_Field_Type_Extra_Record) Counter(#LF_list_items) Type(*WORKING) Entrys(*MAX)
+    
+    Group_By Name(#g_data) Fields(#F159821H #F1598212 #F1598218 #F1598219 #F159821I #F159821E #F159821M #F159821Z)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Found_Matched_Field_Type_Items) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    * Initialization.
+    * Have to use the constant to overcome the Oracle rounding up issue.
+    * For example:
+    * + Inserting '2018-05-04 05:52:49.49000000' to a column TIMESTAMP(19), the inserted data is '2018-05-04 05:52:49'.
+    * + But '2018-05-04 05:52:49.50000000' will end up being '2018-05-04 05:52:50'.
+    #LF_Constant_DateTime := '2018-05-04 05:52:49'
+    
+    #Com_Owner.mthEmptyTable( #LF_rc )
+    If (#LF_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Insert Data ...' '' )
+    #Com_Owner.mthInsertData( #VTF_KEY1 10 True #LF_rc )
+    #Com_Owner.mthInsertData( #VTF_KEY1 100 False #LF_rc )
+    Endif
+    
+    If (#LF_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '*Generic Select Test ...' '' )
+    
+    #Com_Owner.mthGenericSearch_L159821C1( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C2( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C3( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C4( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C5( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C6( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C7( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C8( #LF_rc )
+    #Com_Owner.mthGenericSearch_L159821C9( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthEmptyTable)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Empty Table ...' '' )
+    
+    Clr_List Named(#w_lData)
+    Select Fields(*ALL) From_File(VTL159821C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_F159821IK := #F159821IK
+    #LF_F1598211D := #F1598211D
+    #LF_F159821H := #F159821H
+    #LF_F1598212 := #F1598212
+    #LF_F1598218 := #F1598218
+    #LF_F1598219 := #F1598219
+    #LF_F159821I := #F159821I
+    #LF_F159821E := #F159821E
+    #LF_F159821M := #F159821M
+    #LF_F159821Z := #F159821Z
+    Add_Entry To_List(#w_lData)
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- SELECT found ' + #LF_List_Items.AsString + ' record(s)') '' )
+    
+    If (#LF_List_Items > 0)
+    #Com_Owner.mthAdd_SubMsg( OK ('- DELETE all record(s)') '' )
+    Begin_Loop Using(#LF_i) To(#LF_List_Items)
+    Get_Entry Number(#LF_i) From_List(#w_lData)
+    
+    Delete From_File(VTL159821C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) With_Rrn(#LF_F159821IK)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected return code: ' + #this_rc) ('On record ID ' + #LF_F159821IK.AsString) )
+    
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsertData)
+    Define_Map For(*INPUT) Class(#F1598211D) Name(#this_keyword)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_key_value)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_extra_record)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Insert a set of records') '' )
+    
+    #LF_Field_Type_Extra_Record := False
+    
+    ADD:
+    Begin_Loop Using(#LF_Index_Field_Type) To(10)
+    * Initialize the #F159821IK so that the test case can be tested on previous version when Identity Column not being supported.
+    #F159821IK := #this_key_value + #LF_Index_Field_Type
+    #F1598211D := #this_keyword
+    #g_data := *Default
+    
+    Case Of_Field(#LF_Index_Field_Type)
+    When Value_Is(= #LF_Constant_Type_Char)
+    #F159821H := #LF_Constant_Type_Char.AsString
+    #F1598211D += ' #F159821H (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F159821H
+    When Value_Is(= #LF_Constant_Type_VarChar)
+    #F1598212 := #LF_Constant_Type_VarChar.AsString
+    #F1598211D += ' #F1598212 (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F1598212
+    When Value_Is(= #LF_Constant_Type_NChar)
+    #F1598218 := #LF_Constant_Type_NChar.AsString
+    #F1598211D += ' #F1598218 (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F1598218.AsNativeString
+    When Value_Is(= #LF_Constant_Type_NVarChar)
+    #F1598219 := #LF_Constant_Type_NVarChar.AsString
+    #F1598211D += ' #F1598219 (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F1598219.AsNativeString
+    When Value_Is(= #LF_Constant_Type_Integer)
+    #F159821I := #LF_Constant_Type_Integer
+    #F1598211D += ' #F159821I (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F159821I.AsString
+    When Value_Is(= #LF_Constant_Type_Date)
+    #F159821E := #LF_Constant_DateTime
+    #F1598211D += ' #F159821E (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F159821E.AsString
+    When Value_Is(= #LF_Constant_Type_Time)
+    #F159821M := #LF_Constant_DateTime
+    #F1598211D += ' #F159821M (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F159821M.AsString
+    When Value_Is(= #LF_Constant_Type_DateTime)
+    #F159821Z := #LF_Constant_DateTime
+    #F1598211D += ' #F159821Z (' + #LF_Field_Type_Extra_Record.AsString + ') - ' + #F159821Z.AsString
+    When Value_Is(= #LF_Constant_Type_All)
+    #F1598211D += ' All Field Types (' + #LF_Field_Type_Extra_Record.AsString + ')'
+    #F159821H := #LF_Constant_Type_All.AsString
+    #F1598212 := #F159821H
+    #F1598218 := #F159821H
+    #F1598219 := #F159821H
+    #F159821I := #LF_i
+    #F159821E := #LF_Constant_DateTime
+    #F159821M := #LF_Constant_DateTime
+    #F159821Z := #LF_Constant_DateTime
+    Otherwise
+    #F1598211D += ' Unknown (' + #LF_Field_Type_Extra_Record.AsString + ')'
+    #F159821H := #LF_Constant_Type_All.AsString
+    #F1598212 := #F159821H
+    #F1598218 := #F159821H
+    #F1598219 := #F159821H
+    #F159821I := #LF_i
+    #F159821E := #LF_Constant_DateTime
+    #F159821M := #LF_Constant_DateTime
+    #F159821Z := #LF_Constant_DateTime
+    Endcase
+    
+    Insert Fields(*ALL) To_File(VTL159821C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Return_Rrn(#LF_F159821IK)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected return code: ' + #this_rc) ('On record: ' + #F1598211D) )
+    #this_rc := ER
+    Leave
+    Else
+    #LF_F1598211D := #F1598211D
+    #LF_F159821H := #F159821H
+    #LF_F1598212 := #F1598212
+    #LF_F1598218 := #F1598218
+    #LF_F1598219 := #F1598219
+    #LF_F159821I := #F159821I
+    #LF_F159821E := #F159821E
+    #LF_F159821M := #F159821M
+    #LF_F159821Z := #F159821Z
+    Add_Entry To_List(#w_lData)
+    Endif
+    End_Loop
+    
+    If (#this_extra_record = True)
+    #this_key_value := #F159821IK + 1
+    #this_extra_record := False
+    #LF_Field_Type_Extra_Record := True
+    #LF_Index_Field_Type := 1
+    Goto Label(ADD)
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGetListData)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_test_id)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_field_type)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_found_items)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_found_items := 0
+    
+    * Get the valid data.
+    Begin_Loop Using(#LF_i) To(#LF_list_items)
+    Get_Entry Number(#LF_i) From_List(#w_lData) Ret_Status(#this_rc)
+    
+    If ((#this_rc = OK) *And (#LF_Index_Field_Type = #this_field_type) *And (#LF_Field_Type_Extra_Record = False))
+    #this_found_items += 1
+    #F1598211D := #LF_F1598211D
+    #F159821H := #LF_F159821H
+    #F1598212 := #LF_F1598212
+    #F1598218 := #LF_F1598218
+    #F1598219 := #LF_F1598219
+    #F159821I := #LF_F159821I
+    #F159821E := #LF_F159821E
+    #F159821M := #LF_F159821M
+    #F159821Z := #LF_F159821Z
+    Endif
+    End_Loop
+    
+    #this_rc := OK
+    
+    Case Of_Field(#this_field_type)
+    When Value_Is(= #LF_Constant_Type_Char)
+    #LF_F1598211D := #F1598211D
+    #LF_F159821H := #F159821H
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & Char. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F159821H + *Quote) )
+    When Value_Is(= #LF_Constant_Type_VarChar)
+    #LF_F1598211D := #F1598211D
+    #LF_F1598212 := #F1598212
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & VarChar. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F1598212 + *Quote) )
+    When Value_Is(= #LF_Constant_Type_NChar)
+    #LF_F1598211D := #F1598211D
+    #LF_F1598218 := #F1598218
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & NChar. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F1598218.AsNativeString + *Quote) )
+    When Value_Is(= #LF_Constant_Type_NVarChar)
+    #LF_F1598211D := #F1598211D
+    #LF_F1598219 := #F1598219
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & NVarChar. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F1598219.AsNativeString + *Quote) )
+    When Value_Is(= #LF_Constant_Type_Integer)
+    #LF_F1598211D := #F1598211D
+    #LF_F159821I := #F159821I
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & Integer. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F159821I.AsString + *Quote) )
+    When Value_Is(= #LF_Constant_Type_Date)
+    #LF_F1598211D := #F1598211D
+    #LF_F159821E := #F159821E
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & Date. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F159821E.AsString + *Quote) )
+    When Value_Is(= #LF_Constant_Type_Time)
+    #LF_F1598211D := #F1598211D
+    #LF_F159821M := #F159821M
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & Time. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F159821M.AsString + *Quote) )
+    When Value_Is(= #LF_Constant_Type_DateTime)
+    #LF_F1598211D := #F1598211D
+    #LF_F159821Z := #F159821Z
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': VarChar & DateTime. Expected ' + #this_found_items.AsString + ' records') (*Quote + #LF_F1598211D + *Quote + ', ' + *Quote + #LF_F159821Z.AsString + *Quote) )
+    When Value_Is(= #LF_Constant_Type_All)
+    #LF_F1598211D := #F1598211D
+    #LF_F159821H := #F159821H
+    #LF_F1598212 := #F1598212
+    #LF_F1598218 := #F1598218
+    #LF_F1598219 := #F1598219
+    #LF_F159821I := #F159821I
+    #LF_F159821E := #F159821E
+    #LF_F159821M := #F159821M
+    #LF_F159821Z := #F159821Z
+    #Com_Owner.mthAdd_SubMsg( OK (#this_test_id.AsString + ': All Types. Expected ' + #this_found_items.AsString + ' records') ('') )
+    Otherwise
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('- Not yet supported option') ('') )
+    Endcase
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C1)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 1 #LF_Constant_Type_Char #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C1) With_Key(#LF_F1598211D #LF_F159821H) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C1) With_Key(#LF_F1598211D #LF_F159821H) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F159821H := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Default.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Null') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C1) With_Key(#LF_F1598211D #LF_F159821H) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Default.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Null') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C1) With_Key(#LF_F1598211D #LF_F159821H) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 2 #LF_Constant_Type_VarChar #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C2) With_Key(#LF_F1598211D #LF_F1598212) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C2) With_Key(#LF_F1598211D #LF_F1598212) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F1598212 := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C2) With_Key(#LF_F1598211D #LF_F1598212) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C2) With_Key(#LF_F1598211D #LF_F1598212) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C3)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 3 #LF_Constant_Type_NChar #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C3) With_Key(#LF_F1598211D #LF_F1598218) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C3) With_Key(#LF_F1598211D #LF_F1598218) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F1598218 := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Null.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Null') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C3) With_Key(#LF_F1598211D #LF_F1598218) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Null.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Null') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C3) With_Key(#LF_F1598211D #LF_F1598218) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 4 #LF_Constant_Type_NVarChar #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C4) With_Key(#LF_F1598211D #LF_F1598219) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C4) With_Key(#LF_F1598211D #LF_F1598219) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F1598219 := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C4) With_Key(#LF_F1598211D #LF_F1598219) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C4) With_Key(#LF_F1598211D #LF_F1598219) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C5)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 5 #LF_Constant_Type_Integer #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C5) With_Key(#LF_F1598211D #LF_F159821I) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C5) With_Key(#LF_F1598211D #LF_F159821I) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F159821I := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Null.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Null') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C5) With_Key(#LF_F1598211D #LF_F159821I) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Null.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Null') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C5) With_Key(#LF_F1598211D #LF_F159821I) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C6)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 6 #LF_Constant_Type_Date #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C6) With_Key(#LF_F1598211D #LF_F159821E) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C6) With_Key(#LF_F1598211D #LF_F159821E) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F159821E := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C6) With_Key(#LF_F1598211D #LF_F159821E) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C6) With_Key(#LF_F1598211D #LF_F159821E) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C7)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 7 #LF_Constant_Type_Time #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C7) With_Key(#LF_F1598211D #LF_F159821M) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C7) With_Key(#LF_F1598211D #LF_F159821M) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F159821M := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C7) With_Key(#LF_F1598211D #LF_F159821M) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C7) With_Key(#LF_F1598211D #LF_F159821M) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C8)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 8 #LF_Constant_Type_DateTime #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C8) With_Key(#LF_F1598211D #LF_F159821Z) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C8) With_Key(#LF_F1598211D #LF_F159821Z) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F159821Z := *Default
+    
+    * Nbr_Keys(2) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(2), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C8) With_Key(#LF_F1598211D #LF_F159821Z) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 1 valid key and 1 *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 1 Valid Key + *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C8) With_Key(#LF_F1598211D #LF_F159821Z) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGenericSearch_L159821C9)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthGetListData( 9 #LF_Constant_Type_All #LF_Found_Matched_Field_Type_Items #this_rc )
+    
+    * Nbr_Keys(2) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(3), 3 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(3) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with 2 valid keys.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 3 Valid Keys') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    
+    #LF_F159821Z := *Default
+    
+    * Nbr_Keys(3) with the middle key is *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(3), Middle Key is *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(3) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with the middle key is *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), Middle Key is *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    #LF_F1598212 := *Default
+    
+    * Nbr_Keys(3) with two last keys are *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(3), 2 Last Keys are *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(3) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    * No result if one of the keys is *Sqlnull.
+    If (#LF_i <> 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - No result as expected') ('') )
+    Endif
+    Endif
+    
+    * Nbr_Keys(*Compute) with the middle key is *Sqlnull.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), Middle Key is *Sqlnull') ('') )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #LF_Found_Matched_Field_Type_Items)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Unexpected result') ('Found ' + #LF_i.AsString + ' records(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Matched results') ('') )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
