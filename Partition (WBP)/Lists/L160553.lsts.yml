@@ -1,0 +1,27 @@
+﻿List:
+  Name:               Import 160553
+  Stored As:          User
+
+  Objects:
+  - V60553A:
+      Type:               Funciton
+      Qualifier:          VT160553
+
+  - V60553C:
+      Type:               Funciton
+      Qualifier:          VT160553
+
+  - V60553D:
+      Type:               Funciton
+      Qualifier:          VT160553
+
+  - VT160553:
+      Type:               Process
+
+  - VTL160553C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL160553D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF

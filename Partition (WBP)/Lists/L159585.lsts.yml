@@ -1,0 +1,105 @@
+﻿List:
+  Name:               Import 159585
+  Stored As:          User
+
+  Objects:
+  - "*MTXT_159585_DBCS_1":
+      Type:               Multilingual Variable
+
+  - "*MTXT_159585_DBCS_2":
+      Type:               Multilingual Variable
+
+  - F15958511:
+      Type:               Field
+
+  - F15958512:
+      Type:               Field
+
+  - F1595853:
+      Type:               Field
+
+  - F1595854:
+      Type:               Field
+
+  - F15958581:
+      Type:               Field
+
+  - F15958582:
+      Type:               Field
+
+  - F15958591:
+      Type:               Field
+
+  - F15958592:
+      Type:               Field
+
+  - F159585A1:
+      Type:               Field
+
+  - F159585A2:
+      Type:               Field
+
+  - F159585B1:
+      Type:               Field
+
+  - F159585B2:
+      Type:               Field
+
+  - F159585E:
+      Type:               Field
+
+  - F159585H1:
+      Type:               Field
+
+  - F159585H2:
+      Type:               Field
+
+  - F159585I1:
+      Type:               Field
+
+  - F159585I2:
+      Type:               Field
+
+  - F159585I4:
+      Type:               Field
+
+  - F159585I8:
+      Type:               Field
+
+  - F159585M:
+      Type:               Field
+
+  - F159585P1:
+      Type:               Field
+
+  - F159585P2:
+      Type:               Field
+
+  - F159585S:
+      Type:               Field
+
+  - F159585S1:
+      Type:               Field
+
+  - F159585S2:
+      Type:               Field
+
+  - F159585Y:
+      Type:               Field
+
+  - F159585Z1:
+      Type:               Field
+
+  - F159585Z2:
+      Type:               Field
+
+  - V59585A:
+      Type:               Funciton
+      Qualifier:          VT159585
+
+  - V59585C:
+      Type:               Funciton
+      Qualifier:          VT159585
+
+  - VT159585:
+      Type:               Process

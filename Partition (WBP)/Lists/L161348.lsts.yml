@@ -1,0 +1,15 @@
+﻿List:
+  Name:               Import 161348
+  Stored As:          User
+
+  Objects:
+  - V61348A:
+      Type:               Funciton
+      Qualifier:          VT161348
+
+  - V61348C:
+      Type:               Funciton
+      Qualifier:          VT161348
+
+  - VT161348:
+      Type:               Process

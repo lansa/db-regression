@@ -1,0 +1,49 @@
+﻿List:
+  Name:               Import 159821
+  Stored As:          User
+
+  Objects:
+  - F1598211D:
+      Type:               Field
+
+  - F1598212:
+      Type:               Field
+
+  - F1598218:
+      Type:               Field
+
+  - F1598219:
+      Type:               Field
+
+  - F159821E:
+      Type:               Field
+
+  - F159821H:
+      Type:               Field
+
+  - F159821I:
+      Type:               Field
+
+  - F159821IK:
+      Type:               Field
+
+  - F159821M:
+      Type:               Field
+
+  - F159821Z:
+      Type:               Field
+
+  - V59821A:
+      Type:               Funciton
+      Qualifier:          VT159821
+
+  - V59821C:
+      Type:               Funciton
+      Qualifier:          VT159821
+
+  - VT159821:
+      Type:               Process
+
+  - VTL159821C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF

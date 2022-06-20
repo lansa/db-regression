@@ -1,0 +1,19 @@
+﻿List:
+  Name:               Import 159434
+  Stored As:          User
+
+  Objects:
+  - V59434A:
+      Type:               Funciton
+      Qualifier:          VT159434
+
+  - V59434C:
+      Type:               Funciton
+      Qualifier:          VT159434
+
+  - VT159434:
+      Type:               Process
+
+  - VTL159434C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF

@@ -1,0 +1,33 @@
+﻿List:
+  Name:               Import 159138
+  Stored As:          User
+
+  Objects:
+  - AFAFDN:
+      Type:               Field
+
+  - AFTXT:
+      Type:               Field
+
+  - RDMLXFIL1:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - RDMLXFIL2:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V59138A:
+      Type:               Funciton
+      Qualifier:          VT159138
+
+  - V59138C:
+      Type:               Funciton
+      Qualifier:          VT159138
+
+  - V59138D:
+      Type:               Funciton
+      Qualifier:          VT159138
+
+  - VT159138:
+      Type:               Process

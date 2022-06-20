@@ -1,0 +1,116 @@
+﻿List:
+  Name:               Import 157033
+  Stored As:          User
+
+  Objects:
+  - F1570331:
+      Type:               Field
+
+  - F15703311:
+      Type:               Field
+
+  - F1570332:
+      Type:               Field
+
+  - F15703321:
+      Type:               Field
+
+  - F1570338:
+      Type:               Field
+
+  - F15703381:
+      Type:               Field
+
+  - F1570339:
+      Type:               Field
+
+  - F15703391:
+      Type:               Field
+
+  - F15703392:
+      Type:               Field
+
+  - F157033A:
+      Type:               Field
+
+  - F157033A1:
+      Type:               Field
+
+  - F157033B:
+      Type:               Field
+
+  - F157033B1:
+      Type:               Field
+
+  - F157033H:
+      Type:               Field
+
+  - F157033H1:
+      Type:               Field
+
+  - F157033K1:
+      Type:               Field
+
+  - F157033K2:
+      Type:               Field
+
+  - F157033K3:
+      Type:               Field
+
+  - F157033K4:
+      Type:               Field
+
+  - F157033S:
+      Type:               Field
+
+  - F157033S1:
+      Type:               Field
+
+  - F157033U:
+      Type:               Field
+
+  - F157033U1:
+      Type:               Field
+
+  - R157033A:
+      Type:               Reusable Part
+
+  - R157033B:
+      Type:               Reusable Part
+
+  - V57033A:
+      Type:               Funciton
+      Qualifier:          VT157033
+
+  - V57033C:
+      Type:               Funciton
+      Qualifier:          VT157033
+
+  - V57033D:
+      Type:               Funciton
+      Qualifier:          VT157033
+
+  - V57033E:
+      Type:               Funciton
+      Qualifier:          VT157033
+
+  - VT157033:
+      Type:               Process
+
+  - VTL157033C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL157033D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL157033E:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - Z157033:
+      Type:               Form
+
+  - Z157033A:
+      Type:               Form

@@ -1,0 +1,19 @@
+﻿List:
+  Name:               Import 160466
+  Stored As:          User
+
+  Objects:
+  - V60466A:
+      Type:               Funciton
+      Qualifier:          VT160466
+
+  - V60466C:
+      Type:               Funciton
+      Qualifier:          VT160466
+
+  - VT160466:
+      Type:               Process
+
+  - VTL160466C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF

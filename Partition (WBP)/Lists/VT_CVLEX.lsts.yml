@@ -1,0 +1,48 @@
+﻿List:
+  Name:               VT_CVL Exceptions
+  Stored As:          User
+
+  Objects:
+  - VTMAIN:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN4:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN5:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSG1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSG2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSGT:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSGT2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSGT3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
