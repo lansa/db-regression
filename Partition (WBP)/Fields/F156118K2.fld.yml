@@ -1,0 +1,58 @@
+﻿Field:
+  Name:               F156118K2
+  Type:               Signed
+  Length:             15
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "156118 - IsSQLNull made WHERE error"
+      Label:              "156118 - IsSQLN"
+      Heading1:           "156118"
+      Heading2:           "-"
+      Heading3:           "IsSQLNull"
+
+  - ENG:
+      Description:        "156118 - IsSQLNull made WHERE error"
+      Label:              "156118 - IsSQLN"
+      Heading1:           "156118"
+      Heading2:           "-"
+      Heading3:           "IsSQLNull"
+
+  - FRA:
+      Description:        "156118 - IsSQLNull made WHERE error"
+      Label:              "156118 - IsSQLN"
+      Heading1:           "156118"
+      Heading2:           "-"
+      Heading3:           "IsSQLNull"
+
+  - JPN:
+      Description:        "156118 - IsSQLNull made WHERE error"
+      Label:              "156118 - IsSQLN"
+      Heading1:           "156118"
+      Heading2:           "-"
+      Heading3:           "IsSQLNull"
+
+  - TRK:
+      Description:        "156118 - IsSQLNull made WHERE error"
+      Label:              "156118 - IsSQLN"
+      Heading1:           "156118"
+      Heading2:           "-"
+      Heading3:           "IsSQLNull"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(238) Width(490)
+    
+    End_Com
+    
+    End_Com

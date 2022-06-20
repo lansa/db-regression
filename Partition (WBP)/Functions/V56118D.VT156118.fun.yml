@@ -1,0 +1,269 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    *
+    Define Field(#LF_Data_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lData) Fields(#F156118K1 #F156118K2 #F156118D) Counter(#LF_Data_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_Total_Test_Record) Reffld(#Std_Count)
+    Define Field(#LF_Non_Sqlnull_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Sqlnull_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_KeyData) Reffld(#F156118K1)
+    
+    Define Field(#LF_Select_Is_Null_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Select_Is_Not_Null_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Select_Is_Equal_Null_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Select_Is_Not_Equal_Null_Counter) Reffld(#Std_Count)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #LF_KeyData := #VTF_KEY1 + ' : ' + #VTF_KEY2 + '-' + #VTF_KEY3
+    #LF_Total_Test_Record := 7
+    
+    #Com_Owner.mthEmpty_Table( #LF_rc )
+    If (#LF_rc <> ER)
+    #Com_Owner.mthInsert_Test_Data( #LF_KeyData #LF_Total_Test_Record #LF_Sqlnull_Record_Counter #LF_rc )
+    Endif
+    
+    If (#LF_rc <> ER)
+    #Com_Owner.mthSelect_Where_IsSqlnull( #LF_KeyData #LF_Sqlnull_Record_Counter #LF_rc )
+    Endif
+    
+    If (#LF_rc <> ER)
+    #Com_Owner.mthSelect_Where_IsNotSqlnull( #LF_KeyData (#LF_Total_Test_Record - #LF_Sqlnull_Record_Counter) #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthEmpty_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Empty table VTL156118D' '' )
+    
+    Clr_List Named(#w_lData)
+    Select Fields(*ALL) From_File(VTL156118D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lData)
+    Endselect
+    
+    If ((#this_rc <> ER) *And (#this_rc <> VE))
+    #Com_Owner.mthAdd_SubMsg( OK ('- Select Successful. Found ' + #LF_Data_Count.AsString + ' item(s)') '' )
+    
+    Begin_Loop Using(#LF_i) To(#LF_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lData)
+    
+    Delete From_File(VTL156118D) With_Key(#F156118K1 #F156118K2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Delete / With_Key failure: ' + *Quote + #this_rc + *Quote) ('Item ' + #LF_i.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Delete / With_Key Successful: ') (#LF_Data_Count.AsString + ' item(s)') )
+    Endif
+    Else
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER '- Select failure' '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert_Test_Data)
+    Define_Map For(*INPUT) Class(#F156118K1) Name(#this_key)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_total_test_record)
+    Define_Map For(*BOTH) Class(#Std_Count) Name(#this_sqlnull_record_counter)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Insert test data to VTL156118D' '' )
+    
+    Clr_List Named(#w_lData)
+    
+    #this_sqlnull_record_counter := 0
+    #F156118K1 := #this_key
+    #BIFBLOBA := *Sqlnull
+    Begin_Loop Using(#LF_i) To(#this_total_test_record)
+    
+    #F156118K2 := #LF_i
+    Case Of_Field(#LF_i.Mod( 2 ))
+    When Value_Is(= 1)
+    #F156118D := 'Valid Data ' + #LF_i.AsString
+    
+    When Value_Is(= 0)
+    #F156118D := *Sqlnull
+    #this_sqlnull_record_counter += 1
+    Endcase
+    
+    Insert Fields(*ALL) To_File(VTL156118D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_Msg( ER ('- Insert failure') ('Item ' + #LF_i.AsString + ', key: ' + *Quote + #F156118K1 + *Quote + ' / ' + *Quote + #F156118K2.AsString + *Quote) )
+    Leave
+    Else
+    Add_Entry To_List(#w_lData)
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Insert successful.') (#LF_Data_Count.AsString + ' item(s) inserted') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSelect_Where_IsSqlnull)
+    Define_Map For(*INPUT) Class(#F156118K1) Name(#this_key)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_expected_number_of_records)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Select Where((...IsSqlnull...)) With_Key()' ('Expected to find ' + #this_expected_number_of_records.AsString + ' item(s)') )
+    
+    * Simple Where clause.
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118D.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118D.IsSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    
+    * A bit more complicated Where clause.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#F156118D.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Swap around.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118D.IsSqlnull) *And (#F156118K2 <> 0))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118D.IsSqlnull) *And (#F156118K2 <> 0)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSelect_Where_IsNotSqlnull)
+    Define_Map For(*INPUT) Class(#F156118K1) Name(#this_key)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_expected_number_of_records)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Select Where((...IsNotSqlnull...)) With_Key()' ('Expected to find ' + #this_expected_number_of_records.AsString + ' item(s)') )
+    
+    * Simple Where clause.
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118D.IsNotSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    
+    * A bit more complicated Where clause.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#F156118D.IsNotSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Swap around.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118D.IsNotSqlnull) *And (#F156118K2 <> 0))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118D.IsNotSqlnull) *And (#F156118K2 <> 0)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    Endroutine
+    

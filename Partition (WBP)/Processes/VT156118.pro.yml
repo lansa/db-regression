@@ -1,0 +1,96 @@
+﻿Process:
+  Name:                      VT156118
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "IsSQLNull causes WHERE clause error"
+
+  - ENG:
+      Description:        "IsSQLNull causes WHERE clause error"
+
+  - FRA:
+      Description:        "IsSQLNull causes WHERE clause error"
+
+  - JPN:
+      Description:        "IsSQLNull causes WHERE clause error"
+
+  - TRK:
+      Description:        "IsSQLNull causes WHERE clause error"
+
+  Functions:
+  - V56118A:
+      Name:               V56118A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 156118 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 156118 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 156118 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 156118 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 156118 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56118C:
+      Name:               V56118C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "156118 - IsSQLNull in WHERE clause"
+
+      - ENG:
+          Description:        "156118 - IsSQLNull in WHERE clause"
+
+      - FRA:
+          Description:        "156118 - IsSQLNull in WHERE clause"
+
+      - JPN:
+          Description:        "156118 - IsSQLNull in WHERE clause"
+
+      - TRK:
+          Description:        "156118 - IsSQLNull in WHERE clause"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56118D:
+      Name:               V56118D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Where( IsSQLNull ) on File with Blob"
+
+      - ENG:
+          Description:        "Where( IsSQLNull ) on File with Blob"
+
+      - FRA:
+          Description:        "Where( IsSQLNull ) on File with Blob"
+
+      - JPN:
+          Description:        "Where( IsSQLNull ) on File with Blob"
+
+      - TRK:
+          Description:        "Where( IsSQLNull ) on File with Blob"
+
+      Allowed Next Functions:
+      - "*ANY"
