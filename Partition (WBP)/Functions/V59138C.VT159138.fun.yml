@@ -1,0 +1,141 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_j) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    
+    Define Field(#LF_AFAFDN) Reffld(#AFAFDN)
+    Define Field(#LF_AFTXT) Reffld(#AFTXT)
+    Define Field(#LF_TestDataCounter) Reffld(#Std_Count)
+    Def_List Name(#wlTestData) Fields(#LF_AFAFDN #LF_AFTXT) Counter(#LF_TestDataCounter) Type(*WORKING)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    #Com_Owner.mthSetup( #LF_rc )
+    #Com_Owner.mthDelete( #LF_rc )
+    #Com_Owner.mthInsert( #LF_rc )
+    #Com_Owner.mthDelete( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Setup test data.
+    *
+    Mthroutine Name(mthSetup)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Setup Test Data' '' )
+    
+    Clr_List Named(#wlTestData)
+    
+    #LF_AFAFDN := 260
+    #LF_AFTXT := 'My Tel Ext Number'
+    Add_Entry To_List(#wlTestData)
+    
+    If (#LF_TestDataCounter > 0)
+    #this_rc := OK
+    Else
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ' - Completed' (#LF_TestDataCounter.AsString + ' record(s)') )
+    Endroutine
+    
+    *
+    * Delete test data.
+    *
+    Mthroutine Name(mthDelete)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK 'Delete Test Record (With_Key)' '' )
+    
+    #LF_j := 0
+    Begin_Loop Using(#LF_i) To(#LF_TestDataCounter)
+    Get_Entry Number(#LF_i) From_List(#wlTestData)
+    
+    Delete From_File(RDMLXFIL1) With_Key(#LF_AFAFDN) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If ((#this_rc <> VE) *And (#this_rc <> ER))
+    #this_rc := OK
+    #LF_j += 1
+    Else
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ' - Completed' (#LF_j.AsString + ' record(s)') )
+    Endif
+    Endroutine
+    
+    *
+    * Insert test data.
+    *
+    Mthroutine Name(mthInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK 'Insert Test Record' '' )
+    
+    #LF_j := 0
+    Begin_Loop Using(#LF_i) To(#LF_TestDataCounter)
+    Get_Entry Number(#LF_i) From_List(#wlTestData)
+    
+    #AFAFDN := #LF_AFAFDN
+    #AFTXT := #LF_AFTXT
+    Insert Fields(#AFAFDN #AFTXT) To_File(RDMLXFIL1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If ((#this_rc <> VE) *And (#this_rc <> ER))
+    #this_rc := OK
+    #LF_j += 1
+    
+    Else
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ' - Completed' (#LF_j.AsString + ' record(s)') )
+    Endif
+    Endroutine
+    
+    

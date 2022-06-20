@@ -1,0 +1,96 @@
+﻿Process:
+  Name:                      VT159138
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Cannot Check-In Long Name RDMLX File"
+
+  - ENG:
+      Description:        "Cannot Check-In Long Name RDMLX File"
+
+  - FRA:
+      Description:        "Cannot Check-In Long Name RDMLX File"
+
+  - JPN:
+      Description:        "Cannot Check-In Long Name RDMLX File"
+
+  - TRK:
+      Description:        "Cannot Check-In Long Name RDMLX File"
+
+  Functions:
+  - V59138A:
+      Name:               V59138A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 159138 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 159138 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 159138 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 159138 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 159138 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V59138C:
+      Name:               V59138C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "I/O Query on RDMLXFL1"
+
+      - ENG:
+          Description:        "I/O Query on RDMLXFL1"
+
+      - FRA:
+          Description:        "I/O Query on RDMLXFL1"
+
+      - JPN:
+          Description:        "I/O Query on RDMLXFL1"
+
+      - TRK:
+          Description:        "I/O Query on RDMLXFL1"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V59138D:
+      Name:               V59138D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "I/O Query on RDMLXFL2 (Long Name)"
+
+      - ENG:
+          Description:        "I/O Query on RDMLXFL2 (Long Name)"
+
+      - FRA:
+          Description:        "I/O Query on RDMLXFL2 (Long Name)"
+
+      - JPN:
+          Description:        "I/O Query on RDMLXFL2 (Long Name)"
+
+      - TRK:
+          Description:        "I/O Query on RDMLXFL2 (Long Name)"
+
+      Allowed Next Functions:
+      - "*ANY"
