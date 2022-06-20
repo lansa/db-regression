@@ -1,0 +1,102 @@
+﻿File:
+  Name:                           VTL160553D
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL160553D
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "DB error on ZERO SIZE CLOB FILE"
+
+  - ENG:
+      Description:        "DB error on ZERO SIZE CLOB FILE"
+
+  - FRA:
+      Description:        "DB error on ZERO SIZE CLOB FILE"
+
+  - JPN:
+      Description:        "DB error on ZERO SIZE CLOB FILE"
+
+  - TRK:
+      Description:        "DB error on ZERO SIZE CLOB FILE"
+
+  Real Fields:
+  - BIFC010A:
+      Type:               Char
+      Length:             10
+      Decimals:           0
+
+  - BIFP0300A:
+      Type:               Decimal
+      Length:             3
+      Decimals:           0
+
+  - BIFNC256A:
+      Type:               NChar
+      Length:             256
+      Decimals:           0
+
+  - BIFCLOBA:
+      Type:               CLOB
+      Length:             -1
+      Decimals:           0
+
+  Primary Keys:
+  - BIFC010A
+  - BIFP0300A
+  - BIFNC256A
+
+  Logical Views:
+  - L160553D1:
+      Identifier:         L160553D1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L160553D1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Select Order"
+
+      - ENG:
+          Description:        "Select Order"
+
+      - FRA:
+          Description:        "Select Order"
+
+      - JPN:
+          Description:        "Select Order"
+
+      - TRK:
+          Description:        "Select Order"
+
+      Keys:
+      - BIFC010A:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - BIFP0300A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed

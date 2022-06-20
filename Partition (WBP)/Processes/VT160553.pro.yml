@@ -1,0 +1,96 @@
+﻿Process:
+  Name:                      VT160553
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "DB error on ZERO SIZE Blob / Clob file"
+
+  - ENG:
+      Description:        "DB error on ZERO SIZE Blob / Clob file"
+
+  - FRA:
+      Description:        "DB error on ZERO SIZE Blob / Clob file"
+
+  - JPN:
+      Description:        "DB error on ZERO SIZE Blob / Clob file"
+
+  - TRK:
+      Description:        "DB error on ZERO SIZE Blob / Clob file"
+
+  Functions:
+  - V60553A:
+      Name:               V60553A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 160553 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 160553 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 160553 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 160553 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 160553 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V60553C:
+      Name:               V60553C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "I/O on Blob"
+
+      - ENG:
+          Description:        "I/O on Blob"
+
+      - FRA:
+          Description:        "I/O on Blob"
+
+      - JPN:
+          Description:        "I/O on Blob"
+
+      - TRK:
+          Description:        "I/O on Blob"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V60553D:
+      Name:               V60553D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "I/O on Clob"
+
+      - ENG:
+          Description:        "I/O on Clob"
+
+      - FRA:
+          Description:        "I/O on Clob"
+
+      - JPN:
+          Description:        "I/O on Clob"
+
+      - TRK:
+          Description:        "I/O on Clob"
+
+      Allowed Next Functions:
+      - "*ANY"

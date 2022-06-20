@@ -1,0 +1,333 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Test_Records) Reffld(#Std_Count)
+    Define Field(#LF_Sqlnull_Count) Reffld(#Std_Count)
+    Define Field(#LF_Null_Count) Reffld(#Std_Count)
+    Define Field(#LF_Zero_Size_Blob_Count) Reffld(#Std_Count)
+    Define Field(#LF_Zero_Size_File) Reffld(#BIFC256A)
+    Define Field(#LF_BIFP0300A) Reffld(#BIFP0300A)
+    Define Field(#LF_BIFNC256A) Reffld(#BIFNC256A)
+    
+    Define Field(#LF_Blob_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lBlob) Fields(#BIFC010A #BIFP0300A #BIFNC256A) Counter(#LF_Blob_Count) Type(*WORKING)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    #LF_Test_Records := 12
+    If (#LF_Test_Records < 12)
+    #LF_Test_Records := 12
+    Endif
+    
+    #Com_Owner.mthClearData( #VTF_KEY1 #LF_rc )
+    If (#LF_rc = OK)
+    #Com_Owner.mthCreate_Zero_Size_File( #LF_Zero_Size_File #LF_rc )
+    If (#LF_rc = OK)
+    #Com_Owner.mthInsert( #VTF_KEY1 20 #LF_Zero_Size_File #LF_rc )
+    
+    If (#LF_rc = OK)
+    #Com_Owner.mthSelect( #VTF_KEY1 #LF_rc )
+    Endif
+    
+    If (#LF_rc = OK)
+    #Com_Owner.mthUpdate( #VTF_KEY1 #LF_rc )
+    Endif
+    
+    If (#LF_rc = OK)
+    #Com_Owner.mthFetch( #VTF_KEY1 #LF_rc )
+    Endif
+    
+    #Com_Owner.mthDelete_Zero_Size_File( #LF_Zero_Size_File #LF_rc )
+    Endif
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthClearData)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data' '' )
+    
+    Clr_List Named(#w_lBlob)
+    
+    Select Fields(#BIFC010A #BIFP0300A #BIFNC256A) From_File(VTL160553D) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lBlob)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Blob_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Blob_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Blob_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lBlob)
+    
+    Delete From_File(VTL160553D) With_Key(#BIFC010A #BIFP0300A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #LF_i.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_records)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_zero_size_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #this_records.AsString + ' record(s)') '' )
+    
+    Clr_List Named(#w_lBlob)
+    #LF_Sqlnull_Count := 0
+    #LF_Null_Count := 0
+    #LF_Zero_Size_Blob_Count := 0
+    
+    #BIFC010A := #this_key
+    Begin_Loop Using(#BIFP0300A) To(#this_records)
+    If ((#BIFP0300A = 3) *Or (#BIFP0300A = 8) *Or (#BIFP0300A = 19))
+    #LF_Sqlnull_Count += 1
+    #BIFNC256A := '*Sqlnull'
+    #BIFCLOBA := *Sqlnull
+    Else
+    If ((#BIFP0300A = 4) *Or (#BIFP0300A = 13))
+    #LF_Null_Count += 1
+    #BIFNC256A := '*Null'
+    #BIFCLOBA := *Null
+    Else
+    If ((#BIFP0300A = 6) *Or (#BIFP0300A = 11) *Or (#BIFP0300A = 17))
+    #LF_Zero_Size_Blob_Count += 1
+    #BIFNC256A := #this_zero_size_file
+    #BIFCLOBA := #this_zero_size_file
+    Else
+    #BIFNC256A := *Sys_Dir_Source + 'liiodef.h'
+    #BIFCLOBA := *Sys_Dir_Source + 'liiodef.h'
+    Endif
+    Endif
+    Endif
+    
+    Insert Fields(#BIFC010A #BIFP0300A #BIFNC256A #BIFCLOBA) To_File(VTL160553D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    Add_Entry To_List(#w_lBlob)
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #BIFP0300A.AsString + ', ' + #BIFNC256A.AsNativeString) )
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCreate_Zero_Size_File)
+    Define_Map For(*OUTPUT) Class(#BIFC256A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_file := *Temp_Dir + '160553_EmptyBlob.txt'
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Create Zero Size File' (*Quote + #this_file + *Quote) )
+    
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #this_file)
+    Use Builtin(Stm_File_Open) With_Args(#this_file 'Write Text') To_Get(#BIFP0300A #this_rc)
+    If (#this_rc = OK)
+    Use Builtin(Stm_File_Close) With_Args(#BIFP0300A) To_Get(#this_rc)
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- Successful' ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Stm_File_Close') )
+    #this_rc := ER
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Stm_File_Open') )
+    #this_rc := ER
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthDelete_Zero_Size_File)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Delete Zero Size File' (*Quote + #this_file + *Quote) )
+    
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #this_file) To_Get(#this_rc)
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- Successful' ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('OV_File_Service / Remove_File') )
+    #this_rc := ER
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSelect)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Select and Data Validation') '' )
+    
+    Select Fields(*ALL) From_File(L160553D1) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_BIFP0300A := #BIFP0300A
+    #LF_BIFNC256A := #BIFNC256A
+    
+    Get_Entry Number(#BIFP0300A) From_List(#w_lBlob) Ret_Status(#this_rc)
+    If (#this_rc = OK)
+    If ((#LF_BIFNC256A <> #BIFNC256A) *Or (#LF_BIFP0300A <> #BIFP0300A))
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected Differeces') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER (' + Database #BIFNC256A') (*Quote + #LF_BIFNC256A.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( ER (' + List Data #BIFNC256A') (*Quote + #BIFNC256A.AsNativeString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( ER (' + Database #BIFP0300A') (*Quote + #LF_BIFP0300A.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( ER (' + List Data #BIFP0300A') (*Quote + #BIFP0300A.AsString + *Quote) )
+    Leave
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Get_Entry') )
+    #this_rc := ER
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK '- Successful' ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFetch)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Fetch') '' )
+    
+    Begin_Loop Using(#LF_i) To(#LF_Blob_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lBlob) Ret_Status(#this_rc)
+    
+    If (#this_rc = OK)
+    Fetch Fields(*ALL) From_File(VTL160553D) With_Key(#BIFC010A #BIFP0300A #BIFNC256A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Fetch on record ' + #LF_i.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Get_Entry on record ' + #LF_i.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- Successful' ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthUpdate)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Update') '' )
+    
+    Begin_Loop Using(#LF_i) To(#LF_Blob_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lBlob) Ret_Status(#this_rc)
+    
+    If (#this_rc = OK)
+    Case Of_Field(#BIFNC256A)
+    When Value_Is(= '*Sqlnull')
+    #BIFCLOBA := *Sqlnull
+    When Value_Is(= '*Null')
+    #BIFCLOBA := *Null
+    Otherwise
+    #BIFCLOBA := #BIFNC256A.AsNativeString
+    Endcase
+    
+    Update Fields(*ALL) In_File(VTL160553D) With_Key(#BIFC010A #BIFP0300A #BIFNC256A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Update on record ' + #LF_i.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Get_Entry on record ' + #LF_i.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- Successful' ('') )
+    Endif
+    Endroutine
+    
