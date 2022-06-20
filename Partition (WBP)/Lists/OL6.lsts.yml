@@ -1,0 +1,19 @@
+﻿List:
+  Name:               Import 2022/06/20 13:09:50
+  Stored As:          User
+
+  Objects:
+  - VTL157722C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V57722A:
+      Type:               Funciton
+      Qualifier:          VT157722
+
+  - V57722C:
+      Type:               Funciton
+      Qualifier:          VT157722
+
+  - VT157722:
+      Type:               Process

@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT157722
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Insertion Blob failed due to (') in name"
+
+  - ENG:
+      Description:        "Insertion Blob failed due to (') in name"
+
+  - FRA:
+      Description:        "Insertion Blob failed due to (') in name"
+
+  - JPN:
+      Description:        "Insertion Blob failed due to (') in name"
+
+  - TRK:
+      Description:        "Insertion Blob failed due to (') in name"
+
+  Functions:
+  - V57722A:
+      Name:               V57722A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 157722 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 157722 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 157722 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 157722 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 157722 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57722C:
+      Name:               V57722C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "VTL157722C - I/O Blob / Clob file"
+
+      - ENG:
+          Description:        "VTL157722C - I/O Blob / Clob file"
+
+      - FRA:
+          Description:        "VTL157722C - I/O Blob / Clob file"
+
+      - JPN:
+          Description:        "VTL157722C - I/O Blob / Clob file"
+
+      - TRK:
+          Description:        "VTL157722C - I/O Blob / Clob file"
+
+      Allowed Next Functions:
+      - "*ANY"

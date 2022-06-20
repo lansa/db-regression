@@ -1,0 +1,337 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_image_path) Type(*STRING)
+    Define Field(#LF_image_file) Type(*STRING)
+    Define Field(#LF_image_file_name_length_without_extension) Reffld(#Std_Count)
+    Define Field(#LF_document_path) Type(*STRING)
+    Define Field(#LF_document_file) Type(*STRING)
+    Define Field(#LF_document_file_name_length_without_extension) Reffld(#Std_Count)
+    
+    Define Field(#LF_quote_char_movement_size) Reffld(#Std_Count)
+    
+    Define Field(#LF_temp_path) Type(*STRING)
+    Define Field(#LF_temp_image_file) Type(*STRING)
+    Define Field(#LF_temp_document_file) Type(*STRING)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_j) Reffld(#Std_Count)
+    Define Field(#LF_errno) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_valid_blob_file) Reffld(#BIFA002A)
+    Define Field(#LF_valid_clob_file) Reffld(#BIFA002A)
+    Define Field(#LF_include_blob_test) Reffld(#BIFA004A)
+    Define Field(#LF_include_clob_test) Reffld(#BIFA004A)
+    
+    Define Field(#LF_Test_Data_Count) Reffld(#Std_Count)
+    Def_List Name(#wl_Test_Data) Fields(#BIFA100A #BIFP0700A #BIFS512E #BIFS512F) Counter(#LF_Test_Data_Count) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #BIFA100A := #VTF_KEY1
+    
+    * Query & delete all records.
+    Select Fields(#wl_Test_Data) From_File(VTL157722C) With_Key(#BIFA100A) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#wl_Test_Data)
+    Endselect
+    
+    If (#LF_Test_Data_Count > 0)
+    #Com_Owner.mthAdd_SubMsg( OK 'Delete Test Data' (#LF_Test_Data_Count.AsString + ' records') )
+    
+    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#wl_Test_Data)
+    
+    Delete From_File(VTL157722C) With_Key(#BIFA100A #BIFP0700A) Io_Status(#LF_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#LF_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Delete: ' + #LF_rc) ('Failed deleting record ' + #LF_i.AsString) )
+    #LF_rc := ER
+    Endif
+    End_Loop
+    Endif
+    
+    * Initialise the test data.
+    If (#LF_rc = OK)
+    Clr_List Named(#wl_Test_Data)
+    
+    #LF_image_path := *SYS_DIR
+    #LF_image_file := 'x_txtjpn.dat'
+    #LF_document_path := *SYS_DIR_SOURCE
+    #LF_document_file := 'x_pdfpro.h'
+    #LF_temp_path := *TEMP_DIR
+    #LF_include_blob_test := 'No'
+    #LF_include_clob_test := 'No'
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Setup Test File' '' )
+    
+    #Com_Owner.mthCheckFile( (#LF_image_path + #LF_image_file) #LF_valid_blob_file )
+    #Com_Owner.mthCheckFile( (#LF_document_path + #LF_document_file) #LF_valid_clob_file )
+    
+    * At least one type of test data (blob / clob) must be available.
+    If ((#LF_valid_blob_file = ER) *And (#LF_valid_clob_file = ER))
+    #LF_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #LF_rc ' + Missing Blob ' (*Quote + #LF_image_path + #LF_image_file + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( #LF_rc ' + Missing Clob' (*Quote + #LF_document_path + #LF_document_file + *Quote) )
+    Else
+    * Determine the number of cases that the file name can be replaced by the (') character.
+    #LF_image_file_name_length_without_extension := #LF_image_file.PositionOf( "." ) - 1
+    #LF_document_file_name_length_without_extension := #LF_document_file.PositionOf( "." ) - 1
+    If ((#LF_image_file_name_length_without_extension > 0) *And (#LF_document_file_name_length_without_extension > 0))
+    If (#LF_image_file_name_length_without_extension > #LF_document_file_name_length_without_extension)
+    #LF_quote_char_movement_size := #LF_image_file_name_length_without_extension
+    Else
+    #LF_quote_char_movement_size := #LF_document_file_name_length_without_extension
+    Endif
+    Else
+    If (#LF_image_file_name_length_without_extension > 0)
+    #LF_quote_char_movement_size := #LF_image_file_name_length_without_extension
+    Else
+    If (#LF_document_file_name_length_without_extension > 0)
+    #LF_quote_char_movement_size := #LF_document_file_name_length_without_extension
+    Endif
+    Endif
+    Endif
+    Endif
+    
+    * Copy the test file to the TEMP directory.
+    
+    If ((#LF_rc = OK) *And (#LF_valid_blob_file = OK))
+    #LF_include_blob_test := 'Yes'
+    
+    Use Builtin(OV_File_Service) With_Args(COPY_FILE (#LF_image_path + #LF_image_file) (#LF_temp_path + #LF_image_file)) To_Get(#LF_rc)
+    If (#LF_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + OV_File_Service/COPY_FILE: ' + #LF_rc) ('Failed making a copy of BLOB file') )
+    #LF_rc := ER
+    Endif
+    Endif
+    
+    If ((#LF_rc = OK) *And (#LF_valid_clob_file = OK))
+    #LF_include_clob_test := 'Yes'
+    
+    Use Builtin(OV_File_Service) With_Args(COPY_FILE (#LF_document_path + #LF_document_file) (#LF_temp_path + #LF_document_file)) To_Get(#LF_rc)
+    If (#LF_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + OV_File_Service/COPY_FILE: ' + #LF_rc) ('Failed making a copy of CLOB file') )
+    #LF_rc := ER
+    Endif
+    Endif
+    
+    * Insert test data to the VTL157722C database table.
+    If (#LF_rc = OK)
+    If ((*CPUTYPE = WINNT) *Or (*CPUTYPE = WIN95))
+    * File name can have apostrophy in the name on Windows.
+    * Duplidate the number of the test cases, so that a random file name will be generated for the duplicated name record.
+    #LF_quote_char_movement_size *= 2
+    Else
+    #LF_quote_char_movement_size := 2
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + There will be ' + #LF_quote_char_movement_size.AsString + ' test records') ('Including ' + ((#LF_quote_char_movement_size - 1).Div( 2 ) * 2).AsString + ' records with embedding apostrophe character in the file name') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + Test Data Type') ('Blob (' + #LF_include_blob_test + '), Clob (' + #LF_include_clob_test + ')') )
+    
+    #Com_Owner.mthInsertTestRecords( #LF_quote_char_movement_size #LF_valid_blob_file #LF_valid_clob_file #LF_rc )
+    Endif
+    
+    * Select all inserted test data.
+    If (#LF_rc = OK)
+    #Com_Owner.mthSelectTestRecords( #LF_quote_char_movement_size #LF_rc )
+    Endif
+    
+    * Remove created temporary files.
+    If (#LF_rc = OK)
+    #Com_Owner.mthDeleteTemporaryFiles( #LF_include_blob_test #LF_include_clob_test #LF_rc )
+    Else
+    * Ensure there is no temporary file left on the system.
+    
+    If (#LF_valid_blob_file = OK)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE (#LF_temp_path + #LF_image_file) FORCE) To_Get(#LF_rc)
+    Endif
+    
+    If (#LF_valid_blob_file = OK)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE (#LF_temp_path + #LF_document_file) FORCE) To_Get(#LF_rc)
+    Endif
+    Endif
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheckFile)
+    Define_Map For(*INPUT) Class(#BIFS512E) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE #this_file) To_Get(#this_rc)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsertTestRecords)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_number_of_test_records)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_valid_blob_file)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_valid_clob_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Insert Test Data' '' )
+    
+    #BIFS512E := *Sqlnull
+    #BIFBLOBA := *Sqlnull
+    #BIFS512F := *Sqlnull
+    #BIFCLOBA := *Sqlnull
+    
+    Begin_Loop Using(#BIFP0700A) To(#this_number_of_test_records)
+    #LF_i := 0
+    If (#BIFP0700A > 2)
+    #LF_i := #BIFP0700A.Div( 2 )
+    
+    If (#BIFP0700A.Mod( 2 ) = 0)
+    #LF_j := #LF_i - 1
+    Else
+    #LF_j := #LF_i
+    Endif
+    Endif
+    
+    If (#this_valid_blob_file = OK)
+    #BIFS512E := #LF_image_file
+    
+    If (#LF_i > 0)
+    #BIFS512E := #LF_image_file.ReplaceSubstring( #LF_j 1 "'" )
+    Use Builtin(OV_File_Service) With_Args(COPY_FILE (#LF_image_path + #LF_image_file) (#LF_temp_path + #BIFS512E)) To_Get(#this_rc #LF_errno)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + OV_File_Service/COPY_FILE: ' + #this_rc) ('Failed (' + #LF_errno.AsString + ') to make a copy to (' + (#LF_temp_path + #BIFS512E) + ')') )
+    
+    #this_rc := ER
+    Endif
+    Endif
+    
+    #BIFBLOBA := #LF_temp_path + #BIFS512E
+    Endif
+    
+    If ((#this_valid_clob_file = OK) *And (#this_rc = OK))
+    #BIFS512F := #LF_document_file
+    
+    If (#LF_i > 0)
+    #BIFS512F := #LF_document_file.ReplaceSubstring( #LF_j 1 "'" )
+    Use Builtin(OV_File_Service) With_Args(COPY_FILE (#LF_document_path + #LF_document_file) (#LF_temp_path + #BIFS512F)) To_Get(#this_rc #LF_errno)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + OV_File_Service/COPY_FILE: ' + #this_rc) ('Failed (' + #LF_errno.AsString + ') to make a copy to (' + (#LF_temp_path + #BIFS512F) + ')') )
+    
+    #this_rc := ER
+    Endif
+    Endif
+    
+    #BIFCLOBA := #LF_temp_path + #BIFS512F
+    Endif
+    
+    Add_Entry To_List(#wl_Test_Data)
+    
+    If (#this_rc = OK)
+    Insert Fields(*ALL) To_File(VTL157722C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Insert: ' + #this_rc) ('Failed inserting record ' + #BIFP0700A.AsString + '.') )
+    #this_rc := ER
+    Endif
+    Endif
+    
+    If (#this_rc = ER)
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Inserted ' + #this_number_of_test_records.AsString + ' test records') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSelectTestRecords)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_number_of_test_records)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Select Test Data' '' )
+    
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL157722C) With_Key(#BIFA100A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_i += 1
+    Endselect
+    
+    #this_rc := OK
+    If (#this_number_of_test_records = #LF_i)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Matched number of record') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' + Unmatched number of record') ('Inserted ' + #this_number_of_test_records.AsString + ' but found ' + #LF_i.AsString + ' from the SELECT command') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthDeleteTemporaryFiles)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_test_blob)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_test_clob)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #LF_j := 0
+    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#wl_Test_Data)
+    
+    If (#this_test_blob.UpperCase = YES)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE (#LF_temp_path + #BIFS512E) FORCE) To_Get(#this_rc)
+    If (#this_rc = OK)
+    #LF_j += 1
+    Endif
+    Endif
+    
+    If (#this_test_clob.UpperCase = YES)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE (#LF_temp_path + #BIFS512F) FORCE) To_Get(#this_rc)
+    If (#this_rc = OK)
+    #LF_j += 1
+    Endif
+    Endif
+    End_Loop
+    
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('Removed ' + #LF_j.AsString + ' temporary files') ('') )
+    Endroutine
+    
