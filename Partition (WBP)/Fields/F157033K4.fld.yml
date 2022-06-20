@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               F157033K4
+  Type:               Alpha
+  Length:             32
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Key Alpha(32)"
+      Label:              "157033 - Key Ch"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Key"
+
+  - ENG:
+      Description:        "157033 - Key Alpha(32)"
+      Label:              "157033 - Key Ch"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Key"
+
+  - FRA:
+      Description:        "157033 - Key Alpha(32)"
+      Label:              "157033 - Key Ch"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Key"
+
+  - JPN:
+      Description:        "157033 - Key Char(50)"
+      Label:              "157033 - Key Ch"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Key"
+
+  - TRK:
+      Description:        "157033 - Key Alpha(32)"
+      Label:              "157033 - Key Ch"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Key"

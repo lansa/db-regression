@@ -1,0 +1,120 @@
+﻿Process:
+  Name:                      VT157033
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Inconsistant Generic Search Results"
+
+  - ENG:
+      Description:        "Inconsistant Generic Search Results"
+
+  - FRA:
+      Description:        "Inconsistant Generic Search Results"
+
+  - JPN:
+      Description:        "Inconsistant Generic Search Results"
+
+  - TRK:
+      Description:        "Inconsistant Generic Search Results"
+
+  Functions:
+  - V57033A:
+      Name:               V57033A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 157033 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 157033 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 157033 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 157033 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 157033 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57033C:
+      Name:               V57033C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Generic Search on all LV"
+
+      - ENG:
+          Description:        "Generic Search on all LV"
+
+      - FRA:
+          Description:        "Generic Search on all LV"
+
+      - JPN:
+          Description:        "Generic Search on all LV"
+
+      - TRK:
+          Description:        "Generic Search on all LV"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57033D:
+      Name:               V57033D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Generic Search on all LV (+ Blob Field)"
+
+      - ENG:
+          Description:        "Generic Search on all LV (+ Blob Field)"
+
+      - FRA:
+          Description:        "Generic Search on all LV (+ Blob Field)"
+
+      - JPN:
+          Description:        "Generic Search on all LV (+ Blob Field)"
+
+      - TRK:
+          Description:        "Generic Search on all LV (+ Blob Field)"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57033E:
+      Name:               V57033E
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "158711 - Introduced by 157033"
+
+      - ENG:
+          Description:        "158711 - Introduced by 157033"
+
+      - FRA:
+          Description:        "158711 - Introduced by 157033"
+
+      - JPN:
+          Description:        "158711 - Introduced by 157033"
+
+      - TRK:
+          Description:        "158711 - Introduced by 157033"
+
+      Allowed Next Functions:
+      - "*ANY"

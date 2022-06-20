@@ -1,0 +1,58 @@
+﻿Field:
+  Name:               F157033a_ALPHA
+  Type:               Alpha
+  Length:             40
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Alpha(40)"
+      Label:              "157033 - Alpha("
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Alpha(40)"
+
+  - ENG:
+      Description:        "157033 - Alpha(40)"
+      Label:              "157033 - Alpha("
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Alpha(40)"
+
+  - FRA:
+      Description:        "157033 - Alpha(40)"
+      Label:              "157033 - Alpha("
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Alpha(40)"
+
+  - JPN:
+      Description:        "157033 - Alpha(40)"
+      Label:              "157033 - Alpha("
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Alpha(40)"
+
+  - TRK:
+      Description:        "157033 - Alpha(40)"
+      Label:              "157033 - Alpha("
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Alpha(40)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(752)
+    
+    End_Com
+    
+    End_Com

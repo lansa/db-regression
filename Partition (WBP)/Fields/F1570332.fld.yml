@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               F1570332
+  Type:               VarBinary
+  Length:             100
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Varbinary(100)"
+      Label:              "157033 - Varbin"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Varbinary(100)"
+
+  - ENG:
+      Description:        "157033 - Varbinary(100)"
+      Label:              "157033 - Varbin"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Varbinary(100)"
+
+  - FRA:
+      Description:        "157033 - Varbinary(100)"
+      Label:              "157033 - Varbin"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Varbinary(100)"
+
+  - JPN:
+      Description:        "157033 - Varbinary(100)"
+      Label:              "157033 - Varbin"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Varbinary(100)"
+
+  - TRK:
+      Description:        "157033 - Varbinary(100)"
+      Label:              "157033 - Varbin"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Varbinary(100)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    End_Com

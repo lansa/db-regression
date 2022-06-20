@@ -1,0 +1,106 @@
+﻿File:
+  Name:                           VTL157033E
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033E
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select With_Key on 2 Char Keys"
+
+  - ENG:
+      Description:        "157033 - Select With_Key on 2 Char Keys"
+
+  - FRA:
+      Description:        "157033 - Select With_Key on 2 Char Keys"
+
+  - JPN:
+      Description:        "157033 - Select With_Key on 2 Char Keys"
+
+  - TRK:
+      Description:        "157033 - Select With_Key on 2 Char Keys"
+
+  Real Fields:
+  - F157033K3:
+      Type:               Alphanumeric
+      Length:             32
+      Decimals:           0
+
+  - F157033K4:
+      Type:               Alphanumeric
+      Length:             32
+      Decimals:           0
+
+  - F157033A:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - F15703391:
+      Type:               NVarChar
+      Length:             100
+      Decimals:           0
+
+  - F15703392:
+      Type:               NVarChar
+      Length:             100
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K3
+  - F157033K4
+
+  Logical Views:
+  - L157033E9:
+      Identifier:         L157033E9
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033E9
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "New Index"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - F15703391:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F15703392:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

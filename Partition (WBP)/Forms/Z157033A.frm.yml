@@ -1,0 +1,762 @@
+﻿Form:
+  Name:               Z157033A
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - DAN:
+      Description:        "OAM Generaic(*Yes) Search on SUNI"
+
+  - ENG:
+      Description:        "OAM Generaic(*Yes) Search on SUNI"
+
+  - FRA:
+      Description:        "OAM Generaic(*Yes) Search on SUNI"
+
+  - JPN:
+      Description:        "OAM Generaic(*Yes) Search on SUNI"
+
+  - TRK:
+      Description:        "OAM Generaic(*Yes) Search on SUNI"
+
+  Source: |
+    * **************************************************
+    *
+    *  COMPONENT:  STD_FORM
+    *
+    * **************************************************
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_FORM) Clientwidth(494) Clientheight(877) Componentversion(2) Left(797) Top(25)
+    Define_Com Class(#CVL_R_001) Name(#CVL_R_001) Parent(#COM_OWNER) Tabstop(False) Displayposition(2) Tabposition(2) Left(8)
+    Define_Com Class(#PRIM_STBR) Name(#StatusBar1) Displayposition(4) Height(24) Left(0) Messageposition(1) Parent(#COM_OWNER) Tabposition(4) Tabstop(False) Top(853) Width(494)
+    
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX1) Displayposition(5) Left(8) Parent(#COM_OWNER) Tabposition(5) Tabstop(False) Top(144) Width(481) Caption('File')
+    Define_Com Class(#PRIM_RDBN) Name(#rad_File_VTL157033C) Caption('VTL157033C') Displayposition(1) Left(16) Marginleft(2) Parent(#GPBX1) Tabposition(1) Top(19) Width(97) Buttonchecked(True)
+    Define_Com Class(#PRIM_RDBN) Name(#rad_File_VTL157033D) Caption('VTL157033D') Displayposition(2) Left(144) Marginleft(2) Parent(#GPBX1) Tabposition(2) Top(20) Width(97)
+    
+    Define_Com Class(#PRIM_LTVW) Name(#ListView1) Componentversion(2) Displayposition(7) Fullrowselect(True) Keyboardpositioning(SortColumn) Left(8) Parent(#COM_OWNER) Showsortarrow(True) Tabposition(7) Top(200) Height(265) Width(481)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL1) Displayposition(1) Parent(#ListView1) Source(#BIFP0500A) Caption('#') Captiontype(Caption) Width(16)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL2) Displayposition(2) Parent(#ListView1) Source(#F157033K1) Width(22)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL3) Displayposition(3) Parent(#ListView1) Source(#F157033K2) Width(21)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL4) Displayposition(4) Parent(#ListView1) Source(#F157033H) Width(22)
+    
+    Define_Com Class(#PRIM_PHBN) Name(#btn_Clear) Caption('Clear') Displayposition(1) Left(320) Parent(#COM_OWNER) Tabposition(1) Top(472)
+    Define_Com Class(#PRIM_PHBN) Name(#btn_Refresh) Caption('Refresh') Displayposition(3) Left(408) Parent(#COM_OWNER) Tabposition(3) Top(472)
+    
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX2) Displayposition(6) Left(8) Parent(#COM_OWNER) Tabposition(6) Tabstop(False) Top(496) Height(353) Width(481) Caption('Search Criteria')
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX3) Displayposition(1) Left(8) Parent(#GPBX2) Tabposition(1) Tabstop(False) Top(24) Height(49) Width(233) Caption('Naming')
+    Define_Com Class(#PRIM_RDBN) Name(#rad_Naming_Field_Name) Displayposition(1) Left(8) Marginleft(2) Parent(#GPBX3) Tabposition(1) Top(16) Buttonchecked(True) Caption('Field Name') Width(105)
+    Define_Com Class(#PRIM_RDBN) Name(#rad_Naming_Field_Id) Caption('Field Id') Displayposition(2) Left(128) Marginleft(2) Parent(#GPBX3) Tabposition(2) Top(16) Width(81)
+    
+    Define_Com Class(#PRIM_PHBN) Name(#btn_Search) Caption('Search') Displayposition(3) Left(384) Parent(#GPBX2) Tabposition(3) Top(320)
+    Define_Com Class(#F1570331_VARCHAR.Visual) Name(#F1570331_VARCHAR) Displayposition(4) Left(8) Parent(#GPBX2) Tabposition(4) Top(88) Width(457) Height(27)
+    Define_Com Class(#F1570338_NCHAR.Visual) Name(#F1570338_NCHAR) Displayposition(5) Left(8) Parent(#GPBX2) Tabposition(5) Top(120) Width(457) Height(27)
+    Define_Com Class(#F1570339_NVARCHAR.Visual) Name(#F1570339_NVARCHAR) Displayposition(6) Left(8) Parent(#GPBX2) Tabposition(6) Top(152) Width(457) Height(27)
+    Define_Com Class(#F157033a_ALPHA.Visual) Name(#F157033a_ALPHA) Displayposition(7) Parent(#GPBX2) Tabposition(7) Top(184) Width(457) Height(27) Left(8)
+    Define_Com Class(#F157033H_CHAR.Visual) Name(#F157033H_CHAR) Displayposition(8) Left(8) Parent(#GPBX2) Tabposition(8) Top(216) Width(457) Height(27)
+    Define_Com Class(#F157033S_SBIN.Visual) Name(#F157033S_SBIN) Displayposition(9) Left(8) Parent(#GPBX2) Tabposition(9) Top(248) Width(457) Height(27)
+    Define_Com Class(#F157033U_SUNI.Visual) Name(#F157033U_SUNI) Displayposition(10) Left(8) Parent(#GPBX2) Tabposition(10) Top(280) Width(457) Height(27)
+    
+    Define_Com Class(#PRIM_CKBX) Name(#chk_Generic) Caption('Generic( *Yes )') Displayposition(2) Left(248) Marginleft(2) Parent(#GPBX2) Tabposition(2) Top(320) Width(105) Buttonstate(Checked)
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX4) Displayposition(11) Left(248) Parent(#GPBX2) Tabposition(11) Tabstop(False) Top(24) Width(209) Caption('Search Engine')
+    Define_Com Class(#PRIM_RDBN) Name(#rad_Search_Engine_RP) Displayposition(1) Left(8) Marginleft(2) Parent(#GPBX4) Tabposition(1) Top(16) Caption('Re-usable Part') Width(105) Buttonchecked(True)
+    Define_Com Class(#PRIM_RDBN) Name(#rad_Search_Engine_Local) Displayposition(2) Left(128) Marginleft(2) Parent(#GPBX4) Tabposition(2) Top(16) Width(73) Caption('Local')
+    
+    Define_Com Class(#R157033A) Name(#o_Query)
+    
+    Define Field(#LF_Items) Reffld(#Std_Count)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    
+    *
+    *
+    *
+    Evtroutine Handling(#com_owner.CreateInstance)
+    Set Com(#com_owner) Caption(*component_desc)
+    
+    * DEFAULT SEARCH CRITERIA.
+    #o_Query.Use_File := VTL157033C
+    #o_Query.Use_Generic := True
+    #o_Query.Use_Field_Name := True
+    Endroutine
+    
+    *
+    * Super Server Connection.
+    *
+    Evtroutine Handling(#CVL_R_001.SupSrv_Con)
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    *
+    * Super Server Disconnection
+    *
+    Evtroutine Handling(#CVL_R_001.SupSrv_Dis)
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    *
+    * Ensure only 1 type of data type can be searched at any time.
+    *
+    Evtroutine Handling(#F1570331_VARCHAR.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570338_NCHAR := *Null
+    #F1570339_NVARCHAR := *Null
+    #F157033a_ALPHA := *Null
+    #F157033H_CHAR := *Null
+    #F157033S_SBIN := *Null
+    #F157033U_SUNI := *Null
+    
+    #o_Query.Use_VarChar := #F1570331_VARCHAR
+    Endroutine
+    
+    Evtroutine Handling(#F1570338_NCHAR.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570331_VARCHAR := *Null
+    #F1570339_NVARCHAR := *Null
+    #F157033a_ALPHA := *Null
+    #F157033H_CHAR := *Null
+    #F157033S_SBIN := *Null
+    #F157033U_SUNI := *Null
+    
+    #o_Query.Use_NChar := #F1570338_NCHAR
+    Endroutine
+    
+    Evtroutine Handling(#F1570339_NVARCHAR.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570331_VARCHAR := *Null
+    #F1570338_NCHAR := *Null
+    #F157033a_ALPHA := *Null
+    #F157033H_CHAR := *Null
+    #F157033S_SBIN := *Null
+    #F157033U_SUNI := *Null
+    
+    #o_Query.Use_NVarChar := #F1570339_NVARCHAR
+    Endroutine
+    
+    Evtroutine Handling(#F157033a_ALPHA.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570331_VARCHAR := *Null
+    #F1570338_NCHAR := *Null
+    #F1570339_NVARCHAR := *Null
+    #F157033H_CHAR := *Null
+    #F157033S_SBIN := *Null
+    #F157033U_SUNI := *Null
+    
+    #o_Query.Use_Alpha := #F157033a_ALPHA
+    Endroutine
+    
+    Evtroutine Handling(#F157033H_CHAR.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570331_VARCHAR := *Null
+    #F1570338_NCHAR := *Null
+    #F1570339_NVARCHAR := *Null
+    #F157033a_ALPHA := *Null
+    #F157033S_SBIN := *Null
+    #F157033U_SUNI := *Null
+    
+    #o_Query.Use_Char := #F157033H_CHAR
+    Endroutine
+    
+    Evtroutine Handling(#F157033S_SBIN.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570331_VARCHAR := *Null
+    #F1570338_NCHAR := *Null
+    #F1570339_NVARCHAR := *Null
+    #F157033a_ALPHA := *Null
+    #F157033H_CHAR := *Null
+    #F157033U_SUNI := *Null
+    
+    #o_Query.Use_SBIN := #F157033S_SBIN
+    Endroutine
+    
+    Evtroutine Handling(#F157033U_SUNI.Changed) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #F1570331_VARCHAR := *Null
+    #F1570338_NCHAR := *Null
+    #F1570339_NVARCHAR := *Null
+    #F157033a_ALPHA := *Null
+    #F157033H_CHAR := *Null
+    #F157033S_SBIN := *Null
+    
+    #o_Query.Use_SUNI := #F157033U_SUNI
+    Endroutine
+    
+    *
+    * Clear the ListView.
+    *
+    Evtroutine Handling(#btn_Clear.Click)
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRefreshList)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_is_refresh)
+    
+    * DEFINE AND CREATE THE DATA COLLECTION.
+    Define_Com Class(#prim_lcol<#R157033B>) Name(#c_collection) Reference(*DYNAMIC)
+    Set_Ref Com(#c_collection) To(*CREATE_AS #Prim_Lcol<#R157033B>)
+    
+    Clr_List Named(#ListView1)
+    
+    If (#rad_Search_Engine_RP.ButtonChecked = True)
+    * GET THE SEARCH RESULT FROM THE RE-USABLE PART.
+    #o_Query.Get_Search_Result( #LF_Items #c_collection )
+    
+    * INSERT ALL DATA RECORDS TO THE LIST.
+    For Each(#Object) In(#c_collection)
+    #BIFP0500A := #Object.P_First
+    #F157033K1 := #Object.P_Second
+    #F157033K2 := #Object.P_Third
+    #F157033H := #Object.P_Fourth
+    Add_Entry To_List(#ListView1)
+    Endfor
+    Else
+    If (#this_is_refresh = True)
+    #Com_Owner.mthLocal_Refresh
+    Else
+    If (#chk_Generic.ButtonState = Checked)
+    #Com_Owner.mthLocal_SearchGeneric( (#rad_File_VTL157033C.ButtonChecked = True) (#rad_Naming_Field_Name.ButtonChecked = True) )
+    Else
+    #Com_Owner.mthLocal_Search( (#rad_File_VTL157033C.ButtonChecked = True) (#rad_Naming_Field_Name.ButtonChecked = True) )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthLocal_Refresh)
+    If (#rad_File_VTL157033C.ButtonChecked = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(VTL157033C) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(VTL157033D) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endroutine
+    *
+    *
+    *
+    Mthroutine Name(mthLocal_SearchGeneric)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_vtl157033c)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_use_long_name)
+    
+    #BIFP0500A := 0
+    
+    * VARCHAR.
+    If (#F1570331_VARCHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C1_VARCHAR) With_Key(#F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D1_VARCHAR) With_Key(#F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F1570331 := #F1570331_VARCHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C1) With_Key(#F1570331) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D1) With_Key(#F1570331) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * NCHAR.
+    If (#F1570338_NCHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C8_NCHAR) With_Key(#F1570338_NCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D8_NCHAR) With_Key(#F1570338_NCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F1570338 := #F1570338_NCHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C8) With_Key(#F1570338) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D8) With_Key(#F1570338) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * NVARCHAR.
+    If (#F1570339_NVARCHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C9_NVARCHAR) With_Key(#F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F1570339 := #F1570339_NVARCHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C9) With_Key(#F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D9) With_Key(#F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * ALPHA.
+    If (#F157033A_ALPHA.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CA_ALPHA) With_Key(#F157033A_ALPHA) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DA_ALPHA) With_Key(#F157033A_ALPHA) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033A := #F157033A_ALPHA
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CA) With_Key(#F157033A) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DA) With_Key(#F157033A) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * CHAR.
+    If (#F157033H_CHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CH_CHAR) With_Key(#F157033H_CHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DH_CHAR) With_Key(#F157033H_CHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033H := #F157033H_CHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CH) With_Key(#F157033H) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DH) With_Key(#F157033H) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * SBIN.
+    If (#F157033S_SBIN.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CS_SBIN) With_Key(#F157033S_SBIN) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033S := #F157033S_SBIN
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CS) With_Key(#F157033S) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DS) With_Key(#F157033S) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * SUNI.
+    If (#F157033U_SUNI.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CU_SUNI) With_Key(#F157033U_SUNI) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DU_SUNI) With_Key(#F157033U_SUNI) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033U := #F157033U_SUNI
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CU) With_Key(#F157033U) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DU) With_Key(#F157033U) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthLocal_Search)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_vtl157033c)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_use_long_name)
+    
+    #BIFP0500A := 0
+    
+    * VARCHAR.
+    If (#F1570331_VARCHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C1_VARCHAR) With_Key(#F1570331_VARCHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D1_VARCHAR) With_Key(#F1570331_VARCHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F1570331 := #F1570331_VARCHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C1) With_Key(#F1570331) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D1) With_Key(#F1570331) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * NCHAR.
+    If (#F1570338_NCHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C8_NCHAR) With_Key(#F1570338_NCHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D8_NCHAR) With_Key(#F1570338_NCHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F1570338 := #F1570338_NCHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C8) With_Key(#F1570338) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D8) With_Key(#F1570338) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * NVARCHAR.
+    If (#F1570339_NVARCHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C9_NVARCHAR) With_Key(#F1570339_NVARCHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F1570339 := #F1570339_NVARCHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033C9) With_Key(#F1570339) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033D9) With_Key(#F1570339) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * ALPHA.
+    If (#F157033A_ALPHA.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CA_ALPHA) With_Key(#F157033A_ALPHA) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DA_ALPHA) With_Key(#F157033A_ALPHA) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033A := #F157033A_ALPHA
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CA) With_Key(#F157033A) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DA) With_Key(#F157033A) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * CHAR.
+    If (#F157033H_CHAR.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CH_CHAR) With_Key(#F157033H_CHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DH_CHAR) With_Key(#F157033H_CHAR) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033H := #F157033H_CHAR
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CH) With_Key(#F157033H) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DH) With_Key(#F157033H) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * SBIN.
+    If (#F157033S_SBIN.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CS_SBIN) With_Key(#F157033S_SBIN) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033S := #F157033S_SBIN
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CS) With_Key(#F157033S) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DS) With_Key(#F157033S) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    
+    * SUNI.
+    If (#F157033U_SUNI.CurChars > 0)
+    If (#this_use_long_name = True)
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CU_SUNI) With_Key(#F157033U_SUNI) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DU_SUNI) With_Key(#F157033U_SUNI) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Else
+    #F157033U := #F157033U_SUNI
+    
+    If (#this_vtl157033c = True)
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033CU) With_Key(#F157033U) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Else
+    Select Fields(#F157033K1 #F157033K2 #F157033H) From_File(L157033DU) With_Key(#F157033U) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endif
+    Endif
+    Return
+    Endif
+    Endroutine
+    *
+    *
+    *
+    Evtroutine Handling(#rad_File_VTL157033C.Click)
+    #o_Query.Use_File := VTL157033C
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    Evtroutine Handling(#rad_File_VTL157033D.Click)
+    #o_Query.Use_File := VTL157033D
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    Evtroutine Handling(#rad_Naming_Field_Name.Click)
+    #o_Query.Use_Field_Name := True
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    Evtroutine Handling(#rad_Naming_Field_Id.Click)
+    #o_Query.Use_Field_Name := False
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    Evtroutine Handling(#chk_Generic.Click)
+    #o_Query.Use_Generic := (#chk_Generic.ButtonState = Checked)
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    *
+    * Call the Re-usable Part R157033A to perform the Refresh.
+    *
+    Evtroutine Handling(#btn_Refresh.Click)
+    If (#rad_Search_Engine_RP.ButtonChecked = True)
+    #o_Query.DoRefresh
+    Endif
+    
+    #Com_Owner.mthRefreshList( True )
+    Endroutine
+    
+    *
+    * Call the Re-usable Part R157033A to perform the Search.
+    *
+    Evtroutine Handling(#btn_Search.Click)
+    If (#rad_Search_Engine_RP.ButtonChecked = True)
+    #o_Query.DoSearch
+    Endif
+    
+    #Com_Owner.mthRefreshList( False )
+    Endroutine
+    
+    *
+    *
+    *
+    Evtroutine Handling(#rad_Search_Engine_RP.Click #rad_Search_Engine_Local.Click)
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    End_Com

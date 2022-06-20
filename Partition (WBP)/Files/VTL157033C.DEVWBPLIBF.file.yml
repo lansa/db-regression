@@ -1,0 +1,554 @@
+﻿File:
+  Name:                           VTL157033C
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033C
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select With_Key on Chars"
+
+  - ENG:
+      Description:        "157033 - Select With_Key on Chars"
+
+  - FRA:
+      Description:        "157033 - Select With_Key on Chars"
+
+  - JPN:
+      Description:        "157033 - Select With_Key on Chars"
+
+  - TRK:
+      Description:        "157033 - Select With_Key on Chars"
+
+  Real Fields:
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - F1570331:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
+  - F15703311:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
+  - F1570332:
+      Type:               VarBinary
+      Length:             100
+      Decimals:           0
+
+  - F15703321:
+      Type:               VarBinary
+      Length:             100
+      Decimals:           0
+
+  - F1570338:
+      Type:               NChar
+      Length:             100
+      Decimals:           0
+
+  - F15703381:
+      Type:               NChar
+      Length:             100
+      Decimals:           0
+
+  - F1570339:
+      Type:               NVarChar
+      Length:             100
+      Decimals:           0
+
+  - F15703391:
+      Type:               NVarChar
+      Length:             100
+      Decimals:           0
+
+  - F157033A:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - F157033A1:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - F157033B:
+      Type:               Binary
+      Length:             100
+      Decimals:           0
+
+  - F157033B1:
+      Type:               Binary
+      Length:             100
+      Decimals:           0
+
+  - F157033H:
+      Type:               Char
+      Length:             40
+      Decimals:           0
+
+  - F157033H1:
+      Type:               Char
+      Length:             40
+      Decimals:           0
+
+  - F157033S:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - F157033S1:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - F157033U:
+      Type:               Char
+      Length:             40
+      Decimals:           0
+
+  - F157033U1:
+      Type:               Char
+      Length:             40
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K1
+  - F157033K2
+
+  Logical Views:
+  - L157033C1:
+      Identifier:         L157033C1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV1570331
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570331"
+
+      - ENG:
+          Description:        "Key: F1570331"
+
+      - FRA:
+          Description:        "Key: F1570331"
+
+      - JPN:
+          Description:        "Key: F1570331"
+
+      - TRK:
+          Description:        "Key: F1570331"
+
+      Keys:
+      - F1570331:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033C1_VARCHAR:
+      Identifier:         L157033C11
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV15703311
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - ENG:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - FRA:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - JPN:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - TRK:
+          Description:        "Key: F1570331_VARCHAR"
+
+      Keys:
+      - F15703311:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033C8:
+      Identifier:         L157033C8
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV1570338
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570338"
+
+      - ENG:
+          Description:        "Key: F1570338"
+
+      - FRA:
+          Description:        "Key: F1570338"
+
+      - JPN:
+          Description:        "Key: F1570338"
+
+      - TRK:
+          Description:        "Key: F1570338"
+
+      Keys:
+      - F1570338:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033C8_NCHAR:
+      Identifier:         L157033C81
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV15703381
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570338_NCHAR"
+
+      - ENG:
+          Description:        "Key: F1570338_NCHAR"
+
+      - FRA:
+          Description:        "Key: F1570338_NCHAR"
+
+      - JPN:
+          Description:        "Key: F1570338_NCHAR"
+
+      - TRK:
+          Description:        "Key: F1570338_NCHAR"
+
+      Keys:
+      - F15703381:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033C9:
+      Identifier:         L157033C9
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV1570339
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570339"
+
+      - ENG:
+          Description:        "Key: F1570339"
+
+      - FRA:
+          Description:        "Key: F1570339"
+
+      - JPN:
+          Description:        "Key: F1570339"
+
+      - TRK:
+          Description:        "Key: F1570339"
+
+      Keys:
+      - F1570339:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033C9_NVARCHAR:
+      Identifier:         L157033C91
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV15703391
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - ENG:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - FRA:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - JPN:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - TRK:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      Keys:
+      - F15703391:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CA:
+      Identifier:         L157033CA
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033A
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033A"
+
+      - ENG:
+          Description:        "Key: F157033A"
+
+      - FRA:
+          Description:        "Key: F157033A"
+
+      - JPN:
+          Description:        "Key: F157033A"
+
+      - TRK:
+          Description:        "Key: F157033A"
+
+      Keys:
+      - F157033A:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CA_ALPHA:
+      Identifier:         L157033CA1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033A1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033_ALPHA"
+
+      - ENG:
+          Description:        "Key: F157033_ALPHA"
+
+      - FRA:
+          Description:        "Key: F157033_ALPHA"
+
+      - JPN:
+          Description:        "Key: F157033_ALPHA"
+
+      - TRK:
+          Description:        "Key: F157033_ALPHA"
+
+      Keys:
+      - F157033A1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CH:
+      Identifier:         L157033CH
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033H
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033H"
+
+      - ENG:
+          Description:        "Key: F157033H"
+
+      - FRA:
+          Description:        "Key: F157033H"
+
+      - JPN:
+          Description:        "Key: F157033H"
+
+      - TRK:
+          Description:        "Key: F157033H"
+
+      Keys:
+      - F157033H:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CH_CHAR:
+      Identifier:         L157033CH1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033H1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033H_CHAR"
+
+      - ENG:
+          Description:        "Key: F157033H_CHAR"
+
+      - FRA:
+          Description:        "Key: F157033H_CHAR"
+
+      - JPN:
+          Description:        "Key: F157033H_CHAR"
+
+      - TRK:
+          Description:        "Key: F157033H_CHAR"
+
+      Keys:
+      - F157033H1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CS:
+      Identifier:         L157033CS
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033S
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033S"
+
+      - ENG:
+          Description:        "Key: F157033S"
+
+      - FRA:
+          Description:        "Key: F157033S"
+
+      - JPN:
+          Description:        "Key: F157033S"
+
+      - TRK:
+          Description:        "Key: F157033S"
+
+      Keys:
+      - F157033S:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CS_SBIN:
+      Identifier:         L157033CS1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033S1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033S_SBIN"
+
+      - ENG:
+          Description:        "Key: F157033S_SBIN"
+
+      - FRA:
+          Description:        "Key: F157033S_SBIN"
+
+      - JPN:
+          Description:        "Key: F157033S_SBIN"
+
+      - TRK:
+          Description:        "Key: F157033S_SBIN"
+
+      Keys:
+      - F157033S1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CU:
+      Identifier:         L157033CU
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033U
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033U"
+
+      - ENG:
+          Description:        "Key: F157033U"
+
+      - FRA:
+          Description:        "Key: F157033U"
+
+      - JPN:
+          Description:        "Key: F157033U"
+
+      - TRK:
+          Description:        "Key: F157033U"
+
+      Keys:
+      - F157033U:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033CU_SUNI:
+      Identifier:         L157033CU1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033U1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033_SUNI"
+
+      - ENG:
+          Description:        "Key: F157033_SUNI"
+
+      - FRA:
+          Description:        "Key: F157033_SUNI"
+
+      - JPN:
+          Description:        "Key: F157033_SUNI"
+
+      - TRK:
+          Description:        "Key: F157033_SUNI"
+
+      Keys:
+      - F157033U1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

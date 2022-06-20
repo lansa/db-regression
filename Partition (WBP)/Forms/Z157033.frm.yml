@@ -1,0 +1,114 @@
+﻿Form:
+  Name:               Z157033
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - DAN:
+      Description:        "CCS's Test Case"
+
+  - ENG:
+      Description:        "CCS's Test Case"
+
+  - FRA:
+      Description:        "CCS's Test Case"
+
+  - JPN:
+      Description:        "CCS's Test Case"
+
+  - TRK:
+      Description:        "CCS's Test Case"
+
+  Source: |
+    * **************************************************
+    *
+    *  COMPONENT:  STD_FORM
+    *
+    * **************************************************
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_FORM) Clientwidth(495) Clientheight(529) Componentversion(2) Left(789) Top(160)
+    Define_Com Class(#CVL_R_001) Name(#CVL_R_001) Left(8) Parent(#COM_OWNER) Tabstop(False) Top(8)
+    Define_Com Class(#PRIM_STBR) Name(#StatusBar1) Displayposition(2) Height(24) Left(0) Messageposition(1) Parent(#COM_OWNER) Tabposition(2) Tabstop(False) Top(505) Width(495)
+    Define_Com Class(#PRIM_LTVW) Name(#ListView1) Componentversion(2) Displayposition(3) Fullrowselect(True) Keyboardpositioning(SortColumn) Left(8) Parent(#COM_OWNER) Showsortarrow(True) Tabposition(3) Top(152) Height(201) Width(481)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL2) Displayposition(2) Parent(#ListView1) Source(#xEmployeeIdentification)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL3) Displayposition(3) Parent(#ListView1) Source(#xEmployeeSurname) Width(35)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL1) Displayposition(1) Parent(#ListView1) Source(#BIFP0500A) Width(14) Caption('#') Captiontype(Caption)
+    Define_Com Class(#PRIM_PHBN) Name(#btn_Search) Caption('Search') Displayposition(4) Left(264) Parent(#COM_OWNER) Tabposition(4) Top(465)
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX1) Displayposition(5) Left(8) Parent(#COM_OWNER) Tabposition(5) Tabstop(False) Top(441) Width(241) Caption('Search By')
+    Define_Com Class(#PRIM_RDBN) Name(#rad_SearchByLongName) Caption('Long Name') Displayposition(1) Left(16) Marginleft(2) Parent(#GPBX1) Tabposition(1) Top(16) Buttonchecked(True) Width(97)
+    Define_Com Class(#PRIM_RDBN) Name(#rad_SearchByObjectId) Caption('Object Id') Displayposition(2) Left(128) Marginleft(2) Parent(#GPBX1) Tabposition(2) Top(16) Width(89)
+    Define_Com Class(#xEmployeeSurname.Visual) Name(#xEmployeeSurname) Displayposition(6) Left(8) Parent(#COM_OWNER) Tabposition(6) Top(408) Width(353) Marginleft(70)
+    Define_Com Class(#PRIM_PHBN) Name(#btn_Refresh) Displayposition(7) Left(408) Parent(#COM_OWNER) Tabposition(7) Top(369) Caption('Refresh')
+    Define_Com Class(#PRIM_PHBN) Name(#btn_ClearList) Displayposition(8) Left(314) Parent(#COM_OWNER) Tabposition(8) Top(369) Caption('Clear List')
+    
+    Define Field(#LF_IsSuperServerConnection) Type(*CHAR) Length(1)
+    Define Field(#LF_SuperServerConnectionName) Type(*CHAR) Length(20)
+    Define Field(#LF_EmployeeIdntification) Reffld(#xEmployeeIdentification)
+    Define Field(#LF_EmployeeSurname) Reffld(#xEmployeeSurname)
+    
+    Evtroutine Handling(#com_owner.CreateInstance)
+    Set Com(#com_owner) Caption(*component_desc)
+    Endroutine
+    
+    *
+    * Super Server Connection.
+    *
+    Evtroutine Handling(#CVL_R_001.SupSrv_Con)
+    #LF_IsSuperServerConnection := Y
+    #LF_SuperServerConnectionName := #CVL_R_001.SupSrv_name
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    *
+    *
+    * Super Server Disconnection
+    *
+    Evtroutine Handling(#CVL_R_001.SupSrv_Dis)
+    #LF_IsSuperServerConnection := N
+    
+    Clr_List Named(#ListView1)
+    Endroutine
+    
+    Mthroutine Name(mthRefresh)
+    Clr_List Named(#ListView1)
+    
+    #BIFP0500A := 0
+    Select Fields(#ListView1) From_File(xEmployee)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endroutine
+    
+    Evtroutine Handling(#btn_Search.Click)
+    Clr_List Named(#ListView1)
+    
+    #BIFP0500A := 0
+    If (#rad_SearchByLongName.ButtonChecked = True)
+    #Com_Owner.mthSearchByLongName_Unicode
+    Else
+    #Com_Owner.mthSearchByObjectId_Unicode
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearchByLongName_Unicode)
+    Select Fields(#ListView1) From_File(xEmployeeBySurname) With_Key(#xEmployeeSurname) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endroutine
+    
+    Mthroutine Name(mthSearchByObjectId_Unicode)
+    Select Fields(#ListView1) From_File(xEmployeeBySurname) With_Key(#xSurname) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#ListView1)
+    Endselect
+    Endroutine
+    
+    Evtroutine Handling(#btn_Refresh.Click)
+    #Com_Owner.mthRefresh
+    Endroutine
+    
+    Evtroutine Handling(#btn_ClearList.Click)
+    Clr_List Named(#ListView1)
+    Endroutine
+    End_Com

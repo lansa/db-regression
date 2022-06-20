@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               F157033B
+  Type:               Binary
+  Length:             100
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Binary(100)"
+      Label:              "157033 - Binary"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Binary(100)"
+
+  - ENG:
+      Description:        "157033 - Binary(100)"
+      Label:              "157033 - Binary"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Binary(100)"
+
+  - FRA:
+      Description:        "157033 - Binary(100)"
+      Label:              "157033 - Binary"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Binary(100)"
+
+  - JPN:
+      Description:        "157033 - Binary(100)"
+      Label:              "157033 - Binary"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Binary(100)"
+
+  - TRK:
+      Description:        "157033 - Binary(100)"
+      Label:              "157033 - Binary"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Binary(100)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    End_Com

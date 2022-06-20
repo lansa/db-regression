@@ -1,0 +1,42 @@
+﻿Reusable Part:
+  Name:               R157033B
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - R157033's List Data Item"
+
+  - ENG:
+      Description:        "157033 - R157033's List Data Item"
+
+  - FRA:
+      Description:        "157033 - R157033's List Data Item"
+
+  - JPN:
+      Description:        "157033 - R157033's List Data Item"
+
+  - TRK:
+      Description:        "157033 - R157033's List Data Item"
+
+  Source: |
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Define_Pty Name(P_First) Get(*auto #BIFP0500A) Set(*auto #BIFP0500A)
+    Define_Pty Name(P_Second) Get(*auto #F157033K1) Set(*auto #F157033K1)
+    Define_Pty Name(P_Third) Get(*auto #F157033K2) Set(*auto #F157033K2)
+    Define_Pty Name(P_Fourth) Get(*auto #F157033H) Set(*auto #F157033H)
+    
+    Mthroutine Name(Initialize)
+    Define_Map For(*INPUT) Class(#BIFP0500A) Name(#this_record_number)
+    Define_Map For(*INPUT) Class(#F157033K1) Name(#this_key1)
+    Define_Map For(*INPUT) Class(#F157033K2) Name(#this_key2)
+    Define_Map For(*INPUT) Class(#F157033H) Name(#this_char)
+    
+    #BIFP0500A := #this_record_number
+    #F157033K1 := #this_key1
+    #F157033K2 := #this_key2
+    #F157033H := #this_char
+    Endroutine
+    End_Com

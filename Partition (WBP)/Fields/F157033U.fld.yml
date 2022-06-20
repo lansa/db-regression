@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               F157033U
+  Type:               Char
+  Length:             40
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - SUNI
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Char(40) - SUNI"
+      Label:              "157033 - Char(4"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Char(40)"
+
+  - ENG:
+      Description:        "157033 - Char(40) - SUNI"
+      Label:              "157033 - Char(4"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Char(40)"
+
+  - FRA:
+      Description:        "157033 - Char(40) - SUNI"
+      Label:              "157033 - Char(4"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Char(40)"
+
+  - JPN:
+      Description:        "157033 - Char(40)"
+      Label:              "157033 - Char(4"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Char(40)"
+
+  - TRK:
+      Description:        "157033 - Char(40) - SUNI"
+      Label:              "157033 - Char(4"
+      Heading1:           "157033"
+      Heading2:           "-"
+      Heading3:           "Char(40)"

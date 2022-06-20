@@ -1,0 +1,401 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * List Of Test data.
+    Define Field(#LF_Test_Data_K3) Reffld(#F157033K3)
+    Define Field(#LF_Test_Data_K4) Reffld(#F157033K4)
+    Define Field(#LF_Test_Data_LV_K1) Reffld(#F1570339_NVARCHAR)
+    Define Field(#LF_Test_Data_LV_K2) Reffld(#F1570339_NVARCHAR_SQLNULL)
+    Define Field(#LF_Test_Data_Count) Reffld(#Std_Count)
+    Def_List Name(#wLTestData) Fields(#LF_Test_Data_K3 #LF_Test_Data_K4 #LF_Test_Data_LV_K1 #LF_Test_Data_LV_K2) Counter(#LF_Test_Data_Count) Type(*WORKING) Entrys(10)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Total_Errors) Reffld(#Std_Count)
+    Define Field(#LF_Total_Warnings) Reffld(#Std_Count)
+    Define Field(#LF_Operation_Name) Reffld(#BIFMSG1)
+    Define Field(#LF_Counter_2_Key) Reffld(#Std_Count)
+    Define Field(#LF_Counter_WithKey) Reffld(#Std_Count)
+    Define Field(#LF_Counter_Compute) Reffld(#Std_Count)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    * DELETE TEST DATA.
+    #Com_Owner.mthDoDelete( #LF_rc )
+    
+    * SETUP THE TEST DATA.
+    Execute Subroutine(AddTestData) With_Parms('Visual' 'Visual')
+    Execute Subroutine(AddTestData) With_Parms('Visual LANSA' 'Visual LANSA')
+    Execute Subroutine(AddTestData) With_Parms('Visualisation' 'Visualisation')
+    Execute Subroutine(AddTestData) With_Parms('Visual' '')
+    
+    * INSERT TEST DATA.
+    #Com_Owner.mthDoInsert( #LF_rc )
+    
+    * SEARCH TEST.
+    If (#LF_rc = OK)
+    #Com_Owner.mthDoSearch( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    *
+    * Add Test Data.
+    *
+    Subroutine Name(AddTestData) Parms((#LF_Test_Data_K3 *RECEIVED) (#LF_Test_Data_K4 *RECEIVED))
+    If (#LF_Test_Data_Count < 10)
+    #LF_Test_Data_LV_K1 := #LF_Test_Data_K3
+    #LF_Test_Data_LV_K2 := #LF_Test_Data_K4
+    Add_Entry To_List(#wLTestData)
+    Endif
+    Endroutine
+    
+    *
+    * Delete Data.
+    *
+    Mthroutine Name(mthDoDelete)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #LF_i := 0
+    Dowhile Cond(#this_rc = OK)
+    Fetch Fields(#F157033K3) From_File(VTL157033E) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> ER)
+    #LF_i += 1
+    Delete From_File(VTL157033E) With_Key(#F157033K3) Io_Error(*NEXT) Val_Error(*NEXT)
+    Endif
+    Endwhile
+    
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Delete Data' (#LF_i.AsString + ' set of key records deleted') )
+    Endroutine
+    
+    *
+    * Insert Data.
+    *
+    Mthroutine Name(mthDoInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#wLTestData)
+    
+    #F157033K3 := #LF_Test_Data_K3
+    #F157033K4 := #LF_Test_Data_K4
+    #F157033A := #LF_Test_Data_K3
+    #F1570339_NVARCHAR := #LF_Test_Data_K3
+    #F1570339_NVARCHAR_SQLNULL := #LF_Test_Data_K4
+    Insert Fields(*ALL) To_File(VTL157033E) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc *NE OK)
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#LF_Test_Data_Count.AsString + ' records inserted') )
+    Endroutine
+    
+    *
+    * Search.
+    *
+    Mthroutine Name(mthDoSearch)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#wLTestData)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Key Values ') (*Quote + #LF_Test_Data_K3 + *Quote + ' / ' + *Quote + #LF_Test_Data_K4 + *Quote) )
+    
+    #Com_Owner.mthSearch_Generic_Alpha_Keys( #LF_Test_Data_K3 #LF_Test_Data_K4 #this_rc )
+    If (#this_rc *NE OK)
+    Leave
+    Endif
+    
+    #Com_Owner.mthSearch_Generic_NVarchar_Keys( #LF_Test_Data_LV_K1 #LF_Test_Data_LV_K2 #this_rc )
+    If (#this_rc *NE OK)
+    Leave
+    Endif
+    End_Loop
+    Endif
+    Endroutine
+    
+    *
+    * Search With_Key(<ALPHA> <ALPHA>) Generic(*Yes) with all possible values of Nbr_Keys.
+    *
+    Mthroutine Name(mthSearch_Generic_Alpha_Keys)
+    Define_Map For(*INPUT) Class(#F157033K3) Name(#this_test_value_K3)
+    Define_Map For(*INPUT) Class(#F157033K4) Name(#this_test_value_K4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK (' - Search With_Key(<ALPHA> <ALPHA>) Generic(*Yes)') '' )
+    
+    #Com_Owner.mthFunc_Search_Generic_Alpha_Key_2_Key( #this_test_value_K3 #this_test_value_K4 #this_rc #LF_Counter_2_Key )
+    #Com_Owner.mthFunc_Search_Generic_Alpha_Key_WithKey( #this_test_value_K3 #this_test_value_K4 #this_rc #LF_Counter_WithKey )
+    #Com_Owner.mthFunc_Search_Generic_Alpha_Key_Compute( #this_test_value_K3 #this_test_value_K4 #this_rc #LF_Counter_Compute )
+    
+    If (#this_rc = OK)
+    If ((#LF_Counter_2_Key = #LF_Counter_WithKey) *And (#LF_Counter_2_Key = #LF_Counter_Compute))
+    #Com_Owner.mthAdd_SubMsg( #this_rc '  + Searh results matched' '' )
+    Else
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER '  + Unexpected searh results mismatched' ('Nbm_Keys(2 Keys): ' + #LF_Counter_2_Key.AsString + '. Nbm_Keys(*WithKey): ' + #LF_Counter_WithKey.AsString + '. Nbm_Keys(*Compute): ' + #LF_Counter_Compute.AsString) )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_Alpha_Key_2_Key)
+    Define_Map For(*INPUT) Class(#F157033K3) Name(#this_test_value_K3)
+    Define_Map For(*INPUT) Class(#F157033K4) Name(#this_test_value_K4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_total)
+    
+    #this_total := 0
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(VTL157033E) With_Key(#this_test_value_K3 #this_test_value_K4) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(2 Keys): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(2 Keys): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_Alpha_Key_WITHKEY)
+    Define_Map For(*INPUT) Class(#F157033K3) Name(#this_test_value_K3)
+    Define_Map For(*INPUT) Class(#F157033K4) Name(#this_test_value_K4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_total)
+    
+    #this_total := 0
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(VTL157033E) With_Key(#this_test_value_K3 #this_test_value_K4) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*WithKey): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*WithKey): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_Alpha_Key_COMPUTE)
+    Define_Map For(*INPUT) Class(#F157033K3) Name(#this_test_value_K3)
+    Define_Map For(*INPUT) Class(#F157033K4) Name(#this_test_value_K4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_total)
+    
+    #this_total := 0
+    
+    * If #this_test_value_K4 is *BLANK, then perform a seach With_Key(#this_test_value_K3) without Generic(*YES).
+    If (#this_test_value_K4 = *BLanks)
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(VTL157033E) With_Key(#this_test_value_K3) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Generic(*NO): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Generic(*NO): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Else
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(VTL157033E) With_Key(#this_test_value_K3 #this_test_value_K4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*Compute): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*Compute): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    * Search With_Key(<NVCHAR> <NVCHAR>) Generic(*Yes) with all possible values of Nbr_Keys.
+    *
+    Mthroutine Name(mthSearch_Generic_NVarchar_Keys)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR) Name(#this_LV_K1)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR_SQLNULL) Name(#this_LV_K2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK (' - Search With_Key(<NVCHAR> <NVCHAR>) Generic(*Yes)') '' )
+    
+    #Com_Owner.mthFunc_Search_Generic_NVarchar_Key_2_Key( #this_LV_K1 #this_LV_K2 #this_rc #LF_Counter_2_Key )
+    #Com_Owner.mthFunc_Search_Generic_NVarchar_Key_WithKey( #this_LV_K1 #this_LV_K2 #this_rc #LF_Counter_WithKey )
+    #Com_Owner.mthFunc_Search_Generic_NVarchar_Key_Compute( #this_LV_K1 #this_LV_K2 #this_rc #LF_Counter_Compute )
+    
+    If (#this_rc = OK)
+    If ((#LF_Counter_2_Key = #LF_Counter_WithKey) *And (#LF_Counter_2_Key = #LF_Counter_Compute))
+    #Com_Owner.mthAdd_SubMsg( #this_rc '  + Searh results matched' '' )
+    Else
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER '  + Unexpected searh results mismatched' ('Nbm_Keys(2 Keys): ' + #LF_Counter_2_Key.AsString + '. Nbm_Keys(*WithKey): ' + #LF_Counter_WithKey.AsString + '. Nbm_Keys(*Compute): ' + #LF_Counter_Compute.AsString) )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_NVarchar_Key_2_Key)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR) Name(#this_LV_K1)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR_SQLNULL) Name(#this_LV_K2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_total)
+    
+    #this_total := 0
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(L157033E9) With_Key(#this_LV_K1 #this_LV_K2) Nbr_Keys(2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(2 Keys): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(2 Keys): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_NVarchar_Key_WITHKEY)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR) Name(#this_LV_K1)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR_SQLNULL) Name(#this_LV_K2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_total)
+    
+    #this_total := 0
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(L157033E9) With_Key(#this_LV_K1 #this_LV_K2) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*WithKey): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*WithKey): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_NVarchar_Key_COMPUTE)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR) Name(#this_LV_K1)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR_SQLNULL) Name(#this_LV_K2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#Std_Count) Name(#this_total)
+    
+    #this_total := 0
+    
+    * If #this_LV_K2 is *BLANK, then perform a seach With_Key(#this_LV_K1) without Generic(*YES).
+    If ((#this_LV_K2 = *BLanks) *Or (#this_LV_K2.IsSqlNull))
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(L157033E9) With_Key(#this_LV_K1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Generic(*NO): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Generic(*NO): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Else
+    If (#this_rc = OK)
+    Select Fields(#F157033A) From_File(L157033E9) With_Key(#this_LV_K1 #this_LV_K2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #this_total += 1
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*Compute): Unexpected return code ' + #this_rc) '' )
+    Else
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  + Nbm_Keys(*Compute): ' + #this_total.AsString + ' returned recrods') '' )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    

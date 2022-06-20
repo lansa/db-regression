@@ -1,0 +1,729 @@
+﻿Reusable Part:
+  Name:               R157033A
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Reusable Part ( *Object )"
+
+  - ENG:
+      Description:        "157033 - Reusable Part ( *Object )"
+
+  - FRA:
+      Description:        "157033 - Reusable Part ( *Object )"
+
+  - JPN:
+      Description:        "157033 - Reusable Part ( *Object )"
+
+  - TRK:
+      Description:        "157033 - Reusable Part ( *Object )"
+
+  Source: |
+    Function Options(*DIRECT)
+    
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    * Search Criteria Properties.
+    Define_Pty Name(Use_Generic) Desc('Turn on/off Generic( *Yes )') Get(Get_Use_Generic) Set(Set_Use_Generic)
+    Define_Pty Name(Use_File) Desc('File') Get(Get_Use_File) Set(Set_Use_File)
+    Define_Pty Name(Use_Field_Name) Desc('Field Name (True / False') Get(Get_Use_Naming) Set(Set_Use_Naming)
+    Define_Pty Name(Use_VarChar) Desc('Search By VarChar Value') Get(Get_Use_VarChar) Set(Set_Use_VarChar)
+    Define_Pty Name(Use_NChar) Desc('Search By NChar Value') Get(Get_Use_NChar) Set(Set_Use_NChar)
+    Define_Pty Name(Use_NVarChar) Desc('Search By NVarChar Value') Get(Get_Use_NVarChar) Set(Set_Use_NVarChar)
+    Define_Pty Name(Use_Alpha) Desc('Search By Alpha Value') Get(Get_Use_Alpha) Set(Set_Use_Alpha)
+    Define_Pty Name(Use_Char) Desc('Search By Char Value') Get(Get_Use_Char) Set(Set_Use_Char)
+    Define_Pty Name(Use_SBIN) Desc('Search By SBIN Value') Get(Get_Use_SBIN) Set(Set_Use_SBIN)
+    Define_Pty Name(Use_SUNI) Desc('Search By SUNI Value') Get(Get_Use_SUNI) Set(Set_Use_SUNI)
+    
+    * Internal Properties.
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Use_File_VTL157033C) Type(*BOOLEAN) Default(True)
+    Define Field(#LF_Use_Field_Name) Type(*BOOLEAN) Default(True)
+    Define Field(#LF_Use_Generic) Type(*BOOLEAN) Default(True)
+    
+    Define Field(#LF_VarChar) Reffld(#F1570331_VARCHAR)
+    Define Field(#LF_NChar) Reffld(#F1570338_NCHAR)
+    Define Field(#LF_NVarChar) Reffld(#F1570339_NVARCHAR)
+    Define Field(#LF_Alpha) Reffld(#F157033a_ALPHA)
+    Define Field(#LF_Char) Reffld(#F157033H_CHAR)
+    Define Field(#LF_SBin) Reffld(#F157033S_SBIN)
+    Define Field(#LF_SUni) Reffld(#F157033U_SUNI)
+    Group_By Name(#LF_Values) Fields(#LF_VarChar #LF_NChar #LF_NVarChar #LF_Alpha #LF_Char #LF_SBin #LF_SUni)
+    
+    Define Field(#LF_List_Item_Count) Reffld(#Std_Count)
+    Def_List Name(#wl_Data) Fields(#BIFP0500A #F157033K1 #F157033K2 #F157033H) Counter(#LF_List_Item_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Define_Com Class(#prim_lcol<#R157033B>) Name(#c_R157033B_data)
+    
+    *
+    * Property: Use_File.
+    *
+    Ptyroutine Name(Get_Use_File)
+    Define_Map For(*OUTPUT) Class(#BIFA128A) Name(#this_value)
+    
+    If (#LF_Use_File_VTL157033C = True)
+    #this_value := VTL157033C
+    Else
+    #this_value := VTL157033D
+    Endif
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_File)
+    Define_Map For(*INPUT) Class(#BIFA128A) Name(#this_value)
+    
+    #LF_Use_File_VTL157033C := (#this_value = VTL157033C)
+    Endroutine
+    
+    *
+    * Property: Use_Generic.
+    *
+    Ptyroutine Name(Get_Use_Generic)
+    Define_Map For(*OUTPUT) Class(#BIFB001A) Name(#this_value)
+    
+    #this_value := #LF_Use_Generic
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_Generic)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_value)
+    
+    #LF_Use_Generic := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_Field_Name.
+    *
+    Ptyroutine Name(Get_Use_Naming)
+    Define_Map For(*OUTPUT) Class(#BIFB001A) Name(#this_value)
+    
+    #this_value := #LF_Use_Field_Name
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_Naming)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_value)
+    
+    #LF_Use_Field_Name := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_VarChar.
+    *
+    Ptyroutine Name(Get_Use_VarChar)
+    Define_Map For(*OUTPUT) Class(#F1570331_VARCHAR) Name(#this_value)
+    
+    #this_value := #LF_VarChar
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_VarChar)
+    Define_Map For(*INPUT) Class(#F1570331_VARCHAR) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_VarChar := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_NChar.
+    *
+    Ptyroutine Name(Get_Use_NChar)
+    Define_Map For(*OUTPUT) Class(#F1570338_NCHAR) Name(#this_value)
+    
+    #this_value := #LF_NChar
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_NChar)
+    Define_Map For(*INPUT) Class(#F1570338_NCHAR) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_NChar := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_NVarChar.
+    *
+    Ptyroutine Name(Get_Use_NVarChar)
+    Define_Map For(*OUTPUT) Class(#F1570339_NVARCHAR) Name(#this_value)
+    
+    #this_value := #LF_NVarChar
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_NVarChar)
+    Define_Map For(*INPUT) Class(#F1570339_NVARCHAR) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_NVarChar := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_Alpha.
+    *
+    Ptyroutine Name(Get_Use_Alpha)
+    Define_Map For(*OUTPUT) Class(#F157033a_ALPHA) Name(#this_value)
+    
+    #this_value := #LF_Alpha
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_Alpha)
+    Define_Map For(*INPUT) Class(#F157033a_ALPHA) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_Alpha := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_Char.
+    *
+    Ptyroutine Name(Get_Use_Char)
+    Define_Map For(*OUTPUT) Class(#F157033H_CHAR) Name(#this_value)
+    
+    #this_value := #LF_Char
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_Char)
+    Define_Map For(*INPUT) Class(#F157033H_CHAR) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_Char := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_SBIN.
+    *
+    Ptyroutine Name(Get_Use_SBIN)
+    Define_Map For(*OUTPUT) Class(#F157033S_SBIN) Name(#this_value)
+    
+    #this_value := #LF_SBin
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_SBIN)
+    Define_Map For(*INPUT) Class(#F157033S_SBIN) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_SBin := #this_value
+    Endroutine
+    
+    *
+    * Property: Use_SUNI.
+    *
+    Ptyroutine Name(Get_Use_SUNI)
+    Define_Map For(*OUTPUT) Class(#F157033U_SUNI) Name(#this_value)
+    
+    #this_value := #LF_SUni
+    Endroutine
+    
+    Ptyroutine Name(Set_Use_SUNI)
+    Define_Map For(*INPUT) Class(#F157033U_SUNI) Name(#this_value)
+    
+    #LF_Values := *Null
+    #LF_SUni := #this_value
+    Endroutine
+    
+    *
+    * Public Methods.
+    *
+    Mthroutine Name(Get_Search_Result)
+    Define_Map For(*OUTPUT) Class(#BIFP0500A) Name(#this_items)
+    Define_Map For(*OUTPUT) Class(#prim_lcol<#R157033B>) Name(#this_list) Mandatory(*NULL) Pass(*BY_REFERENCE)
+    
+    * DEFINE COLLECTION DATA.
+    Define_Com Class(#R157033B) Name(#collection_data) Reference(*DYNAMIC)
+    
+    * RETURN THE NUMBER OF ITMES.
+    #this_items := #LF_List_Item_Count
+    
+    * RETURN THE DATA.
+    If_Null Field(#this_list)
+    * Do nothing.
+    Else
+    * CLEAR THE COLLECTION.
+    #c_R157033B_data.RemoveAll
+    
+    * PUT THE LIST DATA INTO COLLECTION.
+    Begin_Loop Using(#LF_i) To(#LF_List_Item_Count)
+    Get_Entry Number(#LF_i) From_List(#wl_Data)
+    
+    * CREATE THE COLLECTION DATA.
+    Set_Ref Com(#collection_data) To(*CREATE_AS #R157033B)
+    
+    * INITIALIZE THE COLLECTION DATA.
+    #collection_data.Initialize( #BIFP0500A #F157033K1 #F157033K2 #F157033H )
+    
+    * INSERT THE COLLECTION DATA TO THE COLLECTION.
+    #c_R157033B_data.Insert( #collection_data )
+    End_Loop
+    
+    #this_list <= #c_R157033B_data
+    Endif
+    Endroutine
+    
+    Mthroutine Name(DoRefresh)
+    #Com_Owner.mthClearList
+    
+    If (#LF_Use_File_VTL157033C = True)
+    Select Fields(#wl_Data) From_File(VTL157033C) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(VTL157033D) Io_Error(*NEXT) Val_Error(*NEXT)
+    #BIFP0500A += 1
+    
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endroutine
+    
+    Mthroutine Name(DoSearch)
+    #Com_Owner.mthClearList
+    
+    If (#LF_VarChar.CurChars > 0)
+    #Com_Owner.mthSearch_VarChar
+    Return
+    Endif
+    
+    If (#LF_NChar.CurChars > 0)
+    #Com_Owner.mthSearch_NChar
+    Return
+    Endif
+    
+    If (#LF_NVarChar.CurChars > 0)
+    #Com_Owner.mthSearch_NVarChar
+    Return
+    Endif
+    
+    If (#LF_Alpha.CurChars > 0)
+    #Com_Owner.mthSearch_Alpha
+    Return
+    Endif
+    
+    If (#LF_Char.CurChars > 0)
+    #Com_Owner.mthSearch_Char
+    Return
+    Endif
+    
+    If (#LF_SBin.CurChars > 0)
+    #Com_Owner.mthSearch_SBin
+    Return
+    Endif
+    
+    If (#LF_SUni.CurChars > 0)
+    #Com_Owner.mthSearch_SUNI
+    Return
+    Endif
+    Endroutine
+    
+    *
+    * Private Methods.
+    *
+    Mthroutine Name(mthClearList) Access(*PRIVATE)
+    Clr_List Named(#wl_Data)
+    
+    #BIFP0500A := 0
+    Endroutine
+    
+    Mthroutine Name(mthSearch_VarChar) Access(*PRIVATE)
+    #F15703311 #F1570331_VARCHAR := #LF_VarChar
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033C1_VARCHAR) With_Key(#F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033C11) With_Key(#F15703311) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033C1_VARCHAR) With_Key(#F1570331_VARCHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033C11) With_Key(#F15703311)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033D1_VARCHAR) With_Key(#F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033D11) With_Key(#F15703311) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033D1_VARCHAR) With_Key(#F1570331_VARCHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033D11) With_Key(#F15703311)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearch_NChar) Access(*PRIVATE)
+    #F15703381 #F1570338_NCHAR := #LF_NChar
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033C8_NCHAR) With_Key(#F1570338_NCHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033C81) With_Key(#F15703381) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033C8_NCHAR) With_Key(#F1570338_NCHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033C81) With_Key(#F15703381)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033D8_NCHAR) With_Key(#F1570338_NCHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033D81) With_Key(#F15703381) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033D8_NCHAR) With_Key(#F1570338_NCHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033D81) With_Key(#F15703381)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearch_NVarChar) Access(*PRIVATE)
+    #F15703391 #F1570339_NVARCHAR := #LF_NVarChar
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033C9_NVARCHAR) With_Key(#F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033C91) With_Key(#F15703391) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033C9_NVARCHAR) With_Key(#F1570339_NVARCHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033C91) With_Key(#F15703391)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033D91) With_Key(#F15703391) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033D91) With_Key(#F15703391)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearch_Alpha) Access(*PRIVATE)
+    #F157033a1 #F157033A_ALPHA := #LF_Alpha
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033CA_ALPHA) With_Key(#F157033A_ALPHA) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Ca1) With_Key(#F157033a1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Ca_ALPHA) With_Key(#F157033a_ALPHA)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Ca1) With_Key(#F157033a1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033DA_ALPHA) With_Key(#F157033A_ALPHA) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Da1) With_Key(#F157033a1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Da_ALPHA) With_Key(#F157033a_ALPHA)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Da1) With_Key(#F157033a1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearch_Char) Access(*PRIVATE)
+    #F157033h1 #F157033H_CHAR := #LF_Char
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033CH_CHAR) With_Key(#F157033H_CHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Ch1) With_Key(#F157033h1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(l157033Ch_CHAR) With_Key(#F157033h_CHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Ch1) With_Key(#F157033h1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033DH_CHAR) With_Key(#F157033H_CHAR) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Dh1) With_Key(#F157033h1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(l157033Dh_CHAR) With_Key(#F157033h_CHAR)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Dh1) With_Key(#F157033h1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearch_SBin) Access(*PRIVATE)
+    #F157033s1 #F157033s_SBIN := #LF_SBin
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Cs_SBIN) With_Key(#F157033s_SBIN) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Cs1) With_Key(#F157033s1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Cs_SBIN) With_Key(#F157033s_SBIN)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Cs1) With_Key(#F157033s1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Ds_SBIN) With_Key(#F157033s_SBIN) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Ds1) With_Key(#F157033s1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Ds_SBIN) With_Key(#F157033s_SBIN)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Ds1) With_Key(#F157033s1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSearch_SUni) Access(*PRIVATE)
+    #F157033u1 #F157033u_SUNI := #LF_SUni
+    
+    If (#LF_Use_File_VTL157033C = True)
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Cu_SUNI) With_Key(#F157033u_SUNI) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Cu1) With_Key(#F157033u1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Cu_SUNI) With_Key(#F157033u_SUNI)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Cu1) With_Key(#F157033u1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Else
+    If (#LF_Use_Generic = True)
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Du_SUNI) With_Key(#F157033u_SUNI) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Du1) With_Key(#F157033u1) Nbr_Keys(*COMPUTE) Generic(*YES)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Else
+    If (#LF_Use_Field_Name = True)
+    Select Fields(#wl_Data) From_File(L157033Du_SUNI) With_Key(#F157033u_SUNI)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Else
+    Select Fields(#wl_Data) From_File(L157033Du1) With_Key(#F157033u1)
+    #BIFP0500A += 1
+    Add_Entry To_List(#wl_Data)
+    Endselect
+    Endif
+    Endif
+    Endif
+    Endroutine
+    End_Com
