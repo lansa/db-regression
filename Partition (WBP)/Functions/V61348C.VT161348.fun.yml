@@ -1,0 +1,197 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    * Determine the COLLECTION NAME to be used in the embedded query.
+    
+    If (*CPUTYPE = AS400)
+    #LF_DB_Separator := '/'
+    #LF_DB_Collection_Name := *PARTDTALIB
+    #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + #LF_DB_Quote + #LF_DB_Separator + #LF_DB_Quote
+    Else
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    Clr_List Named(#wLCTD)
+    Use Builtin(Read_CTD) With_Args(XDEPTMENTS) To_Get(#LF_rc #wLCTD)
+    
+    Selectlist Named(#wLCTD)
+    If (#LF_CTD_Key = 'ACTIVE_COLLECTION')
+    #LF_DB_Collection_Name := #LF_CTD_Data
+    Leave
+    Endif
+    Endselect
+    
+    If (#LF_DB_Collection_Name = *Blanks)
+    #LF_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xDepartments CTD file not found' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('Collection Name is ' + #LF_DB_Collection_Name) '' )
+    Endif
+    
+    If (#LF_DB_Type *NE MYSQL)
+    #LF_DB_Separator := '.'
+    #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + #LF_DB_Quote + #LF_DB_Separator + #LF_DB_Quote
+    Else
+    #LF_DB_Quote := '`'
+    #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + '_'
+    Endif
+    
+    Endif
+    
+    * Build the SQL statement.
+    #LF_SQL_Stmnt := 'Select ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ',' + #LF_DB_Quote + 'xEmployeeSurname' + #LF_DB_Quote + ' From '
+    #LF_Database_Table := #LF_DB_Table_Qualifier + 'xEmployee' + #LF_DB_Quote
+    #LF_SQL_Stmnt += #LF_Database_Table + ' order by ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote
+    
+    #Com_Owner.mthSelect_SQL_With_Field_Id( #LF_Database_Table #LF_rc )
+    If (#LF_rc = OK)
+    #Com_Owner.mthSelect_SQL_With_Field_Long_Name
+    #Com_Owner.mthSelect_SQL_With_Define_Short_Name
+    #Com_Owner.mthSelect_SQL_With_Define_Long_Name
+    
+    #Com_Owner.mthCompare_Results
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_DB_Separator) Type(*CHAR) Length(1) Default(*Blanks)
+    Define Field(#LF_DB_Collection_Name) Type(*CHAR) Length(32) Default(*Blanks)
+    Define Field(#LF_DB_Table_Qualifier) Type(*CHAR) Length(256) Default(*Blanks)
+    Define Field(#LF_DB_Quote) Type(*CHAR) Length(1) Default('"')
+    
+    Define Field(#LF_CTD_Key) Type(*CHAR) Length(20)
+    Define Field(#LF_CTD_Data) Type(*CHAR) Length(236)
+    Def_List Name(#wLCTD) Fields(#LF_CTD_Key #LF_CTD_Data) Type(*WORKING)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Database_Table) Reffld(#BIFC256A)
+    Define Field(#LF_SQL_Stmnt) Type(*VARCHAR)
+    
+    * Table data under Field Names.
+    Define Field(#LF_Field_Name_Count) Reffld(#Std_Count)
+    
+    * Table data under Local Defined Short Names.
+    Define Field(#LF_Id) Reffld(#xEmployeeIdentification)
+    Define Field(#LF_Sur) Reffld(#xEmployeeSurname)
+    Define Field(#LF_Short_Name_Count) Reffld(#Std_Count)
+    
+    * Table data under Local Defined Long Names.
+    Define Field(#LF_xEmployeeIdentification) Reffld(#xEmployeeIdentification)
+    Define Field(#LF_xEmployeeSurname) Reffld(#xEmployeeSurname)
+    Define Field(#LF_Long_Name_Count) Reffld(#Std_Count)
+    
+    * Field Id.
+    Mthroutine Name(mthSelect_SQL_With_Field_Id)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_db_table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Check table ' + #this_db_table) '' )
+    
+    #this_rc := ER
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSurname) Using(#LF_SQL_Stmnt)
+    #this_rc := OK
+    Leave
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- Valid' ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER '- Invalid' ('') )
+    Endif
+    Endroutine
+    
+    * Field Name.
+    Mthroutine Name(mthSelect_SQL_With_Field_Long_Name)
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Field_Long_Name) Using(...)') ('') )
+    
+    #LF_Field_Name_Count := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSurname) Using(#LF_SQL_Stmnt)
+    #LF_Field_Name_Count += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Field_Name_Count.AsString + ' record(s) found') ('') )
+    Endroutine
+    
+    * Local Defined Short Name.
+    Mthroutine Name(mthSelect_SQL_With_Define_Short_Name)
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Short_Name) Using(...)') ('') )
+    
+    #LF_Short_Name_Count := 0
+    Select_Sql Fields(#LF_Id #LF_Sur) Using(#LF_SQL_Stmnt)
+    #LF_Short_Name_Count += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Short_Name_Count.AsString + ' record(s) found') ('') )
+    Endroutine
+    
+    * Local Defined Long Name.
+    Mthroutine Name(mthSelect_SQL_With_Define_Long_Name)
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Long_Name) Using(...)') ('') )
+    
+    #LF_Long_Name_Count := 0
+    Select_Sql Fields(#LF_xEmployeeIdentification #LF_xEmployeeSurname) Using(#LF_SQL_Stmnt)
+    #LF_Long_Name_Count += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Long_Name_Count.AsString + ' record(s) found') ('') )
+    Endroutine
+    
+    * Compare results.
+    Mthroutine Name(mthCompare_Results)
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare Results') ('') )
+    
+    If ((#LF_Field_Name_Count <> #LF_Short_Name_Count) *Or (#LF_Short_Name_Count <> #LF_Long_Name_Count))
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected different record numbers') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record numbers matched') ('') )
+    Endif
+    Endroutine
+    
+    

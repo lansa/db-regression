@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT161348
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "SELECT_SQL Compile Error with long names"
+
+  - ENG:
+      Description:        "SELECT_SQL Compile Error with long names"
+
+  - FRA:
+      Description:        "SELECT_SQL Compile Error with long names"
+
+  - JPN:
+      Description:        "SELECT_SQL Compile Error with long names"
+
+  - TRK:
+      Description:        "SELECT_SQL Compile Error with long names"
+
+  Functions:
+  - V61348A:
+      Name:               V61348A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 161348 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 161348 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 161348 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 161348 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 161348 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V61348C:
+      Name:               V61348C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "161348 - Select_SQL Using(...)"
+
+      - ENG:
+          Description:        "161348 - Select_SQL Using(...)"
+
+      - FRA:
+          Description:        "161348 - Select_SQL Using(...)"
+
+      - JPN:
+          Description:        "161348 - Select_SQL Using(...)"
+
+      - TRK:
+          Description:        "161348 - Select_SQL Using(...)"
+
+      Allowed Next Functions:
+      - "*ANY"
