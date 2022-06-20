@@ -1,0 +1,198 @@
+﻿Reusable Part:
+  Name:               CVL_R_001
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Re-usable Part: Super Server Connection"
+
+  - ENG:
+      Description:        "Re-usable Part: Super Server Connection"
+
+  - FRA:
+      Description:        "Re-usable Part: Super Server Connection"
+
+  - JPN:
+      Description:        "Re-usable Part: Super Server Connection"
+
+  - TRK:
+      Description:        "Re-usable Part: Super Server Connection"
+
+  Source: |
+    * **************************************************
+    *
+    *  COMPONENT:  STD_PANL
+    *
+    * **************************************************
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_PANL) Displayposition(1) Height(144) Left(0) Tabposition(1) Top(0) Width(490)
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX_1) Caption('Super Server Connection') Displayposition(1) Height(137) Left(0) Parent(#COM_OWNER) Tabposition(1) Tabstop(False) Top(0) Width(481)
+    Define_Com Class(#STD_QNAM.Visual) Name(#STD_QNAM) Caption('LU Name:') Displayposition(1) Height(19) Labeltype(Caption) Left(8) Marginleft(60) Parent(#GPBX_1) Tabposition(1) Top(24) Usepicklist(False) Width(217)
+    Define_Com Class(#USER.Visual) Name(#USER) Caption('User Id:') Displayposition(2) Height(19) Labeltype(Caption) Left(8) Marginleft(60) Parent(#GPBX_1) Tabposition(2) Top(48) Usepicklist(False) Width(217)
+    Define_Com Class(#STD_QSEL.Visual) Name(#STD_QSEL) Caption('Password:') Displayposition(3) Height(19) Labeltype(Caption) Left(8) Marginleft(60) Parent(#GPBX_1) Tabposition(3) Top(72) Usepicklist(False) Width(377)
+    Define_Com Class(#PRIM_PHBN) Name(#btnConnect) Caption('Connect') Displayposition(4) Left(392) Parent(#GPBX_1) Tabposition(4) Top(16)
+    Define_Com Class(#PRIM_PHBN) Name(#btnDisconn) Caption('Disconnect') Displayposition(5) Enabled(False) Left(392) Parent(#GPBX_1) Tabposition(5) Top(48)
+    Define_Com Class(#PRIM_CKBX) Name(#chkServerError) Caption('Handle Server Error') Displayposition(6) Left(240) Parent(#GPBX_1) Tabposition(6) Top(24)
+    Define_Com Class(#PRIM_LABL) Name(#LABL_1) Caption('C - > S') Displayposition(7) Ellipses(Word) Left(8) Parent(#GPBX_1) Tabposition(7) Tabstop(False) Top(104) Verticalalignment(Center) Height(26) Width(49)
+    Define_Com Class(#PRIM_EDIT) Name(#edC2S) Displayposition(8) Left(72) Parent(#GPBX_1) Showselection(False) Showselectionhilight(False) Tabposition(8) Top(103) Width(98)
+    Define_Com Class(#PRIM_LABL) Name(#LABL_2) Displayposition(9) Ellipses(Word) Left(224) Parent(#GPBX_1) Tabposition(9) Tabstop(False) Top(104) Verticalalignment(Center) Height(22) Caption('S -> C')
+    Define_Com Class(#PRIM_EDIT) Name(#edS2C) Displayposition(10) Left(280) Parent(#GPBX_1) Showselection(False) Showselectionhilight(False) Tabposition(10) Top(103) Width(102)
+    Define_Com Class(#PRIM_PHBN) Name(#btnReset) Displayposition(11) Left(392) Parent(#GPBX_1) Tabposition(11) Top(104) Caption('Reset')
+    
+    Define Field(#RC_RSS) Type(*CHAR) Length(2)
+    Define Field(#IsConnect) Type(*CHAR) Length(1) Default(N)
+    Define Field(#LF_ServEr) Type(*CHAR) Length(1)
+    
+    Define Field(#LF_C2S) Type(*CHAR) Length(10)
+    Define Field(#LF_S2C) Type(*CHAR) Length(10)
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_SST) Type(*CHAR) Length(15)
+    
+    Define Field(#LastUser) Reffld(#User)
+    Define Field(#LU_Name) Reffld(#STD_QNAM)
+    
+    Define_Evt Name(SupSrv_Con)
+    Define_Evt Name(SupSrv_Dis)
+    Define_Pty Name(SupSrv_name) Desc('The connected Super Server name') Get(Get_SuperServer_Name)
+    Define_Pty Name(SupSrv_token) Desc('The connected Super Server token') Get(Get_SupServer_Token)
+    Define_Pty Name(SupSrv_type) Desc('The connected Super Server type') Get(Get_SuperServer_Type)
+    
+    *
+    *
+    Evtroutine Handling(#btnConnect.Click)
+    
+    #IsConnect := N
+    
+    * Backup the current UserId
+    Use Builtin(GET_SESSION_VALUE) With_Args(USER) To_Get(#LastUser #RC_RSS)
+    
+    * Set the input UserId to be the current UserId
+    Use Builtin(SET_SESSION_VALUE) With_Args(USER #USER)
+    
+    * Connect to the server
+    #LU_Name := #STD_QNAM
+    
+    If (#chkServerError.ButtonState = Checked)
+    #LF_ServEr := Y
+    Else
+    #LF_ServEr := N
+    Endif
+    
+    #LF_C2S := #edC2S
+    #LF_S2C := #edS2C
+    
+    Use Builtin(DEFINE_ANY_SERVER) With_Args(MYSERVER #LU_Name Y *Default *Default *Default *Default #LF_C2S #LF_S2C) To_Get(#RC_RSS)
+    Use Builtin(CONNECT_SERVER) With_Args(MYSERVER #STD_QSEL *Default *Default #LF_ServEr) To_Get(#RC_RSS #LF_SST)
+    
+    If (#RC_RSS = OK)
+    Use Builtin(CONNECT_FILE) With_Args(* MYSERVER)
+    
+    #IsConnect := Y
+    
+    Message Msgtxt('Successful connecting to Server ' + #LU_Name)
+    
+    #btnConnect.Enabled := False
+    #btnDisconn.Enabled := True
+    
+    * Signal the caller
+    Signal Event(SupSrv_Con)
+    Else
+    Message Msgtxt('Connect to Server ' + #LU_Name + ' failed')
+    
+    * Reset if error
+    #LU_Name := *Default
+    
+    * Restore the last UserId
+    Use Builtin(SET_SESSION_VALUE) With_Args(USER #LastUser)
+    Endif
+    Endroutine
+    
+    *
+    *
+    Evtroutine Handling(#btnDisconn.Click)
+    Execute Subroutine(Disconn) With_Parms(Y)
+    Endroutine
+    
+    *
+    *
+    Subroutine Name(Disconn) Parms((#Std_Alpha *RECEIVED))
+    #IsConnect := N
+    #btnConnect.Enabled := True
+    #btnDisconn.Enabled := False
+    
+    Use Builtin(DISCONNECT_FILE) With_Args(* MYSERVER)
+    Use Builtin(DISCONNECT_SERVER) With_Args(MYSERVER) To_Get(#RC_RSS)
+    
+    If (#Std_Alpha = Y)
+    Message Msgtxt('Successful disconnecting Server ' + #LU_Name)
+    
+    * Reset if disconnected
+    #LU_Name := *Default
+    #LF_SST := *Default
+    
+    * Restore the last UserId
+    Use Builtin(SET_SESSION_VALUE) With_Args(USER #LastUser)
+    
+    * Signal the caller
+    Signal Event(SupSrv_Dis)
+    Endif
+    Endroutine
+    
+    *
+    *
+    Evtroutine Handling(#COM_OWNER.Initialize) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    Use Builtin(Get_Session_Value) With_Args(PSLU) To_Get(#STD_QNAM #RC_RSS)
+    
+    If ('(#RC_RSS *eq OK) *And (#Std_QNam *ne *Blanks)')
+    #IsConnect := Y
+    #btnConnect.Enabled := False
+    Endif
+    
+    #Com_Owner.mthReset
+    Endroutine
+    
+    *
+    *
+    Ptyroutine Name(Get_SuperServer_Name)
+    Define_Map For(*OUTPUT) Class(#Std_Text) Name(#this_emp)
+    
+    #this_emp := #LU_Name
+    Endroutine
+    
+    *
+    *
+    Ptyroutine Name(Get_SupServer_Token)
+    Define_Map For(*OUTPUT) Class(#Std_Text) Name(#this_emp)
+    
+    #this_emp := MYSERVER
+    Endroutine
+    
+    *
+    *
+    Ptyroutine Name(Get_SuperServer_Type)
+    Define_Map For(*OUTPUT) Class(#Std_Text) Name(#this_emp)
+    
+    #this_emp := #LF_SST
+    Endroutine
+    
+    *
+    *
+    Mthroutine Name(mthReset)
+    Use Builtin(Get_Session_Value) With_Args(PSCT) To_Get(#LF_C2S #LF_rc)
+    Use Builtin(Get_Session_Value) With_Args(PSST) To_Get(#LF_S2C #LF_rc)
+    
+    #edC2S := #LF_C2S
+    #edS2C := #LF_S2C
+    Endroutine
+    
+    *
+    *
+    Evtroutine Handling(#btnReset.Click)
+    #Com_Owner.mthReset
+    Endroutine
+    End_Com

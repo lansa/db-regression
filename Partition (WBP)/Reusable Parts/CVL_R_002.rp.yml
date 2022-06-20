@@ -1,0 +1,118 @@
+﻿Reusable Part:
+  Name:               CVL_R_002
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Re-usable Part: X_Run Parameters"
+
+  - ENG:
+      Description:        "Re-usable Part: X_Run Parameters"
+
+  - FRA:
+      Description:        "Re-usable Part: X_Run Parameters"
+
+  - JPN:
+      Description:        "Re-usable Part: X_Run Parameters"
+
+  - TRK:
+      Description:        "Re-usable Part: X_Run Parameters"
+
+  Source: |
+    * **************************************************
+    *
+    *  COMPONENT:  STD_PANL
+    *
+    * **************************************************
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_PANL) Displayposition(1) Height(194) Left(0) Tabposition(1) Top(0) Width(552)
+    Define_Com Class(#PRIM_LTVW) Name(#stDataLst) Columnbuttonheight(16) Componentversion(2) Displayposition(1) Fullrowselect(True) Height(145) Keyboardpositioning(SortColumn) Left(8) Parent(#GPBX_1) Showsortarrow(True) Tabposition(1) Top(16) Width(449)
+    Define_Com Class(#STD_QORD.Visual) Name(#STD_QORD) Caption('Output File: ') Displayposition(3) Height(19) Labeltype(Caption) Left(8) Marginleft(70) Parent(#GPBX_1) Tabposition(3) Top(168) Usepicklist(False) Width(449)
+    Define_Com Class(#PRIM_PHBN) Name(#btnToFile) Caption('To File') Displayposition(2) Left(464) Parent(#GPBX_1) Tabposition(2) Top(160)
+    Define_Com Class(#PRIM_PHBN) Name(#btnClear) Caption('Clear') Displayposition(4) Left(464) Parent(#GPBX_1) Tabposition(4) Top(16)
+    Define_Com Class(#PRIM_PHBN) Name(#btnRefresh) Caption('Refresh') Displayposition(5) Left(464) Parent(#GPBX_1) Tabposition(5) Top(48)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL_1) Caption('System Variable') Captiontype(Caption) Displayposition(1) Parent(#stDataLst) Source(#STD_DESC) Width(31)
+    Define_Com Class(#PRIM_LVCL) Name(#LVCL_2) Caption('System Variable Data') Captiontype(Caption) Displayposition(2) Parent(#stDataLst) Source(#STD_INST2) Width(180)
+    Define_Com Class(#PRIM_GPBX) Name(#GPBX_1) Caption('X_Run Parameters') Displayposition(1) Height(193) Left(0) Parent(#COM_OWNER) Tabposition(1) Tabstop(False) Top(0) Width(553)
+    
+    Define Field(#LRetCode) Type(*CHAR) Length(2)
+    
+    Evtroutine Handling(#com_owner.Initialize)
+    Use Builtin(TConCat) With_Args(*Part_Dir_Object 'Z137014' '.txt') To_Get(#STD_QORD)
+    
+    Execute Subroutine(Refresh)
+    Endroutine
+    
+    Evtroutine Handling(#btnToFile.Click)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #STD_QORD) To_Get(#LRetCode)
+    Use Builtin(Transform_List) With_Args(#stDataLst #STD_QORD) To_Get(#LRetCode)
+    Endroutine
+    
+    Evtroutine Handling(#btnClear.Click)
+    Clr_List Named(#stDataLst)
+    Endroutine
+    
+    Evtroutine Handling(#btnRefresh.Click)
+    Execute Subroutine(Refresh)
+    Endroutine
+    
+    Subroutine Name(Refresh)
+    Clr_List Named(#stDataLst)
+    
+    Execute Subroutine(SetupList)
+    Endroutine
+    
+    Subroutine Name(SetupList)
+    Execute Subroutine(InsertItem) With_Parms('==============' 'System')
+    
+    Execute Subroutine(InsertItem) With_Parms('*LansaDtaLib' *LansaDtaLib)
+    Execute Subroutine(InsertItem) With_Parms('*LansaPgmLib' *LansaPgmLib)
+    Execute Subroutine(InsertItem) With_Parms('*At_Char' *At_Char)
+    Execute Subroutine(InsertItem) With_Parms('*Dollar_Char' *Dollar_Char)
+    Execute Subroutine(InsertItem) With_Parms('*Message_File' *Message_File)
+    
+    Execute Subroutine(InsertItem) With_Parms('' '')
+    Execute Subroutine(InsertItem) With_Parms('==============' 'Partition')
+    
+    Execute Subroutine(InsertItem) With_Parms('*Partition' *Partition)
+    Execute Subroutine(InsertItem) With_Parms('*Partition_Desc' *Partition_Desc)
+    Execute Subroutine(InsertItem) With_Parms('*PartPgmLib' *PartPgmLib)
+    Execute Subroutine(InsertItem) With_Parms('*Part_RDMLX' *Part_RDMLX)
+    
+    Execute Subroutine(InsertItem) With_Parms('' '')
+    Execute Subroutine(InsertItem) With_Parms('==============' 'Language')
+    
+    Execute Subroutine(InsertItem) With_Parms('*Language' *Language)
+    Execute Subroutine(InsertItem) With_Parms('*Language_Desc' *Language_Desc)
+    Execute Subroutine(InsertItem) With_Parms('*Language_Igc' *Language_Igc)
+    
+    Execute Subroutine(InsertItem) With_Parms('' '')
+    Execute Subroutine(InsertItem) With_Parms('==============' 'Job')
+    
+    Execute Subroutine(InsertItem) With_Parms('*JobMode' *JobMode)
+    Execute Subroutine(InsertItem) With_Parms('*JobName' *JobName)
+    Execute Subroutine(InsertItem) With_Parms('*JobNbr' *JobNbr)
+    
+    Execute Subroutine(InsertItem) With_Parms('' '')
+    Execute Subroutine(InsertItem) With_Parms('==============' 'Environment')
+    
+    Execute Subroutine(InsertItem) With_Parms('*Sys_Dir_Execute' *Sys_Dir_Execute)
+    Execute Subroutine(InsertItem) With_Parms('*Part_Dir' *Part_Dir)
+    
+    Use Builtin(Get_Session_Value) With_Args(PSLU) To_Get(#Std_Obj #LRetCode)
+    If ('(#LRetCode *eq OK) *And (#Std_Obj *ne *Blanks)')
+    Execute Subroutine(InsertItem) With_Parms('' '')
+    Execute Subroutine(InsertItem) With_Parms('==============' 'SuperServer Connection')
+    Execute Subroutine(InsertItem) With_Parms('PSLU' #Std_Obj)
+    Endif
+    Endroutine
+    
+    Subroutine Name(InsertItem) Parms((#Std_Desc *Received) (#Std_Inst2 *Received))
+    Add_Entry To_List(#stDataLst)
+    Endroutine
+    End_Com
