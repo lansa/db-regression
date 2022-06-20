@@ -1,0 +1,512 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    If ((#LF_DB_Type = MSSQLS) *Or (#LF_DB_Type = SQLAZURE))
+    #LF_SubString_Function := SUBSTRING
+    Else
+    #LF_SubString_Function := SUBSTR
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('+ Data Type: ' + #LF_DB_Type) '' )
+    
+    #Com_Owner.mthSelect_SQL( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Imbedded_Calculation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_DISTINCT( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_AND_OR( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_AND( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_BETWEEN_AND( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_BETWEEN_AND( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_IN( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_IN( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_LIKE( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_LIKE( #LF_rc )
+    
+    If (#LF_DB_Type *NE MYSQL)
+    #Com_Owner.mthSelect_SQL_Embedded_Function_AVG( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Embedded_Function_COUNT( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Embedded_Function_MAX( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Embedded_Function_MIN( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Embedded_Function_SUM( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Embedded_Function_SQRT( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Embedded_Function_SUBSTR( #LF_rc )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' *** CCS 156943' ('MYSQL does not support the SQL statement format of AVG/COUNT and it will result in DB errors.') )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_LN_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_ID_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Total_Record) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_Temp1) Length(*REFFLD *PLUS 2) Reffld(#xEmployeeSalary)
+    Define Field(#LF_Temp2) Length(*REFFLD *PLUS 2) Reffld(#xEmployeeSalary)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_SubString_Function) Type(*CHAR) Length(20)
+    
+    Mthroutine Name(mthCompareResult)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_LN_Counter)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_ID_Counter)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_LN_Counter = #this_ID_Counter)
+    #Com_Owner.mthAdd_SubMsg( OK (' => #Long Name Items = #ID Items = ' + #this_ID_Counter.AsString) '' )
+    Else
+    
+    If (#this_rc *NE ER)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => #Long Name Items (' + #this_LN_Counter.AsString + ') <> #ID Items (' + #this_ID_Counter.AsString + ')') '???' )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Basic Query' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields(#xEmployeeIdentification) From_Files((xEmployee))') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee))
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_Sql Fields(#XEMPLOYID) From_Files((XEMPLOYEE))') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID) From_Files((XEMPLOYEE))
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Imbedded_Calculation)
+    Define_Map For(*BOTH) Class(#BIFA010A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Imbedded Calculation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_Sql Fields(#xEmployeeSurname #xSalary (#STD_AMNT ' + *Quote + '#xSalary * 1.10' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeSurname #xSalary (#STD_AMNT '#xSalary * 1.10')) From_Files((xEmployee))
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_Sql Fields(#XSURNAME #XSALARY (#STD_AMNT ' + *Quote + '#XSALARY * 1.10' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XSURNAME #XSALARY (#STD_AMNT '#XSALARY * 1.10')) From_Files((XEMPLOYEE))
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_DISTINCT)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'DISTINC(*YES)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee)) Distinct(*YES)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee)) Distinct(*YES)
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_Sql Fields(#XEMPLOYID) From_Files((XEMPLOYEE)) Distinct(*YES)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID) From_Files((XEMPLOYEE)) Distinct(*YES)
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_AND_OR)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with AND / OR operators' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L1-LN)) Where(((#F2-LN > a) AND (#F2-LN < b)) OR (#F1-LN > c))' )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where('(((#xEmployeeSalary >= 80000) AND (#xEmployeeSalary <= 100000)) OR (#xEmployeeIdentification > 140000))')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where(((#F2 > a) AND (#F2 < b)) OR (#F1 > c))' )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where('(((#XSALARY >= 80000) AND (#XSALARY <= 100000)) OR (#XEMPLOYID > 140000))')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_AND)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT AND operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L1-LN)) Where((not ((F2-LN > a) AND (#F2-LN < b)))' )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where('(NOT ((xEmployeeSalary > 80000) AND (xEmployeeSalary < 100000)))')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where((not ((F2 > a) AND (#F2 < b)))' )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where('(NOT ((XSALARY > 80000) AND (XSALARY < 100000)))')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_BETWEEN_AND)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with BETWEEN AND operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L)) Where(#F1-LN BETWEEN a AND b)' )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where('#xEmployeeSalary BETWEEN 80000 AND 100000')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where(#F1 BETWEEN a AND b)' )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where('#XSALARY BETWEEN 80000 AND 100000')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_BETWEEN_AND)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT BETWEEN AND operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L)) Where(#F2-LN NOT BETWEEN a AND b)' )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where('#xEmployeeSalary NOT BETWEEN 80000 AND 100000')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where(#F2 NOT BETWEEN a AND b)' )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where('#XSALARY NOT BETWEEN 80000 AND 100000')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_IN)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with IN operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L)) Where(F2-LN IN(a, b))' )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeePostalCode) From_Files((xEmployee)) Where('xEmployeePostalCode IN (''10956'',''11228'')')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where(F2 IN(a, b))' )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XPOSTCODE) From_Files((XEMPLOYEE)) Where('XPOSTCODE IN (''10956'',''11228'')')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_IN)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT IN operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L)) Where(F2-LN NOT IN(a, b))' )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeePostalCode) From_Files((xEmployee)) Where('xEmployeePostalCode NOT IN (''10956'',''11228'')')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where(F2 NOT IN(a, b))' )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XPOSTCODE) From_Files((XEMPLOYEE)) Where('XPOSTCODE NOT IN (''10956'',''11228'')')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_LIKE)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with LIKE operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields(#F1-LN) From_Files((L)) Where(F1-LN LIKE ' + *Quote + '15%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee)) Where('xEmployeeIdentification LIKE ''15%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields(#F1) From_Files((L)) Where(F1 LIKE ' + *Quote + '15%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID) From_Files((XEMPLOYEE)) Where('XEMPLOYID LIKE ''15%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_LIKE)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT LIKE operator' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields(#F1-LN) From_Files((L)) Where(F1-LN NOT LIKE ' + *Quote + '15%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee)) Where('xEmployeeIdentification NOT LIKE ''15%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields(#F1) From_Files((L)) Where(F1 NOT LIKE ' + *Quote + '15%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID) From_Files((XEMPLOYEE)) Where('XEMPLOYID NOT LIKE ''15%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_AVG)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Select_SQL AVG' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields((#i ' + *Quote + 'AVG(xEmployeeSalary)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_Temp1 := 0
+    Select_Sql Fields((#LF_Temp1 'AVG(xEmployeeSalary)')) From_Files((xEmployee))
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#i ' + *Quote + 'AVG(XSALARY)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_Temp2 := 0
+    Select_Sql Fields((#LF_Temp2 'AVG(XSALARY)')) From_Files((XEMPLOYEE))
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_Temp1 #LF_Temp2 #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_COUNT)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Select_SQL COUNT' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields((#i ' + *Quote + 'COUNT(xEmployeeSalary)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_Temp1 := 0
+    Select_Sql Fields((#LF_Temp1 'COUNT(xEmployeeSalary)')) From_Files((xEmployee))
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#i ' + *Quote + 'COUNT(XSALARY)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_Temp2 := 0
+    Select_Sql Fields((#LF_Temp2 'COUNT(XSALARY)')) From_Files((XEMPLOYEE))
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_Temp1 #LF_Temp2 #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_MAX)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Select_SQL MAX' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields((#i ' + *Quote + 'MAX(xEmployeeSalary)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_Temp1 := 0
+    Select_Sql Fields((#LF_Temp1 'MAX(xEmployeeSalary)')) From_Files((xEmployee))
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#i ' + *Quote + 'MAX(XSALARY)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_Temp2 := 0
+    Select_Sql Fields((#LF_Temp2 'MAX(XSALARY)')) From_Files((XEMPLOYEE))
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_Temp1 #LF_Temp2 #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_MIN)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Select_SQL MIN' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields((#i ' + *Quote + 'MIN(xEmployeeSalary)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_Temp1 := 0
+    Select_Sql Fields((#LF_Temp1 'MIN(xEmployeeSalary)')) From_Files((xEmployee))
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#i ' + *Quote + 'MIN(XSALARY)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_Temp2 := 0
+    Select_Sql Fields((#LF_Temp2 'MIN(XSALARY)')) From_Files((XEMPLOYEE))
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_Temp1 #LF_Temp2 #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_SUM)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Select_SQL SUM' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields((#i ' + *Quote + 'SUM(xEmployeeSalary)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_Temp1 := 0
+    Select_Sql Fields((#LF_Temp1 'SUM(xEmployeeSalary)')) From_Files((xEmployee))
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#i ' + *Quote + 'SUM(XSALARY)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_Temp2 := 0
+    Select_Sql Fields((#LF_Temp2 'SUM(XSALARY)')) From_Files((XEMPLOYEE))
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_Temp1 #LF_Temp2 #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_SQRT)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Select_SQL SQRT' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields((#i ' + *Quote + 'SQRT(xEmployeeSalary)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_Temp1 := 0
+    Select_Sql Fields((#LF_Temp1 'SQRT(xEmployeeSalary)')) From_Files((xEmployee))
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#i ' + *Quote + 'SUM(XSALARY)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_Temp2 := 0
+    Select_Sql Fields((#LF_Temp2 'SQRT(XSALARY)')) From_Files((XEMPLOYEE))
+    Leave
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_Temp1 #LF_Temp2 #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Embedded_Function_SUBSTR)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL ' + #LF_SubString_Function) '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' ('Select_SQL Fields(#F1-LN (#F2-LN ' + *Quote + #LF_SubString_Function + '(xEmployeeGivenNames, 1, 2)' + *Quote + ')) From_Files((xEmployee))') )
+    #LF_LN_Record_Counter := 0
+    If ((#LF_DB_Type = MSSQLS) *Or (#LF_DB_Type = SQLAZURE))
+    Select_Sql Fields(#xEmployeeSurname (#xEmployeeGivenNames 'SUBSTRING(xEmployeeGivenNames, 1, 2)')) From_Files((xEmployee))
+    #LF_LN_Record_Counter += 1
+    Leave
+    Endselect
+    Else
+    Select_Sql Fields(#xEmployeeSurname (#xEmployeeGivenNames 'SUBSTR(xEmployeeGivenNames, 1, 2)')) From_Files((xEmployee))
+    #LF_LN_Record_Counter += 1
+    Leave
+    Endselect
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' ('Select_SQL Fields(#F1 (#F2 ' + *Quote + #LF_SubString_Function + '(XGIVENAME, 1, 2)' + *Quote + ')) From_Files((XEMPLOYEE))') )
+    #LF_ID_Record_Counter := 0
+    If ((#LF_DB_Type = MSSQLS) *Or (#LF_DB_Type = SQLAZURE))
+    Select_Sql Fields(#xSurname (#XGIVENAME 'SUBSTRING(XGIVENAME, 1, 2)')) From_Files((XEMPLOYEE))
+    #LF_ID_Record_Counter += 1
+    Leave
+    Endselect
+    Else
+    Select_Sql Fields(#xSurname (#XGIVENAME 'SUBSTR(XGIVENAME, 1, 2)')) From_Files((XEMPLOYEE))
+    #LF_ID_Record_Counter += 1
+    Leave
+    Endselect
+    Endif
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    

@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               F156710@A
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "156710 - Embedded character @"
+      Label:              "156710 - Embedd"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "Embedded"
+
+  - ENG:
+      Description:        "156710 - Embedded character @"
+      Label:              "156710 - Embedd"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "Embedded"
+
+  - FRA:
+      Description:        "156710 - Embedded character @"
+      Label:              "156710 - Embedd"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "Embedded"
+
+  - JPN:
+      Description:        "156710 - Embedded character @"
+      Label:              "156710 - Embedd"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "Embedded"
+
+  - TRK:
+      Description:        "156710 - Embedded character @"
+      Label:              "156710 - Embedd"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "Embedded"

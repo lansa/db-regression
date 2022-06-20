@@ -1,0 +1,93 @@
+﻿List:
+  Name:               Import 2022/06/20 13:14:31
+  Stored As:          User
+
+  Objects:
+  - F156710#B:
+      Type:               Field
+
+  - F156710$C:
+      Type:               Field
+
+  - F156710@A:
+      Type:               Field
+
+  - F156710B:
+      Type:               Field
+
+  - F156710C:
+      Type:               Field
+
+  - F156710A:
+      Type:               Field
+
+  - VTL156710D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL156710E:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL156710F:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL156710C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL156710M:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V56710A:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710C:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710D:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710E:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710F:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710G:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710H:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710I:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710J:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710K:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710L:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - V56710M:
+      Type:               Funciton
+      Qualifier:          VT156710
+
+  - VT156710:
+      Type:               Process

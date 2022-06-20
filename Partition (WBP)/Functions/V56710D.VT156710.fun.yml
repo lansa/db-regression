@@ -1,0 +1,309 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    #Com_Owner.mthSelect_SQL_Where_LIKE_1( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_LIKE_1( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_LIKE_2( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_LIKE_2( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_LIKE_3( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_LIKE_3( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_LIKE_4( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_LIKE_4( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_LIKE_5( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Where_NOT_LIKE_5( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    Define Field(#LF_LN_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_ID_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Total_Record) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_Temp1) Length(*REFFLD *PLUS 2) Reffld(#xEmployeeSalary)
+    Define Field(#LF_Temp2) Length(*REFFLD *PLUS 2) Reffld(#xEmployeeSalary)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_SubString_Function) Type(*CHAR) Length(20)
+    
+    
+    
+    Mthroutine Name(mthCompareResult)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_LN_Counter)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_ID_Counter)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_LN_Counter = #this_ID_Counter)
+    #Com_Owner.mthAdd_SubMsg( OK (' => #Long Name Items = #ID Items = ' + #this_ID_Counter.AsString) '' )
+    Else
+    
+    If (#this_rc *NE ER)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => #Long Name Items (' + #this_LN_Counter.AsString + ') <> #ID Items (' + #this_ID_Counter.AsString + ')') '???' )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_LIKE_1)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with LIKE operator (1)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN LIKE ' + *Quote + 'S%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription LIKE ''S%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 LIKE ' + *Quote + 'S%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC LIKE ''S%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_LIKE_1)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT LIKE operator (1)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN NOT LIKE ' + *Quote + 'S%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription NOT LIKE ''S%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 NOT LIKE ' + *Quote + 'S%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC NOT LIKE ''S%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_LIKE_2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with LIKE operator (2)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN LIKE ' + *Quote + '%S%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription LIKE ''%S%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 LIKE ' + *Quote + '%S%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC LIKE ''%S%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_LIKE_2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT LIKE operator (2)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN NOT LIKE ' + *Quote + '%S%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription NOT LIKE ''%S%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 NOT LIKE ' + *Quote + '%S%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC NOT LIKE ''%S%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_LIKE_3)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with LIKE operator (3)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN LIKE ' + *Quote + '_u%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription LIKE ''_u%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 LIKE ' + *Quote + '_u%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC LIKE ''_u%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_LIKE_3)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT LIKE operator (3)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN NOT LIKE ' + *Quote + '_u%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription NOT LIKE ''_u%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 NOT LIKE ' + *Quote + '_u%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC NOT LIKE ''_u%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_LIKE_4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with LIKE operator (4)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN LIKE ' + *Quote + '________' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription LIKE ''________''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 LIKE ' + *Quote + '________' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC LIKE ''________''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_LIKE_4)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT LIKE operator (4)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN NOT LIKE ' + *Quote + '________' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription NOT LIKE ''________''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 NOT LIKE ' + *Quote + '________' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC NOT LIKE ''________''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_LIKE_5)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with LIKE operator (5)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN LIKE ' + *Quote + '________%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription LIKE ''________%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 LIKE ' + *Quote + '________%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC LIKE ''________%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Where_NOT_LIKE_5)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Where clause with NOT LIKE operator (5)' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments: Long File & Field Names' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L-LN)) Where(F2-LN NOT LIKE ' + *Quote + '________%' + *Quote + ')') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xDepartmentCode #xDepartmentDescription) From_Files((xDepartments)) Where('xDepartmentDescription NOT LIKE ''________%''')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS: File & Field Id' ('Select_SQL Fields(#F1 #F2) From_Files((L-ID)) Where(F2 NOT LIKE ' + *Quote + '________%' + *Quote + ')') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XDEPTMENT #XDEPTDESC) From_Files((XDEPTMENTS)) Where('XDEPTDESC NOT LIKE ''________%''')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    

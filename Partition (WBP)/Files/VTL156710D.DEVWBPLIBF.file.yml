@@ -1,0 +1,58 @@
+﻿File:
+  Name:                           VTL156710_D_Disabled_Long_Name
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL156710D
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              No
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "156710 - RDML Disabled Long File Name"
+
+  - ENG:
+      Description:        "156710 - RDML Disabled Long File Name"
+
+  - FRA:
+      Description:        "156710 - RDML Disabled Long File Name"
+
+  - JPN:
+      Description:        "156710 - RDML Disabled Long File Name"
+
+  - TRK:
+      Description:        "156710 - RDML Disabled Long File Name"
+
+  Real Fields:
+  - F156710A:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - F156710B:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - F156710C:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0

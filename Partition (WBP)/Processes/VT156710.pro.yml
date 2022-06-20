@@ -1,0 +1,312 @@
+﻿Process:
+  Name:                      VT156710
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Incorrect column name used by Select_SQL"
+
+  - ENG:
+      Description:        "Incorrect column name used by Select_SQL"
+
+  - FRA:
+      Description:        "Incorrect column name used by Select_SQL"
+
+  - JPN:
+      Description:        "Incorrect column name used by Select_SQL"
+
+  - TRK:
+      Description:        "Incorrect column name used by Select_SQL"
+
+  Functions:
+  - V56710A:
+      Name:               V56710A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 156710 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 156710 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 156710 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 156710 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 156710 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710C:
+      Name:               V56710C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "From_Files((xEmployee))"
+
+      - ENG:
+          Description:        "From_Files((xEmployee))"
+
+      - FRA:
+          Description:        "From_Files((xEmployee))"
+
+      - JPN:
+          Description:        "From_Files((xEmployee))"
+
+      - TRK:
+          Description:        "From_Files((xEmployee))"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710D:
+      Name:               V56710D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "From_Files((xDepartments))"
+
+      - ENG:
+          Description:        "From_Files((xDepartments))"
+
+      - FRA:
+          Description:        "From_Files((xDepartments))"
+
+      - JPN:
+          Description:        "From_Files((xDepartments))"
+
+      - TRK:
+          Description:        "From_Files((xDepartments))"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710E:
+      Name:               V56710E
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Imbed SQL: Where ( ... (Select ... ) )"
+
+      - ENG:
+          Description:        "Imbed SQL: Where ( ... (Select ... ) )"
+
+      - FRA:
+          Description:        "Imbed SQL: Where ( ... (Select ... ) )"
+
+      - JPN:
+          Description:        "Imbed SQL: Where ( ... (Select ... ) )"
+
+      - TRK:
+          Description:        "Imbed SQL: Where ( ... (Select ... ) )"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710F:
+      Name:               V56710F
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "JOIN using Alias & Correlation"
+
+      - ENG:
+          Description:        "JOIN using Alias & Correlation"
+
+      - FRA:
+          Description:        "JOIN using Alias & Correlation"
+
+      - JPN:
+          Description:        "JOIN using Alias & Correlation"
+
+      - TRK:
+          Description:        "JOIN using Alias & Correlation"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710G:
+      Name:               V56710G
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "VTL156710 Files with Combination Setting"
+
+      - ENG:
+          Description:        "VTL156710 Files with Combination Setting"
+
+      - FRA:
+          Description:        "VTL156710 Files with Combination Setting"
+
+      - JPN:
+          Description:        "VTL156710 Files with Combination Setting"
+
+      - TRK:
+          Description:        "VTL156710 Files with Combination Setting"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710H:
+      Name:               V56710H
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Enhancement - Remove 50 byte limitation"
+
+      - ENG:
+          Description:        "Enhancement - Remove 50 byte limitation"
+
+      - FRA:
+          Description:        "Enhancement - Remove 50 byte limitation"
+
+      - JPN:
+          Description:        "Enhancement - Remove 50 byte limitation"
+
+      - TRK:
+          Description:        "Enhancement - Remove 50 byte limitation"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710I:
+      Name:               V56710I
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Enhacement - Various Field Namings"
+
+      - ENG:
+          Description:        "Enhacement - Various Field Namings"
+
+      - FRA:
+          Description:        "Enhacement - Various Field Namings"
+
+      - JPN:
+          Description:        "Enhacement - Various Field Namings"
+
+      - TRK:
+          Description:        "Enhacement - Various Field Namings"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710J:
+      Name:               V56710J
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Enhacement - Various Field Namings"
+
+      - ENG:
+          Description:        "Enhacement - Various Field Namings"
+
+      - FRA:
+          Description:        "Enhacement - Various Field Namings"
+
+      - JPN:
+          Description:        "Enhacement - Various Field Namings"
+
+      - TRK:
+          Description:        "Enhacement - Various Field Namings"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710K:
+      Name:               V56710K
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Other Select_SQL related CCS Test Case"
+
+      - ENG:
+          Description:        "Other Select_SQL related CCS Test Case"
+
+      - FRA:
+          Description:        "Other Select_SQL related CCS Test Case"
+
+      - JPN:
+          Description:        "Other Select_SQL related CCS Test Case"
+
+      - TRK:
+          Description:        "Other Select_SQL related CCS Test Case"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710L:
+      Name:               V56710L
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "153739 - Select_SQL Using(*NVarchar)"
+
+      - ENG:
+          Description:        "153739 - Select_SQL Using(*NVarchar)"
+
+      - FRA:
+          Description:        "153739 - Select_SQL Using(*NVarchar)"
+
+      - JPN:
+          Description:        "153739 - Select_SQL Using(*NVarchar)"
+
+      - TRK:
+          Description:        "153739 - Select_SQL Using(*NVarchar)"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V56710M:
+      Name:               V56710M
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "VTL156710M - Converted @#$ Column Names"
+
+      - ENG:
+          Description:        "VTL156710M - Converted @#$ Column Names"
+
+      - FRA:
+          Description:        "VTL156710M - Converted @#$ Column Names"
+
+      - JPN:
+          Description:        "VTL156710M - Converted @#$ Column Names"
+
+      - TRK:
+          Description:        "VTL156710M - Converted @#$ Column Names"
+
+      Allowed Next Functions:
+      - "*ANY"

@@ -1,0 +1,215 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    If (#LF_DB_Type *NE MYSQL)
+    #Com_Owner.mthSelect_SQL_VTL156710C( #LF_rc )
+    #Com_Owner.mthSelect_SQL_VTL156710D( #LF_rc )
+    #Com_Owner.mthSelect_SQL_VTL156710E( #LF_rc )
+    #Com_Owner.mthSelect_SQL_VTL156710F( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_As_Correclation( #LF_rc )
+    
+    
+    If (#LF_DB_Type *NE MYSQL)
+    #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_And_File_Name_As_Correclation( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_LN_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_ID_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_Total_Record) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_Temp1) Length(*REFFLD *PLUS 2) Reffld(#xEmployeeSalary)
+    Define Field(#LF_Temp2) Length(*REFFLD *PLUS 2) Reffld(#xEmployeeSalary)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_SubString_Function) Type(*CHAR) Length(20)
+    
+    Mthroutine Name(mthSelect_SQL_VTL156710C)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'File ID With Long Name Disabled' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Select all Long Field Names' ('Select_SQL Fields(#F1 #F2-LN #F3-LN) From_Files((L1))') )
+    Select_Sql Fields(#F156710A #F156710_B_Long_Name #F156710_C_Invalid_Long_Name_As_Too_Long) From_Files((VTL156710C))
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: File Name as Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1))') )
+    Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C))
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Order_By with Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Order_By(L1-F3-LN)') )
+    Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)) Order_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long)
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Group_By with Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Group_By(L1.F3-LN)') )
+    Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)) Group_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long)
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Order/Group_By with Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Group_By(L1.F3-LN) Order_By(L1-F3-LN)') )
+    Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)) Group_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long) Order_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long)
+    Leave
+    Endselect
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_VTL156710D)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Long File Name But Disabled' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710D: File name & File ID as Correlation' ('Select_SQL Fields(#F1 (#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') (#F3-LN ' + *Quote + 'L1-ID.F3-LN' + *Quote + ')) From_Files((L1-LN))') )
+    Select_Sql Fields(#F156710A (#F156710_B_Long_Name 'VTL156710_D_Disabled_Long_Name.F156710B') (#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710D.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_D_Disabled_Long_Name))
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710D: Order/Group_By with Correclation' ('Select_SQL Fields(#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') From_Files((L1)) Group_By(L1-LN.F2-ID) Order_By(L1-ID.F2-LN)') )
+    Select_Sql Fields((#F156710_B_Long_Name 'VTL156710_D_Disabled_Long_Name.F156710B')) From_Files((VTL156710D)) Group_By(VTL156710_D_Disabled_Long_Name.F156710B) Order_By(VTL156710D.F156710_B_Long_Name)
+    Leave
+    Endselect
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_VTL156710E)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Valid Long File Name' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710E: File name & File ID as Correlation' ('Select_SQL Fields(#F1 (#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') (#F3-LN ' + *Quote + 'L1-ID.F3-LN' + *Quote + ')) From_Files((L1-LN))') )
+    Select_Sql Fields(#F156710A (#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710B') (#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710E.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name))
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710E: Order/Group_By with Correclation' ('Select_SQL Fields((#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ')) From_Files((L1-LN)) Group_By(L1-LN.F2-ID) Order_By(L1-ID.F2-LN)') )
+    Select_Sql Fields((#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710B')) From_Files((VTL156710_E_Long_Name)) Group_By(VTL156710_E_Long_Name.F156710B) Order_By(VTL156710E.F156710_B_Long_Name)
+    Leave
+    Endselect
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_VTL156710F)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Invalid Long File Name' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710F: File name & File ID as Correlation' ('Select_SQL Fields(#F1 (#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') (#F3-LN ' + *Quote + 'L1-ID.F3-LN' + *Quote + ')) From_Files((L1-LN))') )
+    Select_Sql Fields(#F156710A (#F156710_B_Long_Name 'VTL156710_F_Invalid_Long_Name_As_Too_Long.F156710B') (#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710F.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_F_Invalid_Long_Name_As_Too_Long))
+    Leave
+    Endselect
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_Files_Using_Alias_As_Correclation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Join Files using Alias as Correlation' ('Select_SQL Fields((#F1 ' + *Quote + 'L1.F1' + *Quote + ') (#F2-LN ' + *Quote + 'L1.F2-LN' + *Quote + ') (#F3-LN ' + *Quote + 'L2.F3-LN' + *Quote + ')) From_Files(L1 L1)(L2-LN L2))) Where(L1.F2-ID = L2.F2-LN)') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( C, D )' '' )
+    Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C L1)(VTL156710_D_Disabled_Long_Name L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( D, C )' '' )
+    Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_D_Disabled_Long_Name L1)(VTL156710C L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( E, F )' '' )
+    Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name L1)(VTL156710_F_Invalid_Long_Name_As_Too_Long L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( F, E )' '' )
+    Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_F_Invalid_Long_Name_As_Too_Long L1)(VTL156710_E_Long_Name L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_Files_Using_Alias_And_File_Name_As_Correclation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Join Files using Alias & File Name as Correlation' ('Select_SQL Fields((#F1 ' + *Quote + 'L1.F1' + *Quote + ') (#F2-LN ' + *Quote + 'L1.F2-LN' + *Quote + ') (#F3-LN ' + *Quote + 'L2.F3-LN' + *Quote + ')) From_Files(L1)(L2))) Where(L1.F2-ID = L2.F2-LN)') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( C, D )' '' )
+    Select_Sql Fields((#F156710A 'VTL156710C.F156710A') (#F156710_B_Long_Name 'VTL156710C.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)(VTL156710_D_Disabled_Long_Name L2)) Where('VTL156710C.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( D, C )' '' )
+    Select_Sql Fields((#F156710A VTL156710_D_Disabled_Long_Name.F156710A) (#F156710_B_Long_Name 'VTL156710_D_Disabled_Long_Name.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_D_Disabled_Long_Name)(VTL156710C)) Where('VTL156710_D_Disabled_Long_Name.F156710B = VTL156710C.F156710_B_Long_Name')
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( E, F )' '' )
+    Select_Sql Fields((#F156710A VTL156710_E_Long_Name.F156710A) (#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name)(VTL156710_F_Invalid_Long_Name_As_Too_Long L2)) Where('VTL156710_E_Long_Name.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( F, E )' '' )
+    Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_F_Invalid_Long_Name_As_Too_Long L1)(VTL156710_E_Long_Name L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
+    Leave
+    Endselect
+    Endif
+    Endroutine
+    
+    

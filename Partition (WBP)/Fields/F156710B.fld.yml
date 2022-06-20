@@ -1,0 +1,57 @@
+﻿Field:
+  Name:               F156710_B_Long_Name
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "156710 - (b) Select_SQL valid Long Name"
+      Label:              "156710 - (b) Se"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "(b)"
+
+  - ENG:
+      Description:        "156710 - (b) Select_SQL valid Long Name"
+      Label:              "156710 - (b) Se"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "(b)"
+
+  - FRA:
+      Description:        "156710 - (b) Select_SQL valid Long Name"
+      Label:              "156710 - (b) Se"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "(b)"
+
+  - JPN:
+      Description:        "156710 - (b) Select_SQL valid Long Name"
+      Label:              "156710 - (b) Se"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "(b)"
+
+  - TRK:
+      Description:        "156710 - (b) Select_SQL valid Long Name"
+      Label:              "156710 - (b) Se"
+      Heading1:           "156710"
+      Heading2:           "-"
+      Heading3:           "(b)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(244) Width(426)
+    
+    End_Com
+    
+    End_Com

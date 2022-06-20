@@ -1,0 +1,200 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    * Determine the COLLECTION NAME to be used in the embedded query.
+    If (*CPUTYPE = AS400)
+    #LF_DB_Separator := '/'
+    #LF_DB_Collection_Name := *PARTDTALIB
+    #LF_DB_Table_Qualifier := #LF_DB_Collection_Name + #LF_DB_Separator + #LF_DB_Quote
+    Else
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    Clr_List Named(#wLCTD)
+    Use Builtin(Read_CTD) With_Args(XDEPTMENTS) To_Get(#LF_rc #wLCTD)
+    
+    Selectlist Named(#wLCTD)
+    If (#LF_CTD_Key = 'ACTIVE_COLLECTION')
+    #LF_DB_Collection_Name := #LF_CTD_Data
+    Leave
+    Endif
+    Endselect
+    
+    If (#LF_DB_Collection_Name = *Blanks)
+    #LF_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xDepartments CTD file not found' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('Collection Name is ' + #LF_DB_Collection_Name) '' )
+    Endif
+    
+    If (#LF_DB_Type *NE MYSQL)
+    #LF_DB_Separator := '.'
+    #LF_DB_Table_Qualifier := #LF_DB_Collection_Name + #LF_DB_Separator + #LF_DB_Quote
+    Else
+    #LF_DB_Quote := '`'
+    #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + '_'
+    Endif
+    
+    Endif
+    
+    #Com_Owner.mthSelect_SQL_Imbedded_Constructed_SQL_1( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Imbedded_Constructed_SQL_2( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Imbedded_SQL_3( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_LN_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_ID_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_DB_Separator) Type(*CHAR) Length(1) Default(*Blanks)
+    Define Field(#LF_DB_Collection_Name) Type(*CHAR) Length(32) Default(*Blanks)
+    Define Field(#LF_DB_Table_Qualifier) Type(*CHAR) Length(256) Default(*Blanks)
+    Define Field(#LF_DB_Quote) Type(*CHAR) Length(1) Default('"')
+    Define Field(#LF_Where) Type(*CHAR) Length(512) Input_Atr(LC)
+    
+    Define Field(#LF_CTD_Key) Type(*CHAR) Length(20)
+    Define Field(#LF_CTD_Data) Type(*CHAR) Length(236)
+    Def_List Name(#wLCTD) Fields(#LF_CTD_Key #LF_CTD_Data) Type(*WORKING)
+    
+    Mthroutine Name(mthCompareResult)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_LN_Counter)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_ID_Counter)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_LN_Counter = #this_ID_Counter)
+    #Com_Owner.mthAdd_SubMsg( OK (' => #Long Name Items = #ID Items = ' + #this_ID_Counter.AsString) '' )
+    Else
+    
+    If (#this_rc *NE ER)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => #Long Name Items (' + #this_LN_Counter.AsString + ') <> #ID Otems (' + #this_ID_Counter.AsString + ')') '???' )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Imbedded_Constructed_SQL_1)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #LF_Where := #LF_DB_Quote + 'xDepartmentCode' + #LF_DB_Quote + ' = ANY (SELECT ' + #LF_DB_Quote + 'xDepartmentCode' + #LF_DB_Quote + ' FROM ' + #LF_DB_Table_Qualifier + 'xDepartments' + #LF_DB_Quote + ')'
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Imbedded constructed SQL in the Where clause (1)' ('#LF_Where = ' + *Quote + #LF_Where + *Quote) )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Query xDepartments table' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L1-LN)) Where(#LF_Where)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xDepartmentCode) From_Files((xEmployee)) Where(#LF_Where)
+    #LF_LN_Record_Counter += 1
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: Query xDepartmetns table' ('Select_SQL Fields(#F1 #F2) From_Files((L1)) Where(#LF_Where)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XDEPTMENT) From_Files((XEMPLOYEE)) Where(#LF_Where)
+    #LF_ID_Record_Counter += 1
+    Leave
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Imbedded_Constructed_SQL_2)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #LF_Where := #LF_DB_Quote + 'xEmployeeSalary' + #LF_DB_Quote + ' >= ALL (SELECT ' + #LF_DB_Quote + 'xEmployeeSalary' + #LF_DB_Quote + ' FROM ' + #LF_DB_Table_Qualifier + 'xEmployee' + #LF_DB_Quote + ' WHERE (' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ' <= 130000))'
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Imbedded constructed SQL in the Where clause (2)' ('#LF_Where = ' + *Quote + #LF_Where + *Quote) )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Query xEmployee table' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L1-LN)) Where(#LF_Where)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where(#LF_Where)
+    #LF_LN_Record_Counter += 1
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: Query xEmployee table' ('Select_SQL Fields(#F1 #F2) From_Files((L1)) Where(#LF_Where)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where(#LF_Where)
+    #LF_ID_Record_Counter += 1
+    Leave
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Imbedded_SQL_3)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Imbedded SQL in the Where clause (3)' '' )
+    #Com_Owner.mthAdd_SubMsg( OK ' *** LIMITATION' 'The FFC does not pass the WHERE clause with (#S1 + #S2) and hence the SQL statement is not dynamic' )
+    
+    * #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Query xDepartmetns table' ('Select_SQL Fields(#F1-LN #F2-LN) From_Files((L1-LN)) Where(' + *Quote + 'F2-LN = ANY (SELECT F2-LN ...))') )
+    * #LF_LN_Record_Counter := 0
+    * Select_Sql Fields(#xDepartmentCode #xEmployeeIdentification) From_Files((xEmployee)) Where('xDepartmentCode = ANY (SELECT xDepartmentCode FROM ' + #LF_DB_Collection_Name + #LF_DB_Separator + 'xDepartments)')
+    * #LF_LN_Record_Counter += 1
+    * Leave
+    * Endselect
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: Query xDepartmetns table' ('Select_SQL Fields(#F1 #F2) From_Files((L1)) Where(' + *Quote + 'F2 = ANY (SELECT F2 ...))') )
+    * #LF_ID_Record_Counter := 0
+    * Select_Sql Fields(#XDEPTMENT #XEMPLOYID) From_Files((XEMPLOYEE)) Where('XDEPTMENT = ANY (SELECT XDEPTMENT FROM ' + #LF_DB_Collection_Name + #LF_DB_Separator + 'XDEPTMENTS)')
+    * #LF_ID_Record_Counter += 1
+    * Leave
+    * Endselect
+    *
+    * #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    
+    

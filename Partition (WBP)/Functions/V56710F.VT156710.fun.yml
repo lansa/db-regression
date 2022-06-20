@@ -1,0 +1,287 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    #Com_Owner.mthSelect_SQL_Using_Alias_As_Correlation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_Same_Table_Using_Alias_As_Correlation( #LF_rc )
+    
+    #Com_Owner.mthSelect_SQL_Join_SN_And_LN_Using_Alias_As_Correlation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_LN_And_SN_Using_Alias_As_Correlation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_LN_And_LN_Using_Alias_As_Correlation( #LF_rc )
+    
+    If (#LF_DB_Type *NE MYSQL)
+    #Com_Owner.mthSelect_SQL_Join_SN_And_LN_Using_File_Name_As_Correlation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_LN_And_SN_Using_File_Name_As_Correlation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_LN_And_LN_Using_File_Name_As_Correlation( #LF_rc )
+    
+    #Com_Owner.mthSelect_SQL_Join_Using_Mixed_Names_As_Correlation( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    Define Field(#LF_LN_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_ID_Record_Counter) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    
+    Mthroutine Name(mthCompareResult)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_LN_Counter)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_ID_Counter)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_LN_Counter = #this_ID_Counter)
+    #Com_Owner.mthAdd_SubMsg( OK (' => #(Long Name Item) = #(ID Item) = ' + #this_ID_Counter.AsString) '' )
+    Else
+    
+    If (#this_rc *NE ER)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => #(Long Name Item) (' + #this_LN_Counter.AsString + ') <> #(ID Item) (' + #this_ID_Counter.AsString + ')') '???' )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Using_Alias_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Alias as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long Field Name' ('Select_SQL Fields(#xEmployeeIdentification ' + *Quote + 'L1.xEmployeeIdentification' + *Quote + ') From_Files((xEmployee L1))') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xEmployeeIdentification 'L1.xEmployeeIdentification')) From_Files((xEmployee L1))
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: Field Id' ('Select_SQL Fields(#XEMPLOYID ' + *Quote + 'L1.XEMPLOYID' + *Quote + ') From_Files((XEMPLOYEE L1))') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XEMPLOYID 'L1.XEMPLOYID')) From_Files((XEMPLOYEE L1))
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_Same_Table_Using_Alias_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN same table using alias' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long Field Name' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L2.F2-LN' + *Quote + ')) From_Files((L1-LN L1)(L1-LN L2)) Where(L1.F1-LN = L2.F1-LN') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xEmployeeIdentification 'L1.xEmployeeIdentification') (#xEmployeeSalary 'L2.xEmployeeSalary')) From_Files((xEmployee L1)(xEmployee L2)) Where('L1.xEmployeeIdentification = L2.xEmployeeIdentification')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L1.F1' + *Quote + ')(#F2 ' + *Quote + 'L2.F2' + *Quote + ')) From_Files((L1-ID L1)(L1-ID L2)) Where(L1.F1 = L2.F1') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XEMPLOYID 'L1.XEMPLOYID') (#XSALARY 'L2.XSALARY')) From_Files((XEMPLOYEE L1)(XEMPLOYEE L2)) Where('L1.XEMPLOYID = L2.XEMPLOYID')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_SN_And_LN_Using_Alias_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN SN & LN tables using alias as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee/xDepartments: Long File & Field Names' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L2.F2-LN' + *Quote + ')) From_Files((L1-SN L1)(L2-LN L2)) Where(L1.F3-LN = L2.F3-LN)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xEmployeeIdentification 'L1.xEmployeeIdentification') (#xDepartmentDescription 'L2.xDepartmentDescription')) From_Files((xEmployee L1)(xDepartments L2)) Where('L1.xDepartmentCode = L2.xDepartmentCode')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE/XDEPTMENTS: File & Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L1.F1' + *Quote + ')(#F2 ' + *Quote + 'L2.F2' + *Quote + ')) From_Files((L1-ID L1)(L2-ID L2)) Where(L1.F3 = L2.F3)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XEMPLOYID 'L1.XEMPLOYID') (#XDEPTDESC 'L2.XDEPTDESC')) From_Files((XEMPLOYEE L1)(XDEPTMENTS L2)) Where('L1.XDEPTMENT = L2.XDEPTMENT')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_LN_And_SN_Using_Alias_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN LN & SN tables using alias as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments/xEmployee: Long File & Field Names' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L2.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L1.F2-LN' + *Quote + ')) From_Files((L1-LN L1)(L2-SN L2)) Where(L1.F3-LN = L2.F3-LN)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xEmployeeIdentification 'L2.xEmployeeIdentification') (#xDepartmentDescription 'L1.xDepartmentDescription')) From_Files((xDepartments L1)(xEmployee L2)) Where('L1.xDepartmentCode = L2.xDepartmentCode')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS/XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L2.F1' + *Quote + ')(#F2 ' + *Quote + 'L1.F2' + *Quote + ')) From_Files((L1-ID L1)(L2-ID L2)) Where(L1.F3 = L2.F3)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XEMPLOYID 'L2.XEMPLOYID') (#XDEPTDESC 'L1.XDEPTDESC')) From_Files((XDEPTMENTS L1)(XEMPLOYEE L2)) Where('L1.XDEPTMENT = L2.XDEPTMENT')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_LN_And_LN_Using_Alias_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN LN & LN tables using alias as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xSProductLine/xSProductCategory: Long File & Field Names' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L2.F2-LN' + *Quote + ')) From_Files((L1-LN L1)(L2-lN L2)) Where(L1.F1-LN = L2.F1-LN)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xProductLineID 'L1.xProductLineID') (#xProductCategoryDescription 'L2.xProductCategoryDescription')) From_Files((xProductLine L1)(xProductCategory L2)) Where('(L1.xProductLineID = L2.xProductLineID)')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XSPRDLNE/XSPRDCT: File & Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L1.F1' + *Quote + ')(#F2 ' + *Quote + 'L2.F2' + *Quote + ')) From_Files((L1-ID L1)(L2-ID L2)) Where(L1.F1 = L2.F1)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XPRODUCTL 'L1.XPRODUCTL') (#XPRODUC_6 'L2.XPRODUC_6')) From_Files((XPRODUCTLI L1)(XPRODUCTCA L2)) Where('(L1.XPRODUCTL = L2.XPRODUCTL)')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_SN_And_LN_Using_File_Name_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN SN & LN tables using File name as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xEmployee/xDepartments: Long File & Field Names' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1-SN.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L2-LN.F2-LN' + *Quote + ')) From_Files((L1-SN)(L2-LN)) Where(L1-SN.F3-LN = L2-LN.F3-LN)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xEmployeeIdentification 'xEmployee.xEmployeeIdentification') (#xDepartmentDescription 'xDepartments.xDepartmentDescription')) From_Files((xEmployee)(xDepartments)) Where('xEmployee.xDepartmentCode = xDepartments.xDepartmentCode')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE/XDEPTMENTS: File & Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L1-ID.F1' + *Quote + ')(#F2 ' + *Quote + 'L2-ID.F2' + *Quote + ')) From_Files((L1-ID)(L2-ID)) Where(L1-ID.F3 = L2-ID.F3)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XEMPLOYID 'XEMPLOYEE.XEMPLOYID') (#XDEPTDESC 'XDEPTMENTS.XDEPTDESC')) From_Files((XEMPLOYEE)(XDEPTMENTS)) Where('XEMPLOYEE.XDEPTMENT = XDEPTMENTS.XDEPTMENT')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    
+    Mthroutine Name(mthSelect_SQL_Join_LN_And_SN_Using_File_Name_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN LN & SN tables using File name as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xDepartments/xEmployee: Long File & Field Names' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L2-SN.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L1-LN.F2-LN' + *Quote + ')) From_Files((L1-LN)(L2-SN)) Where(L1-LN.F3-LN = L2-SN.F3-LN)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xEmployeeIdentification 'xEmployee.xEmployeeIdentification') (#xDepartmentDescription 'xDepartments.xDepartmentDescription')) From_Files((xDepartments)(xEmployee)) Where('xDepartments.xDepartmentCode = xEmployee.xDepartmentCode')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XDEPTMENTS/XEMPLOYEE: File & Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L2-ID.F1' + *Quote + ')(#F2 ' + *Quote + 'L1-ID.F2' + *Quote + ')) From_Files((L1-ID)(L2-ID)) Where(L1-ID.F3 = L2-ID.F3)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XEMPLOYID 'XEMPLOYEE.XEMPLOYID') (#XDEPTDESC 'XDEPTMENTS.XDEPTDESC')) From_Files((XDEPTMENTS)(XEMPLOYEE)) Where('XDEPTMENTS.XDEPTMENT = XEMPLOYEE.XDEPTMENT')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_LN_And_LN_Using_File_Name_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN LN & LN tables using File Name as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xProductLine/xProductCategory: Long File & Field Names' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1-LN.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L2-LN.F2-LN' + *Quote + ')) From_Files((L1-LN)(L2-lN)) Where(L1-LN.F1-LN = L2-LN.F1-LN)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xProductLineID 'xProductLine.xProductLineID') (#xProductCategoryDescription 'xProductCategory.XProductCategoryDescription')) From_Files((xProductLine)(xProductCategory)) Where('(xProductLine.xProductLineID = xProductCategory.XProductLineID)')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XPRODUCTLI/XPRODUCTCA: File & Field Id' ('Select_SQL Fields((#F1 ' + *Quote + 'L1-ID.F1' + *Quote + ')(#F2 ' + *Quote + 'L2-ID.F2' + *Quote + ')) From_Files((L1-ID)(L2-ID)) Where(L1-ID.F1 = L2-ID.F1)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XPRODUCTL 'XPRODUCTLI.XPRODUCTL') (#XPRODUC_6 'XPRODUCTCA.XPRODUC_6')) From_Files((XPRODUCTLI)(XPRODUCTCA)) Where('(XPRODUCTLI.XPRODUCTL = XPRODUCTCA.XPRODUCTL)')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthSelect_SQL_Join_Using_Mixed_Names_As_Correlation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'JOIN tables using mixed names as correlation' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- xProductLine/XPRODUCTCA: Mixed Names (1)' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1-ID.F1-ID' + *Quote + ')(#F2-ID ' + *Quote + 'L2-LN.F2-ID' + *Quote + ')) From_Files((L1-LN)(L2-ID)) Where(L1-LN.F1-LN = L2-LN.F1-ID)') )
+    #LF_LN_Record_Counter := 0
+    Select_Sql Fields((#xProductLineID 'XPRODUCTLI.XPRODUCTL') (#XPRODUC_6 'xProductCategory.XPRODUC_6')) From_Files((xProductLine)(XPRODUCTCA)) Where('(xProductLine.xProductLineID = xProductCategory.XPRODUCTL)')
+    #LF_LN_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- XPRODUCTLI/xProductCategory: Mixed Names (2)' ('Select_SQL Fields((#F1-ID ' + *Quote + 'L1-ID.F1-LN' + *Quote + ')(#F2-LN ' + *Quote + 'L2.F2-LN' + *Quote + ')) From_Files((L1-ID)(L2-ID L2)) Where(L1-LN.F1-LN = L2.F1-LN)') )
+    #LF_ID_Record_Counter := 0
+    Select_Sql Fields((#XPRODUCTL 'XPRODUCTLI.xProductLineID') (#xProductCategoryDescription 'L2.xProductCategoryDescription')) From_Files((XPRODUCTLI)(XPRODUCTCA L2)) Where('(xProductLine.xProductLineID = L2.xProductLineID)')
+    #LF_ID_Record_Counter += 1
+    Endselect
+    
+    #Com_Owner.mthCompareResult( #LF_LN_Record_Counter #LF_ID_Record_Counter #this_rc )
+    Endif
+    Endroutine
+    
+    

@@ -1,0 +1,75 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    #Com_Owner.mthSelect_SQL_Field_Being_Referred_To_By_Both_Long_Name_And_Id( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Mthroutine Name(mthSelect_SQL_Field_Being_Referred_To_By_Both_Long_Name_And_Id)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK 'Future Ehhancement' '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ' *** NEED TO BE ADDRESSED?' ('Cannot support a Field being used in 2 different naming setting Files. Check FFC warnings for details') )
+    
+    Goto Label(ENH)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Join Files using Alias as Correlation' ('Select_SQL Fields((#F1-LN ' + *Quote + 'L1.F1-LN' + *Quote + ') (#F2-LN ' + *Quote + 'L2.F2-LN' + *Quote + ') (#F3-LN ' + *Quote + 'L3.F3-LN' + *Quote + ')) From_Files(L1-LN L1)(L2-LN L2)(L3-LN L3))') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- From_Files( E, F, D )' '' )
+    Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L2.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L3.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name L1)(VTL156710_F_Invalid_Long_Name_As_Too_Long L2)(VTL156710_D_Disabled_Long_Name L3))
+    Leave
+    Endselect
+    
+    ENH:
+    Endif
+    Endroutine
+    

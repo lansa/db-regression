@@ -1,0 +1,262 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    * Determine the COLLECTION NAME to be used in the embedded query.
+    If (*CPUTYPE = AS400)
+    #LF_DB_Separator := '/'
+    #LF_DB_Collection_Name := *PARTDTALIB
+    Else
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    If (#LF_DB_Type *NE MYSQL)
+    #LF_DB_Separator := '.'
+    
+    Clr_List Named(#wLCTD)
+    Use Builtin(Read_CTD) With_Args(XEMPLOYEE) To_Get(#LF_rc #wLCTD)
+    
+    Selectlist Named(#wLCTD)
+    If (#LF_CTD_Key = 'ACTIVE_COLLECTION')
+    #LF_DB_Collection_Name := #LF_CTD_Data
+    Leave
+    Endif
+    Endselect
+    
+    If (#LF_DB_Collection_Name = *Blanks)
+    #LF_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xDepartments CTD file not found' )
+    Endif
+    Else
+    #LF_DB_Quote := '`'
+    Endif
+    Endif
+    
+    If (#LF_DB_Type = MYSQL)
+    #Com_Owner.mthAdd_SubMsg( OK '*** SKIPPED' 'Skipped under MySQL database until 156943 is RFTed' )
+    Else
+    #Com_Owner.mthCCS_Select_SQL_Group_By_Surname( #LF_rc )
+    #Com_Owner.mthCCS_Select_With_Key_Surname( #LF_rc )
+    
+    * The SQL format not being supported on IBM i. The error message is:
+    * Character conversion between CCSID 1200 and CCSID 65535 not valid.
+    If (*CPUTYPE = AS400)
+    #Com_Owner.mthAdd_SubMsg( OK '*** SKIPPED - Select_SQL_Where' 'Character conversion between CCSID 1200 and CCSID 65535 not valid' )
+    Else
+    #Com_Owner.mthCCS_Select_SQL_Where( #LF_rc False )
+    Endif
+    
+    
+    If (#LF_DB_Type *NE ODBCORACLE)
+    #Com_Owner.mthCCS_Select_SQL_Where( #LF_rc True )
+    Endif
+    
+    * The SQL format not being supported on IBM i. The error message is:
+    * Character conversion between CCSID 1200 and CCSID 65535 not valid.
+    If (*CPUTYPE = AS400)
+    #Com_Owner.mthAdd_SubMsg( OK '*** SKIPPED - Select_SQL_Using_NVarchar' 'Character conversion between CCSID 1200 and CCSID 65535 not valid' )
+    Else
+    #Com_Owner.mthCCS_Select_SQL_Using_NVarchar( #LF_rc False )
+    Endif
+    
+    If (#LF_DB_Type *NE ODBCORACLE)
+    #Com_Owner.mthCCS_Select_SQL_Using_NVarchar( #LF_rc True )
+    Endif
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_DB_Separator) Type(*CHAR) Length(1) Default(*Blanks)
+    Define Field(#LF_DB_Collection_Name) Type(*CHAR) Length(32) Default(*Blanks)
+    Define Field(#LF_DB_Quote) Type(*CHAR) Length(1) Default('"')
+    Define Field(#LF_Where) Type(*CHAR) Length(512) Input_Atr(LC)
+    
+    Define Field(#LF_CTD_Key) Type(*CHAR) Length(20)
+    Define Field(#LF_CTD_Data) Type(*CHAR) Length(236)
+    Def_List Name(#wLCTD) Fields(#LF_CTD_Key #LF_CTD_Data) Type(*WORKING)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_153739_NVarchar_Stmnt) Type(*NVARCHAR) Length(30000)
+    Define Field(#LF_Hex_Literal) Type(*STRING) Length(20000)
+    Define Field(#LF_Number_Of_People_With_Surname) Reffld(#Std_Count)
+    Define Field(#LF_List_Item_Count) Reffld(#Std_Count)
+    Def_List Name(#wl_Surname) Fields(#xEmployeeSurname #Std_Count) Counter(#LF_List_Item_Count) Type(*WORKING) Entrys(100)
+    
+    Mthroutine Name(mthCCS_Select_SQL_Group_By_Surname)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- Select_SQL / Group_By' 'Select_SQL Fields(#xEmployeeSurname) From_Files(xEmployee) Group_By(#xEmployeeSurname)' )
+    
+    Clr_List Named(#wl_Surname)
+    Select_Sql Fields(#xEmployeeSurname (#Std_Count 'count(#xEmployeeSurname)')) From_Files((xEmployee)) Group_By(#xEmployeeSurname) Io_Status(#this_rc) Io_Error(*NEXT)
+    If (#LF_List_Item_Count < 100)
+    Add_Entry To_List(#wl_Surname)
+    Else
+    Leave
+    Endif
+    Endselect
+    
+    If (#LF_List_Item_Count = 0)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' Unexpected no records from xEmployee table') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Totally ' + #LF_List_Item_Count.AsString + ' surname(s) found.') ('Return code is ' + *Quote + #this_rc + *Quote) )
+    Endif
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCCS_Select_With_Key_Surname)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- Select / With_Key(#xEmployeeSurname)' 'Compare with Select_SQL/Group_By results' )
+    
+    Begin_Loop Using(#LF_i) From(0) To(#LF_List_Item_Count - 1)
+    Get_Entry Number((#LF_i + 1)) From_List(#wl_Surname)
+    
+    #LF_Number_Of_People_With_Surname := 0
+    Select Fields(#xEmployeeIdentification) From_File(xEmployeeBySurname) With_Key(#xEmployeeSurname) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Number_Of_People_With_Surname += 1
+    Endselect
+    
+    If (#LF_Number_Of_People_With_Surname <> #Std_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Unexpected different results') ('On record(' + (#LF_i + 1).AsString + ') ' + *Quote + #xEmployeeSurname.AsNativeString + *Quote + ': Select_SQL/Group_By(' + #Std_Count.AsString + '), Select/With_Key(' + #LF_Number_Of_People_With_Surname.AsString + ')') )
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Return code is ' + *Quote + #this_rc + *Quote) (#LF_i.AsString + ' record(s) compared') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCCS_Select_SQL_Where)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_hex_literal)
+    
+    If (#this_rc *NE ER)
+    If (#this_hex_literal = True)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Select_SQL / Where(x = Hex-Literal)') 'Compare with Select_SQL/Group_By results' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Select_SQL / Where(x = :x)') 'Compare with Select_SQL/Group_By results' )
+    Endif
+    
+    Begin_Loop Using(#LF_i) From(0) To(#LF_List_Item_Count - 1)
+    Get_Entry Number((#LF_i + 1)) From_List(#wl_Surname)
+    
+    #LF_Number_Of_People_With_Surname := 0
+    
+    If (#this_hex_literal = True)
+    #LF_Hex_Literal := #LF_DB_Quote + 'xEmployeeSurname' + #LF_DB_Quote + ' = ' + #xEmployeeSurname.AsSqlHexLiteral
+    Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee)) Where(#LF_Hex_Literal)
+    #LF_Number_Of_People_With_Surname += 1
+    Endselect
+    Else
+    Select_Sql Fields(#xEmployeeIdentification) From_Files((xEmployee)) Where('xEmployeeSurname = :xEmployeeSurname')
+    #LF_Number_Of_People_With_Surname += 1
+    Endselect
+    Endif
+    
+    If (#LF_Number_Of_People_With_Surname <> #Std_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Unexpected different results') ('On record(' + (#LF_i + 1).AsString + ') ' + *Quote + #xEmployeeSurname.AsNativeString + *Quote + ': Select_SQL/Group_By(' + #Std_Count.AsString + '), Select_SQL/Where(' + #LF_Number_Of_People_With_Surname.AsString + ')') )
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Return code is ' + *Quote + #this_rc + *Quote) (#LF_i.AsString + ' record(s) compared') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCCS_Select_SQL_Using_NVarchar)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_hex_literal)
+    
+    If (#this_rc *NE ER)
+    If (#this_hex_literal = True)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Select_SQL / Using(*NVarchar + Hex-Literal)') 'Compare with Select_SQL/Group_By results' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Select_SQL / Using(*NVarchar)') 'Compare with Select_SQL/Group_By results' )
+    Endif
+    
+    Begin_Loop Using(#LF_i) From(0) To(#LF_List_Item_Count - 1)
+    Get_Entry Number((#LF_i + 1)) From_List(#wl_Surname)
+    
+    #LF_Number_Of_People_With_Surname := 0
+    
+    #LF_153739_NVarchar_Stmnt := 'Select ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ' From '
+    If (#LF_DB_Collection_Name <> *Blanks)
+    #LF_153739_NVarchar_Stmnt += #LF_DB_Quote + #LF_DB_Collection_Name + #LF_DB_Quote + #LF_DB_Separator
+    Endif
+    
+    #LF_153739_NVarchar_Stmnt += #LF_DB_Quote + 'xEmployee' + #LF_DB_Quote + ' where ' + #LF_DB_Quote + 'xEmployeeSurname' + #LF_DB_Quote + ' = '
+    
+    If (#this_hex_literal = True)
+    #LF_Hex_Literal := #xEmployeeSurname.AsSqlHexLiteral
+    #LF_153739_NVarchar_Stmnt += #LF_Hex_Literal
+    Else
+    #LF_153739_NVarchar_Stmnt += *Quote + #xEmployeeSurname + *Quote
+    Endif
+    
+    * Select_Sql Fields(#xEmployeeIdentification) Using(#LF_153739_NVarchar_Stmnt.AsNativeString)
+    Select_Sql Fields(#xEmployeeIdentification) Using(#LF_153739_NVarchar_Stmnt.AsNativeString)
+    #LF_Number_Of_People_With_Surname += 1
+    Endselect
+    
+    If (#LF_Number_Of_People_With_Surname <> #Std_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Unexpected different results') ('On record(' + (#LF_i + 1).AsString + ') ' + *Quote + #xEmployeeSurname.AsNativeString + *Quote + ': Select_SQL/Group_By(' + #Std_Count.AsString + '), Select_SQL/Using(' + #LF_Number_Of_People_With_Surname.AsString + ')') )
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Return code is ' + *Quote + #this_rc + *Quote) (#LF_i.AsString + ' record(s) compared') )
+    Endif
+    Endroutine
+    

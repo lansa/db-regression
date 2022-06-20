@@ -1,0 +1,166 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
+    *
+    * Determine the COLLECTION NAME to be used in the embedded query.
+    Define Field(#LF_DB_Table_Qualifier) Type(*CHAR) Length(256) Default(*Blanks)
+    
+    If (*CPUTYPE = AS400)
+    #LF_DB_Separator := '/'
+    #LF_DB_Collection_Name := *PARTDTALIB
+    #LF_DB_Table_Qualifier := #LF_DB_Collection_Name + #LF_DB_Separator + #LF_DB_Quote
+    Else
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    Clr_List Named(#wLCTD)
+    Use Builtin(Read_CTD) With_Args(XDEPTMENTS) To_Get(#LF_rc #wLCTD)
+    
+    Selectlist Named(#wLCTD)
+    If (#LF_CTD_Key = 'ACTIVE_COLLECTION')
+    #LF_DB_Collection_Name := #LF_CTD_Data
+    Leave
+    Endif
+    Endselect
+    
+    If (#LF_DB_Collection_Name = *Blanks)
+    #LF_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xDepartments CTD file not found' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('Collection Name is ' + #LF_DB_Collection_Name) '' )
+    Endif
+    
+    If (#LF_DB_Type *NE MYSQL)
+    #LF_DB_Separator := '.'
+    #LF_DB_Table_Qualifier := #LF_DB_Collection_Name + #LF_DB_Separator + #LF_DB_Quote
+    Else
+    #LF_DB_Quote := '`'
+    #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + '_'
+    Endif
+    
+    Endif
+    
+    
+    
+    #Com_Owner.mthCCS_137068( #LF_rc )
+    #Com_Owner.mthCCS_144173( #LF_rc )
+    #Com_Owner.mthCCS_157024( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_DB_Separator) Type(*CHAR) Length(1) Default(*Blanks)
+    Define Field(#LF_DB_Collection_Name) Type(*CHAR) Length(32) Default(*Blanks)
+    Define Field(#LF_DB_Quote) Type(*CHAR) Length(1) Default('"')
+    Define Field(#LF_Where) Type(*CHAR) Length(512) Input_Atr(LC)
+    
+    Define Field(#LF_CTD_Key) Type(*CHAR) Length(20)
+    Define Field(#LF_CTD_Data) Type(*CHAR) Length(236)
+    Def_List Name(#wLCTD) Fields(#LF_CTD_Key #LF_CTD_Data) Type(*WORKING)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_157024_Stmnt) Type(*STRING) Length(65535)
+    Define Field(#LF_137068) Reffld(#Blank)
+    Define Field(#LF_144173) Reffld(#xEmployeeIdentification)
+    
+    Mthroutine Name(mthCCS_137068)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- 137068 - Select_SQL on Oracle' 'Generated Select_SQL behave differently between V10 & V11 on Oracle' )
+    
+    #LF_137068 := *Blank
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeGivenNames #xEmployeeSurname) From_Files((xEmployee)) Where('(:LF_137068 = '' '')') Io_Status(#this_rc) Io_Error(*NEXT)
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Select_SQL / Where(:Blank = '' '')') ('Return code is ' + *Quote + #this_rc + *Quote) )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCCS_144173)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- 144173 - Select_SQL / Where with *Null/*Sqlnull' 'Select_SQL with comparison to *Null or *Sqlnull in Where parameter causes GPF' )
+    
+    #LF_144173 := *Null
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeGivenNames #xEmployeeSurname) From_Files((xEmployee)) Where('xEmployeeIdentification >= :LF_144173') Io_Status(#this_rc) Io_Error(*NEXT)
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Select_SQL / Where(XYZ >= *Null)') ('Return code is ' + *Quote + #this_rc + *Quote) )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCCS_157024)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc *NE ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- 157024 - Select_SQL abends at runtime' 'When the Select_SQL statement is longer than 10240 bytes' )
+    
+    #LF_157024_Stmnt := 'Select ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ', ' + #LF_DB_Quote + 'xEmployeeGivenNames' + #LF_DB_Quote + ', ' + #LF_DB_Quote + 'xEmployeeSurname' + #LF_DB_Quote + ' From '
+    
+    #LF_157024_Stmnt += #LF_DB_Table_Qualifier
+    
+    #LF_157024_Stmnt += 'xEmployee' + #LF_DB_Quote
+    
+    #LF_157024_Stmnt += ' Where ( ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + " <> 'XXX0')"
+    Begin_Loop Using(#LF_i) To(500)
+    #LF_157024_Stmnt += ' Or (' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + " <> 'XXX" + #LF_i.AsString + "')"
+    End_Loop
+    
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeGivenNames #xEmployeeSurname) Io_Status(#this_rc) Io_Error(*NEXT) Using(#LF_157024_Stmnt)
+    Leave
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' => Select_SQL / Using a ' + #LF_157024_Stmnt.CurSize.AsString + ' byte statement') ('Return code is ' + *Quote + #this_rc + *Quote) )
+    Endif
+    Endroutine
+    
+    

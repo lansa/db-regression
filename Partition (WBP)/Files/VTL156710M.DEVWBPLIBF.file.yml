@@ -1,0 +1,58 @@
+﻿File:
+  Name:                           VTL156710M
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL156710M
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              No
+  Enabled For Long Names:         No
+  Share Data Path:                Yes
+  Secure From File Overrides:     No
+  Strip Debug On Compile:         No
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     Yes
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE(10000     2000      3         ) LVLCHK(*YES)  SHARE(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "156710 - Convert @#$ Column Names"
+
+  - ENG:
+      Description:        "156710 - Convert @#$ Column Names"
+
+  - FRA:
+      Description:        "156710 - Convert @#$ Column Names"
+
+  - JPN:
+      Description:        "156710 - Convert @#$ Column Names"
+
+  - TRK:
+      Description:        "156710 - Convert @#$ Column Names"
+
+  Real Fields:
+  - F156710@A:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - F156710#B:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - F156710$C:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
