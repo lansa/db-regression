@@ -9,13 +9,13 @@ IMPORTANT:" To be run in a new instance created from the baked image, NOT while 
 
 .EXAMPLE
 Typically starts by only importing to the Primary environment, which needs to be followed by manual compiles:
-db-test.ps1 -PrimaryOnly $true
+.\db-test.ps1 -PrimaryOnly $true
 Then a second run to import and compile the Secondary environments with testing driven from the Primary environment:
-db-test.ps1
+.\db-test.ps1
 And when there is only a runtime change, you just want to run the tests:
-db-test.ps1 -Import $false -Compile $false
+.\db-test.ps1 -Import $false -Compile $false
 And to re-compile because there has been a code generation change:
-db-test.ps1 -Import $false
+.\db-test.ps1 -Import $false
 #>
 
 param (
@@ -23,7 +23,7 @@ param (
     [boolean] $Import = $true,
     [boolean] $Compile = $true,
     [boolean] $Test = $true,
-    [boolean] $PrimaryOnly = $false
+    [boolean] $PrimaryOnly = $true
 )
 $script:ExitCode = 0
 $FullReportFile = "Verifier_Test_Report.txt"
@@ -31,7 +31,7 @@ $SummaryFile = "Verifier_Test_Summary.txt"
 $TotalSummaryFile = "Verifier_Total_Summary.txt"
 $global:TotalErrors = 0
 $global:TotalMissingTests = 0
-
+$global:syd6 = '10.2.0.203'
 function Import{
     param (
         [Parameter(Mandatory=$true)]
@@ -139,25 +139,28 @@ function Compile{
 # Main program
 # =============================================================================
 
+$ErrorActionPreference = "Stop"
+
 try {
 	Write-Host $MyInvocation.MyCommand.Path
-    $script:IncludeDir = Join-Path (Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path) )) 'scripts'
+    $script:IncludeDir = Join-Path 'c:\lansa' 'scripts'
     $script:IncludeDir
     . "$script:IncludeDir\dot-CommonTools.ps1"
 
-    $PrimaryPath = "C:\lansa\TestPrimaryMSSQLS"
+    $PrimaryPath = "C:\Program Files (x86)\Lansa"
     $RootList = @(
-        $PrimaryPath,
-        "C:\lansa\TestSecondaryMySQL",
-        "C:\lansa\TestSecondarySQLAnywhere",
-        "C:\lansa\TestSecondaryORA"
+        $PrimaryPath
+        # ,
+        # "C:\lansa\TestSecondaryMySQL",
+        # "C:\lansa\TestSecondarySQLAnywhere",
+        # "C:\lansa\TestSecondaryORA"
     )
     # $RootList = @(
     #     $PrimaryPath,
     #     "C:\lansa\TestSecondarySQLAnywhere"
     # )
 
-    $ImportBasePath = '\\syd6\ccs\tests\Test-Materials'
+    $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
     Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
     if (-not (Test-Path -Path $ImportBasePath) ) {
         Write-Host "$(Log-Date) $ImportBasePath does not exist"
@@ -173,101 +176,113 @@ try {
         Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
     }
 
-    if ( $Import ) {
-        [boolean] $First = $true
-        foreach ($Root in $RootList ){
-            if ( $First -and -not $PrimaryOnly) {
-                $First = $false
-                continue
-            }
-            if ( -not $First -and $PrimaryOnly) {
-                continue
-            }
-            $First = $false
+    # if ( $Import ) {
+    #     [boolean] $First = $true
+    #     foreach ($Root in $RootList ){
+    #         if ( $First -and -not $PrimaryOnly) {
+    #             $First = $false
+    #             continue
+    #         }
+    #         if ( -not $First -and $PrimaryOnly) {
+    #             continue
+    #         }
+    #         $First = $false
 
-            Set-Location $Root
-            Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
+    #         Set-Location $Root
+    #         Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
 
-            $lansatempdir = Join-Path $root "tmp"
+    #         $lansatempdir = Join-Path $root "tmp"
 
-            Write-Host( "$(Log-Date) Check if this current directory is a Visual LANSA Root Directory")
-            $BuildFile = Join-Path $root 'build.dat'
-            if (-not (Test-Path -Path $BuildFile) ) {
-                Write-Host "$(Log-Date) Current directory must be a Visual LANSA IDE root directory"
-                throw
-            }
+    #         Write-Host( "$(Log-Date) Check if this current directory is a Visual LANSA Root Directory")
+    #         $BuildFile = Join-Path $root 'build.dat'
+    #         if (-not (Test-Path -Path $BuildFile) ) {
+    #             Write-Host "$(Log-Date) Current directory must be a Visual LANSA IDE root directory"
+    #             throw
+    #         }
 
-            # Write-Host ("$(Log-Date) Importing Base Test Cases")
-            # Write-Host ("$(Log-Date) Importing BIF Fields")
-            # Import $Root (Join-Path $ImportBasePath "BIF Field") (Join-Path $lansatempdir 'BIFField.log')
+    #         Write-Host ("$(Log-Date) Importing Base Test Cases")
+    #         Write-Host ("$(Log-Date) Importing BIF Fields")
+    #         Import $Root (Join-Path $ImportBasePath "BIF Field") (Join-Path $lansatempdir 'BIFField.log')
 
-            # Write-Host ("$(Log-Date) Importing VT_CVL and its Functions")
-            # Import $Root (Join-Path $ImportBasePath "VT_CVL") (Join-Path $lansatempdir 'VT_CVL.log')
+    #         Write-Host ("$(Log-Date) Importing VT_CVL and its Functions")
+    #         Import $Root (Join-Path $ImportBasePath "VT_CVL") (Join-Path $lansatempdir 'VT_CVL.log')
 
-            # Write-Host ("$(Log-Date) Importing CVL_R")
-            # Import $Root (Join-Path $ImportBasePath "CVL_R - Re-usable Parts") (Join-Path $lansatempdir 'CVL_R.log')
+    #         Write-Host ("$(Log-Date) Importing CVL_R")
+    #         Import $Root (Join-Path $ImportBasePath "CVL_R - Re-usable Parts") (Join-Path $lansatempdir 'CVL_R.log')
 
-            Write-Host ("$(Log-Date) Copy UserLists for compiling")
-            Copy-Item (Join-Path $ImportBasePath "UserLists\*") (Join-Path $Root "lansa\UserLists\$Partition")
+    #         Write-Host ("$(Log-Date) Copy UserLists for compiling")
+    #         $TestPath = Join-Path $Root "lansa\UserLists"
+    #         if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
+    #         $TestPath = Join-Path $TestPath $Partition
+    #         if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
+    #         Copy-Item (Join-Path $ImportBasePath "UserLists\*") $TestPath
 
-            $CCSImports = @("\\syd6\CCS\Tests\157000-157999\157033",
-                            "\\syd6\CCS\Tests\156000-156999\156118",
-                            "\\syd6\CCS\Tests\159000-159999\159821",
-                            "\\syd6\CCS\Tests\157000-157999\157722",
-                            "\\syd6\CCS\Tests\160000-160999\160466",
-                            "\\syd6\CCS\Tests\156000-156999\156710",
-                            "\\syd6\CCS\Tests\161000-161999\161348",
-                            "\\syd6\CCS\Tests\159000-159999\159434",
-                            "\\syd6\CCS\Tests\159000-159999\159585",
-                            "\\syd6\CCS\Tests\158000-158999\158011",
-                            "\\syd6\CCS\Tests\159000-159999\159138",
-                            "\\syd6\CCS\Tests\159000-159999\159138\User Provided File",
-                            "\\syd6\CCS\Tests\160000-160999\160553")
-            foreach ($CCSImport in $CCSImports) {
-                $CCSNumber = Split-path $CCSImport -Leaf
-                Write-Host ("$(Log-Date) Importing $CCSNumber to $Root")
-                Import $Root $CCSImport (Join-Path $lansatempdir "$CCSNumber.log")
-                Write-Host ("$(Log-Date) ************************************************************")
-            }
-        }
-    }
+    #         $CCSImports = @("\\$syd6\CCS\Tests\157000-157999\157033",
+    #                         "\\$syd6\CCS\Tests\156000-156999\156118",
+    #                         "\\$syd6\CCS\Tests\159000-159999\159821",
+    #                         "\\$syd6\CCS\Tests\157000-157999\157722",
+    #                         "\\$syd6\CCS\Tests\160000-160999\160466",
+    #                         "\\$syd6\CCS\Tests\156000-156999\156710",
+    #                         "\\$syd6\CCS\Tests\161000-161999\161348",
+    #                         "\\$syd6\CCS\Tests\159000-159999\159434",
+    #                         "\\$syd6\CCS\Tests\159000-159999\159585",
+    #                         "\\$syd6\CCS\Tests\158000-158999\158011",
+    #                         "\\$syd6\CCS\Tests\159000-159999\159138",
+    #                         "\\$syd6\CCS\Tests\159000-159999\159138\User Provided File",
+    #                         "\\$syd6\CCS\Tests\160000-160999\160553")
+    #         foreach ($CCSImport in $CCSImports) {
+    #             $CCSNumber = Split-path $CCSImport -Leaf
+    #             Write-Host ("$(Log-Date) Importing $CCSNumber to $Root")
+    #             Import $Root $CCSImport (Join-Path $lansatempdir "$CCSNumber.log")
+    #             Write-Host ("$(Log-Date) ************************************************************")
+    #         }
+    #     }
+    # }
 
-    if ( $Compile -or $Test) {
-        [boolean] $First = $true
-        foreach ($Root in $RootList ){
-            if ( $First -and -not $PrimaryOnly) {
-                $First = $false
-                continue
-            }
-            if ( -not $First -and $PrimaryOnly) {
-                continue
-            }
-            $First = $false
+    # if ( $Compile -or $Test) {
+    #     [boolean] $First = $true
+    #     foreach ($Root in $RootList ){
+    #         if ( $First -and -not $PrimaryOnly) {
+    #             $First = $false
+    #             continue
+    #         }
+    #         if ( -not $First -and $PrimaryOnly) {
+    #             continue
+    #         }
+    #         $First = $false
 
-            Set-Location $Root
-            Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
+    #         Set-Location $Root
+    #         Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
 
-            $lansatempdir = Join-Path $root "tmp"
+    #         $lansatempdir = Join-Path $root "tmp"
 
-            Write-Host "$(Log-Date) Imports that are required every time the test is compiled or tested"
+    #         Write-Host "$(Log-Date) Imports that are required every time the test is compiled or tested"
 
-            $CCSCompileImports = @("\\syd6\CCS\Tests\157000-157999\157726")
-            foreach ($CCSImport in $CCSCompileImports) {
-                $CCSNumber = Split-path $CCSImport -Leaf
-                Write-Host ("$(Log-Date) Importing $CCSNumber to $Root")
-                Import $Root $CCSImport (Join-Path $lansatempdir "$CCSNumber.log")
-                Write-Host ("$(Log-Date) ************************************************************")
-            }
-        }
-    }
+    #         # Is the equivalent of this in a VCS environment to undo all the changes using Git? Thus the original 
+    #         # versions will be restored?
+    #         # And I would have thought that 158011 needs re-importing every time. Maybe simply reverting all changes
+    #         # in git for every test will cover this need - test it out. Maybe 158011 restores the state correctly?
+    #         # Stil seems better to not leave it up to the test to back out the changes.
+    #         # Principle seems to be that the test starts by ensuring the table contains the starting data, makes
+    #         # the required changes and presumes that the test harness will end by reverting all source code changes.
+    #         # VL IDE is required to be run to load the changes when starting up. How can that be done from the command
+    #         $CCSCompileImports = @("\\$syd6\CCS\Tests\157000-157999\157726")
+    #         foreach ($CCSImport in $CCSCompileImports) {
+    #             $CCSNumber = Split-path $CCSImport -Leaf
+    #             Write-Host ("$(Log-Date) Importing $CCSNumber to $Root")
+    #             Import $Root $CCSImport (Join-Path $lansatempdir "$CCSNumber.log")
+    #             Write-Host ("$(Log-Date) ************************************************************")
+    #         }
+    #     }
+    # }
 
-    if ( $Compile -and -not $PrimaryOnly) {
+    if ( $Compile ) {
         Write-Host "$(Log-Date) Compile all the Secondary Tests"
 
         foreach ($Root in $RootList ){
-            if ( $Root -eq $PrimaryPath) {
-                continue
-            }
+            # if ( $Root -eq $PrimaryPath) {
+            #     continue
+            # }
 
             Write-Host ("$(Log-Date) Compiling $Root")
 
@@ -297,44 +312,47 @@ try {
         Write-Host "$(Log-Date) Compile Tests that must be compiled each time its tested"
 
         foreach ($Root in $RootList ){
-            if ( $Root -eq $PrimaryPath) {
-                continue
-            }
+            # if ( $Root -eq $PrimaryPath) {
+            #     continue
+            # }
 
             Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
             Compile $Root 'L157726'
             Write-Host ("$(Log-Date) ************************************************************")
         }
 
-        $TestList = @(
-            ("VT157033", "V57033A"),
-            ("VT156118", "V56118A"),
-            ("VT159821", "V59821A"),
-            ("VT157722", "V57722A"),
-            ("VT160466", "V60466A"),
-            ("VT156710", "V56710A"),
-            ("VT161348", "V61348A"),
-            ("VT157726", "V57726A"),
-            ("VT159434", "V59434A"),
-            ("VT159585", "V59585A"),
-            ("VT158011", "V58011A"),
-            ("VT159138", "V59138A"),
-            ("VT160553", "V60553A")
-        )
+        # $TestList = @(
+        #     ("VT157033", "V57033A"),
+        #     ("VT156118", "V56118A"),
+        #     ("VT159821", "V59821A"),
+        #     ("VT157722", "V57722A"),
+        #     ("VT160466", "V60466A"),
+        #     ("VT156710", "V56710A"),
+        #     ("VT161348", "V61348A"),
+        #     ("VT157726", "V57726A"),
+        #     ("VT159434", "V59434A"),
+        #     ("VT159585", "V59585A"),
+        #     ("VT158011", "V58011A"),
+        #     ("VT159138", "V59138A"),
+        #     ("VT160553", "V60553A")
+        # )
 
+        $TestList = @(
+            ("VT157726", "V57726A")
+        )
         # Run tests in EVERY environment.
         # Only the Primary environment is configured to run IBM i and SuperServer tests
         foreach ($Root in $RootList ){
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
-                if ( $TestItem[1] -eq "VT57726A") {
-                    # Don't test this test on the Primary because it requires importing and compiling every time,
-                    # and compiling is done differently in a non-VCS
-                    if ( $Root -eq $PrimaryPath) {
-                        continue
-                    }
+                # if ( $TestItem[1] -eq "VT57726A") {
+                #     # Don't test this test on the Primary because it requires importing and compiling every time,
+                #     # and compiling is done differently in a non-VCS
+                #     if ( $Root -eq $PrimaryPath) {
+                #         continue
+                #     }
 
-                }
+                # }
                 Test $Root $TestItem[0] $TestItem[1]
             }
         }
