@@ -1,0 +1,62 @@
+﻿Field:
+  Name:               VTF_MSG
+  Type:               Char
+  Length:             512
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Message Text"
+      Label:              "Verifier - Mess"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Message"
+
+  - ENG:
+      Description:        "Verifier Test - Message Text"
+      Label:              "Verifier - Mess"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Message"
+
+  - FRA:
+      Description:        "Verifier - Message Text"
+      Label:              "Verifier - Mess"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Message"
+
+  - JPN:
+      Description:        "Verifier - Message Text"
+      Label:              "Verifier - Mess"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Message"
+
+  - TRK:
+      Description:        "Verifier Test - Message Text"
+      Label:              "Verifier - Mess"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Message"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(782)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_char.std_char') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

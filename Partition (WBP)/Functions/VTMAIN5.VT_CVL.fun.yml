@@ -1,0 +1,271 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    * Has the CCS Id being set up?
+    * #LF_VTMain_CCSId := '151...'
+    
+    Function Options(*DIRECT)
+    
+    * Required preset variables.
+    Define Field(#LF_VTMain_CCSId) Type(*CHAR) Length(7) Default(*Blanks)
+    
+    * Local variables.
+    Define Field(#LF_VTMain_Local_Platform) Reffld(#VTF_PLATL)
+    Define Field(#LF_VTMain_Remote_Platform) Reffld(#VTF_PLATR)
+    Define Field(#LF_VTMain_Supser_Server_Name) Type(*CHAR) Length(20)
+    Define Field(#LF_VTMain_Supser_Server_Token) Type(*CHAR) Length(10)
+    Define Field(#LF_VTMain_Super_Server_Name_Number) Reffld(#VTF_LU_NO)
+    Define Field(#LF_VTMain_Super_Server_Error_Count) Reffld(#VTF_LU_EC)
+    Define Field(#LF_VTMain_Super_Server_Total_Error_Count) Reffld(#VTF_LU_EC)
+    Define Field(#LF_VTMain_Is_Connected) Type(*CHAR) Length(1)
+    Define Field(#LF_VTMain_Is_Auto_Connect) Type(*CHAR) Length(1)
+    Define Field(#LF_VTMain_Is_A_Valid_SSrv_Test_Case) Reffld(#BIFB001A) Default(True)
+    Define Field(#LF_VTMain_Number_Of_Invalid_SSrv_Calls) Reffld(#Std_Count)
+    Define Field(#LF_VTMain_i) Reffld(#Std_Count)
+    Define Field(#LF_VTMain_Prev_Invalid_Srv_Calls) Reffld(#Std_Count)
+    Define Field(#LF_VTMain_Is_Exec_OK) Reffld(#BIFB001A)
+    Define Field(#LF_VTMain_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_VTMain_Current_LU) Reffld(#VTF_LU)
+    Define Field(#LF_VTMain_Current_LU_Q) Reffld(#VTF_LU)
+    Define Field(#LF_VTMain_Current_LU_F) Reffld(#VTF_LU)
+    
+    * Remote server platform details.
+    Def_List Name(#wl_RemoteSystem) Fields(#VTF_SSCP #VTF_SSCLT #VTF_SSCDT #VTF_SSCET #VTF_SSCEP #VTF_SSCIT #VTF_SSCII #VTF_SSCUT #VTF_SSCID #VTF_PROC) Type(*WORKING) Entrys(1)
+    
+    * Test_Env_OS_Name values are: *OSAPI.
+    * Test_Env_OS_Bit values are: *OSBITNESS.
+    Define Field(#LF_VTMain_Test_Platform_Name) Reffld(#BIFA010A)
+    Define Field(#LF_VTMain_Test_Platform_Status) Reffld(#BIFA001A)
+    Define Field(#LF_VTMain_Test_Platform_Count) Reffld(#Std_Count)
+    Def_List Name(#wl_TestPlatform) Fields(#LF_VTMain_Test_Platform_Name #LF_VTMain_Test_Platform_Status) Counter(#LF_VTMain_Test_Platform_Count) Type(*WORKING)
+    
+    Define Field(#LF_VTMain_Test_DB_Type) Reffld(#VTF_SSCIT)
+    Define Field(#LF_VTMain_Test_DB_Status) Reffld(#BIFA001A)
+    Define Field(#LF_VTMain_Test_DB_Count) Reffld(#Std_Count)
+    Def_List Name(#wl_TestDB) Fields(#LF_VTMain_Test_DB_Type #LF_VTMain_Test_DB_Status) Counter(#LF_VTMain_Test_DB_Count) Type(*WORKING)
+    
+    *
+    * Template begin.
+    *
+    
+    * Log the test case.
+    #Com_Owner.mthLogTestCase( #LF_VTMain_CCSId (*Function + ' / ' + *Process) *Blanks )
+    
+    If ((#LF_VTMain_CCSId = *Blanks) *Or (#LF_VTMain_CCSId = '000000'))
+    * CCS Id has not been specififed => ERROR.
+    #Com_Owner.mthLogEvent( ('*** Invalid Test Case *** ( ' + *Function + ' / ' + *Process + ' )') )
+    Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
+    Else
+    * Retrieve the local platform type.
+    If Cond('(*CPUTYPE *eq WIN95) *Or (*CPUTYPE *eq WINNT)')
+    #LF_VTMain_Local_Platform := W
+    
+    #Com_Owner.mthSetupTestEnv
+    Else
+    If Cond('*CPUTYPE *eq AS400')
+    #LF_VTMain_Local_Platform := I
+    Else
+    #LF_VTMain_Local_Platform := U
+    Endif
+    Endif
+    
+    * Execute the test case on the local plastform.
+    #LF_VTMain_Remote_Platform := *Blanks
+    #LF_VTMain_Is_Exec_OK := False
+    #Com_Owner.mthExecute( #LF_VTMain_Local_Platform #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform *Blanks *Blanks *Sqlnull *Blanks *Blanks #LF_VTMsg_Internal_Database_Type #LF_VTMsg_Internal_Database_Name #LF_VTMsg_User_Database_Type #LF_VTMsg_User_Database_Name True #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
+    If (#LF_VTMain_Is_Exec_OK = True)
+    #Com_Owner.mthMarkTestStatus( (*OSAPI + ' ' + *OSBITNESS.AsString + '-bit') #LF_VTMsg_Internal_Database_Type )
+    Endif
+    
+    * Perform SuperServer test by connecting/disconnecting one SuperServer at a time.
+    SSV:
+    #Com_Owner.mthGetSuperServer( #LF_VTMain_Is_Connected #LF_VTMain_Is_Auto_Connect #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token #LF_VTMain_Super_Server_Name_Number #LF_VTMain_Super_Server_Error_Count )
+    
+    If (#LF_VTMain_Is_Connected = Y)
+    * Check if the test case is avaliable on the remote server.
+    Clr_List Named(#wl_RemoteSystem)
+    #VTF_PROC := *Process
+    Add_Entry To_List(#wl_RemoteSystem)
+    
+    * Get the remote system platform type.
+    Use Builtin(Call_Server_Function) With_Args(#LF_VTMain_Supser_Server_Token VTSSRF4 Y Y #wl_RemoteSystem) To_Get(#LF_VTMain_rc)
+    If (#LF_VTMain_rc = OK)
+    Get_Entry Number(1) From_List(#wl_RemoteSystem) Ret_Status(#LF_VTMain_rc)
+    If (#LF_VTMain_rc = OK)
+    * The remote system is up and running.
+    
+    If Cond('(#VTF_SSCP *eq WIN95) *Or (#VTF_SSCP *eq WINNT)')
+    #LF_VTMain_Remote_Platform := W
+    Else
+    If Cond('#VTF_SSCP *eq AS400')
+    #LF_VTMain_Remote_Platform := I
+    Else
+    #LF_VTMain_Remote_Platform := U
+    Endif
+    Endif
+    
+    #LF_VTMain_Is_A_Valid_SSrv_Test_Case := (#VTF_PROC = *Process)
+    #LF_VTMain_Prev_Invalid_Srv_Calls := #LF_VTMain_Number_Of_Invalid_SSrv_Calls
+    
+    * Execute the test case on SuperServer - SuperServer I/O queries (Q).
+    #LF_VTMain_Is_Exec_OK := False
+    #Com_Owner.mthExecute( Q #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token #VTF_SSCDT #VTF_SSCET #VTF_SSCEP #VTF_SSCIT #VTF_SSCII #VTF_SSCUT #VTF_SSCID #LF_VTMain_Is_A_Valid_SSrv_Test_Case #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
+    
+    * Execute the test case on SuperServer - SuperServer Function Call (F).
+    #Com_Owner.mthExecute( F #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token *Sqlnull *Blanks *Blanks *Blanks *Blanks *Blanks *Blanks #LF_VTMain_Is_A_Valid_SSrv_Test_Case #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
+    
+    * Mark down the successful tested SuperServer environment and database type.
+    If ((#LF_VTMain_Is_Exec_OK = True) *And (#LF_VTMain_Prev_Invalid_Srv_Calls = #LF_VTMain_Number_Of_Invalid_SSrv_Calls))
+    #Com_Owner.mthMarkTestStatus( #VTF_SSCET #VTF_SSCIT )
+    Endif
+    
+    * Disconnect the SuperServer connection if not an 'Auto Connect' execution type.
+    If (#LF_VTMain_Is_Auto_Connect = N)
+    
+    Use Builtin(Disconnect_File) With_Args(* #LF_VTMain_Supser_Server_Token)
+    Use Builtin(Disconnect_Server) With_Args(#LF_VTMain_Supser_Server_Token) To_Get(#LF_VTMain_rc)
+    
+    * E - Evaluation (if any) after the SuperServer disconnection.
+    #LF_VTMain_Is_Exec_OK := False
+    #Com_Owner.mthExecute( E #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform *Blanks *Blanks *Sqlnull *Blanks *Blanks *Blanks *Blanks *Blanks *Blanks #LF_VTMain_Is_A_Valid_SSrv_Test_Case #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
+    
+    Goto Label(SSV)
+    Endif
+    Endif
+    Else
+    #LF_VTMain_Super_Server_Total_Error_Count += 1
+    
+    #Com_Owner.mthLogEvent( '' )
+    #Com_Owner.mthLogEvent( ('*** Failure to retrieve data from <LU Name> ... ' + *Quote + #LF_VTMain_Supser_Server_Name + *Quote) )
+    #Com_Owner.mthLogEvent( '' )
+    
+    Goto Label(SSV)
+    Endif
+    Else
+    * Report the SuperServer connection error.
+    If (#LF_VTMain_Super_Server_Error_Count > 0)
+    #LF_VTMain_Super_Server_Total_Error_Count += 1
+    
+    #Com_Owner.mthLogEvent( '' )
+    #Com_Owner.mthLogEvent( ('*** Unable to connect to <LU Name> ... ' + *Quote + #LF_VTMain_Supser_Server_Name + *Quote) )
+    #Com_Owner.mthLogEvent( '' )
+    
+    Goto Label(SSV)
+    Endif
+    Endif
+    
+    * Report any test case not available on SuperServer.
+    #Com_Owner.mthLogEvent( '-----' )
+    If (#LF_VTMain_Number_Of_Invalid_SSrv_Calls > 0)
+    #Com_Owner.mthLogEvent( ('* Warning: ' + #LF_VTMain_Number_Of_Invalid_SSrv_Calls.AsString + ' Super-Server test case(s) not exist. Look for <Missing Test Case> for details') )
+    Endif
+    
+    If (#LF_VTMain_Super_Server_Total_Error_Count > 0)
+    #Com_Owner.mthLogEvent( ('*** Error: ' + #LF_VTMain_Super_Server_Total_Error_Count.AsString + ' SuperServer Connection error(s). Look for <LU Name> for details') )
+    Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
+    Else
+    * Report any required test platform not being covered.
+    Begin_Loop Using(#LF_VTMain_i) To(#LF_VTMain_Test_Platform_Count)
+    Get_Entry Number(#LF_VTMain_i) From_List(#wl_TestPlatform)
+    
+    If (#LF_VTMain_Test_Platform_Status <> Y)
+    #Com_Owner.mthLogEvent( ('* Warning: Missing test platform ' + #LF_VTMain_Test_Platform_Name) )
+    Endif
+    End_Loop
+    
+    * Report any required test database type not being covered.
+    Begin_Loop Using(#LF_VTMain_i) To(#LF_VTMain_Test_DB_Count)
+    Get_Entry Number(#LF_VTMain_i) From_List(#wl_TestDB)
+    
+    If (#LF_VTMain_Test_DB_Status <> Y)
+    #Com_Owner.mthLogEvent( ('* Warning: Missing test database type ' + #LF_VTMain_Test_DB_Type) )
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthLogTestCaseEnd( *Blanks )
+    Use Builtin(Clr_Messages)
+    Endif
+    Endif
+    
+    * Template end.
+    Return
+    
+    *
+    * GetSuperServer :- Call Function VTSSRV To Retrieve SuperServer Connection.
+    *    - #this_ssc: Return Of The SuperServer Connection Flag (Y / N).
+    *    - #this_ssc_auto: Return Of The Auto SuperServer Connection Flag (Y / N).
+    *    - #this_lu: Return Of The Look Up Name.
+    *    - #this_ssc_token: Return Of The SuperServer Connection Token.
+    *
+    Mthroutine Name(mthGetSuperServer)
+    Define_Map For(*OUTPUT) Class(#VTF_SSC) Name(#this_ssc)
+    Define_Map For(*OUTPUT) Class(#VTF_SSCF) Name(#this_ssc_auto)
+    Define_Map For(*OUTPUT) Class(#VTF_LU) Name(#this_lu)
+    Define_Map For(*OUTPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    Define_Map For(*BOTH) Class(#VTF_LU_NO) Name(#this_lu_number)
+    Define_Map For(*BOTH) Class(#VTF_LU_NO) Name(#this_lu_error_count)
+    
+    #VTF_LU_NO := #this_lu_number
+    Exchange Fields(#VTF_SSC #VTF_SSCF #VTF_LU #VTF_SSCT #VTF_LU_NO #VTF_LU_EC)
+    Call Process(*DIRECT) Function(VTSSRV)
+    
+    #this_ssc := #VTF_SSC
+    #this_ssc_auto := #VTF_SSCF
+    #this_lu := #VTF_LU
+    #this_ssc_token := #VTF_SSCT
+    #this_lu_number := #VTF_LU_NO
+    #this_lu_error_count := #VTF_LU_EC
+    Endroutine
+    
+    *
+    * Execute :- Execute a test case.
+    *    - #this_exec: Execution Method. iSeries (I), Windows (W), SuperServer I/O queries (Q), SuperServer Function Call (F).
+    *    - #this_ss_lu: Super Server Look Up Name.
+    *    - #this_ssc_token: Super Server Connection Token.
+    *
+    Mthroutine Name(mthExecute)
+    Define_Map For(*INPUT) Class(#VTF_ENV) Name(#this_exec)
+    Define_Map For(*INPUT) Class(#VTF_PLATL) Name(#this_local_platform)
+    Define_Map For(*INPUT) Class(#VTF_PLATR) Name(#this_Remote_platform)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssv_name)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    Define_Map For(*INPUT) Class(#VTF_SSCDT) Name(#this_ssc_current_datetime)
+    Define_Map For(*INPUT) Class(#VTF_SSCET) Name(#this_ssc_env_type)
+    Define_Map For(*INPUT) Class(#VTF_SSCEP) Name(#this_ssc_env_path)
+    Define_Map For(*INPUT) Class(#VTF_SSCIT) Name(#this_DBIT)
+    Define_Map For(*INPUT) Class(#VTF_SSCII) Name(#this_DBII)
+    Define_Map For(*INPUT) Class(#VTF_SSCUT) Name(#this_DBUT)
+    Define_Map For(*INPUT) Class(#VTF_SSCID) Name(#this_DBID)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_is_a_valid_ssrv_test_case)
+    Define_Map For(*BOTH) Class(#Std_Count) Name(#this_number_of_invalid_ssrv_call)
+    Define_Map For(*BOTH) Class(#BIFB001A) Name(#this_test_is_correct)
+    
+    #Com_Owner.mthLogTest( #this_exec #this_local_platform #this_Remote_platform #this_ssv_name #this_ssc_token )
+    If (#this_ssc_env_type *NE *Blanks)
+    #Com_Owner.mthLogExtraDetails( #this_ssc_current_datetime #this_ssc_env_type #this_ssc_env_path #this_DBIT #this_DBII #this_DBUT #this_DBID )
+    Endif
+    
+    * Initialize the Executeion Return Code to be <Test Case Not Available>.
+    #LF_VTMain_rc := NA
+    
+    #Com_Owner.mthRun( #this_exec #this_DBIT #this_DBUT #this_local_platform #this_remote_platform #this_ssv_name #this_ssc_token #this_is_a_valid_ssrv_test_case #LF_VTMain_rc #this_number_of_invalid_ssrv_call )
+    
+    * Check the Execution Return Code against <Test Case Not Available> & <Missing Test Case>.
+    If ((#LF_VTMain_rc <> NA) *And (#LF_VTMain_rc <> MT))
+    #Com_Owner.mthLogEvent( ('Completed with <' + #LF_VTMain_rc + '>.') )
+    If (#LF_VTMain_rc = ER)
+    Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
+    Else
+    #this_test_is_correct := True
+    Endif
+    Else
+    If (#LF_VTMain_rc = NA)
+    #Com_Owner.mthLogEvent( ('Skipped.') )
+    Else
+    #Com_Owner.mthLogEvent( '*** <Missing Test Case>' )
+    Endif
+    Endif
+    Endroutine
+    
+    

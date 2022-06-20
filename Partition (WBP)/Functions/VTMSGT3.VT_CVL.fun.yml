@@ -1,0 +1,278 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    <-
+    
+    * Local Variables.
+    Define Field(#LF_VTMsg_Report_File) Type(*CHAR) Length(256)
+    Define Field(#LF_VTMsg_File_Id) Type(*DEC) Length(3) Decimals(0)
+    Define Field(#LF_VTMsg_Open_Opt) Type(*CHAR) Length(500) Input_Atr(LC)
+    Define Field(#LF_VTMsg_rc) Type(*CHAR) Length(2)
+    
+    Define Field(#LF_VTMsg_DateTime) Type(*DATETIME) Default(*DateTime)
+    Define Field(#LF_VTMsg_Partition) Type(*CHAR) Length(4)
+    Define Field(#LF_VTMsg_Description) Type(*CHAR) Length(512) Input_Atr(LC)
+    
+    * Multilingual / System Variable evaluation Variables.
+    Define Field(#LF_VTMsg_Var) Type(*CHAR) Length(20)
+    Define Field(#LF_VTMsg_Type) Type(*CHAR) Length(1)
+    Define Field(#LF_VTMsg_Length) Type(*SIGNED) Length(3) Decimals(0)
+    Define Field(#LF_VTMsg_Dec) Type(*SIGNED) Length(1) Decimals(0)
+    Define Field(#LF_VTMsg_PType) Type(*CHAR) Length(3)
+    Define Field(#LF_VTMsg_Prog) Type(*CHAR) Length(10) Default(M@SYSVAR)
+    Define Field(#LF_VTMsg_RetA) Type(*CHAR) Length(256)
+    Define Field(#LF_VTMsg_RetN) Type(*SIGNED) Length(30) Decimals(9)
+    
+    Define Field(#LF_VTMsg_Internal_Database_Type) Reffld(#BIFA040A)
+    Define Field(#LF_VTMsg_Internal_Database_Name) Reffld(#BIFA128A)
+    Define Field(#LF_VTMsg_User_Database_Type) Reffld(#BIFA040A)
+    Define Field(#LF_VTMsg_User_Database_Name) Reffld(#BIFA128A)
+    *
+    * LogTestCase
+    *
+    Mthroutine Name(mthLogTestCase)
+    Define_Map For(*INPUT) Class(#VTF_CCSID) Name(#this_ccsid)
+    Define_Map For(*INPUT) Class(#VTF_FUNC) Name(#this_proc_and_func)
+    Define_Map For(*INPUT) Class(#VTF_TDESC) Name(#this_desc)
+    
+    * Open the log file.
+    #Com_Owner.mthOpenLogFile( #LF_VTMsg_File_Id )
+    If (#LF_VTMsg_File_Id *NE 0)
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '===================================')
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'CCS: ' #this_ccsid)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Partition: ' *Partition)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Language: ' *Language)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Function/Process: ' #this_proc_and_func)
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Environment Type: ' *OSAPI ' ' *OSBITNESS.AsString '-bit')
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Environment Path: ' (*Quote + *Sys_Dir + *Quote))
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'DateTime: ' #LF_VTMsg_DateTime.AsString)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBII) To_Get(#LF_VTMsg_Internal_Database_Name #LF_VTMsg_rc)
+    Use Builtin(Get_Session_Value) With_Args(DBIT) To_Get(#LF_VTMsg_Internal_Database_Type #LF_VTMsg_rc)
+    Use Builtin(Get_Session_Value) With_Args(DBID) To_Get(#LF_VTMsg_User_Database_Name #LF_VTMsg_rc)
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_VTMsg_User_Database_Type #LF_VTMsg_rc)
+    If ((#LF_VTMsg_Internal_Database_Type = #LF_VTMsg_User_Database_Type) *And (#LF_VTMsg_Internal_Database_Name = #LF_VTMsg_User_Database_Name))
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Database: ' (#LF_VTMsg_Internal_Database_Type + ' / ' + #LF_VTMsg_Internal_Database_Name))
+    Else
+    If (#LF_VTMsg_Internal_Database_Name.CurChars > 0)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Internal Database: ' (#LF_VTMsg_Internal_Database_Type + ' / ' + #LF_VTMsg_Internal_Database_Name))
+    Endif
+    
+    If (#LF_VTMsg_User_Database_Name.CurChars > 0)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'User Database: ' (#LF_VTMsg_User_Database_Type + ' / ' + #LF_VTMsg_User_Database_Name))
+    Endif
+    Endif
+    
+    If (#this_desc *NE *Blanks)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Expected Test Environments: ' #this_desc)
+    Endif
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '-----')
+    
+    * Close the log file.
+    Use Builtin(Stm_File_Close) With_Args(#LF_VTMsg_File_Id)
+    
+    Endif
+    Endroutine
+    
+    *
+    * LogTestCaseEnd
+    *
+    Mthroutine Name(mthLogTestCaseEnd)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    * Opent the log file.
+    #Com_Owner.mthOpenLogFile( #LF_VTMsg_File_Id )
+    
+    If (#this_msg = *Blanks)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id 'Completed.')
+    Else
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id ('Completed - ' + #this_msg + '.'))
+    Endif
+    
+    * Close the log file.
+    Use Builtin(Stm_File_Close) With_Args(#LF_VTMsg_File_Id)
+    Endroutine
+    
+    *
+    * LogTestEnv
+    *
+    Mthroutine Name(mthLogTestEnv)
+    Define_Map For(*INPUT) Class(#Std_Alpha) Name(#this_exec)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_SuperServer_Name)
+    
+    #Com_Owner.mthLogTest( #this_exec *Blanks *Blanks #this_SuperServer_Name *Blanks )
+    Endroutine
+    
+    *
+    * LogTest
+    *
+    Mthroutine Name(mthLogTest)
+    Define_Map For(*INPUT) Class(#VTF_ENV) Name(#this_exec)
+    Define_Map For(*INPUT) Class(#VTF_PLATL) Name(#this_local_platform)
+    Define_Map For(*INPUT) Class(#VTF_PLATR) Name(#this_Remote_platform)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssv_name)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    
+    * Opent the log file.
+    #Com_Owner.mthOpenLogFile( #LF_VTMsg_File_Id )
+    If (#LF_VTMsg_File_Id *NE 0)
+    
+    If (#this_exec = I)
+    #LF_VTMsg_Description := '+ iSeries.'
+    Else
+    If (#this_exec = W)
+    #LF_VTMsg_Description := '+ Windows.'
+    Else
+    If (#this_exec = U)
+    #LF_VTMsg_Description := '+ Unix.'
+    Else
+    If ((#this_exec = Q) *Or (#this_exec = F) *Or (#this_exec = E))
+    #LF_VTMsg_Description := '+ ->'
+    
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    #LF_VTMsg_Description := '+ iSeries -> iSeries:'
+    When Value_Is(= W)
+    #LF_VTMsg_Description := '+ iSeries -> Windows:'
+    When Value_Is(= U)
+    #LF_VTMsg_Description := '+ iSeries -> Unix:'
+    Endcase
+    
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    #LF_VTMsg_Description := '+ Windows -> iSeries:'
+    When Value_Is(= W)
+    #LF_VTMsg_Description := '+ Windows -> Windows:'
+    When Value_Is(= U)
+    #LF_VTMsg_Description := '+ Windows -> Unix:'
+    Endcase
+    Endcase
+    
+    If (#this_ssv_name *NE *Blanks)
+    #LF_VTMsg_Description := #LF_VTMsg_Description + ' ' + #this_ssv_name
+    Endif
+    
+    Case Of_Field(#this_exec)
+    When Value_Is(= Q)
+    #LF_VTMsg_Description += ' (SuperServer I/O).'
+    When Value_Is(= F)
+    #LF_VTMsg_Description += ' (SuperServer Function Call).'
+    When Value_Is(= E)
+    #LF_VTMsg_Description += ' (Evaluation).'
+    Endcase
+    Endif
+    Endif
+    Endif
+    Endif
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id #LF_VTMsg_Description)
+    
+    * Close the log file.
+    Use Builtin(Stm_File_Close) With_Args(#LF_VTMsg_File_Id)
+    
+    Endif
+    Endroutine
+    
+    *
+    * LogExtraDetails
+    *
+    Mthroutine Name(mthLogExtraDetails)
+    Define_Map For(*INPUT) Class(#VTF_SSCDT) Name(#this_current_datetime)
+    Define_Map For(*INPUT) Class(#VTF_SSCET) Name(#this_environment_type)
+    Define_Map For(*INPUT) Class(#VTF_SSCEP) Name(#this_environment_path)
+    Define_Map For(*INPUT) Class(#VTF_SSCIT) Name(#this_internal_database_type)
+    Define_Map For(*INPUT) Class(#VTF_SSCII) Name(#this_internal_database_name)
+    Define_Map For(*INPUT) Class(#VTF_SSCUT) Name(#this_user_database_type)
+    Define_Map For(*INPUT) Class(#VTF_SSCID) Name(#this_user_database_name)
+    
+    * Opent the log file.
+    #Com_Owner.mthOpenLogFile( #LF_VTMsg_File_Id )
+    If (#LF_VTMsg_File_Id *NE 0)
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  -----')
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  - Environment Type: ' #this_environment_type)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  - Environment Path: ' #this_environment_path)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  - DateTime: ' #this_current_datetime.AsString)
+    
+    If ((#this_internal_database_type = #this_user_database_type) *And (#this_internal_database_name = #this_user_database_name))
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  - Database: ' (#this_internal_database_type + ' / ' + #this_internal_database_name))
+    Else
+    If (#this_internal_database_name.CurChars > 0)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  - Internal Database: ' (#this_internal_database_type + ' / ' + #this_internal_database_name))
+    Endif
+    
+    If (#this_user_database_name.CurChars > 0)
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  - User Database: ' (#this_user_database_type + ' / ' + #this_user_database_name))
+    Endif
+    Endif
+    
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '  -----')
+    
+    * Close the log file.
+    Use Builtin(Stm_File_Close) With_Args(#LF_VTMsg_File_Id)
+    Endif
+    Endroutine
+    
+    *
+    * LogEvent
+    *
+    Mthroutine Name(mthLogEvent)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    #Com_Owner.mthLogMsg( Y #this_msg )
+    Endroutine
+    
+    *
+    * LogMsg
+    *
+    Mthroutine Name(mthLogMsg)
+    Define_Map For(*INPUT) Class(#Std_Alpha) Name(#this_timestamp)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    * Open the log file.
+    #Com_Owner.mthOpenLogFile( #LF_VTMsg_File_Id )
+    If (#LF_VTMsg_File_Id *NE 0)
+    
+    * Output the log message.
+    Use Builtin(Stm_File_Write) With_Args(#LF_VTMsg_File_Id '    ' #LF_VTMsg_DateTime.AsString ' ' #this_msg)
+    
+    * Close the log file.
+    Use Builtin(Stm_File_Close) With_Args(#LF_VTMsg_File_Id)
+    
+    Endif
+    Endroutine
+    
+    *
+    * OpenLogFile
+    *
+    Mthroutine Name(mthOpenLogFile)
+    Define_Map For(*OUTPUT) Class(#Std_Num) Name(#this_file_id)
+    
+    * Log file name.
+    * Use *Root_Dir for both W95 and W64.
+    #LF_VTMsg_Report_File := *Root_Dir + *PATHDELIM + 'Verifier_Test_Report.txt'
+    
+    * Check the log file status.
+    Use Builtin(OV_File_Service) With_Args(Check_File #LF_VTMsg_Report_File) To_Get(#LF_VTMsg_rc)
+    If (#LF_VTMsg_rc = OK)
+    #LF_VTMsg_Open_Opt := 'Append NoTrim'
+    Else
+    #LF_VTMsg_Open_Opt := 'Write NoTrim'
+    Endif
+    
+    * Open the log file.
+    Use Builtin(Stm_File_Open) With_Args(#LF_VTMsg_Report_File #LF_VTMsg_Open_Opt A N) To_Get(#LF_VTMsg_File_Id #LF_VTMsg_rc)
+    If (#LF_VTMsg_rc = OK)
+    #this_file_id := #LF_VTMsg_File_Id
+    Else
+    #this_file_id := 0
+    Endif
+    Endroutine

@@ -1,0 +1,295 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    #LF_VTMain1_Verify_Test_CCSId := '000000'
+    #LF_VTMain1_Verify_Test_Environments := *Blanks
+    
+    Include Process(VT_CVL) Function(VTMain3)
+    
+    Include Process(VT_CVL) Function(VTMSGT3)
+    
+    Include Process(VT_CVL) Function(VTMSG1)
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRun)
+    Define_Map For(*INPUT) Class(#VTF_ENV) Name(#this_exec)
+    Define_Map For(*INPUT) Class(#VTF_PLATL) Name(#this_local_platform)
+    Define_Map For(*INPUT) Class(#VTF_PLATR) Name(#this_Remote_platform)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssv_name)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_retcode)
+    
+    * #this_retcode needs to be reset to OK / ER / any other value if the scenario is being handled.
+    
+    Case Of_Field(#this_exec)
+    When Value_Is(= I)
+    * Execution on iSeries.
+    * #Com_Owner.mthPerformTest( 'I' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * Execution on Windows.
+    * #Com_Owner.mthPerformTest( 'W' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * Execution on Unix.
+    * #Com_Owner.mthPerformTest( 'U' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= Q)
+    * SuperServer I/O.
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    *  iSeries to iSeries.
+    * #Com_Owner.mthPerformTest( 'Q: I -> I' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * iSeries to Windows.
+    * #Com_Owner.mthPerformTest( 'Q: I -> W' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * iSeries to Unix.
+    * #Com_Owner.mthPerformTest( 'Q: I -> U' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Endcase
+    
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * Windows to iSeries.
+    * #Com_Owner.mthPerformTest( 'Q: W -> I' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * Windows to Windows.
+    * #Com_Owner.mthPerformTest( 'Q: W -> W' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * Windows to Unix.
+    * #Com_Owner.mthPerformTest( 'Q: W -> U' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Endcase
+    
+    When Value_Is(= U)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * Unix to iSeries.
+    * #Com_Owner.mthPerformTest( 'Q: U -> I' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * Unix to Windows.
+    * #Com_Owner.mthPerformTest( 'Q: U -> W' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * Unix to Unix.
+    * #Com_Owner.mthPerformTest( 'Q: U -> U' *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Endcase
+    Endcase
+    
+    When Value_Is(= F)
+    * SuperServer Function Call.
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * iSeries to iSeries.
+    * #Com_Owner.mthPerformTest( 'F: I -> I' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * iSeries to Windows.
+    * #Com_Owner.mthPerformTest( 'F: I -> W' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * iSeries to Unix.
+    * #Com_Owner.mthPerformTest( 'F: I -> U' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Endcase
+    
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * Windows to iSeries.
+    * #Com_Owner.mthPerformTest( 'F: W -> I' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * Windows to Windows.
+    * #Com_Owner.mthPerformTest( 'F: W -> W' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * Windows to Unix.
+    * #Com_Owner.mthPerformTest( 'F: W -> U' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Endcase
+    
+    When Value_Is(= U)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * Unix to iSeries.
+    * #Com_Owner.mthPerformTest( 'F: U -> I' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * Unix to Windows.
+    * #Com_Owner.mthPerformTest( 'F: U -> W' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * Unix to Unix.
+    * #Com_Owner.mthPerformTest( 'F: U -> U' #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Endcase
+    Endcase
+    
+    When Value_Is(= E)
+    * SuperServer Evaluation.
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * iSeries to iSeries.
+    When Value_Is(= W)
+    * iSeries to Windows.
+    When Value_Is(= U)
+    * iSeries to Unix.
+    Endcase
+    
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * Windows to iSeries.
+    When Value_Is(= W)
+    * Windows to Windows.
+    When Value_Is(= U)
+    * Windows to Unix.
+    Endcase
+    
+    When Value_Is(= U)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * Unix to iSeries.
+    When Value_Is(= W)
+    * Unix to Windows.
+    When Value_Is(= U)
+    * Unix to Unix.
+    Endcase
+    
+    Endcase
+    Endcase
+    Endroutine
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    
+    *
+    * Log test case return messages.
+    *
+    Mthroutine Name(mthCheck_wLRet)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_caller_error_code)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_retcode)
+    
+    If (#this_caller_error_code = ER)
+    #this_retcode := ER
+    Endif
+    
+    Begin_Loop Using(#LF_i) To(#BIFMSGCNT)
+    Get_Entry Number(#LF_i) From_List(#wLRet)
+    
+    If ((#BIFMSGC = ER) *Or (#BIFMSGC = VE))
+    #this_retcode := ER
+    
+    If (#BIFMSG2 *NE *Blanks)
+    #Com_Owner.mthLogEvent( ('- ERROR: ' + #BIFMSG1 + '. ' + #BIFMSG2) )
+    Else
+    #Com_Owner.mthLogEvent( ('- ERROR: ' + #BIFMSG1 + '.') )
+    Endif
+    Else
+    If (#BIFMSG2 *NE *Blanks)
+    #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1 + '. ' + #BIFMSG2) )
+    Else
+    #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1 + '.') )
+    Endif
+    Endif
+    End_Loop
+    Endroutine
+    
+    Define Field(#LF_Function_Id) Reffld(#Function)
+    Define Field(#LF_Function_Count) Reffld(#Std_Count)
+    Define Field(#LF_FID) Reffld(#Std_Count)
+    Def_List Name(#wLFunction) Fields(#LF_Function_Id) Counter(#LF_Function_Count) Type(*WORKING)
+    
+    *
+    * Add Test Function.
+    *
+    Mthroutine Name(mthAddFunction)
+    Define_Map For(*INPUT) Class(#Function) Name(#this_function)
+    
+    #LF_Function_Id := #this_function
+    Add_Entry To_List(#wLFunction)
+    Endroutine
+    
+    *
+    * Perform Test.
+    *
+    Mthroutine Name(mthPerformTest)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_test)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssc)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssct)
+    Define_Map For(*INPUT) Class(#BIFA001A) Name(#this_local_platform)
+    Define_Map For(*INPUT) Class(#BIFA001A) Name(#this_remote_platform)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_retcode)
+    
+    #this_retcode := OK
+    
+    * Include test functions.
+    If (#LF_Function_Count = 0)
+    * #Com_Owner.mthAddFunction( VTTemp2 )
+    Endif
+    
+    * Include the test case name to the Unique Key Data.
+    Clr_List Named(#wLKData)
+    #VTF_KEY1 := #this_test
+    Add_Entry To_List(#wlKData)
+    
+    If (#this_ssct = *Blanks)
+    * Test the current executing environment and SuperServer I/O.
+    
+    * Get a unique key data.
+    * Call Process(*Direct) Function(VTKData) Pass_Lst(#wLKData)
+    
+    Begin_Loop Using(#LF_FID) To(#LF_Function_Count)
+    Get_Entry Number(#LF_FID) From_List(#wLFunction)
+    
+    #Com_Owner.mthLogEvent( ('+ Calling Function: ' + #LF_Function_Id) )
+    
+    Call Process(*DIRECT) Function(#LF_Function_Id) Pass_Lst(#wLKData #wLRet)
+    #Com_Owner.mthCheck_wLRet( OK #this_retcode )
+    Clr_List Named(#wLRet)
+    
+    If (#this_retcode = ER)
+    Leave
+    Endif
+    End_Loop
+    Else
+    * Test SuperServer Function Call.
+    
+    * Get a unique key data from the remote server.
+    * Use Builtin(Call_Server_Function) With_Args(#this_ssct VTKData Y Y #wLKData) To_Get(#LF_rc)
+    
+    Begin_Loop Using(#LF_FID) To(#LF_Function_Count)
+    Get_Entry Number(#LF_FID) From_List(#wLFunction)
+    
+    #Com_Owner.mthLogEvent( ('+ Calling SuperServer Function: ' + #LF_Function_Id) )
+    
+    Use Builtin(Call_Server_Function) With_Args(#this_ssct #LF_Function_Id Y Y #wLKData #wLRet) To_Get(#LF_rc)
+    #Com_Owner.mthCheck_wLRet( #LF_rc #this_retcode )
+    Clr_List Named(#wLRet)
+    
+    If (#this_retcode = ER)
+    Leave
+    Endif
+    End_Loop
+    Endif
+    Endroutine
+    
+    

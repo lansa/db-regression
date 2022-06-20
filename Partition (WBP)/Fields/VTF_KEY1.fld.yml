@@ -1,0 +1,57 @@
+﻿Field:
+  Name:               VTF_KEY1
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Key Data 1 (Client)"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Verifier Test - Key Data 1 (Client)"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Verifier Test - Key Data 1 (Client)"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Verifier Test - Key Data 1 (Client)"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Verifier Test - Key Data 1 (Client)"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(323) Marginleft(199)
+    
+    End_Com
+    
+    End_Com

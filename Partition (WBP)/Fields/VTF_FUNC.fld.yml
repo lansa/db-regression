@@ -1,0 +1,62 @@
+﻿Field:
+  Name:               VTF_FUNC
+  Type:               Char
+  Length:             128
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Function Name"
+      Label:              "Verifier - Func"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Function"
+
+  - ENG:
+      Description:        "Verifier Test - Function Name"
+      Label:              "Verifier - Func"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Function"
+
+  - FRA:
+      Description:        "Verifier - Function Name"
+      Label:              "Verifier - Func"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Function"
+
+  - JPN:
+      Description:        "Verifier - Function Name"
+      Label:              "Verifier - Func"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Function"
+
+  - TRK:
+      Description:        "Verifier Test - Function Name"
+      Label:              "Verifier - Func"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Function"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(178) Width(812)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_char.std_char') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

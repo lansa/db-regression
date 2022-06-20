@@ -1,0 +1,42 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT)
+    
+    Exchange Fields(#VTF_Func #VTF_CCSID #VTF_Env #VTF_Msg) Option(*ALWAYS)
+    
+    Case Of_Field(#VTF_Func)
+    
+    When Value_Is(= LogTestCaseBegin)
+    #Com_Owner.mthLogTestCase( #VTF_CCSID #VTF_Msg )
+    
+    When Value_Is(= LogTestCaseEnd)
+    #Com_Owner.mthLogTestCaseEnd( #VTF_Msg )
+    
+    When Value_Is(= LogTestEnv)
+    #Com_Owner.mthLogTestEnv( #VTF_Env #VTF_Msg )
+    
+    When Value_Is(= LogEvent)
+    #Com_Owner.mthLogEvent( #VTF_Msg )
+    
+    When Value_Is(= LogUserEvent)
+    #Com_Owner.mthLogEvent( ('   ' + #VTF_Msg) )
+    
+    When Value_Is(= LogUserFuncBegin)
+    #Com_Owner.mthLogEvent( (#VTF_Msg + ' - begin.') )
+    
+    When Value_Is(= LogUserFuncEnd)
+    If (#VTF_Msg = *Blanks)
+    #Com_Owner.mthLogEvent( 'End.' )
+    Else
+    #Com_Owner.mthLogEvent( (#VTF_Msg + ' - end.') )
+    Endif
+    
+    Endcase
+    
+    Return
+    
+    *
+    
+    Include Process(VT_CVL) Function(VTMSGT)

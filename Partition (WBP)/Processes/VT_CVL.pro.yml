@@ -1,0 +1,624 @@
+﻿Process:
+  Name:                      VT_CVL
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test Template"
+
+  - ENG:
+      Description:        "Verifier Test Template"
+
+  - FRA:
+      Description:        "Verifier Test Template"
+
+  - JPN:
+      Description:        "Verifier Test Template"
+
+  - TRK:
+      Description:        "Verifier Test Template"
+
+  Functions:
+  - VTFUNC1:
+      Name:               VTFUNC1
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "RDML Callee Function Sample"
+
+      - ENG:
+          Description:        "RDML Callee Function Sample"
+
+      - FRA:
+          Description:        "RDML Callee Function Sample"
+
+      - JPN:
+          Description:        "RDML Callee Function Sample"
+
+      - TRK:
+          Description:        "RDML Callee Function Sample"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTFUNC2:
+      Name:               VTFUNC2
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "RDMLX Callee Function Sample"
+
+      - ENG:
+          Description:        "RDMLX Callee Function Sample"
+
+      - FRA:
+          Description:        "RDMLX Callee Function Sample"
+
+      - JPN:
+          Description:        "RDMLX Callee Function Sample"
+
+      - TRK:
+          Description:        "RDMLX Callee Function Sample"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTKDATA:
+      Name:               VTKDATA
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Return a Unique Key data"
+
+      - ENG:
+          Description:        "Return a Unique Key data"
+
+      - FRA:
+          Description:        "Return a Unique Key data"
+
+      - JPN:
+          Description:        "Return a Unique Key data"
+
+      - TRK:
+          Description:        "Return a Unique Key data"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMAIN:
+      Name:               VTMAIN
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template"
+
+      - ENG:
+          Description:        "(Old) Template"
+
+      - FRA:
+          Description:        "(Old) Template"
+
+      - JPN:
+          Description:        "(Old) Template"
+
+      - TRK:
+          Description:        "(Old) Template"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMAIN1:
+      Name:               VTMAIN1
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template - V1 *Sys_Dir"
+
+      - ENG:
+          Description:        "(Old) Template - V1 *Sys_Dir"
+
+      - FRA:
+          Description:        "(Old) Template - V1 *Sys_Dir"
+
+      - JPN:
+          Description:        "(Old) Template - V1 *Sys_Dir"
+
+      - TRK:
+          Description:        "(Old) Template - V1 *Sys_Dir"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMAIN2:
+      Name:               VTMAIN2
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template - V2 *Root_Dir"
+
+      - ENG:
+          Description:        "(Old) Template - V2 *Root_Dir"
+
+      - FRA:
+          Description:        "(Old) Template - V2 *Root_Dir"
+
+      - JPN:
+          Description:        "(Old) Template - V2 *Root_Dir"
+
+      - TRK:
+          Description:        "(Old) Template - V2 *Root_Dir"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMAIN3:
+      Name:               VTMAIN3
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template - V3 Validate LU"
+
+      - ENG:
+          Description:        "(Old) Template - V3 Validate LU"
+
+      - FRA:
+          Description:        "(Old) Template - V3 Validate LU"
+
+      - JPN:
+          Description:        "(Old) Template - V3 Validate LU"
+
+      - TRK:
+          Description:        "(Old) Template - V3 Validate LU"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMAIN4:
+      Name:               VTMAIN4
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template - V4 Remote Server Check"
+
+      - ENG:
+          Description:        "(Old) Template - V4 Remote Server Check"
+
+      - FRA:
+          Description:        "(Old) Template - V4 Remote Server Check"
+
+      - JPN:
+          Description:        "(Old) Template - V4 Remote Server Check"
+
+      - TRK:
+          Description:        "(Old) Template - V4 Remote Server Check"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMAIN5:
+      Name:               VTMAIN5
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template - V5 Record Tested DBIT"
+
+      - ENG:
+          Description:        "(Old) Template - V5 Record Tested DBIT"
+
+      - FRA:
+          Description:        "(Old) Template - V5 Record Tested DBIT"
+
+      - JPN:
+          Description:        "(Old) Template - V5 Record Tested DBIT"
+
+      - TRK:
+          Description:        "(Old) Template - V5 Record Tested DBIT"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMSG:
+      Name:               VTMSG
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Message Log Function"
+
+      - ENG:
+          Description:        "Message Log Function"
+
+      - FRA:
+          Description:        "Message Log Function"
+
+      - JPN:
+          Description:        "Message Log Function"
+
+      - TRK:
+          Description:        "Message Log Function"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMSG1:
+      Name:               VTMSG1
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Template: Add msg to wLRet list routine"
+
+      - ENG:
+          Description:        "Template: Add msg to wLRet list routine"
+
+      - FRA:
+          Description:        "Template: Add msg to wLRet list routine"
+
+      - JPN:
+          Description:        "Template: Add msg to wLRet list routine"
+
+      - TRK:
+          Description:        "Template: Add msg to wLRet list routine"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMSG2:
+      Name:               VTMSG2
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Template: Add all runtime msg to wLRet"
+
+      - ENG:
+          Description:        "Template: Add all runtime msg to wLRet"
+
+      - FRA:
+          Description:        "Template: Add all runtime msg to wLRet"
+
+      - JPN:
+          Description:        "Template: Add all runtime msg to wLRet"
+
+      - TRK:
+          Description:        "Template: Add all runtime msg to wLRet"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMSGT:
+      Name:               VTMSGT
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template: *Sys_Dir Msg Log"
+
+      - ENG:
+          Description:        "(Old) Template: *Sys_Dir Msg Log"
+
+      - FRA:
+          Description:        "(Old) Template: *Sys_Dir Msg Log"
+
+      - JPN:
+          Description:        "(Old) Template: *Sys_Dir Msg Log"
+
+      - TRK:
+          Description:        "(Old) Template: *Sys_Dir Msg Log"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMSGT2:
+      Name:               VTMSGT2
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Template: *Root_Dir Msg Log"
+
+      - ENG:
+          Description:        "(Old) Template: *Root_Dir Msg Log"
+
+      - FRA:
+          Description:        "(Old) Template: *Root_Dir Msg Log"
+
+      - JPN:
+          Description:        "(Old) Template: *Root_Dir Msg Log"
+
+      - TRK:
+          Description:        "(Old) Template: *Root_Dir Msg Log"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTMSGT3:
+      Name:               VTMSGT3
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Template: *Root_Dir Msg Log"
+
+      - ENG:
+          Description:        "Template: *Root_Dir Msg Log"
+
+      - FRA:
+          Description:        "Template: *Root_Dir Msg Log"
+
+      - JPN:
+          Description:        "Template: *Root_Dir Msg Log"
+
+      - TRK:
+          Description:        "Template: *Root_Dir Msg Log"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTSSRF1:
+      Name:               VTSSRF1
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Get SServer Settings"
+
+      - ENG:
+          Description:        "(Old) Get SServer Settings"
+
+      - FRA:
+          Description:        "(Old) Get SServer Settings"
+
+      - JPN:
+          Description:        "(Old) Get SServer Settings"
+
+      - TRK:
+          Description:        "(Old) Get SServer Settings"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTSSRF3:
+      Name:               VTSSRF3
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) Get SServer Settings"
+
+      - ENG:
+          Description:        "(Old) Get SServer Settings"
+
+      - FRA:
+          Description:        "(Old) Get SServer Settings"
+
+      - JPN:
+          Description:        "(Old) Get SServer Settings"
+
+      - TRK:
+          Description:        "(Old) Get SServer Settings"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTSSRF4:
+      Name:               VTSSRF4
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Get SServer Settings"
+
+      - ENG:
+          Description:        "Get SServer Settings"
+
+      - FRA:
+          Description:        "Get SServer Settings"
+
+      - JPN:
+          Description:        "Get SServer Settings"
+
+      - TRK:
+          Description:        "Get SServer Settings"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTSSRV:
+      Name:               VTSSRV
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SuperServer Connection (Root / Sys Dir)"
+
+      - ENG:
+          Description:        "SuperServer Connection (Root / Sys Dir)"
+
+      - FRA:
+          Description:        "SuperServer Connection (Root / Sys Dir)"
+
+      - JPN:
+          Description:        "SuperServer Connection (Root / Sys Dir)"
+
+      - TRK:
+          Description:        "SuperServer Connection (Root / Sys Dir)"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTTEMP0:
+      Name:               VTTEMP0
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - ENG:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - FRA:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - JPN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - TRK:
+          Description:        "(Old) CCS Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTTEMP1:
+      Name:               VTTEMP1
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - ENG:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - FRA:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - JPN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - TRK:
+          Description:        "(Old) CCS Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTTEMP2:
+      Name:               VTTEMP2
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - ENG:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - FRA:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - JPN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - TRK:
+          Description:        "(Old) CCS Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTTEMP3:
+      Name:               VTTEMP3
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - ENG:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - FRA:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - JPN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - TRK:
+          Description:        "(Old) CCS Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTTEMP4:
+      Name:               VTTEMP4
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - ENG:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - FRA:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - JPN:
+          Description:        "(Old) CCS Test Case Driver"
+
+      - TRK:
+          Description:        "(Old) CCS Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VTTEMP5:
+      Name:               VTTEMP5
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS Test Case Driver"
+
+      - ENG:
+          Description:        "CCS Test Case Driver"
+
+      - FRA:
+          Description:        "CCS Test Case Driver"
+
+      - JPN:
+          Description:        "CCS Test Case Driver"
+
+      - TRK:
+          Description:        "CCS Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"

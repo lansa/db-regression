@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VTF_SSCF
+  Type:               Alpha
+  Length:             1
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - SuperServer Auto Flag"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "SuperServer"
+
+  - ENG:
+      Description:        "Verifier Test - SuperServer Auto Flag"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "SuperServer"
+
+  - FRA:
+      Description:        "Verifier - SuperServer Auto Connection"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "SuperServer"
+
+  - JPN:
+      Description:        "Verifier - SuperServer Auto Connection"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "SuperServer"
+
+  - TRK:
+      Description:        "Verifier Test - SuperServer Auto Flag"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "SuperServer"

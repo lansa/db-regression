@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VTF_LU
+  Type:               Char
+  Length:             20
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Lookup Name"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Super"
+
+  - ENG:
+      Description:        "Verifier Test - Lookup Name"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Super"
+
+  - FRA:
+      Description:        "Verifier - Super Server Lookup Name"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Super"
+
+  - JPN:
+      Description:        "Verifier - Super Server Lookup Name"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Super"
+
+  - TRK:
+      Description:        "Verifier Test - Lookup Name"
+      Label:              "Verifier - Supe"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Super"

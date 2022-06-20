@@ -1,0 +1,185 @@
+﻿List:
+  Name:               Import 2022/06/20 11:11:11
+  Stored As:          User
+
+  Objects:
+  - VTF_KEY1:
+      Type:               Field
+
+  - VTF_CCSID:
+      Type:               Field
+
+  - VTF_SSCDT:
+      Type:               Field
+
+  - VTF_MSG:
+      Type:               Field
+
+  - VTF_FUNC:
+      Type:               Field
+
+  - VTF_SSC:
+      Type:               Field
+
+  - VTF_SSCET:
+      Type:               Field
+
+  - VTF_KEY2:
+      Type:               Field
+
+  - VTF_PLATR:
+      Type:               Field
+
+  - VTF_SSCID:
+      Type:               Field
+
+  - VTF_SSCEP:
+      Type:               Field
+
+  - VTF_SSCLT:
+      Type:               Field
+
+  - VTF_LU:
+      Type:               Field
+
+  - VTF_SSCF:
+      Type:               Field
+
+  - VTF_KEY3:
+      Type:               Field
+
+  - VTF_SSCT:
+      Type:               Field
+
+  - VTF_SSCIT:
+      Type:               Field
+
+  - VTF_LU_NO:
+      Type:               Field
+
+  - VTF_SSCII:
+      Type:               Field
+
+  - VTF_PROC:
+      Type:               Field
+
+  - VTF_ENV:
+      Type:               Field
+
+  - VTF_PLATL:
+      Type:               Field
+
+  - VTF_SSCP:
+      Type:               Field
+
+  - VTF_LU_EC:
+      Type:               Field
+
+  - VTF_TDESC:
+      Type:               Field
+
+  - VTF_SSCUT:
+      Type:               Field
+
+  - VTMAIN2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRF4:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRV:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN4:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSG2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRF1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP4:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP5:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSGT2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTFUNC2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN5:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMAIN3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP0:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRF3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTKDATA:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSG:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSGT:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTFUNC1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSG1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSGT3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VT_CVL:
+      Type:               Process

@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               VTF_LU_NO
+  Type:               Packed
+  Length:             3
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Lookup Name Number"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Verifier Test - Lookup Name Number"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Verifier Test - Lookup Name Number"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Verifier Test - Lookup Name Number"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Verifier Test - Lookup Name Number"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"

@@ -1,0 +1,27 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wlRemoteSystem)
+    
+    Def_List Name(#wlRemoteSystem) Fields(#VTF_SSCP #VTF_SSCLT #VTF_SSCDT #VTF_SSCET #VTF_SSCEP #VTF_SSCIT #VTF_SSCII #VTF_SSCUT #VTF_SSCID) Type(*WORKING) Entrys(1)
+    
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    
+    Clr_List Named(#wlRemoteSystem)
+    
+    #VTF_SSCP := *CPUType
+    #VTF_SSCLT := *Language_IGC
+    #VTF_SSCDT := *DateTime
+    #VTF_SSCET := *OSAPI + ' ' + *OSBITNESS.AsString + '-bit'
+    #VTF_SSCEP := *Quote + *Sys_Dir + *Quote
+    
+    Use Builtin(Get_Session_Value) With_Args(DBII) To_Get(#VTF_SSCII #LF_rc)
+    Use Builtin(Get_Session_Value) With_Args(DBIT) To_Get(#VTF_SSCIT #LF_rc)
+    Use Builtin(Get_Session_Value) With_Args(DBID) To_Get(#VTF_SSCID #LF_rc)
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#VTF_SSCUT #LF_rc)
+    
+    Add_Entry To_List(#wlRemoteSystem)
+    Return
+    
+    

@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VTF_PROC
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Test Process Id"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Verifier Test - Test Process Id"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Verifier Test - Test Process Id"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Verifier Test - Test Process Id"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Verifier Test - Test Process Id"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"

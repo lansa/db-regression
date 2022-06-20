@@ -1,0 +1,57 @@
+﻿Field:
+  Name:               VTF_ENV
+  Type:               Alpha
+  Length:             1
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - ENG:
+      Description:        "Verifier Test - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - FRA:
+      Description:        "Verifier - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - JPN:
+      Description:        "Verifier - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - TRK:
+      Description:        "Verifier Test - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(189) Width(231)
+    
+    End_Com
+    
+    End_Com

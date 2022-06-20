@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VTF_PLATL
+  Type:               Alpha
+  Length:             1
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Local Test Platform"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - ENG:
+      Description:        "Verifier Test - Local Test Platform"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - FRA:
+      Description:        "Verifier - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - JPN:
+      Description:        "Verifier - Test Environment"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - TRK:
+      Description:        "Verifier Test - Local Test Platform"
+      Label:              "Verifier - Test"
+      Heading1:           "Verifier"
+      Heading2:           "-"
+      Heading3:           "Test"

@@ -1,0 +1,28 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    *
+    * Add message.
+    *
+    
+    Define Field(#LF_MSG2_Msg_rc) Reffld(#BIFA002A)
+    Define Field(#LF_MSG2_Msg_Text) Type(*CHAR) Length(132)
+    Define Field(#LF_MSG2_Msg_Number) Type(*CHAR) Length(7)
+    Define Field(#LF_MSG2_Msg_File) Type(*CHAR) Length(10)
+    Define Field(#LF_MSG2_Msg_Library) Type(*CHAR) Length(10)
+    
+    Mthroutine Name(mthGet_Msg)
+    Define_Map For(*INPUT) Class(#BIFA001A) Name(#this_msg_option)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    
+    Use Builtin(Get_Message) With_Args(#this_msg_option) To_Get(#LF_MSG2_Msg_rc #LF_MSG2_Msg_Text #LF_MSG2_Msg_Number #LF_MSG2_Msg_File #LF_MSG2_Msg_Library)
+    
+    Dowhile Cond(#LF_MSG2_Msg_rc = OK)
+    * Add the runtime message to the wl_Ret message list.
+    #Com_Owner.mthAdd_Msg( #this_msg_code (#LF_MSG2_Msg_Library + ' / ' + #LF_MSG2_Msg_File + ' / ' + #LF_MSG2_Msg_Number) #LF_MSG2_Msg_Text )
+    
+    Use Builtin(Get_Message) With_Args(#this_msg_option) To_Get(#LF_MSG2_Msg_rc #LF_MSG2_Msg_Text #LF_MSG2_Msg_Number #LF_MSG2_Msg_File #LF_MSG2_Msg_Library)
+    Endwhile
+    Endroutine
+    

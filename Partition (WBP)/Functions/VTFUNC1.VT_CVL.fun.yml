@@ -1,0 +1,41 @@
+﻿Function:
+  Enabled For RDMLX:  No
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#WLKDATA #WLRET)
+    
+    * Unique Key Data.
+    Def_List Name(#WLKDATA) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#WLRET) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_TEMP) Reffld(#BIFMSG1)
+    
+    * Start testing.
+    Clr_List Named(#WLRET)
+    
+    Use Builtin(BCONCAT) With_Args('Start - ' *FUNCTION_DESC) To_Get(#LF_TEMP)
+    Execute Subroutine(ADD_MSG) With_Parms(OK *FUNCTION #LF_TEMP)
+    
+    Get_Entry Number(1) From_List(#WLKDATA)
+    
+    * Execute Subroutine(ADD_SUBMSG) With_Parms( OK 'Coding ...' '' )
+    
+    Execute Subroutine(ADD_MSG) With_Parms(OK *FUNCTION 'End')
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Subroutine Name(ADD_MSG) Parms((#BIFMSGC *RECEIVED) (#BIFMSG1 *RECEIVED) (#BIFMSG2 *RECEIVED))
+    Add_Entry To_List(#WLRET)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Subroutine Name(ADD_SUBMSG) Parms((#BIFMSGC *RECEIVED) (#BIFMSG1 *RECEIVED) (#BIFMSG2 *RECEIVED))
+    Use Builtin(BCONCAT) With_Args(' ' #BIFMSG1) To_Get(#LF_TEMP)
+    
+    Change Field(#BIFMSG1) To(#LF_TEMP)
+    Add_Entry To_List(#WLRET)
+    Endroutine
+    

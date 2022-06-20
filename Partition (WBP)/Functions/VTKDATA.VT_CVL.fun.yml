@@ -1,0 +1,34 @@
+﻿Function:
+  Enabled For RDMLX:  No
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#WLKDATA)
+    
+    Def_List Name(#WLKDATA) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    Define Field(#LF_RC) Type(*CHAR) Length(2)
+    Define Field(#LF_OS) Type(*CHAR) Length(6)
+    Define Field(#LF_CPU) Type(*CHAR) Length(5)
+    Define Field(#LF_BIT) Type(*CHAR) Length(3)
+    Define Field(#LF_NUM) Type(*DEC) Length(3) Decimals(0)
+    
+    * VTF_KEY1.
+    Get_Entry Number(1) From_List(#WLKDATA)
+    If Cond('(#LF_rc *eq ER)')
+    Change Field(#VTF_KEY1) To('(N/A)')
+    Else
+    Clr_List Named(#WLKDATA)
+    Endif
+    
+    * VTF_KEY2.
+    Change Field(#LF_OS) To(*OSAPI)
+    Change Field(#LF_CPU) To(*COMPILECPU)
+    Change Field(#LF_NUM) To(*OSBITNESS)
+    Use Builtin(NUMERIC_STRING) With_Args(#LF_NUM Y) To_Get(#LF_BIT)
+    Use Builtin(BCONCAT) With_Args(#LF_OS '-' #LF_CPU '-' #LF_BIT) To_Get(#VTF_KEY2)
+    
+    * VTF_KEY3.
+    Use Builtin(NUMERIC_STRING) With_Args(*DATETIME Y) To_Get(#VTF_KEY3)
+    
+    Add_Entry To_List(#WLKDATA)
+    Return

@@ -1,0 +1,19 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wlRemoteSystem)
+    
+    Def_List Name(#wlRemoteSystem) Fields(#VTF_SSCP #VTF_SSCLT) Type(*WORKING) Entrys(1)
+    
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    
+    Clr_List Named(#wlRemoteSystem)
+    
+    #VTF_SSCP := *CPUType
+    #VTF_SSCLT := *Language_IGC
+    
+    Add_Entry To_List(#wlRemoteSystem)
+    Return
+    
+    

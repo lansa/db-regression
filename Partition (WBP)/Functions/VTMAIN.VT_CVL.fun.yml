@@ -1,0 +1,184 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    * Has the CCS Id being set up?
+    * #LF_Verify_Test_CCSId := '151...'
+    
+    * Beginning of the Fucntion.
+    Function Options(*DIRECT)
+    
+    * Required preset variables.
+    Define Field(#LF_Verify_Test_CCSId) Type(*CHAR) Length(7)
+    
+    * Local variables.
+    Define Field(#LF_VTMain_Exec_Method) Type(*CHAR) Length(1)
+    Define Field(#LF_VTMain_Supser_Server_Name) Type(*CHAR) Length(20)
+    Define Field(#LF_VTMain_Supser_Server_Token) Type(*CHAR) Length(10)
+    Define Field(#LF_VTMain_Super_Server_Name_Number) Reffld(#VTF_LU_NO)
+    Define Field(#LF_VTMain_Is_Connected) Type(*CHAR) Length(1)
+    Define Field(#LF_VTMain_Is_Auto_Connect) Type(*CHAR) Length(1)
+    Define Field(#LF_VTMain_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_VTMain_rrn) Type(*DEC) Length(7) Decimals(0)
+    
+    *
+    * Template begin.
+    *
+    If ((#LF_Verify_Test_CCSId = *Blanks) *Or (#LF_Verify_Test_CCSId = '000000'))
+    
+    #Com_Owner.mthLogMsg( LogEvent *Blanks *Blanks ('*** Invalid Test Case *** ( ' + *Function + ' / ' + *Process + ' )') )
+    Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
+    
+    Else
+    
+    #Com_Owner.mthLogMsg( LogTestCaseBegin #LF_Verify_Test_CCSId *Blank (*Function + ' / ' + *Process) )
+    
+    If Cond('(*CPUTYPE *eq WIN95) *Or (*CPUTYPE *eq WINNT)')
+    
+    * W - Windows Test Case.
+    #Com_Owner.mthExecute( W *Blanks *Blanks )
+    
+    * Check if SuperServer informat is provided.
+    SSV:
+    
+    #Com_Owner.mthGetSuperServer( #LF_VTMain_Is_Connected #LF_VTMain_Is_Auto_Connect #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token #LF_VTMain_Super_Server_Name_Number )
+    
+    If (#LF_VTMain_Is_Connected = Y)
+    
+    * Execute the SuperServer test case from Windows.
+    
+    * Q - SuperServer I/O queries.
+    #Com_Owner.mthExecute( Q #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token )
+    
+    * F - SuperServer Function Call.
+    #Com_Owner.mthExecute( F #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token )
+    
+    * Disconnect the SuperServer connection.
+    If (#LF_VTMain_Is_Auto_Connect = N)
+    
+    Use Builtin(Disconnect_File) With_Args(* #LF_VTMain_Supser_Server_Token)
+    Use Builtin(Disconnect_Server) With_Args(#LF_VTMain_Supser_Server_Token) To_Get(#LF_VTMain_rc)
+    
+    * E - Evaluation (if any) after the SuperServer disconnection.
+    #Com_Owner.mthExecute( E *Blanks *Blanks )
+    
+    Goto Label(SSV)
+    
+    Endif
+    
+    Endif
+    
+    Else
+    
+    If Cond('*CPUTYPE *eq AS400')
+    
+    * I - iSeries Test Case.
+    #Com_Owner.mthExecute( I *Blanks *Blanks )
+    
+    Endif
+    
+    Endif
+    
+    #Com_Owner.mthLogMsg( LogTestCaseEnd *Blanks *Blanks *Blanks )
+    
+    Endif
+    
+    * Template end.
+    Return
+    
+    * ================================================
+    * Method APIs SHOULT NOT be used by user program.
+    * ================================================
+    
+    *
+    * LogMsg :- Call Function VTMsg to Log a message.
+    *
+    Mthroutine Name(mthLogMsg)
+    Define_Map For(*INPUT) Class(#VTF_Func) Name(#this_func)
+    Define_Map For(*INPUT) Class(#VTF_CCSID) Name(#this_ccsid)
+    Define_Map For(*INPUT) Class(#VTF_Env) Name(#this_env)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    #VTF_Func := #this_func
+    #VTF_CCSID := #this_ccsid
+    #VTF_Env := #this_env
+    #VTF_Msg := #this_msg
+    
+    Exchange Fields(#VTF_Func #VTF_CCSID #VTF_Env #VTF_Msg)
+    Call Process(*DIRECT) Function(VTMSG)
+    Endroutine
+    
+    *
+    * GetSuperServer :- Call Function VTSSRV To Retrieve SuperServer Connection.
+    *    - #this_ssc: Return Of The SuperServer Connection Flag (Y / N).
+    *    - #this_ssc_auto: Return Of The Auto SuperServer Connection Flag (Y / N).
+    *    - #this_lu: Return Of The Look Up Name.
+    *    - #this_ssc_token: Return Of The SuperServer Connection Token.
+    *
+    Mthroutine Name(mthGetSuperServer)
+    Define_Map For(*OUTPUT) Class(#VTF_SSC) Name(#this_ssc)
+    Define_Map For(*OUTPUT) Class(#VTF_SSCF) Name(#this_ssc_auto)
+    Define_Map For(*OUTPUT) Class(#VTF_LU) Name(#this_lu)
+    Define_Map For(*OUTPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    Define_Map For(*BOTH) Class(#VTF_LU_NO) Name(#this_lu_number)
+    
+    #VTF_LU_NO := #this_lu_number
+    Exchange Fields(#VTF_SSC #VTF_SSCF #VTF_LU #VTF_SSCT #VTF_LU_NO)
+    Call Process(*DIRECT) Function(VTSSRV)
+    
+    #this_ssc := #VTF_SSC
+    #this_ssc_auto := #VTF_SSCF
+    #this_lu := #VTF_LU
+    #this_ssc_token := #VTF_SSCT
+    #this_lu_number := #VTF_LU_NO
+    Endroutine
+    
+    *
+    * Execute :- Execute a test case.
+    *    - #this_exec: Execution Method. iSeries (I), Windows (W), SuperServer I/O queries (Q), SuperServer Function Call (F).
+    *    - #this_ss_lu: Super Server Look Up Name.
+    *    - #this_ssc_token: Super Server Connection Token.
+    *
+    Mthroutine Name(mthExecute)
+    Define_Map For(*INPUT) Class(#Std_Alpha) Name(#this_exec)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssv_name)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    
+    #Com_Owner.mthLogMsg( LogTestEnv *Blanks #this_exec #this_ssv_name )
+    
+    Execute Subroutine(Run) With_Parms(#this_exec #this_ssv_name #this_ssc_token)
+    
+    #Com_Owner.mthLogMsg( LogEvent *Blanks *Blanks 'Completed.' )
+    Endroutine
+    
+    * ================================================
+    * Method APIs can be used by user program.
+    * ================================================
+    
+    *
+    * LogEvent
+    *
+    Mthroutine Name(mthLogUserEvent)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    #Com_Owner.mthLogMsg( LogUserEvent *Blanks *Blanks #this_msg )
+    Endroutine
+    
+    *
+    * LogUserFuncBegin
+    *
+    Mthroutine Name(mthLogUserFuncBegin)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    #Com_Owner.mthLogMsg( LogUserFuncBegin *Blanks *Blanks #this_msg )
+    Endroutine
+    
+    *
+    * LogUserFuncEnd
+    *
+    Mthroutine Name(mthLogUserFuncEnd)
+    Define_Map For(*INPUT) Class(#VTF_Msg) Name(#this_msg)
+    
+    #Com_Owner.mthLogMsg( LogUserFuncEnd *Blanks *Blanks #this_msg )
+    Endroutine
+    

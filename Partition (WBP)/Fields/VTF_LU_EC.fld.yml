@@ -1,0 +1,58 @@
+﻿Field:
+  Name:               VTF_LU_EC
+  Type:               Packed
+  Length:             3
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - Lookup Name Error Count"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Verifier Test - Lookup Name Error Count"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Verifier Test - Lookup Name Error Count"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Verifier Test - Lookup Name Error Count"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Verifier Test - Lookup Name Error Count"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(241) Width(323)
+    
+    End_Com
+    
+    End_Com

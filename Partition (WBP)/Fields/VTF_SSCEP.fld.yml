@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VTF_SSCEP
+  Type:               Char
+  Length:             256
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Verifier Test - SServer Env Path"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Verifier Test - SServer Env Path"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Verifier Test - SServer Env Path"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Verifier Test - SServer Env Path"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Verifier Test - SServer Env Path"
+      Label:              "Verifier Test -"
+      Heading1:           "Verifier"
+      Heading2:           "Test"
+      Heading3:           "-"

@@ -1,0 +1,534 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    #LF_VTMain1_Verify_Test_CCSId := '000000'
+    
+    Include Process(VT_CVL) Function(VTMain4)
+    
+    Include Process(VT_CVL) Function(VTMSGT3)
+    
+    Include Process(VT_CVL) Function(VTMSG1)
+    Define Field(#LF_VTTEMP_Exec_Mode_I) Type(*STRING) Default('I')
+    Define Field(#LF_VTTEMP_Exec_Mode_W) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('W')
+    Define Field(#LF_VTTEMP_Exec_Mode_U) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('U')
+    Define Field(#LF_VTTEMP_Exec_Mode_QII) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: I -> I')
+    Define Field(#LF_VTTEMP_Exec_Mode_QIW) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: I -> W')
+    Define Field(#LF_VTTEMP_Exec_Mode_QIU) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: I -> U')
+    Define Field(#LF_VTTEMP_Exec_Mode_QWI) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: W -> I')
+    Define Field(#LF_VTTEMP_Exec_Mode_QWW) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: W -> W')
+    Define Field(#LF_VTTEMP_Exec_Mode_QWU) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: W -> U')
+    Define Field(#LF_VTTEMP_Exec_Mode_QUI) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: U -> I')
+    Define Field(#LF_VTTEMP_Exec_Mode_QUW) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: U -> W')
+    Define Field(#LF_VTTEMP_Exec_Mode_QUU) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('Q: U -> U')
+    Define Field(#LF_VTTEMP_Exec_Mode_FII) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: I -> I')
+    Define Field(#LF_VTTEMP_Exec_Mode_FIW) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: I -> W')
+    Define Field(#LF_VTTEMP_Exec_Mode_FIU) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: I -> U')
+    Define Field(#LF_VTTEMP_Exec_Mode_FWI) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: W -> I')
+    Define Field(#LF_VTTEMP_Exec_Mode_FWW) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: W -> W')
+    Define Field(#LF_VTTEMP_Exec_Mode_FWU) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: W -> U')
+    Define Field(#LF_VTTEMP_Exec_Mode_FUI) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: U -> I')
+    Define Field(#LF_VTTEMP_Exec_Mode_FUW) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: U -> W')
+    Define Field(#LF_VTTEMP_Exec_Mode_FUU) Reffld(#LF_VTTEMP_Exec_Mode_I) Default('F: U -> U')
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRun)
+    Define_Map For(*INPUT) Class(#VTF_ENV) Name(#this_exec)
+    Define_Map For(*INPUT) Class(#VTF_PLATL) Name(#this_local_platform)
+    Define_Map For(*INPUT) Class(#VTF_PLATR) Name(#this_Remote_platform)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssv_name)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_is_a_valid_ssrv_test_case)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_retcode)
+    Define_Map For(*BOTH) Class(#Std_Count) Name(#this_is_a_number_of_ssrv_call)
+    
+    * #this_retcode needs to be reset to OK / ER / any other value if the scenario is being handled.
+    
+    Case Of_Field(#this_exec)
+    When Value_Is(= I)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_I *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= W)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_W *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= U)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_U *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    
+    When Value_Is(= Q)
+    * SuperServer I/O.
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QII *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= W)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QIW *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= U)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QIU *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    Endcase
+    
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWI *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= W)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWW *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= U)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWU *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    Endcase
+    
+    When Value_Is(= U)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUI *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= W)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUW *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= U)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUU *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    Endcase
+    Endcase
+    
+    When Value_Is(= F)
+    * SuperServer Function Call.
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FII #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= W)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FIW #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= U)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FIU #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    Endcase
+    
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWI #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= W)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWW #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= U)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWU #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    Endcase
+    
+    When Value_Is(= U)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUI #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= W)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUW #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    When Value_Is(= U)
+    * If (#this_is_a_valid_ssrv_test_case = True)
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUU #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    * Else
+    * #this_is_a_number_of_ssrv_call += 1
+    * If (#LF_VTMain1_Current_LU <> #this_ssv_name)
+    * #LF_VTMain1_Current_LU := #this_ssv_name
+    * #this_retcode := MT
+    * Endif
+    * Endif
+    Endcase
+    Endcase
+    
+    When Value_Is(= E)
+    * SuperServer Evaluation.
+    Case Of_Field(#this_local_platform)
+    When Value_Is(= I)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    When Value_Is(= W)
+    When Value_Is(= U)
+    Endcase
+    When Value_Is(= W)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    When Value_Is(= W)
+    When Value_Is(= U)
+    Endcase
+    When Value_Is(= U)
+    Case Of_Field(#this_Remote_platform)
+    When Value_Is(= I)
+    When Value_Is(= W)
+    When Value_Is(= U)
+    Endcase
+    Endcase
+    Endcase
+    Endroutine
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    
+    *
+    * Log test case return messages.
+    *
+    Mthroutine Name(mthCheck_wLRet)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_caller_error_code)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_retcode)
+    
+    If (#this_caller_error_code = ER)
+    #this_retcode := ER
+    Endif
+    
+    Begin_Loop Using(#LF_i) To(#BIFMSGCNT)
+    Get_Entry Number(#LF_i) From_List(#wLRet)
+    
+    If ((#BIFMSGC = ER) *Or (#BIFMSGC = VE))
+    #this_retcode := ER
+    
+    If (#BIFMSG2 *NE *Blanks)
+    #Com_Owner.mthLogEvent( ('- ERROR: ' + #BIFMSG1 + '. ' + #BIFMSG2) )
+    Else
+    #Com_Owner.mthLogEvent( ('- ERROR: ' + #BIFMSG1 + '.') )
+    Endif
+    Else
+    If (#BIFMSG2 *NE *Blanks)
+    #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1 + '. ' + #BIFMSG2) )
+    Else
+    #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1 + '.') )
+    Endif
+    Endif
+    End_Loop
+    Endroutine
+    
+    *
+    *
+    *
+    Subroutine Name(AddSuperServerTestEnv) Parms((#LF_VTMain1_SuperServer_Test_Platform_Name *RECEIVED))
+    #LF_VTMain1_SuperServer_Test_Platform_Status := *Blanks
+    Add_Entry To_List(#wlSuperServerTestPlatform)
+    Endroutine
+    
+    *
+    *
+    *
+    Subroutine Name(AddSuperServerTestDatabase) Parms((#LF_VTMain1_SuperServer_Test_DB_Type *RECEIVED))
+    #LF_VTMain1_SuperServer_Test_DB_Status := *Blanks
+    Add_Entry To_List(#wlSuperServerTestDB)
+    Endroutine
+    
+    Define Field(#LF_SuperServer_Test) Reffld(#Std_Count)
+    Define Field(#LF_SuperServer_Platform_Name) Reffld(#BIFA010A)
+    Define Field(#LF_Local_DB_Type) Reffld(#VTF_SSCIT)
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSetupSuperServerTestRequirement)
+    * Use Builtin(Get_Session_Value) With_Args(DBIT) To_Get(#LF_Local_DB_Type #LF_rc)
+    *
+    * If (#LF_Local_DB_Type <> SQLANYWHERE)
+    * Execute Subroutine(AddSuperServerTestDatabase) With_Parms(SQLANYWHERE)
+    * Endif
+    *
+    * If (#LF_Local_DB_Type <> MSSQLS)
+    * Execute Subroutine(AddSuperServerTestDatabase) With_Parms(MSSQLS)
+    * Endif
+    *
+    * If (#LF_Local_DB_Type <> SQLAZURE)
+    * Execute Subroutine(AddSuperServerTestDatabase) With_Parms(SQLAZURE)
+    * Endif
+    *
+    * If (#LF_Local_DB_Type <> ODBCORACLE)
+    * Execute Subroutine(AddSuperServerTestDatabase) With_Parms(ODBCORACLE)
+    * Endif
+    *
+    * If (#LF_Local_DB_Type <> MYSQL)
+    * Execute Subroutine(AddSuperServerTestDatabase) With_Parms(MYSQL)
+    * Endif
+    *
+    * Execute Subroutine(AddSuperServerTestDatabase) With_Parms(DB2ISERIES)
+    * Execute Subroutine(AddSuperServerTestEnv) With_Parms(IBMI)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSetSuperServerTestStatus)
+    Define_Map For(*INPUT) Class(#VTF_SSCET) Name(#this_superserver_platform)
+    Define_Map For(*INPUT) Class(#VTF_SSCIT) Name(#this_superserver_db_type)
+    
+    Begin_Loop Using(#LF_SuperServer_Test) To(#LF_VTMain1_SuperServer_Test_Platform_Count)
+    Get_Entry Number(#LF_SuperServer_Test) From_List(#wlSuperServerTestPlatform)
+    
+    #LF_SuperServer_Platform_Name := #this_superserver_platform.Substring( 1 #LF_VTMain1_SuperServer_Test_Platform_Name.CurChars )
+    If (#LF_SuperServer_Platform_Name = #LF_VTMain1_SuperServer_Test_Platform_Name)
+    If (#LF_VTMain1_SuperServer_Test_Platform_Status <> Y)
+    #LF_VTMain1_SuperServer_Test_Platform_Status := Y
+    Upd_Entry In_List(#wlSuperServerTestPlatform)
+    Endif
+    
+    Leave
+    Endif
+    End_Loop
+    
+    Begin_Loop Using(#LF_SuperServer_Test) To(#LF_VTMain1_SuperServer_Test_DB_Count)
+    Get_Entry Number(#LF_SuperServer_Test) From_List(#wlSuperServerTestDB)
+    
+    If (#LF_VTMain1_SuperServer_Test_DB_Type = #this_superserver_db_type)
+    If (#LF_VTMain1_SuperServer_Test_DB_Status <> Y)
+    #LF_VTMain1_SuperServer_Test_DB_Status := Y
+    Upd_Entry In_List(#wlSuperServerTestDB)
+    Endif
+    
+    Leave
+    Endif
+    End_Loop
+    Endroutine
+    
+    Define Field(#LF_Function_Id) Reffld(#Function)
+    Define Field(#LF_Function_Count) Reffld(#Std_Count)
+    Define Field(#LF_FID) Reffld(#Std_Count)
+    Def_List Name(#wLFunction) Fields(#LF_Function_Id) Counter(#LF_Function_Count) Type(*WORKING)
+    
+    Define Field(#LF_Skip_Test_Case) Type(*BOOLEAN)
+    Define Field(#LF_Number_Of_Skipped_Test_Case) Reffld(#Std_Count)
+    
+    *
+    * Add Test Function.
+    *
+    Mthroutine Name(mthAddFunction)
+    Define_Map For(*INPUT) Class(#Function) Name(#this_function)
+    
+    #LF_Function_Id := #this_function
+    Add_Entry To_List(#wLFunction)
+    Endroutine
+    
+    *
+    * Perform Test.
+    *
+    Mthroutine Name(mthPerformTest)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_test)
+    Define_Map For(*INPUT) Class(#VTF_LU) Name(#this_ssc)
+    Define_Map For(*INPUT) Class(#VTF_SSCT) Name(#this_ssct)
+    Define_Map For(*INPUT) Class(#BIFA001A) Name(#this_local_platform)
+    Define_Map For(*INPUT) Class(#BIFA001A) Name(#this_remote_platform)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_retcode)
+    
+    #this_retcode := OK
+    
+    * #LF_Skip_Test_Case := False
+    * If (#this_test = #LF_VTTEMP_Exec_Mode_W)
+    * If (#LF_VTMsg_User_Database_Type = ODBCORACLE)
+    * #LF_Skip_Test_Case := True
+    * Endif
+    * Else
+    * If ((#this_test = #LF_VTTEMP_Exec_Mode_QWW) *Or (#this_test = #LF_VTTEMP_Exec_Mode_FWW))
+    * Get_Entry Number(1) From_List(#wlRemoteSystem)
+    * If (#VTF_SSCUT = ODBCORACLE)
+    * #LF_Skip_Test_Case := True
+    * Endif
+    * Endif
+    * Endif
+    
+    * Include test functions.
+    If (#LF_Function_Count = 0)
+    * #Com_Owner.mthAddFunction( VTFunc1 )
+    
+    * If (#LF_Skip_Test_Case = False)
+    * #Com_Owner.mthAddFunction( VTFunc2 )
+    * Else
+    * #LF_Number_Of_Skipped_Test_Case += 1
+    * Endif
+    Endif
+    
+    * Log all the test functions.
+    #Com_Owner.mthLogEvent( ('+ Test Function: ' + #LF_Function_Count.AsString + ', ' + #LF_Number_Of_Skipped_Test_Case.AsString + ' skipped') )
+    If (#LF_Function_Count > 0)
+    Begin_Loop Using(#LF_FID) To(#LF_Function_Count)
+    Get_Entry Number(#LF_FID) From_List(#wLFunction)
+    
+    #Com_Owner.mthLogEvent( (' (' + #LF_FID.AsString + ') - ' + #LF_Function_Id) )
+    End_Loop
+    Endif
+    
+    * Include the test case name to the Unique Key Data.
+    Clr_List Named(#wLKData)
+    #VTF_KEY1 := #this_test
+    Add_Entry To_List(#wlKData)
+    
+    If (#this_ssct = *Blanks)
+    * Test the current executing environment and SuperServer I/O.
+    
+    * Get a unique key data.
+    * Call Process(*Direct) Function(VTKData) Pass_Lst(#wLKData)
+    
+    Begin_Loop Using(#LF_FID) To(#LF_Function_Count)
+    Get_Entry Number(#LF_FID) From_List(#wLFunction)
+    
+    #Com_Owner.mthLogEvent( ('+ (' + #LF_FID.AsString + ') - Calling Function: ' + #LF_Function_Id) )
+    
+    Call Process(*DIRECT) Function(#LF_Function_Id) Pass_Lst(#wLKData #wLRet)
+    #Com_Owner.mthCheck_wLRet( OK #this_retcode )
+    Clr_List Named(#wLRet)
+    
+    If (#this_retcode = ER)
+    Leave
+    Endif
+    End_Loop
+    Else
+    * Test SuperServer Function Call.
+    
+    * Get a unique key data from the remote server.
+    * Use Builtin(Call_Server_Function) With_Args(#this_ssct VTKData Y Y #wLKData) To_Get(#LF_rc)
+    
+    Begin_Loop Using(#LF_FID) To(#LF_Function_Count)
+    Get_Entry Number(#LF_FID) From_List(#wLFunction)
+    
+    #Com_Owner.mthLogEvent( ('+ (' + #LF_FID.AsString + ') - Calling SuperServer Function: ' + #LF_Function_Id) )
+    
+    Use Builtin(Call_Server_Function) With_Args(#this_ssct #LF_Function_Id Y Y #wLKData #wLRet) To_Get(#LF_rc)
+    #Com_Owner.mthCheck_wLRet( #LF_rc #this_retcode )
+    Clr_List Named(#wLRet)
+    
+    If (#this_retcode = ER)
+    Leave
+    Endif
+    End_Loop
+    Endif
+    Endroutine
+    
+    

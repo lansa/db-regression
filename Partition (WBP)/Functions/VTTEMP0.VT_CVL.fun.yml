@@ -1,0 +1,35 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    #LF_Verify_Test_CCSId := '000000'
+    
+    Include Process(VT_CVL) Function(VTMain)
+    
+    Define Field(#LF_Exec_Method) Reffld(#Std_Alpha)
+    Define Field(#LF_SuperServer_Name) Reffld(#VTF_LU)
+    Define Field(#LF_SuperServer_Token) Reffld(#VTF_SSCT)
+    
+    Subroutine Name(Run) Parms((#LF_Exec_Method *Received) (#LF_SuperServer_Name *Received) (#LF_SuperServer_Token *Received))
+    
+    Case Of_Field(#LF_Exec_Method)
+    When Value_Is(= I)
+    * Execution on iSeries
+    
+    When Value_Is(= W)
+    * Execution on Windows.
+    
+    When Value_Is(= Q)
+    * Execution on Windows + SuperServer I/O.
+    
+    When Value_Is(= F)
+    * Execution on Windows + SuperServer Function Call.
+    
+    When Value_Is(= E)
+    * Evaluation (if any) after the SuperServer disconnection.
+    
+    Endcase
+    
+    Endroutine
+    
+    

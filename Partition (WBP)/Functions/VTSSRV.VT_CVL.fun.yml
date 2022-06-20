@@ -1,0 +1,178 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT)
+    
+    * #VTF_Ssc - SuperServer Connection Flag. Y - connected to SuperServer. N - otherwise.
+    * #VTF_SscF - SuperServer Auto Connection Flag. If the value is Y, then #VTF_SScT must be DTASERVER.
+    * #VTF_LU - Loookup Name.
+    * #VTF_SScT - SuperServer Connection Token. DTASERVER - auto connection, <LU Name> - manual connection by this Function.
+    * #VTF_LU_No - The current number of Lookup Name in the file.
+    * #VTF_LU_EC - The number of errors encountered when trying to connect to SuperServer.
+    Exchange Fields(#VTF_Ssc #VTF_SscF #VTF_LU #VTF_SScT #VTF_LU_No #VTF_LU_EC) Option(*ALWAYS)
+    
+    #Com_Owner.mthGetSuperServerConnection( #VTF_Ssc #VTF_SscF #VTF_LU #VTF_SScT #VTF_LU_NO #VTF_LU_EC )
+    
+    Use Builtin(Clr_Messages)
+    
+    Return
+    
+    * ===========================================================
+    
+    * Local Variables.
+    Define Field(#LF_VTSSrv_File) Type(*CHAR) Length(256)
+    Define Field(#LF_VTSSrv_File_Option) Type(*CHAR) Length(256)
+    Define Field(#LF_VTSSrv_File_Id) Type(*DEC) Length(3) Decimals(0)
+    Define Field(#LF_VTSSrv_rc) Type(*CHAR) Length(2)
+    
+    Define Field(#LF_VTSSrv_Server_Id) Reffld(#VTF_LU_NO)
+    Define Field(#LF_VTSSrv_File_Data) Type(*CHAR) Length(256)
+    Define Field(#LF_VTSSrv_Last_User_Id) Type(*CHAR) Length(10) Input_Atr(LC)
+    Define Field(#LF_VTSSrv_User_Id) Reffld(#LF_VTSSrv_Last_User_Id)
+    Define Field(#LF_VTSSrv_Password) Type(*CHAR) Length(10) Input_Atr(LC)
+    
+    Define Field(#LF_VTSSrv_ITRO) Type(*CHAR) Length(1)
+    Define Field(#LF_VTSSrv_ITRL) Type(*CHAR) Length(1)
+    Define Field(#LF_VTSSrv_ITRM) Type(*CHAR) Length(9)
+    Define Field(#LF_VTSSrv_X_Run_Arg) Type(*CHAR) Length(256)
+    
+    Define Field(#LF_VTSSrv_LU_Name) Type(*CHAR) Length(20)
+    Define Field(#LF_VTSSrv_Token) Type(*CHAR) Length(10)
+    Define Field(#LF_VTSSrv_Temp_Token) Reffld(#LF_VTSSrv_Token)
+    Define Field(#LF_VTSSrv_Is_Auto_Connect) Type(*CHAR) Length(1)
+    Define Field(#LF_VTSSrv_Is_Connected) Type(*CHAR) Length(1)
+    
+    *
+    * VerifierLogMsg :- Log a given message.
+    *
+    Mthroutine Name(mthGetSuperServerConnection)
+    Define_Map For(*OUTPUT) Class(#VTF_SSC) Name(#this_ssc)
+    Define_Map For(*OUTPUT) Class(#VTF_SSCF) Name(#this_ssc_auto)
+    Define_Map For(*OUTPUT) Class(#VTF_LU) Name(#this_lu)
+    Define_Map For(*OUTPUT) Class(#VTF_SSCT) Name(#this_ssc_token)
+    Define_Map For(*BOTH) Class(#VTF_LU_NO) Name(#this_lu_number)
+    Define_Map For(*BOTH) Class(#VTF_LU_NO) Name(#this_lu_error_count)
+    
+    #this_ssc := N
+    #this_ssc_auto := N
+    #this_lu := *Null
+    #this_ssc_token := *Null
+    #this_lu_error_count := 0
+    
+    * Determine if executing in a Super Server mode.
+    Use Builtin(Get_Session_Value) With_Args(PSLU) To_Get(#LF_VTSSrv_LU_Name #LF_VTSSrv_rc)
+    
+    If ('(#LF_VTSSrv_rc *eq OK) *And (#LF_VTSSrv_LU_Name *ne *Blanks)')
+    #this_ssc := Y
+    #this_ssc_auto := Y
+    #this_lu := #LF_VTSSrv_LU_Name
+    #this_ssc_token := DTASERVER
+    Else
+    * Check if the "../LANSA Root/verifier_connection.dat" exist.
+    * The use of the LANSA Root is for both W32 & W64 systems on Windows.
+    #LF_VTSSrv_File := *Root_Dir + *PATHDELIM + 'Verifier_Connection.dat'
+    Use Builtin(OV_File_Service) With_Args(Check_File #LF_VTSSrv_File) To_Get(#LF_VTSSrv_rc)
+    
+    If (#LF_VTSSrv_rc = ER)
+    * Check if the "../x_lansa/verifier_connection.dat" exist.
+    #LF_VTSSrv_File := *Sys_Dir + 'Verifier_Connection.dat'
+    Use Builtin(OV_File_Service) With_Args(Check_File #LF_VTSSrv_File) To_Get(#LF_VTSSrv_rc)
+    
+    * Check if the common registry value is set up under "HKLM/Software/Lansa/LX_VT_CVL = ../xyz.dat".
+    If (#LF_VTSSrv_rc = ER)
+    Use Builtin(Get_Registry_Value) With_Args(HKEY_LOCAL_MACHINE 'Software\Lansa' 'LX_VT_CVL') To_Get(#LF_VTSSrv_File #LF_VTSSrv_rc)
+    If (#LF_VTSSrv_rc = ER)
+    * No server connection file.
+    Else
+    Use Builtin(OV_File_Service) With_Args(Check_File #LF_VTSSrv_File) To_Get(#LF_VTSSrv_rc)
+    Endif
+    Endif
+    Endif
+    
+    * Parse the connection file if it exists.
+    If (#LF_VTSSrv_rc = OK)
+    #LF_VTSSrv_File_Option := 'Read Text'
+    
+    Use Builtin(Stm_File_Open) With_Args(#LF_VTSSrv_File #LF_VTSSrv_File_Option) To_Get(#LF_VTSSrv_File_Id #LF_VTSSrv_rc)
+    If (#LF_VTSSrv_rc = OK)
+    
+    * Save the current User Id.
+    Use Builtin(Get_Session_Value) With_Args(USER) To_Get(#LF_VTSSrv_Last_User_Id #LF_VTSSrv_rc)
+    
+    * Ensure the server function to be executed under its own database environment.
+    #LF_VTSSrv_X_Run_Arg := 'DBID=*SERVER DBII=*SERVER DBUT=*SERVER DBIT=*SERVER'
+    
+    * Set up the X_Run argument list.
+    Use Builtin(Get_Session_Value) With_Args(ITRO) To_Get(#LF_VTSSrv_ITRO #LF_VTSSrv_rc)
+    If (#LF_VTSSrv_ITRO = Y)
+    Use Builtin(Get_Session_Value) With_Args(ITRL) To_Get(#LF_VTSSrv_ITRL #LF_VTSSrv_rc)
+    Use Builtin(Get_Session_Value) With_Args(ITRM) To_Get(#LF_VTSSrv_ITRM #LF_VTSSrv_rc)
+    
+    #LF_VTSSrv_X_Run_Arg += ' ITRO=Y ITRL=' + #LF_VTSSrv_ITRL + ' ITRM=' + #LF_VTSSrv_ITRM
+    Endif
+    
+    * Scan through the file for the first valid connection.
+    Dountil Cond(#LF_VTSSrv_rc *NE OK)
+    
+    * Read line-by-line and skip comment ';' until the line number bigger than the last read line number.
+    Use Builtin(Stm_File_Read) With_Args(#LF_VTSSrv_File_Id) To_Get(#LF_VTSSrv_File_Data #LF_VTSSrv_rc)
+    If ((#LF_VTSSrv_rc = OK) *And (#LF_VTSSrv_File_Data *NE *Blanks) *And (#LF_VTSSrv_File_Data.Substring( 1 1 ) *NE ';'))
+    
+    * <LU Name, Char(20)><User Id, Char(10)><Password, Char(10)>
+    #LF_VTSSrv_LU_Name := #LF_VTSSrv_File_Data.Substring( 1 20 )
+    #LF_VTSSrv_User_Id := #LF_VTSSrv_File_Data.Substring( 21 10 )
+    #LF_VTSSrv_Password := #LF_VTSSrv_File_Data.Substring( 31 10 )
+    
+    #LF_VTSSrv_Server_Id += 1
+    
+    * Stop processing if a new server is found.
+    If (#LF_VTSSrv_Server_Id > #this_lu_number)
+    
+    * Update and return the Server Id.
+    #this_lu_number := #LF_VTSSrv_Server_Id
+    
+    * Connect to Server using the new User Id.
+    Use Builtin(Set_Session_Value) With_Args(USER #LF_VTSSrv_User_Id)
+    
+    * Use the first 10-byte of the LU Name to be the SuperServer Token.
+    #LF_VTSSrv_Temp_Token := #LF_VTSSrv_LU_Name
+    
+    Use Builtin(DEFINE_ANY_SERVER) With_Args(#LF_VTSSrv_Temp_Token #LF_VTSSrv_LU_Name Y #LF_VTSSrv_X_Run_Arg *Default *Default *Default) To_Get(#LF_VTSSrv_rc)
+    Use Builtin(CONNECT_SERVER) With_Args(#LF_VTSSrv_Temp_Token #LF_VTSSrv_Password *Default *Default Y) To_Get(#LF_VTSSrv_rc)
+    
+    If (#LF_VTSSrv_rc = OK)
+    * Connection to Server successfully.
+    Use Builtin(CONNECT_FILE) With_Args(* #LF_VTSSrv_Temp_Token)
+    
+    #this_ssc := Y
+    #this_lu := #LF_VTSSrv_LU_Name
+    #this_ssc_token := #LF_VTSSrv_Temp_Token
+    
+    * Stop scanning.
+    #LF_VTSSrv_rc := FN
+    Else
+    * Break out, so that the caller can report the SuperServer connection error.
+    #LF_VTSSrv_rc := ER
+    
+    * Pass back the failed SuperSerconnect name to the caller.
+    #this_lu := #LF_VTSSrv_LU_Name
+    
+    * Keep the number of encounting SuperServer Connection errors.
+    #this_lu_error_count += 1
+    Endif
+    Endif
+    Endif
+    Enduntil
+    
+    * Restore the User Id setting.
+    Use Builtin(Set_Session_Value) With_Args(USER #LF_VTSSrv_Last_User_Id)
+    
+    * Close the Server Conneciton File.
+    Use Builtin(Stm_File_Close) With_Args(#LF_VTSSrv_File_Id)
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    
