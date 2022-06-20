@@ -1,0 +1,82 @@
+﻿File:
+  Name:                           VTL159434C
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL159434C
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "159434 - Transform_List/File on Blob/Clo"
+
+  - ENG:
+      Description:        "159434 - Transform_List/File on Blob/Clo"
+
+  - FRA:
+      Description:        "159434 - Transform_List/File on Blob/Clo"
+
+  - JPN:
+      Description:        "159434 - Transform_List/File on Blob/Clo"
+
+  - TRK:
+      Description:        "159434 - Transform_List/File on Blob/Clo"
+
+  Real Fields:
+  - BIFNC256A:
+      Type:               NChar
+      Length:             256
+      Decimals:           0
+
+  - BIFP0500A:
+      Type:               Decimal
+      Length:             5
+      Decimals:           0
+
+  - BIFC100A:
+      Type:               Char
+      Length:             100
+      Decimals:           0
+
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  - BIFC100B:
+      Type:               Char
+      Length:             100
+      Decimals:           0
+
+  - BIFCLOBA:
+      Type:               CLOB
+      Length:             -1
+      Decimals:           0
+
+  - BIFDT26C:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
+  Primary Keys:
+  - BIFNC256A
+  - BIFP0500A

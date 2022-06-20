@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT159434
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Transform_List/File on Blob/Clob data"
+
+  - ENG:
+      Description:        "Transform_List/File on Blob/Clob data"
+
+  - FRA:
+      Description:        "Transform_List/File on Blob/Clob data"
+
+  - JPN:
+      Description:        "Transform_List/File on Blob/Clob data"
+
+  - TRK:
+      Description:        "Transform_List/File on Blob/Clob data"
+
+  Functions:
+  - V59434A:
+      Name:               V59434A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 159434 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 159434 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 159434 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 159434 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 159434 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V59434C:
+      Name:               V59434C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Transform_List/File on Blob/Clob data"
+
+      - ENG:
+          Description:        "Transform_List/File on Blob/Clob data"
+
+      - FRA:
+          Description:        "Transform_List/File on Blob/Clob data"
+
+      - JPN:
+          Description:        "Transform_List/File on Blob/Clob data"
+
+      - TRK:
+          Description:        "Transform_List/File on Blob/Clob data"
+
+      Allowed Next Functions:
+      - "*ANY"

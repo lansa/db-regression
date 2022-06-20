@@ -1,0 +1,454 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    
+    Define Field(#LF_TL_BIFNC256A) Reffld(#BIFNC256A)
+    Define Field(#LF_TL_BIFP0500A) Reffld(#BIFP0500A)
+    Define Field(#LF_TL_BIFC100A) Reffld(#BIFC100A)
+    Define Field(#LF_TL_BIFBLOBA) Reffld(#BIFBLOBA)
+    Define Field(#LF_TL_BIFC100B) Reffld(#BIFC100B)
+    Define Field(#LF_TL_BIFCLOBA) Reffld(#BIFCLOBA)
+    Define Field(#LF_TL_BIFDT26C) Reffld(#BIFDT26C)
+    Define Field(#LF_DB_BIFNC256A) Reffld(#BIFNC256A)
+    Define Field(#LF_DB_BIFP0500A) Reffld(#BIFP0500A)
+    Define Field(#LF_DB_BIFC100A) Reffld(#BIFC100A)
+    Define Field(#LF_DB_BIFBLOBA) Reffld(#BIFBLOBA)
+    Define Field(#LF_DB_BIFC100B) Reffld(#BIFC100B)
+    Define Field(#LF_DB_BIFCLOBA) Reffld(#BIFCLOBA)
+    Define Field(#LF_DB_BIFDT26C) Reffld(#BIFDT26C)
+    
+    * (1): Initial Data for both Database Table & Transform_List.
+    Define Field(#LF_TL_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lTL) Fields(#BIFNC256A #BIFP0500A #BIFC100A #BIFBLOBA #BIFC100B #BIFCLOBA #BIFDT26C) Counter(#LF_TL_Count) Type(*WORKING)
+    
+    * (2): Transform_File Data from (1).
+    Define Field(#LF_TF_From_TL_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lTF_From_TL) Fields(#LF_TL_BIFNC256A #LF_TL_BIFP0500A #LF_TL_BIFC100A #LF_TL_BIFBLOBA #LF_TL_BIFC100B #LF_TL_BIFCLOBA #LF_TL_BIFDT26C) Counter(#LF_TF_From_TL_Count) Type(*WORKING)
+    
+    * (3): Database Table Data.
+    Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lDB) Fields(#BIFNC256A #BIFP0500A #BIFC100A #BIFBLOBA #BIFC100B #BIFCLOBA #BIFDT26C) Counter(#LF_DB_Count) Type(*WORKING)
+    
+    * (4): Transform_File Data from (3).
+    Define Field(#LF_TF_From_DB_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lTF_From_DB) Fields(#LF_DB_BIFNC256A #LF_DB_BIFP0500A #LF_DB_BIFC100A #LF_DB_BIFBLOBA #LF_DB_BIFC100B #LF_DB_BIFCLOBA #LF_DB_BIFDT26C) Counter(#LF_TF_From_DB_Count) Type(*WORKING)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_Temp_Dir_TL) Reffld(#BIFC256A)
+    Define Field(#LF_Temp_Dir_DB) Reffld(#BIFC256A)
+    Define Field(#LF_TL_Output_File) Reffld(#BIFC256A)
+    Define Field(#LF_DB_Output_File) Reffld(#BIFC256A)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    * Setup the temporary directory and Transform_List output file.
+    #LF_Temp_Dir_TL := *TEMP_DIR + *Function + '_tl'
+    #LF_Temp_Dir_DB := *TEMP_DIR + *Function + '_db'
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    * If (#LF_DB_Type *NE MYSQL)
+    
+    * Delete leftover table data.
+    #Com_Owner.mthSELECT( #VTF_KEY1 True #LF_rc )
+    If (#LF_rc = OK)
+    * Build data (1).
+    #Com_Owner.mthBuild_Test_Data( #VTF_KEY1 )
+    
+    * Insert to database table.
+    #Com_Owner.mthINSERT( #LF_rc )
+    If (#LF_rc = OK)
+    * Read from database table.
+    #Com_Owner.mthSELECT( #VTF_KEY1 False #LF_rc )
+    
+    * Transform_List / Transform_File normally.
+    #Com_Owner.mthTransform_Test( #LF_Temp_Dir_TL #LF_Temp_Dir_DB 'A' '.dat' #LF_rc )
+    
+    * Transform_List / Transform_File using Unicode.
+    If (#LF_rc = OK)
+    #Com_Owner.mthTransform_Test( #LF_Temp_Dir_TL #LF_Temp_Dir_DB 'AU' '_u' #LF_rc )
+    Endif
+    Endif
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    Mthroutine Name(mthCreateDirectories)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_dir_tl)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_dir_db)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Create testing temporary directories' '' )
+    
+    Use Builtin(OV_File_Service) With_Args(MAKE_PATH #this_dir_tl) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + ' + #this_rc) (*Quote + #this_dir_tl + *Quote) )
+    
+    Use Builtin(OV_File_Service) With_Args(MAKE_PATH #this_dir_db) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + ' + #this_rc) (*Quote + #this_dir_db + *Quote) )
+    Endroutine
+    
+    *
+    Mthroutine Name(mthRemoveDirectories)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_dir_tl)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_dir_db)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Delete testing temporary directories' '' )
+    
+    Use Builtin(OV_File_Service) With_Args(REMOVE_DIR_TREE #this_dir_db FORCE) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + ' + #this_rc) (*Quote + #this_dir_db + *Quote) )
+    
+    Use Builtin(OV_File_Service) With_Args(REMOVE_DIR_TREE #this_dir_tl FORCE) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + ' + #this_rc) (*Quote + #this_dir_tl + *Quote) )
+    Endroutine
+    
+    *
+    Mthroutine Name(mthBuild_Test_Data)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Build Test Data' '' )
+    
+    Clr_List Named(#w_lTL)
+    
+    * Valid Blob / Clob.
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := 'x_txteng.dat'
+    #BIFBLOBA := *SYS_DIR + #BIFC100A
+    #BIFC100B := 'liiodef.h'
+    #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
+    Add_Entry To_List(#w_lTL)
+    
+    * Valid Blob, *Null & *Sqlnull Clob.
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := 'x_txtfra.dat'
+    #BIFBLOBA := *SYS_DIR + #BIFC100A
+    #BIFC100B := '*null'
+    #BIFCLOBA := *Null
+    #BIFDT26C := #Com_Owner.mthGetNullDatetime( *NULL )
+    Add_Entry To_List(#w_lTL)
+    
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := 'x_txtjpn.dat'
+    #BIFBLOBA := *SYS_DIR + #BIFC100A
+    #BIFC100B := '*sqlnull'
+    #BIFCLOBA := *Sqlnull
+    #BIFDT26C := *Sqlnull
+    Add_Entry To_List(#w_lTL)
+    
+    * *Null & *Sqlnull Blob, valid Clob.
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := '*null'
+    #BIFBLOBA := *Null
+    #BIFC100B := 'x_bif000.h'
+    #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
+    Add_Entry To_List(#w_lTL)
+    
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := '*sqlnull'
+    #BIFBLOBA := *Sqlnull
+    #BIFC100B := 'x_ctddef.h'
+    #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
+    Add_Entry To_List(#w_lTL)
+    
+    * *Null & *Sqlnull Blob / Clob.
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := '*null'
+    #BIFBLOBA := *Null
+    #BIFC100B := '*null'
+    #BIFCLOBA := *Null
+    #BIFDT26C := #Com_Owner.mthGetNullDatetime( *NULL )
+    Add_Entry To_List(#w_lTL)
+    
+    #BIFNC256A := #this_key
+    #BIFP0500A := #LF_TL_Count + 1
+    #BIFC100A := '*sqlnull'
+    #BIFBLOBA := *Sqlnull
+    #BIFC100B := '*sqlnull'
+    #BIFCLOBA := *Sqlnull
+    #BIFDT26C := *Sqlnull
+    Add_Entry To_List(#w_lTL)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_TL_Count.AsString + ' records of test data') '' )
+    Endroutine
+    *
+    Mthroutine Name(mthGetDBValidDatetime)
+    Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_datetime)
+    Define_Map For(*RESULT) Class(#BIFDT26C) Name(#this_result)
+    #this_result := #this_datetime
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB Type = ' + #LF_DB_Type) '' )
+    If (#LF_DB_Type = MYSQL)
+    * MySQLdoes not support fractional seconds
+    Define Field(#DT19) Type(*DATETIME) Length(19)
+    Define Field(#DT19String) Type(*STRING) Length(19)
+    #DT19String := #this_datetime.AsString
+    #this_result := #DT19String.AsDateTime
+    #Com_Owner.mthAdd_SubMsg( OK ('- datetime = ' + #this_result.AsString) '' )
+    Endif
+    Endroutine
+    *
+    Mthroutine Name(mthGetNullDatetime)
+    Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_datetime)
+    Define_Map For(*RESULT) Class(#BIFDT26C) Name(#this_result)
+    #this_result := #this_datetime
+    If (#LF_DB_Type = MYSQL)
+    * MySQLdoes not support the RDMLX *NULL value of 1900-01-01 00:00:00.
+    * Its minimum value is 1970-01-01 00:00:01 supposedly. But that fails
+    * #this_result := '1970-01-01 00:00:01' doesn't work
+    * #this_result := '1970-01-01 10:59:59' error
+    #this_result := '1970-01-01 12:00:00'
+    * #this_result := '1970-01-01 04:00:01' error
+    * #this_result := '1970-01-01 02:00:01' error
+    Endif
+    Endroutine
+    
+    *
+    Mthroutine Name(mthSELECT)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_delete_leftover_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_delete_leftover_data = True)
+    #Com_Owner.mthAdd_SubMsg( OK 'Delete Leftover Table Data' '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK 'Read Table Data' '' )
+    Endif
+    
+    Clr_List Named(#w_lDB)
+    Select Fields(*ALL) From_File(VTL159434C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lDB)
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_DB_Count.AsString + ' records found, ' + #this_rc) '' )
+    #this_rc := OK
+    
+    If ((#this_delete_leftover_data = True) *And (#LF_DB_Count > 0))
+    Begin_Loop Using(#LF_i) To(#LF_DB_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lDB)
+    
+    Delete From_File(VTL159434C) With_Key(#BIFNC256A #BIFP0500A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc + ' on record ' + #LF_i.AsString) '' )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_DB_Count.AsString + ' records deleted') '' )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    Mthroutine Name(mthINSERT)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Insert Data To Database Table' '' )
+    
+    Selectlist Named(#w_lTL)
+    Insert Fields(*ALL) To_File(VTL159434C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    Mthroutine Name(mthTransform_Test)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_tl_dir)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_db_dir)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_format)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_file_postfix)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Transform_List / Transform_File format(' + #this_format + ')') '' )
+    
+    * Create testing temporary directories.
+    #Com_Self.mthCreateDirectories( #this_tl_dir #this_db_dir #this_rc )
+    
+    #LF_TL_Output_File := #this_tl_dir + *PATHDELIM + *Function + #this_file_postfix
+    #LF_DB_Output_File := #this_db_dir + *PATHDELIM + *Function + #this_file_postfix
+    
+    Clr_List Named(#w_lTF_From_TL)
+    Clr_List Named(#w_lTF_From_DB)
+    
+    * (1).
+    Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File #this_format) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- Transform_List ' + #this_rc) (*Quote + #LF_TL_Output_File + *Quote) )
+    If (#this_rc = OK)
+    * (2).
+    Use Builtin(TRANSFORM_File) With_Args(#w_lTF_From_TL #LF_TL_Output_File #this_format) To_Get(#this_rc)
+    If (#this_rc = EF)
+    #this_rc := OK
+    Else
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- Transform_File ' + #this_rc) ('') )
+    If (#this_rc = OK)
+    * (3).
+    Use Builtin(TRANSFORM_LIST) With_Args(#w_lDB #LF_DB_Output_File #this_format) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- Transform_List ' + #this_rc) (*Quote + #LF_DB_Output_File + *Quote) )
+    
+    If (#this_rc = OK)
+    * (4).
+    Use Builtin(TRANSFORM_File) With_Args(#w_lTF_From_DB #LF_DB_Output_File #this_format) To_Get(#this_rc)
+    If (#this_rc = EF)
+    #this_rc := OK
+    Else
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- Transform_File ' + #this_rc) ('') )
+    Endif
+    Endif
+    Endif
+    
+    * The Transform_File results MUST be identical, but the Blob/Clob path must be different to those retrieved from DB.
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Compare Transform_File results') ('Transform_List of Test Data / Transform_List of I/O Temporary Data') )
+    
+    If ((#LF_TF_From_TL_Count <> #LF_TF_From_DB_Count) *And (#LF_DB_Count <> #LF_TF_From_DB_Count))
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected different numbers of records') (#LF_TF_From_TL_Count.AsString + ' / ' + #LF_TF_From_DB_Count.AsString) )
+    Else
+    Begin_Loop Using(#LF_i) To(#LF_TF_From_DB_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lTF_From_TL)
+    Get_Entry Number(#LF_i) From_List(#w_lTF_From_DB)
+    Get_Entry Number(#LF_i) From_List(#w_lDB)
+    
+    If (#LF_TL_BIFNC256A <> #LF_DB_BIFNC256A)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFNC256A') (*Quote + #LF_TL_BIFNC256A.AsNativeString + *Quote + ' / ' + *Quote + #LF_DB_BIFNC256A.AsNativeString + *Quote) )
+    Endif
+    
+    If (#LF_TL_BIFP0500A <> #LF_DB_BIFP0500A)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFP0500A') (*Quote + #LF_TL_BIFP0500A.AsString + *Quote + ' / ' + *Quote + #LF_DB_BIFP0500A.AsString + *Quote) )
+    Endif
+    
+    If (#LF_TL_BIFC100A <> #LF_DB_BIFC100A)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFC100A') (*Quote + #LF_TL_BIFC100A + *Quote + ' / ' + *Quote + #LF_DB_BIFC100A + *Quote) )
+    Else
+    If ((#LF_TL_BIFC100A <> '*null') *And (#LF_TL_BIFC100A <> '*sqlnull'))
+    * Blob objects must be valid.
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE #LF_TL_BIFBLOBA.FileName) To_Get(#this_rc)
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE #LF_DB_BIFBLOBA.FileName) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected DB_BIFBLOBA object does not exist') (*Quote + #LF_DB_BIFBLOBA.FileName + *Quote) )
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected TL_BIFBLOBA object does not exist') (*Quote + #LF_TL_BIFBLOBA.FileName + *Quote) )
+    Endif
+    
+    * The Blob path retrieved from DB must be different to the one from Transform_File.
+    If (#this_rc = OK)
+    If (#BIFBLOBA.FileName = #LF_DB_BIFBLOBA.FileName)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected same path names') ('I/O query temporary Blob path: ' + *Quote + #BIFBLOBA.FileName + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected same path names') ('Transform_File Blob path: ' + *Quote + #LF_DB_BIFBLOBA.FileName + *Quote) )
+    Endif
+    Endif
+    Endif
+    Endif
+    
+    If (#LF_TL_BIFC100B <> #LF_DB_BIFC100B)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFC100B') (*Quote + #LF_TL_BIFC100B + *Quote + ' / ' + *Quote + #LF_DB_BIFC100B + *Quote) )
+    Else
+    If ((#LF_TL_BIFC100B <> '*null') *And (#LF_TL_BIFC100B <> '*sqlnull'))
+    * Clob objects must be valid.
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE #LF_TL_BIFCLOBA.FileName) To_Get(#this_rc)
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE #LF_DB_BIFCLOBA.FileName) To_Get(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected DB_BIFCLOBA object does not exist') (*Quote + #LF_DB_BIFCLOBA.FileName + *Quote) )
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected TL_BIFCLOBA object does not exist') (*Quote + #LF_TL_BIFCLOBA.FileName + *Quote) )
+    Endif
+    
+    * The Clob path retrieved from DB must be different to the one from Transform_File.
+    If (#this_rc = OK)
+    If (#BIFCLOBA.FileName = #LF_DB_BIFCLOBA.FileName)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected same path names') ('I/O query temporary Clob path: ' + *Quote + #BIFCLOBA.FileName + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected same path names') ('Transform_File Clob path: ' + *Quote + #LF_DB_BIFCLOBA.FileName + *Quote) )
+    Endif
+    Endif
+    Endif
+    Endif
+    
+    If (#LF_TL_BIFDT26C <> #LF_DB_BIFDT26C)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFDT26C') (*Quote + #LF_TL_BIFDT26C.AsString + *Quote + ' / ' + *Quote + #LF_DB_BIFDT26C.AsString + *Quote) )
+    Endif
+    
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ' + Successful' '' )
+    #Com_Self.mthRemoveDirectories( #this_tl_dir #this_db_dir #this_rc )
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
