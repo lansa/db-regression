@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT160466
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Duplicate key in DC@FOL in V14 SP2"
+
+  - ENG:
+      Description:        "Duplicate key in DC@FOL in V14 SP2"
+
+  - FRA:
+      Description:        "Duplicate key in DC@FOL in V14 SP2"
+
+  - JPN:
+      Description:        "Duplicate key in DC@FOL in V14 SP2"
+
+  - TRK:
+      Description:        "Duplicate key in DC@FOL in V14 SP2"
+
+  Functions:
+  - V60466A:
+      Name:               V60466A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 160466 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 160466 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 160466 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 160466 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 160466 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V60466C:
+      Name:               V60466C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "I/O on Clob Data"
+
+      - ENG:
+          Description:        "I/O on Clob Data"
+
+      - FRA:
+          Description:        "I/O on Clob Data"
+
+      - JPN:
+          Description:        "I/O on Clob Data"
+
+      - TRK:
+          Description:        "I/O on Clob Data"
+
+      Allowed Next Functions:
+      - "*ANY"

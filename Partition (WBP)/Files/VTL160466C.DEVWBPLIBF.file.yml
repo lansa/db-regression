@@ -1,0 +1,77 @@
+﻿File:
+  Name:                           VTL160466C
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL160466C
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Clob Data"
+
+  - ENG:
+      Description:        "Clob Data"
+
+  - FRA:
+      Description:        "Clob Data"
+
+  - JPN:
+      Description:        "Clob Data"
+
+  - TRK:
+      Description:        "Clob Data"
+
+  Real Fields:
+  - BIFNC078A:
+      Type:               NChar
+      Length:             78
+      Decimals:           0
+
+  - BIFP0700A:
+      Type:               Decimal
+      Length:             7
+      Decimals:           0
+
+  - BIFA100A:
+      Type:               Alphanumeric
+      Length:             100
+      Decimals:           0
+
+  - BIFA100B:
+      Type:               Alphanumeric
+      Length:             100
+      Decimals:           0
+
+  - BIFDT26C:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
+  - BIFCLOBA:
+      Type:               CLOB
+      Length:             -1
+      Decimals:           0
+
+  Primary Keys:
+  - BIFNC078A
+  - BIFP0700A
