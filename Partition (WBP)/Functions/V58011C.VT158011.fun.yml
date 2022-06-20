@@ -1,0 +1,1208 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    
+    Define Field(#LF_BIFP0500A) Reffld(#BIFP0500A)
+    Define Field(#LF_BIFC026A) Reffld(#BIFC026A)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_package_no) Reffld(#Std_Count)
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_compare_file_Def_rc) Reffld(#LF_rc)
+    Define Field(#LF_rebuild_file_rc) Reffld(#LF_rc)
+    Define Field(#LF_unload_file_rc) Reffld(#LF_rc)
+    Define Field(#LF_load_file_rc) Reffld(#LF_rc)
+    Define Field(#LF_start_file_edit_rc) Reffld(#LF_rc)
+    
+    Define Field(#LF_file_name) Reffld(#BIFA010A)
+    Define Field(#LF_backup_file_name_prefix) Reffld(#BIFS512C)
+    Define Field(#LF_package_path) Reffld(#BIFC256A)
+    Define Field(#LF_vl_path) Reffld(#BIFC256A)
+    Define Field(#LF_vl_version) Type(*STRING)
+    Define Field(#LF_msi_path) Reffld(#BIFC256A)
+    Define Field(#LF_msi_version) Type(*STRING)
+    Define Field(#LF_expected_Compare_File_Def_rc) Reffld(#BIFA002A)
+    
+    Define Field(#LF_unload_data) Type(*BOOLEAN)
+    Define Field(#LF_rebuild_file) Type(*BOOLEAN)
+    Define Field(#LF_rebuild_file_drop_option_value) Reffld(#Std_Alpha)
+    Define Field(#LF_rebuild_file_create_option_value) Reffld(#Std_Alpha)
+    Define Field(#LF_message_text) Type(*CHAR) Length(132)
+    Define Field(#LF_Items) Reffld(#Std_Count)
+    
+    Define Field(#LF_package_name) Type(*STRING)
+    Define Field(#LF_expected_rc) Reffld(#BIFA002A)
+    Define Field(#LF_package_counter) Reffld(#Std_Count)
+    Def_List Name(#wl_Package) Fields(#LF_package_name #LF_expected_rc) Counter(#LF_package_counter) Type(*WORKING)
+    
+    Define Field(#LF_F158011C1) Reffld(#F158011C1)
+    Define Field(#LF_F158011C2) Reffld(#F158011C2)
+    Define Field(#LF_table_data_counter) Reffld(#Std_Count)
+    Def_List Name(#wl_Table_Data) Fields(#LF_F158011C1 #LF_F158011C2) Counter(#LF_table_data_counter) Type(*WORKING)
+    
+    Define Field(#LF_DB_Type) Reffld(#BIFA032A)
+    Define Field(#LF_DB_Separator) Reffld(#Std_Alpha) Default(*Blanks)
+    Define Field(#LF_DB_Collection_Name) Reffld(#BIFA032A) Default(*Blanks)
+    Define Field(#LF_DB_Left_Quote) Reffld(#Std_Alpha) Default('"')
+    Define Field(#LF_DB_Right_Quote) Reffld(#Std_Alpha) Default('"')
+    Define Field(#LF_msi_version_id) Reffld(#Std_Alpha)
+    Define Field(#LF_vl_version_id) Reffld(#Std_Alpha)
+    Define Field(#LF_Sql_Command) Reffld(#BIFS064KA)
+    Define Field(#LF_Script_File) Type(*CHAR) Length(256)
+    Define Field(#LF_Script_File_Id) Reffld(#BIFP0300A)
+    Define Field(#LF_Current_DateTime) Type(*DATETIME)
+    
+    Define Field(#LF_CTD_Key) Type(*CHAR) Length(20)
+    Define Field(#LF_CTD_Data) Type(*CHAR) Length(236)
+    Def_List Name(#wLCTD) Fields(#LF_CTD_Key #LF_CTD_Data) Type(*WORKING)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    * Get_Entry Number(1) From_List(#wLKData)
+    
+    * Initialize local variables.
+    #LF_rc := OK
+    #LF_file_name := VTL158011C
+    #LF_backup_file_name_prefix := 'x_backup_'
+    #LF_package_path := '\\syd6\ccs\Tests\158000-158999\158011\' + #LF_file_name + '\'
+    #LF_vl_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
+    #LF_msi_path := *TEMP_DIR
+    
+    * Initial the package list.
+    #Com_Owner.mthAddPackage( '1_Orignial' NC )
+    #Com_Owner.mthAddPackage( '2_Swap_C3_And_C4_Around' NC )
+    #Com_Owner.mthAddPackage( '3_Add_C5_Alpha_10_With_Default_AbC' AT )
+    #Com_Owner.mthAddPackage( '4_Add_C6_Packed_With_Default_1' AT )
+    #Com_Owner.mthAddPackage( '5_Add_C7_Blob_With_Default_Sqlnull' AT )
+    #Com_Owner.mthAddPackage( '6_Change_C5_To_String_100_With_Default_Sqlnull' AT )
+    #Com_Owner.mthAddPackage( '7_Add_Non_Unique_Index_To_C5' AT )
+    #Com_Owner.mthAddPackage( '8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index' AT )
+    #Com_Owner.mthAddPackage( '9_Change_C6_Size_To_Be_Bigger' AT )
+    #Com_Owner.mthAddPackage( '6_Change_C5_To_String_100_With_Default_Sqlnull' ER )
+    #Com_Owner.mthAddPackage( '1_Orignial' AT )
+    
+    * Empty the table data.
+    #Com_Owner.mthEmptyTable( #LF_rc )
+    
+    * Build all the packages.
+    #Com_Owner.mthBuildPackages( #LF_rc )
+    
+    * Determine the COLLECTION NAME and Quote characters to be used.
+    #Com_Owner.mthGetDatabaseDependencies( #LF_rc )
+    
+    * Upgrade by ALTER TABLE.
+    If (#LF_rc = OK)
+    #Com_Owner.mthUpgrade_By_Alter_Table( #LF_rc )
+    Endif
+    
+    * User Script Upgrade.
+    If (#LF_rc = OK)
+    * If ((#LF_DB_Type = MSSQLS) *Or (#LF_DB_Type = ODBCORACLE))
+    If ((#LF_DB_Type = MSSQLS))
+    
+    #Com_Owner.mthUpgrade_By_User_Script( #LF_rc )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- User Script not supported on DB type: ' + #LF_DB_Type) ('') )
+    Endif
+    Endif
+    
+    * Delete all test records. Mismatch number of records will result in error.
+    If (#LF_rc = OK)
+    #Com_Owner.mthDelete_Data( #LF_rc )
+    Endif
+    
+    * Delete all temporray files.
+    If (#LF_rc = OK)
+    #Com_Owner.mthDelete_Temporary_File( #LF_file_name #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGetDatabaseDependencies)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (*CPUTYPE = AS400)
+    #LF_DB_Separator := '/'
+    #LF_DB_Collection_Name := *PARTDTALIB
+    Else
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #this_rc)
+    If (#LF_DB_Type *NE MYSQL)
+    #LF_DB_Separator := '.'
+    
+    If (#LF_DB_Type = MSSQLS)
+    #LF_DB_Left_Quote := '['
+    #LF_DB_Right_Quote := ']'
+    Endif
+    
+    Clr_List Named(#wLCTD)
+    Use Builtin(Read_CTD) With_Args(#LF_file_name) To_Get(#this_rc #wLCTD)
+    
+    Selectlist Named(#wLCTD)
+    If (#LF_CTD_Key = 'ACTIVE_COLLECTION')
+    #LF_DB_Collection_Name := #LF_CTD_Data
+    Leave
+    Endif
+    Endselect
+    
+    If (#LF_DB_Collection_Name = *Blanks)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xDepartments CTD file not found' )
+    Endif
+    Else
+    #LF_DB_Left_Quote := '`'
+    #LF_DB_Right_Quote := '`'
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthBuildPackages)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- Number of building packages: ' + #LF_package_counter.AsString) ('') )
+    
+    Begin_Loop Using(#LF_package_no) To(#LF_package_counter)
+    #Com_Owner.mthGetPackage( #LF_package_no #LF_vl_version #LF_expected_Compare_File_Def_rc )
+    
+    #Com_Owner.mthImport_And_Build_MSI_Package( #LF_package_no.AsString #LF_file_name #LF_vl_version #this_rc )
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    End_Loop
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthUpgrade_By_Alter_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Upgrade by ALTER TABLE - START' (#LF_Current_DateTime.Now.AsString) )
+    
+    #Com_Owner.mthGetPackage( 1 #LF_vl_version #LF_expected_Compare_File_Def_rc )
+    Begin_Loop Using(#LF_package_no) To(#LF_package_counter)
+    #Com_Owner.mthGetPackage( #LF_package_no #LF_msi_version #LF_expected_Compare_File_Def_rc )
+    
+    #Com_Owner.mthUpgrade_By_AT_To_Package( #LF_package_no #LF_file_name #LF_msi_version #LF_msi_path #LF_vl_version #LF_expected_Compare_File_Def_rc #this_rc )
+    
+    * Insert test records.
+    If (#this_rc = OK)
+    #Com_Owner.mthInsert_Data( #LF_msi_version 'Alter Table - 1' #this_rc )
+    If (#this_rc = OK)
+    #Com_Owner.mthInsert_Data( #LF_msi_version 'Alter Table - 2' #this_rc )
+    Endif
+    Endif
+    
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Upgrade by ALTER TABLE - END' (#LF_Current_DateTime.Now.AsString) )
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthUpgrade_By_User_Script)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Upgrade by User Script - START' (#LF_Current_DateTime.Now.AsString) )
+    
+    #Com_Owner.mthGetPackage( 1 #LF_vl_version #LF_expected_Compare_File_Def_rc )
+    Begin_Loop Using(#LF_package_no) To(#LF_package_counter)
+    #Com_Owner.mthGetPackage( #LF_package_no #LF_msi_version #LF_expected_Compare_File_Def_rc )
+    
+    #Com_Owner.mthScript_Upgrade_To_Package( #LF_package_no #LF_file_name #LF_msi_version #LF_msi_path #LF_vl_version #this_rc )
+    
+    * Insert a test record.
+    If (#this_rc = OK)
+    #Com_Owner.mthInsert_Data( #LF_msi_version 'User Script - 1' #this_rc )
+    If (#this_rc = OK)
+    #Com_Owner.mthInsert_Data( #LF_msi_version 'User Script - 2' #this_rc )
+    Endif
+    Endif
+    
+    If (#this_rc <> OK)
+    Leave
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Upgrade by User Script - END' (#LF_Current_DateTime.Now.AsString) )
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSave_Package)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_path)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file '.ctd' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '' #this_file_to_path '../msi/xxx.ctd' #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file '.ctd' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) ('_' + #this_file_to_postfix) #this_file_to_path '../msi/xxx_yyy.ctd' #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file '.dll' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) ('_' + #this_file_to_postfix) #this_file_to_path '../msi/xxx_yyy.dll' #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCopy_File)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_file_extension)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_path)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_path)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_desc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(COPY_FILE (#this_file_from_path + #this_file + #this_file_from_postfix + #this_file_extension) (#this_file_to_path + #this_file + #this_file_to_postfix + #this_file_extension)) To_Get(#this_rc)
+    
+    If (#this_desc.IsNull)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Copy_File: ' + #this_rc) (#this_file + #this_file_from_postfix + #this_file_extension + ' -> ' + #this_file + #this_file_to_postfix + #this_file_extension) )
+    Else
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Copy_File: ' + #this_rc) (#this_file + #this_file_from_postfix + #this_file_extension + ' -> ' + #this_file + #this_file_to_postfix + #this_file_extension + ' (' + #this_desc + ')') )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRemove_File)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_file_extension)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_path)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_desc)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_display_msg)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE (#this_file_path + #this_file + #this_file_postfix + #this_file_extension)) To_Get(#this_rc)
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE (#this_file_path + #this_file + #this_file_postfix + #this_file_extension)) To_Get(#this_rc)
+    
+    If ((#this_display_msg = TRUE) *Or (#this_rc <> OK))
+    If (#this_desc.IsNull)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Remove_File: ' + #this_rc) (#this_file + #this_file_postfix + #this_file_extension) )
+    Else
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Remove_File: ' + #this_rc) (#this_file + #this_file_postfix + #this_file_extension + ' (' + #this_desc + ')') )
+    Endif
+    Endif
+    Else
+    #this_rc := OK
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRun_Compare_File_Definition)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_current_file_path)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_new_file_path)
+    Define_Map For(*OUTPUT) Class(#BIFB001A) Name(#this_rebuild_file)
+    Define_Map For(*OUTPUT) Class(#BIFA001A) Name(#this_rebuild_file_drop_option_value)
+    Define_Map For(*OUTPUT) Class(#BIFA001A) Name(#this_rebuild_file_create_option_value)
+    Define_Map For(*OUTPUT) Class(#BIFB001A) Name(#this_unload_file_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_compare_file_rc)
+    
+    If (#this_rc = OK)
+    #this_rebuild_file := False
+    #this_unload_file_data := False
+    #this_rebuild_file_drop_option_value := *Blank
+    #this_rebuild_file_create_option_value := N
+    
+    * Force COMPARE_FILE_DEF to use ALTER TABLE feature.
+    Use Builtin(Compare_File_Def) With_Args(#this_file #this_current_file_path #this_new_file_path *Default AT) To_Get(#this_rc #this_compare_file_rc)
+    If (#this_rc <> ER)
+    #this_rc := OK
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Compare_File_Def: ' + #this_compare_file_rc) ('') )
+    
+    If (#this_rc = OK)
+    Case Of_Field(#this_compare_file_rc)
+    When Value_Is(= ER)
+    #this_rc := #this_compare_file_rc
+    
+    When Value_Is(= TC)
+    #this_rebuild_file := True
+    #this_unload_file_data := True
+    #this_rebuild_file_drop_option_value := Y
+    #this_rebuild_file_create_option_value := Y
+    
+    When Value_Is(= IC)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := I
+    
+    When Value_Is(= VC)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := V
+    
+    When Value_Is(= LC)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := L
+    
+    When Value_Is(= NO)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := N
+    #this_rebuild_file_create_option_value := Y
+    
+    When Value_Is(= AT)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := A
+    Endcase
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthIssue_Runtime_Message)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
+    Dowhile Cond(#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- ' + #this_msg) (#LF_message_text) )
+    
+    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
+    Endwhile
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthMake_File_Operational)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Close File(VTL158011C)
+    
+    #Com_Owner.mthRemove_File( #this_file '.dll' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' FALSE #this_rc )
+    
+    If (#this_rc = OK)
+    Use Builtin(Make_File_OperationL) With_Args(#this_file *PartDtaLib) To_Get(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Make_File_Operational: ' + #this_rc) ('') )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthUpgrade_By_AT_To_Package)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_package_no)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_version)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_path)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_vl_version)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_expected_rc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK (' + ' + #this_package_no.AsString) ('VL(' + #this_vl_version + ') -> MSI(' + #this_msi_version + ')') )
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Expecting result: ' + #this_expected_rc) '' )
+    #Com_Owner.mthRun_Alter_Table_Upgrade( #this_file #this_msi_version #this_msi_path #this_expected_rc #this_rc )
+    If (#this_Rc = OK)
+    #this_vl_version := #this_msi_version
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRun_Alter_Table_Upgrade)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_subfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_path)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_expected_rc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Restore the new CTD file in the MSI package.
+    #Com_Owner.mthCopy_File( #this_file '.ctd' ('_' + #this_file_from_subfix) #this_file_from_path '' #this_file_from_path '../msi/xxx.ctd' #this_rc )
+    If (#this_rc = OK)
+    * Compare the new CTD and the one in the runtime environment.
+    #Com_Owner.mthRun_Compare_File_Definition( #this_file (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) #this_file_from_path #LF_rebuild_file #LF_rebuild_file_drop_option_value #LF_rebuild_file_create_option_value #LF_unload_data #this_rc #LF_compare_file_Def_rc )
+    
+    If (#LF_compare_file_Def_rc <> #this_expected_rc)
+    #Com_Owner.mthAdd_SubMsg( ER ('  = Compare_File_Def: Unexpected return code') ('Expected Detail code(' + #this_expected_rc + '), but return Detail code(' + #LF_compare_file_Def_rc + ') and return code(' + #this_rc + ')') )
+    #this_rc := ER
+    Else
+    If ((#LF_compare_file_Def_rc = ER) *And (#LF_compare_file_Def_rc = #this_expected_rc))
+    #Com_Owner.mthAdd_SubMsg( OK ('  - Compare_File_Def: ' + #LF_compare_file_Def_rc) ('As expected') )
+    #this_rc := OK
+    Else
+    * Rebuild_File is required.
+    If ((#this_rc = OK) *And (#LF_rebuild_file = True))
+    
+    * Unload existing table data.
+    If (#LF_unload_data = True)
+    Use Builtin(Unload_File_Data) With_Args(#this_file *Default Y Y Y) To_Get(#LF_unload_file_rc)
+    If (#LF_unload_file_rc <> OK)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Unload_File_Data: ' + #LF_unload_file_rc) ('') )
+    Endif
+    
+    * Rebuild_File with the setup rules.
+    If ((#this_rc = OK) *And (#LF_rebuild_file = True))
+    Close File(VTL158011C)
+    
+    * Make a copy of the existing CTD to be '../vl/xxx_old.ctd'.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' #this_rc )
+    Endif
+    
+    * Delete the OAM.
+    #Com_Owner.mthRemove_File( #this_file, '.dll', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' TRUE #this_rc )
+    
+    * Copy the new CTD VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', ('_' + #this_file_from_subfix) #this_file_from_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx.ctd' #this_rc )
+    Endif
+    
+    * Copy the new OAM to VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.dll', ('_' + #this_file_from_subfix) #this_file_from_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' #this_rc )
+    Endif
+    
+    * Rebuild the table using the new CTD with the old CTD.
+    If (#this_rc = OK)
+    Use Builtin(Rebuild_File) With_Args(#this_file #LF_rebuild_file_drop_option_value #LF_rebuild_file_create_option_value *Default *Default *Default *Default (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM + #this_file + '_old' + '.ctd')) To_Get(#LF_rebuild_file_rc)
+    If (#LF_rebuild_file_rc = ER)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Rebuild_File: ' + #LF_rebuild_file_rc) ('<Drop>(' + #LF_rebuild_file_drop_option_value + ') <Create>(' + #LF_rebuild_file_create_option_value + ')') )
+    If (#LF_rebuild_file_rc = OK)
+    * Delete the old CTD.
+    #Com_Owner.mthRemove_File( #this_file, '.ctd', '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' TRUE #this_rc )
+    Endif
+    Endif
+    Endif
+    
+    * Load the data.
+    If ((#this_rc = OK) *And (#LF_unload_data = True))
+    Use Builtin(Load_File_Data) With_Args(#this_file *Default *Default *Default *Default N *Default) To_Get(#LF_load_file_rc)
+    If (#LF_load_file_rc <> OK)
+    #this_rc := ER
+    Endif
+    
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Load_File_Data: ' + #LF_load_file_rc) ('') )
+    Endif
+    Endif
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthScript_Upgrade_To_Package)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_process_order)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_version)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_path)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_vl_version)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK (' + ' + #this_process_order.AsString) ('VL(' + #this_vl_version + ') -> MSI(' + #this_msi_version + ')') )
+    
+    #LF_msi_version_id := #this_msi_version
+    #LF_vl_version_id := #this_vl_version
+    
+    * Make up the script file name.
+    #LF_Script_File := #LF_msi_path + #this_file + '_' + #LF_DB_Type + '_' + #this_process_order.AsString + '_' + #LF_msi_version_id + '_' + #LF_vl_version_id + '.sql'
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Script File Name') (*Quote + #LF_Script_File + *Quote) )
+    
+    * Create the script file.
+    Use Builtin(Stm_File_Open) With_Args(#LF_Script_File 'Write NoTrim' A N) To_Get(#LF_Script_File_Id #this_rc)
+    If (#LF_Script_File_Id <> 0)
+    
+    
+    * Build custom scripts.
+    #Com_Owner.mthBuild_Script( #LF_Script_File_Id #this_file #this_msi_version #this_vl_version #this_rc )
+    
+    Use Builtin(Stm_File_Close) With_Args(#LF_Script_File_Id)
+    
+    * Delete the OAM.
+    If (#this_rc = OK)
+    #Com_Owner.mthRemove_File( #this_file, '.dll', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' TRUE #this_rc )
+    Endif
+    
+    * Make a copy of the existing CTD to be '../vl/xxx_old.ctd'.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' #this_rc )
+    Endif
+    
+    * Copy the new CTD VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', ('_' + #this_msi_version) #this_msi_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx.ctd' #this_rc )
+    Endif
+    
+    * Copy the new OAM to VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.dll', ('_' + #this_msi_version) #this_msi_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' #this_rc )
+    Endif
+    
+    * Use the REBUILD_FILE to exeucte the User Script.
+    If (#this_rc = OK)
+    Use Builtin(Rebuild_File) With_Args(#this_file 'U' 'Y' *Default *Default *Default *Default (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM + #this_file + '_old' + '.ctd') #LF_Script_File) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Rebuild_File <Drop>(U): ' + #this_rc) ('') )
+    If (#this_rc = OK)
+    #this_vl_version := #this_msi_version
+    Else
+    #this_rc := ER
+    Endif
+    Endif
+    
+    Else
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Failed to create script file') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthBuild_Script)
+    Define_Map For(*INPUT) Class(#BIFP0300A) Name(#this_script_file_id)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_version)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_vl_version)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Only support SQL Server and Oracle scripts currently.
+    If ((#LF_DB_Type = MSSQLS) *Or (#LF_DB_Type = ODBCORACLE))
+    * Turn off the Identity Attribute.
+    #Com_Owner.mthPrint_Begin( #this_file #this_script_file_id )
+    
+    * Script: Copy
+    #this_rc := ER
+    #Com_Owner.mthRestore_From_Backup( #this_file #this_script_file_id #this_rc )
+    If (#this_rc = OK)
+    #Com_Owner.mthPrint_End( #this_file #this_script_file_id )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('  - Not yet supported version IDs: MSI(' + #LF_msi_version_id + '), VL(' + #LF_vl_version_id + ')') ('') )
+    Endif
+    Else
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('  - User Script not supported on DB type: ' + #LF_DB_Type) ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthBuild_And_Run_User_Script)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_entry_number)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_vl_version)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_subfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_path)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Make up the script file name.
+    #LF_Script_File := #LF_msi_path + #this_file + #this_entry_number + '.sql'
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' - Script File Name') (*Quote + #LF_Script_File + *Quote) )
+    
+    * Create the script file.
+    Use Builtin(Stm_File_Open) With_Args(#LF_Script_File 'Write NoTrim' A N) To_Get(#LF_Script_File_Id #this_rc)
+    If (#LF_Script_File_Id <> 0)
+    
+    * Build scripts to restore data from #this_vl_version backup table to
+    
+    Use Builtin(Stm_File_Close) With_Args(#LF_Script_File_Id)
+    
+    * Make a copy of the existing CTD to be '../vl/xxx_old.ctd'.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' #this_rc )
+    Endif
+    
+    * Delete the OAM.
+    #Com_Owner.mthRemove_File( #this_file, '.dll', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' TRUE #this_rc )
+    
+    * Copy the new CTD VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', ('_' + #this_file_from_subfix) #this_file_from_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx.ctd' #this_rc )
+    Endif
+    
+    * Copy the new OAM to VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.dll', ('_' + #this_file_from_subfix) #this_file_from_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' #this_rc )
+    Endif
+    
+    * Use the REBUILD_FILE to exeucte the User Script.
+    If (#this_rc = OK)
+    Use Builtin(Rebuild_File) With_Args(#this_file 'U' 'Y' *Default *Default *Default *Default (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM + #this_file + '_old' + '.ctd') #LF_Script_File) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Rebuild_File: ' + #this_rc + '. <Drop>(U)') ('') )
+    If (#this_rc <> OK)
+    #this_rc := ER
+    Endif
+    Else
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Failed to create file') ('') )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert_Data)
+    Define_Map For(*INPUT) Class(#BIFS512A) Name(#this_package_name)
+    Define_Map For(*INPUT) Class(#BIFS512A) Name(#this_further_details)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Open File(VTL158011C)
+    
+    #F158011C1 := #VTF_KEY1 + ' ' + #this_package_name + ' (' + #this_further_details + ')'
+    #F158011C2 := 0
+    #F158011C3 := *Default
+    #F158011C4 := *Default
+    Insert Fields(*ALL) To_File(VTL158011C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Return_Rrn(#F158011C2)
+    If (#this_rc = OK)
+    #LF_F158011C1 := #F158011C1
+    #LF_F158011C2 := #F158011C2
+    Add_Entry To_List(#wl_Table_Data)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Insert 1 record: ' + #this_rc) ('Totally inserted ' + #LF_table_data_counter.AsString + ' record(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Insert: ' + #this_rc) ('') )
+    #this_rc := ER
+    Endif
+    
+    Commit
+    
+    Close File(VTL158011C)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthDelete_Data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Delete test data' ('') )
+    
+    #LF_Items := 0
+    Begin_Loop Using(#LF_i) To(#LF_table_data_counter)
+    Get_Entry Number(#LF_i) From_List(#wl_Table_Data)
+    
+    Delete From_File(VTL158011C) Where(#F158011C2 = #LF_F158011C2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    #LF_Items += 1
+    Else
+    Leave
+    Endif
+    End_Loop
+    
+    If ((#this_rc = OK) *And (#LF_Items = #LF_table_data_counter))
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Delete: ' + #this_rc) ('Totally deleted ' + #LF_Items.AsString + ' record(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Delete: ' + #this_rc) ('Failed to delete ' + #LF_table_data_counter.AsString + ' inserted record(s). Only ' + #LF_Items.AsString + ' record(s) being deleted') )
+    #this_rc := ER
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthImport_And_Build_MSI_Package)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_operation_desc)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_package)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + ' + #this_operation_desc) (*Quote + #this_package + *Quote) )
+    Use Builtin(Import_Objects) With_Args((#LF_package_path + #this_package) *Default *Default P) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Import_Objects: ' + #this_rc) ('') )
+    If (#this_rc = OK)
+    #Com_Owner.mthMake_File_Operational( #this_file #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthSave_Package( #this_file #this_package #LF_msi_path #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthAddPackage)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_package_name)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_expected_rc)
+    
+    #LF_package_name := #this_package_name
+    #LF_expected_rc := #this_expected_rc
+    Add_Entry To_List(#wl_Package)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGetPackage)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_package_id)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_return_package_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_return_expected_rc)
+    
+    If ((#this_package_id > 0) *And (#this_package_id <= #LF_package_counter))
+    Get_Entry Number(#this_package_id) From_List(#wl_Package)
+    
+    #this_return_package_name := #LF_package_name
+    #this_return_expected_rc := #LF_expected_rc
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthEmptyTable)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Empty table data' ('') )
+    
+    Delete From_File(VTL158011C) Where(#F158011C1 <> ' ') Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthAdd_SubMsg( OK (' + Return code: ' + #this_rc) ('') )
+    
+    Commit
+    Close File(VTL158011C)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthDelete_Temporary_File)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Remove all temporary files') ('') )
+    Use Builtin(OV_File_Service) With_Args(Remove_Pattern (#LF_msi_path + #this_file + '*.*')) To_Get(#this_rc)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthPrint_Cmd)
+    Define_Map For(*INPUT) Class(#BIFP0300A) Name(#this_script_file_id)
+    
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id #LF_Sql_Command)
+    If (#LF_DB_Type = MSSQLS)
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id 'GO')
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthPrint_Begin)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFP0300A) Name(#this_script_file_id)
+    
+    If (#LF_DB_Type = ODBCORACLE)
+    * Make sure the Oracle terminate on error.
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id '-- Handle errors')
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id 'WHENEVER SQLERROR EXIT SQL.SQLCODE;')
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id 'WHENEVER OSERROR EXIT -1;')
+    
+    * Turn OFF the auto Identity Column value.
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id '-- Turn OFF Auto Identity Column Value')
+    #LF_Sql_Command := 'ALTER TABLE ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote + ' MODIFY ' + #LF_DB_Left_Quote + 'F158011C2' + #LF_DB_Right_Quote + ' GENERATED BY DEFAULT AS IDENTITY;'
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    Else
+    * Turn OFF the auto Identity Column value.
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id '-- Turn OFF Auto Identity Column Value')
+    #LF_Sql_Command := 'SET IDENTITY_INSERT ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote + ' ON;'
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthPrint_End)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFP0300A) Name(#this_script_file_id)
+    
+    If (#LF_DB_Type = ODBCORACLE)
+    * Turn ON and set the auto Identity Column value to be the maximumn value.
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id '-- Turn ON Auto Identity Column Value')
+    #LF_Sql_Command := 'ALTER TABLE ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote + ' MODIFY (' + #LF_DB_Left_Quote + 'F158011C2' + #LF_DB_Right_Quote + ' GENERATED ALWAYS AS IDENTITY START WITH limit value);'
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id '-- Terminate')
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id 'EXIT')
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRestore_From_Backup)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFP0300A) Name(#this_script_file_id)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Use Builtin(Stm_File_Write) With_Args(#this_script_file_id '-- Restore data')
+    
+    If (((#LF_msi_version_id = '1') *And (#LF_vl_version_id = '1')) *Or ((#LF_msi_version_id = '2') *And (#LF_vl_version_id = '1')) *Or ((#LF_msi_version_id = '1') *And (#LF_vl_version_id = '6')) *Or ((#LF_msi_version_id = '1') *And (#LF_vl_version_id = '9')))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If ((#LF_msi_version_id = '3') *And (#LF_vl_version_id = '2'))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddValue( True 'AbC' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If ((#LF_msi_version_id = '4') *And (#LF_vl_version_id = '3'))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddValue( True '1' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If ((#LF_msi_version_id = '5') *And (#LF_vl_version_id = '4'))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7F' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddValue( false 'null' ',' )
+    #Com_Owner.mthAddValue( false 'null' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If ((#LF_msi_version_id = '6') *And (#LF_vl_version_id = '5'))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7F' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddValue( False 'null' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7F' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If ((#LF_msi_version_id = '7') *And (#LF_vl_version_id = '6'))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7F' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C7F' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If (((#LF_msi_version_id = '8') *And (#LF_vl_version_id = '7')) *Or ((#LF_msi_version_id = '9') *And (#LF_vl_version_id = '8')))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    
+    If ((#LF_msi_version_id = '6') *And (#LF_vl_version_id = '9'))
+    * INSERT INTO msi table.
+    #LF_Sql_Command := 'INSERT INTO ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #this_file + #LF_DB_Right_Quote
+    
+    * MSI column.
+    #LF_Sql_Command += '('
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' ')' )
+    
+    * SELECT VL column.
+    #LF_Sql_Command += ' SELECT '
+    #Com_Owner.mthAddColumn( 'F158011C1' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C2' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C3' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C4' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C5' ',' )
+    #Com_Owner.mthAddColumn( 'F158011C6' ',' )
+    #Com_Owner.mthAddColumn( '@@UPID' '' )
+    
+    * FROM VL table.
+    #LF_Sql_Command += ' FROM ' + #LF_DB_Left_Quote + #LF_DB_Collection_Name + #LF_DB_Right_Quote + #LF_DB_Separator + #LF_DB_Left_Quote + #LF_backup_file_name_prefix + #this_file + #LF_DB_Right_Quote + ';'
+    
+    #Com_Owner.mthPrint_Cmd( #this_script_file_id )
+    #this_rc := OK
+    Return
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthAddColumn)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_column_name)
+    Define_Map For(*INPUT) Class(#Std_Alpha) Name(#this_next_character)
+    
+    #LF_Sql_Command += (#LF_DB_Left_Quote + #this_column_name + #LF_DB_Right_Quote + #this_next_character)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthAddValue)
+    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_include_quote)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_value)
+    Define_Map For(*INPUT) Class(#Std_Alpha) Name(#this_next_character)
+    
+    If (#this_include_quote)
+    #LF_Sql_Command += *Quote
+    Endif
+    
+    #LF_Sql_Command += #this_value
+    
+    If (#this_include_quote)
+    #LF_Sql_Command += *Quote
+    Endif
+    
+    #LF_Sql_Command += #this_next_character
+    Endroutine
+    
+    

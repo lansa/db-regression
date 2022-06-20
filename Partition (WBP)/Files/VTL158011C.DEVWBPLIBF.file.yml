@@ -1,0 +1,68 @@
+﻿File:
+  Name:                           VTL158011C
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL158011C
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "VTL158011C - Alter Table with IDC"
+
+  - ENG:
+      Description:        "VTL158011C - Alter Table with IDC"
+
+  - FRA:
+      Description:        "VTL158011C - Alter Table with IDC"
+
+  - JPN:
+      Description:        "VTL158011C - Alter Table with IDC"
+
+  - TRK:
+      Description:        "VTL158011C - Alter Table with IDC"
+
+  Real Fields:
+  - F158011C1:
+      Type:               Char
+      Length:             100
+      Decimals:           0
+
+  - F158011C2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+      Identity Column:    Yes
+
+  - F158011C3:
+      Type:               Decimal
+      Length:             15
+      Decimals:           0
+
+  - F158011C4:
+      Type:               String
+      Length:             512
+      Decimals:           0
+
+  Primary Keys:
+  - F158011C1
+  - F158011C2

@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VT158011
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "ALTER TABLE & User Script Support"
+
+  - ENG:
+      Description:        "ALTER TABLE & User Script Support"
+
+  - FRA:
+      Description:        "ALTER TABLE & User Script Support"
+
+  - JPN:
+      Description:        "ALTER TABLE & User Script Support"
+
+  - TRK:
+      Description:        "ALTER TABLE & User Script Support"
+
+  Functions:
+  - V58011A:
+      Name:               V58011A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 158011 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 158011 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 158011 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 158011 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 158011 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V58011C:
+      Name:               V58011C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "ALTER TABLE & User Script Support"
+
+      - ENG:
+          Description:        "ALTER TABLE & User Script Support"
+
+      - FRA:
+          Description:        "ALTER TABLE & User Script Support"
+
+      - JPN:
+          Description:        "ALTER TABLE & User Script Support"
+
+      - TRK:
+          Description:        "ALTER TABLE & User Script Support"
+
+      Allowed Next Functions:
+      - "*ANY"

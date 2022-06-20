@@ -1,0 +1,31 @@
+﻿List:
+  Name:               Import 2022/06/20 15:02:17
+  Stored As:          User
+
+  Objects:
+  - F158011C1:
+      Type:               Field
+
+  - F158011C2:
+      Type:               Field
+
+  - F158011C3:
+      Type:               Field
+
+  - F158011C4:
+      Type:               Field
+
+  - VTL158011C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V58011A:
+      Type:               Funciton
+      Qualifier:          VT158011
+
+  - V58011C:
+      Type:               Funciton
+      Qualifier:          VT158011
+
+  - VT158011:
+      Type:               Process
