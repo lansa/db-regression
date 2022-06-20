@@ -1,0 +1,63 @@
+﻿Field:
+  Name:               BIFC026B
+  Type:               Char
+  Length:             256
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF DateTime - Char(256) *Sqlnull"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - ENG:
+      Description:        "BIF DateTime - Char(256) *Sqlnull"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - FRA:
+      Description:        "BIF DateTime - Char(256) *Sqlnull"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - JPN:
+      Description:        "BIF DateTime - Char(256) *Sqlnull"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - TRK:
+      Description:        "BIF DateTime - Char(256) *Sqlnull"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(205) Width(955)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_char.std_char') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

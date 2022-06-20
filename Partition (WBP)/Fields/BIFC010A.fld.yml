@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFC010A
+  Type:               Char
+  Length:             10
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Char(10) No *Sqlnull"
+      Label:              "BIF Data Char(1"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Char(10)"
+
+  - ENG:
+      Description:        "BIF Data Char(10) No *Sqlnull"
+      Label:              "BIF Data Char(1"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Char(10)"
+
+  - FRA:
+      Description:        "BIF Data Char(10) No *Sqlnull"
+      Label:              "BIF Data Char(1"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Char(10)"
+
+  - JPN:
+      Description:        "BIF Data Char(10) No *Sqlnull"
+      Label:              "BIF Data Char(1"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Char(10)"
+
+  - TRK:
+      Description:        "BIF Data Char(10) No *Sqlnull"
+      Label:              "BIF Data Char(1"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Char(10)"

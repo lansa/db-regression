@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               BIFBLOBA
+  Type:               BLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Blob"
+      Label:              "Additional docu"
+      Heading1:           "Additional documenta"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "BIF Data Blob"
+      Label:              "Additional docu"
+      Heading1:           "Additional documenta"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "BIF Data Blob"
+      Label:              "Additional docu"
+      Heading1:           "Additional documenta"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "BIF Data Blob"
+      Label:              "Additional docu"
+      Heading1:           "Additional documenta"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "BIF Data Blob"
+      Label:              "Additional docu"
+      Heading1:           "Additional documenta"
+      Heading2:           " "
+      Heading3:           " "

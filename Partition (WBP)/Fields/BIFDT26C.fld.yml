@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               BIFDT26C
+  Type:               DateTime
+  Length:             26
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+  - SUTC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+      Heading3:           " "
+
+  - ENG:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+      Heading3:           " "
+
+  - JPN:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+      Heading3:           " "
+
+  - TRK:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+      Heading3:           " "

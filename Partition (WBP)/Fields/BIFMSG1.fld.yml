@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFMSG1
+  Type:               Alpha
+  Length:             50
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Testing Field"
+      Label:              "Testing Field"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           " "
+
+  - ENG:
+      Description:        "Testing Field"
+      Label:              "Testing Field"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Testing Field"
+      Label:              "Testing Field"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Testing Field"
+      Label:              "Testing Field"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           " "
+
+  - TRK:
+      Description:        "Testing Field"
+      Label:              "Testing Field"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           " "

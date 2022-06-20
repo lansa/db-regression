@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFNC256B
+  Type:               NChar
+  Length:             256
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data NChar(256)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(256)"
+
+  - ENG:
+      Description:        "BIF Data NChar(256)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(256)"
+
+  - FRA:
+      Description:        "BIF Data NChar(256)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(256)"
+
+  - JPN:
+      Description:        "BIF Data NChar(256)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(256)"
+
+  - TRK:
+      Description:        "BIF Data NChar(256)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(256)"

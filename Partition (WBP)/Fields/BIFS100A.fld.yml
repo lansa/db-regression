@@ -1,0 +1,64 @@
+﻿Field:
+  Name:               BIFS100A
+  Type:               String
+  Length:             100
+  Decimals:           0
+  Default Value:      "*NULL"
+  Keyboard Shift:     SbcsAndDbcs
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data String(100) - KS(O)"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(100)"
+
+  - ENG:
+      Description:        "BIF Data String(100) - KS(O)"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(100)"
+
+  - FRA:
+      Description:        "BIF Data String(100) - KS(O)"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(100)"
+
+  - JPN:
+      Description:        "BIF Data String(100) - KS(O)"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(100)"
+
+  - TRK:
+      Description:        "BIF Data String(100) - KS(O)"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(100)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(895)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_varchar.std_varchar') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

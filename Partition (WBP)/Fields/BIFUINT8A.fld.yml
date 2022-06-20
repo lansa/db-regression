@@ -1,0 +1,60 @@
+﻿Field:
+  Name:               BIFUINT8A
+  Type:               Integer
+  Length:             8
+  Decimals:           0
+  Default Value:      "*NULL"
+  Edit Mask:          J
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+  - SUNS
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Unsigned Int(8)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(8)"
+
+  - ENG:
+      Description:        "BIF Unsigned Int(8)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(8)"
+
+  - FRA:
+      Description:        "BIF Unsigned Int(8)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(8)"
+
+  - JPN:
+      Description:        "BIF Unsigned Int(8)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(8)"
+
+  - TRK:
+      Description:        "BIF Unsigned Int(8)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(8)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(581)
+    
+    End_Com
+    
+    End_Com

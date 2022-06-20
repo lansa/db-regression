@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               BIFC256E
+  Type:               Char
+  Length:             256
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Test Field - Char(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - ENG:
+      Description:        "BIF Test Field - Char(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - FRA:
+      Description:        "BIF Test Field - Char(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - JPN:
+      Description:        "BIF Test Field - Char(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - TRK:
+      Description:        "BIF Test Field - Char(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"

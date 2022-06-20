@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               BIFP1504B
+  Type:               Packed
+  Length:             15
+  Decimals:           4
+  Default Value:      "*ZEROS"
+  Edit Mask:          2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Packed(15,4)"
+      Label:              "BIF Packed(15,0"
+      Heading1:           "BIF"
+      Heading2:           "Packed(15,0)"
+      Heading3:           " "
+
+  - ENG:
+      Description:        "BIF Packed(15,4)"
+      Label:              "BIF Packed(15,0"
+      Heading1:           "BIF"
+      Heading2:           "Packed(15,0)"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "BIF Packed(15,4)"
+      Label:              "BIF Packed(15,0"
+      Heading1:           "BIF"
+      Heading2:           "Packed(15,0)"
+      Heading3:           " "
+
+  - JPN:
+      Description:        "BIF Packed(15,4)"
+      Label:              "BIF Packed(15,0"
+      Heading1:           "BIF"
+      Heading2:           "Packed(15,0)"
+      Heading3:           " "
+
+  - TRK:
+      Description:        "BIF Packed(15,4)"
+      Label:              "BIF Packed(15,0"
+      Heading1:           "BIF"
+      Heading2:           "Packed(15,0)"
+      Heading3:           " "

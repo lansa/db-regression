@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               BIFNC01KB
+  Type:               NChar
+  Length:             1000
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data NChar(1K)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(1K)"
+
+  - ENG:
+      Description:        "BIF Data NChar(1K)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(1K)"
+
+  - FRA:
+      Description:        "BIF Data NChar(1K)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(1K)"
+
+  - JPN:
+      Description:        "BIF Data NChar(1K)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(1K)"
+
+  - TRK:
+      Description:        "BIF Data NChar(1K)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(1K)"

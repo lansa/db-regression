@@ -1,0 +1,59 @@
+﻿Field:
+  Name:               BIFU512B
+  Type:               NVarChar
+  Length:             512
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data NVarChar(512)"
+      Label:              "BIF Data NVarCh"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NVarChar(512)"
+
+  - ENG:
+      Description:        "BIF Data NVarChar(512)"
+      Label:              "BIF Data NVarCh"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NVarChar(512)"
+
+  - FRA:
+      Description:        "BIF Data NVarChar(512)"
+      Label:              "BIF Data NVarCh"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NVarChar(512)"
+
+  - JPN:
+      Description:        "BIF Data NVarChar(512)"
+      Label:              "BIF Data NVarCh"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NVarChar(512)"
+
+  - TRK:
+      Description:        "BIF Data NVarChar(512)"
+      Label:              "BIF Data NVarCh"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NVarChar(512)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(951)
+    
+    End_Com
+    
+    End_Com

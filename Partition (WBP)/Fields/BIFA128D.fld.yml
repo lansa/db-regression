@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               BIFA128D
+  Type:               Alpha
+  Length:             128
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Alpha(128)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(128)"
+
+  - ENG:
+      Description:        "BIF Data Alpha(128)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(128)"
+
+  - FRA:
+      Description:        "BIF Data Alpha(128)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(128)"
+
+  - JPN:
+      Description:        "BIF Data Alpha(128)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(128)"
+
+  - TRK:
+      Description:        "BIF Data Alpha(128)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(128)"

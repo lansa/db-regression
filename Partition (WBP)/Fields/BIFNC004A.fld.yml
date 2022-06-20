@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFNC004A
+  Type:               NChar
+  Length:             4
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data NChar(4)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(4)"
+
+  - ENG:
+      Description:        "BIF Data NChar(4)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(4)"
+
+  - FRA:
+      Description:        "BIF Data NChar(4)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(4)"
+
+  - JPN:
+      Description:        "BIF Data NChar(4)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(4)"
+
+  - TRK:
+      Description:        "BIF Data NChar(4)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(4)"

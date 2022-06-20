@@ -1,0 +1,63 @@
+﻿Field:
+  Name:               BIFU100C
+  Type:               NChar
+  Length:             100
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data - NChar(100) *Sqlnull"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - ENG:
+      Description:        "BIF Data - NChar(100) *Sqlnull"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - FRA:
+      Description:        "BIF Data - NChar(100) *Sqlnull"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - JPN:
+      Description:        "BIF Data - NChar(100) *Sqlnull"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - TRK:
+      Description:        "BIF Data - NChar(100) *Sqlnull"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(187) Width(935)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_char.std_char') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

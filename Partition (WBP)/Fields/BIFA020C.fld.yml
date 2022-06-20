@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFA020C
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Arg Alpha(20)"
+      Label:              "BIF Arg Alpha(2"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(20)"
+
+  - ENG:
+      Description:        "BIF Arg Alpha(20)"
+      Label:              "BIF Arg Alpha(2"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(20)"
+
+  - FRA:
+      Description:        "BIF Arg Alpha(20)"
+      Label:              "BIF Arg Alpha(2"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(20)"
+
+  - JPN:
+      Description:        "BIF Arg Alpha(20)"
+      Label:              "BIF Arg Alpha(2"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(20)"
+
+  - TRK:
+      Description:        "BIF Arg Alpha(20)"
+      Label:              "BIF Arg Alpha(2"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(20)"

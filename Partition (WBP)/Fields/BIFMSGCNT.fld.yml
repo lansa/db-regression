@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               BIFMSGCNT
+  Type:               Packed
+  Length:             7
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Reference Field:    STD_COUNT
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Testing Field - Message Counter"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Testing Field - Message Counter"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Testing Field - Message Counter"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Testing Field - Message Counter"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Testing Field - Message Counter"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"

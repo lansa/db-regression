@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFA7A
+  Type:               Alpha
+  Length:             7
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Arg Alpha(7)"
+      Label:              "BIF Arg Alpha(7"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(7)"
+
+  - ENG:
+      Description:        "BIF Arg Alpha(7)"
+      Label:              "BIF Arg Alpha(7"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(7)"
+
+  - FRA:
+      Description:        "BIF Arg Alpha(7)"
+      Label:              "BIF Arg Alpha(7"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(7)"
+
+  - JPN:
+      Description:        "BIF Arg Alpha(7)"
+      Label:              "BIF Arg Alpha(7"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(7)"
+
+  - TRK:
+      Description:        "BIF Arg Alpha(7)"
+      Label:              "BIF Arg Alpha(7"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(7)"

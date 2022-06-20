@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               BIFINT2B
+  Type:               Integer
+  Length:             2
+  Decimals:           0
+  Default Value:      "*NULL"
+  Edit Mask:          J
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Int(2)"
+      Label:              "BIF Int(2)"
+      Heading1:           "BIF"
+      Heading2:           "Int(2)"
+      Heading3:           " "
+
+  - ENG:
+      Description:        "BIF Int(2)"
+      Label:              "BIF Int(2)"
+      Heading1:           "BIF"
+      Heading2:           "Int(2)"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "BIF Int(2)"
+      Label:              "BIF Int(2)"
+      Heading1:           "BIF"
+      Heading2:           "Int(2)"
+      Heading3:           " "
+
+  - JPN:
+      Description:        "BIF Int(2)"
+      Label:              "BIF Int(2)"
+      Heading1:           "BIF"
+      Heading2:           "Int(2)"
+      Heading3:           " "
+
+  - TRK:
+      Description:        "BIF Int(2)"
+      Label:              "BIF Int(2)"
+      Heading1:           "BIF"
+      Heading2:           "Int(2)"
+      Heading3:           " "

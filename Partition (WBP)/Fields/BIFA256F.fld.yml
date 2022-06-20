@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               BIFA256F
+  Type:               Alpha
+  Length:             256
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - ENG:
+      Description:        "BIF Data - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - FRA:
+      Description:        "BIF Data - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - JPN:
+      Description:        "BIF Data - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - TRK:
+      Description:        "BIF Data - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"

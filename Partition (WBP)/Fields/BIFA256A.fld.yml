@@ -1,0 +1,58 @@
+﻿Field:
+  Name:               BIFA256A
+  Type:               Alpha
+  Length:             256
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Test Field - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - ENG:
+      Description:        "BIF Test Field - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - FRA:
+      Description:        "BIF Test Field - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - JPN:
+      Description:        "BIF Test Field - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - TRK:
+      Description:        "BIF Test Field - Alpha(256)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(555)
+    
+    End_Com
+    
+    End_Com

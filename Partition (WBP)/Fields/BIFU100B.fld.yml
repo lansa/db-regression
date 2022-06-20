@@ -1,0 +1,59 @@
+﻿Field:
+  Name:               BIFU100B
+  Type:               NChar
+  Length:             100
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data NChar(100)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - ENG:
+      Description:        "BIF Data NChar(100)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - FRA:
+      Description:        "BIF Data NChar(100)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - JPN:
+      Description:        "BIF Data NChar(100)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  - TRK:
+      Description:        "BIF Data NChar(100)"
+      Label:              "BIF Data NChar("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "NChar(100)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(951)
+    
+    End_Com
+    
+    End_Com

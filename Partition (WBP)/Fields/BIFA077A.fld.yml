@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFA077A
+  Type:               Alpha
+  Length:             77
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Alpha(77)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(77)"
+
+  - ENG:
+      Description:        "BIF Data Alpha(77)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(77)"
+
+  - FRA:
+      Description:        "BIF Data Alpha(77)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(77)"
+
+  - JPN:
+      Description:        "BIF Data Alpha(77)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(77)"
+
+  - TRK:
+      Description:        "BIF Data Alpha(77)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(77)"

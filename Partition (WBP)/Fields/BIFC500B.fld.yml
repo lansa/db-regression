@@ -1,0 +1,63 @@
+﻿Field:
+  Name:               BIFC500B
+  Type:               Char
+  Length:             500
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Test Field - Char(500)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - ENG:
+      Description:        "BIF Test Field - Char(500)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - FRA:
+      Description:        "BIF Test Field - Char(500)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - JPN:
+      Description:        "BIF Test Field - Char(500)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  - TRK:
+      Description:        "BIF Test Field - Char(500)"
+      Label:              "BIF Test Field"
+      Heading1:           "BIF"
+      Heading2:           "Test"
+      Heading3:           "Field"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Componentversion(1) Defaultvisual(True) Height(21) Usepicklist(False) Width(782)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_char.std_char') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

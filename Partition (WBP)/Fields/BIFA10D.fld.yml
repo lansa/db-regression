@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               BIFA10D
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    STD_OBJ
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - VN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Arg Alpha(10)"
+      Label:              "BIF Arg Alpha(1"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(10)"
+
+  - ENG:
+      Description:        "BIF Arg Alpha(10)"
+      Label:              "BIF Arg Alpha(1"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(10)"
+
+  - FRA:
+      Description:        "BIF Arg Alpha(10)"
+      Label:              "BIF Arg Alpha(1"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(10)"
+
+  - JPN:
+      Description:        "BIF Arg Alpha(10)"
+      Label:              "BIF Arg Alpha(1"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(10)"
+
+  - TRK:
+      Description:        "BIF Arg Alpha(10)"
+      Label:              "BIF Arg Alpha(1"
+      Heading1:           "BIF"
+      Heading2:           "Arg"
+      Heading3:           "Alpha(10)"

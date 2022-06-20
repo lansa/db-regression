@@ -1,0 +1,58 @@
+﻿Field:
+  Name:               BIFMSGC
+  Type:               Alpha
+  Length:             2
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Testing Field - Message Code"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - ENG:
+      Description:        "Testing Field - Message Code"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - FRA:
+      Description:        "Testing Field - Message Code"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - JPN:
+      Description:        "Testing Field - Message Code"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  - TRK:
+      Description:        "Testing Field - Message Code"
+      Label:              "Testing Field -"
+      Heading1:           "Testing"
+      Heading2:           "Field"
+      Heading3:           "-"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(193) Width(308)
+    
+    End_Com
+    
+    End_Com

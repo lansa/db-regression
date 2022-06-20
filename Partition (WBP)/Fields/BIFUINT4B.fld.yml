@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               BIFUINT4B
+  Type:               Integer
+  Length:             4
+  Decimals:           0
+  Default Value:      "*NULL"
+  Edit Mask:          J
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+  - SUNS
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Unsigned Int(4)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(4)"
+
+  - ENG:
+      Description:        "BIF Unsigned Int(4)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(4)"
+
+  - FRA:
+      Description:        "BIF Unsigned Int(4)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(4)"
+
+  - JPN:
+      Description:        "BIF Unsigned Int(4)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(4)"
+
+  - TRK:
+      Description:        "BIF Unsigned Int(4)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(4)"

@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               BIFN0700A
+  Type:               Signed
+  Length:             7
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Signed(7,0)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - ENG:
+      Description:        "BIF Data Signed(7,0)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - FRA:
+      Description:        "BIF Data Signed(7,0)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - JPN:
+      Description:        "BIF Data Signed(7,0)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - TRK:
+      Description:        "BIF Data Signed(7,0)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"

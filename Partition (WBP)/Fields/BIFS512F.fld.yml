@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               BIFS512F
+  Type:               String
+  Length:             512
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data String(512) - LC *Sqlnull"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(512)"
+
+  - ENG:
+      Description:        "BIF Data String(512) - LC *Sqlnull"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(512)"
+
+  - FRA:
+      Description:        "BIF Data String(512) - LC *Sqlnull"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(512)"
+
+  - JPN:
+      Description:        "BIF Data String(512) - LC *Sqlnull"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(512)"
+
+  - TRK:
+      Description:        "BIF Data String(512) - LC *Sqlnull"
+      Label:              "BIF Data String"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "String(512)"

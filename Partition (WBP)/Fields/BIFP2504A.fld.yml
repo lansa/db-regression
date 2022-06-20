@@ -1,0 +1,59 @@
+﻿Field:
+  Name:               BIFP2504A
+  Type:               Packed
+  Length:             25
+  Decimals:           4
+  Default Value:      "*ZEROS"
+  Edit Mask:          1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Packed(25,4)"
+      Label:              "BIF Data Packed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Packed(25,4)"
+
+  - ENG:
+      Description:        "BIF Data Packed(25,4)"
+      Label:              "BIF Data Packed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Packed(25,4)"
+
+  - FRA:
+      Description:        "BIF Data Packed(25,4)"
+      Label:              "BIF Data Packed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Packed(25,4)"
+
+  - JPN:
+      Description:        "BIF Data Packed(25,4)"
+      Label:              "BIF Data Packed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Packed(25,4)"
+
+  - TRK:
+      Description:        "BIF Data Packed(25,4)"
+      Label:              "BIF Data Packed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Packed(25,4)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(581)
+    
+    End_Com
+    
+    End_Com

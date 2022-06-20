@@ -1,0 +1,80 @@
+﻿Field:
+  Name:               BIFPGM
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Built In Function - Program to Call"
+      Label:              "Program to Call"
+      Heading1:           "Program"
+      Heading2:           "to Call"
+      Heading3:           " "
+
+  - ENG:
+      Description:        "Built In Function - Program to Call"
+      Label:              "Program to Call"
+      Heading1:           "Program"
+      Heading2:           "to Call"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Built In Function - Program to Call"
+      Label:              "Program to Call"
+      Heading1:           "Program"
+      Heading2:           "to Call"
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Built In Function - Program to Call"
+      Label:              "Program to Call"
+      Heading1:           "Program"
+      Heading2:           "to Call"
+      Heading3:           " "
+
+  - TRK:
+      Description:        "Built In Function - Program to Call"
+      Label:              "Program to Call"
+      Heading1:           "Program"
+      Heading2:           "to Call"
+      Heading3:           " "
+
+  Repository Help:
+  - DAN: |
+      $$USER
+      %$$title BUILT IN FUNCTION - PROGRAM TO CALL
+      
+      This is the name of the internal or external program to call (up to 10
+      characters) to view subsidiary source details concerning an account.
+
+  - ENG: |
+      $$USER
+      %$$title BUILT IN FUNCTION - PROGRAM TO CALL
+      
+      This is the name of the internal or external program to call (up to 10
+      characters) to view subsidiary source details concerning an account.
+
+  - FRA: |
+      $$USER
+      %$$title BUILT IN FUNCTION - PROGRAM TO CALL
+      
+      This is the name of the internal or external program to call (up to 10
+      characters) to view subsidiary source details concerning an account.
+
+  - JPN: |
+      $$USER
+      %$$title BUILT IN FUNCTION - PROGRAM TO CALL
+      
+      This is the name of the internal or external program to call (up to 10
+      characters) to view subsidiary source details concerning an account.
+
+  - TRK: |
+      $$USER
+      %$$title BUILT IN FUNCTION - PROGRAM TO CALL
+      
+      This is the name of the internal or external program to call (up to 10
+      characters) to view subsidiary source details concerning an account.

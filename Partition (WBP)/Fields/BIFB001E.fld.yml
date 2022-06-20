@@ -1,0 +1,68 @@
+﻿Field:
+  Name:               BIFB001E
+  Type:               Boolean
+  Length:             1
+  Decimals:           0
+  Default Value:      TRUE
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Boolean - Default(True)"
+      Label:              "BIF Data Boolea"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Boolean"
+
+  - ENG:
+      Description:        "BIF Data Boolean - Default(True)"
+      Label:              "BIF Data Boolea"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Boolean"
+
+  - FRA:
+      Description:        "BIF Data Boolean - Default(True)"
+      Label:              "BIF Data Boolea"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Boolean"
+
+  - JPN:
+      Description:        "BIF Data Boolean - Default(True)"
+      Label:              "BIF Data Boolea"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Boolean"
+
+  - TRK:
+      Description:        "BIF Data Boolean - Default(True)"
+      Label:              "BIF Data Boolea"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Boolean"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*picklist) Name(#Picklist)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#False) Caption('False') Default(True) Parent(#Picklist) Value('False')
+    Define_Com Class(#PRIM_PKIT) Name(#True) Caption('True') Parent(#Picklist) Value('True')
+    
+    End_Com
+    
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Marginleft(193) Width(209)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_boolean.std_boolean') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

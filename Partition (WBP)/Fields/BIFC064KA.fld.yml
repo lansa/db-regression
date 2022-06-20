@@ -1,0 +1,59 @@
+﻿Field:
+  Name:               BIFC064KA
+  Type:               Char
+  Length:             65535
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Bif Data Char(64K)"
+      Label:              "Bif Data Char(6"
+      Heading1:           "Bif"
+      Heading2:           "Data"
+      Heading3:           "Char(64K)"
+
+  - ENG:
+      Description:        "Bif Data Char(64K)"
+      Label:              "Bif Data Char(6"
+      Heading1:           "Bif"
+      Heading2:           "Data"
+      Heading3:           "Char(64K)"
+
+  - FRA:
+      Description:        "Bif Data Char(64K)"
+      Label:              "Bif Data Char(6"
+      Heading1:           "Bif"
+      Heading2:           "Data"
+      Heading3:           "Char(64K)"
+
+  - JPN:
+      Description:        "Bif Data Char(64K)"
+      Label:              "Bif Data Char(6"
+      Heading1:           "Bif"
+      Heading2:           "Data"
+      Heading3:           "Char(64K)"
+
+  - TRK:
+      Description:        "Bif Data Char(64K)"
+      Label:              "Bif Data Char(6"
+      Heading1:           "Bif"
+      Heading2:           "Data"
+      Heading3:           "Char(64K)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(951)
+    
+    End_Com
+    
+    End_Com
