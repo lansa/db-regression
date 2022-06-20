@@ -1,0 +1,57 @@
+﻿Field:
+  Name:               AFAFDN
+  Type:               Packed
+  Length:             4
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "AFDELINGSNR."
+      Label:              "AFAFDN"
+      Heading1:           "Afd.nr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+
+  - JPN:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+
+  - TRK:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(185)
+    
+    End_Com
+    
+    Begin_Com Role(*picklist) Name(#Picklist)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#Item) Caption('CaptionForFirstItem') Default(True) Parent(#Picklist) Value(1)
+    Define_Com Class(#PRIM_PKIT) Name(#Item_1) Caption('CaptionForSecondItem') Parent(#Picklist) Value(2)
+    
+    End_Com
+    Begin_Com Role(*Visual_Part #RP_AFDN) Name(#VisualPart)
+    
+    End_Com
+    End_Com

@@ -1,0 +1,56 @@
+﻿File:
+  Name:                           RDMLXFIL1
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             RDMLXFIL1
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         No
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            No
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             No
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 100000    20000     99) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Alm felter"
+
+  - ENG:
+      Description:        "Alm felter"
+
+  - FRA:
+      Description:        "Alm felter"
+
+  - JPN:
+      Description:        "Alm felter"
+
+  - TRK:
+      Description:        "Alm felter"
+
+  Real Fields:
+  - AFAFDN:
+      Type:               Decimal
+      Length:             4
+      Decimals:           0
+
+  - AFTXT:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  Primary Keys:
+  - AFAFDN

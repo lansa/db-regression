@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               AFTXT
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "AFDELINGSTEKST"
+      Label:              "AFTXT"
+      Heading1:           "Afdelings-"
+      Heading2:           "tekst"
+      Heading3:           " "
+
+  - ENG:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+      Heading2:           "?"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+      Heading2:           "?"
+
+  - JPN:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+      Heading2:           "?"
+
+  - TRK:
+      Description:        "?"
+      Label:              "?"
+      Heading1:           "?"
+      Heading2:           "?"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(324)
+    
+    End_Com
+    
+    End_Com
