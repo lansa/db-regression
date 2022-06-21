@@ -1,0 +1,551 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_F157726D1) Reffld(#F157726D1)
+    Define Field(#LF_F157726D2) Reffld(#F157726D2)
+    Define Field(#LF_table_data_counter) Reffld(#Std_Count)
+    Def_List Name(#wl_Table_Data) Fields(#LF_F157726D1 #LF_F157726D2) Counter(#LF_table_data_counter) Type(*WORKING)
+    
+    Define Field(#LF_rc) Type(*CHAR) Length(2)
+    Define Field(#LF_compare_file_Def_rc) Reffld(#LF_rc)
+    Define Field(#LF_rebuild_file_rc) Reffld(#LF_rc)
+    Define Field(#LF_unload_file_rc) Reffld(#LF_rc)
+    Define Field(#LF_load_file_rc) Reffld(#LF_rc)
+    Define Field(#LF_start_file_edit_rc) Reffld(#LF_rc)
+    
+    Define Field(#LF_file_name) Reffld(#BIFA010A)
+    Define Field(#LF_package_path) Reffld(#BIFC256A)
+    Define Field(#LF_vl_path) Reffld(#BIFC256A)
+    Define Field(#LF_vl_version) Type(*STRING)
+    Define Field(#LF_msi_path) Reffld(#BIFC256A)
+    Define Field(#LF_msi_version) Type(*STRING)
+    Define Field(#LF_expected_Compare_File_Def_rc) Reffld(#BIFA002A)
+    
+    Define Field(#LF_unload_data) Type(*BOOLEAN)
+    Define Field(#LF_rebuild_file) Type(*BOOLEAN)
+    Define Field(#LF_rebuild_file_drop_option_value) Reffld(#Std_Alpha)
+    Define Field(#LF_rebuild_file_create_option_value) Reffld(#Std_Alpha)
+    Define Field(#LF_message_text) Type(*CHAR) Length(132)
+    Define Field(#LF_Items) Reffld(#Std_Count)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_package_no) Reffld(#Std_Count)
+    
+    Define Field(#LF_package_name) Type(*STRING)
+    Define Field(#LF_expected_rc) Reffld(#BIFA002A)
+    Define Field(#LF_package_counter) Reffld(#Std_Count)
+    Def_List Name(#wl_Package) Fields(#LF_package_name #LF_expected_rc) Counter(#LF_package_counter) Type(*WORKING)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    * Get_Entry Number(1) From_List(#wLKData)
+    
+    * Initialize local variables.
+    #LF_file_name := VTL157726D
+    #LF_package_path := '\\syd6\CCS\Tests\157000-157999\157726\VTL157726D\'
+    #LF_vl_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
+    #LF_msi_path := *TEMP_DIR
+    #LF_rc := OK
+    
+    * Initial the package list.
+    Clr_List Named(#wl_Package)
+    #Com_Owner.mthAddPackage( '1_original' *Blanks )
+    #Com_Owner.mthAddPackage( '2_add_file_field_d4' *Blanks )
+    #Com_Owner.mthAddPackage( '3_add_non_unique_index_on_d3' *Blanks )
+    #Com_Owner.mthAddPackage( '4_change_to_unique_index' *Blanks )
+    #Com_Owner.mthAddPackage( '1_original' *Blanks )
+    
+    * Build all the packages.
+    Begin_Loop Using(#LF_package_no) To(#LF_package_counter)
+    #Com_Owner.mthGetPackage( #LF_package_no #LF_vl_version #LF_expected_Compare_File_Def_rc )
+    #Com_Owner.mthImport_And_Build_MSI_Package( 'Set up package' #LF_file_name #LF_vl_version #LF_rc )
+    If (#LF_rc <> OK)
+    Leave
+    Endif
+    End_Loop
+    
+    * Layout the package installation order.
+    If (#LF_rc = OK)
+    Clr_List Named(#wl_Package)
+    #Com_Owner.mthAddPackage( '1_original' NC )
+    #Com_Owner.mthAddPackage( '2_add_file_field_d4' TC )
+    #Com_Owner.mthAddPackage( '3_add_non_unique_index_on_d3' NO )
+    #Com_Owner.mthAddPackage( '1_original' TC )
+    #Com_Owner.mthAddPackage( '3_add_non_unique_index_on_d3' TC )
+    #Com_Owner.mthAddPackage( '4_change_to_unique_index' LC )
+    #Com_Owner.mthAddPackage( '1_original' TC )
+    #Com_Owner.mthAddPackage( '4_change_to_unique_index' TC )
+    #Com_Owner.mthAddPackage( '3_add_non_unique_index_on_d3' LC )
+    #Com_Owner.mthAddPackage( '2_add_file_field_d4' IC )
+    #Com_Owner.mthAddPackage( '1_original' TC )
+    
+    * * MSI Simulation.
+    #Com_Owner.mthGetPackage( 1 #LF_vl_version #LF_expected_Compare_File_Def_rc )
+    Begin_Loop Using(#LF_package_no) To(#LF_package_counter)
+    #Com_Owner.mthGetPackage( #LF_package_no #LF_msi_version #LF_expected_Compare_File_Def_rc )
+    #Com_Owner.mthMSI_Upgrade( #LF_file_name #LF_msi_version #LF_msi_path #LF_vl_version #LF_expected_Compare_File_Def_rc #LF_rc )
+    If (#LF_rc = OK)
+    * Insert a test record.
+    #Com_Owner.mthInsert_Data( #LF_package_no #LF_msi_version #LF_rc )
+    Endif
+    
+    If (#LF_rc <> OK)
+    Leave
+    Endif
+    End_Loop
+    
+    * Delete all the test records. Missing records will result in error.
+    If (#LF_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- Delete test data' ('') )
+    #Com_Owner.mthDelete_Data( #LF_rc )
+    Endif
+    
+    * Remove all the temporary files.
+    If (#LF_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Remove all temporary files') ('') )
+    Use Builtin(OV_File_Service) With_Args(Remove_Pattern (#LF_msi_path + #LF_file_name + '*.*')) To_Get(#LF_rc)
+    Endif
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert_Data)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_package_no)
+    Define_Map For(*INPUT) Class(#BIFS512A) Name(#this_package_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Open File(VTL157726D)
+    
+    #F157726D1 := #this_package_no
+    #F157726D2 := #this_package_no.AsString + ' ' + #this_package_name
+    #F157726D3 := #F157726D2
+    Insert Fields(*ALL) To_File(VTL157726D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    #LF_F157726D1 := #F157726D1
+    #LF_F157726D2 := #F157726D2
+    Add_Entry To_List(#wl_Table_Data)
+    Endif
+    
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Insert: ' + #this_rc) ('Totall inserted ' + #LF_table_data_counter.AsString + ' record(s)') )
+    
+    Close File(VTL157726D)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthDelete_Data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #LF_Items := 0
+    Begin_Loop Using(#LF_i) To(#LF_table_data_counter)
+    Get_Entry Number(#LF_i) From_List(#wl_Table_Data)
+    
+    Delete From_File(VTL157726D) With_Key(#LF_F157726D1 #LF_F157726D2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    Leave
+    Else
+    #LF_Items += 1
+    Endif
+    End_Loop
+    
+    If ((#this_rc = OK) *And (#LF_Items = #LF_table_data_counter))
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Delete: ' + #this_rc) ('Totally deleted ' + #LF_Items.AsString + ' record(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Delete: ' + #this_rc) ('Failed to delete ' + #LF_table_data_counter.AsString + ' inserted record(s). Only ' + #LF_Items.AsString + ' record(s) being deleted') )
+    #this_rc := ER
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthSave_Test_Case)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_path)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file '.ctd' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '' #this_file_to_path '../msi/xxx.ctd' #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file '.ctd' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) ('_' + #this_file_to_postfix) #this_file_to_path '../msi/xxx_yyy.ctd' #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file '.dll' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) ('_' + #this_file_to_postfix) #this_file_to_path '../msi/xxx_yyy.dll' #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCopy_File)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_file_extension)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_path)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_to_path)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_desc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(COPY_FILE (#this_file_from_path + #this_file + #this_file_from_postfix + #this_file_extension) (#this_file_to_path + #this_file + #this_file_to_postfix + #this_file_extension)) To_Get(#this_rc)
+    
+    If (#this_desc.IsNull)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Copy_File: ' + #this_rc) (#this_file + #this_file_from_postfix + #this_file_extension + ' -> ' + #this_file + #this_file_to_postfix + #this_file_extension) )
+    Else
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Copy_File: ' + #this_rc) (#this_file + #this_file_from_postfix + #this_file_extension + ' -> ' + #this_file + #this_file_to_postfix + #this_file_extension + ' (' + #this_desc + ')') )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRemove_File)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFA004A) Name(#this_file_extension)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_path)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_desc)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_display_msg)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(CHECK_FILE (#this_file_path + #this_file + #this_file_postfix + #this_file_extension)) To_Get(#this_rc)
+    If (#this_rc = OK)
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE (#this_file_path + #this_file + #this_file_postfix + #this_file_extension)) To_Get(#this_rc)
+    
+    If ((#this_display_msg = TRUE) *Or (#this_rc <> OK))
+    If (#this_desc.IsNull)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Remove_File: ' + #this_rc) (#this_file + #this_file_postfix + #this_file_extension) )
+    Else
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Remove_File: ' + #this_rc) (#this_file + #this_file_postfix + #this_file_extension + ' (' + #this_desc + ')') )
+    Endif
+    Endif
+    Endif
+    Else
+    #this_rc := OK
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRun_Compare_File_Definition)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_current_file_path)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_new_file_path)
+    Define_Map For(*OUTPUT) Class(#BIFB001A) Name(#this_rebuild_file)
+    Define_Map For(*OUTPUT) Class(#BIFA001A) Name(#this_rebuild_file_drop_option_value)
+    Define_Map For(*OUTPUT) Class(#BIFA001A) Name(#this_rebuild_file_create_option_value)
+    Define_Map For(*OUTPUT) Class(#BIFB001A) Name(#this_unload_file_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_compare_file_rc)
+    
+    #this_rebuild_file := False
+    #this_unload_file_data := False
+    #this_rebuild_file_drop_option_value := *Blank
+    #this_rebuild_file_create_option_value := N
+    
+    If (#this_rc = OK)
+    Use Builtin(Compare_File_Def) With_Args(#this_file #this_current_file_path #this_new_file_path) To_Get(#this_rc #this_compare_file_rc)
+    If (#this_rc <> ER)
+    #this_rc := OK
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Compare_File_Def: ' + #this_compare_file_rc) ('') )
+    
+    Case Of_Field(#this_compare_file_rc)
+    When Value_Is(= ER)
+    #this_rc := #this_compare_file_rc
+    
+    When Value_Is(= TC)
+    #this_rebuild_file := True
+    #this_unload_file_data := True
+    #this_rebuild_file_drop_option_value := Y
+    #this_rebuild_file_create_option_value := Y
+    
+    When Value_Is(= IC)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := I
+    
+    When Value_Is(= VC)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := V
+    
+    When Value_Is(= LC)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := L
+    
+    When Value_Is(= NO)
+    #this_rebuild_file := True
+    #this_rebuild_file_drop_option_value := N
+    #this_rebuild_file_create_option_value := Y
+    Endcase
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthIssue_Runtime_Message)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
+    Dowhile Cond(#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- ' + #this_msg) (#LF_message_text) )
+    
+    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
+    Endwhile
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthMake_File_Operational)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Close File(VTL157726D)
+    
+    #Com_Owner.mthRemove_File( #this_file '.dll' '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' FALSE #this_rc )
+    
+    Use Builtin(Make_File_OperationL) With_Args(#this_file *PartDtaLib) To_Get(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Make_File_Operational: ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthMSI_Upgrade)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_version)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_msi_path)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_vl_version)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_expected_rc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK '- MSI Upgrade' ('VL(' + #this_vl_version + ') -> MSI(' + #this_msi_version + ')') )
+    #Com_Owner.mthAdd_SubMsg( OK (' + Expecting result: ' + #this_expected_rc) '' )
+    #Com_Owner.mthRun_MSI( #this_file #this_msi_version #this_msi_path #this_expected_rc #this_rc )
+    If (#this_Rc = OK)
+    #this_vl_version := #this_msi_version
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthRun_MSI)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_postfix)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_file_from_path)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_expected_rc)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Restore the new CTD file in the MSI package.
+    #Com_Owner.mthCopy_File( #this_file '.ctd' ('_' + #this_file_from_postfix) #this_file_from_path '' #this_file_from_path '../msi/xxx.ctd' #this_rc )
+    If (#this_rc = OK)
+    * Compare the new CTD and the one in the runtime environment.
+    #Com_Owner.mthRun_Compare_File_Definition( #this_file (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) #this_file_from_path #LF_rebuild_file #LF_rebuild_file_drop_option_value #LF_rebuild_file_create_option_value #LF_unload_data #this_rc #LF_compare_file_Def_rc )
+    
+    If (#LF_compare_file_Def_rc <> #this_expected_rc)
+    #Com_Owner.mthAdd_SubMsg( ER (' + Compare_File_Def: Unexpected return code') ('Expected Detail code(' + #this_expected_rc + '), but return Detail code(' + #LF_compare_file_Def_rc + ') and return code(' + #this_rc + ')') )
+    #this_rc := ER
+    Endif
+    
+    * Rebuild_File is required.
+    If ((#this_rc = OK) *And (#LF_rebuild_file = True))
+    
+    * Unload existing table data.
+    If (#LF_unload_data = True)
+    Use Builtin(Unload_File_Data) With_Args(#this_file *Default Y Y Y) To_Get(#LF_unload_file_rc)
+    If (#LF_unload_file_rc <> OK)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Unload_File_Data: ' + #LF_unload_file_rc) ('') )
+    Endif
+    
+    * Rebuild_File with the setup rules.
+    If ((#this_rc = OK) *And (#LF_rebuild_file = True))
+    Close File(VTL157726D)
+    
+    * Delete the OAM.
+    #Com_Owner.mthRemove_File( #this_file, '.dll', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' TRUE #this_rc )
+    
+    * Make a copy of the existing CTD to be '../vl/xxx_old.ctd'.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' #this_rc )
+    Endif
+    
+    * Copy the new CTD & OAM to VL.
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.ctd', ('_' + #this_file_from_postfix) #this_file_from_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx.ctd' #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthCopy_File( #this_file, '.dll', ('_' + #this_file_from_postfix) #this_file_from_path '' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'execute' + *PATHDELIM) '../vl/xxx.dll' #this_rc )
+    Endif
+    
+    * Rebuild the table using the new CTD with the old CTD.
+    If (#this_rc = OK)
+    Use Builtin(Rebuild_File) With_Args(#this_file #LF_rebuild_file_drop_option_value #LF_rebuild_file_create_option_value *Default *Default *Default *Default (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM + #this_file + '_old' + '.ctd')) To_Get(#LF_rebuild_file_rc)
+    If (#LF_rebuild_file_rc = ER)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Rebuild_File: ' + #LF_rebuild_file_rc) ('<Drop>(' + #LF_rebuild_file_drop_option_value + ') <Create>(' + #LF_rebuild_file_create_option_value + ')') )
+    If (#this_rc = ER)
+    #Com_Owner.mthIssue_Runtime_Message( 'MSI Rebuild_File' #this_rc )
+    Else
+    * Delete the old CTD.
+    #Com_Owner.mthRemove_File( #this_file, '.ctd', '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' TRUE #this_rc )
+    Endif
+    Endif
+    Endif
+    
+    * Load the data.
+    If ((#this_rc = OK) *And (#LF_unload_data = True))
+    Use Builtin(Load_File_Data) With_Args(#this_file *Default *Default *Default *Default N *Default) To_Get(#LF_load_file_rc)
+    If (#LF_load_file_rc <> OK)
+    #this_rc := ER
+    Endif
+    
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Load_File_Data: ' + #LF_load_file_rc) ('') )
+    Endif
+    
+    * Report all errors.
+    If (#this_rc = ER)
+    #Com_Owner.mthIssue_Runtime_Message( 'MSI Error Message' #this_rc )
+    Else
+    #this_rc := OK
+    Endif
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthImport_And_Compile)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_operation_desc)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_package)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- ' + #this_operation_desc) (*Quote + #this_package + *Quote) )
+    Use Builtin(Import_Objects) With_Args((#LF_package_path + #this_package) *Default *Default P) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Import_Objects: ' + #this_rc) ('') )
+    If (#this_rc = OK)
+    #Com_Owner.mthMake_File_Operational( #this_file #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthAddPackage)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_package_name)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_expected_rc)
+    
+    #LF_package_name := #this_package_name
+    #LF_expected_rc := #this_expected_rc
+    Add_Entry To_List(#wl_Package)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthGetPackage)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#this_package_id)
+    Define_Map For(*BOTH) Class(#BIFS100A) Name(#this_return_package_name)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_return_expected_rc)
+    
+    If ((#this_package_id > 0) *And (#this_package_id <= #LF_package_counter))
+    Get_Entry Number(#this_package_id) From_List(#wl_Package)
+    
+    #this_return_package_name := #LF_package_name
+    #this_return_expected_rc := #LF_expected_rc
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthImport_And_Build_MSI_Package)
+    Define_Map For(*INPUT) Class(#BIFS100A) Name(#this_operation_desc)
+    Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
+    Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_package)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- ' + #this_operation_desc) (*Quote + #this_package + *Quote) )
+    Use Builtin(Import_Objects) With_Args((#LF_package_path + #this_package) *Default *Default P) To_Get(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Import_Objects: ' + #this_rc) ('') )
+    If (#this_rc = OK)
+    #Com_Owner.mthMake_File_Operational( #this_file #this_rc )
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthSave_Test_Case( #this_file #this_package #LF_msi_path #this_rc )
+    Endif
+    Endroutine
+    
+    

@@ -1,0 +1,36 @@
+﻿List:
+  Name:               Import 2022/06/21 09:41:34
+  Stored As:          User
+
+  Objects:
+  - F157726D1:
+      Type:               Field
+
+  - F157726D2:
+      Type:               Field
+
+  - F157726D3:
+      Type:               Field
+
+  - VTL157726C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL157726D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V57726A:
+      Type:               Funciton
+      Qualifier:          VT157726
+
+  - V57726C:
+      Type:               Funciton
+      Qualifier:          VT157726
+
+  - V57726D:
+      Type:               Funciton
+      Qualifier:          VT157726
+
+  - VT157726:
+      Type:               Process

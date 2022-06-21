@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               F157726D2
+  Type:               String
+  Length:             100
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157726 - Test Field D2"
+      Label:              "157726 - Test F"
+      Heading1:           "157726"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - ENG:
+      Description:        "157726 - Test Field D2"
+      Label:              "157726 - Test F"
+      Heading1:           "157726"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - FRA:
+      Description:        "157726 - Test Field D2"
+      Label:              "157726 - Test F"
+      Heading1:           "157726"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - JPN:
+      Description:        "157726 - Test Field D2"
+      Label:              "157726 - Test F"
+      Heading1:           "157726"
+      Heading2:           "-"
+      Heading3:           "Test"
+
+  - TRK:
+      Description:        "157726 - Test Field D2"
+      Label:              "157726 - Test F"
+      Heading1:           "157726"
+      Heading2:           "-"
+      Heading3:           "Test"

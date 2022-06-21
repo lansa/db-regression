@@ -1,0 +1,62 @@
+﻿File:
+  Name:                           VTL157726D
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157726D
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157726 Test File"
+
+  - ENG:
+      Description:        "157726 Test File"
+
+  - FRA:
+      Description:        "157726 Test File"
+
+  - JPN:
+      Description:        "157726 Test File"
+
+  - TRK:
+      Description:        "157726 Test File"
+
+  Real Fields:
+  - F157726D1:
+      Type:               Decimal
+      Length:             15
+      Decimals:           0
+
+  - F157726D2:
+      Type:               String
+      Length:             100
+      Decimals:           0
+
+  - F157726D3:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
+  Primary Keys:
+  - F157726D1
+  - F157726D2

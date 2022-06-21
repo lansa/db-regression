@@ -1,0 +1,96 @@
+﻿Process:
+  Name:                      VT157726
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Compare_File_Def BIF changes"
+
+  - ENG:
+      Description:        "Compare_File_Def BIF changes"
+
+  - FRA:
+      Description:        "Compare_File_Def BIF changes"
+
+  - JPN:
+      Description:        "Compare_File_Def BIF changes"
+
+  - TRK:
+      Description:        "Compare_File_Def BIF changes"
+
+  Functions:
+  - V57726A:
+      Name:               V57726A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 157726 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 157726 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 157726 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 157726 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 157726 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57726C:
+      Name:               V57726C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Compare_File_Def - VTL157726C"
+
+      - ENG:
+          Description:        "Compare_File_Def - VTL157726C"
+
+      - FRA:
+          Description:        "Compare_File_Def - VTL157726C"
+
+      - JPN:
+          Description:        "Compare_File_Def - VTL157726C"
+
+      - TRK:
+          Description:        "Compare_File_Def - VTL157726C"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57726D:
+      Name:               V57726D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Compare_File_Def - VTL157726D"
+
+      - ENG:
+          Description:        "Compare_File_Def - VTL157726D"
+
+      - FRA:
+          Description:        "Compare_File_Def - VTL157726D"
+
+      - JPN:
+          Description:        "Compare_File_Def - VTL157726D"
+
+      - TRK:
+          Description:        "Compare_File_Def - VTL157726D"
+
+      Allowed Next Functions:
+      - "*ANY"
