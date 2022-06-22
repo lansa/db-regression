@@ -196,6 +196,9 @@ try {
         Remove-Item -Path (Join-Path $Root $FullReportFile) -ErrorAction SilentlyContinue
         Remove-Item -Path (Join-Path $Root $SummaryFile) -ErrorAction SilentlyContinue
         Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
+
+        Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
+        git rest --hard HEAD
     }
 
     # if ( $Import ) {
