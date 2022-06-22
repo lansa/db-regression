@@ -75,7 +75,7 @@
     #LF_rc := OK
     #LF_file_name := VTL158011C
     #LF_backup_file_name_prefix := 'x_backup_'
-    #LF_package_path := '\\syd6\ccs\Tests\158000-158999\158011\' + #LF_file_name + '\'
+    #LF_package_path := '\\10.2.0.203\ccs\Tests\158000-158999\158011\' + #LF_file_name + '\'
     #LF_vl_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
     #LF_msi_path := *TEMP_DIR
     
