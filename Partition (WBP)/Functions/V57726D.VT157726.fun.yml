@@ -53,7 +53,7 @@
     
     * Initialize local variables.
     #LF_file_name := VTL157726D
-    #LF_package_path := '\\syd6\CCS\Tests\157000-157999\157726\VTL157726D\'
+    #LF_package_path := '\\10.2.0.203\CCS\Tests\157000-157999\157726\VTL157726D\'
     #LF_vl_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
     #LF_msi_path := *TEMP_DIR
     #LF_rc := OK
