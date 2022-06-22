@@ -20,8 +20,8 @@ And to re-compile because there has been a code generation change:
 
 param (
     [string] $Partition = 'WBP',
-    [boolean] $Import = $true,
-    [boolean] $Compile = $true,
+    [boolean] $Import = $false,
+    [boolean] $Compile = $false,
     [boolean] $Test = $true,
     [boolean] $PrimaryOnly = $true
 )
@@ -68,6 +68,23 @@ function Import{
         $ErrorMessage = "$(Log-Date) $x_err exists and indicates an import error has occurred."
         Write-Host $ErrorMessage
         throw
+    }
+}
+
+function New-Tuple {
+    Param(
+        [Parameter(
+            Mandatory=$true,
+            ValueFromPipeline=$true,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [ValidateCount(2,20)]
+        [array]$Values
+    )
+
+    Process {
+        $types = ($Values | ForEach-Object { $_.GetType().Name }) -join ','
+        New-Object "Tuple[$types]" $Values
     }
 }
 
@@ -120,7 +137,11 @@ function Compile{
         [string] $List
     )
 
-    [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/PROJECT=$List", "/VCONLY=NO", "/OBJECTS=ALL")
+    if ( $List -eq '') {
+        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX")
+    } else {
+        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/PROJECT=$List", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX")
+    }
 
     $installer_file = Join-Path $LansaRoot 'lansa\compile.cmd'
 
@@ -131,7 +152,8 @@ function Compile{
     &$installer_file $StdArguments
     Write-Host ("$(Log-Date) LastExitCode = $LastExitCode")
     if ( $LASTEXITCODE -ne 0 ){
-        throw "$(Log-Date) Compile returned error code $LASTEXITCODE."
+        Write-Host "$(Log-Date) Ignore compile errors whilst Table compiles are always flagged in error"
+        # throw "$(Log-Date) Compile returned error code $LASTEXITCODE."
     }
 }
 
@@ -277,34 +299,35 @@ try {
     # }
 
     if ( $Compile ) {
-        Write-Host "$(Log-Date) Compile all the Secondary Tests"
+        Write-Host "$(Log-Date) Compile all the Tests"
 
         foreach ($Root in $RootList ){
-            # if ( $Root -eq $PrimaryPath) {
-            #     continue
+
+            Write-Host ("$(Log-Date) Compiling all objects under VCS Control in $Root")
+
+            Compile $Root ''
+
+            Write-Host ("$(Log-Date) ************************************************************")
+
+            # $CompileList = @(
+            #     ("L157033"),
+            #     ("L156118"),
+            #     ("L159821"),
+            #     ("L157722"),
+            #     ("L160466"),
+            #     ("L156710"),
+            #     ("L161348"),
+            #     ("L159434"),
+            #     ("L159585"),
+            #     ("L158011"),
+            #     ("L159138"),
+            #     ("L160553")
+            # )
+            # foreach ($CompileItem in $CompileList) {
+            #     Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
+            #     Compile $Root $CompileItem
+            #     Write-Host ("$(Log-Date) ************************************************************")
             # }
-
-            Write-Host ("$(Log-Date) Compiling $Root")
-
-            $CompileList = @(
-                ("L157033"),
-                ("L156118"),
-                ("L159821"),
-                ("L157722"),
-                ("L160466"),
-                ("L156710"),
-                ("L161348"),
-                ("L159434"),
-                ("L159585"),
-                ("L158011"),
-                ("L159138"),
-                ("L160553")
-            )
-            foreach ($CompileItem in $CompileList) {
-                Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
-                Compile $Root $CompileItem
-                Write-Host ("$(Log-Date) ************************************************************")
-            }
         }
     }
 
@@ -312,12 +335,8 @@ try {
         Write-Host "$(Log-Date) Compile Tests that must be compiled each time its tested"
 
         foreach ($Root in $RootList ){
-            # if ( $Root -eq $PrimaryPath) {
-            #     continue
-            # }
-
             Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
-            Compile $Root 'L157726'
+            #Compile $Root 'L157726'
             Write-Host ("$(Log-Date) ************************************************************")
         }
 
@@ -337,14 +356,23 @@ try {
         #     ("VT160553", "V60553A")
         # )
 
-        $TestList = @(
-            ("VT157726", "V57726A")
-        )
+        [System.Collections.ArrayList]$TestList = @()
+        $TestList.Add( $(New-Tuple "VT157726", "V57726A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "2VT157726", "2V57726A") )
+        # $TestList[0].Item(0)
+        # $TestList[0].Item(1)
+        # $TestList[0].Item1
+        # $TestList[1].Item(0)
+        # $TestList[1].Item(1)
+        # $TestList[1].Item1
+
         # Run tests in EVERY environment.
         # Only the Primary environment is configured to run IBM i and SuperServer tests
         foreach ($Root in $RootList ){
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
+                # $TestItem.GetType()
+                # $TestItem
                 # if ( $TestItem[1] -eq "VT57726A") {
                 #     # Don't test this test on the Primary because it requires importing and compiling every time,
                 #     # and compiling is done differently in a non-VCS
@@ -353,12 +381,13 @@ try {
                 #     }
 
                 # }
-                Test $Root $TestItem[0] $TestItem[1]
+                Write-Host ("$(Log-Date) Testing $Root $($TestItem.Item1) $($TestItem.Item2)")
+                Test $Root $TestItem.Item1 $TestItem.Item2
             }
         }
     }
 
-    Write-Host "$(Log-Date) Import, Compile and/or test completed successfully"
+    Write-Host "$(Log-Date) Import, Compile and/or test completed without an exception being raised. Success/Failure reports below..."
 } catch {
     $_
     # To show inner exception...
