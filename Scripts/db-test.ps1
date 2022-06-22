@@ -336,51 +336,30 @@ try {
 
         foreach ($Root in $RootList ){
             Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
-            #Compile $Root 'L157726'
+            Compile $Root 'L157726'
             Write-Host ("$(Log-Date) ************************************************************")
         }
 
-        # $TestList = @(
-        #     ("VT157033", "V57033A"),
-        #     ("VT156118", "V56118A"),
-        #     ("VT159821", "V59821A"),
-        #     ("VT157722", "V57722A"),
-        #     ("VT160466", "V60466A"),
-        #     ("VT156710", "V56710A"),
-        #     ("VT161348", "V61348A"),
-        #     ("VT157726", "V57726A"),
-        #     ("VT159434", "V59434A"),
-        #     ("VT159585", "V59585A"),
-        #     ("VT158011", "V58011A"),
-        #     ("VT159138", "V59138A"),
-        #     ("VT160553", "V60553A")
-        # )
-
         [System.Collections.ArrayList]$TestList = @()
+        $TestList.Add( $(New-Tuple "VT157033", "V57033A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT156118", "V56118A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159821", "V59821A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT157722", "V57722A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT160466", "V60466A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT156710", "V56710A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT161348", "V61348A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VT157726", "V57726A") ) | Out-Null
-        # $TestList.Add( $(New-Tuple "2VT157726", "2V57726A") )
-        # $TestList[0].Item(0)
-        # $TestList[0].Item(1)
-        # $TestList[0].Item1
-        # $TestList[1].Item(0)
-        # $TestList[1].Item(1)
-        # $TestList[1].Item1
+        $TestList.Add( $(New-Tuple "VT159434", "V59434A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159585", "V59585A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT158011", "V58011A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159138", "V59138A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT160553", "V60553A") ) | Out-Null
 
         # Run tests in EVERY environment.
         # Only the Primary environment is configured to run IBM i and SuperServer tests
         foreach ($Root in $RootList ){
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
-                # $TestItem.GetType()
-                # $TestItem
-                # if ( $TestItem[1] -eq "VT57726A") {
-                #     # Don't test this test on the Primary because it requires importing and compiling every time,
-                #     # and compiling is done differently in a non-VCS
-                #     if ( $Root -eq $PrimaryPath) {
-                #         continue
-                #     }
-
-                # }
                 Write-Host ("$(Log-Date) Testing $Root $($TestItem.Item1) $($TestItem.Item2)")
                 Test $Root $TestItem.Item1 $TestItem.Item2
             }
