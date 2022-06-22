@@ -198,7 +198,7 @@ try {
         Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
 
         Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
-        git rest --hard HEAD
+        git reset --hard HEAD
     }
 
     # if ( $Import ) {
