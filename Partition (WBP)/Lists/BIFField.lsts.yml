@@ -1,0 +1,502 @@
+﻿List:
+  Name:               Import BIF Fields
+  Stored As:          User
+
+  Objects:
+  - BIFA001A:
+      Type:               Field
+
+  - BIFA001B:
+      Type:               Field
+
+  - BIFA001C:
+      Type:               Field
+
+  - BIFA001D:
+      Type:               Field
+
+  - BIFA001E:
+      Type:               Field
+
+  - BIFA001F:
+      Type:               Field
+
+  - BIFA001G:
+      Type:               Field
+
+  - BIFA002A:
+      Type:               Field
+
+  - BIFA002B:
+      Type:               Field
+
+  - BIFA002C:
+      Type:               Field
+
+  - BIFA003A:
+      Type:               Field
+
+  - BIFA003B:
+      Type:               Field
+
+  - BIFA004A:
+      Type:               Field
+
+  - BIFA010A:
+      Type:               Field
+
+  - BIFA010B:
+      Type:               Field
+
+  - BIFA010C:
+      Type:               Field
+
+  - BIFA010D:
+      Type:               Field
+
+  - BIFA010E:
+      Type:               Field
+
+  - BIFA010F:
+      Type:               Field
+
+  - BIFA010G:
+      Type:               Field
+
+  - BIFA020A:
+      Type:               Field
+
+  - BIFA020B:
+      Type:               Field
+
+  - BIFA020C:
+      Type:               Field
+
+  - BIFA020D:
+      Type:               Field
+
+  - BIFA020E:
+      Type:               Field
+
+  - BIFA032A:
+      Type:               Field
+
+  - BIFA040A:
+      Type:               Field
+
+  - BIFA040B:
+      Type:               Field
+
+  - BIFA040C:
+      Type:               Field
+
+  - BIFA040D:
+      Type:               Field
+
+  - BIFA077A:
+      Type:               Field
+
+  - BIFA078A:
+      Type:               Field
+
+  - BIFA100A:
+      Type:               Field
+
+  - BIFA100B:
+      Type:               Field
+
+  - BIFA100C:
+      Type:               Field
+
+  - BIFA100D:
+      Type:               Field
+
+  - BIFA10A:
+      Type:               Field
+
+  - BIFA10B:
+      Type:               Field
+
+  - BIFA10C:
+      Type:               Field
+
+  - BIFA10D:
+      Type:               Field
+
+  - BIFA10E:
+      Type:               Field
+
+  - BIFA128A:
+      Type:               Field
+
+  - BIFA128B:
+      Type:               Field
+
+  - BIFA128C:
+      Type:               Field
+
+  - BIFA128D:
+      Type:               Field
+
+  - BIFA132A:
+      Type:               Field
+
+  - BIFA256A:
+      Type:               Field
+
+  - BIFA256B:
+      Type:               Field
+
+  - BIFA256C:
+      Type:               Field
+
+  - BIFA256D:
+      Type:               Field
+
+  - BIFA256E:
+      Type:               Field
+
+  - BIFA256F:
+      Type:               Field
+
+  - BIFA256G:
+      Type:               Field
+
+  - BIFA256H:
+      Type:               Field
+
+  - BIFA50A:
+      Type:               Field
+
+  - BIFA50B:
+      Type:               Field
+
+  - BIFA7A:
+      Type:               Field
+
+  - BIFB001A:
+      Type:               Field
+
+  - BIFB001B:
+      Type:               Field
+
+  - BIFB001C:
+      Type:               Field
+
+  - BIFB001D:
+      Type:               Field
+
+  - BIFB001E:
+      Type:               Field
+
+  - BIFB512A:
+      Type:               Field
+
+  - BIFBLOBA:
+      Type:               Field
+
+  - BIFBLOBB:
+      Type:               Field
+
+  - BIFC001KA:
+      Type:               Field
+
+  - BIFC001KB:
+      Type:               Field
+
+  - BIFC004A:
+      Type:               Field
+
+  - BIFC010A:
+      Type:               Field
+
+  - BIFC026A:
+      Type:               Field
+
+  - BIFC026B:
+      Type:               Field
+
+  - BIFC032KA:
+      Type:               Field
+
+  - BIFC056KA:
+      Type:               Field
+
+  - BIFC056KB:
+      Type:               Field
+
+  - BIFC064KA:
+      Type:               Field
+
+  - BIFC064KB:
+      Type:               Field
+
+  - BIFC100A:
+      Type:               Field
+
+  - BIFC100B:
+      Type:               Field
+
+  - BIFC256A:
+      Type:               Field
+
+  - BIFC256B:
+      Type:               Field
+
+  - BIFC256C:
+      Type:               Field
+
+  - BIFC256D:
+      Type:               Field
+
+  - BIFC256E:
+      Type:               Field
+
+  - BIFC256F:
+      Type:               Field
+
+  - BIFC500A:
+      Type:               Field
+
+  - BIFC500B:
+      Type:               Field
+
+  - BIFCLOBA:
+      Type:               Field
+
+  - BIFCMSG:
+      Type:               Field
+
+  - BIFDT26A:
+      Type:               Field
+
+  - BIFDT26B:
+      Type:               Field
+
+  - BIFDT26C:
+      Type:               Field
+
+  - BIFDT26D:
+      Type:               Field
+
+  - BIFINT1A:
+      Type:               Field
+
+  - BIFINT1B:
+      Type:               Field
+
+  - BIFINT2A:
+      Type:               Field
+
+  - BIFINT2B:
+      Type:               Field
+
+  - BIFINT4A:
+      Type:               Field
+
+  - BIFINT4B:
+      Type:               Field
+
+  - BIFINT8A:
+      Type:               Field
+
+  - BIFINT8B:
+      Type:               Field
+
+  - BIFMSG1:
+      Type:               Field
+
+  - BIFMSG2:
+      Type:               Field
+
+  - BIFMSGC:
+      Type:               Field
+
+  - BIFMSGCNT:
+      Type:               Field
+
+  - BIFN0700A:
+      Type:               Field
+
+  - BIFN0702A:
+      Type:               Field
+
+  - BIFNC004A:
+      Type:               Field
+
+  - BIFNC004B:
+      Type:               Field
+
+  - BIFNC01KA:
+      Type:               Field
+
+  - BIFNC01KB:
+      Type:               Field
+
+  - BIFNC078A:
+      Type:               Field
+
+  - BIFNC078B:
+      Type:               Field
+
+  - BIFNC256A:
+      Type:               Field
+
+  - BIFNC256B:
+      Type:               Field
+
+  - BIFNC256C:
+      Type:               Field
+
+  - BIFNC256D:
+      Type:               Field
+
+  - BIFNC256E:
+      Type:               Field
+
+  - BIFNC256F:
+      Type:               Field
+
+  - BIFNV512A:
+      Type:               Field
+
+  - BIFNV512B:
+      Type:               Field
+
+  - BIFP0300A:
+      Type:               Field
+
+  - BIFP0500A:
+      Type:               Field
+
+  - BIFP0700A:
+      Type:               Field
+
+  - BIFP0700B:
+      Type:               Field
+
+  - BIFP0700C:
+      Type:               Field
+
+  - BIFP0700D:
+      Type:               Field
+
+  - BIFP0700E:
+      Type:               Field
+
+  - BIFP0700F:
+      Type:               Field
+
+  - BIFP0700G:
+      Type:               Field
+
+  - BIFP0702A:
+      Type:               Field
+
+  - BIFP1500A:
+      Type:               Field
+
+  - BIFP1504A:
+      Type:               Field
+
+  - BIFP1504B:
+      Type:               Field
+
+  - BIFP1504C:
+      Type:               Field
+
+  - BIFP1504D:
+      Type:               Field
+
+  - BIFP1504E:
+      Type:               Field
+
+  - BIFP2504A:
+      Type:               Field
+
+  - BIFP6315A:
+      Type:               Field
+
+  - BIFP6315B:
+      Type:               Field
+
+  - BIFPGM:
+      Type:               Field
+
+  - BIFS064KA:
+      Type:               Field
+
+  - BIFS100A:
+      Type:               Field
+
+  - BIFS100B:
+      Type:               Field
+
+  - BIFS512A:
+      Type:               Field
+
+  - BIFS512B:
+      Type:               Field
+
+  - BIFS512C:
+      Type:               Field
+
+  - BIFS512D:
+      Type:               Field
+
+  - BIFS512E:
+      Type:               Field
+
+  - BIFS512F:
+      Type:               Field
+
+  - BIFU056KA:
+      Type:               Field
+
+  - BIFU056KB:
+      Type:               Field
+
+  - BIFU064KA:
+      Type:               Field
+
+  - BIFU064KB:
+      Type:               Field
+
+  - BIFU100A:
+      Type:               Field
+
+  - BIFU100B:
+      Type:               Field
+
+  - BIFU100C:
+      Type:               Field
+
+  - BIFU512A:
+      Type:               Field
+
+  - BIFU512B:
+      Type:               Field
+
+  - BIFUINT1A:
+      Type:               Field
+
+  - BIFUINT1B:
+      Type:               Field
+
+  - BIFUINT2A:
+      Type:               Field
+
+  - BIFUINT2B:
+      Type:               Field
+
+  - BIFUINT4A:
+      Type:               Field
+
+  - BIFUINT4B:
+      Type:               Field
+
+  - BIFUINT8A:
+      Type:               Field
+
+  - BIFUINT8B:
+      Type:               Field
