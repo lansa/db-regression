@@ -22,8 +22,9 @@ param (
     [string] $Partition = 'WBP',
     [boolean] $Import = $false,
     [boolean] $Compile = $false,
-    [boolean] $Test = $true,
-    [boolean] $PrimaryOnly = $true
+    [boolean] $Test = $false,
+    [boolean] $Primary = $false,
+    [boolean] $Secondary = $true
 )
 $script:ExitCode = 0
 $FullReportFile = "Verifier_Test_Report.txt"
@@ -133,14 +134,14 @@ function Compile{
     param (
         [Parameter(Mandatory=$true)]
         [string] $LansaRoot,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
         [string] $List
     )
 
     if ( $List -eq '') {
-        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX")
+        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "\BUILDID=DBTEST")
     } else {
-        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/PROJECT=$List", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX")
+        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/PROJECT=$List", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "\BUILDID=DBTEST")
     }
 
     $installer_file = Join-Path $LansaRoot 'lansa\compile.cmd'
@@ -172,9 +173,9 @@ try {
     $PrimaryPath = "C:\Program Files (x86)\Lansa"
     $RootList = @(
         $PrimaryPath
-        # ,
+        ,
         # "C:\lansa\TestSecondaryMySQL",
-        # "C:\lansa\TestSecondarySQLAnywhere",
+        "C:\Program Files (x86)\SQLAnywhere"
         # "C:\lansa\TestSecondaryORA"
     )
     # $RootList = @(
@@ -198,17 +199,19 @@ try {
         Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
 
         Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
+
+        Set-Location (Join-Path $Root "LANSA\VersionControl")
         git reset --hard HEAD
     }
 
     # if ( $Import ) {
     #     [boolean] $First = $true
     #     foreach ($Root in $RootList ){
-    #         if ( $First -and -not $PrimaryOnly) {
+    #         if ( $First -and -not $Primary) {
     #             $First = $false
     #             continue
     #         }
-    #         if ( -not $First -and $PrimaryOnly) {
+    #         if ( -not $First -and -not $Secondary) {
     #             continue
     #         }
     #         $First = $false
@@ -235,12 +238,18 @@ try {
     #         Write-Host ("$(Log-Date) Importing CVL_R")
     #         Import $Root (Join-Path $ImportBasePath "CVL_R - Re-usable Parts") (Join-Path $lansatempdir 'CVL_R.log')
 
-    #         Write-Host ("$(Log-Date) Copy UserLists for compiling")
-    #         $TestPath = Join-Path $Root "lansa\UserLists"
-    #         if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
-    #         $TestPath = Join-Path $TestPath $Partition
-    #         if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
-    #         Copy-Item (Join-Path $ImportBasePath "UserLists\*") $TestPath
+            # Write-Host ("$(Log-Date) Copy UserLists for compiling")
+            # # UserLists are yml files in the git repo which are loaded into the correct location for the IDE when either
+            # # the IDE is run or compile.cmd is run (which does a VCS get)
+
+            # # UserLists are in the git repo root directory called UserLists
+            # # Needs to be copied to <Root>\LANSA\<Current User\LX_NodeName>\UserLists\<Partition>
+            # # That is <Root>\LANSA\LANSA\UserLists\WBP
+            # $TestPath = Join-Path $Root "LANSA\lansa\UserLists"
+            # if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
+            # $TestPath = Join-Path $TestPath $Partition
+            # if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
+            # Copy-Item (Join-Path $ImportBasePath "UserLists\*") $TestPath
 
     #         $CCSImports = @("\\$syd6\CCS\Tests\157000-157999\157033",
     #                         "\\$syd6\CCS\Tests\156000-156999\156118",
@@ -264,73 +273,25 @@ try {
     #     }
     # }
 
-    # if ( $Compile -or $Test) {
-    #     [boolean] $First = $true
-    #     foreach ($Root in $RootList ){
-    #         if ( $First -and -not $PrimaryOnly) {
-    #             $First = $false
-    #             continue
-    #         }
-    #         if ( -not $First -and $PrimaryOnly) {
-    #             continue
-    #         }
-    #         $First = $false
-
-    #         Set-Location $Root
-    #         Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
-
-    #         $lansatempdir = Join-Path $root "tmp"
-
-    #         Write-Host "$(Log-Date) Imports that are required every time the test is compiled or tested"
-
-    #         # Is the equivalent of this in a VCS environment to undo all the changes using Git? Thus the original 
-    #         # versions will be restored?
-    #         # And I would have thought that 158011 needs re-importing every time. Maybe simply reverting all changes
-    #         # in git for every test will cover this need - test it out. Maybe 158011 restores the state correctly?
-    #         # Stil seems better to not leave it up to the test to back out the changes.
-    #         # Principle seems to be that the test starts by ensuring the table contains the starting data, makes
-    #         # the required changes and presumes that the test harness will end by reverting all source code changes.
-    #         # VL IDE is required to be run to load the changes when starting up. How can that be done from the command
-    #         $CCSCompileImports = @("\\$syd6\CCS\Tests\157000-157999\157726")
-    #         foreach ($CCSImport in $CCSCompileImports) {
-    #             $CCSNumber = Split-path $CCSImport -Leaf
-    #             Write-Host ("$(Log-Date) Importing $CCSNumber to $Root")
-    #             Import $Root $CCSImport (Join-Path $lansatempdir "$CCSNumber.log")
-    #             Write-Host ("$(Log-Date) ************************************************************")
-    #         }
-    #     }
-    # }
-
     if ( $Compile ) {
         Write-Host "$(Log-Date) Compile all the Tests"
 
+        [boolean] $First = $true
         foreach ($Root in $RootList ){
+            if ( $First -and -not $Primary) {
+                $First = $false
+                continue
+            }
+            if ( -not $First -and -not $Secondary) {
+                continue
+            }
+            $First = $false
 
             Write-Host ("$(Log-Date) Compiling all objects under VCS Control in $Root")
 
-            Compile $Root ''
+            Compile $Root
 
             Write-Host ("$(Log-Date) ************************************************************")
-
-            # $CompileList = @(
-            #     ("L157033"),
-            #     ("L156118"),
-            #     ("L159821"),
-            #     ("L157722"),
-            #     ("L160466"),
-            #     ("L156710"),
-            #     ("L161348"),
-            #     ("L159434"),
-            #     ("L159585"),
-            #     ("L158011"),
-            #     ("L159138"),
-            #     ("L160553")
-            # )
-            # foreach ($CompileItem in $CompileList) {
-            #     Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
-            #     Compile $Root $CompileItem
-            #     Write-Host ("$(Log-Date) ************************************************************")
-            # }
         }
     }
 
@@ -397,48 +358,51 @@ try {
     cmd /c exit -1    #Set $LASTEXITCODE
 } finally {
     Write-Host
-    # Search for errors in Verifier_Test_Report.txt
-    Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total Summary File"
-    Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "=================="
-    foreach ($Root in $RootList ){
-        if ( Test-Path (Join-Path $Root $FullReportFile)) {
-            $Measure = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "Completed with <ER>" -SimpleMatch |  Measure-Object -Line
-            if ( $Measure ) {
-                $global:TotalErrors += $Measure.Lines
-                Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with $($Measure.Lines) testing errors"
-            } else {
-                Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with 0 testing errors"
-            }
-            if ( $root -eq $PrimaryPath ){
-                $OtherWarnings = @(
-                    "*** <Missing Test Case>",
-                    "Missing test platform IBMI",
-                    "Missing test database type DB2ISERIES",
-                    "Missing test database type SQLANYWHERE",
-                    "Missing test database type MSSQLS",
-                    "Missing test database type MYSQL"
-                )
-                foreach ($Warning in $OtherWarnings ){
-                    $Measure = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$Warning" -SimpleMatch |  Measure-Object -Line
-                    if ( $Measure -and $Measure.Lines -gt 0 ) {
-                        $TotalMissingTests += $Measure.Lines
-                        Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $Warning"
+
+    if ( $Test ) {
+        # Search for errors in Verifier_Test_Report.txt
+        Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total Summary File"
+        Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "=================="
+        foreach ($Root in $RootList ){
+            if ( Test-Path (Join-Path $Root $FullReportFile)) {
+                $Measure = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "Completed with <ER>" -SimpleMatch |  Measure-Object -Line
+                if ( $Measure ) {
+                    $global:TotalErrors += $Measure.Lines
+                    Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with $($Measure.Lines) testing errors"
+                } else {
+                    Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with 0 testing errors"
+                }
+                if ( $root -eq $PrimaryPath ){
+                    $OtherWarnings = @(
+                        "*** <Missing Test Case>",
+                        "Missing test platform IBMI",
+                        "Missing test database type DB2ISERIES",
+                        "Missing test database type SQLANYWHERE",
+                        "Missing test database type MSSQLS",
+                        "Missing test database type MYSQL"
+                    )
+                    foreach ($Warning in $OtherWarnings ){
+                        $Measure = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$Warning" -SimpleMatch |  Measure-Object -Line
+                        if ( $Measure -and $Measure.Lines -gt 0 ) {
+                            $TotalMissingTests += $Measure.Lines
+                            Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $Warning"
+                        }
                     }
                 }
+            } else {
+                Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$(Join-Path $Root $FullReportFile) Does not exist"
             }
-        } else {
-            Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$(Join-Path $Root $FullReportFile) Does not exist"
+            # Append this Environments summary file to a sumary of summaries file
+            Get-Content -Path (Join-Path $Root $SummaryFile) | Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
+            Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "************************************************************"
         }
-        # Append this Environments summary file to a sumary of summaries file
-        Get-Content -Path (Join-Path $Root $SummaryFile) | Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
-        Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "************************************************************"
+        Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "`n"
+        Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total errors $global:TotalErrors"
+        if ( $TotalMissingTests -gt 0 ){
+            Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total missing tests $TotalMissingTests"
+        }
+        
+        # Display the summary of summaries file
+        Get-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
     }
-    Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "`n"
-    Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total errors $global:TotalErrors"
-    if ( $TotalMissingTests -gt 0 ){
-        Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total missing tests $TotalMissingTests"
-    }
-
-    # Display the summary of summaries file
-    Get-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
 }
