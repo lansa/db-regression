@@ -192,7 +192,16 @@ try {
 
     # Delete Old Log Files
     Remove-Item -Path (Join-Path $PrimaryPath $FullReportFile) -ErrorAction SilentlyContinue
+    [boolean] $First = $true
     foreach ($Root in $RootList ){
+        if ( $First -and -not $Primary) {
+            $First = $false
+            continue
+        }
+        if ( -not $First -and -not $Secondary) {
+            continue
+        }
+        $First = $false
         Remove-Item -Path (Join-Path $Root $TotalSummaryFile) -ErrorAction SilentlyContinue
         Remove-Item -Path (Join-Path $Root $FullReportFile) -ErrorAction SilentlyContinue
         Remove-Item -Path (Join-Path $Root $SummaryFile) -ErrorAction SilentlyContinue
