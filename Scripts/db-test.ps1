@@ -22,7 +22,7 @@ param (
     [string] $Partition = 'WBP',
     [boolean] $Import = $false,
     [boolean] $Compile = $false,
-    [boolean] $Test = $false,
+    [boolean] $Test = $true,
     [boolean] $Primary = $false,
     [boolean] $Secondary = $true
 )
@@ -139,9 +139,9 @@ function Compile{
     )
 
     if ( $List -eq '') {
-        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "\BUILDID=DBTEST")
+        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "/BUILDID=DBTEST")
     } else {
-        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/PROJECT=$List", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "\BUILDID=DBTEST")
+        [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/PROJECT=$List", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "/BUILDID=DBTEST")
     }
 
     $installer_file = Join-Path $LansaRoot 'lansa\compile.cmd'
@@ -158,6 +158,16 @@ function Compile{
     }
 }
 
+function Remove-Logs{
+    param (
+        [Parameter(Mandatory=$true)]
+        [string] $LansaRoot
+    )
+    Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
+    Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
+    Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
+}
+
 # =============================================================================
 # Main program
 # =============================================================================
@@ -171,16 +181,19 @@ try {
     . "$script:IncludeDir\dot-CommonTools.ps1"
 
     $PrimaryPath = "C:\Program Files (x86)\Lansa"
-    $RootList = @(
-        $PrimaryPath
-        ,
-        # "C:\lansa\TestSecondaryMySQL",
-        "C:\Program Files (x86)\SQLAnywhere"
-        # "C:\lansa\TestSecondaryORA"
-    )
+
+    [System.Collections.ArrayList]$RootList = @()
+    if ( $Primary ) {
+        $RootList.Add( $PrimaryPath )
+    }
+
+    if ( $Secondary ) {
+        $RootList.Add( "C:\Program Files (x86)\SQLAnywhere" )
+    }
     # $RootList = @(
-    #     $PrimaryPath,
-    #     "C:\lansa\TestSecondarySQLAnywhere"
+    #     $PrimaryPath
+    #     ,
+    #     "C:\Program Files (x86)\SQLAnywhere"
     # )
 
     $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
@@ -191,20 +204,11 @@ try {
     }
 
     # Delete Old Log Files
-    Remove-Item -Path (Join-Path $PrimaryPath $FullReportFile) -ErrorAction SilentlyContinue
-    [boolean] $First = $true
+    # Always remove Primary Logs
+    Remove-Logs $PrimaryPath
     foreach ($Root in $RootList ){
-        if ( $First -and -not $Primary) {
-            $First = $false
-            continue
-        }
-        if ( -not $First -and -not $Secondary) {
-            continue
-        }
-        $First = $false
-        Remove-Item -Path (Join-Path $Root $TotalSummaryFile) -ErrorAction SilentlyContinue
-        Remove-Item -Path (Join-Path $Root $FullReportFile) -ErrorAction SilentlyContinue
-        Remove-Item -Path (Join-Path $Root $SummaryFile) -ErrorAction SilentlyContinue
+        Remove-Logs $Root
+
         Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
 
         Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
@@ -214,17 +218,7 @@ try {
     }
 
     # if ( $Import ) {
-    #     [boolean] $First = $true
     #     foreach ($Root in $RootList ){
-    #         if ( $First -and -not $Primary) {
-    #             $First = $false
-    #             continue
-    #         }
-    #         if ( -not $First -and -not $Secondary) {
-    #             continue
-    #         }
-    #         $First = $false
-
     #         Set-Location $Root
     #         Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
 
@@ -285,17 +279,7 @@ try {
     if ( $Compile ) {
         Write-Host "$(Log-Date) Compile all the Tests"
 
-        [boolean] $First = $true
         foreach ($Root in $RootList ){
-            if ( $First -and -not $Primary) {
-                $First = $false
-                continue
-            }
-            if ( -not $First -and -not $Secondary) {
-                continue
-            }
-            $First = $false
-
             Write-Host ("$(Log-Date) Compiling all objects under VCS Control in $Root")
 
             Compile $Root
