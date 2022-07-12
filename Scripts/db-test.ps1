@@ -23,7 +23,7 @@ param (
     [boolean] $Import = $false,
     [boolean] $Compile = $false,
     [boolean] $Test = $true,
-    [boolean] $Primary = $false,
+    [boolean] $Primary = $true,
     [boolean] $Secondary = $true
 )
 $script:ExitCode = 0
@@ -368,6 +368,8 @@ try {
                 if ( $root -eq $PrimaryPath ){
                     $OtherWarnings = @(
                         "*** <Missing Test Case>",
+                        "*** Unable to connect to <LU Name>",
+                        "*** Error:",
                         "Missing test platform IBMI",
                         "Missing test database type DB2ISERIES",
                         "Missing test database type SQLANYWHERE",
