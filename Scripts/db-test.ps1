@@ -8,8 +8,11 @@ An overview of these tests may be found here: https://www.evernote.com/l/AA1k-ry
 IMPORTANT:" To be run in a new instance created from the baked image, NOT while creating the image itself.
 
 .EXAMPLE
-Typically starts by only importing to the Primary environment, which needs to be followed by manual compiles:
+When originally written, started by only importing to the Primary environment, which needed to be followed by manual compiles:
 .\db-test.ps1 -PrimaryOnly $true
+Now the tests in are in git and the git repo just needs to be setup. And then compiles can be run through this script for
+all environments and also run the tests (default is to run the tests):
+.\db-test.ps1 -Compile $true
 Then a second run to import and compile the Secondary environments with testing driven from the Primary environment:
 .\db-test.ps1
 And when there is only a runtime change, you just want to run the tests:
