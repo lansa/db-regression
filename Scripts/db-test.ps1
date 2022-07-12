@@ -363,9 +363,11 @@ try {
         Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "=================="
         foreach ($Root in $RootList ){
             if ( Test-Path (Join-Path $Root $FullReportFile)) {
-                $Measure = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "Completed with <ER>" -SimpleMatch |  Measure-Object -Line
+                $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "Completed with <ER>" -SimpleMatch
+                $Measure = $Select |  Measure-Object -Line
                 if ( $Measure ) {
                     $global:TotalErrors += $Measure.Lines
+                    Add-Content -Path  (Join-Path $Root $SummaryFile) -Value $Select
                     Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with $($Measure.Lines) testing errors"
                 } else {
                     Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with 0 testing errors"
@@ -381,8 +383,8 @@ try {
                     if ( $Measure -and $Measure.Lines -gt 0 ) {
                         $global:TotalErrors += $Measure.Lines
                         # $lines = $Select | Select-Object -ExpandProperty line
+                        Add-Content -Path  (Join-Path $Root $SummaryFile) -Value $Select
                         Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $Error"
-                        $Select
                     }
                 }
 
@@ -396,9 +398,11 @@ try {
                         "Missing test database type MYSQL"
                     )
                     foreach ($Warning in $OtherWarnings ){
-                        $Measure = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$Warning" -SimpleMatch |  Measure-Object -Line
+                        $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$Warning" -SimpleMatch
+                        $Measure = $Select |  Measure-Object -Line
                         if ( $Measure -and $Measure.Lines -gt 0 ) {
                             $TotalMissingTests += $Measure.Lines
+                            Add-Content -Path  (Join-Path $Root $SummaryFile) -Value $Select
                             Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $Warning"
                         }
                     }
