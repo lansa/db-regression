@@ -377,14 +377,14 @@ try {
                     "*** Unable to connect to <LU Name>",
                     "*** Error:"
                 )
-                foreach ($Error in $OtherErrors ){
-                    $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$Error" -SimpleMatch
+                foreach ($OtherError in $OtherErrors ){
+                    $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$OtherError" -SimpleMatch
                     $Measure = $Select |  Measure-Object -Line
                     if ( $Measure -and $Measure.Lines -gt 0 ) {
                         $global:TotalErrors += $Measure.Lines
                         # $lines = $Select | Select-Object -ExpandProperty line
                         Add-Content -Path  (Join-Path $Root $SummaryFile) -Value $Select
-                        Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $Error"
+                        Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $OtherError"
                     }
                 }
 
