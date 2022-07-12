@@ -292,12 +292,14 @@ try {
     }
 
     if ( $Test ){
-        Write-Host "$(Log-Date) Compile Tests that must be compiled each time its tested"
+        if ( -not $Compile ) {
+            Write-Host "$(Log-Date) Compile Tests that must be compiled each time its tested"
 
-        foreach ($Root in $RootList ){
-            Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
-            Compile $Root 'L157726'
-            Write-Host ("$(Log-Date) ************************************************************")
+            foreach ($Root in $RootList ){
+                Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
+                Compile $Root 'L157726'
+                Write-Host ("$(Log-Date) ************************************************************")
+            }
         }
 
         [System.Collections.ArrayList]$TestList = @()
@@ -315,8 +317,8 @@ try {
         $TestList.Add( $(New-Tuple "VT159138", "V59138A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VT160553", "V60553A") ) | Out-Null
 
-        # Run tests in EVERY environment.
-        # Only the Primary environment is configured to run IBM i and SuperServer tests
+        Write-Host( "$(Log-Date) Run tests in EVERY environment." )
+        Write-Host( "$(Log-Date) Only the Primary environment is configured to run IBM i and SuperServer tests" )
         foreach ($Root in $RootList ){
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
