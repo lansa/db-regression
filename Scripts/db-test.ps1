@@ -370,11 +370,25 @@ try {
                 } else {
                     Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "Completed with 0 testing errors"
                 }
+
+                $OtherErrors = @(
+                    "*** Unable to connect to <LU Name>",
+                    "*** Error:"
+                )
+                foreach ($Error in $OtherErrors ){
+                    $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$Error" -SimpleMatch
+                    $Measure = $Select |  Measure-Object -Line
+                    if ( $Measure -and $Measure.Lines -gt 0 ) {
+                        $global:TotalErrors += $Measure.Lines
+                        # $lines = $Select | Select-Object -ExpandProperty line
+                        Add-Content -Path  (Join-Path $Root $SummaryFile) -Value "$($Measure.Lines) $Error"
+                        $Select
+                    }
+                }
+
                 if ( $root -eq $PrimaryPath ){
                     $OtherWarnings = @(
                         "*** <Missing Test Case>",
-                        "*** Unable to connect to <LU Name>",
-                        "*** Error:",
                         "Missing test platform IBMI",
                         "Missing test database type DB2ISERIES",
                         "Missing test database type SQLANYWHERE",
