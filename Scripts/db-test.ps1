@@ -23,10 +23,13 @@ And to re-compile because there has been a code generation change:
 
 param (
     [string] $Partition = 'WBP',
+    # "C:\Program Files (x86)\SQLAnywhere"
+    # "C:\Program Files (x86)\Oracle"
+    [string[]] $SecondaryRoots = @("C:\Program Files (x86)\Oracle"),
     [boolean] $Import = $false,
-    [boolean] $Compile = $false,
+    [boolean] $Compile = $true,
     [boolean] $Test = $true,
-    [boolean] $Primary = $true,
+    [boolean] $Primary = $false,
     [boolean] $Secondary = $true
 )
 $script:ExitCode = 0
@@ -191,13 +194,10 @@ try {
     }
 
     if ( $Secondary ) {
-        $RootList.Add( "C:\Program Files (x86)\SQLAnywhere" )
+        foreach ($root in $SecondaryRoots ){
+            $RootList.Add( $root )
+        }
     }
-    # $RootList = @(
-    #     $PrimaryPath
-    #     ,
-    #     "C:\Program Files (x86)\SQLAnywhere"
-    # )
 
     $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
     Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
