@@ -2,6 +2,7 @@
   Name:               F157033U_SUNI
   Type:               Char
   Length:             40
+  Unicode length:     40
   Decimals:           0
   Default Value:      "*NULL"
   Enabled For RDMLX:  Yes
