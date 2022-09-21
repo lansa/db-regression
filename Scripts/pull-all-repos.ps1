@@ -1,4 +1,4 @@
-[string[]] $SecondaryRoots = @("C:\Program Files (x86)\AZURESQL", "C:\Program Files (x86)\LANSA", "C:\Program Files (x86)\SQLANYWHERE")
+[string[]] $SecondaryRoots = @("C:\Program Files (x86)\AZURESQL", "C:\Program Files (x86)\LANSA", "C:\Program Files (x86)\SQLANYWHERE", "C:\Program Files (x86)\ORACLE")
 
 Push-Location
 
