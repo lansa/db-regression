@@ -25,7 +25,7 @@ param (
     [string] $Partition = 'WBP',
     # "C:\Program Files (x86)\SQLAnywhere"
     # "C:\Program Files (x86)\Oracle"
-    [string[]] $SecondaryRoots = @("C:\Program Files (x86)\Oracle"),
+    [string[]] $SecondaryRoots = @("C:\Program Files (x86)\AzureSQL"),
     [boolean] $Import = $false,
     [boolean] $Compile = $true,
     [boolean] $Test = $true,
