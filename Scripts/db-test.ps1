@@ -181,6 +181,7 @@ function Remove-Logs{
 $ErrorActionPreference = "Stop"
 
 try {
+    Push-Location
 	Write-Host $MyInvocation.MyCommand.Path
     $script:IncludeDir = Join-Path 'c:\lansa' 'scripts'
     $script:IncludeDir
@@ -193,11 +194,19 @@ try {
         $RootList.Add( $PrimaryPath )
     }
 
+    Write-Host( "$(Log-Date) List of Secondary environments to be compiled/tested:")
+    $SecondaryRoots
+    Write-Host
+
     if ( $Secondary ) {
         foreach ($root in $SecondaryRoots ){
-            $RootList.Add( $root )
+            $RootList.Add( $root ) | Out-Null
         }
     }
+
+    Write-Host( "$(Log-Date) List of ALL environments to be compiled/tested:")
+    $RootList
+    Write-Host
 
     $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
     Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
@@ -423,4 +432,6 @@ try {
         # Display the summary of summaries file
         Get-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
     }
+
+    Pop-Location
 }
