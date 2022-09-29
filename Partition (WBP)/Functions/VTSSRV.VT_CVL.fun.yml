@@ -28,9 +28,9 @@
     
     Define Field(#LF_VTSSrv_Server_Id) Reffld(#VTF_LU_NO)
     Define Field(#LF_VTSSrv_File_Data) Type(*CHAR) Length(256)
-    Define Field(#LF_VTSSrv_Last_User_Id) Type(*CHAR) Length(10) Input_Atr(LC)
+    Define Field(#LF_VTSSrv_Last_User_Id) Type(*CHAR) Length(20) Input_Atr(LC)
     Define Field(#LF_VTSSrv_User_Id) Reffld(#LF_VTSSrv_Last_User_Id)
-    Define Field(#LF_VTSSrv_Password) Type(*CHAR) Length(10) Input_Atr(LC)
+    Define Field(#LF_VTSSrv_Password) Type(*CHAR) Length(20) Input_Atr(LC)
     
     Define Field(#LF_VTSSrv_ITRO) Type(*CHAR) Length(1)
     Define Field(#LF_VTSSrv_ITRL) Type(*CHAR) Length(1)
@@ -119,10 +119,10 @@
     Use Builtin(Stm_File_Read) With_Args(#LF_VTSSrv_File_Id) To_Get(#LF_VTSSrv_File_Data #LF_VTSSrv_rc)
     If ((#LF_VTSSrv_rc = OK) *And (#LF_VTSSrv_File_Data *NE *Blanks) *And (#LF_VTSSrv_File_Data.Substring( 1 1 ) *NE ';'))
     
-    * <LU Name, Char(20)><User Id, Char(10)><Password, Char(10)>
+    * <LU Name, Char(20)><User Id, Char(20)><Password, Char(20)>
     #LF_VTSSrv_LU_Name := #LF_VTSSrv_File_Data.Substring( 1 20 )
-    #LF_VTSSrv_User_Id := #LF_VTSSrv_File_Data.Substring( 21 10 )
-    #LF_VTSSrv_Password := #LF_VTSSrv_File_Data.Substring( 31 10 )
+    #LF_VTSSrv_User_Id := #LF_VTSSrv_File_Data.Substring( 21 20 )
+    #LF_VTSSrv_Password := #LF_VTSSrv_File_Data.Substring( 41 20 )
     
     #LF_VTSSrv_Server_Id += 1
     
