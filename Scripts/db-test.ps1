@@ -27,10 +27,10 @@ param (
     # "C:\Program Files (x86)\Oracle"
     [string[]] $SecondaryRoots = @("C:\Program Files (x86)\AzureSQL"),
     [boolean] $Import = $false,
-    [boolean] $Compile = $true,
+    [boolean] $Compile = $false,
     [boolean] $Test = $true,
-    [boolean] $Primary = $false,
-    [boolean] $Secondary = $true
+    [boolean] $Primary = $true,
+    [boolean] $Secondary = $false
 )
 $script:ExitCode = 0
 $FullReportFile = "Verifier_Test_Report.txt"
@@ -187,18 +187,19 @@ try {
     $script:IncludeDir
     . "$script:IncludeDir\dot-CommonTools.ps1"
 
-    $PrimaryPath = "C:\Program Files (x86)\Lansa"
+    $PrimaryPath = split-Path (split-path (split-path (Split-Path -Parent $MyInvocation.MyCommand.Path)))
 
     [System.Collections.ArrayList]$RootList = @()
     if ( $Primary ) {
+        Write-Host( "$(Log-Date) PrimaryPath: $PrimaryPath")
         $RootList.Add( $PrimaryPath )
     }
 
-    Write-Host( "$(Log-Date) List of Secondary environments to be compiled/tested:")
-    $SecondaryRoots
-    Write-Host
-
     if ( $Secondary ) {
+        Write-Host( "$(Log-Date) List of Secondary environments to be compiled/tested:")
+        $SecondaryRoots
+        Write-Host
+
         foreach ($root in $SecondaryRoots ){
             $RootList.Add( $root ) | Out-Null
         }
