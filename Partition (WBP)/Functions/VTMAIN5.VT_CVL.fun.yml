@@ -165,7 +165,8 @@
     #Com_Owner.mthLogEvent( ('*** Error: ' + #LF_VTMain_Super_Server_Total_Error_Count.AsString + ' SuperServer Connection error(s). Look for <LU Name> for details') )
     Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
     Else
-    * Disable these warnings as they are numerous and too high a level to be useful. And theer are occasional false positives.
+    * Disable these warnings as they are numerous and too high a level to be useful. And there are occasional false positives.
+    
     * Report any required test platform not being covered.
     * Begin_Loop Using(#LF_VTMain_i) To(#LF_VTMain_Test_Platform_Count)
     * Get_Entry Number(#LF_VTMain_i) From_List(#wl_TestPlatform)
