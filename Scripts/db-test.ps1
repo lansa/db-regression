@@ -201,7 +201,11 @@ try {
         Write-Host
 
         foreach ($root in $SecondaryRoots ){
-            $RootList.Add( $root ) | Out-Null
+            if ( Test-Path $root ) {
+                $RootList.Add( $root ) | Out-Null
+            } else {
+                Write-Host ( "$(Log-Date) $root does not exist" )
+            }
         }
     }
 
@@ -216,18 +220,21 @@ try {
         throw
     }
 
-    # Delete Old Log Files
-    # Always remove Primary Logs
-    Remove-Logs $PrimaryPath
-    foreach ($Root in $RootList ){
-        Remove-Logs $Root
+    # All may be false when testing the summary logging code.
+    if ( $Import -or $Compile -or $Test) {
+        # Delete Old Log Files
+        # Always remove Primary Logs
+        Remove-Logs $PrimaryPath
+        foreach ($Root in $RootList ){
+            Remove-Logs $Root
 
-        Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
+            Add-Content -Path (Join-Path $Root $SummaryFile) -Value $Root
 
-        Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
+            Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
 
-        Set-Location (Join-Path $Root "LANSA\VersionControl")
-        git reset --hard HEAD
+            Set-Location (Join-Path $Root "LANSA\VersionControl")
+            git reset --hard HEAD
+        }
     }
 
     # if ( $Import ) {
@@ -385,7 +392,7 @@ try {
 
                 $OtherErrors = @(
                     "*** Unable to connect to <LU Name>",
-                    "*** Error:"
+                    "Error:"
                 )
                 foreach ($OtherError in $OtherErrors ){
                     $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$OtherError" -SimpleMatch
