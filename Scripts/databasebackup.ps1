@@ -1,5 +1,5 @@
-#Set-AWSCredentials -AccessKey AKIA3JDVQNWWHFSBKU55 -SecretKey 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 -StoreAs myAWScredentials
-Set-AWSCredentials myAWScredentials
+Set-AWSCredentials -AccessKey AKIA3JDVQNWWHFSBKU55 -SecretKey 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 -StoreAs myAWScredentials
+#Set-AWSCredentials myAWScredentials
 
 $server = 'dbregressiontest.database.windows.net'
 $backupPath = 'C:\Program Files (x86)\AZURESQL'
