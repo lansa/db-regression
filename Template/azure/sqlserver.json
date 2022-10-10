@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sqlServername": {
+          "type": "string",
+          "metadata": {
+            "description": "The Name of the SQL Server."
+      }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Enter the admin name"
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Enter the secure password for sql login"
+            }
+        },
+        "serverTags": {
+            "type": "object",
+            "defaultValue": {}
+        },
+        "allowAzureIps": {
+            "type": "bool",
+            "defaultValue": true
+        }
+
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('sqlServername')]",
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "tags": "[parameters('serverTags')]",
+            "properties": {
+                "administratorLogin": "[parameters('adminUsername')]",
+                "administratorLoginPassword": "[parameters('adminPassword')]"
+            },
+            "resources": [
+                {
+                    "condition": "[parameters('allowAzureIPs')]",
+                    "type": "firewallRules",
+                    "apiVersion": "2014-04-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('sqlServername'))]"
+                    ],
+                    "location": "[resourceGroup().location]",
+                    "name": "AllowAllWindowsAzureIps",
+                    "properties": {
+                        "startIpAddress": "0.0.0.0",
+                        "endIpAddress": "0.0.0.0"
+                    }
+                }
+            ]
+        }
+    ],
+    "outputs": {}
+}
