@@ -41,7 +41,7 @@ Resources:
       DBInstanceClass: db.t3.large
       Engine: mysql
       CopyTagsToSnapshot: true
-	  
+
   ORACLE_RDS:
     Type: AWS::RDS::DBInstance
     Properties:
