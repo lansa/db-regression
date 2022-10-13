@@ -1,0 +1,53 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description:
+  CloudFormation template for LANSA Database regression Testing.
+
+Parameters:
+  LANSA_VERSION:
+    Type: String
+    Description: LANSA Version that needs to be test
+  AMI_ID:
+    Type: String
+    Description: AMI_ID for provisioning the VM    
+  MYSQL_SNAPSHOT_ARN:
+    Type: String
+    Description: MYSQL SNAPSHOT ARN
+  ORACLE_SNAPSHOT_ARN:
+    Type: String
+    Description: ORACLE SNAPSHOT ARN
+    
+  
+Resources:
+  INSTANCE:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageID: !Ref AMI_ID
+      InstanceType: "m5a.xlarge"
+      KeyName: "RobG_id_rsa"
+      PropagateTagsToVolumeOnCreation: true
+      Tags: 
+        - Key: "LansaVersion"
+          Value: !Ref LANSA_VERSION
+        - Key: "Name"
+          Value: "DB Regression Test"        
+      
+  
+  MYSQL_RDS:
+	Type: AWS::RDS::DBInstance
+	Properties:
+      DBSnapshotIdentifier: !Ref MYSQL_SNAPSHOT_ARN
+	  AllocatedStorage: '50'
+	  DBInstanceClass: db.t3.large
+	  Engine: mysql
+      CopyTagsToSnapshot: true
+	  
+  ORACLE_RDS:
+	Type: AWS::RDS::DBInstance
+	Properties:
+      DBSnapshotIdentifier: !Ref ORACLE_SNAPSHOT_ARN
+	  AllocatedStorage: '40'
+	  DBInstanceClass: db.t3.small
+	  Engine: oracle-se2
+      CopyTagsToSnapshot: true
