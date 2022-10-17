@@ -21,7 +21,7 @@ param (
 
     [parameter(Mandatory=$true)]
     [string]$servername
-
+       
     # [parameter(Mandatory=$true)]
     # [int]$ip1,
 
@@ -42,7 +42,9 @@ $resourcegroup = $Rgroup
 #$currentrules = Get-AzSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -FirewallRuleName $firewallrulename
 #$serverip = $ip1, $ip2
 
+#To get the vm current IP
 $ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
+
 $databases = Invoke-Sqlcmd -ServerInstance $server -Username $user -Password $password -Query "SELECT [name]
 FROM master.dbo.sysdatabases where [name]='$dbname'"
 
@@ -71,6 +73,7 @@ Write-Host "lansa version:  $lansaversion"
 
 #Dynamic IP`s 
 New-AzureRmSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current VM IP"
+
 
 #Database backup
 foreach ($database in $databases)
