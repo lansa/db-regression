@@ -20,13 +20,13 @@ param (
     [string]$databasestype,
 
     [parameter(Mandatory=$true)]
-    [string]$servername,
+    [string]$servername
 
-    [parameter(Mandatory=$true)]
-    [int]$ip1,
+    # [parameter(Mandatory=$true)]
+    # [int]$ip1,
 
-    [parameter(Mandatory=$true)]
-    [int]$ip2
+    # [parameter(Mandatory=$true)]
+    # [int]$ip2
 
 )
 Set-AWSCredentials myAWScredentials
@@ -37,11 +37,10 @@ $s3bucket = 'lansa-us-east-1/db-regression-test/backups'
 $databasebackup = $s3bucket/$lansaversion/$databasestype
 $region = $location
 $resourcegroup = $Rgroup
-$firewallrulename = $rulename
 
-
-$currentrules = Get-AzSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -FirewallRuleName $firewallrulename
-$serverip = $ip1, $ip2
+#$firewallrulename = $rulename
+#$currentrules = Get-AzSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -FirewallRuleName $firewallrulename
+#$serverip = $ip1, $ip2
 
 $ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
 $databases = Invoke-Sqlcmd -ServerInstance $server -Username $user -Password $password -Query "SELECT [name]
@@ -56,20 +55,19 @@ Write-Host "region:         $region"
 Write-Host "lansa version:  $lansaversion"
 
 
-# Set firewall rules for server`s Static Ip`s
-#New-AzureRmSqlServerFirewallRule -ResourceGroupName "$resourcegroup" -ServerName "$server" -FirewallRuleName "$firewallrulename" -StartIpAddress "$startip" -EndIpAddress "$endip"
-foreach ($ip in $serverip)
-{
-    $rule = $currentRules | Where ($_.StartIpAddress -eq $ip)
-    If (!$rule ) 
-    {
-        New-AzureRmSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$1] -StartIpAddress $ip -EndIpAddress $ip
-    }
-    else {
-        Set-AzSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$i] -StartIpAddress $ip -EndIpAddress $ip
-    }
-    $i++
-}
+# Set firewall rules for server`s Static Ip`s ( Can be uncommented if required)
+# foreach ($ip in $serverip)
+# {
+#     $rule = $currentRules | Where ($_.StartIpAddress -eq $ip)
+#     If (!$rule ) 
+#     {
+#         New-AzureRmSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$1] -StartIpAddress $ip -EndIpAddress $ip
+#     }
+#     else {
+#         Set-AzSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$i] -StartIpAddress $ip -EndIpAddress $ip
+#     }
+#     $i++
+# }
 
 #Dynamic IP`s 
 New-AzureRmSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current VM IP"
