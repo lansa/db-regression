@@ -38,8 +38,7 @@ $databasebackup = $s3bucket/$lansaversion/$databasestype
 $region = $location
 $resourcegroup = $Rgroup
 $firewallrulename = $rulename
-$startip = ''
-$endip = ''
+
 
 $currentrules = Get-AzSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -FirewallRuleName $firewallrulename
 $serverip = $ip1, $ip2
@@ -64,10 +63,10 @@ foreach ($ip in $serverip)
     $rule = $currentRules | Where ($_.StartIpAddress -eq $ip)
     If (!$rule ) 
     {
-        New-AzureRmSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$1] -StartIpAddress $startip -EndIpAddress $endip
+        New-AzureRmSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$1] -StartIpAddress $ip -EndIpAddress $ip
     }
     else {
-        Set-AzSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$i] -StartIpAddress $startip -EndIpAddress $endip
+        Set-AzSqlServerFirewallRule -ServerName $server -FirewallRuleName $firewallrulename[$i] -StartIpAddress $ip -EndIpAddress $ip
     }
     $i++
 }
