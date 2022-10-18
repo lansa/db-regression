@@ -5,16 +5,28 @@ Description:
   CloudFormation template for LANSA Database regression Testing.
 
 Parameters:
-  LANSA_VERSION:
+  LANSAVERSION:
     Type: String
     Description: LANSA Version that needs to be test
-  AMI_ID:
+  AMIID:
     Type: String
-    Description: AMI_ID for provisioning the VM    
-  MYSQL_SNAPSHOT_ARN:
+    Description: AMI_ID for provisioning the VM
+  SECURITYGROUPID:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_SG_ID
+    Description: Security Group to be attached to the VM.
+  SUBNETIDFORVM:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_SUBNET_ID
+    Description: Subnet ID where VM would be provisioned.
+  IAMROLEFORVM:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_IAM_PROFILE
+    Description: IAM Instance profile to be attached to VM.
+  MYSQLSNAPSHOTARN:
     Type: String
     Description: MYSQL SNAPSHOT ARN
-  ORACLE_SNAPSHOT_ARN:
+  ORACLESNAPSHOTARN:
     Type: String
     Description: ORACLE SNAPSHOT ARN
     
@@ -23,30 +35,50 @@ Resources:
   INSTANCE:
     Type: AWS::EC2::Instance
     Properties:
-      ImageID: !Ref AMI_ID
+      ImageId: !Ref AMIID
       InstanceType: "m5a.xlarge"
       KeyName: "RobG_id_rsa"
+      SubnetId: !Ref SUBNETIDFORVM
+      IamInstanceProfile: !Ref IAMROLEFORVM 
+      PrivateDnsNameOptions:
+          EnableResourceNameDnsARecord: true
+      SecurityGroupIds:
+        - !Ref SECURITYGROUPID 
       PropagateTagsToVolumeOnCreation: true
       Tags: 
         - Key: "LansaVersion"
-          Value: !Ref LANSA_VERSION
+          Value: !Ref LANSAVERSION
         - Key: "Name"
           Value: "DB Regression Test"        
   
-  MYSQL_RDS:
+  MYSQLRDS:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBSnapshotIdentifier: !Ref MYSQL_SNAPSHOT_ARN
+      DBInstanceIdentifier:  !Join [ "", [ "mysql", !Ref LANSAVERSION ] ] 
+      DBSnapshotIdentifier: !Ref MYSQLSNAPSHOTARN
       AllocatedStorage: '50'
       DBInstanceClass: db.t3.large
       Engine: mysql
+      VPCSecurityGroups:
+        - !Ref SECURITYGROUPID
+      EnablePerformanceInsights: true
       CopyTagsToSnapshot: true
+      Tags: 
+        - Key: "LansaVersion"
+          Value: !Ref LANSAVERSION
 
-  ORACLE_RDS:
+  ORACLERDS:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBSnapshotIdentifier: !Ref ORACLE_SNAPSHOT_ARN
+      DBInstanceIdentifier: !Join [ "", [ "ora", !Ref LANSAVERSION ] ]
+      DBSnapshotIdentifier: !Ref ORACLESNAPSHOTARN
       AllocatedStorage: '40'
       DBInstanceClass: db.t3.small
       Engine: oracle-se2
+      VPCSecurityGroups:
+        - !Ref SECURITYGROUPID
+      EnablePerformanceInsights: true
       CopyTagsToSnapshot: true
+      Tags: 
+        - Key: "LansaVersion"
+          Value: !Ref LANSAVERSION
