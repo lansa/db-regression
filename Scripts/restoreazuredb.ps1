@@ -24,7 +24,6 @@ $ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
 #Print parameters
 
 Write-Host "server:            $server"
-Write-Host "region:            $region"
 Write-Host "lansa version:     $lansaversion"
 Write-Host "database name:     $database"
 Write-Host "targetServerName:  $targetServerName"
