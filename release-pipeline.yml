@@ -1,0 +1,58 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+trigger: none
+# - main
+
+pool:
+  vmImage: windows-2019
+
+parameters:
+
+  - name: mssql
+    displayName: MSSQL
+    type: boolean
+    default: True
+
+  - name: oracle
+    displayName: Oracle
+    type: boolean
+    default: True
+
+  - name: azure_sql
+    displayName: Azure SQL
+    type: boolean
+    default: True
+  
+  - name: application_version
+    displayName: Please include the application version
+    type: string
+    default: 150050 (default)
+  
+  - name: compile
+    displayName: Compile
+    type: boolean
+    default: True
+
+  - name: test
+    displayName: Test
+    type: boolean
+    default: True
+
+
+steps: 
+# - script: echo Executing MSSQL with Application version ${{ parameters.application_version }}
+- task: PowerShell@2
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/01/01.ps1'
+    arguments: '"${{ parameters.application_version }}"'
+  condition: eq('${{ parameters.mssql }}', 'true')
+
+- script: echo Executing Oracle with Application version ${{ parameters.application_version }}
+  condition: eq('${{ parameters.oracle }}', 'true')
+
+- script: echo Executing Azure SQL with Application version ${{ parameters.application_version }}
+  condition: eq('${{ parameters.azure_sql }}', 'true')
