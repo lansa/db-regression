@@ -44,12 +44,12 @@ parameters:
 
 
 steps: 
-# - script: echo Executing MSSQL with Application version ${{ parameters.application_version }}
-- task: PowerShell@2
-  inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/01/01.ps1'
-    arguments: '"${{ parameters.application_version }}"'
-  condition: eq('${{ parameters.mssql }}', 'true')
+- script: echo Executing MSSQL with Application version ${{ parameters.application_version }}
+# - task: PowerShell@2
+#   inputs:
+#     filePath: '$(System.DefaultWorkingDirectory)/01/01.ps1'
+#     arguments: '"${{ parameters.application_version }}"'
+#   condition: eq('${{ parameters.mssql }}', 'true')
 
 - script: echo Executing Oracle with Application version ${{ parameters.application_version }}
   condition: eq('${{ parameters.oracle }}', 'true')
