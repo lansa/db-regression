@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sqlServername": {
+            "value": "#sqlServername#" // TODO: Fill in parameter value
+        },
+        "adminUsername": {
+            "value": "#adminUsername#" // TODO: Fill in parameter value
+        },
+        "adminPassword": {
+            "value": "#adminPassword#" // TODO: Fill in parameter value
+        },
+        "serverTags": {
+            "value": "#serverTags#"
+        }
+    }
+}
