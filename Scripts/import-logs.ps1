@@ -40,7 +40,7 @@ foreach ($database in $databases)
     $databaseRootPath = Join-Path $RootPath $database
 	$compiledObjectsfile = Join-Path $databaseRootPath $compiledObjectspath
     $key = $totalSummaryPath + '/' + $database + '/CompiledObjects.txt'
-    Write-S3Object -BucketName $s3BasePath -Key $key -Content $compiledObjectsfile -Region $region
+    Write-S3Object -BucketName $s3BasePath -Key $key -File $compiledObjectsfile -Region $region
 }
 
 #FailedObjects.txt
