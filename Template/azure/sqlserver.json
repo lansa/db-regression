@@ -20,6 +20,9 @@
                 "description": "Enter the secure password for sql login"
             }
         },
+        "location": {
+            "type": "string"
+        },
         "serverTags": {
             "type": "object",
             "defaultValue": {}
@@ -33,7 +36,7 @@
             "name": "[parameters('sqlServername')]",
             "type": "Microsoft.Sql/servers",
             "apiVersion": "2014-04-01",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "tags": "[parameters('serverTags')]",
             "properties": {
                 "administratorLogin": "[parameters('adminUsername')]",

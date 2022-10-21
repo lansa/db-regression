@@ -11,6 +11,9 @@
         "adminPassword": {
             "value": "#adminPassword#" // TODO: Fill in parameter value
         },
+        "location": {
+            "value": "#location#" // TODO: Fill in parameter value
+        },
         "serverTags": {
             "value": "#serverTags#"
         }
