@@ -30,14 +30,14 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
   echo "No Exisiting VM found for this lansa version"
   $NO_OF_AMIS = (Get-EC2Image -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version } | Select-Object ImageId | Measure-Object | Select-Object Count).count
   if ($NO_OF_AMIS -eq 1){
-    echo "Found 1 AMI"
+    echo "Found 1 AMI with this version tag"
     $AMI_ID = (Get-EC2Image -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }).ImageId
     echo $AMI_ID
     New-CNFStack -StackName .........................}
   elseif ($NO_OF_AMIS -eq 0){
     echo "Did not find any AMI with this tag"}
   else{
-    echo "Found more than 1 tag for this version"}}
+    echo "Found more than 1 AMI with this version tag"}}
 
 else{
   echo "Found more than 1 VM with same value of LAnsa Version tag"}
