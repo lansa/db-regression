@@ -1,45 +1,52 @@
-﻿
+
+# dbTypes is containing database type names which will be coming from pipeline
 param (
-    [string] $dbType,
-    [string] $username 
+    [string[]] $dbTypes
 )
 
-$databaseType = $dbType
-$User = $username
 
-<#
-$file_data = Get-Content -Path "C:\Program Files (x86)\Lansa\Verifier_Connection.dat" -Encoding Byte -Raw
-#>
-
-$file_data = Get-Content "C:\Program Files (x86)\Lansa\Verifier_Connection.dat"
-
-echo($file_data)
-
-<#
-foreach($line in [System.IO.File]::ReadLines("C:\Program Files (x86)\Lansa\Verifier_Connection.dat"))
-{
-    Write-Output $line
-}
-#>
+# using this as dummy here for testing, we can remove this line in the final script
+$dbArray = 'MSSQLS','MYSQL'
 
 
-$DbTestScript = "C:\Program Files (x86)\AZURESQL\LANSA\VersionControl\Scripts\db-test.ps1"
+# this line will also be removed
+$dbTypes = $dbArray
 
 
-if($file_data -eq $databaseType){
-    echo("Database Type is correct")
-    &  "$DbTestScript" -compile $true -test $true
+# HashTable mapping database type name with LU Names
+$DB_LU_Map = @{
+    DB21SERIES = 'LANSA01_DEVPGMLIB'
+    MSSQLS = 'TestPrimaryMSSQLS'
+    SQLAZURE = 'TestSecondaryAZUR'
+    SQLANYWHERE = 'TestSecondarySQLA'
+    MYSQL = 'TestSecondaryMySQ'
+    ODBCORACLE = 'TestSecondaryORA'
 }
 
 
-<#
-$DbTestScript = "C:\Program Files (x86)\AZURESQL\LANSA\VersionControl\Scripts\db-test.ps1"
+#Iterarting over db types to remove the semicolon from particular line from verifier_connection.dat file
+foreach($db in $dbTypes){
 
+    if($DB_LU_Map.ContainsKey($db)){
+
+        $Path = 'C:\Program Files (x86)\Lansa\Verifier_Connection.dat'
+        $Content = [System.IO.File]::ReadAllLines($Path)
+
+        foreach ($string in (Get-Content 'C:\Program Files (x86)\Lansa\Verifier_Connection.dat'))
+        {
+            if($string.Contains($DB_LU_Map[$db])){
+                Write-Host("Changes made in $db")
+                #Here we are removing the semicolon
+                $Content = $Content -replace $string,$string.Substring(1)
+            }
+        }
+
+        $Content | Set-Content -Path $Path
+    }
+}
+
+# DB test script 
+$DbTestScript = 'C:\Program Files (x86)\AZURESQL\LANSA\VersionControl\Scripts\db-test.ps1'
+
+#Running the script here
 &  "$DbTestScript" -compile $true -test $true
-#>
-
-#Start-Process powershell db-test.ps1 -compile $true -test $false
-
-
-
-# Invoke-Item (start powershell ((Split-Path $MyInvocation.InvocationName) + "\db-test.ps1"))
