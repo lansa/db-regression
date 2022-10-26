@@ -213,13 +213,15 @@ try {
     $RootList
     Write-Host
 
-    $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
-    Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
-    if (-not (Test-Path -Path $ImportBasePath) ) {
-        Write-Host "$(Log-Date) $ImportBasePath does not exist"
-        throw
+    if ($Import) {
+        $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
+        Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
+        if (-not (Test-Path -Path $ImportBasePath) ) {
+            Write-Host "$(Log-Date) $ImportBasePath does not exist"
+            throw
+        }
     }
-
+    
     # All may be false when testing the summary logging code.
     if ( $Import -or $Compile -or $Test) {
         # Delete Old Log Files
