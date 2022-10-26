@@ -21,6 +21,9 @@ $sp = New-AzADServicePrincipal -ApplicationId $azureAppId
 #$sp = Get-AzADServicePrincipal -ApplicationId $azureAppId
 
 New-AzRoleAssignment -RoleDefinitionName Contributor -ApplicationId $sp.AppId
+Write-Host("Create new Client Secret using the Portal")
 
+<#
 $NewCredential = New-AzureADApplicationPasswordCredential -ObjectId $sp.AppId
 $NewCredential
+#>
