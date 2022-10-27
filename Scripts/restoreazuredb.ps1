@@ -39,7 +39,7 @@ $sppassword = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Sel
 #Connect to Azure
 $SecureStringPwd = $sppassword | ConvertTo-SecureString -AsPlainText -Force
 $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spappid, $SecureStringPwd
-Connect-AzureRmAccount -ServicePrincipal -Credential $pscredential -SubscriptionId $subscription -Tenant $tenant
+Connect-AzAccount -ServicePrincipal -Credential $pscredential -SubscriptionId $subscription -Tenant $tenant
 Set-AzContext -Tenant $tenant -SubscriptionId $subscription
 Write-Host "Connected to Azure cloud"
 
