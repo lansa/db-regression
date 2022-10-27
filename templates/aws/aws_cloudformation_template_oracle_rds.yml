@@ -1,0 +1,36 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description:
+  CloudFormation template for provisioning of Oracle RDS for LANSA Database regression Testing.
+
+Parameters:
+  LANSAVERSION:
+    Type: String
+    Description: LANSA Version that needs to be test
+  SECURITYGROUPID:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_SG_ID
+    Description: Security Group to be attached to the RDS.
+  ORACLESNAPSHOTARN:
+    Type: String
+    Description: ORACLE SNAPSHOT ARN
+    
+  
+Resources:   
+
+  ORACLERDS:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: !Join [ "", [ "ora", !Ref LANSAVERSION ] ]
+      DBSnapshotIdentifier: !Ref ORACLESNAPSHOTARN
+      AllocatedStorage: '40'
+      DBInstanceClass: db.t3.small
+      Engine: oracle-se2
+      VPCSecurityGroups:
+        - !Ref SECURITYGROUPID
+      EnablePerformanceInsights: true
+      CopyTagsToSnapshot: true
+      Tags: 
+        - Key: "LansaVersion"
+          Value: !Ref LANSAVERSION
