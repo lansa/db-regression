@@ -37,6 +37,7 @@ $sppassword = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Sel
 
 #--------------------#----------------------#
 #Connect to Azure
+Install-Module Az -AllowClobber
 $SecureStringPwd = $sppassword | ConvertTo-SecureString -AsPlainText -Force
 $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spappid, $SecureStringPwd
 Connect-AzAccount -ServicePrincipal -Credential $pscredential -SubscriptionId $subscription -Tenant $tenant
