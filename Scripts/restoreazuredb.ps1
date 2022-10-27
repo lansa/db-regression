@@ -75,7 +75,7 @@ if($sqlserver.ServerName -eq $server) {
 }
 else {
 	Write-Host "Creating New Azure SQL server.."
-    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "db-regression\Template\azure\sqlserver.json" -TemplateParameterObject $azureparam
+    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$(Build.StagingDirectory)/Template/azure/sqlserver.json" -TemplateParameterObject $azureparam
     Write-Host "Created the SQL server, Now Restoring the Database $db"
     New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceServerName -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $server -CopyDatabaseName $db
 }
