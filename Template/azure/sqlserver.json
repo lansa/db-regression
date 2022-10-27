@@ -21,7 +21,8 @@
             }
         },
         "location": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
         },
         "serverTags": {
             "type": "object",
