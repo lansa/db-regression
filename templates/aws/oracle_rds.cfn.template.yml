@@ -2,7 +2,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Description:
-  CloudFormation template for provisioning MYSQL RDS for LANSA Database regression Testing.
+  CloudFormation template for provisioning of Oracle RDS for LANSA Database Regression Test.
 
 Parameters:
   LANSAVERSION:
@@ -12,24 +12,22 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Default: DB_REGRESSION_TESTING_VM_SG_ID
     Description: Security Group to be attached to the RDS.
-  MYSQLSNAPSHOTARN:
+  ORACLESNAPSHOTARN:
     Type: String
-    Description: MYSQL SNAPSHOT ARN
+    Description: ORACLE SNAPSHOT ARN
+    
   
 Resources:   
-  
-  MYSQLRDS:
+
+  ORACLERDS:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier:  !Join [ "", [ "mysql", !Ref LANSAVERSION ] ] 
-      DBSnapshotIdentifier: !Ref MYSQLSNAPSHOTARN
-      AllocatedStorage: '50'
-      DBInstanceClass: db.t3.large
-      Engine: mysql
+      DBInstanceIdentifier: !Join [ "", [ "ora", !Ref LANSAVERSION ] ]
+      DBSnapshotIdentifier: !Ref ORACLESNAPSHOTARN
+      AllocatedStorage: '40'
+      DBInstanceClass: db.t3.small
+      Engine: oracle-se2
       VPCSecurityGroups:
         - !Ref SECURITYGROUPID
       EnablePerformanceInsights: true
       CopyTagsToSnapshot: true
-      Tags: 
-        - Key: "LansaVersion"
-          Value: !Ref LANSAVERSION

@@ -2,12 +2,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Description:
-  CloudFormation template for provisioning of VM for LANSA Database regression Testing.
+  CloudFormation template for provisioning of VM for LANSA Database Regression Test.
 
 Parameters:
-  LANSAVERSION:
-    Type: String
-    Description: LANSA Version that needs to be test
   AMIID:
     Type: String
     Description: AMI_ID for provisioning the VM
@@ -39,7 +36,5 @@ Resources:
         - !Ref SECURITYGROUPID 
       PropagateTagsToVolumeOnCreation: true
       Tags: 
-        - Key: "LansaVersion"
-          Value: !Ref LANSAVERSION
         - Key: "Name"
           Value: "DB Regression Test"
