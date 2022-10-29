@@ -69,8 +69,8 @@ else {
 
 
 #To get the vm current IP
-$ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
+#$ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
 
 #Dynamic IP`s 
-New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current_aws_vm_IP-$ThisIp" | Out-Default | Write-Host
+#New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current_aws_vm_IP-$ThisIp" | Out-Default | Write-Host
 #-------------------#-----------------------#
