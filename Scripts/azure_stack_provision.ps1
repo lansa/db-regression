@@ -91,5 +91,5 @@ else {
 $ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
 
 #Dynamic IP`s 
-New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName $ThisIp
+New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current_aws_vm_IP-$ThisIp"
 #-------------------#-----------------------#
