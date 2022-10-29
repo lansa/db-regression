@@ -15,16 +15,16 @@ param (
 )
 
 
-#####Parameters############
-$sql_server = "db-regression-$clone_lansa_version" #only accepting lower case
-$subscription = "739c4e86-bd75-4910-8d6e-d7eb23ab94f3"
-$tenant = "17e16064-c148-4c9b-9892-bb00e9589aa5"
 
 ##############Checking the clone version####################
 if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 	$clone_lansa_version = $lansa_version
  }
 
+ #####Parameters############
+$sql_server = "db-regression-$clone_lansa_version" #only accepting lower case
+$subscription = "739c4e86-bd75-4910-8d6e-d7eb23ab94f3"
+$tenant = "17e16064-c148-4c9b-9892-bb00e9589aa5"
 ###################################Unblock#####If########Needed####################################
 #Not needed as we are
 #$spappid = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty UID
