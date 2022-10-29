@@ -72,7 +72,7 @@ if($azure_tags -ge 1) {
 		Write-Host "Found Database. Restore not needed.."
 	} elseif ($db_name[$i] -ne "master") {
 		Write-Host "Not found the Database $db, Restoring.."
-		New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceServerName -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
+		New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
 		}
 	}
 }
@@ -80,7 +80,7 @@ else {
 	Write-Host "Creating New Azure SQL server and it does not exist with lansa version $clone_lansa_version .."
     New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$(Build.StagingDirectory)/Template/azure/sqlserver.json" -TemplateParameterObject $azure_template_param
     Write-Host "Created the SQL server, Now Restoring the Database $db"
-    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceServerName -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
+    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
 }
 
 #-------------------------#------------------------#
