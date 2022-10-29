@@ -31,7 +31,7 @@ $azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Name
 ############Template path###############################
 $azure_stack_scriptpath = $MyInvocation.MyCommand.Path
 $stack_script = Split-Path $azure_stack_scriptpath
-$git_repo_root = Get-Item $stack_script\..\Template\azure # Change this accordingly and use
+$git_repo_root = Get-Item $stack_script\..\Template\azure
 Write-Host "New_location - $git_repo_root"
 #####################ARM Template Params#################
 $azure_template_param = @{
