@@ -11,7 +11,7 @@ param (
 	[string]$sql_username,
 
 	[parameter(Mandatory=$true)]
-	[SecureString]$sql_password
+	[string]$sql_password
 )
 
 
