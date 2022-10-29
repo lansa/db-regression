@@ -48,8 +48,6 @@ $tenant = "17e16064-c148-4c9b-9892-bb00e9589aa5"
 
 #$sql_servers = Get-AzSqlServer -ResourceGroupName dbregressiontest
 #######################Retriving Azure Databases##################### 
-$Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
-$db_name = $Sqlserver_dbname.DatabaseName
 $db = "test"
 $azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Name
 #-------------------#-----------------------#
@@ -66,9 +64,11 @@ Write-Host "Checking Azure SQL Server with lansa version $clone_lansa_version ex
 
 if($azure_tags -ge 1) {
 	Write-Host "SQL Server with lansa version exist $clone_lansa_version. Checking Database Exist or not"
+	$Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
+	$db_name = $Sqlserver_dbname.DatabaseName
 	for($i=0; $i -lt $db_name.Length; $i++) 
 	{ 
-		if($clone_lansa_version -in $db_name[$i]) {
+		if($db -in $db_name[$i]) {
 		Write-Host "Found Database. Restore not needed.."
 	} elseif ($db_name[$i] -ne "master") {
 		Write-Host "Not found the Database $db, Restoring.."
