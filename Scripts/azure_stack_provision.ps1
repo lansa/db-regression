@@ -11,11 +11,7 @@ param (
 	[string]$sql_username,
 
 	[parameter(Mandatory=$true)]
-	[string]$sql_password,
-
-#####Required for template path#######################
-	[parameter(Mandatory=$true)]
-	[string]$source_path_alias
+	[string]$sql_password
 )
 
 
@@ -29,29 +25,8 @@ if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 $sql_server = "db-regression-$clone_lansa_version" #only accepting lower case
 $subscription = "739c4e86-bd75-4910-8d6e-d7eb23ab94f3"
 $tenant = "17e16064-c148-4c9b-9892-bb00e9589aa5"
-###################################Unblock#####If########Needed####################################
-#Not needed as we are
-#$spappid = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty UID
-#$sppassword = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty PWD | ConvertTo-SecureString -AsPlainText -Force
 
-#--------------------#----------------------#
-
-#Connect to Azure
-#Install-Module Az -AllowClobber
-
-###################################Unblock#####If########Needed####################################
-# $pscredential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spappid, $sppassword
-# Connect-AzAccount -ServicePrincipal -Credential $pscredential -SubscriptionId $subscription -Tenant $tenant
-# Set-AzContext -Tenant $tenant -SubscriptionId $subscription
-# Write-Host "Connected to Azure cloud.."
-
-#--------------------#------------------------#
-
-#Azure sql server creation
-#$sqlserver = Get-AzResource -ResourceName $servername -ResourceType 'Microsoft.Sql/servers' -ResourceGroupName dbregressiontest -ErrorAction SilentlyContinue
-
-#$sql_servers = Get-AzSqlServer -ResourceGroupName dbregressiontest
-#######################Retriving Azure Databases##################### 
+#######################Retriving Azure Resources using Tags ##################### 
 $db = "test"
 $azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Name
 #-------------------#-----------------------#
@@ -64,26 +39,26 @@ $azure_template_param = @{
 	"serverTags" = $clone_lansa_version
 }
 #Validating the Azure Sql Server Exist or not
-Write-Host "Checking Azure SQL Server with lansa version $clone_lansa_version exist or not..."
+Write-Host "Checking Azure SQL Server with lansa version $clone_lansa_version exist or not."
 
 if($azure_tags -ge 1) {
-	Write-Host "SQL Server with lansa version exist $clone_lansa_version. Checking Database Exist or not"
+	Write-Host "SQL Server with lansa version exist $clone_lansa_version. Checking Database Exist or not."
 	$Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
 	$db_name = $Sqlserver_dbname.DatabaseName
-	if ($db_name -contains $db) 
-	{ 
-		Write-Host "Found Database $db. Restore not needed.."
+	if ($db_name -contains $clone_lansa_version) { 
+		Write-Host "Found Database $clone_lansa_version. Restore not needed."
 	} 
-	else{
-		Write-Host "Not found the Database $db, Restoring.."
-		New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
-		}
+	else {
+		Write-Host "Not found the Database $clone_lansa_version, Restoring..."
+		New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $clone_lansa_version | Out-Default | Write-Host
+		
+	}
 }
 else {
-	Write-Host "Creating New Azure SQL server and it does not exist with lansa version $clone_lansa_version .."
-    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$source_path_alias/Template/azure/sqlserver.json" -TemplateParameterObject $azure_template_param
-    Write-Host "Created the SQL server, Now Restoring the Database $db"
-    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
+	Write-Host "Creating New Azure SQL server as no server found with lansa version $clone_lansa_version ..."
+    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/Template/azure/sqlserver.json" -TemplateParameterObject $azure_template_param
+    Write-Host "Created the SQL server, Now Restoring the Database $db..."
+    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $clone_lansa_version | Out-Default | Write-Host
 }
 
 #-------------------------#------------------------#
@@ -94,5 +69,5 @@ else {
 $ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
 
 #Dynamic IP`s 
-New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current_aws_vm_IP-$ThisIp"
+New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current_aws_vm_IP-$ThisIp" | Out-Default | Write-Host
 #-------------------#-----------------------#
