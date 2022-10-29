@@ -11,7 +11,7 @@ param (
 	[string]$sql_username,
 
 	[parameter(Mandatory=$true)]
-	[string]$sql_password
+	[SecureString]$sql_password
 )
 
 
@@ -23,13 +23,16 @@ if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 
  #####Parameters############
 $sql_server = "db-regression-$clone_lansa_version" #only accepting lower case
-$subscription = "739c4e86-bd75-4910-8d6e-d7eb23ab94f3"
-$tenant = "17e16064-c148-4c9b-9892-bb00e9589aa5"
 
 #######################Retriving Azure Resources using Tags ##################### 
 $db = "test"
 $azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Name
 #-------------------#-----------------------#
+############Template path###############################
+$azure_stack_scriptpath = $MyInvocation.MyCommand.Path
+$stack_script = Split-Path $azure_stack_scriptpath
+$git_repo_root = Get-Item $stack_script\..\Template\azure # Change this accordingly and use
+Write-Host "New_location - $git_repo_root"
 #####################ARM Template Params#################
 $azure_template_param = @{
 	"sqlServername" = $sql_server
@@ -56,8 +59,8 @@ if($azure_tags -ge 1) {
 }
 else {
 	Write-Host "Creating New Azure SQL server as no server found with lansa version $clone_lansa_version ..."
-    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/Template/azure/sqlserver.json" -TemplateParameterObject $azure_template_param
-    Write-Host "Created the SQL server, Now Restoring the Database $db..."
+    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/sqlserver.json" -TemplateParameterObject $azure_template_param
+    Write-Host "Created the SQL server, Now Restoring the Database from $db to $clone_lansa_version..."
     New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $clone_lansa_version | Out-Default | Write-Host
 }
 
