@@ -66,15 +66,14 @@ if($azure_tags -ge 1) {
 	Write-Host "SQL Server with lansa version exist $clone_lansa_version. Checking Database Exist or not"
 	$Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
 	$db_name = $Sqlserver_dbname.DatabaseName
-	for($i=0; $i -lt $db_name.Length; $i++) 
+	if ($db_name -contains $db) 
 	{ 
-		if($db -in $db_name[$i]) {
-		Write-Host "Found Database. Restore not needed.."
-	} elseif ($db_name[$i] -ne "master") {
+		Write-Host "Found Database $db. Restore not needed.."
+	} 
+	else{
 		Write-Host "Not found the Database $db, Restoring.."
 		New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
 		}
-	}
 }
 else {
 	Write-Host "Creating New Azure SQL server and it does not exist with lansa version $clone_lansa_version .."
