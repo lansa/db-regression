@@ -11,7 +11,11 @@ param (
 	[string]$sql_username,
 
 	[parameter(Mandatory=$true)]
-	[string]$sql_password
+	[string]$sql_password,
+
+#####Required for template path#######################
+	[parameter(Mandatory=$true)]
+	[string]$source_path_alias
 )
 
 
@@ -77,7 +81,7 @@ if($azure_tags -ge 1) {
 }
 else {
 	Write-Host "Creating New Azure SQL server and it does not exist with lansa version $clone_lansa_version .."
-    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "tarun4931_db-regression/Template/azure/sqlserver.json" -TemplateParameterObject $azure_template_param
+    New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$source_path_alias/Template/azure/sqlserver.json" -TemplateParameterObject $azure_template_param
     Write-Host "Created the SQL server, Now Restoring the Database $db"
     New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $db -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $db
 }
