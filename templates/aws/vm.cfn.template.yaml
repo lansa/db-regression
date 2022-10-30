@@ -27,7 +27,7 @@ Resources:
     Properties:
       ImageId: !Ref AMIID
       InstanceType: "m5a.xlarge"
-      KeyName: "RobG_id_rsa"
+      KeyName: "AzureDevOps"
       SubnetId: !Ref SUBNETIDFORVM
       IamInstanceProfile: !Ref IAMROLEFORVM 
       PrivateDnsNameOptions:
