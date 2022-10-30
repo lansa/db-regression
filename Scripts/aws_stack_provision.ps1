@@ -11,10 +11,6 @@ if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) )
    $clone_lansa_version = $lansa_version
 }
 
-#$MYSQL_RDS_CFN_TEMPLATE_URL = "https://lansa-us-east-1.s3.amazonaws.com/db-regression-test/cloudformation_template/mysql_rds.cfn.template.yml"
-#$ORACLE_RDS_CFN_TEMPLATE_URL = "https://lansa-us-east-1.s3.amazonaws.com/db-regression-test/cloudformation_template/oracle_rds.cfn.template.yml"
-#$VM_CFN_TEMPLATE_URL = "https://lansa-us-east-1.s3.amazonaws.com/db-regression-test/cloudformation_template/vm.cfn.template.yml"
-
 $aws_stack_script_path = $MyInvocation.MyCommand.Path
 $stack_script = Split-Path $aws_stack_script_path
 $git_repo_root = Get-Item $stack_script\..\Templates\aws
@@ -144,11 +140,12 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-
+         Write-Host "CFN Stack $STACK_NAME is deleted"
          Get-CFNStack -StackName $STACK_NAME
       }
       catch [System.InvalidOperationException]
       {
+	 Write-Host "Creating $STACK_NAME stack"
          New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @{ParameterKey="AMIID";ParameterValue=$AMI_ID} -Tag @{Key="LansaVersion"; Value=$lansa_version}
       }
 
@@ -268,14 +265,15 @@ elseif ($ORACLE_DB_COUNT -eq 0)
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-
+         Write-Host "CFN Stack $STACK_NAME is deleted"
          Get-CFNStack -StackName $STACK_NAME
 
       }
       catch [System.InvalidOperationException]
       {
-      $ORACLE_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBInstanceIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-      New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         Write-Host "Creating $STACK_NAME stack"
+         $ORACLE_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBInstanceIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
+         New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
       }
 
       $RETRY_COUNT = cfn_stack_status $STACK_NAME
@@ -386,13 +384,14 @@ elseif ($MYSQL_DB_COUNT -eq 0)
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-
+         Write-Host "CFN Stack $STACK_NAME is deleted"
          Get-CFNStack -StackName $STACK_NAME
       }
       catch [System.InvalidOperationException]
       {
-      $MYSQL_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBInstanceIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-      New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         Write-Host "Creating $STACK_NAME stack"
+         $MYSQL_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBInstanceIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
+         New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
       }
 
       $RETRY_COUNT = cfn_stack_status $STACK_NAME
