@@ -31,7 +31,7 @@ function fetch_vm_password
    $RetryCount = 10
    Write-Host $env:tmp
    $KEY_PATH = "$env:tmp\key.txt"
-   Writr-Host $KEY_PATH
+   Write-Host $KEY_PATH
    Get-Content -Path $env:tmp\key.txt -Raw
    while ( ((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $KEY_PATH) -eq $null ) -and ($RetryCount -gt 0) )
    {
