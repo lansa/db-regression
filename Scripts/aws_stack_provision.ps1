@@ -28,6 +28,7 @@ function fetch_vm_password
    )
    Write-Host "Trying to fetch the VM Password"
    (Get-SECSecretValue -SecretId privatekey/AzureDevOps).SecretString > $env:temp\key.txt
+   Get-ChildItem -Path $env:temp
    $RetryCount = 10
    Write-Host $env:temp
    #$KEY_PATH = "$env:tmp\key.txt"
