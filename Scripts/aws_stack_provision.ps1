@@ -29,7 +29,7 @@ function fetch_vm_password
    Write-Host "Trying to fetch the VM Password"
    (Get-SECSecretValue -SecretId privatekey/AzureDevOps).SecretString > $env:tmp\key.pem
    $RetryCount = 10
-   while ( ((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $env:tmp\key.pem) -eq $null ) -and ($RetryCount -gt 0) )
+   while ( ((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $env:tmp\key.pem -Decrypt) -eq $null ) -and ($RetryCount -gt 0) )
    {
       Start-Sleep -Seconds 120
       $RetryCount -= 1
@@ -133,6 +133,7 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       $STACK_NAME = "DB-Regression-VM-" + $lansa_version
       try
       {
+	 Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
          $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
          Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
          $RETRY_COUNT = remove_cfn_stack $STACK_NAME
@@ -140,8 +141,9 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-         Write-Host "CFN Stack $STACK_NAME is deleted"
+	 Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
          Get-CFNStack -StackName $STACK_NAME
+	 throw "CFN Stack still exist. It failed to delete"
       }
       catch [System.InvalidOperationException]
       {
