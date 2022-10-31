@@ -4,8 +4,6 @@ param (
 
 	[string] $clone_lansa_version, ## lansa version that would be used to create clone stack.
 
-    # [parameter(Mandatory=$true)]
-    # [string]$sourceserver, ## To clone the DB from existing SQL server
 #############As AWS and Azure not working from same script expecting the below values from another script"aws_secret_manager" or pipeline
 	[parameter(Mandatory=$true)]
 	[string]$sql_username,
