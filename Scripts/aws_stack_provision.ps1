@@ -27,13 +27,13 @@ function fetch_vm_password
       [Parameter(Mandatory=$true)] [String]$INSTANCE_ID
    )
    Write-Host "Trying to fetch the VM Password"
-   (Get-SECSecretValue -SecretId privatekey/AzureDevOps).SecretString > $env:tmp\key.txt
+   (Get-SECSecretValue -SecretId privatekey/AzureDevOps).SecretString > $env:temp\key.txt
    $RetryCount = 10
-   Write-Host $env:tmp
-   $KEY_PATH = "$env:tmp\key.txt"
-   Write-Host $KEY_PATH
-   Get-Content -Path $env:tmp\key.txt -Raw
-   while ( ((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $KEY_PATH) -eq $null ) -and ($RetryCount -gt 0) )
+   Write-Host $env:temp
+   #$KEY_PATH = "$env:tmp\key.txt"
+   #Write-Host $KEY_PATH
+   #Get-Content -Path $env:tmp\key.txt -Raw
+   while ( ((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $env:temp\key.txt) -eq $null ) -and ($RetryCount -gt 0) )
    {
       Start-Sleep -Seconds 120
       $RetryCount -= 1
