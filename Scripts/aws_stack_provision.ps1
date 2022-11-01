@@ -155,8 +155,8 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
       $PHYSICAL_INSTANCE_ID = ((Get-CFNStackResource -StackName $STACK_NAME -LogicalResourceId INSTANCE).PhysicalResourceId)
       ## It is recommended to wait 15 minutes before trying to fetch the VM password.
-      Start-Sleep -Seconds 900 
       Write-Host "Waiting for 15 minutes before trying to fetch the VM password"
+      Start-Sleep -Seconds 900 
       $RETRY_COUNT = fetch_vm_password $PHYSICAL_INSTANCE_ID
       if ( $RETRY_COUNT -le 0 )
       {
@@ -323,7 +323,7 @@ function check_mysql_rds_status
    {
       Start-Sleep -Seconds 120
       $RetryCount -= 1
-      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "backing-up")  )
+      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "backing-up")  )
       {
          Write-Host "MYSQL RDS is getting started"
       }
