@@ -1,12 +1,11 @@
-## Powershell script for provisioning AWS stack
+## Powershell script for provisioning AWS stack for DB Regeression Test.
 
 param (
 [parameter(Mandatory=$true)]    [string] $lansa_version,
-[parameter(Mandatory=$false)]   [string] $clone_lansa_version ## lansa version that would be used to create clone stack.
-
+[parameter(Mandatory=$false)]   [string] $clone_lansa_version ## lansa version tag that would be used to create clone stack.
 )
 
-if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) )
+if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version))
 {
    $clone_lansa_version = $lansa_version
 }
@@ -44,8 +43,8 @@ function cfn_stack_status
    (
       [Parameter(Mandatory=$true)] [String]$STACK_NAME
    )
+   Write-Host "Checking CFN stack $STACK_NAME status"
    $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-   Write-Host $CFN_STACK_STATUS
    $RetryCount = 15
    while (($CFN_STACK_STATUS -ne "CREATE_COMPLETE") -and ($RetryCount -gt 0) )
    {
@@ -65,7 +64,7 @@ function remove_cfn_stack
    (
       [Parameter(Mandatory=$true)] [String]$STACK_NAME
    )
-
+   Write-Host "Deleting exisitng CFN stack $STACK_NAME"
    $RetryCount = 15
    Remove-CFNStack -StackName $STACK_NAME -Force
    while (((Test-CFNStack -StackName $STACK_NAME -Status "DELETE_IN_PROGRESS") -eq $true )  -and ($RetryCount -gt 0) )
@@ -96,9 +95,7 @@ if ($EXISTING_INSTANCE_COUNT -eq 1 )
       {
          throw "Timeout: 20 minutes expired in waiting to fetch the VM password"
       }
-
       Write-Host "Able to fetch the VM password"
-
    }
 
    elseif ($INSTANCE_STATE -eq "stopped")
@@ -111,7 +108,6 @@ if ($EXISTING_INSTANCE_COUNT -eq 1 )
       {
          throw "Timeout: 20 minutes expired in waiting to fetch the VM password"
       }
-
       Write-Host "Able to fetch the VM password"
       Write-Host "Current state of VM is $NEW_STATUS"
    }
@@ -158,16 +154,16 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       }
       Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
       $PHYSICAL_INSTANCE_ID = ((Get-CFNStackResource -StackName $STACK_NAME -LogicalResourceId INSTANCE).PhysicalResourceId)
-      Write-Host "Trying to fetch VM Password"
+      ## It is recommended to wait 15 minutes before trying to fetch the VM password.
+      Start-Sleep -Seconds 900 
+      Write-Host "Waiting for 15 minutes before trying to fetch the VM password"
       $RETRY_COUNT = fetch_vm_password $PHYSICAL_INSTANCE_ID
       if ( $RETRY_COUNT -le 0 )
       {
          throw "Timeout: 20 minutes expired waiting to fetch VM password"
       }
-
       Write-Host "Able to fetch the VM password"
    }
-
 
    elseif ($NO_OF_AMIS -eq 0)
    {
@@ -198,6 +194,7 @@ function check_oracle_rds_status
    (
       [Parameter(Mandatory=$true)] [String]$ORACLE_DB_ID
    )
+   Write-Host "Checking Oracle RDS status"
    $RetryCount = 15
    while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
    {
@@ -221,7 +218,6 @@ $ORACLE_DB_COUNT = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$O
 
 if ($ORACLE_DB_COUNT -eq 1)
 {
-
    Write-Host "Found 1 Oracle RDS with Lansa Version tag = $lansa_version"
    $ORACLE_DB_STATUS = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_IDENTIFIER}).DBInstanceStatus
    $ORACLE_DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_IDENTIFIER}).DBInstanceArn
@@ -260,6 +256,7 @@ elseif ($ORACLE_DB_COUNT -eq 0)
       $STACK_NAME = "DB-Regression-ORACLE-RDS-" + $lansa_version
       try
       {
+	 Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"     
          $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
          Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
          $RETRY_COUNT = remove_cfn_stack $STACK_NAME
@@ -267,9 +264,9 @@ elseif ($ORACLE_DB_COUNT -eq 0)
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-         Write-Host "CFN Stack $STACK_NAME is deleted"
+	 Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
          Get-CFNStack -StackName $STACK_NAME
-
+         throw "CFN Stack still exist. It failed to delete"
       }
       catch [System.InvalidOperationException]
       {
@@ -320,6 +317,7 @@ function check_mysql_rds_status
    (
       [Parameter(Mandatory=$true)] [String]$MYSQL_DB_ID
    )
+   Write-Host "Checking MYSQL RDS status"
    $RetryCount = 15
    while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
    {
@@ -379,6 +377,7 @@ elseif ($MYSQL_DB_COUNT -eq 0)
       $STACK_NAME = "DB-Regression-MYSQL-RDS-" + $lansa_version
       try
       {
+	 Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"     
          $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
          Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
          $RETRY_COUNT = remove_cfn_stack $STACK_NAME
@@ -386,8 +385,9 @@ elseif ($MYSQL_DB_COUNT -eq 0)
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-         Write-Host "CFN Stack $STACK_NAME is deleted"
-         Get-CFNStack -StackName $STACK_NAME
+         Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state" 
+	 Get-CFNStack -StackName $STACK_NAME
+	 throw "CFN Stack still exist. It failed to delete"
       }
       catch [System.InvalidOperationException]
       {
