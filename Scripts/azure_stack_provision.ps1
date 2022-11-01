@@ -3,6 +3,7 @@ param (
 	[string] $lansa_version,
 
 	[parameter(Mandatory=$false)]
+	[AllowEmptyString()]
 	[string] $clone_lansa_version, ## lansa version that would be used to create clone stack.
 
 #############As AWS and Azure not working from same script expecting the below values from another script"aws_secret_manager" or pipeline
