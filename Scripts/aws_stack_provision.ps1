@@ -27,10 +27,10 @@ function fetch_vm_password
    )
    Write-Host "Trying to fetch the VM Password"
    (Get-SECSecretValue -SecretId privatekey/AzureDevOps).SecretString > $env:tmp\KeyPair.pem
-   $RetryCount = 10
+   $RetryCount = 60
    while (((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $env:tmp\KeyPair.pem) -eq $null ) -and ($RetryCount -gt 0) )
    {
-      Start-Sleep -Seconds 120
+      Start-Sleep -Seconds 20
       $RetryCount -= 1
       Write-Host "Waiting to fetch the VM password"
    }
@@ -45,10 +45,10 @@ function cfn_stack_status
    )
    Write-Host "Checking CFN stack $STACK_NAME status"
    $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-   $RetryCount = 15
+   $RetryCount = 90
    while (($CFN_STACK_STATUS -ne "CREATE_COMPLETE") -and ($RetryCount -gt 0) )
    {
-      Start-Sleep -Seconds 120
+      Start-Sleep -Seconds 20
       $RetryCount -= 1
       Write-Host "Waiting for CFN $STACK_NAME stack to be in CREATE_COMPLETE state"
       $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
@@ -65,12 +65,12 @@ function remove_cfn_stack
       [Parameter(Mandatory=$true)] [String]$STACK_NAME
    )
    Write-Host "Deleting exisitng CFN stack $STACK_NAME"
-   $RetryCount = 15
+   $RetryCount = 90
    Remove-CFNStack -StackName $STACK_NAME -Force
    while (((Test-CFNStack -StackName $STACK_NAME -Status "DELETE_IN_PROGRESS") -eq $true )  -and ($RetryCount -gt 0) )
    {
       Write-Host "Waiting for deletion of existing CFN stack $STACK_NAME"
-      Start-Sleep -Seconds 120
+      Start-Sleep -Seconds 20
       $RetryCount -= 1
    }
    return $RetryCount
@@ -154,9 +154,6 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       }
       Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
       $PHYSICAL_INSTANCE_ID = ((Get-CFNStackResource -StackName $STACK_NAME -LogicalResourceId INSTANCE).PhysicalResourceId)
-      ## It is recommended to wait 15 minutes before trying to fetch the VM password.
-      Write-Host "Waiting for 15 minutes before trying to fetch the VM password"
-      Start-Sleep -Seconds 900 
       $RETRY_COUNT = fetch_vm_password $PHYSICAL_INSTANCE_ID
       if ( $RETRY_COUNT -le 0 )
       {
@@ -195,10 +192,10 @@ function check_oracle_rds_status
       [Parameter(Mandatory=$true)] [String]$ORACLE_DB_ID
    )
    Write-Host "Checking Oracle RDS status"
-   $RetryCount = 15
+   $RetryCount = 90
    while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
    {
-      Start-Sleep -Seconds 120
+      Start-Sleep -Seconds 20
       $RetryCount -= 1
       if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "backing-up")  )
       {
@@ -318,10 +315,10 @@ function check_mysql_rds_status
       [Parameter(Mandatory=$true)] [String]$MYSQL_DB_ID
    )
    Write-Host "Checking MYSQL RDS status"
-   $RetryCount = 15
+   $RetryCount = 90
    while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
    {
-      Start-Sleep -Seconds 120
+      Start-Sleep -Seconds 20
       $RetryCount -= 1
       if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "backing-up")  )
       {
