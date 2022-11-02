@@ -5,7 +5,7 @@ param (
 )
 
 $MYSQL_DB_IDENTIFIER = "mysql" + $lansa_version
-$MYSQL_DB_SNAPSHOT_IDENTIFIER = "mysql + $lansa_version"
+$MYSQL_DB_SNAPSHOT_IDENTIFIER = "mysql" + $lansa_version
 Write-Host "Finding MYSQL RDS snapshot with Lansa version tag = $lansa_version"
 $MYSQL_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBInstanceIdentifier $MYSQL_DB_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
 if ($MYSQL_SNAPSHOT_COUNT -eq 1)
@@ -15,7 +15,7 @@ if ($MYSQL_SNAPSHOT_COUNT -eq 1)
 elseif ($MYSQL_SNAPSHOT_COUNT -eq 0)
 {
    Write-Host "Creating Snapshot for $MYSQL_DB_IDENTIFIER"
-   New-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_DB_SNAPSHOT_IDENTIFIER -DBInstanceIdentifier $MYSQL_DB_IDENTIFIER  @{Key="LansaVersion"; Value=$lansa_version}
+   New-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_DB_SNAPSHOT_IDENTIFIER -DBInstanceIdentifier $MYSQL_DB_IDENTIFIER -Tag @{Key="LansaVersion"; Value=$lansa_version}
    Write-Host "Waiting for MYSQL snapshot to be in available state"
    $RetryCount = 10
    while ( (((Get-RDSDBSnapshot -DBInstanceIdentifier $MYSQL_DB_IDENTIFIER).Status) -ne "available") -and ($RetryCount -gt 0))
@@ -36,7 +36,7 @@ else
 }
 
 $ORACLE_DB_IDENTIFIER = "ora" + $lansa_version
-$ORACLE_DB_SNAPSHOT_IDENTIFIER = "ora + $lansa_version"
+$ORACLE_DB_SNAPSHOT_IDENTIFIER = "ora" + $lansa_version
 Write-Host "Finding ORACLE RDS snapshot with Lansa version tag = $lansa_version"
 $ORACLE_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBInstanceIdentifier $ORACLE_DB_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
 if ($ORACLE_SNAPSHOT_COUNT -eq 1)
@@ -46,7 +46,7 @@ if ($ORACLE_SNAPSHOT_COUNT -eq 1)
 elseif ($ORACLE_SNAPSHOT_COUNT -eq 0)
 {
    Write-Host "Creating Snapshot for $ORACLE_DB_IDENTIFIER"
-   New-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_DB_SNAPSHOT_IDENTIFIER -DBInstanceIdentifier $ORACLE_DB_IDENTIFIER  @{Key="LansaVersion"; Value=$lansa_version}
+   New-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_DB_SNAPSHOT_IDENTIFIER -DBInstanceIdentifier $ORACLE_DB_IDENTIFIER  -Tag @{Key="LansaVersion"; Value=$lansa_version}
    Write-Host "Waiting for ORACLE snapshot to be in available state"
    $RetryCount = 10
    while ( (((Get-RDSDBSnapshot -DBInstanceIdentifier $ORACLE_DB_IDENTIFIER).Status) -ne "available") -and ($RetryCount -gt 0))
@@ -65,5 +65,3 @@ else
 {
    Write-Host "Found more than 1 snapshot for database identifier $ORACLE_DB_IDENTIFIER"
 }
-
-
