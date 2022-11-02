@@ -191,7 +191,7 @@ function check_oracle_rds_status
    (
       [Parameter(Mandatory=$true)] [String]$ORACLE_DB_ID
    )
-   Write-Host "Checking Oracle RDS status"
+   Write-Host "Checking Oracle RDS status and waiting for it to be ready."
    $RetryCount = 90
    while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
    {
@@ -314,7 +314,7 @@ function check_mysql_rds_status
    (
       [Parameter(Mandatory=$true)] [String]$MYSQL_DB_ID
    )
-   Write-Host "Checking MYSQL RDS status"
+   Write-Host "Checking MYSQL RDS status and waiting for it to be ready."
    $RetryCount = 90
    while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
    {
