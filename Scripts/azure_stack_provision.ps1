@@ -104,18 +104,7 @@ else {
     Write-Host "Creating New Azure SQL server as no server found with lansa version $lansa_version ..."
     New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/sqlserver.json" -TemplateParameterObject $azure_template_param
     Write-Host "Created the SQL server, Now Restoring the Database using $clone_lansa_version to $lansa_version or from Storage Account..."
-    if($sourceserver -ne $sql_server){
-		Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
-        $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
-        $source_db_name = $sourceserver_dbname.DatabaseName
-		
-		if($source_db_name -contains $clone_lansa_version){
-			Write-Host "database $clone_lansa_version Found, Restoring the DB from Sourceserver..."
-		    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
-		}else {
-            throw "Found more than 1 Azure sql server with the Lansa Version tag = $clone_lansa_version"
-        }
-	}else{
+    if($lansa_version -eq $clone_lansa_version){
         Write-Host "Importing database from Storage Account..."
         $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
         #cheacking status
@@ -126,5 +115,13 @@ else {
             [Console]::Write(".")
             Start-Sleep -s 10
         }
+    }else{
+        Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
+        $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
+        $source_db_name = $sourceserver_dbname.DatabaseName
+		if($source_db_name -contains $clone_lansa_version){
+			Write-Host "database $clone_lansa_version Found, Restoring the DB from Sourceserver..."
+		    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
+		}
     }
 }
