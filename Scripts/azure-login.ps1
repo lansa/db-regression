@@ -63,8 +63,8 @@ Clear-AzContext -Force
 
 if ( $CloudSecret ) {
     $secPassword = ConvertTo-SecureString -AsPlainText -Force -String $CloudSecret 
-    $Credential = (New-Object System.Management.Automation.PSCredential $azureAppId, $secPassword)
-    Connect-AzAccount -ServicePrincipal -SubscriptionId $subscriptionId -TenantId $tenantId -Credential $Credential
+    $Credential = (New-Object System.Management.Automation.PSCredential $User, $secPassword)
+    Connect-AzAccount -ServicePrincipal -SubscriptionId $subscription -TenantId $tenant -Credential $Credential
 } else {
     #$Credential = Get-Credential -UserName $user -Message "Enter password for $user"
     Connect-AzAccount
