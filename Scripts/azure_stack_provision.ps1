@@ -104,7 +104,12 @@ else {
     Write-Host "Creating New Azure SQL server as no server found with lansa version $lansa_version ..."
     New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/sqlserver.json" -TemplateParameterObject $azure_template_param
     Write-Host "Created the SQL server, Now Restoring the Database using $clone_lansa_version to $lansa_version or from Storage Account..."
-    if($sourceserver -contains $sql_server){
+    $Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
+	$db_name = $Sqlserver_dbname.DatabaseName
+    if ($db_name -contains $lansa_version) {
+        Write-Host "Found Database $lansa_version. Restore not needed."
+    }else{
+        Write-Host"Not found the Database $lansa_version, checking for source server."
         Write-Host "Importing database from Storage Account..."
         $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
         #cheacking status
