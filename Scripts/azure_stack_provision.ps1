@@ -14,8 +14,8 @@ param (
 	[SecureString]$sql_password
 )
 
-$Credentials = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $sql_password
-$azure_sql_password = $Credentials.GetNetworkCredential().Password
+$azure_sql_password = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $sql_password
+#$azure_sql_password = $Credentials.GetNetworkCredential().Password
 ##############Checking the clone version parameter passed or not####################
 Write-Host "Checking parameter clone_lansa_version is passed from parameter or not "
 Write-Host "clone lansaVersion is: $clone_lansa_version"
