@@ -109,7 +109,7 @@ else {
     if ($db_name -contains $lansa_version) {
         Write-Host "Found Database $lansa_version. Restore not needed."
     }else{
-        Write-Host"Not found the Database $lansa_version, checking for source server."
+        Write-Host "Not found the Database $lansa_version, checking for source server."
         Write-Host "Importing database from Storage Account..."
         $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
         #cheacking status
