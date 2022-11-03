@@ -1,58 +1,26 @@
-#To be taken from pipeline need to change when pipeline values created 
-
 param (
-    [parameter(Mandatory=$true)]
-    [string]$lansaversion,
-
-    [parameter(Mandatory=$true)]
-    [string]$dbname,
-
-    [parameter(Mandatory=$true)]
-    [string]$location,
-
-    [parameter(Mandatory=$true)]
-    [string]$path,
-
-    [parameter(Mandatory=$true)]
-    [string]$databasestype,
-
-    [parameter(Mandatory=$true)]
-    [string]$servername
+	[parameter(Mandatory=$true)]
+	[string] $lansa_version
 )
 
+$storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
+$storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
+$storage_uri = "$storage_url/$lansa_version/$lansa_version.bacpac"
+$sql_username = Get-SECSecretValue -SecretId "password/DBRegressionTest/SQLAZURE" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty UID
+$sql_password = Get-SECSecretValue -SecretId "password/DBRegressionTest/SQLAZURE" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty PWD | ConvertTo-SecureString -AsPlainText -Force
 
-$server = $servername
-$backupPath = $path
-$s3bucket = 'lansa-us-east-1/db-regression-test/backups'
-$databasebackup = $s3bucket/$lansaversion/$databasestype
-$region = $location
+"##vso[task.setvariable variable=username]$sql_username"
+"##vso[task.setvariable variable=password]$sql_password"
 
-#$firewallrulename = $rulename
-#$currentrules = Get-AzSqlServerFirewallRule -ResourceGroupName $resourcegroup -ServerName $server -FirewallRuleName $firewallrulename
-#$serverip = $ip1, $ip2
+$export = New-AzSqlDatabaseExport -ResourceGroupName dbregressiontest -ServerName "db-regression-$lansa_version" -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $sql_password
 
-$databases = Invoke-Sqlcmd -ServerInstance $server -Username $user -Password $password -Query "SELECT [name]
-FROM master.dbo.sysdatabases where [name]='$dbname'"
-
-
-#Print parameters
-
-Write-Host "server:         $server"
-Write-Host "backup path:    $databasebackup"
-Write-Host "region:         $region"
-Write-Host "lansa version:  $lansaversion"
-
-
-#Database backup
-foreach ($database in $databases)
+$exportStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $export.OperationStatusLink
+[Console]::Write("Exporting")
+while ($exportStatus.Status -eq "InProgress")
 {
-    $timestamp = get-date -format MMddyyyyHHmmss
-    $fileName =  "$($database.name)-$timestamp.bak"
-    $filePath = Join-Path $backupPath $fileName
-    $zipfilepath = Join-Path $backupPath $zipfileName
-
-    Backup-SqlDatabase -ServerInstance $server -Database $database.name -BackupFile $filePath
-    Write-Zip -path $filePath -OutputPath $zipfilepath
-
-    Write-S3Object -BucketName $databasebackup -StoredCredentials myAWScredentials -File $zipfilePath -Region $region
+    Start-Sleep -s 10
+    $exportStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $export.OperationStatusLink
+    [Console]::Write(".")
 }
+[Console]::WriteLine("")
+$exportStatus
