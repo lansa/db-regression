@@ -115,6 +115,7 @@ else {
             [Console]::Write(".")
             Start-Sleep -s 10
         }
+    }
     # }elseif($sourceserver.count -eq 1){
     #     Write-Host "Source server found $sourceserver, Checking the clone lansa version db exist in sourceserver"
     #     $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
