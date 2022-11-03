@@ -42,7 +42,7 @@ $sourceserver = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Na
 ###############Import database from storage account if the clone lansa version or lansaVersion server does not exist##################
 $storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
 $storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
-$storage_uri = "$storage_url/$clone_lansa_version/$clone_lansa_version.bacpac"
+$storage_uri = "$storage_url/$lansa_version/$lansa_version.bacpac"
 
 ############Template path###############################
 $azure_stack_scriptpath = $MyInvocation.MyCommand.Path
