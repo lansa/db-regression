@@ -104,7 +104,7 @@ else {
     Write-Host "Creating New Azure SQL server as no server found with lansa version $lansa_version ..."
     New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/sqlserver.json" -TemplateParameterObject $azure_template_param
     Write-Host "Created the SQL server, Now Restoring the Database using $clone_lansa_version to $lansa_version or from Storage Account..."
-    if($sourceserver.count -ge 1){
+    if($sourceserver -eq $sql_server){
 		Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
         $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
         $source_db_name = $sourceserver_dbname.DatabaseName
