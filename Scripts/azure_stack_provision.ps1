@@ -53,7 +53,7 @@ Write-Host "New_location - $git_repo_root"
 $azure_template_param = @{
 	"sqlServername" = $sql_server
 	"adminUsername" = $sql_username
-	"adminPassword" = $azure_sql_password
+	"adminPassword" = $sql_password
 	"location" = "eastus"
 	"serverTags" = $lansa_version
 }
