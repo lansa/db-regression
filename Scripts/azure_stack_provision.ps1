@@ -20,9 +20,6 @@ param (
 #$azure_sql_password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 #$azure_sql_password = $Credentials.GetNetworkCredential().Password
 ##############Checking the clone version parameter passed or not####################
-Write-Host "Checking parameter clone_lansa_version is passed from parameter or not "
-Write-Host "clone lansaVersion is: $clone_lansa_version"
-Write-Host "lansaVersion is: $lansa_version"
 
 if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 	$clone_lansa_version = $lansa_version
@@ -42,7 +39,7 @@ $sourceserver = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Na
 ###############Import database from storage account if the clone lansa version or lansaVersion server does not exist##################
 $storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
 $storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
-$storage_uri = "$storage_url/$lansa_version/$lansa_version.bacpac"
+$storage_uri = "$storage_url/$clone_lansa_version/$clone_lansa_version.bacpac"
 
 ############Template path###############################
 $azure_stack_scriptpath = $MyInvocation.MyCommand.Path
