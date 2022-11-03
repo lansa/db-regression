@@ -26,7 +26,7 @@ elseif ($MYSQL_SNAPSHOT_COUNT -eq 0)
    }
    if ( $RetryCount -le 0 )
    {
-      Throw "Timeout: 20 minutes expired waiting for MYSQLRDS snapshot to be in availabe state"
+      throw "Timeout: 20 minutes expired waiting for MYSQLRDS snapshot to be in availabe state"
    }
    Write-Host "MYSQL snapshot is in Available state"
 }
@@ -57,7 +57,7 @@ elseif ($ORACLE_SNAPSHOT_COUNT -eq 0)
    }
    if ( $RetryCount -le 0 )
    {
-      Throw "Timeout: 20 minutes expired waiting for ORACLE RDS snapshot to be in availabe state"
+      throw "Timeout: 20 minutes expired waiting for ORACLE RDS snapshot to be in availabe state"
    }
    Write-Host "ORACLE snapshot is in Available state"
 }
