@@ -10,7 +10,7 @@ param (
 	[string]$sql_password
 )
 
-$sql_password = $azure_sql_password | ConvertTo-SecureString -AsPlainText -Force
+$sql_password = ConvertTo-SecureString $azure_sql_password -AsPlainText -Force
 
 $storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
 $storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
