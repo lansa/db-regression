@@ -11,14 +11,16 @@ param (
 	[string]$sql_username,
 
 	[parameter(Mandatory=$true)]
-	[string]$sql_password
+	[SecureString]$sql_password
 )
 
-$azure_sql_password = ConvertTo-SecureString $sql_password -AsPlainText -Force
+$azure_sql_password = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $sql_password
+
 ##############Checking the clone version parameter passed or not####################
 Write-Host "Checking parameter clone_lansa_version is passed from parameter or not "
 Write-Host "clone lansaVersion is: $clone_lansa_version"
 Write-Host "lansaVersion is: $lansa_version"
+
 if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 	$clone_lansa_version = $lansa_version
     Write-Host "clone lansaVersion is: $clone_lansa_version"
