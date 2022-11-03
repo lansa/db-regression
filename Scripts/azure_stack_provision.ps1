@@ -104,56 +104,27 @@ else {
     Write-Host "Creating New Azure SQL server as no server found with lansa version $lansa_version ..."
     New-AzResourceGroupDeployment -ResourceGroupName dbregressiontest -TemplateFile "$git_repo_root/sqlserver.json" -TemplateParameterObject $azure_template_param
     Write-Host "Created the SQL server, Now Restoring the Database using $clone_lansa_version to $lansa_version or from Storage Account..."
-    $Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
-	$db_name = $Sqlserver_dbname.DatabaseName
-    if ($db_name -contains $lansa_version) {
-        Write-Host "Found Database $lansa_version. Restore not needed."
-    }else{
-        Write-Host "Not found the Database $lansa_version, checking for source server."
-        Write-Host "Importing database from Storage Account..."
-        $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
-        #cheacking status
-        $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
-        [Console]::Write("Importing")
-        while ($importStatus.Status -eq "InProgress") {
-            $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
-            [Console]::Write(".")
-            Start-Sleep -s 10
-        }
+    if($sourceserver.count -eq 1){
+		Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
+        $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
+        $source_db_name = $sourceserver_dbname.DatabaseName
+		
+		if($source_db_name -contains $clone_lansa_version){
+			Write-Host "database $clone_lansa_version Found, Restoring the DB from Sourceserver..."
+		    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
+		}else{
+				Write-Host "Importing database from Storage Account..."
+                $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
+                #cheacking status
+                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
+                [Console]::Write("Importing")
+                while ($importStatus.Status -eq "InProgress") {
+                    $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
+                    [Console]::Write(".")
+                    Start-Sleep -s 10
+                }
+		}
+	}else {
+        throw "Found more than 1 Azure sql server with the Lansa Version tag = $clone_lansa_version"
     }
-    # }elseif($sourceserver.count -eq 1){
-    #     Write-Host "Source server found $sourceserver, Checking the clone lansa version db exist in sourceserver"
-    #     $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
-    #     $source_db_name = $sourceserver_dbname.DatabaseName
-    #     if($source_db_name -contains $clone_lansa_version){
-    #         Write-Host "Source server found $sourceserver with database $clone_lansa_version, Restoring the DB from Sourceserver..."
-	# 	    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
-    #         Write-Host "Restored the Database."
-    #     }
-    # }else {
-    #     throw "Found more than 1 Azure sql server with the Lansa Version tag = $clone_lansa_version"
-    # }
-    # elseif($null -eq $sourceserver.count){
-    #     Write-Host "Importing database from Storage Account..."
-    #     $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
-    #     #cheacking status
-    #     $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
-    #     [Console]::Write("Importing")
-    #     while ($importStatus.Status -eq "InProgress") {
-    #         $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
-    #         [Console]::Write(".")
-    #         Start-Sleep -s 10
-    #     }
-    # }
 }
-
-#-------------------------#------------------------#
-#Adding the the firewall rule to sql server
-
-
-#To get the vm current IP
-#$ThisIp = (Invoke-RestMethod https://api.ipify.org?format=json).ip
-
-#Dynamic IP`s 
-#New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest -ServerName $sql_server -StartIpAddress $ThisIp -EndIpAddress $ThisIp -FirewallRuleName "Current_aws_vm_IP-$ThisIp" | Out-Default | Write-Host
-#-------------------#-----------------------#
