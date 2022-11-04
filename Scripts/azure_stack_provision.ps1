@@ -68,10 +68,10 @@ if($azure_tags.count -eq 1){
                 Write-Host "Importing database from Storage Account..."
                 $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776 | Out-Default | Write-Host
                 #cheacking status
-                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink | Out-Default | Write-Host
+                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
                 [Console]::Write("Importing")
                 while ($importStatus.Status -eq "InProgress") {
-                    $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink | Out-Default | Write-Host
+                    $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
                     [Console]::Write(".")
                     Start-Sleep -s 10
                 }
@@ -80,10 +80,10 @@ if($azure_tags.count -eq 1){
             Write-Host "Importing database from Storage Account..."
             $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776 | Out-Default | Write-Host
             #cheacking status
-            $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink | Out-Default | Write-Host
+            $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
             [Console]::Write("Importing")
             while ($importStatus.Status -eq "InProgress") {
-                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink | Out-Default | Write-Host
+                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
                 [Console]::Write(".")
                 Start-Sleep -s 10
             }
@@ -120,10 +120,10 @@ else {
                 Write-Host "Importing database from Storage Account..."
                 $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776 | Out-Default | Write-Host
                 #cheacking status
-                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink | Out-Default | Write-Host
+                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink 
                 [Console]::Write("Importing")
                 while ($importStatus.Status -eq "InProgress") {
-                    $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink | Out-Default | Write-Host
+                    $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
                     [Console]::Write(".")
                     Start-Sleep -s 10
                 }
