@@ -142,7 +142,7 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       catch [System.InvalidOperationException]
       {
          Write-Host "Creating $STACK_NAME stack"
-         New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @(@{ParameterKey="AMIID";ParameterValue=$AMI_ID}, @{ParameterKey="LANSAVERSION"; ParameterValue=$lansa_version}} -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @(@{ParameterKey="AMIID";ParameterValue=$AMI_ID}, @{ParameterKey="LANSAVERSION"; ParameterValue=$lansa_version}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
       }
 
       $RETRY_COUNT = cfn_stack_status $STACK_NAME
