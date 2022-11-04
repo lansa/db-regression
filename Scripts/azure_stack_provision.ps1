@@ -116,12 +116,16 @@ else {
             Start-Sleep -s 10
         }
     }else{
-        Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
-        $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
-        $source_db_name = $sourceserver_dbname.DatabaseName
-		if($source_db_name -contains $clone_lansa_version){
-			Write-Host "database $clone_lansa_version Found, Restoring the DB from Sourceserver..."
-		    New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
-		}
+        if ($sourceserver.count -eq 1){
+            Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
+            $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
+            $source_db_name = $sourceserver_dbname.DatabaseName
+            if($source_db_name -contains $clone_lansa_version){
+                Write-Host "database $clone_lansa_version Found, Restoring the DB from Sourceserver..."
+                New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
+            }
+        }else{
+            throw "Found more than 1 Azure sql server with the Lansa Version tag = $clone_lansa_version"
+        }
     }
 }
