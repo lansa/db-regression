@@ -32,17 +32,23 @@ Write-Host('--------------------------------------------------------------')
 foreach ($db in $databaseTypes)
 {
     
-    if($db -ne 'DB2ISERIES'){
+    if($db -ne 'DB2ISERIES' -and $db -ne 'MSSQLS'){
         $databases.Add($DB_ROOT_Map[$db])
     }     
     Write-Host($db) 
 }
-Write-Host('--------------------------------------------------------------')
 $databases.Add('LANSA')
+Write-Host('--------------------------------------------------------------')
 
 
 Write-Host('------------------ Saving log files from source to s3 ------------------')
 $RootPath = 'C:\Program Files (x86)'
+Write-Host('-------------------Source Directories:-------------------------------------------')
+foreach ($db in $databases){
+	Write-Host($RootPath+'\'+$db)
+}
+Write-Host('--------------------------------------------------------------')
+
 
 
 try{   
@@ -52,21 +58,32 @@ try{
         $databaseRootPath = Join-Path $RootPath $database
         $dbTest = 'x_win95\x_lansa\X_WBP\Compile\DBTEST'
         $dbTestParent = Join-Path $databaseRootPath $dbTest
-        $dbTestFiles = Get-ChildItem $dbTestParent -Filter *.txt
-        $rootKey=''
-        if($database -eq 'Lansa'){
-            $rootKey = $s3BaseKey  + '/MSSQLS' + '/DBTEST' 
+        if(Test-Path -Path $dbTestParent){
+            $dbTestFiles = Get-ChildItem $dbTestParent -Filter *.txt            
+            $rootKey=''
+            if($database -eq 'Lansa'){
+                $rootKey = $s3BaseKey  + '/MSSQLS' + '/DBTEST' 
+            }
+            else{
+                    $rootKey = $s3BaseKey + '/' + $database + '/DBTEST' 
+            }
+            foreach ($f in $dbTestFiles){
+                $file = $f.FullName
+                $key = Join-Path $rootKey $f
+                Write-Host('Root: ' + $database)
+                Write-Host('Log File: ' + $file)
+                Write-Host('Key: ' + $key)
+                if(Test-Path -Path $file){
+                    Write-S3Object -BucketName $s3BasePath -Key $key -File $file | Out-Default | Write-Host
+                }
+                else{
+                    Write-Host('Warning: The file path: '+$file+' does not exist') -ForegroundColor Yellow
+                }
+                
+            }
         }
         else{
-                $rootKey = $s3BaseKey + '/' + $database + '/DBTEST' 
-        }
-        foreach ($f in $dbTestFiles){
-            $file = $f.FullName
-            $key = Join-Path $rootKey $f
-            Write-Host('Root: ' + $database)
-            Write-Host('Log File: ' + $file)
-            Write-Host('Key: ' + $key)
-            Write-S3Object -BucketName $s3BasePath -Key $key -File $file | Out-Default | Write-Host
+            Write-Host('Warning: The DBTEST path: '+$dbTestParent+' does not exist') -ForegroundColor Yellow
         }
     }
 }
@@ -95,7 +112,15 @@ try{
         Write-Host(' Root: ' + $database)
         Write-Host('Log File: ' + $xErrLogfile)
         Write-Host('Key: ' + $key)
-        Write-S3Object -BucketName $s3BasePath -Key $key -File $xErrLogfile -Region $region | Out-Default | Write-Host
+        if(Test-Path -Path $xErrLogfile){
+            
+            Write-S3Object -BucketName $s3BasePath -Key $key -File $xErrLogfile -Region $region | Out-Default | Write-Host
+        }
+        else{
+            
+            Write-Host('Warning: The file path: '+$xErrLogfile+' does not exist') -ForegroundColor Yellow
+        }
+            
     }
 }
 catch{
@@ -122,7 +147,15 @@ try{
         Write-Host('Root: ' + $database)
         Write-Host('Log File: ' + $verifierTestReportFile)
         Write-Host('Key: ' + $key)
-        Write-S3Object -BucketName $s3BasePath -Key $key -File $verifierTestReportFile -Region $region | Out-Default | Write-Host
+        if(Test-Path -Path $verifierTestReportFile){
+            
+            Write-S3Object -BucketName $s3BasePath -Key $key -File $verifierTestReportFile -Region $region | Out-Default | Write-Host
+        
+        }
+        else{
+            
+            Write-Host('Warning: The file path: '+$verifierTestReportFile+' does not exist') -ForegroundColor Yellow
+        }
         
     }
 }
@@ -151,7 +184,14 @@ try{
         Write-Host('Root: ' + $database)
         Write-Host('Log File: ' + $verifierTestSummaryFile)
         Write-Host('Key: ' + $key)
-        Write-S3Object -BucketName $s3BasePath -Key $key -File $verifierTestSummaryFile -Region $region | Out-Default | Write-Host
+        if(Test-Path -Path $verifierTestSummaryFile){
+            
+            Write-S3Object -BucketName $s3BasePath -Key $key -File $verifierTestSummaryFile -Region $region | Out-Default | Write-Host
+        }
+        else{
+            
+            Write-Host('Warning: The file path: '+$verifierTestSummaryFile+' does not exist') -ForegroundColor Yellow
+        }
     }
 }
 catch{
@@ -167,21 +207,33 @@ try{
         $databaseRootPath = Join-Path $RootPath $database
         $detailedResult = 'lansa/lansa/' + $database
         $detailedResultParent = Join-Path $databaseRootPath $detailedResult
-        $detailedResultFiles = Get-ChildItem $detailedResultParent -Filter *.txt
-        $rootKey=''
-        if($database -eq 'Lansa'){
-            $rootKey = $s3BaseKey  + '/MSSQLS' + '/CompileDetails'
+        if(Test-Path -Path $detailedResultParent){
+            $detailedResultFiles = Get-ChildItem $detailedResultParent -Filter *.txt
+            $rootKey=''
+            if($database -eq 'Lansa'){
+                $rootKey = $s3BaseKey  + '/MSSQLS' + '/CompileDetails'
+            }
+            else{
+                    $rootKey = $s3BaseKey + '/' + $database + '/CompileDetails'
+            }
+            foreach ($f in $detailedResultFiles){
+                $file = $f.FullName
+                $key = Join-Path $rootKey $f
+                Write-Host('Root: ' + $database)
+                Write-Host('Log File: ' + $file)
+                Write-Host('Key: ' + $key)
+                if(Test-Path -Path $file){
+                
+                    Write-S3Object -BucketName $s3BasePath -Key $key -File $file -Region $region | Out-Default | Write-Host
+                }
+                else{
+                
+                    Write-Host('Warning: The file path: '+$file+' does not exist') -ForegroundColor Yellow
+                }        
+            }
         }
         else{
-                $rootKey = $s3BaseKey + '/' + $database + '/CompileDetails'
-        }
-        foreach ($f in $detailedResultFiles){
-            $file = $f.FullName
-            $key = Join-Path $rootKey $f
-            Write-Host('Root: ' + $database)
-            Write-Host('Log File: ' + $file)
-            Write-Host('Key: ' + $key)
-            Write-S3Object -BucketName $s3BasePath -Key $key -File $file | Out-Default | Write-Host
+            Write-Host('Warning: The detailed compile results file path: '+$detailedResultParent+' does not exist') -ForegroundColor Yellow
         }
     }
 }
@@ -201,7 +253,15 @@ try{
 
     Write-Host('Log File: ' + $totalSummaryFile)
     Write-Host('Key: ' + $totalSummaryKey)
-    Write-S3Object -BucketName $s3BasePath -Key $totalSummaryKey -File $totalSummaryFile | Out-Default | Write-Host
+    if(Test-Path -Path $totalSummaryFile){
+            
+           Write-S3Object -BucketName $s3BasePath -Key $totalSummaryKey -File $totalSummaryFile | Out-Default | Write-Host
+    }
+    else{
+            
+            Write-Host('Warning: The file path: '+$totalSummaryFile+' does not exist') -ForegroundColor Yellow
+    }
+   
     
 }
 catch{
