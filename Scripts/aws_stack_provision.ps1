@@ -278,7 +278,7 @@ elseif ($ORACLE_DB_COUNT -eq 0)
          throw "Timeout: 30 minutes expired waiting for CFN stack to be in CREATE_COMPLETE state"
       }
       Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
-      $RETRY_COUNT = check_oracle_rds_status $ORACLE_SNAPSHOT_IDENTIFIER
+      $RETRY_COUNT = check_oracle_rds_status $ORACLE_DB_IDENTIFIER
       if ( $RETRY_COUNT -le 0 )
       {
          throw "Timeout: 30 minutes expired waiting for RDS to be in availabe state"
@@ -400,7 +400,7 @@ elseif ($MYSQL_DB_COUNT -eq 0)
       }
       Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
 
-      $RETRY_COUNT = check_mysql_rds_status $MYSQL_SNAPSHOT_IDENTIFIER
+      $RETRY_COUNT = check_mysql_rds_status $MYSQL_DB_IDENTIFIER
       if ($RETRY_COUNT -le 0)
       {
          throw "Timeout: 30 minutes expired waiting for MYSQL RDS to be in availabe state"
