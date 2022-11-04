@@ -18,9 +18,9 @@ if($DSNNames -contains "AZURESQL" -and (Get-OdbcDsn -Name "AZURESQL").Platform -
 
 Write-Host("Updating Server name for Oracle")
 
-if($DSNNames -contains "ora19cdb" -and (Get-OdbcDsn -Name "ora19cdb").Platform -eq "32-bit"){
+if($DSNNames -contains "ORACLE" -and (Get-OdbcDsn -Name "ORACLE").Platform -eq "32-bit"){
     $oraServer = "ora" + $lansaVersion
-    Set-OdbcDsn -Name "ora19cdb" -DsnType "System" -Platform "32-bit" -SetPropertyValue "ServerName=$oraServer"
+    Set-OdbcDsn -Name "ORACLE" -DsnType "System" -Platform "32-bit" -SetPropertyValue "ServerName=$oraServer"
 }
 
 # MYSQL
