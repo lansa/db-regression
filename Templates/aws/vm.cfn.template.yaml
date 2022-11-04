@@ -5,6 +5,9 @@ Description:
   CloudFormation template for provisioning of VM for LANSA Database Regression Test.
 
 Parameters:
+  LANSAVERSION:
+    Type: String
+    Description: LANSA Version that needs to be test
   AMIID:
     Type: String
     Description: AMI_ID for provisioning the VM
@@ -37,4 +40,4 @@ Resources:
       PropagateTagsToVolumeOnCreation: true
       Tags: 
         - Key: "Name"
-          Value: "DB Regression Test"
+          Value: !Join [ " ", [ "DB Regression Test", !Ref LANSAVERSION ] ]
