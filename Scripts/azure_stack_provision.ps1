@@ -115,8 +115,8 @@ else {
             [Console]::Write(".")
             Start-Sleep -s 10
         }
-    }else{
-        if ($sourceserver.count -eq 1){
+    }elseif($lansa_version -ne $clone_lansa_version){
+        if($sourceserver.count -eq 1){
             Write-Host "Source server found $sourceserver. Checking for clone lansa version db else Restore from storage account."
             $sourceserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sourceserver
             $source_db_name = $sourceserver_dbname.DatabaseName
@@ -125,7 +125,18 @@ else {
                 New-AzSqlDatabaseCopy -ResourceGroupName dbregressiontest -ServerName $sourceserver -DatabaseName $clone_lansa_version -CopyResourceGroupName dbregressiontest -CopyServerName $sql_server -CopyDatabaseName $lansa_version | Out-Default | Write-Host
             }
         }else{
-            throw "Found more than 1 Azure sql server with the Lansa Version tag = $clone_lansa_version"
+            Write-Host "Importing database from Storage Account..."
+            $importRequest = New-AzSqlDatabaseImport -ResourceGroupName "dbregressiontest" -ServerName $sql_server -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $(ConvertTo-SecureString -String $sql_password -AsPlainText -Force) -Edition GeneralPurpose -ServiceObjectiveName GP_S_Gen5_8 -DatabaseMaxSizeBytes 1099511627776
+            #cheacking status
+            $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
+            [Console]::Write("Importing")
+            while ($importStatus.Status -eq "InProgress") {
+                $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
+                [Console]::Write(".")
+                Start-Sleep -s 10
+            }
         }
+    }else{
+        throw "Found more than 1 Azure sql server with the Lansa Version tag = $clone_lansa_version"
     }
 }
