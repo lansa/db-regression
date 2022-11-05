@@ -52,8 +52,6 @@ function cfn_stack_status
       $RetryCount -= 1
       Write-Host "Waiting for CFN $STACK_NAME stack to be in CREATE_COMPLETE state"
       $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-      Write-Host $CFN_STACK_STATUS
-
    }
    return $RetryCount
 }
@@ -129,7 +127,7 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       $STACK_NAME = "DB-Regression-VM-" + $lansa_version
       try
       {
-	 Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
+         Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
          $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
          Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
          $RETRY_COUNT = remove_cfn_stack $STACK_NAME
@@ -137,14 +135,14 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-	 Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
+         Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
          Get-CFNStack -StackName $STACK_NAME
-	 throw "CFN Stack still exist. It failed to delete"
+         throw "CFN Stack still exist. It failed to delete"
       }
       catch [System.InvalidOperationException]
       {
-	 Write-Host "Creating $STACK_NAME stack"
-         New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @{ParameterKey="AMIID";ParameterValue=$AMI_ID} -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         Write-Host "Creating $STACK_NAME stack"
+         New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @(@{ParameterKey="AMIID";ParameterValue=$AMI_ID}, @{ParameterKey="LANSAVERSION"; ParameterValue=$lansa_version}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
       }
 
       $RETRY_COUNT = cfn_stack_status $STACK_NAME
@@ -197,7 +195,7 @@ function check_oracle_rds_status
    {
       Start-Sleep -Seconds 20
       $RetryCount -= 1
-      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "backing-up")  )
+      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "backing-up") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "creating")  )
       {
          Write-Host "Oracle RDS is getting started"
       }
@@ -246,54 +244,56 @@ if ($ORACLE_DB_COUNT -eq 1)
 elseif ($ORACLE_DB_COUNT -eq 0)
 {
    Write-Host "No existing oracle database exist with lansa version tag = $lansa_version"
-   $ORACLE_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBInstanceIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
-   if ($ORACLE_SNAPSHOT_COUNT -eq 1)
+   try
    {
-      Write-Host "Found 1 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
-      $STACK_NAME = "DB-Regression-ORACLE-RDS-" + $lansa_version
-      try
+      $ORACLE_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
+      if ($ORACLE_SNAPSHOT_COUNT -eq 1)
       {
-	 Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"     
-         $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-         Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
-         $RETRY_COUNT = remove_cfn_stack $STACK_NAME
+         Write-Host "Found 1 snapshot for snapshot identifier $ORACLE_SNAPSHOT_IDENTIFIER"
+         $STACK_NAME = "DB-Regression-ORACLE-RDS-" + $lansa_version
+         try
+         {
+            Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
+            $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
+            Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
+            $RETRY_COUNT = remove_cfn_stack $STACK_NAME
+            if ( $RETRY_COUNT -le 0 )
+            {
+               throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
+            }
+            Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
+            Get-CFNStack -StackName $STACK_NAME
+            throw "CFN Stack still exist. It failed to delete"
+         }
+         catch [System.InvalidOperationException]
+         {
+            Write-Host "Creating $STACK_NAME stack"
+            $ORACLE_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
+            New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         }
+
+         $RETRY_COUNT = cfn_stack_status $STACK_NAME
          if ( $RETRY_COUNT -le 0 )
          {
-            throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
+            throw "Timeout: 30 minutes expired waiting for CFN stack to be in CREATE_COMPLETE state"
          }
-	 Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
-         Get-CFNStack -StackName $STACK_NAME
-         throw "CFN Stack still exist. It failed to delete"
-      }
-      catch [System.InvalidOperationException]
-      {
-         Write-Host "Creating $STACK_NAME stack"
-         $ORACLE_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBInstanceIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-         New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
+         $RETRY_COUNT = check_oracle_rds_status $ORACLE_DB_IDENTIFIER
+         if ( $RETRY_COUNT -le 0 )
+         {
+            throw "Timeout: 30 minutes expired waiting for RDS to be in availabe state"
+         }
+         Write-Host "Oracle RDS is in Available state"
       }
 
-      $RETRY_COUNT = cfn_stack_status $STACK_NAME
-      if ( $RETRY_COUNT -le 0 )
+      else
       {
-         throw "Timeout: 30 minutes expired waiting for CFN stack to be in CREATE_COMPLETE state"
+         throw "Found more than 1 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
       }
-      Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
-      $RETRY_COUNT = check_oracle_rds_status $ORACLE_SNAPSHOT_IDENTIFIER
-      if ( $RETRY_COUNT -le 0 )
-      {
-         throw "Timeout: 30 minutes expired waiting for RDS to be in availabe state"
-      }
-      Write-Host "Oracle RDS is in Available state"
    }
-
-   elseif ($ORACLE_SNAPSHOT_COUNT -eq 0)
+   catch
    {
       throw "Found 0 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
-   }
-
-   else
-   {
-      throw "Found more than 1 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
    }
 }
 
@@ -320,7 +320,7 @@ function check_mysql_rds_status
    {
       Start-Sleep -Seconds 20
       $RetryCount -= 1
-      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "backing-up")  )
+      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "backing-up") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "creating"))
       {
          Write-Host "MYSQL RDS is getting started"
       }
@@ -367,56 +367,58 @@ if ($MYSQL_DB_COUNT -eq 1)
 elseif ($MYSQL_DB_COUNT -eq 0)
 {
    Write-Host "No existing MYSQL RDS with Lansa version tag = $lansa_version exist"
-   $MYSQL_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBInstanceIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
-   if ($MYSQL_SNAPSHOT_COUNT -eq 1)
+   try
    {
-      Write-Host "Found 1 snapshot for identifier $MYSQL_SNAPSHOT_IDENTIFIER"
-      $STACK_NAME = "DB-Regression-MYSQL-RDS-" + $lansa_version
-      try
+      $MYSQL_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
+      if ($MYSQL_SNAPSHOT_COUNT -eq 1)
       {
-	 Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"     
-         $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-         Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
-         $RETRY_COUNT = remove_cfn_stack $STACK_NAME
+         Write-Host "Found 1 snapshot for identifier $MYSQL_SNAPSHOT_IDENTIFIER"
+         $STACK_NAME = "DB-Regression-MYSQL-RDS-" + $lansa_version
+         try
+         {
+            Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
+            $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
+            Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
+            $RETRY_COUNT = remove_cfn_stack $STACK_NAME
+            if ( $RETRY_COUNT -le 0 )
+            {
+               throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
+            }
+            Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
+            Get-CFNStack -StackName $STACK_NAME
+            throw "CFN Stack still exist. It failed to delete"
+         }
+         catch [System.InvalidOperationException]
+         {
+            Write-Host "Creating $STACK_NAME stack"
+            $MYSQL_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
+            New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         }
+
+         $RETRY_COUNT = cfn_stack_status $STACK_NAME
          if ( $RETRY_COUNT -le 0 )
          {
-            throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
+            throw "Timeout: 30 minutes expired waiting for CFN stack to be CREATE_COMPLETE state"
          }
-         Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state" 
-	 Get-CFNStack -StackName $STACK_NAME
-	 throw "CFN Stack still exist. It failed to delete"
-      }
-      catch [System.InvalidOperationException]
-      {
-         Write-Host "Creating $STACK_NAME stack"
-         $MYSQL_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBInstanceIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-         New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+         Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
+
+         $RETRY_COUNT = check_mysql_rds_status $MYSQL_DB_IDENTIFIER
+         if ($RETRY_COUNT -le 0)
+         {
+            throw "Timeout: 30 minutes expired waiting for MYSQL RDS to be in availabe state"
+         }
+         Write-Host "MYSQL RDS is in Available State"
       }
 
-      $RETRY_COUNT = cfn_stack_status $STACK_NAME
-      if ( $RETRY_COUNT -le 0 )
+      else
       {
-         throw "Timeout: 30 minutes expired waiting for CFN stack to be CREATE_COMPLETE state"
+         throw "Found more than 1 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
       }
-      Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
-
-      $RETRY_COUNT = check_mysql_rds_status $MYSQL_SNAPSHOT_IDENTIFIER
-      if ($RETRY_COUNT -le 0)
-      {
-         throw "Timeout: 30 minutes expired waiting for MYSQL RDS to be in availabe state"
-      }
-      Write-Host "MYSQL RDS is in Available State"
    }
-
-   elseif ($MYSQL_SNAPSHOT_COUNT -eq 0)
+   catch
    {
       throw "Found 0 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
-   }
-
-   else
-   {
-      throw "Found more than 1 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
-   }
+    }
 }
 
 else
