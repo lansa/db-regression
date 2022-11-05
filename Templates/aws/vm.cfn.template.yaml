@@ -1,0 +1,43 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description:
+  CloudFormation template for provisioning of VM for LANSA Database Regression Test.
+
+Parameters:
+  LANSAVERSION:
+    Type: String
+    Description: LANSA Version that needs to be test
+  AMIID:
+    Type: String
+    Description: AMI_ID for provisioning the VM
+  SECURITYGROUPID:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_SG_ID
+    Description: Security Group to be attached to the VM.
+  SUBNETIDFORVM:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_SUBNET_ID
+    Description: Subnet ID where VM would be provisioned.
+  IAMROLEFORVM:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: DB_REGRESSION_TESTING_VM_IAM_PROFILE
+    Description: IAM Instance profile to be attached to VM.    
+  
+Resources:
+  INSTANCE:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AMIID
+      InstanceType: "m5a.xlarge"
+      KeyName: "AzureDevOps"
+      SubnetId: !Ref SUBNETIDFORVM
+      IamInstanceProfile: !Ref IAMROLEFORVM 
+      PrivateDnsNameOptions:
+          EnableResourceNameDnsARecord: true
+      SecurityGroupIds:
+        - !Ref SECURITYGROUPID 
+      PropagateTagsToVolumeOnCreation: true
+      Tags: 
+        - Key: "Name"
+          Value: !Join [ " ", [ "DB Regression Test", !Ref LANSAVERSION ] ]
