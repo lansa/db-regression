@@ -10,9 +10,10 @@ $DSNNames = (Get-OdbcDsn).Name
 
 if($DSNNames -contains "AZURESQL" -and (Get-OdbcDsn -Name "AZURESQL").Platform -eq "32-bit"){
 
-    Write-Host("Updating Server name and database name for AZURESQL")
-
     $sqlserver = "db-regression-" + $lansaVersion + ".database.windows.net" 
+
+    Write-Host("Updating Server name as $sqlserver and database name as $lansaVersion for AZURESQL")
+    
     Set-OdbcDsn -Name "AZURESQL" -DsnType "System" -Platform "32-bit" -SetPropertyValue @("Server=$sqlserver", "Database=$lansaVersion")
 
 }
@@ -46,9 +47,10 @@ if($DSNNames -contains "ora19cdb" -and (Get-OdbcDsn -Name "ora19cdb").Platform -
 
 if($DSNNames -contains "MYSQL" -and (Get-OdbcDsn -Name "MYSQL").Platform -eq "32-bit"){
 
-    Write-Host("Updating Server name and database name for MYSQL")
-
     $mysqlServer = "mysql" + $lansaVersion + ".cnyed5gpqwey.us-east-1.rds.amazonaws.com"
+
+    Write-Host("Updating Server name as $mysqlServer and database name as $lansaVersion for MYSQL")
+    
     $temp = Get-OdbcDsn -Name "MYSQL"
     Remove-OdbcDsn -Name "MYSQL" -DsnType "System" -Platform "32-bit"
     Add-OdbcDsn -Name "MYSQL" -DriverName $temp.DriverName -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=$lansaVersion")
