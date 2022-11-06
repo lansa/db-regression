@@ -6,11 +6,11 @@ param (
     $LansaVersion,
 
     [Parameter(Mandatory = $false)]
-    [string]
+    [boolean]
     $Test,
     
     [Parameter(Mandatory = $false)]
-    [string]
+    [boolean]
     $Compile,
 
     [Parameter(Mandatory = $true)]
