@@ -6,11 +6,11 @@ param (
     $LansaVersion,
 
     [Parameter(Mandatory = $false)]
-    [boolean]
+    [string]
     $Test,
     
     [Parameter(Mandatory = $false)]
-    [boolean]
+    [string]
     $Compile,
 
     [Parameter(Mandatory = $true)]
@@ -22,10 +22,23 @@ param (
     $OutputS3KeyPrefix
 )
 
+
+if (($Test -eq "true") -or ($Test -eq "True")) {
+    $Test = $true
+} else {
+    $Test = $false
+}
+
+if (($Compile -eq "true") -or ($Compile -eq "True")) {
+    $Compile = $true
+} else {
+    $Compile = $false
+}
+
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment "Running db-test.ps1 on DB-Regression-VM-$LansaVersion" `
-        -Parameter @{'commands'=@(' & "C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\db-test.ps1" -Compile [bool]$Compile -Test [bool]$Test ')} `
+        -Parameter @{'commands'=@(' & "C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\db-test.ps1" -Compile $Compile -Test $Test ')} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = $LansaVersion}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix).CommandId
