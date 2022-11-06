@@ -25,7 +25,7 @@ param (
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment "Running db-test.ps1 on DB-Regression-VM-$LansaVersion" `
-        -Parameter @{'commands'=@(' & "C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\db-test.ps1 -Compile $Compile -Test $Test" ')} `
+        -Parameter @{'commands'=@(' & "C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\db-test.ps1" -Compile $Compile -Test $Test ')} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = $LansaVersion}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix).CommandId
