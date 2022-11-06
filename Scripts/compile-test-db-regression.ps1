@@ -39,9 +39,7 @@ $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment "Running db-test.ps1 on DB-Regression-VM-$LansaVersion" `
         -Parameter @{'commands'=@(
-            "$bool_compile = [bool]::Parse($Compile)",
-            "$bool_test = [bool]::Parse($Test)",
-            "& 'C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\db-test.ps1' -Compile $bool_compile -Test $bool_test "
+            " powershell -Command 'C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\db-test.ps1' -Compile [bool]::Parse($Compile) -Test [bool]::Parse($Test) "
             )} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = $LansaVersion}) `
         -OutputS3BucketName $OutputS3BucketName `
