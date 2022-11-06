@@ -14,13 +14,17 @@ $sql_password = Get-SECSecretValue -SecretId "password/DBRegressionTest/SQLAZURE
 
 $export = New-AzSqlDatabaseExport -ResourceGroupName dbregressiontest -ServerName "db-regression-$lansa_version" -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $sql_password
 
-$exportStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $export.OperationStatusLink
-[Console]::Write("Exporting")
-while ($exportStatus.Status -eq "InProgress")
-{
-    Start-Sleep -s 10
-    $exportStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $export.OperationStatusLink
-    [Console]::Write(".")
+$waitDelay = 10
+while (($export | Get-AzSqlDatabaseImportExportStatus).Status -eq 'InProgress') {
+    ($export | Get-AzSqlDatabaseImportExportStatus).StatusMessage
+    Start-Sleep $waitDelay
 }
-[Console]::WriteLine("")
-$exportStatus
+# Output results
+$result = $export | Get-AzSqlDatabaseImportExportStatus
+$result | Out-Default | Write-Host
+if ($result.Status -eq 'Succeeded') {
+    Write-Host "Database Deployed"
+}else{
+    Write-Host "Database did not deploy '$($result.Status)'-'$($result.ErrorMessage)'"
+    Throw $result.ErrorMessage
+} 

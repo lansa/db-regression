@@ -55,6 +55,7 @@ Write-Host "Checking Azure SQL Server with lansa version $lansa_version Exist or
 if($azure_tags.count -eq 1){
     Write-Host "SQL Server with lansa version exist $lansa_version. Checking Database Exist or Not."
 	$Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
+    $Sqlserver_dbname | Out-Default | Write-Host
 	$db_name = $Sqlserver_dbname.DatabaseName
     Write-Host "Dispaly all database in the $sql_server : $db_name"
     if ($db_name -contains $lansa_version) {
@@ -82,7 +83,7 @@ if($azure_tags.count -eq 1){
                 }
                 # Output results
                 $result = $importRequest | Get-AzSqlDatabaseImportExportStatus
-                $result
+                $result | Out-Default | Write-Host
                 if ($result.Status -eq 'Succeeded') {
                     Write-Host "Database Deployed"
                 }else{
@@ -101,7 +102,7 @@ if($azure_tags.count -eq 1){
             }
             # Output results
             $result = $importRequest | Get-AzSqlDatabaseImportExportStatus
-            $result
+            $result | Out-Default | Write-Host
             if ($result.Status -eq 'Succeeded') {
                 Write-Host "Database Deployed"
             }else{
@@ -129,7 +130,7 @@ else {
         }
         # Output results
         $result = $importRequest | Get-AzSqlDatabaseImportExportStatus
-        $result
+        $result | Out-Default | Write-Host
         if ($result.Status -eq 'Succeeded') {
             Write-Host "Database Deployed"
         }else{
@@ -156,7 +157,7 @@ else {
                 }
                 # Output results
                 $result = $importRequest | Get-AzSqlDatabaseImportExportStatus
-                $result
+                $result | Out-Default | Write-Host
                 if ($result.Status -eq 'Succeeded') {
                     Write-Host "Database Deployed"
                 }else{
