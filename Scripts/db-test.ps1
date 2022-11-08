@@ -441,6 +441,10 @@ try {
         
         # Display the summary of summaries file
         Get-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
+
+        if ( $global:TotalErrors -gt 0) {
+            throw "There have been $global:TotalErrors errors"
+        }
     }
 
     Pop-Location
