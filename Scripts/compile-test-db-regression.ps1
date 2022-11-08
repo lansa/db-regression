@@ -4,11 +4,11 @@ param (
     $dbtype,
 
     [Parameter(Mandatory = $true)]
-    [bool]
+    [string]
     $compile,
 
     [Parameter(Mandatory = $true)]
-    [bool]
+    [string]
     $test,
 
     [Parameter(Mandatory = $true)]
