@@ -58,8 +58,8 @@ $runPSCommandID = (Send-SSMCommand `
 function writings3logs {
 
     # This will download the AWS Systems Manager log file(s) locally at the location specified on the "Folder" flag ($root_directory)
-    Read-S3Object -BucketName $(OutputS3BucketName) `
-        -KeyPrefix "$(OutputS3KeyPrefix)/$dbtype/$runPSCommandID/$instance_id/awsrunPowerShellScript/0.awsrunPowerShellScript" `
+    Read-S3Object -BucketName $OutputS3BucketName `
+        -KeyPrefix "$OutputS3KeyPrefix/$dbtype/$runPSCommandID/$instance_id/awsrunPowerShellScript/0.awsrunPowerShellScript" `
         -Folder "$root_directory\LANSA\VersionControl\Scripts\s3_logs"
 
     # This will get all types of logs (expected types: stderr, for failure and stdout if successful) and print them to the Azure DevOps console
@@ -95,6 +95,6 @@ if($RetryCount -le 0) {
 }
 
 
-Write-Host "Execution complete. The logs can also be found here: $(OutputS3BucketName)/$(OutputS3KeyPrefix)/$dbtype/$runPSCommandID/"
+Write-Host "Execution complete. The logs can also be found here: $OutputS3BucketName/$OutputS3KeyPrefix/$dbtype/$runPSCommandID/"
 
 writings3logs # This is a function
