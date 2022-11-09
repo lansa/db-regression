@@ -2,7 +2,7 @@
 
 param (
 [parameter(Mandatory=$true)]    [string] $lansa_version,
-[parameter(Mandatory=$true)]    [string] $stop
+[parameter(Mandatory=$true)]    [boolean] $stop
 )
 
 $INSTANCE_ID = ((Get-EC2Instance -Filter @(@{Name="tag:LansaVersion"; Values=$lansa_version}, @{Name= "tag:aws:cloudformation:stack-name"; Values="DB-Regression-VM-$lansa_version"})).Instances).InstanceId
@@ -12,7 +12,7 @@ $ORACLE_DB_INSTANCE_IDENTIFIER = "ora" + $lansa_version
 $MYSQL_DB_INSTANCE_IDENTIFIER = "mysql" + $lansa_version
 
 
-if ( ($stop -eq "True") -or ($stop -eq "true") )
+if ($stop -eq $true )
 {
    Write-Host "Stopping the VM"
    Stop-EC2Instance -InstanceId $INSTANCE_ID -Force
