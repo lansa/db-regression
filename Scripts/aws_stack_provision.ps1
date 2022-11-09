@@ -76,7 +76,11 @@ function remove_cfn_stack
 
 Write-Host "Searching for VM with Lansa Version tag = $lansa_version"
 
-$EXISTING_INSTANCE_COUNT = (((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }).Instances).InstanceId).count
+$RUNNING_INSTANCE_COUNT = (((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="running"}).Instances).InstanceId).count
+
+$STOPPED_INSTANCE_COUNT = (((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="stopped"}).Instances).InstanceId).count
+
+$EXISTING_INSTANCE_COUNT = $RUNNING_INSTANCE_COUNT + $STOPPED_INSTANCE_COUNT
 
 if ($EXISTING_INSTANCE_COUNT -eq 1 )
 {
