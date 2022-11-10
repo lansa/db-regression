@@ -56,9 +56,10 @@ if (-not $scriptNameIsFullPath) {
     $ScriptPath = "$root_directory\LANSA\VersionControl\Scripts\$scriptName"
 }
 
-$localComment = "$comment for $dbtype"
+$localComment = "$comment using $dbtype"
 Write-Host
-Write-Host "$localComment using $ScriptPath $ScriptParameters on VM $lansaVersion"
+Write-Host "$localComment"
+Write-Host "Executing $ScriptPath $ScriptParameters on VM $lansaVersion"
 
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
