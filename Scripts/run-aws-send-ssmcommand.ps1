@@ -9,7 +9,7 @@ param (
 
     [Parameter(Mandatory = $false)]
     [string]
-    $scriptParameters, # e.g. "-Compile 0 -Test 1"
+    $scriptParameters, # e.g. "-Compile 0 -Test 1" Note that Boolean parameters must be passed as 1 or 0, not $true or $false. The SSM Command cannot pass booleans through to the script
 
     [Parameter(Mandatory = $true)]
     [string]
