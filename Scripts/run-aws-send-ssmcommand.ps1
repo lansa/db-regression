@@ -63,7 +63,7 @@ Write-Host "$localComment using $ScriptPath $ScriptParameters on VM $lansaVersio
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment $localComment `
-        -Parameter @{'commands' = @("& '$ScriptPath' $scriptParameters")} `
+        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {exit 1}" )} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
