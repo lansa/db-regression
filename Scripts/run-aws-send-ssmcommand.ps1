@@ -32,6 +32,8 @@ param (
     $LansaVersion
 )
 
+$ErrorActionPreference = Stop
+
 # Mapping of databases to appropriate path
 $DatabaseType_SystemRootPath = @{
     "AZURESQL" = "C:\Program Files (x86)\AZURESQL";
