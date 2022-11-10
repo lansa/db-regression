@@ -4,6 +4,10 @@ param (
     $scriptName, # e.g. "db-test-ps1"
 
     [Parameter(Mandatory = $false)]
+    [boolean]
+    $scriptNameIsFullPath = $false, # Defaults to presuming the script is in the DB Regression Repo in the Scripts directory
+
+    [Parameter(Mandatory = $false)]
     [string]
     $scriptParameters, # e.g. "-Compile 0 -Test 1"
 
@@ -45,11 +49,19 @@ $instance_id = ((Get-EC2Instance -Filter @( `
                                     ).Instances `
                                 ).InstanceId `
 
+$ScriptPath = $scriptName
+if (-not $scriptNameIsFullPath) {
+    $ScriptPath = "$root_directory\LANSA\VersionControl\Scripts\$scriptName"
+}
+
 $localComment = "$comment for $dbtype"
+Write-Host
+Write-Host "$localComment using $ScriptPath $ScriptParameters on VM $lansaVersion"
+
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment $localComment `
-        -Parameter @{'commands' = @("& '$root_directory\LANSA\VersionControl\Scripts\$scriptName' $scriptParameters")} `
+        -Parameter @{'commands' = @("& '$ScriptPath' $scriptParameters")} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
