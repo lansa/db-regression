@@ -32,7 +32,7 @@ param (
     $LansaVersion
 )
 
-$ErrorActionPreference = Stop
+$ErrorActionPreference = "Stop"
 
 # Mapping of databases to appropriate path
 $DatabaseType_SystemRootPath = @{
