@@ -102,7 +102,7 @@ function send-ssm-output-to-console {
 $RetryCount = 90
 while(((Get-SSMCommand -CommandId $runPSCommandID).Status -ne "Success") -and ($RetryCount -gt 0)) {
 
-    Write-Host "Please wait. $scriptName execution for $dbtype is in progress. The logs will be displayed after the execution.`n"
+    Write-Host "Please wait. The logs will be displayed after the execution.`n"
 
     Start-Sleep 20 # Checking every 20 seconds
 
