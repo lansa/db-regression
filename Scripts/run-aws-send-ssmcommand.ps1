@@ -67,7 +67,8 @@ $runPSCommandID = (Send-SSMCommand `
         -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {exit 1}" )} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
-        -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
+        -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype `
+        -TimeoutSecond 10800).CommandId                     # Timeout 3 hours
 
 Write-Host "`nThe CommandID is: $runPSCommandID`n"
 
@@ -101,7 +102,7 @@ function send-ssm-output-to-console {
 }
 
 # The retry/timeout logic in case the script doesn't run; it will halt the execution right away if status is "Failed"
-$RetryCount = 90
+$RetryCount = 540
 while(((Get-SSMCommand -CommandId $runPSCommandID).Status -ne "Success") -and ($RetryCount -gt 0)) {
 
     Write-Host "Please wait. The logs will be displayed after the execution.`n"
@@ -119,7 +120,7 @@ while(((Get-SSMCommand -CommandId $runPSCommandID).Status -ne "Success") -and ($
 # The actual timeout/halting of execution when timeout occures
 if($RetryCount -le 0) {
     send-ssm-output-to-console # This is a function
-    throw "Timeout: 30 minutes expired waiting for the script to start."
+    throw "Timeout: 3 hours expired waiting for the script to finish"
 }
 
 # And when nothing fails, fetch and write the logs
