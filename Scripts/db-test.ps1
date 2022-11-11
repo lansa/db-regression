@@ -169,9 +169,25 @@ function Remove-Logs{
         [Parameter(Mandatory=$true)]
         [string] $LansaRoot
     )
+    $dbTestParent = Join-Path $LansaRoot 'x_win95\x_lansa\X_WBP\Compile\DBTEST'
+    if ( Test-Path -Path $dbTestParent ) {
+        Write-Host "$(Log-Date) Removing all files in $dbTestParent"
+        Get-ChildItem -Path $dbTestParent | Out-Default | Write-Host
+        Get-ChildItem -Path $dbTestParent | foreach {$_.Delete()} | Out-Default | Write-Host
+    }
+
+    $detailedResult = 'lansa/lansa/' + $database
+    $detailedResultParent = Join-Path $LansaRoot $detailedResult
+    if ( Test-Path -Path $detailedResultParent ) {
+        Write-Host "$(Log-Date) Removing all files in $detailedResultParent"
+        Get-ChildItem -Path $dbTestParent | Out-Default | Write-Host
+        Get-ChildItem -Path $dbTestParent | foreach {$_.Delete()} | Out-Default | Write-Host
+    }
+
     Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
     Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
     Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
+
 }
 
 # =============================================================================
@@ -188,6 +204,7 @@ try {
     . "$script:IncludeDir\dot-CommonTools.ps1"
 
     $PrimaryPath = split-Path (split-path (split-path (Split-Path -Parent $MyInvocation.MyCommand.Path)))
+    $Database = split-path $PrimaryPath -leaf
 
     [System.Collections.ArrayList]$RootList = @()
     if ( $Primary ) {
@@ -221,7 +238,7 @@ try {
             throw
         }
     }
-    
+
     # All may be false when testing the summary logging code.
     if ( $Import -or $Compile -or $Test) {
         # Delete Old Log Files
@@ -395,6 +412,7 @@ try {
                 $OtherErrors = @(
                     "*** Unable to connect to <LU Name>",
                     "Error:"
+                    "*** Failure"
                 )
                 foreach ($OtherError in $OtherErrors ){
                     $Select = Select-String -Path (Join-Path $Root $FullReportFile) -Pattern "$OtherError" -SimpleMatch
@@ -438,7 +456,7 @@ try {
         if ( $TotalMissingTests -gt 0 ){
             Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total missing tests $TotalMissingTests"
         }
-        
+
         # Display the summary of summaries file
         Get-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile)
 

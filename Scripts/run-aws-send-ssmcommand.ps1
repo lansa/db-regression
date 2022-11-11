@@ -76,6 +76,7 @@ function send-ssm-output-to-console {
     Write-Host( "Remove existing log files from temporary directory...")
     $LogDir = "s3_logs"
     if ( Test-Path -Path $LogDir ) {
+        Get-ChildItem -Path $LogDir | Out-Default | Write-Host
         Get-ChildItem -Path $LogDir | foreach {$_.Delete()} | Out-Default | Write-Host
     }
 
