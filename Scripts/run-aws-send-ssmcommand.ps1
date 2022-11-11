@@ -61,14 +61,14 @@ Write-Host
 Write-Host "$localComment"
 Write-Host "Executing $ScriptPath $ScriptParameters on VM $lansaVersion"
 
+# Timeout 3 hours
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment $localComment `
-        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {exit 1}" )} `
+        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {exit 1}" ); 'executionTimeout' = '10800'} `
         -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
-        -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype `
-        -TimeoutSecond 10800).CommandId                     # Timeout 3 hours
+        -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
 
 Write-Host "`nThe CommandID is: $runPSCommandID`n"
 
