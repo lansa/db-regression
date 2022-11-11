@@ -102,7 +102,7 @@ function send-ssm-output-to-console {
 }
 
 # The retry/timeout logic in case the script doesn't run; it will halt the execution right away if status is "Failed"
-$RetryCount = 540
+$RetryCount = 543       # 3 hours and 1 minute so that the SSM Command has timed out and the logs are available
 while(((Get-SSMCommand -CommandId $runPSCommandID).Status -ne "Success") -and ($RetryCount -gt 0)) {
 
     Write-Host "Please wait. The logs will be displayed after the execution.`n"
@@ -120,7 +120,7 @@ while(((Get-SSMCommand -CommandId $runPSCommandID).Status -ne "Success") -and ($
 # The actual timeout/halting of execution when timeout occures
 if($RetryCount -le 0) {
     send-ssm-output-to-console # This is a function
-    throw "Timeout: 3 hours expired waiting for the script to finish"
+    throw "Timeout: 3 hours and 1 minute expired waiting for the script to finish"
 }
 
 # And when nothing fails, fetch and write the logs
