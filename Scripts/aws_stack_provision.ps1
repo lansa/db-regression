@@ -273,7 +273,7 @@ elseif ($ORACLE_DB_COUNT -eq 0)
          {
             Write-Host "Creating $STACK_NAME stack"
             $ORACLE_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-            New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+            New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}, @{Key="RDS_KEEP_STOPPED"; Value='YES'})
          }
 
          $RETRY_COUNT = cfn_stack_status $STACK_NAME
@@ -289,15 +289,15 @@ elseif ($ORACLE_DB_COUNT -eq 0)
          }
          Write-Host "Oracle RDS is in Available state"
       }
-
       else
       {
-         throw "Found more than 1 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
+        $_ | Out-Default | Write-Host
+         throw "Found either none or more than 1 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
       }
    }
    catch
    {
-      throw "Found 0 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
+      throw "Error creating stack $STACK_NAME"
    }
 }
 
@@ -367,7 +367,6 @@ if ($MYSQL_DB_COUNT -eq 1)
       throw "MYSQL RDS in $MYSQL_DB_STATUS state"
    }
 }
-
 elseif ($MYSQL_DB_COUNT -eq 0)
 {
    Write-Host "No existing MYSQL RDS with Lansa version tag = $lansa_version exist"
@@ -396,7 +395,7 @@ elseif ($MYSQL_DB_COUNT -eq 0)
          {
             Write-Host "Creating $STACK_NAME stack"
             $MYSQL_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-            New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
+            New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}, @{Key="RDS_KEEP_STOPPED"; Value='YES'})
          }
 
          $RETRY_COUNT = cfn_stack_status $STACK_NAME
@@ -413,16 +412,16 @@ elseif ($MYSQL_DB_COUNT -eq 0)
          }
          Write-Host "MYSQL RDS is in Available State"
       }
-
       else
       {
-         throw "Found more than 1 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
+         throw "Found none or more than 1 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
       }
    }
    catch
    {
-      throw "Found 0 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
-    }
+      $_ | Out-Default | Write-Host
+      throw "Error creating stack $STACK_NAME"
+   }
 }
 
 else
