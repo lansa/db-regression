@@ -12,17 +12,17 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Default: DB_REGRESSION_TESTING_VM_SG_ID
     Description: Security Group to be attached to the RDS.
-  MYSQLSNAPSHOTARN:
+  SNAPSHOTARN:
     Type: String
     Description: MYSQL SNAPSHOT ARN
-  
-Resources:   
-  
+
+Resources:
+
   MYSQLRDS:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier:  !Join [ "", [ "mysql", !Ref LANSAVERSION ] ] 
-      DBSnapshotIdentifier: !Ref MYSQLSNAPSHOTARN
+      DBInstanceIdentifier:  !Join [ "", [ "mysql", !Ref LANSAVERSION ] ]
+      DBSnapshotIdentifier: !Ref SNAPSHOTARN
       AllocatedStorage: '50'
       DBInstanceClass: db.t3.large
       Engine: mysql

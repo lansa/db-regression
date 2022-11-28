@@ -12,20 +12,20 @@ Parameters:
     Type: AWS::SSM::Parameter::Value<String>
     Default: DB_REGRESSION_TESTING_VM_SG_ID
     Description: Security Group to be attached to the RDS.
-  ORACLESNAPSHOTARN:
+  SNAPSHOTARN:
     Type: String
     Description: ORACLE SNAPSHOT ARN
-    
-  
-Resources:   
+
+
+Resources:
 
   ORACLERDS:
     Type: AWS::RDS::DBInstance
     Properties:
       DBInstanceIdentifier: !Join [ "", [ "ora", !Ref LANSAVERSION ] ]
-      DBSnapshotIdentifier: !Ref ORACLESNAPSHOTARN
+      DBSnapshotIdentifier: !Ref SNAPSHOTARN
       AllocatedStorage: '40'
-      DBInstanceClass: db.t3.small
+      DBInstanceClass: db.t3.large
       Engine: oracle-se2
       VPCSecurityGroups:
         - !Ref SECURITYGROUPID
