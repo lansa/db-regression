@@ -64,7 +64,6 @@ function Import{
     $p = Start-Process -FilePath $installer_file -ArgumentList $Arguments -Wait -PassThru
 
     if ( $p.ExitCode -ne 0 ) {
-        $ExitCode = $p.ExitCode
         $ErrorMessage = "$(Log-Date) Import returned error code $($p.ExitCode)."
         Write-Host $ErrorMessage
         throw
@@ -173,7 +172,7 @@ function Remove-Logs{
     if ( Test-Path -Path $dbTestParent ) {
         Write-Host "$(Log-Date) Removing all files in $dbTestParent"
         Get-ChildItem -Path $dbTestParent | Out-Default | Write-Host
-        Get-ChildItem -Path $dbTestParent | foreach {$_.Delete()} | Out-Default | Write-Host
+        Get-ChildItem -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
     }
 
     $detailedResult = 'lansa/lansa/' + $database
@@ -181,7 +180,7 @@ function Remove-Logs{
     if ( Test-Path -Path $detailedResultParent ) {
         Write-Host "$(Log-Date) Removing all files in $detailedResultParent"
         Get-ChildItem -Path $dbTestParent | Out-Default | Write-Host
-        Get-ChildItem -Path $dbTestParent | foreach {$_.Delete()} | Out-Default | Write-Host
+        Get-ChildItem -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
     }
 
     Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
