@@ -15,9 +15,6 @@ $stack_script = Split-Path $aws_stack_script_path
 $git_repo_root = Get-Item $stack_script\..\Templates\aws
 
 $vm_template = Get-Content -Path $git_repo_root\vm.cfn.template.yaml -Raw
-$oracle_rds_template = Get-Content -Path $git_repo_root\oracle_rds.cfn.template.yaml -Raw
-$mysql_rds_template = Get-Content -Path $git_repo_root\mysql_rds.cfn.template.yaml -Raw
-
 
 function fetch_vm_password
 {
@@ -28,7 +25,7 @@ function fetch_vm_password
    Write-Host "Trying to fetch the VM Password"
    (Get-SECSecretValue -SecretId privatekey/AzureDevOps).SecretString > $env:tmp\KeyPair.pem
    $RetryCount = 60
-   while (((Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $env:tmp\KeyPair.pem) -eq $null ) -and ($RetryCount -gt 0) )
+   while (($NULL -EQ (Get-EC2PasswordData -InstanceId $INSTANCE_ID -PemFile $env:tmp\KeyPair.pem) ) -and ($RetryCount -gt 0) )
    {
       Start-Sleep -Seconds 20
       $RetryCount -= 1
@@ -44,15 +41,19 @@ function cfn_stack_status
       [Parameter(Mandatory=$true)] [String]$STACK_NAME
    )
    Write-Host "Checking CFN stack $STACK_NAME status"
-   $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-   $RetryCount = 90
-   while (($CFN_STACK_STATUS -ne "CREATE_COMPLETE") -and ($RetryCount -gt 0) )
+   $RetryCount = 180
+   do
    {
-      Start-Sleep -Seconds 20
-      $RetryCount -= 1
-      Write-Host "Waiting for CFN $STACK_NAME stack to be in CREATE_COMPLETE state"
       $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-   }
+      if ( $CFN_STACK_STATUS -eq "ROLLBACK_COMPLETE" -or $CFN_STACK_STATUS -eq "CREATE_FAILED" -or $CFN_STACK_STATUS -eq "DELETE_COMPLETE" -or $CFN_STACK_STATUS -eq "DELETE_FAILED" -or $CFN_STACK_STATUS -eq "ROLLBACK_FAILED" -or $CFN_STACK_STATUS -eq "ROLLBACK_IN_PROGRESS" -or $CFN_STACK_STATUS -eq "UPDATE_FAILED" -or $CFN_STACK_STATUS -eq "UPDATE_ROLLBACK_FAILED" -or $CFN_STACK_STATUS -eq "UPDATE_ROLLBACK_IN_PROGRESS" -or $CFN_STACK_STATUS -eq "IMPORT_ROLLBACK_FAILED" ) {
+         throw "CFN $STACK_NAME stack is in the invalid state '$CFN_STACK_STATUS' state"
+      }
+      if ($CFN_STACK_STATUS -ne "CREATE_COMPLETE") {
+         Start-Sleep -Seconds 20
+         $RetryCount -= 1
+         Write-Host "CFN $STACK_NAME stack is in $CFN_STACK_STATUS status. Waiting for CREATE_COMPLETE state"
+      }
+   } while (($CFN_STACK_STATUS -ne "CREATE_COMPLETE") -and ($RetryCount -gt 0) )
    return $RetryCount
 }
 
@@ -73,6 +74,156 @@ function remove_cfn_stack
    }
    return $RetryCount
 }
+
+function check_rds_status
+{
+   Param
+   (
+      [Parameter(Mandatory=$true)] [String]$DB_ID
+   )
+   Write-Host "Checking RDS status for $DB_ID and waiting for it to be ready."
+   $RetryCount = 90
+   do {
+      $global:InstanceStatus = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_ID}).DBInstanceStatus
+
+      if ( ($global:InstanceStatus -eq "Deleting") -or ($global:InstanceStatus -eq "Failed") -or ($global:InstanceStatus -eq "Inaccessible-encryption-credentials") -or ($global:InstanceStatus -eq "Inaccessible-encryption-credentials-recoverable")-or ($global:InstanceStatus -eq "Incompatible-network") -or ($global:InstanceStatus -eq "Incompatible-option-group") -or ($global:InstanceStatus -eq "Incompatible-parameters") -or ($global:InstanceStatus -eq "Incompatible-restore") -or ($global:InstanceStatus -eq "Insufficient-capacity") -or ($global:InstanceStatus -eq "Restore-error") -or ($global:InstanceStatus -eq "Storage-full") -or ($global:InstanceStatus -eq "Stopping") -or ($global:InstanceStatus -eq "Stopped") )
+      {
+        throw "RDS $DB_ID is in the invalid state '$($global:InstanceStatus)'. Aborting"
+      }
+      if ( ($global:InstanceStatus -ne "Available") ) {
+        Write-Host "RDS $DB_ID is in $($global:InstanceStatus) status. Waiting for it to be available"
+        Start-Sleep -Seconds 20
+        $RetryCount -= 1
+      }
+   } while ( ($global:InstanceStatus -ne "available") -and ($RetryCount -gt 0))
+   if ($global:InstanceStatus -eq "available") {
+      Write-Host "RDS $DB_ID is in Available state"
+   }
+   return $RetryCount
+}
+
+function provision_database
+{
+   Param
+   (
+      [Parameter(Mandatory=$true)] [String]$DatabaseType
+   )
+
+   $DB_IDENTIFIER = $DatabaseType + $lansa_version
+   $SNAPSHOT_IDENTIFIER = $DatabaseType + $clone_lansa_version
+
+   Write-Host
+   Write-Host "Searching for RDS $DB_IDENTIFIER"
+
+   switch ($DatabaseType) {
+      "ora"   {
+         $FULL_DATABASE_TYPE = "ORACLE"
+         $TEMPLATE_BODY = Get-Content -Path $git_repo_root\oracle_rds.cfn.template.yaml -Raw
+       }
+      "mysql" {
+         $FULL_DATABASE_TYPE = "MYSQL"
+         $TEMPLATE_BODY = Get-Content -Path $git_repo_root\mysql_rds.cfn.template.yaml -Raw
+      }
+   }
+
+   $DB_COUNT = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER}).count
+
+   if ($DB_COUNT -eq 1)
+   {
+      Write-Host "RDS $DB_IDENTIFIER already exists"
+      $DB_STATUS = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER}).DBInstanceStatus
+
+      if ($DB_STATUS -eq "stopped")
+      {
+         Start-RDSDBInstance -DBInstanceIdentifier $DB_IDENTIFIER | Out-Default | Write-Host
+         Write-Host "Waiting for RDS $DB_IDENTIFIER to be in Available state"
+
+         $RETRY_COUNT = check_rds_status $DB_IDENTIFIER
+         if ( $RETRY_COUNT -le 0 )
+         {
+            throw "Timeout: 30 minutes expired waiting for RDS $DB_IDENTIFIER to be in available state. Current state is $($global:InstanceStatus)"
+         }
+      }
+      elseif ($DB_STATUS -ne "available")
+      {
+            # If the database has been created external to this script then it might still be being created.
+            # Or maybe the script was cancelled but the database is still being created and this script has been run again.
+            # So handle it like a stopped database.
+            $RETRY_COUNT = check_rds_status $DB_IDENTIFIER
+            if ( $RETRY_COUNT -le 0 )
+            {
+               throw "Timeout: 30 minutes expired waiting for RDS $DB_IDENTIFIER to be in available state. Current state is $($global:InstanceStatus)"
+            }
+      }
+   }
+   elseif ($DB_COUNT -eq 0)
+   {
+      Write-Host "RDS $DB_IDENTIFIER does not exist"
+      try
+      {
+         $SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
+         if ($SNAPSHOT_COUNT -eq 1)
+         {
+            Write-Host "Found 1 snapshot for identifier $SNAPSHOT_IDENTIFIER"
+            $STACK_NAME = "DB-Regression-$($FULL_DATABASE_TYPE)-RDS-" + $lansa_version
+            try
+            {
+               Write-Host "If Stack $STACK_NAME does not exist the exception System.InvalidOperationException will be thrown. This is the expected state"
+               $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
+               Write-Host "CFN Stack $STACK_NAME exists and is in $EXISTING_CFN_STACK_STATUS state"
+               $RETRY_COUNT = remove_cfn_stack $STACK_NAME
+               if ( $RETRY_COUNT -le 0 )
+               {
+                  throw "Timeout: 1 hour expired waiting to Delete CFN Stack $STACK_NAME"
+               }
+               Write-Host "$STACK_NAME should by now have been deleted."
+               Write-Host "If Stack $STACK_NAME does not exist the exception System.InvalidOperationException will be thrown. This is the expected state"
+               Get-CFNStack -StackName $STACK_NAME | Out-Default | Write-Host
+               throw "CFN Stack still exists. It failed to delete"
+            }
+            catch [System.InvalidOperationException]
+            {
+               Write-Host "Creating $STACK_NAME stack"
+               $SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
+               New-CFNStack -StackName $STACK_NAME -TemplateBody $TEMPLATE_BODY -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="SNAPSHOTARN"; ParameterValue=$SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}, @{Key="RDS_KEEP_STOPPED"; Value='YES'}) | Out-Default | Write-Host
+            }
+
+            $RETRY_COUNT = cfn_stack_status $STACK_NAME
+            if ( $RETRY_COUNT -le 0 )
+            {
+               throw "Timeout: 1 hour expired waiting for CFN stack to be CREATE_COMPLETE state"
+            }
+            Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
+
+            $RETRY_COUNT = check_rds_status $DB_IDENTIFIER
+            if ($RETRY_COUNT -le 0)
+            {
+               throw "Timeout: 30 minutes expired waiting for RDS $DB_IDENTIFIER to be in available state. Current state is $($global:InstanceStatus)"
+            }
+         }
+         else
+         {
+            throw "Found none or more than 1 snapshot for database identifier $SNAPSHOT_IDENTIFIER"
+         }
+      }
+      catch
+      {
+         $_ | Out-Default | Write-Host
+         throw "Error creating stack $STACK_NAME"
+      }
+   }
+   else
+   {
+      throw "More than 1 RDS $DatabaseType with lansa version tag = $lansa_version already exists"
+   }
+   # If execution gets here it must be available
+   $DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER}).DBInstanceArn
+   Write-Host "RDS $DB_IDENTIFIER is available and its ARN is $DB_ARN"
+}
+
+#******************************************************************************
+# Create VM
+#******************************************************************************
 
 Write-Host "Searching for VM with Lansa Version tag = $lansa_version"
 
@@ -174,257 +325,14 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       throw "Found more than 1 AMI with the lansa version tag = $clone_lansa_version"
    }
 }
-
 else
 {
-   throw "Found more than 1 VM with the Lansa Version tag = $lansa_version"
+   throw "Found more than 1 VM with Lansa Version tag = $lansa_version"
 }
 
+#******************************************************************************
+# Create Databases
+#******************************************************************************
 
-###########################################################################
-##
-## Oracle RDS
-##
-###########################################################################
-
-function check_oracle_rds_status
-{
-   Param
-   (
-      [Parameter(Mandatory=$true)] [String]$ORACLE_DB_ID
-   )
-   Write-Host "Checking Oracle RDS status and waiting for it to be ready."
-   $RetryCount = 90
-   while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
-   {
-      Start-Sleep -Seconds 20
-      $RetryCount -= 1
-      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "backing-up") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_ID}).DBInstanceStatus -eq "creating")  )
-      {
-         Write-Host "Oracle RDS is getting started"
-      }
-   }
-   return $RetryCount
-}
-
-
-
-Write-Host "Searching for Oracle RDS with Lansa Version tag = $lansa_version"
-
-$ORACLE_DB_IDENTIFIER = "ora" + $lansa_version
-$ORACLE_SNAPSHOT_IDENTIFIER = "ora" + $clone_lansa_version
-$ORACLE_DB_COUNT = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_IDENTIFIER}).count
-
-if ($ORACLE_DB_COUNT -eq 1)
-{
-   Write-Host "Found 1 Oracle RDS with Lansa Version tag = $lansa_version"
-   $ORACLE_DB_STATUS = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_IDENTIFIER}).DBInstanceStatus
-   $ORACLE_DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_IDENTIFIER}).DBInstanceArn
-
-   if ($ORACLE_DB_STATUS -eq "available")
-   {
-      Write-Host "Oracle RDS is in $ORACLE_DB_STATUS state and its ARN is $ORACLE_DB_ARN"
-   }
-
-   elseif ($ORACLE_DB_STATUS -eq "stopped")
-   {
-      Write-Host "Oracle RDS is in $ORACLE_DB_STATUS state and its ARN is $ORACLE_DB_ARN"
-      Start-RDSDBInstance -DBInstanceIdentifier $ORACLE_DB_IDENTIFIER
-      Write-Host "Waiting for Oracle RDS to be in Available state"
-
-      $RETRY_COUNT = check_oracle_rds_status $ORACLE_DB_IDENTIFIER
-      if ( $RETRY_COUNT -le 0 )
-      {
-         throw "Timeout: 30 minutes expired waiting for RDS to be in availabe state"
-      }
-      Write-Host "Oracle RDS is in Available state"}
-
-   else
-   {
-      throw "Oracle Database is in $ORACLE_DB_STATUS state"
-   }
-}
-
-elseif ($ORACLE_DB_COUNT -eq 0)
-{
-   Write-Host "No existing oracle database exist with lansa version tag = $lansa_version"
-   try
-   {
-      $ORACLE_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
-      if ($ORACLE_SNAPSHOT_COUNT -eq 1)
-      {
-         Write-Host "Found 1 snapshot for snapshot identifier $ORACLE_SNAPSHOT_IDENTIFIER"
-         $STACK_NAME = "DB-Regression-ORACLE-RDS-" + $lansa_version
-         try
-         {
-            Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
-            $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-            Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
-            $RETRY_COUNT = remove_cfn_stack $STACK_NAME
-            if ( $RETRY_COUNT -le 0 )
-            {
-               throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
-            }
-            Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
-            Get-CFNStack -StackName $STACK_NAME
-            throw "CFN Stack still exist. It failed to delete"
-         }
-         catch [System.InvalidOperationException]
-         {
-            Write-Host "Creating $STACK_NAME stack"
-            $ORACLE_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-            New-CFNStack -StackName $STACK_NAME -TemplateBody $oracle_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="ORACLESNAPSHOTARN"; ParameterValue=$ORACLE_SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}, @{Key="RDS_KEEP_STOPPED"; Value='YES'})
-         }
-
-         $RETRY_COUNT = cfn_stack_status $STACK_NAME
-         if ( $RETRY_COUNT -le 0 )
-         {
-            throw "Timeout: 30 minutes expired waiting for CFN stack to be in CREATE_COMPLETE state"
-         }
-         Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
-         $RETRY_COUNT = check_oracle_rds_status $ORACLE_DB_IDENTIFIER
-         if ( $RETRY_COUNT -le 0 )
-         {
-            throw "Timeout: 30 minutes expired waiting for RDS to be in availabe state"
-         }
-         Write-Host "Oracle RDS is in Available state"
-      }
-      else
-      {
-        $_ | Out-Default | Write-Host
-         throw "Found either none or more than 1 snapshot for database identifier $ORACLE_SNAPSHOT_IDENTIFIER"
-      }
-   }
-   catch
-   {
-      throw "Error creating stack $STACK_NAME"
-   }
-}
-
-else
-{
-   throw "More than 1 Oracle RDS with Lansa Version tag = $lansa_version exist"
-}
-
-#########################################################################################
-##
-## MYSQL RDS
-##
-#########################################################################################
-
-function check_mysql_rds_status
-{
-   Param
-   (
-      [Parameter(Mandatory=$true)] [String]$MYSQL_DB_ID
-   )
-   Write-Host "Checking MYSQL RDS status and waiting for it to be ready."
-   $RetryCount = 90
-   while ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -ne "available") -and ($RetryCount -gt 0))
-   {
-      Start-Sleep -Seconds 20
-      $RetryCount -= 1
-      if ( ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "starting") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "backing-up") -or ((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_ID}).DBInstanceStatus -eq "creating"))
-      {
-         Write-Host "MYSQL RDS is getting started"
-      }
-   }
-   return $RetryCount
-}
-
-Write-Host "Searching for MYSQL RDS with Lansa Version tag = $lansa_version"
-
-$MYSQL_DB_IDENTIFIER = "mysql" + $lansa_version
-$MYSQL_SNAPSHOT_IDENTIFIER = "mysql" + $clone_lansa_version
-$MYSQL_DB_COUNT = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_IDENTIFIER}).count
-
-if ($MYSQL_DB_COUNT -eq 1)
-{
-   Write-Host "MYSQL RDS with Lansa version tag = $lansa_version already exist"
-   $MYSQL_DB_STATUS = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_IDENTIFIER}).DBInstanceStatus
-   $MYSQL_DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_IDENTIFIER}).DBInstanceArn
-
-   if ($MYSQL_DB_STATUS -eq "available")
-   {
-      Write-Host "MYSQL RDS is in $MYSQL_DB_STATUS state and its ARN is $MYSQL_DB_ARN"
-   }
-
-   elseif ($MYSQL_DB_STATUS -eq "stopped")
-   {
-      Write-Host "MYSQL RDS is in $MYSQL_DB_STATUS state and its ARN is $MYSQL_DB_ARN"
-      Start-RDSDBInstance -DBInstanceIdentifier $MYSQL_DB_IDENTIFIER
-      Write-Host "Waiting for MYSQL RDS to be in Available state"
-
-      $RETRY_COUNT = check_mysql_rds_status $MYSQL_DB_IDENTIFIER
-      if ( $RETRY_COUNT -le 0 )
-      {
-         throw "Timeout: 30 minutes expired waiting for MYSQL RDS to be in availabe state"
-      }
-      Write-Host "MYSQL RDS with Lansa Version tag = $lansa_version is in Available state"
-   }
-   else
-   {
-      throw "MYSQL RDS in $MYSQL_DB_STATUS state"
-   }
-}
-elseif ($MYSQL_DB_COUNT -eq 0)
-{
-   Write-Host "No existing MYSQL RDS with Lansa version tag = $lansa_version exist"
-   try
-   {
-      $MYSQL_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
-      if ($MYSQL_SNAPSHOT_COUNT -eq 1)
-      {
-         Write-Host "Found 1 snapshot for identifier $MYSQL_SNAPSHOT_IDENTIFIER"
-         $STACK_NAME = "DB-Regression-MYSQL-RDS-" + $lansa_version
-         try
-         {
-            Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
-            $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-            Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
-            $RETRY_COUNT = remove_cfn_stack $STACK_NAME
-            if ( $RETRY_COUNT -le 0 )
-            {
-               throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
-            }
-            Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
-            Get-CFNStack -StackName $STACK_NAME
-            throw "CFN Stack still exist. It failed to delete"
-         }
-         catch [System.InvalidOperationException]
-         {
-            Write-Host "Creating $STACK_NAME stack"
-            $MYSQL_SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-            New-CFNStack -StackName $STACK_NAME -TemplateBody $mysql_rds_template -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="MYSQLSNAPSHOTARN"; ParameterValue=$MYSQL_SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}, @{Key="RDS_KEEP_STOPPED"; Value='YES'})
-         }
-
-         $RETRY_COUNT = cfn_stack_status $STACK_NAME
-         if ( $RETRY_COUNT -le 0 )
-         {
-            throw "Timeout: 30 minutes expired waiting for CFN stack to be CREATE_COMPLETE state"
-         }
-         Write-Host "CFN Stack $STACK_NAME is in CREATE_COMPLETE State"
-
-         $RETRY_COUNT = check_mysql_rds_status $MYSQL_DB_IDENTIFIER
-         if ($RETRY_COUNT -le 0)
-         {
-            throw "Timeout: 30 minutes expired waiting for MYSQL RDS to be in availabe state"
-         }
-         Write-Host "MYSQL RDS is in Available State"
-      }
-      else
-      {
-         throw "Found none or more than 1 snapshot for database identifier $MYSQL_SNAPSHOT_IDENTIFIER"
-      }
-   }
-   catch
-   {
-      $_ | Out-Default | Write-Host
-      throw "Error creating stack $STACK_NAME"
-   }
-}
-
-else
-{
-   throw "More than 1 MYSQL RDS with lansa version tag = $lansa_version already exist"
-}
+provision_database "ora"
+provision_database "mysql"
