@@ -158,8 +158,7 @@ function Compile{
     &$installer_file $StdArguments
     Write-Host ("$(Log-Date) LastExitCode = $LastExitCode")
     if ( $LASTEXITCODE -ne 0 ){
-        Write-Host "$(Log-Date) Ignore compile errors whilst Table compiles are always flagged in error"
-        # throw "$(Log-Date) Compile returned error code $LASTEXITCODE."
+        throw "$(Log-Date) Compile returned error code $LASTEXITCODE."
     }
 }
 
