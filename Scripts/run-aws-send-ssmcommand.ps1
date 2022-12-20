@@ -34,6 +34,8 @@ param (
 
 $ErrorActionPreference = "Stop"
 
+Set-DefaultAWSRegion -Region 'us-east-1' -Scope Script
+
 # Mapping of databases to appropriate path
 $DatabaseType_SystemRootPath = @{
     "AZURESQL" = "C:\Program Files (x86)\AZURESQL";

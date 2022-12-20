@@ -4,6 +4,8 @@ param (
     [parameter(Mandatory=$true)]    [string] $lansa_version
 )
 
+Set-DefaultAWSRegion -Region 'us-east-1' -Scope Script
+
 $INSTANCE_ID = ((Get-EC2Instance -Filter @(@{Name="tag:LansaVersion"; Values=$lansa_version}, @{Name= "tag:aws:cloudformation:stack-name"; Values="DB-Regression-VM-$lansa_version"})).Instances).InstanceId
 
 $ORACLE_DB_INSTANCE_IDENTIFIER = "ora" + $lansa_version

@@ -16,6 +16,8 @@ $git_repo_root = Get-Item $stack_script\..\Templates\aws
 
 $vm_template = Get-Content -Path $git_repo_root\vm.cfn.template.yaml -Raw
 
+Set-DefaultAWSRegion -Region 'us-east-1' -Scope Script
+
 function fetch_vm_password
 {
    Param
@@ -273,7 +275,7 @@ if ($EXISTING_INSTANCE_COUNT -eq 1 )
 }
 
 elseif ($EXISTING_INSTANCE_COUNT -eq 0){
-   Write-Host "No Exisiting VM found with Lansa Version tag = $lansa_version"
+   Write-Host "No Existing VM found with Lansa Version tag = $lansa_version"
    $NO_OF_AMIS = (Get-EC2Image -Filter @{ Name="tag:LansaVersion"; Values=$clone_lansa_version } | Select-Object ImageId | Measure-Object | Select-Object Count).count
    if ($NO_OF_AMIS -eq 1)
    {
