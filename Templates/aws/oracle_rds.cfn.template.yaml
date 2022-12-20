@@ -7,11 +7,11 @@ Description:
 Parameters:
   LANSAVERSION:
     Type: String
-    Description: LANSA Version that needs to be test
+    Description: LANSA Version that needs to be tested
   SECURITYGROUPID:
     Type: AWS::SSM::Parameter::Value<String>
-    Default: DB_REGRESSION_TESTING_VM_SG_ID
-    Description: Security Group to be attached to the RDS.
+    Default: DB_REGRESSION_TESTING_RDS_SG_ID
+    Description: Security Group to be attached to the RDS (Default is in the Parameter Store).
   SNAPSHOTARN:
     Type: String
     Description: ORACLE SNAPSHOT ARN

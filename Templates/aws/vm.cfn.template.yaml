@@ -14,16 +14,16 @@ Parameters:
   SECURITYGROUPID:
     Type: AWS::SSM::Parameter::Value<String>
     Default: DB_REGRESSION_TESTING_VM_SG_ID
-    Description: Security Group to be attached to the VM.
+    Description: Security Group to be attached to the VM (Default is in the Parameter Store).
   SUBNETIDFORVM:
     Type: AWS::SSM::Parameter::Value<String>
     Default: DB_REGRESSION_TESTING_VM_SUBNET_ID
-    Description: Subnet ID where VM would be provisioned.
+    Description: Subnet ID where VM would be provisioned (Default is in the Parameter Store).
   IAMROLEFORVM:
     Type: AWS::SSM::Parameter::Value<String>
     Default: DB_REGRESSION_TESTING_VM_IAM_PROFILE
-    Description: IAM Instance profile to be attached to VM.    
-  
+    Description: IAM Instance profile to be attached to VM (Default is in the Parameter Store).
+
 Resources:
   INSTANCE:
     Type: AWS::EC2::Instance
@@ -32,12 +32,20 @@ Resources:
       InstanceType: "m5a.xlarge"
       KeyName: "AzureDevOps"
       SubnetId: !Ref SUBNETIDFORVM
-      IamInstanceProfile: !Ref IAMROLEFORVM 
+      IamInstanceProfile: !Ref IAMROLEFORVM
       PrivateDnsNameOptions:
           EnableResourceNameDnsARecord: true
       SecurityGroupIds:
-        - !Ref SECURITYGROUPID 
+        - !Ref SECURITYGROUPID
       PropagateTagsToVolumeOnCreation: true
-      Tags: 
+      Tags:
         - Key: "Name"
           Value: !Join [ " ", [ "DB Regression Test", !Ref LANSAVERSION ] ]
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeType: gp3
+            # 250 GB disk size
+            VolumeSize: '250'
+            DeleteOnTermination: 'false'
+            Encrypted: 'false'
