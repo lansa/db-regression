@@ -23,7 +23,6 @@ Resources:
     Properties:
       DBInstanceIdentifier:  !Join [ "", [ "mysql", !Ref LANSAVERSION ] ]
       DBSnapshotIdentifier: !Ref SNAPSHOTARN
-      AllocatedStorage: '50'
       DBInstanceClass: db.t3.large
       Engine: mysql
       VPCSecurityGroups:

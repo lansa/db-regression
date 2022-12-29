@@ -24,9 +24,8 @@ Resources:
     Properties:
       DBInstanceIdentifier: !Join [ "", [ "ora", !Ref LANSAVERSION ] ]
       DBSnapshotIdentifier: !Ref SNAPSHOTARN
-      AllocatedStorage: '40'
       DBInstanceClass: db.t3.large
-      Engine: oracle-se2
+      Engine: oracle-se2-cdb
       VPCSecurityGroups:
         - !Ref SECURITYGROUPID
       EnablePerformanceInsights: true
