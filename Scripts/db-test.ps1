@@ -32,6 +32,9 @@ param (
     [boolean] $Primary = $true,
     [boolean] $Secondary = $false
 )
+Write-Host "Map drives to LPC network"
+& 'C:\ssh\ServerMappings.bat'
+
 $script:ExitCode = 0
 $FullReportFile = "Verifier_Test_Report.txt"
 $SummaryFile = "Verifier_Test_Summary.txt"
