@@ -18,8 +18,7 @@ if ($DSNNames -contains "AZURESQL" -and (Get-OdbcDsn -Name "AZURESQL").Platform 
     
     Write-Host "Ensuring the database is not paused by setting the auto-pause timeout"
     $sqlserver_azurename = "db-regression-$lansaVersion"
-    Set-AzSqlDatabase -ResourceGroupName "dbregressiontest" -DatabaseName $lansaVersion -ServerName $sqlserver_azurename = "db-regression-$lansaVersion"
-    -AutoPauseDelayInMinutes 60 | Out-Default | Write-Host
+    Set-AzSqlDatabase -ResourceGroupName "dbregressiontest" -DatabaseName $lansaVersion -ServerName $sqlserver_azurename = "db-regression-$lansaVersion" -AutoPauseDelayInMinutes 60 | Out-Default | Write-Host
 }
 
 
