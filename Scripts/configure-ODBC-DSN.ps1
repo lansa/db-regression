@@ -15,7 +15,11 @@ if ($DSNNames -contains "AZURESQL" -and (Get-OdbcDsn -Name "AZURESQL").Platform 
     Write-Host("Updating Server name as $sqlserver and database name as $lansaVersion for AZURESQL")
 
     Set-OdbcDsn -Name "AZURESQL" -DsnType "System" -Platform "32-bit" -SetPropertyValue @("Server=$sqlserver", "Database=$lansaVersion")
-
+    
+    Write-Host "Ensuring the database is not paused by setting the auto-pause timeout"
+    $sqlserver_azurename = "db-regression-$lansaVersion"
+    Set-AzSqlDatabase -ResourceGroupName "dbregressiontest" -DatabaseName $lansaVersion -ServerName $sqlserver_azurename = "db-regression-$lansaVersion"
+    -AutoPauseDelayInMinutes 60 | Out-Default | Write-Host
 }
 
 

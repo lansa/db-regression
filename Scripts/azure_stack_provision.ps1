@@ -60,8 +60,8 @@ if($azure_tags.count -eq 1){
     Write-Host "Display all databases in the $sql_server : $db_name"
     if ($db_name -contains $lansa_version) {
         Write-Host "Found Database $lansa_version. Restore not needed."
-        Write-Host "Ensuring the database is not paused by setting the auto-pause timeout"
-        Set-AzSqlDatabase -ResourceGroupName "dbregressiontest" -DatabaseName $lansa_version -ServerName $sql_server -AutoPauseDelayInMinutes 60 | Out-Default | Write-Host
+        # Write-Host "Ensuring the database is not paused by setting the auto-pause timeout"
+        # Set-AzSqlDatabase -ResourceGroupName "dbregressiontest" -DatabaseName $lansa_version -ServerName $sql_server -AutoPauseDelayInMinutes 60 | Out-Default | Write-Host
     } else {
         Write-Host "Not found the Database $lansa_version, checking for source server."
         if ($sourceserver.count -eq 1) {
