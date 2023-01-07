@@ -21,7 +21,7 @@ if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 #####Server Name############
 $sql_server = "db-regression-$lansa_version" #only accepting lower case
 
-#######################Retriving Azure Resources using Tags ##################### 
+#######################Retriving Azure Resources using Tags #####################
 #$db = "test"
 $azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$lansa_version}).Name
 ###############Geting the sourceserver name##################
@@ -57,9 +57,11 @@ if($azure_tags.count -eq 1){
 	$Sqlserver_dbname = Get-AzSqlDatabase -ResourceGroupName dbregressiontest -ServerName $sql_server
     $Sqlserver_dbname | Out-Default | Write-Host
 	$db_name = $Sqlserver_dbname.DatabaseName
-    Write-Host "Dispaly all database in the $sql_server : $db_name"
+    Write-Host "Display all databases in the $sql_server : $db_name"
     if ($db_name -contains $lansa_version) {
         Write-Host "Found Database $lansa_version. Restore not needed."
+        Write-Host "Ensuring the database is not paused by setting the auto-pause timeout"
+        Set-AzSqlDatabase -ResourceGroupName "dbregressiontest" -DatabaseName $lansa_version -ServerName $sql_server -AutoPauseDelayInMinutes 60 | Out-Default | Write-Host
     } else {
         Write-Host "Not found the Database $lansa_version, checking for source server."
         if ($sourceserver.count -eq 1) {
@@ -163,7 +165,7 @@ else {
                 }else{
                     Write-Host "Database did not deploy '$($result.Status)'-'$($result.ErrorMessage)'"
                     Throw $result.ErrorMessage
-                }                
+                }
             }
         }else{
             throw "Found more than one sourceservers"
