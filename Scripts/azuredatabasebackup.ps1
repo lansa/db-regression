@@ -2,6 +2,7 @@ param (
 	[parameter(Mandatory=$true)]
 	[string] $lansa_version
 )
+Set-DefaultAWSRegion -Region 'us-east-1' -Scope Script
 
 $storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
 $storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
@@ -27,4 +28,4 @@ if ($result.Status -eq 'Succeeded') {
 }else{
     Write-Host "Database did not deploy '$($result.Status)'-'$($result.ErrorMessage)'"
     Throw $result.ErrorMessage
-} 
+}
