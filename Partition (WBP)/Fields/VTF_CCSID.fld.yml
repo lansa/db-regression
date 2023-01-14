@@ -22,21 +22,18 @@
       Label:              "Verifier - CCS"
       Heading1:           "Verifier"
       Heading2:           "CCS Id"
-      Heading3:           " "
 
   - FRA:
       Description:        "Verifier - CCS Id"
       Label:              "Verifier - CCS"
       Heading1:           "Verifier"
       Heading2:           "CCS Id"
-      Heading3:           " "
 
   - JPN:
       Description:        "Verifier - CCS Id"
       Label:              "Verifier - CCS"
       Heading1:           "Verifier"
       Heading2:           "CCS Id"
-      Heading3:           " "
 
   - TRK:
       Description:        "Verifier Test - CCS Id"

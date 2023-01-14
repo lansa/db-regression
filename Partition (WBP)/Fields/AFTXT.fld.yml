@@ -16,14 +16,12 @@
       Label:              "AFTXT"
       Heading1:           "Afdelings-"
       Heading2:           "tekst"
-      Heading3:           " "
 
   - ENG:
       Description:        "?"
       Label:              "?"
       Heading1:           "?"
       Heading2:           "?"
-      Heading3:           " "
 
   - FRA:
       Description:        "?"

@@ -12,15 +12,11 @@
       Description:        "AFDELINGSNR."
       Label:              "AFAFDN"
       Heading1:           "Afd.nr."
-      Heading2:           " "
-      Heading3:           " "
 
   - ENG:
       Description:        "?"
       Label:              "?"
       Heading1:           "?"
-      Heading2:           " "
-      Heading3:           " "
 
   - FRA:
       Description:        "?"
