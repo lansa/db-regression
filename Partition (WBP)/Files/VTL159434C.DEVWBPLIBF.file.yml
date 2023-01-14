@@ -72,9 +72,9 @@
       Length:             -1
       Decimals:           0
 
-  - BIFDT26C:
+  - BIFDT23C:
       Type:               Date Time
-      Length:             26
+      Length:             23
       Decimals:           0
 
   Primary Keys:

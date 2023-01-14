@@ -1,0 +1,59 @@
+﻿Field:
+  Name:               BIFDT19C
+  Type:               DateTime
+  Length:             19
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+  - SUTC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF DateTime(19)"
+      Label:              "BIF DateTime(19"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(19)"
+
+  - ENG:
+      Description:        "BIF DateTime(19)"
+      Label:              "BIF DateTime(19"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(19)"
+
+  - FRA:
+      Description:        "BIF DateTime(19)"
+      Label:              "BIF DateTime(19"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(19)"
+
+  - JPN:
+      Description:        "BIF DateTime(19)"
+      Label:              "BIF DateTime(19"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(19)"
+
+  - TRK:
+      Description:        "BIF DateTime(19)"
+      Label:              "BIF DateTime(19"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(19)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVDT) Name(#VisualDateTime) Defaultvisual(True) Componentversion(1) Height(21) Width(474)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_datetimepicker.std_datetimepicker') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

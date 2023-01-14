@@ -16,30 +16,30 @@
     Define Field(#LF_TL_BIFBLOBA) Reffld(#BIFBLOBA)
     Define Field(#LF_TL_BIFC100B) Reffld(#BIFC100B)
     Define Field(#LF_TL_BIFCLOBA) Reffld(#BIFCLOBA)
-    Define Field(#LF_TL_BIFDT26C) Reffld(#BIFDT26C)
+    Define Field(#LF_TL_BIFDT23C) Reffld(#BIFDT23C)
     Define Field(#LF_DB_BIFNC256A) Reffld(#BIFNC256A)
     Define Field(#LF_DB_BIFP0500A) Reffld(#BIFP0500A)
     Define Field(#LF_DB_BIFC100A) Reffld(#BIFC100A)
     Define Field(#LF_DB_BIFBLOBA) Reffld(#BIFBLOBA)
     Define Field(#LF_DB_BIFC100B) Reffld(#BIFC100B)
     Define Field(#LF_DB_BIFCLOBA) Reffld(#BIFCLOBA)
-    Define Field(#LF_DB_BIFDT26C) Reffld(#BIFDT26C)
+    Define Field(#LF_DB_BIFDT23C) Reffld(#BIFDT23C)
     
     * (1): Initial Data for both Database Table & Transform_List.
     Define Field(#LF_TL_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lTL) Fields(#BIFNC256A #BIFP0500A #BIFC100A #BIFBLOBA #BIFC100B #BIFCLOBA #BIFDT26C) Counter(#LF_TL_Count) Type(*WORKING)
+    Def_List Name(#w_lTL) Fields(#BIFNC256A #BIFP0500A #BIFC100A #BIFBLOBA #BIFC100B #BIFCLOBA #BIFDT23C) Counter(#LF_TL_Count) Type(*WORKING)
     
     * (2): Transform_File Data from (1).
     Define Field(#LF_TF_From_TL_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lTF_From_TL) Fields(#LF_TL_BIFNC256A #LF_TL_BIFP0500A #LF_TL_BIFC100A #LF_TL_BIFBLOBA #LF_TL_BIFC100B #LF_TL_BIFCLOBA #LF_TL_BIFDT26C) Counter(#LF_TF_From_TL_Count) Type(*WORKING)
+    Def_List Name(#w_lTF_From_TL) Fields(#LF_TL_BIFNC256A #LF_TL_BIFP0500A #LF_TL_BIFC100A #LF_TL_BIFBLOBA #LF_TL_BIFC100B #LF_TL_BIFCLOBA #LF_TL_BIFDT23C) Counter(#LF_TF_From_TL_Count) Type(*WORKING)
     
     * (3): Database Table Data.
     Define Field(#LF_DB_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lDB) Fields(#BIFNC256A #BIFP0500A #BIFC100A #BIFBLOBA #BIFC100B #BIFCLOBA #BIFDT26C) Counter(#LF_DB_Count) Type(*WORKING)
+    Def_List Name(#w_lDB) Fields(#BIFNC256A #BIFP0500A #BIFC100A #BIFBLOBA #BIFC100B #BIFCLOBA #BIFDT23C) Counter(#LF_DB_Count) Type(*WORKING)
     
     * (4): Transform_File Data from (3).
     Define Field(#LF_TF_From_DB_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lTF_From_DB) Fields(#LF_DB_BIFNC256A #LF_DB_BIFP0500A #LF_DB_BIFC100A #LF_DB_BIFBLOBA #LF_DB_BIFC100B #LF_DB_BIFCLOBA #LF_DB_BIFDT26C) Counter(#LF_TF_From_DB_Count) Type(*WORKING)
+    Def_List Name(#w_lTF_From_DB) Fields(#LF_DB_BIFNC256A #LF_DB_BIFP0500A #LF_DB_BIFC100A #LF_DB_BIFBLOBA #LF_DB_BIFC100B #LF_DB_BIFCLOBA #LF_DB_BIFDT23C) Counter(#LF_TF_From_DB_Count) Type(*WORKING)
     
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_Temp_Dir_TL) Reffld(#BIFC256A)
@@ -158,7 +158,7 @@
     #BIFBLOBA := *SYS_DIR + #BIFC100A
     #BIFC100B := 'liiodef.h'
     #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
-    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
+    #BIFDT23C := #Com_Owner.mthGetDBValidDatetime( #BIFDT23C.Now )
     Add_Entry To_List(#w_lTL)
     
     * Valid Blob, *Null & *Sqlnull Clob.
@@ -168,7 +168,7 @@
     #BIFBLOBA := *SYS_DIR + #BIFC100A
     #BIFC100B := '*null'
     #BIFCLOBA := *Null
-    #BIFDT26C := #Com_Owner.mthGetNullDatetime( *NULL )
+    #BIFDT23C := #Com_Owner.mthGetNullDatetime( *NULL )
     Add_Entry To_List(#w_lTL)
     
     #BIFNC256A := #this_key
@@ -177,7 +177,7 @@
     #BIFBLOBA := *SYS_DIR + #BIFC100A
     #BIFC100B := '*sqlnull'
     #BIFCLOBA := *Sqlnull
-    #BIFDT26C := *Sqlnull
+    #BIFDT23C := *Sqlnull
     Add_Entry To_List(#w_lTL)
     
     * *Null & *Sqlnull Blob, valid Clob.
@@ -187,7 +187,7 @@
     #BIFBLOBA := *Null
     #BIFC100B := 'x_bif000.h'
     #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
-    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
+    #BIFDT23C := #Com_Owner.mthGetDBValidDatetime( #BIFDT23C.Now )
     Add_Entry To_List(#w_lTL)
     
     #BIFNC256A := #this_key
@@ -196,7 +196,7 @@
     #BIFBLOBA := *Sqlnull
     #BIFC100B := 'x_ctddef.h'
     #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
-    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
+    #BIFDT23C := #Com_Owner.mthGetDBValidDatetime( #BIFDT23C.Now )
     Add_Entry To_List(#w_lTL)
     
     * *Null & *Sqlnull Blob / Clob.
@@ -206,7 +206,7 @@
     #BIFBLOBA := *Null
     #BIFC100B := '*null'
     #BIFCLOBA := *Null
-    #BIFDT26C := #Com_Owner.mthGetNullDatetime( *NULL )
+    #BIFDT23C := #Com_Owner.mthGetNullDatetime( *NULL )
     Add_Entry To_List(#w_lTL)
     
     #BIFNC256A := #this_key
@@ -215,15 +215,15 @@
     #BIFBLOBA := *Sqlnull
     #BIFC100B := '*sqlnull'
     #BIFCLOBA := *Sqlnull
-    #BIFDT26C := *Sqlnull
+    #BIFDT23C := *Sqlnull
     Add_Entry To_List(#w_lTL)
     
     #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_TL_Count.AsString + ' records of test data') '' )
     Endroutine
     *
     Mthroutine Name(mthGetDBValidDatetime)
-    Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_datetime)
-    Define_Map For(*RESULT) Class(#BIFDT26C) Name(#this_result)
+    Define_Map For(*INPUT) Class(#BIFDT23C) Name(#this_datetime)
+    Define_Map For(*RESULT) Class(#BIFDT23C) Name(#this_result)
     #this_result := #this_datetime
     #Com_Owner.mthAdd_SubMsg( OK ('- DB Type = ' + #LF_DB_Type) '' )
     If (#LF_DB_Type = MYSQL)
@@ -237,8 +237,8 @@
     Endroutine
     *
     Mthroutine Name(mthGetNullDatetime)
-    Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_datetime)
-    Define_Map For(*RESULT) Class(#BIFDT26C) Name(#this_result)
+    Define_Map For(*INPUT) Class(#BIFDT23C) Name(#this_datetime)
+    Define_Map For(*RESULT) Class(#BIFDT23C) Name(#this_result)
     #this_result := #this_datetime
     If (#LF_DB_Type = MYSQL)
     * MySQLdoes not support the RDMLX *NULL value of 1900-01-01 00:00:00.
@@ -434,9 +434,9 @@
     Endif
     Endif
     
-    If (#LF_TL_BIFDT26C <> #LF_DB_BIFDT26C)
+    If (#LF_TL_BIFDT23C <> #LF_DB_BIFDT23C)
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFDT26C') (*Quote + #LF_TL_BIFDT26C.AsString + *Quote + ' / ' + *Quote + #LF_DB_BIFDT26C.AsString + *Quote) )
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unexpected differences on BIFDT23C') (*Quote + #LF_TL_BIFDT23C.AsString + *Quote + ' / ' + *Quote + #LF_DB_BIFDT23C.AsString + *Quote) )
     Endif
     
     If (#this_rc <> OK)
