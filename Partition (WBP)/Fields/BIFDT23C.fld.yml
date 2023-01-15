@@ -1,7 +1,7 @@
 ﻿Field:
   Name:               BIFDT23C
   Type:               DateTime
-  Length:             23
+  Length:             26
   Decimals:           0
   Default Value:      "*SQLNULL"
   Enabled For RDMLX:  Yes

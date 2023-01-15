@@ -226,12 +226,19 @@
     Define_Map For(*RESULT) Class(#BIFDT23C) Name(#this_result)
     #this_result := #this_datetime
     #Com_Owner.mthAdd_SubMsg( OK ('- DB Type = ' + #LF_DB_Type) '' )
-    If (#LF_DB_Type = MYSQL)
-    * MySQLdoes not support fractional seconds
-    Define Field(#DT19) Type(*DATETIME) Length(19)
+    If ((#LF_DB_Type = MYSQL))
+    * MySQL does not support fractional seconds
     Define Field(#DT19String) Type(*STRING) Length(19)
     #DT19String := #this_datetime.AsString
     #this_result := #DT19String.AsDateTime
+    #Com_Owner.mthAdd_SubMsg( OK ('- datetime = ' + #this_result.AsString) '' )
+    Endif
+    If ((#LF_DB_Type = AZURESQL) *Or (#LF_DB_Type = MSSQLS))
+    * AZURESQL and MSSQLS round the 6 digit fractional seconds to 3 and rounding differences may occur.
+    * So only use the 3 fractional seconds
+    Define Field(#DT23String) Type(*STRING) Length(23)
+    #DT23String := #this_datetime.AsString
+    #this_result := #DT23String.AsDateTime
     #Com_Owner.mthAdd_SubMsg( OK ('- datetime = ' + #this_result.AsString) '' )
     Endif
     Endroutine
