@@ -234,8 +234,8 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- datetime = ' + #this_result.AsString) '' )
     Endif
     If ((#LF_DB_Type = SQLAZURE) *Or (#LF_DB_Type = MSSQLS))
-    * SQLAZURE and MSSQLS round the 6 digit fractional seconds to 3 and rounding differences may occur.
-    * So only use the 3 fractional seconds
+    * SQLAZURE and MSSQLS round the 6 digit fractional seconds to 2 and rounding differences may occur.
+    * So only use the 2 fractional seconds
     Define Field(#DT22String) Type(*STRING) Length(22)
     #DT22String := #this_datetime.AsString
     #this_result := #DT22String.AsDateTime
