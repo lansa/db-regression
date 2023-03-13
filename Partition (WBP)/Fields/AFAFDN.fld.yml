@@ -22,16 +22,22 @@
       Description:        "?"
       Label:              "?"
       Heading1:           "?"
+      Heading2:           " "
+      Heading3:           " "
 
   - JPN:
       Description:        "?"
       Label:              "?"
       Heading1:           "?"
+      Heading2:           " "
+      Heading3:           " "
 
   - TRK:
       Description:        "?"
       Label:              "?"
       Heading1:           "?"
+      Heading2:           " "
+      Heading3:           " "
 
   Source: |
     *
