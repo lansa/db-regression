@@ -46,3 +46,35 @@
   - VTMSGT3:
       Type:               Funciton
       Qualifier:          VT_CVL
+
+  - VTTEMP0:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP2:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP4:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTTEMP5:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRF1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRF3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
