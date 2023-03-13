@@ -1,0 +1,48 @@
+﻿Process:
+  Name:                      VT986925
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "LOB before Unicode Column UPDATE AV"
+
+  - ENG:
+      Description:        "LOB before Unicode Column UPDATE AV"
+
+  - FRA:
+      Description:        "LOB before Unicode Column UPDATE AV"
+
+  - JPN:
+      Description:        "LOB before Unicode Column UPDATE AV"
+
+  - TRK:
+      Description:        "LOB before Unicode Column UPDATE AV"
+
+  Functions:
+  - V86925A:
+      Name:               V86925A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 986925 Test Case Driver"
+
+      - ENG:
+          Description:        "CCS 986925 Test Case Driver"
+
+      - FRA:
+          Description:        "CCS 986925 Test Case Driver"
+
+      - JPN:
+          Description:        "CCS 986925 Test Case Driver"
+
+      - TRK:
+          Description:        "CCS 986925 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
