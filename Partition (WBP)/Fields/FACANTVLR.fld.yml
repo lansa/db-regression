@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACANTVLR
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Valor del Pago"
+      Label:              "Valor del Pago"
+      Heading1:           "Valor"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - ENG:
+      Description:        "Valor del Pago"
+      Label:              "Valor del Pago"
+      Heading1:           "Valor"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - FRA:
+      Description:        "Valor del Pago"
+      Label:              "Valor del Pago"
+      Heading1:           "Valor"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - JPN:
+      Description:        "Valor del Pago"
+      Label:              "Valor del Pago"
+      Heading1:           "Valor"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - TRK:
+      Description:        "Valor del Pago"
+      Label:              "Valor del Pago"
+      Heading1:           "Valor"
+      Heading2:           "del"
+      Heading3:           "Pago"

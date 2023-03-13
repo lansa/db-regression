@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               FacRecTerList
+  Type:               NVarChar
+  Length:             65000
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRSTRING
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "String Recaudos a Terceros"
+      Label:              "String Recaudos"
+      Heading1:           "String"
+      Heading2:           "Recaudos"
+      Heading3:           "a"
+
+  - ENG:
+      Description:        "String Recaudos a Terceros"
+      Label:              "String Recaudos"
+      Heading1:           "String"
+      Heading2:           "Recaudos"
+      Heading3:           "a"
+
+  - FRA:
+      Description:        "String Recaudos a Terceros"
+      Label:              "String Recaudos"
+      Heading1:           "String"
+      Heading2:           "Recaudos"
+      Heading3:           "a"
+
+  - JPN:
+      Description:        "String Recaudos a Terceros"
+      Label:              "String Recaudos"
+      Heading1:           "String"
+      Heading2:           "Recaudos"
+      Heading3:           "a"
+
+  - TRK:
+      Description:        "String Recaudos a Terceros"
+      Label:              "String Recaudos"
+      Heading1:           "String"
+      Heading2:           "Recaudos"
+      Heading3:           "a"

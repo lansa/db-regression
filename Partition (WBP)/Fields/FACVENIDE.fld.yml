@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               FACVENIDEN
+  Type:               NVarChar
+  Length:             15
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRNUMIDE
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Num Identificacion Vendedor"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Vendedor"
+
+  - ENG:
+      Description:        "Num Identificacion Vendedor"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Vendedor"
+
+  - FRA:
+      Description:        "Num Identificacion Vendedor"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Vendedor"
+
+  - JPN:
+      Description:        "Num Identificacion Vendedor"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Vendedor"
+
+  - TRK:
+      Description:        "Num Identificacion Vendedor"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Vendedor"

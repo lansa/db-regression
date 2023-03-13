@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACVENCORREOE
+  Type:               NVarChar
+  Length:             200
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRCORREO
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Correo-E Vendedor"
+      Label:              "Correo-E Vended"
+      Heading1:           "Correo-E"
+      Heading2:           "Vendedor"
+
+  - ENG:
+      Description:        "Correo-E Vendedor"
+      Label:              "Correo-E Vended"
+      Heading1:           "Correo-E"
+      Heading2:           "Vendedor"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Correo-E Vendedor"
+      Label:              "Correo-E Vended"
+      Heading1:           "Correo-E"
+      Heading2:           "Vendedor"
+
+  - JPN:
+      Description:        "Correo-E Vendedor"
+      Label:              "Correo-E Vended"
+      Heading1:           "Correo-E"
+      Heading2:           "Vendedor"
+
+  - TRK:
+      Description:        "Correo-E Vendedor"
+      Label:              "Correo-E Vended"
+      Heading1:           "Correo-E"
+      Heading2:           "Vendedor"

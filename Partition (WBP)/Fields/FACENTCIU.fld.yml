@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACENTCIUD
+  Type:               NVarChar
+  Length:             30
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRCIUDAD
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Ciudad Entrega"
+      Label:              "Ciudad Entrega"
+      Heading1:           "Ciudad"
+      Heading2:           "Entrega"
+
+  - ENG:
+      Description:        "Ciudad Entrega"
+      Label:              "Ciudad Entrega"
+      Heading1:           "Ciudad"
+      Heading2:           "Entrega"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Ciudad Entrega"
+      Label:              "Ciudad Entrega"
+      Heading1:           "Ciudad"
+      Heading2:           "Entrega"
+
+  - JPN:
+      Description:        "Ciudad Entrega"
+      Label:              "Ciudad Entrega"
+      Heading1:           "Ciudad"
+      Heading2:           "Entrega"
+
+  - TRK:
+      Description:        "Ciudad Entrega"
+      Label:              "Ciudad Entrega"
+      Heading1:           "Ciudad"
+      Heading2:           "Entrega"

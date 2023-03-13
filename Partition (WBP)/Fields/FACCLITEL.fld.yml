@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACCLITELEF
+  Type:               NVarChar
+  Length:             15
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRTELEFO
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Telefono Cliente"
+      Label:              "Telefono Client"
+      Heading1:           "Telefono"
+      Heading2:           "Cliente"
+
+  - ENG:
+      Description:        "Telefono Cliente"
+      Label:              "Telefono Client"
+      Heading1:           "Telefono"
+      Heading2:           "Cliente"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Telefono Cliente"
+      Label:              "Telefono Client"
+      Heading1:           "Telefono"
+      Heading2:           "Cliente"
+
+  - JPN:
+      Description:        "Telefono Cliente"
+      Label:              "Telefono Client"
+      Heading1:           "Telefono"
+      Heading2:           "Cliente"
+
+  - TRK:
+      Description:        "Telefono Cliente"
+      Label:              "Telefono Client"
+      Heading1:           "Telefono"
+      Heading2:           "Cliente"

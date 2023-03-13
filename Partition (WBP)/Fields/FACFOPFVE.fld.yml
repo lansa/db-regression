@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACFOPFVEN
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Vencimiento Factura"
+      Label:              "Fecha Vencimien"
+      Heading1:           "Fecha"
+      Heading2:           "Vencimiento"
+      Heading3:           "Factura"
+
+  - ENG:
+      Description:        "Fecha Vencimiento Factura"
+      Label:              "Fecha Vencimien"
+      Heading1:           "Fecha"
+      Heading2:           "Vencimiento"
+      Heading3:           "Factura"
+
+  - FRA:
+      Description:        "Fecha Vencimiento Factura"
+      Label:              "Fecha Vencimien"
+      Heading1:           "Fecha"
+      Heading2:           "Vencimiento"
+      Heading3:           "Factura"
+
+  - JPN:
+      Description:        "Fecha Vencimiento Factura"
+      Label:              "Fecha Vencimien"
+      Heading1:           "Fecha"
+      Heading2:           "Vencimiento"
+      Heading3:           "Factura"
+
+  - TRK:
+      Description:        "Fecha Vencimiento Factura"
+      Label:              "Fecha Vencimien"
+      Heading1:           "Fecha"
+      Heading2:           "Vencimiento"
+      Heading3:           "Factura"

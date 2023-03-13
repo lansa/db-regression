@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               FFNumero
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRFACT_1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Numero Factura"
+      Label:              "Numero Factura"
+      Heading1:           "Numero"
+      Heading2:           "Factura"
+
+  - ENG:
+      Description:        "Numero Factura"
+      Label:              "Numero Factura"
+      Heading1:           "Numero"
+      Heading2:           "Factura"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Numero Factura"
+      Label:              "Numero Factura"
+      Heading1:           "Numero"
+      Heading2:           "Factura"
+
+  - JPN:
+      Description:        "Numero Factura"
+      Label:              "Numero Factura"
+      Heading1:           "Numero"
+      Heading2:           "Factura"
+
+  - TRK:
+      Description:        "Numero Factura"
+      Label:              "Numero Factura"
+      Heading1:           "Numero"
+      Heading2:           "Factura"

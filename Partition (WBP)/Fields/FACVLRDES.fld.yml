@@ -1,0 +1,46 @@
+﻿Field:
+  Name:               FACVLRDESCU
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Descto Total"
+      Label:              "Descto Total"
+      Heading1:           "Descto"
+      Heading2:           "Total"
+
+  - ENG:
+      Description:        "Descto Total"
+      Label:              "Descto Total"
+      Heading1:           "Descto"
+      Heading2:           "Total"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Descto Total"
+      Label:              "Descto Total"
+      Heading1:           "Descto"
+      Heading2:           "Total"
+
+  - JPN:
+      Description:        "Descto Total"
+      Label:              "Descto Total"
+      Heading1:           "Descto"
+      Heading2:           "Total"
+
+  - TRK:
+      Description:        "Descto Total"
+      Label:              "Descto Total"
+      Heading1:           "Descto"
+      Heading2:           "Total"

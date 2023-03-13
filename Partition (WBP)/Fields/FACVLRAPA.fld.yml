@@ -1,0 +1,46 @@
+﻿Field:
+  Name:               FACVLRAPAGAR
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Valor Factura"
+      Label:              "Valor Factura"
+      Heading1:           "Valor"
+      Heading2:           "Factura"
+
+  - ENG:
+      Description:        "Valor Factura"
+      Label:              "Valor Factura"
+      Heading1:           "Valor"
+      Heading2:           "Factura"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Valor Factura"
+      Label:              "Valor Factura"
+      Heading1:           "Valor"
+      Heading2:           "Factura"
+
+  - JPN:
+      Description:        "Valor Factura"
+      Label:              "Valor Factura"
+      Heading1:           "Valor"
+      Heading2:           "Factura"
+
+  - TRK:
+      Description:        "Valor Factura"
+      Label:              "Valor Factura"
+      Heading1:           "Valor"
+      Heading2:           "Factura"

@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               FACANTIDEP
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Identificacion Pago"
+      Label:              "Identificacion"
+      Heading1:           "Identificacion"
+      Heading2:           "Pago"
+
+  - ENG:
+      Description:        "Identificacion Pago"
+      Label:              "Identificacion"
+      Heading1:           "Identificacion"
+      Heading2:           "Pago"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Identificacion Pago"
+      Label:              "Identificacion"
+      Heading1:           "Identificacion"
+      Heading2:           "Pago"
+
+  - JPN:
+      Description:        "Identificacion Pago"
+      Label:              "Identificacion"
+      Heading1:           "Identificacion"
+      Heading2:           "Pago"
+
+  - TRK:
+      Description:        "Identificacion Pago"
+      Label:              "Identificacion"
+      Heading1:           "Identificacion"
+      Heading2:           "Pago"

@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               FACAUTVLRI
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Vlr Inicial Rango Fact"
+      Label:              "Vlr Inicial Ran"
+      Heading1:           "Vlr"
+      Heading2:           "Inicial"
+      Heading3:           "Rango"
+
+  - ENG:
+      Description:        "Vlr Inicial Rango Fact"
+      Label:              "Vlr Inicial Ran"
+      Heading1:           "Vlr"
+      Heading2:           "Inicial"
+      Heading3:           "Rango"
+
+  - FRA:
+      Description:        "Vlr Inicial Rango Fact"
+      Label:              "Vlr Inicial Ran"
+      Heading1:           "Vlr"
+      Heading2:           "Inicial"
+      Heading3:           "Rango"
+
+  - JPN:
+      Description:        "Vlr Inicial Rango Fact"
+      Label:              "Vlr Inicial Ran"
+      Heading1:           "Vlr"
+      Heading2:           "Inicial"
+      Heading3:           "Rango"
+
+  - TRK:
+      Description:        "Vlr Inicial Rango Fact"
+      Label:              "Vlr Inicial Ran"
+      Heading1:           "Vlr"
+      Heading2:           "Inicial"
+      Heading3:           "Rango"

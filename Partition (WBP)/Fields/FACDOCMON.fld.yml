@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               FACDOCMONE
+  Type:               Alpha
+  Length:             4
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRMND
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Moneda Factura"
+      Label:              "Moneda Factura"
+      Heading1:           "Moneda"
+      Heading2:           "Factura"
+
+  - ENG:
+      Description:        "Moneda Factura"
+      Label:              "Moneda Factura"
+      Heading1:           "Moneda"
+      Heading2:           "Factura"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Moneda Factura"
+      Label:              "Moneda Factura"
+      Heading1:           "Moneda"
+      Heading2:           "Factura"
+
+  - JPN:
+      Description:        "Moneda Factura"
+      Label:              "Moneda Factura"
+      Heading1:           "Moneda"
+      Heading2:           "Factura"
+
+  - TRK:
+      Description:        "Moneda Factura"
+      Label:              "Moneda Factura"
+      Heading1:           "Moneda"
+      Heading2:           "Factura"

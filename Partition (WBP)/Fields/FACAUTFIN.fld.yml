@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACAUTFINI
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Ini Autorizac Fact."
+      Label:              "Fecha Ini Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Ini"
+      Heading3:           "Autorizac"
+
+  - ENG:
+      Description:        "Fecha Ini Autorizac Fact."
+      Label:              "Fecha Ini Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Ini"
+      Heading3:           "Autorizac"
+
+  - FRA:
+      Description:        "Fecha Ini Autorizac Fact."
+      Label:              "Fecha Ini Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Ini"
+      Heading3:           "Autorizac"
+
+  - JPN:
+      Description:        "Fecha Ini Autorizac Fact."
+      Label:              "Fecha Ini Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Ini"
+      Heading3:           "Autorizac"
+
+  - TRK:
+      Description:        "Fecha Ini Autorizac Fact."
+      Label:              "Fecha Ini Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Ini"
+      Heading3:           "Autorizac"

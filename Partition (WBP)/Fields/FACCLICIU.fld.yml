@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACCLICIUD
+  Type:               NVarChar
+  Length:             30
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRCIUDAD
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Ciudad Cliente"
+      Label:              "Ciudad Cliente"
+      Heading1:           "Ciudad"
+      Heading2:           "Cliente"
+
+  - ENG:
+      Description:        "Ciudad Cliente"
+      Label:              "Ciudad Cliente"
+      Heading1:           "Ciudad"
+      Heading2:           "Cliente"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Ciudad Cliente"
+      Label:              "Ciudad Cliente"
+      Heading1:           "Ciudad"
+      Heading2:           "Cliente"
+
+  - JPN:
+      Description:        "Ciudad Cliente"
+      Label:              "Ciudad Cliente"
+      Heading1:           "Ciudad"
+      Heading2:           "Cliente"
+
+  - TRK:
+      Description:        "Ciudad Cliente"
+      Label:              "Ciudad Cliente"
+      Heading1:           "Ciudad"
+      Heading2:           "Cliente"

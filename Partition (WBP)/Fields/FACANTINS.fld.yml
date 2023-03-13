@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               FACANTINSTP
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Instrucc relativas Pago"
+      Label:              "Instrucc relati"
+      Heading1:           "Instrucc"
+      Heading2:           "relativas"
+      Heading3:           "Pago"
+
+  - ENG:
+      Description:        "Instrucc relativas Pago"
+      Label:              "Instrucc relati"
+      Heading1:           "Instrucc"
+      Heading2:           "relativas"
+      Heading3:           "Pago"
+
+  - FRA:
+      Description:        "Instrucc relativas Pago"
+      Label:              "Instrucc relati"
+      Heading1:           "Instrucc"
+      Heading2:           "relativas"
+      Heading3:           "Pago"
+
+  - JPN:
+      Description:        "Instrucc relativas Pago"
+      Label:              "Instrucc relati"
+      Heading1:           "Instrucc"
+      Heading2:           "relativas"
+      Heading3:           "Pago"
+
+  - TRK:
+      Description:        "Instrucc relativas Pago"
+      Label:              "Instrucc relati"
+      Heading1:           "Instrucc"
+      Heading2:           "relativas"
+      Heading3:           "Pago"

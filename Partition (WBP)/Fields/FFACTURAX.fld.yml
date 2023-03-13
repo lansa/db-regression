@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FFacturaXML
+  Type:               BLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFACTUR
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BLOB Archivo XML"
+      Label:              "BLOB Archivo XM"
+      Heading1:           "BLOB"
+      Heading2:           "Archivo"
+      Heading3:           "XML"
+
+  - ENG:
+      Description:        "BLOB Archivo XML"
+      Label:              "BLOB Archivo XM"
+      Heading1:           "BLOB"
+      Heading2:           "Archivo"
+      Heading3:           "XML"
+
+  - FRA:
+      Description:        "BLOB Archivo XML"
+      Label:              "BLOB Archivo XM"
+      Heading1:           "BLOB"
+      Heading2:           "Archivo"
+      Heading3:           "XML"
+
+  - JPN:
+      Description:        "BLOB Archivo XML"
+      Label:              "BLOB Archivo XM"
+      Heading1:           "BLOB"
+      Heading2:           "Archivo"
+      Heading3:           "XML"
+
+  - TRK:
+      Description:        "BLOB Archivo XML"
+      Label:              "BLOB Archivo XM"
+      Heading1:           "BLOB"
+      Heading2:           "Archivo"
+      Heading3:           "XML"

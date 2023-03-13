@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACVLRBRIMP
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Vlr Bruto + Imptos"
+      Label:              "Vlr Bruto + Imp"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "+"
+
+  - ENG:
+      Description:        "Vlr Bruto + Imptos"
+      Label:              "Vlr Bruto + Imp"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "+"
+
+  - FRA:
+      Description:        "Vlr Bruto + Imptos"
+      Label:              "Vlr Bruto + Imp"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "+"
+
+  - JPN:
+      Description:        "Vlr Bruto + Imptos"
+      Label:              "Vlr Bruto + Imp"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "+"
+
+  - TRK:
+      Description:        "Vlr Bruto + Imptos"
+      Label:              "Vlr Bruto + Imp"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "+"

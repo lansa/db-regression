@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACENTPAIS
+  Type:               NVarChar
+  Length:             25
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRPAIS
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Pais Entrega"
+      Label:              "Pais Entrega"
+      Heading1:           "Pais"
+      Heading2:           "Entrega"
+
+  - ENG:
+      Description:        "Pais Entrega"
+      Label:              "Pais Entrega"
+      Heading1:           "Pais"
+      Heading2:           "Entrega"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Pais Entrega"
+      Label:              "Pais Entrega"
+      Heading1:           "Pais"
+      Heading2:           "Entrega"
+
+  - JPN:
+      Description:        "Pais Entrega"
+      Label:              "Pais Entrega"
+      Heading1:           "Pais"
+      Heading2:           "Entrega"
+
+  - TRK:
+      Description:        "Pais Entrega"
+      Label:              "Pais Entrega"
+      Heading1:           "Pais"
+      Heading2:           "Entrega"

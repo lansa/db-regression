@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACANTFREPA
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Recibo Pago"
+      Label:              "Fecha Recibo Pa"
+      Heading1:           "Fecha"
+      Heading2:           "Recibo"
+      Heading3:           "Pago"
+
+  - ENG:
+      Description:        "Fecha Recibo Pago"
+      Label:              "Fecha Recibo Pa"
+      Heading1:           "Fecha"
+      Heading2:           "Recibo"
+      Heading3:           "Pago"
+
+  - FRA:
+      Description:        "Fecha Recibo Pago"
+      Label:              "Fecha Recibo Pa"
+      Heading1:           "Fecha"
+      Heading2:           "Recibo"
+      Heading3:           "Pago"
+
+  - JPN:
+      Description:        "Fecha Recibo Pago"
+      Label:              "Fecha Recibo Pa"
+      Heading1:           "Fecha"
+      Heading2:           "Recibo"
+      Heading3:           "Pago"
+
+  - TRK:
+      Description:        "Fecha Recibo Pago"
+      Label:              "Fecha Recibo Pa"
+      Heading1:           "Fecha"
+      Heading2:           "Recibo"
+      Heading3:           "Pago"

@@ -1,0 +1,71 @@
+﻿File:
+  Name:                           RGACTURAS
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             RGACTURAS
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Facturas"
+
+  - ENG:
+      Description:        "Facturas"
+
+  - FRA:
+      Description:        "Facturas"
+
+  - JPN:
+      Description:        "Facturas"
+
+  - TRK:
+      Description:        "Facturas"
+
+  Real Fields:
+  - FFACTURAX:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  - FFNUMERO:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACVENRSO:
+      Type:               NVarChar
+      Length:             65
+      Decimals:           0
+
+  - RGCIIU:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACVENCIU:
+      Type:               NVarChar
+      Length:             30
+      Decimals:           0
+
+  Primary Keys:
+  - FFNUMERO

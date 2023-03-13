@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               FFEstadoF
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Estado Factura"
+      Label:              "Estado Factura"
+      Heading1:           "Estado"
+      Heading2:           "Factura"
+
+  - ENG:
+      Description:        "Estado Factura"
+      Label:              "Estado Factura"
+      Heading1:           "Estado"
+      Heading2:           "Factura"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Estado Factura"
+      Label:              "Estado Factura"
+      Heading1:           "Estado"
+      Heading2:           "Factura"
+
+  - JPN:
+      Description:        "Estado Factura"
+      Label:              "Estado Factura"
+      Heading1:           "Estado"
+      Heading2:           "Factura"
+
+  - TRK:
+      Description:        "Estado Factura"
+      Label:              "Estado Factura"
+      Heading1:           "Estado"
+      Heading2:           "Factura"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(273)
+    
+    End_Com
+    
+    End_Com

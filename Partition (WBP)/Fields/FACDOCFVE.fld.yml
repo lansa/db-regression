@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACDOCFVEN
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Vencim Factura"
+      Label:              "Fecha Vencim Fa"
+      Heading1:           "Fecha"
+      Heading2:           "Vencim"
+      Heading3:           "Factura"
+
+  - ENG:
+      Description:        "Fecha Vencim Factura"
+      Label:              "Fecha Vencim Fa"
+      Heading1:           "Fecha"
+      Heading2:           "Vencim"
+      Heading3:           "Factura"
+
+  - FRA:
+      Description:        "Fecha Vencim Factura"
+      Label:              "Fecha Vencim Fa"
+      Heading1:           "Fecha"
+      Heading2:           "Vencim"
+      Heading3:           "Factura"
+
+  - JPN:
+      Description:        "Fecha Vencim Factura"
+      Label:              "Fecha Vencim Fa"
+      Heading1:           "Fecha"
+      Heading2:           "Vencim"
+      Heading3:           "Factura"
+
+  - TRK:
+      Description:        "Fecha Vencim Factura"
+      Label:              "Fecha Vencim Fa"
+      Heading1:           "Fecha"
+      Heading2:           "Vencim"
+      Heading3:           "Factura"

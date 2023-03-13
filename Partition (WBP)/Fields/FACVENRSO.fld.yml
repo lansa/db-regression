@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               FACVENRSOC
+  Type:               NVarChar
+  Length:             65
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRNOMBRE
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Razon Social Vendedor"
+      Label:              "Razon Social Ve"
+      Heading1:           "Razon"
+      Heading2:           "Social"
+      Heading3:           "Vendedor"
+
+  - ENG:
+      Description:        "Razon Social Vendedor"
+      Label:              "Razon Social Ve"
+      Heading1:           "Razon"
+      Heading2:           "Social"
+      Heading3:           "Vendedor"
+
+  - FRA:
+      Description:        "Razon Social Vendedor"
+      Label:              "Razon Social Ve"
+      Heading1:           "Razon"
+      Heading2:           "Social"
+      Heading3:           "Vendedor"
+
+  - JPN:
+      Description:        "Razon Social Vendedor"
+      Label:              "Razon Social Ve"
+      Heading1:           "Razon"
+      Heading2:           "Social"
+      Heading3:           "Vendedor"
+
+  - TRK:
+      Description:        "Razon Social Vendedor"
+      Label:              "Razon Social Ve"
+      Heading1:           "Razon"
+      Heading2:           "Social"
+      Heading3:           "Vendedor"

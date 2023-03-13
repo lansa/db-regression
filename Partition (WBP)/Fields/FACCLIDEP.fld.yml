@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACCLIDEP
+  Type:               NVarChar
+  Length:             30
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRDEPART
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Departamento Cliente"
+      Label:              "Departamento Cl"
+      Heading1:           "Departamento"
+      Heading2:           "Cliente"
+
+  - ENG:
+      Description:        "Departamento Cliente"
+      Label:              "Departamento Cl"
+      Heading1:           "Departamento"
+      Heading2:           "Cliente"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Departamento Cliente"
+      Label:              "Departamento Cl"
+      Heading1:           "Departamento"
+      Heading2:           "Cliente"
+
+  - JPN:
+      Description:        "Departamento Cliente"
+      Label:              "Departamento Cl"
+      Heading1:           "Departamento"
+      Heading2:           "Cliente"
+
+  - TRK:
+      Description:        "Departamento Cliente"
+      Label:              "Departamento Cl"
+      Heading1:           "Departamento"
+      Heading2:           "Cliente"

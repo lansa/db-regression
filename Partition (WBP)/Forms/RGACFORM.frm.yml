@@ -1,0 +1,69 @@
+﻿Form:
+  Name:               RGACFORM
+  Enabled For RDMLX:  Yes
+
+  Framework:
+    Id1:                6518
+    Id2:                100
+
+  Multilingual Details:
+  - DAN:
+      Description:        "test of file RGACTURAS"
+
+  - ENG:
+      Description:        "test of file RGACTURAS"
+
+  - FRA:
+      Description:        "test of file RGACTURAS"
+
+  - JPN:
+      Description:        "test of file RGACTURAS"
+
+  - TRK:
+      Description:        "test of file RGACTURAS"
+
+  Source: |
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_FORM) Clientwidth(484) Clientheight(302) Componentversion(2) Left(759) Top(249)
+    
+    Define_Com Class(#PRIM_PHBN) Name(#Button1) Caption('LOB') Displayposition(1) Left(61) Parent(#COM_OWNER) Tabposition(1) Top(254)
+    Define_Com Class(#PRIM_PHBN) Name(#Button2) Caption('No LOB') Displayposition(2) Left(176) Parent(#COM_OWNER) Tabposition(2) Top(256)
+    
+    Evtroutine Handling(#com_owner.CreateInstance)
+    
+    Group_By Name(#RGACTURAS) Fields(#FFNumero #FFacturaXML #FFEstadoF #FACVALFEC #FACVALHOR #FACAUTCOD #FACAUTFINI #FACAUTFFIN #FACAUTPREF #FACAUTVLRI #FACAUTVLRF #FACDOCCUFE #FACDOCNUM #FACDOCFEMI #FACDOCHEMI #FACDOCFVEN #FACDOCTIPOF #FACDOCMONE #FACDOCNUMLI #FACDOCORDEP #FACVENRSOC #RGCIIU #FACVENCIUD #FACVENDEP #FACVENDIRE #FACVENPAIS #FACVENTIPOID #FACVENIDEN #FACVENTELEF #FACVENCORREOE #FACVENTAXLVCODE #FACCLINRSOC #FACCLICIUD #FACCLIDEP #FACCLIDIRE #FACCLIPAIS #FACCLITIPOID #FACCLIIDEN #FACCLITELEF #FACCLICORREOE #FACCLITAXLVCODE #FACENTFEC #FACENTCIUD #FACENTDIRE #FACENTPAIS #FACFOPMED #FACFOPFVEN #FACFOPCOD #FACFOPIDPA #FACANTIDEP #FACANTVLR #FACANTFREPA #FACANTFEPAG #FACANTHOPAG #FACANTINSTP #FACVLRVLRBRUTO #FACVLRBASEIMP #FACVLRBRIMP #FACVLRDESCU #FACVLRSUMCARGOS #FACVLRSUMANTIC #FACVLRAPAGAR #FacDesList #FacLinList #FacLinImpList #FacRecTerList #FacImpList)
+    #FFNumero #FFEstadoF #FACAUTCOD #FACAUTPREF #FACAUTVLRI #FACAUTVLRF #FACDOCCUFE #FACDOCNUM #FACDOCTIPOF #FACDOCMONE #FACDOCORDEP #FACVENRSOC #RGCIIU #FACVENCIUD #FACVENDEP #FACVENDIRE #FACVENPAIS #FACVENTIPOID #FACVENIDEN #FACVENTELEF #FACVENCORREOE #FACVENTAXLVCODE #FACCLINRSOC #FACCLICIUD #FACCLIDEP #FACCLIDIRE #FACCLIPAIS #FACCLITIPOID #FACCLIIDEN #FACCLITELEF #FACCLICORREOE #FACCLITAXLVCODE #FACENTCIUD #FACENTDIRE #FACENTPAIS #FACFOPMED #FACFOPCOD #FACFOPIDPA #FACANTIDEP #FACANTINSTP #FacDesList #FacLinList #FacLinImpList #FacRecTerList #FacImpList := "A"
+    #FACVALFEC #FACAUTFINI #FACAUTFFIN #FACDOCFEMI #FACDOCFVEN #FACENTFEC #FACFOPFVEN #FACANTFREPA #FACANTFEPAG := #DATEX.Now
+    #FACVALHOR #FACDOCHEMI #FACANTHOPAG := #TIMEX.Now
+    #FACDOCNUMLI #FACANTVLR #FACVLRVLRBRUTO #FACVLRBASEIMP #FACVLRBRIMP #FACVLRDESCU #FACVLRSUMCARGOS #FACVLRSUMANTIC #FACVLRAPAGAR := 9
+    
+    * Insert Fields(#RGACTURAS) To_File(RGACTURAS)
+    Fetch Fields(*ALL) From_File(RGACTURAS)
+    #RGCIIU := "B"
+    Update Fields(#RGCIIU) In_File(RGACTURAS) With_Key(#FFNUMERO) Io_Error(*NEXT)
+    Fetch Fields(*ALL) From_File(RGACTURAS)
+    
+    Endroutine
+    
+    Evtroutine Handling(#Button1.Click)
+    
+    * Insert Fields(#RGACTURAS) To_File(RGACTURAS)
+    Fetch Fields(*ALL) From_File(RGACTURAS)
+    #RGCIIU := "B"
+    Update Fields(#RGCIIU) In_File(RGACTURAS) With_Key(#FFNUMERO) Io_Error(*NEXT)
+    Fetch Fields(*ALL) From_File(RGACTURAS)
+    
+    Endroutine
+    
+    
+    Evtroutine Handling(#Button2.Click)
+    
+    * Insert Fields(#RGACTURAS) To_File(RGNOLOB)
+    Fetch Fields(*ALL) From_File(RGNOLOB)
+    #RGCIIU := "B"
+    Update Fields(#RGCIIU) In_File(RGNOLOB) With_Key(#FFNUMERO) Io_Error(*NEXT)
+    Fetch Fields(*ALL) From_File(RGNOLOB)
+    
+    Endroutine
+    End_Com
+    

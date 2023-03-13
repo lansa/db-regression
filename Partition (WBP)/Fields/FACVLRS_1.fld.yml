@@ -1,0 +1,46 @@
+﻿Field:
+  Name:               FACVLRSUMANTIC
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Suma Anticipos"
+      Label:              "Suma Anticipos"
+      Heading1:           "Suma"
+      Heading2:           "Anticipos"
+
+  - ENG:
+      Description:        "Suma Anticipos"
+      Label:              "Suma Anticipos"
+      Heading1:           "Suma"
+      Heading2:           "Anticipos"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Suma Anticipos"
+      Label:              "Suma Anticipos"
+      Heading1:           "Suma"
+      Heading2:           "Anticipos"
+
+  - JPN:
+      Description:        "Suma Anticipos"
+      Label:              "Suma Anticipos"
+      Heading1:           "Suma"
+      Heading2:           "Anticipos"
+
+  - TRK:
+      Description:        "Suma Anticipos"
+      Label:              "Suma Anticipos"
+      Heading1:           "Suma"
+      Heading2:           "Anticipos"

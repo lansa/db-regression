@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               FACAUTPREF
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Prefijo Autoriz"
+      Label:              "Prefijo Autoriz"
+      Heading1:           "Prefijo"
+      Heading2:           "Autoriz"
+
+  - ENG:
+      Description:        "Prefijo Autoriz"
+      Label:              "Prefijo Autoriz"
+      Heading1:           "Prefijo"
+      Heading2:           "Autoriz"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Prefijo Autoriz"
+      Label:              "Prefijo Autoriz"
+      Heading1:           "Prefijo"
+      Heading2:           "Autoriz"
+
+  - JPN:
+      Description:        "Prefijo Autoriz"
+      Label:              "Prefijo Autoriz"
+      Heading1:           "Prefijo"
+      Heading2:           "Autoriz"
+
+  - TRK:
+      Description:        "Prefijo Autoriz"
+      Label:              "Prefijo Autoriz"
+      Heading1:           "Prefijo"
+      Heading2:           "Autoriz"

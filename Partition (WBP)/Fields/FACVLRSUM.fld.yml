@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACVLRSUMCARGOS
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Suma Todos cargos"
+      Label:              "Suma Todos carg"
+      Heading1:           "Suma"
+      Heading2:           "Todos"
+      Heading3:           "cargos"
+
+  - ENG:
+      Description:        "Suma Todos cargos"
+      Label:              "Suma Todos carg"
+      Heading1:           "Suma"
+      Heading2:           "Todos"
+      Heading3:           "cargos"
+
+  - FRA:
+      Description:        "Suma Todos cargos"
+      Label:              "Suma Todos carg"
+      Heading1:           "Suma"
+      Heading2:           "Todos"
+      Heading3:           "cargos"
+
+  - JPN:
+      Description:        "Suma Todos cargos"
+      Label:              "Suma Todos carg"
+      Heading1:           "Suma"
+      Heading2:           "Todos"
+      Heading3:           "cargos"
+
+  - TRK:
+      Description:        "Suma Todos cargos"
+      Label:              "Suma Todos carg"
+      Heading1:           "Suma"
+      Heading2:           "Todos"
+      Heading3:           "cargos"

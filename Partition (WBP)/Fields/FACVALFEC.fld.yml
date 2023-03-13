@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               FACVALFEC
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Validacion"
+      Label:              "Fecha Validacio"
+      Heading1:           "Fecha"
+      Heading2:           "Validacion"
+
+  - ENG:
+      Description:        "Fecha Validacion"
+      Label:              "Fecha Validacio"
+      Heading1:           "Fecha"
+      Heading2:           "Validacion"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Fecha Validacion"
+      Label:              "Fecha Validacio"
+      Heading1:           "Fecha"
+      Heading2:           "Validacion"
+
+  - JPN:
+      Description:        "Fecha Validacion"
+      Label:              "Fecha Validacio"
+      Heading1:           "Fecha"
+      Heading2:           "Validacion"
+
+  - TRK:
+      Description:        "Fecha Validacion"
+      Label:              "Fecha Validacio"
+      Heading1:           "Fecha"
+      Heading2:           "Validacion"

@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FacImpList
+  Type:               NVarChar
+  Length:             65000
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRSTRING
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Totales Impuestos"
+      Label:              "Totales Impuest"
+      Heading1:           "Totales"
+      Heading2:           "Impuestos"
+
+  - ENG:
+      Description:        "Totales Impuestos"
+      Label:              "Totales Impuest"
+      Heading1:           "Totales"
+      Heading2:           "Impuestos"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Totales Impuestos"
+      Label:              "Totales Impuest"
+      Heading1:           "Totales"
+      Heading2:           "Impuestos"
+
+  - JPN:
+      Description:        "Totales Impuestos"
+      Label:              "Totales Impuest"
+      Heading1:           "Totales"
+      Heading2:           "Impuestos"
+
+  - TRK:
+      Description:        "Totales Impuestos"
+      Label:              "Totales Impuest"
+      Heading1:           "Totales"
+      Heading2:           "Impuestos"

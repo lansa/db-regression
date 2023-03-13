@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               FACVENTIPOID
+  Type:               NVarChar
+  Length:             3
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRTIPOID
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Tipo Identificacion"
+      Label:              "Tipo Identifica"
+      Heading1:           "Tipo"
+      Heading2:           "Identificacion"
+
+  - ENG:
+      Description:        "Tipo Identificacion"
+      Label:              "Tipo Identifica"
+      Heading1:           "Tipo"
+      Heading2:           "Identificacion"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Tipo Identificacion"
+      Label:              "Tipo Identifica"
+      Heading1:           "Tipo"
+      Heading2:           "Identificacion"
+
+  - JPN:
+      Description:        "Tipo Identificacion"
+      Label:              "Tipo Identifica"
+      Heading1:           "Tipo"
+      Heading2:           "Identificacion"
+
+  - TRK:
+      Description:        "Tipo Identificacion"
+      Label:              "Tipo Identifica"
+      Heading1:           "Tipo"
+      Heading2:           "Identificacion"

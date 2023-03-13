@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACDOCNUMLI
+  Type:               Packed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRNUMERO
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Numero de Lineas"
+      Label:              "Numero de Linea"
+      Heading1:           "Numero"
+      Heading2:           "de"
+      Heading3:           "Lineas"
+
+  - ENG:
+      Description:        "Numero de Lineas"
+      Label:              "Numero de Linea"
+      Heading1:           "Numero"
+      Heading2:           "de"
+      Heading3:           "Lineas"
+
+  - FRA:
+      Description:        "Numero de Lineas"
+      Label:              "Numero de Linea"
+      Heading1:           "Numero"
+      Heading2:           "de"
+      Heading3:           "Lineas"
+
+  - JPN:
+      Description:        "Numero de Lineas"
+      Label:              "Numero de Linea"
+      Heading1:           "Numero"
+      Heading2:           "de"
+      Heading3:           "Lineas"
+
+  - TRK:
+      Description:        "Numero de Lineas"
+      Label:              "Numero de Linea"
+      Heading1:           "Numero"
+      Heading2:           "de"
+      Heading3:           "Lineas"

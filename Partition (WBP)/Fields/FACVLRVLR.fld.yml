@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACVLRVLRBRUTO
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Vlr Bruto antes Imptos"
+      Label:              "Vlr Bruto antes"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "antes"
+
+  - ENG:
+      Description:        "Vlr Bruto antes Imptos"
+      Label:              "Vlr Bruto antes"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "antes"
+
+  - FRA:
+      Description:        "Vlr Bruto antes Imptos"
+      Label:              "Vlr Bruto antes"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "antes"
+
+  - JPN:
+      Description:        "Vlr Bruto antes Imptos"
+      Label:              "Vlr Bruto antes"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "antes"
+
+  - TRK:
+      Description:        "Vlr Bruto antes Imptos"
+      Label:              "Vlr Bruto antes"
+      Heading1:           "Vlr"
+      Heading2:           "Bruto"
+      Heading3:           "antes"

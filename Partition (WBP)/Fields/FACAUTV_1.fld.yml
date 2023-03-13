@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               FACAUTVLRF
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Vlr Final Rango Fact"
+      Label:              "Vlr Final Rango"
+      Heading1:           "Vlr"
+      Heading2:           "Final"
+      Heading3:           "Rango"
+
+  - ENG:
+      Description:        "Vlr Final Rango Fact"
+      Label:              "Vlr Final Rango"
+      Heading1:           "Vlr"
+      Heading2:           "Final"
+      Heading3:           "Rango"
+
+  - FRA:
+      Description:        "Vlr Final Rango Fact"
+      Label:              "Vlr Final Rango"
+      Heading1:           "Vlr"
+      Heading2:           "Final"
+      Heading3:           "Rango"
+
+  - JPN:
+      Description:        "Vlr Final Rango Fact"
+      Label:              "Vlr Final Rango"
+      Heading1:           "Vlr"
+      Heading2:           "Final"
+      Heading3:           "Rango"
+
+  - TRK:
+      Description:        "Vlr Final Rango Fact"
+      Label:              "Vlr Final Rango"
+      Heading1:           "Vlr"
+      Heading2:           "Final"
+      Heading3:           "Rango"

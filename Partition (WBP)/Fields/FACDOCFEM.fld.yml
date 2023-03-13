@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACDOCFEMI
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Emision Factura"
+      Label:              "Fecha Emision F"
+      Heading1:           "Fecha"
+      Heading2:           "Emision"
+      Heading3:           "Factura"
+
+  - ENG:
+      Description:        "Fecha Emision Factura"
+      Label:              "Fecha Emision F"
+      Heading1:           "Fecha"
+      Heading2:           "Emision"
+      Heading3:           "Factura"
+
+  - FRA:
+      Description:        "Fecha Emision Factura"
+      Label:              "Fecha Emision F"
+      Heading1:           "Fecha"
+      Heading2:           "Emision"
+      Heading3:           "Factura"
+
+  - JPN:
+      Description:        "Fecha Emision Factura"
+      Label:              "Fecha Emision F"
+      Heading1:           "Fecha"
+      Heading2:           "Emision"
+      Heading3:           "Factura"
+
+  - TRK:
+      Description:        "Fecha Emision Factura"
+      Label:              "Fecha Emision F"
+      Heading1:           "Fecha"
+      Heading2:           "Emision"
+      Heading3:           "Factura"

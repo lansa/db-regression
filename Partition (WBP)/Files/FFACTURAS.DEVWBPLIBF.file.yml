@@ -1,0 +1,415 @@
+﻿File:
+  Name:                           FFACTURAS
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             FFACTURAS
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Facturas"
+
+  - ENG:
+      Description:        "Facturas"
+
+  - FRA:
+      Description:        "Facturas"
+
+  - JPN:
+      Description:        "Facturas"
+
+  - TRK:
+      Description:        "Facturas"
+
+  Real Fields:
+  - FFACTURAX:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  - FFNUMERO:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FFESTADOF:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACVALFEC:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACVALHOR:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - FACAUTCOD:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACAUTFIN:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACAUTFFI:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACAUTPRE:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACAUTVLR:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACAUTV_1:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACDOCCUF:
+      Type:               Alphanumeric
+      Length:             200
+      Decimals:           0
+
+  - FACDOCNUM:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACDOCFEM:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACDOCHEM:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - FACDOCFVE:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACDOCTIP:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACDOCMON:
+      Type:               Alphanumeric
+      Length:             4
+      Decimals:           0
+
+  - FACDOCN_1:
+      Type:               Decimal
+      Length:             9
+      Decimals:           0
+
+  - FACDOCORD:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACVENRSO:
+      Type:               NVarChar
+      Length:             65
+      Decimals:           0
+
+  - FACVENCII:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACVENCIU:
+      Type:               NVarChar
+      Length:             30
+      Decimals:           0
+
+  - FACVENDEP:
+      Type:               NVarChar
+      Length:             30
+      Decimals:           0
+
+  - FACVENDIR:
+      Type:               NVarChar
+      Length:             50
+      Decimals:           0
+
+  - FACVENPAI:
+      Type:               NVarChar
+      Length:             25
+      Decimals:           0
+
+  - FACVENTIP:
+      Type:               NVarChar
+      Length:             3
+      Decimals:           0
+
+  - FACVENIDE:
+      Type:               NVarChar
+      Length:             15
+      Decimals:           0
+
+  - FACVENTEL:
+      Type:               NVarChar
+      Length:             15
+      Decimals:           0
+
+  - FACVENCOR:
+      Type:               NVarChar
+      Length:             200
+      Decimals:           0
+
+  - FACVENTAX:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACCLINRS:
+      Type:               NVarChar
+      Length:             65
+      Decimals:           0
+
+  - FACCLICIU:
+      Type:               NVarChar
+      Length:             30
+      Decimals:           0
+
+  - FACCLIDEP:
+      Type:               NVarChar
+      Length:             30
+      Decimals:           0
+
+  - FACCLIDIR:
+      Type:               NVarChar
+      Length:             50
+      Decimals:           0
+
+  - FACCLIPAI:
+      Type:               NVarChar
+      Length:             25
+      Decimals:           0
+
+  - FACCLITIP:
+      Type:               NVarChar
+      Length:             3
+      Decimals:           0
+
+  - FACCLIIDE:
+      Type:               NVarChar
+      Length:             15
+      Decimals:           0
+
+  - FACCLITEL:
+      Type:               NVarChar
+      Length:             15
+      Decimals:           0
+
+  - FACCLICOR:
+      Type:               NVarChar
+      Length:             200
+      Decimals:           0
+
+  - FACCLITAX:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACENTFEC:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACENTCIU:
+      Type:               NVarChar
+      Length:             30
+      Decimals:           0
+
+  - FACENTDIR:
+      Type:               NVarChar
+      Length:             50
+      Decimals:           0
+
+  - FACENTPAI:
+      Type:               NVarChar
+      Length:             25
+      Decimals:           0
+
+  - FACFOPMED:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACFOPFVE:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACFOPCOD:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACFOPIDP:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - FACANTIDE:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACANTVLR:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACANTFRE:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACANTFEP:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - FACANTHOP:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - FACANTINS:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - FACVLRVLR:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACVLRBAS:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACVLRBRI:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACVLRDES:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACVLRSUM:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACVLRS_1:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACVLRAPA:
+      Type:               Decimal
+      Length:             15
+      Decimals:           2
+
+  - FACDESLIS:
+      Type:               NVarChar
+      Length:             65000
+      Decimals:           0
+
+  - FACLINLIS:
+      Type:               NVarChar
+      Length:             65000
+      Decimals:           0
+
+  - FACLINIMP:
+      Type:               NVarChar
+      Length:             65000
+      Decimals:           0
+
+  - FACRECTER:
+      Type:               NVarChar
+      Length:             65000
+      Decimals:           0
+
+  - FACIMPLIS:
+      Type:               NVarChar
+      Length:             65000
+      Decimals:           0
+
+  Primary Keys:
+  - FFNUMERO
+
+  Logical Views:
+  - FFacturasxEstado:
+      Identifier:         FFACTURASX
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      FFACTURASX
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "New Index"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - FFESTADOF:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - FFNUMERO:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

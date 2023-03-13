@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               FACCLIIDEN
+  Type:               NVarChar
+  Length:             15
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRNUMIDE
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Num Identificacion Cliente"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Cliente"
+
+  - ENG:
+      Description:        "Num Identificacion Cliente"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Cliente"
+
+  - FRA:
+      Description:        "Num Identificacion Cliente"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Cliente"
+
+  - JPN:
+      Description:        "Num Identificacion Cliente"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Cliente"
+
+  - TRK:
+      Description:        "Num Identificacion Cliente"
+      Label:              "Num Identificac"
+      Heading1:           "Num"
+      Heading2:           "Identificacion"
+      Heading3:           "Cliente"

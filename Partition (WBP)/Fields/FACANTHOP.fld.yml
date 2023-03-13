@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACANTHOPAG
+  Type:               Time
+  Length:             8
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRHORA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Hora Realiz Pago"
+      Label:              "Hora Realiz Pag"
+      Heading1:           "Hora"
+      Heading2:           "Realiz"
+      Heading3:           "Pago"
+
+  - ENG:
+      Description:        "Hora Realiz Pago"
+      Label:              "Hora Realiz Pag"
+      Heading1:           "Hora"
+      Heading2:           "Realiz"
+      Heading3:           "Pago"
+
+  - FRA:
+      Description:        "Hora Realiz Pago"
+      Label:              "Hora Realiz Pag"
+      Heading1:           "Hora"
+      Heading2:           "Realiz"
+      Heading3:           "Pago"
+
+  - JPN:
+      Description:        "Hora Realiz Pago"
+      Label:              "Hora Realiz Pag"
+      Heading1:           "Hora"
+      Heading2:           "Realiz"
+      Heading3:           "Pago"
+
+  - TRK:
+      Description:        "Hora Realiz Pago"
+      Label:              "Hora Realiz Pag"
+      Heading1:           "Hora"
+      Heading2:           "Realiz"
+      Heading3:           "Pago"

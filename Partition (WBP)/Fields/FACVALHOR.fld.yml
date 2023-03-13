@@ -1,0 +1,46 @@
+﻿Field:
+  Name:               FACVALHOR
+  Type:               Time
+  Length:             8
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRHORA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Hora Validacion"
+      Label:              "Hora Validacion"
+      Heading1:           "Hora"
+      Heading2:           "Validacion"
+
+  - ENG:
+      Description:        "Hora Validacion"
+      Label:              "Hora Validacion"
+      Heading1:           "Hora"
+      Heading2:           "Validacion"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Hora Validacion"
+      Label:              "Hora Validacion"
+      Heading1:           "Hora"
+      Heading2:           "Validacion"
+
+  - JPN:
+      Description:        "Hora Validacion"
+      Label:              "Hora Validacion"
+      Heading1:           "Hora"
+      Heading2:           "Validacion"
+
+  - TRK:
+      Description:        "Hora Validacion"
+      Label:              "Hora Validacion"
+      Heading1:           "Hora"
+      Heading2:           "Validacion"

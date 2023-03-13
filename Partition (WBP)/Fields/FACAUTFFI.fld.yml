@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACAUTFFIN
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Fin Autoriz Fact"
+      Label:              "Fecha Fin Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Fin"
+      Heading3:           "Autoriz"
+
+  - ENG:
+      Description:        "Fecha Fin Autoriz Fact"
+      Label:              "Fecha Fin Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Fin"
+      Heading3:           "Autoriz"
+
+  - FRA:
+      Description:        "Fecha Fin Autoriz Fact"
+      Label:              "Fecha Fin Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Fin"
+      Heading3:           "Autoriz"
+
+  - JPN:
+      Description:        "Fecha Fin Autoriz Fact"
+      Label:              "Fecha Fin Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Fin"
+      Heading3:           "Autoriz"
+
+  - TRK:
+      Description:        "Fecha Fin Autoriz Fact"
+      Label:              "Fecha Fin Autor"
+      Heading1:           "Fecha"
+      Heading2:           "Fin"
+      Heading3:           "Autoriz"

@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACCLIDIRE
+  Type:               NVarChar
+  Length:             50
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRDIRECC
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Direccion Cliente"
+      Label:              "Direccion Clien"
+      Heading1:           "Direccion"
+      Heading2:           "Cliente"
+
+  - ENG:
+      Description:        "Direccion Cliente"
+      Label:              "Direccion Clien"
+      Heading1:           "Direccion"
+      Heading2:           "Cliente"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Direccion Cliente"
+      Label:              "Direccion Clien"
+      Heading1:           "Direccion"
+      Heading2:           "Cliente"
+
+  - JPN:
+      Description:        "Direccion Cliente"
+      Label:              "Direccion Clien"
+      Heading1:           "Direccion"
+      Heading2:           "Cliente"
+
+  - TRK:
+      Description:        "Direccion Cliente"
+      Label:              "Direccion Clien"
+      Heading1:           "Direccion"
+      Heading2:           "Cliente"

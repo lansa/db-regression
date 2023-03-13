@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               FACVENCIIU
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Actividad Economica"
+      Label:              "Actividad Econo"
+      Heading1:           "Actividad"
+      Heading2:           "Economica"
+
+  - ENG:
+      Description:        "Actividad Economica"
+      Label:              "Actividad Econo"
+      Heading1:           "Actividad"
+      Heading2:           "Economica"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Actividad Economica"
+      Label:              "Actividad Econo"
+      Heading1:           "Actividad"
+      Heading2:           "Economica"
+
+  - JPN:
+      Description:        "Actividad Economica"
+      Label:              "Actividad Econo"
+      Heading1:           "Actividad"
+      Heading2:           "Economica"
+
+  - TRK:
+      Description:        "Actividad Economica"
+      Label:              "Actividad Econo"
+      Heading1:           "Actividad"
+      Heading2:           "Economica"

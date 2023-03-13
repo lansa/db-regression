@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               FACDOCORDEP
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Orden de pedido"
+      Label:              "Orden de pedido"
+      Heading1:           "Orden"
+      Heading2:           "de"
+      Heading3:           "pedido"
+
+  - ENG:
+      Description:        "Orden de pedido"
+      Label:              "Orden de pedido"
+      Heading1:           "Orden"
+      Heading2:           "de"
+      Heading3:           "pedido"
+
+  - FRA:
+      Description:        "Orden de pedido"
+      Label:              "Orden de pedido"
+      Heading1:           "Orden"
+      Heading2:           "de"
+      Heading3:           "pedido"
+
+  - JPN:
+      Description:        "Orden de pedido"
+      Label:              "Orden de pedido"
+      Heading1:           "Orden"
+      Heading2:           "de"
+      Heading3:           "pedido"
+
+  - TRK:
+      Description:        "Orden de pedido"
+      Label:              "Orden de pedido"
+      Heading1:           "Orden"
+      Heading2:           "de"
+      Heading3:           "pedido"

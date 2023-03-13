@@ -1,0 +1,50 @@
+﻿Field:
+  Name:               FACVLRBASEIMP
+  Type:               Packed
+  Length:             15
+  Decimals:           2
+  Default Value:      "*ZEROS"
+  Reference Field:    FSRVALOR
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Vlr Base Imponible"
+      Label:              "Vlr Base Imponi"
+      Heading1:           "Vlr"
+      Heading2:           "Base"
+      Heading3:           "Imponible"
+
+  - ENG:
+      Description:        "Vlr Base Imponible"
+      Label:              "Vlr Base Imponi"
+      Heading1:           "Vlr"
+      Heading2:           "Base"
+      Heading3:           "Imponible"
+
+  - FRA:
+      Description:        "Vlr Base Imponible"
+      Label:              "Vlr Base Imponi"
+      Heading1:           "Vlr"
+      Heading2:           "Base"
+      Heading3:           "Imponible"
+
+  - JPN:
+      Description:        "Vlr Base Imponible"
+      Label:              "Vlr Base Imponi"
+      Heading1:           "Vlr"
+      Heading2:           "Base"
+      Heading3:           "Imponible"
+
+  - TRK:
+      Description:        "Vlr Base Imponible"
+      Label:              "Vlr Base Imponi"
+      Heading1:           "Vlr"
+      Heading2:           "Base"
+      Heading3:           "Imponible"

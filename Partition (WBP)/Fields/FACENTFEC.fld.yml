@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               FACENTFEC
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha Entrega"
+      Label:              "Fecha Entrega"
+      Heading1:           "Fecha"
+      Heading2:           "Entrega"
+
+  - ENG:
+      Description:        "Fecha Entrega"
+      Label:              "Fecha Entrega"
+      Heading1:           "Fecha"
+      Heading2:           "Entrega"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Fecha Entrega"
+      Label:              "Fecha Entrega"
+      Heading1:           "Fecha"
+      Heading2:           "Entrega"
+
+  - JPN:
+      Description:        "Fecha Entrega"
+      Label:              "Fecha Entrega"
+      Heading1:           "Fecha"
+      Heading2:           "Entrega"
+
+  - TRK:
+      Description:        "Fecha Entrega"
+      Label:              "Fecha Entrega"
+      Heading1:           "Fecha"
+      Heading2:           "Entrega"

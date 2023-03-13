@@ -1,0 +1,41 @@
+﻿Field:
+  Name:               FACDOCCUFE
+  Type:               Alpha
+  Length:             200
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXT_1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "CUFE"
+      Label:              "CUFE"
+      Heading1:           "CUFE"
+
+  - ENG:
+      Description:        "CUFE"
+      Label:              "CUFE"
+      Heading1:           "CUFE"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "CUFE"
+      Label:              "CUFE"
+      Heading1:           "CUFE"
+
+  - JPN:
+      Description:        "CUFE"
+      Label:              "CUFE"
+      Heading1:           "CUFE"
+
+  - TRK:
+      Description:        "CUFE"
+      Label:              "CUFE"
+      Heading1:           "CUFE"

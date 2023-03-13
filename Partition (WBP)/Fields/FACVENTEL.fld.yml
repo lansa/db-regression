@@ -1,0 +1,45 @@
+﻿Field:
+  Name:               FACVENTELEF
+  Type:               NVarChar
+  Length:             15
+  Decimals:           0
+  Default Value:      "*NULL"
+  Reference Field:    FSRTELEFO
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Telefono Vendedor"
+      Label:              "Telefono Vended"
+      Heading1:           "Telefono"
+      Heading2:           "Vendedor"
+
+  - ENG:
+      Description:        "Telefono Vendedor"
+      Label:              "Telefono Vended"
+      Heading1:           "Telefono"
+      Heading2:           "Vendedor"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Telefono Vendedor"
+      Label:              "Telefono Vended"
+      Heading1:           "Telefono"
+      Heading2:           "Vendedor"
+
+  - JPN:
+      Description:        "Telefono Vendedor"
+      Label:              "Telefono Vended"
+      Heading1:           "Telefono"
+      Heading2:           "Vendedor"
+
+  - TRK:
+      Description:        "Telefono Vendedor"
+      Label:              "Telefono Vended"
+      Heading1:           "Telefono"
+      Heading2:           "Vendedor"

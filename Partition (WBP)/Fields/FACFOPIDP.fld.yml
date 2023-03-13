@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               FACFOPIDPA
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Identificador del Pago"
+      Label:              "Identificador d"
+      Heading1:           "Identificador"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - ENG:
+      Description:        "Identificador del Pago"
+      Label:              "Identificador d"
+      Heading1:           "Identificador"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - FRA:
+      Description:        "Identificador del Pago"
+      Label:              "Identificador d"
+      Heading1:           "Identificador"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - JPN:
+      Description:        "Identificador del Pago"
+      Label:              "Identificador d"
+      Heading1:           "Identificador"
+      Heading2:           "del"
+      Heading3:           "Pago"
+
+  - TRK:
+      Description:        "Identificador del Pago"
+      Label:              "Identificador d"
+      Heading1:           "Identificador"
+      Heading2:           "del"
+      Heading3:           "Pago"

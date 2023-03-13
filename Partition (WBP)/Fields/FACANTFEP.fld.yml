@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               FACANTFEPAG
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Reference Field:    FSRFECHA
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Output Attributes:
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Fecha realizac Pago"
+      Label:              "Fecha realizac"
+      Heading1:           "Fecha"
+      Heading2:           "realizac"
+      Heading3:           "Pago"
+
+  - ENG:
+      Description:        "Fecha realizac Pago"
+      Label:              "Fecha realizac"
+      Heading1:           "Fecha"
+      Heading2:           "realizac"
+      Heading3:           "Pago"
+
+  - FRA:
+      Description:        "Fecha realizac Pago"
+      Label:              "Fecha realizac"
+      Heading1:           "Fecha"
+      Heading2:           "realizac"
+      Heading3:           "Pago"
+
+  - JPN:
+      Description:        "Fecha realizac Pago"
+      Label:              "Fecha realizac"
+      Heading1:           "Fecha"
+      Heading2:           "realizac"
+      Heading3:           "Pago"
+
+  - TRK:
+      Description:        "Fecha realizac Pago"
+      Label:              "Fecha realizac"
+      Heading1:           "Fecha"
+      Heading2:           "realizac"
+      Heading3:           "Pago"

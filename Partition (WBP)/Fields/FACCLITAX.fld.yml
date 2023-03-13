@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               FACCLITAXLVCODE
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    FSRTEXTO1
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Resp. Fiscal"
+      Label:              "Resp. Fiscal"
+      Heading1:           "Responsabilidad"
+      Heading2:           "Fiscal"
+
+  - ENG:
+      Description:        "Resp. Fiscal"
+      Label:              "Resp. Fiscal"
+      Heading1:           "Responsabilidad"
+      Heading2:           "Fiscal"
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Resp. Fiscal"
+      Label:              "Resp. Fiscal"
+      Heading1:           "Responsabilidad"
+      Heading2:           "Fiscal"
+
+  - JPN:
+      Description:        "Resp. Fiscal"
+      Label:              "Resp. Fiscal"
+      Heading1:           "Responsabilidad"
+      Heading2:           "Fiscal"
+
+  - TRK:
+      Description:        "Resp. Fiscal"
+      Label:              "Resp. Fiscal"
+      Heading1:           "Responsabilidad"
+      Heading2:           "Fiscal"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(335)
+    
+    End_Com
+    
+    End_Com

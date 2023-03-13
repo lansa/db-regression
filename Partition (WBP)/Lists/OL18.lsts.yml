@@ -1,0 +1,226 @@
+﻿List:
+  Name:               Import 2023/03/11 04:13:00
+  Stored As:          User
+
+  Objects:
+  - RGCIIU:
+      Type:               Field
+
+  - FACVENCIU:
+      Type:               Field
+
+  - FACVENRSO:
+      Type:               Field
+
+  - FFACTURAX:
+      Type:               Field
+
+  - FFNUMERO:
+      Type:               Field
+
+  - FACANTFEP:
+      Type:               Field
+
+  - FACANTFRE:
+      Type:               Field
+
+  - FACANTHOP:
+      Type:               Field
+
+  - FACANTIDE:
+      Type:               Field
+
+  - FACANTINS:
+      Type:               Field
+
+  - FACANTVLR:
+      Type:               Field
+
+  - FACAUTCOD:
+      Type:               Field
+
+  - FACAUTFFI:
+      Type:               Field
+
+  - FACAUTFIN:
+      Type:               Field
+
+  - FACAUTPRE:
+      Type:               Field
+
+  - FACAUTV_1:
+      Type:               Field
+
+  - FACAUTVLR:
+      Type:               Field
+
+  - FACCLICIU:
+      Type:               Field
+
+  - FACCLICOR:
+      Type:               Field
+
+  - FACCLIDEP:
+      Type:               Field
+
+  - FACCLIDIR:
+      Type:               Field
+
+  - FACCLIIDE:
+      Type:               Field
+
+  - FACCLINRS:
+      Type:               Field
+
+  - FACCLIPAI:
+      Type:               Field
+
+  - FACCLITAX:
+      Type:               Field
+
+  - FACCLITEL:
+      Type:               Field
+
+  - FACCLITIP:
+      Type:               Field
+
+  - FACDESLIS:
+      Type:               Field
+
+  - FACDOCCUF:
+      Type:               Field
+
+  - FACDOCFEM:
+      Type:               Field
+
+  - FACDOCFVE:
+      Type:               Field
+
+  - FACDOCHEM:
+      Type:               Field
+
+  - FACDOCMON:
+      Type:               Field
+
+  - FACDOCN_1:
+      Type:               Field
+
+  - FACDOCNUM:
+      Type:               Field
+
+  - FACDOCORD:
+      Type:               Field
+
+  - FACDOCTIP:
+      Type:               Field
+
+  - FACENTCIU:
+      Type:               Field
+
+  - FACENTDIR:
+      Type:               Field
+
+  - FACENTFEC:
+      Type:               Field
+
+  - FACENTPAI:
+      Type:               Field
+
+  - FACFOPCOD:
+      Type:               Field
+
+  - FACFOPFVE:
+      Type:               Field
+
+  - FACFOPIDP:
+      Type:               Field
+
+  - FACFOPMED:
+      Type:               Field
+
+  - FACIMPLIS:
+      Type:               Field
+
+  - FACLINIMP:
+      Type:               Field
+
+  - FACLINLIS:
+      Type:               Field
+
+  - FACRECTER:
+      Type:               Field
+
+  - FACVALFEC:
+      Type:               Field
+
+  - FACVALHOR:
+      Type:               Field
+
+  - FACVENCII:
+      Type:               Field
+
+  - FACVENCOR:
+      Type:               Field
+
+  - FACVENDEP:
+      Type:               Field
+
+  - FACVENDIR:
+      Type:               Field
+
+  - FACVENIDE:
+      Type:               Field
+
+  - FACVENPAI:
+      Type:               Field
+
+  - FACVENTAX:
+      Type:               Field
+
+  - FACVENTEL:
+      Type:               Field
+
+  - FACVENTIP:
+      Type:               Field
+
+  - FACVLRAPA:
+      Type:               Field
+
+  - FACVLRBAS:
+      Type:               Field
+
+  - FACVLRBRI:
+      Type:               Field
+
+  - FACVLRDES:
+      Type:               Field
+
+  - FACVLRS_1:
+      Type:               Field
+
+  - FACVLRSUM:
+      Type:               Field
+
+  - FACVLRVLR:
+      Type:               Field
+
+  - FFESTADOF:
+      Type:               Field
+
+  - RGNOLOB:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - RGACTURAS:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - FFACTURAS:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - RGACFORM:
+      Type:               Form
+
+  - FFACFORM:
+      Type:               Form
