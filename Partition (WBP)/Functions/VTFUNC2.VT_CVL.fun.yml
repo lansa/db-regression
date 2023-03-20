@@ -4,11 +4,21 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Describe the defect from the CCS contents.
+    * Then describe how this test case, tests related functionality
+    *
+    *
+    *
+    *
+    *
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
     * Return messages.
-    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -17,8 +27,10 @@
     Get_Entry Number(1) From_List(#wLKData)
     
     *
-    * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
-    *
+    * Add your test case here
+    * It should be a list of method calls so its easy to read whats being tested.
+    
+    #Com_Owner.mthCompare_Results()
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -47,4 +59,18 @@
     #BIFMSG2 := #this_msg2
     Add_Entry To_List(#wLRet)
     Endroutine
+    
+    * Compare results.
+    Mthroutine Name(mthCompare_Results)
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare Results') ('') )
+    
+    * Determine the test to use to determine if the result is successful or a failure...
+    If ((#std_count <> 1))
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected different record numbers') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record numbers matched') ('') )
+    Endif
+    Endroutine
+    
+    * Add new methods here to support the test case.
     

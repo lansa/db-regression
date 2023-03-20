@@ -173,7 +173,7 @@
     
     * Local Defined Long Name.
     Mthroutine Name(mthSelect_SQL_With_Define_Long_Name)
-    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Long_Name) Using(...)') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Long_Name) Using(...)') #LF_SQL_Stmnt )
     
     #LF_Long_Name_Count := 0
     Select_Sql Fields(#LF_xEmployeeIdentification #LF_xEmployeeSurname) Using(#LF_SQL_Stmnt)

@@ -78,3 +78,11 @@
   - VTSSRF3:
       Type:               Funciton
       Qualifier:          VT_CVL
+
+  - VTFUNC1:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTFUNC2:
+      Type:               Funciton
+      Qualifier:          VT_CVL

@@ -53,8 +53,8 @@
     #Com_Owner.mthLogTestCase( #LF_VTMain_CCSId (*Function + ' / ' + *Process) *Blanks )
     
     If ((#LF_VTMain_CCSId = *Blanks) *Or (#LF_VTMain_CCSId = '000000'))
-    * CCS Id has not been specififed => ERROR.
-    #Com_Owner.mthLogEvent( ('*** Invalid Test Case *** ( ' + *Function + ' / ' + *Process + ' )') )
+    * ERROR.
+    #Com_Owner.mthLogEvent( ('*** CCS Id has not been specififed in #LF_VTMain_CCSId *** ( ' + *Function + ' / ' + *Process + ' )') )
     Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
     Else
     * Retrieve the local platform type.

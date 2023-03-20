@@ -20,7 +20,7 @@
     
     Get_Entry Number(1) From_List(#WLKDATA)
     
-    * Execute Subroutine(ADD_SUBMSG) With_Parms( OK 'Coding ...' '' )
+    * Add your test case here
     
     Execute Subroutine(ADD_MSG) With_Parms(OK *FUNCTION 'End')
     Use Builtin(CLR_MESSAGES)

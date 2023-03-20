@@ -30,19 +30,19 @@
 
       Multilingual Details:
       - DAN:
-          Description:        "RDML Callee Function Sample"
+          Description:        "Template - RDML Callee Function Sample"
 
       - ENG:
-          Description:        "RDML Callee Function Sample"
+          Description:        "Template - RDML Callee Function Sample"
 
       - FRA:
-          Description:        "RDML Callee Function Sample"
+          Description:        "Template - RDML Callee Function Sample"
 
       - JPN:
-          Description:        "RDML Callee Function Sample"
+          Description:        "Template - RDML Callee Function Sample"
 
       - TRK:
-          Description:        "RDML Callee Function Sample"
+          Description:        "Template - RDML Callee Function Sample"
 
       Allowed Next Functions:
       - "*ANY"
@@ -54,19 +54,19 @@
 
       Multilingual Details:
       - DAN:
-          Description:        "RDMLX Callee Function Sample"
+          Description:        "Template - RDMLX Callee Function Sample"
 
       - ENG:
-          Description:        "RDMLX Callee Function Sample"
+          Description:        "Template - RDMLX Callee Function Sample"
 
       - FRA:
-          Description:        "RDMLX Callee Function Sample"
+          Description:        "Template - RDMLX Callee Function Sample"
 
       - JPN:
-          Description:        "RDMLX Callee Function Sample"
+          Description:        "Template - RDMLX Callee Function Sample"
 
       - TRK:
-          Description:        "RDMLX Callee Function Sample"
+          Description:        "Template - RDMLX Callee Function Sample"
 
       Allowed Next Functions:
       - "*ANY"
