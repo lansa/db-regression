@@ -58,3 +58,7 @@
   - VTTEMP5:
       Type:               Funciton
       Qualifier:          VT_CVL
+
+  - V86925A:
+      Type:               Funciton
+      Qualifier:          VT986925
