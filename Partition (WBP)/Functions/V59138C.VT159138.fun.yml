@@ -4,6 +4,16 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * *****************************************************************************************
+    * Test Description
+    * CCS: Cannot check in RDMLX file that is enabled for Long Names
+    * This is a simple test created to ensure code coverage  of the modified code. It does not
+    * actually test the original issue as that requires a non-English platform (originally found
+    * on Danish system).
+    * It has 2 files. One file uses long names, the other does not.
+    * Its important because it is run on IBM i.
+    * *****************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     

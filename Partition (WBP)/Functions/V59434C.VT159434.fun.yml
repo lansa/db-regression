@@ -4,6 +4,26 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * *****************************************************************************************
+    * Test Description
+    * Test TRANSFORM_LIST and TRANSFORM_FILE handling of BLOB and CLOB data.
+    * Also includes *null, *sqlnull and Datetime value testing.
+    * **** This seems like a good candidate for enhancing to test all data types ****
+    * **** Might even be appropriate to add various SELECT types ****
+    * Creates a list of Test Data #w_lTL
+    * Inserts that data into the table and then selects that data back out into #w_lDB, and does
+    * 2 transform tests: 1) ANSI; 2) Unicode
+    * The Transform Test does this:
+    * 1) Outputs #w_lTL to a file
+    * 2) Reads it back into #w_lTF_From_TL
+    * 3) Outputs #w_lDB to a file
+    * 4) Reads it back into #w_lTF_From_DB
+    * 5) Compares the contents of #w_lTF_From_TL with #w_lTF_From_DB
+    * Comparison checks that non-LOB values are the same. But it only checks for the existence of
+    * the LOB in the correct directory with the correct name. It does not check that the contents
+    * is the same. **** This should be done using the stream file BIFs so its cross platform. ****
+    * *****************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
