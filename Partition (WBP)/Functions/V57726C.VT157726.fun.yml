@@ -4,6 +4,19 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    *
+    * ******************************************************************************************************
+    * Test Description
+    * MSI to not unload/reload data if there are no table changes.
+    * Specifically, to identify exactly what has changed in the table defintion and execute the fewest
+    * operations to apply those changes.
+    * Changes are to the BIF Compare_File_Def
+    *
+    *
+    *
+    *
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
@@ -33,6 +46,8 @@
     Define Field(#LF_Version) Type(*STRING)
     Define Field(#LF_File_Edit_Label) Type(*CHAR) Length(3)
     
+    Define Field(#LF_DB_Type) Reffld(#BIFA032A)
+    
     Define Field(#LF_unload_data) Type(*BOOLEAN)
     Define Field(#LF_rebuild_file) Type(*BOOLEAN)
     Define Field(#LF_drop_option) Reffld(#Std_Alpha)
@@ -49,7 +64,16 @@
     #LF_file_name := VTL157726C
     #LF_current_ctd_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
     #LF_new_ctd_path := *TEMP_DIR
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
+    If (#LF_rc = OK)
+    If ((#LF_DB_Type = MYSQL))
+    #Com_Owner.mthAdd_SubMsg( OK ('- V58011C does not support ' + #LF_DB_Type) ('') )
+    #LF_rc := ER /* Terminate this test */
+    Endif
+    Endif
+    
+    If (#LF_rc = OK)
     * Delete all existing records.
     #Com_Owner.mthAdd_SubMsg( OK ('- Empty Table Data') ('') )
     Select Fields(*ALL) From_File(VTL157726C) Io_Status(#LF_rc) Io_Error(*NEXT) Val_Error(*NEXT)
@@ -65,7 +89,6 @@
     #LF_rc := OK
     
     * Compare 2 identical CTD files.
-    If (#LF_rc = OK)
     * Save the original version of CTD and DLL.
     #Com_Owner.mthSave_Test_File( #LF_file_name '_0_original' #LF_new_ctd_path #LF_rc )
     
@@ -75,7 +98,7 @@
     If ((#LF_rc <> OK) *Or (#LF_compare_file_Def_rc <> #LF_Expected_Compare_File_Def_rc))
     #Com_Owner.mthAdd_SubMsg( ER (' + Compare_File_Def: Expected ' + #LF_Expected_Compare_File_Def_rc) ('Compare_File_Def(' + #LF_compare_file_Def_rc + '), #LF_rc(' + #LF_rc + ')') )
     Endif
-    Endif
+    
     
     * Add a new File Field then compare with the saved orignial CTD above.
     If (#LF_rc = OK)
@@ -233,6 +256,8 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Restore File definition') ('') )
     #Com_Owner.mthRestore_File_Definition( #LF_file_name #LF_rc )
     Endif
+    Endif
+    
     Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )

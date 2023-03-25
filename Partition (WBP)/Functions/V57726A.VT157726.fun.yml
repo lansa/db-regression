@@ -460,10 +460,9 @@
     * Include test functions.
     Clr_List Named(#wl_VTTEMP_Function)
     *
-    * The below Function can only work on up-to-dated dongle and not MYSQL database.
-    * #Com_Owner.mthAddFunction( V57726C )
-    
+    #Com_Owner.mthAddFunction( V57726C )
     #Com_Owner.mthAddFunction( V57726D )
+    
     * If (#LF_VTTEMP_Skip_Test_Case = False)
     * #Com_Owner.mthAddFunction( VTFunc2 )
     * Else
