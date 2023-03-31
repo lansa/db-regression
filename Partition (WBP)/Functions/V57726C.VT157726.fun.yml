@@ -88,6 +88,19 @@
     
     #LF_rc := OK
     
+    * Restore File Definition to the original before any of the edits that occur later as part of running this test
+    
+    #Com_Owner.mthRestore_File_Definition( #LF_file_name #LF_rc )
+    Endif
+    
+    If (#LF_rc = OK)
+    * Compile Restored File Definition to the original before any of the edits that occur later as part of running this test
+    
+    #Com_Owner.mthMake_File_Operational( #LF_file_name #LF_rc )
+    Endif
+    
+    
+    If (#LF_rc = OK)
     * Compare 2 identical CTD files.
     * Save the original version of CTD and DLL.
     #Com_Owner.mthSave_Test_File( #LF_file_name '_0_original' #LF_new_ctd_path #LF_rc )
@@ -135,6 +148,9 @@
     Endif
     Endif
     Endif
+    
+    * The rest of the 'MSI' tests are using various sets of CTD, DLL and the Table in the database created from that CTD.
+    * Note that the File Definition itself is UNCHANGED
     
     * Restore to original runtime version with database table records.
     If (#LF_rc = OK)
@@ -433,17 +449,17 @@
     Endroutine
     
     *
+    * Log the runtime messages produced by BIFs.
     *
-    *
-    Mthroutine Name(mthIssue_Runtime_Message)
-    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
     
-    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
-    Dowhile Cond(#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( ER ('- ' + #this_msg) (#LF_message_text) )
-    
-    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( ER (#LF_msg_text) ('') )
+    Endif
     Endwhile
     Endroutine
     
@@ -516,7 +532,8 @@
     Endroutine
     
     *
-    *
+    * Restores the CTD, DLL and the Table in the database to the original state
+    * Note that the File Definition itself is UNCHANGED
     *
     Mthroutine Name(mthRestore_To_Original_Version)
     Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
@@ -564,7 +581,13 @@
     If (#LF_unload_data = True)
     Use Builtin(Unload_File_Data) With_Args(#this_file *Default *Default Y Y) To_Get(#LF_unload_file_rc)
     #Com_Owner.mthAdd_SubMsg( #this_rc (' + Unload_File_Data: ' + #LF_unload_file_rc) ('') )
+    
+    If Cond(#LF_unload_file_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message()
+    #this_rc := ER
     Endif
+    Endif
+    
     
     * Rebuild_File with the setup rules.
     If ((#LF_rebuild_file = True) *And ((#LF_unload_data = False) *Or ((#LF_unload_data = True) *And (#LF_unload_file_rc = OK))))
@@ -578,20 +601,22 @@
     
     Use Builtin(Rebuild_File) With_Args(#this_file #LF_drop_option) To_Get(#LF_rebuild_file_rc)
     #Com_Owner.mthAdd_SubMsg( #this_rc (' + Rebuild_File: ' + #LF_rebuild_file_rc) ('Drop File and Views option(' + #LF_drop_option + ')') )
+    
+    If Cond(#LF_rebuild_file_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message()
+    #this_rc := ER
+    Endif
     Endif
     
     * Load the data.
     If ((#LF_unload_data = True) *And ((#LF_unload_data = False) *Or ((#LF_unload_data = True) *And (#LF_unload_file_rc = OK))) *And ((#LF_rebuild_file = False) *Or ((#LF_rebuild_file = True) *And (#LF_rebuild_file_rc = OK))))
     Use Builtin(Load_File_Data) With_Args(#this_file *Default *Default *Default *Default Y *Default) To_Get(#LF_load_file_rc)
     #Com_Owner.mthAdd_SubMsg( #this_rc (' + Load_File_Data: ' + #LF_load_file_rc) ('') )
-    Endif
     
-    * Report all errors.
-    If (((#LF_rebuild_file = True) *And ((#LF_unload_file_rc <> OK) *Or (#LF_load_file_rc <> OK))) *Or ((#LF_rebuild_file = True) *And (#LF_rebuild_file_rc <> OK)))
-    #Com_Owner.mthIssue_Runtime_Message( 'MSI Error Message' #this_rc )
+    If Cond(#LF_load_file_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message()
     #this_rc := ER
-    Else
-    #this_rc := OK
+    Endif
     Endif
     Endif
     Endroutine
@@ -605,12 +630,16 @@
     
     #Com_Owner.mthRemove_File_Edit_Label( #this_file '001' #this_rc )
     If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( OK (' + Remove added new File Field: ' + #this_rc) ('') )
+    #Com_Owner.mthAdd_SubMsg( OK (' + Remove added File Field: ' + #this_rc) ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Error removing File Field: ' + #this_rc) ('') )
     Endif
     
     #Com_Owner.mthRemove_File_Edit_Label( #this_file '002' #this_rc )
     If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( OK (' + Remove added new Logical View: ' + #this_rc) ('') )
+    #Com_Owner.mthAdd_SubMsg( OK (' + Remove added Logical View: ' + #this_rc) ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Error removing added Logical View: ' + #this_rc) ('') )
     Endif
     Endroutine
     

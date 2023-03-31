@@ -1,7 +1,7 @@
 ﻿Field:
   Name:               BIFMSG1
   Type:               Alpha
-  Length:             50
+  Length:             133
   Decimals:           0
   Default Value:      "*BLANKS"
   Enabled For RDMLX:  No
@@ -40,3 +40,13 @@
       Label:              "Testing Field"
       Heading1:           "Testing"
       Heading2:           "Field"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(951)
+    
+    End_Com
+    
+    End_Com

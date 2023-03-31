@@ -341,15 +341,15 @@
     #this_retcode := ER
     
     If (#BIFMSG2 *NE *Blanks)
-    #Com_Owner.mthLogEvent( ('*** ERROR: ' + #BIFMSG1 + '. ' + #BIFMSG2) )
+    #Com_Owner.mthLogEvent( ('- ERROR: ' + #BIFMSG1 + '. ' + #BIFMSG2) )
     Else
-    #Com_Owner.mthLogEvent( ('*** ERROR: ' + #BIFMSG1 + '.') )
+    #Com_Owner.mthLogEvent( ('- ERROR: ' + #BIFMSG1) )
     Endif
     Else
     If (#BIFMSG2 *NE *Blanks)
     #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1 + '. ' + #BIFMSG2) )
     Else
-    #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1 + '.') )
+    #Com_Owner.mthLogEvent( ('- ' + #BIFMSG1) )
     Endif
     Endif
     End_Loop
