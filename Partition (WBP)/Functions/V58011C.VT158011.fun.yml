@@ -91,7 +91,11 @@
     #LF_vl_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
     #LF_msi_path := *TEMP_DIR
     
-    * Initial the package list.
+    Use Builtin(OV_File_Service) With_Args(CHECK_DIR (#LF_package_path)) To_Get(#LF_rc)
+    If Cond(#LF_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Import Directory does not exist: ' + #LF_package_path) ('') )
+    Else
+    * Initialise the package list.
     #Com_Owner.mthAddPackage( '1_Orignial' NC )
     #Com_Owner.mthAddPackage( '2_Swap_C3_And_C4_Around' NC )
     #Com_Owner.mthAddPackage( '3_Add_C5_Alpha_10_With_Default_AbC' AT )
@@ -112,6 +116,8 @@
     
     * Determine the COLLECTION NAME and Quote characters to be used.
     #Com_Owner.mthGetDatabaseDependencies( #LF_rc )
+    
+    Endif
     
     * Upgrade by ALTER TABLE.
     If (#LF_rc = OK)
@@ -165,6 +171,25 @@
     #BIFMSG1 := ' ' + #this_msg1
     #BIFMSG2 := #this_msg2
     Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
     Endroutine
     
     *
@@ -428,21 +453,6 @@
     *
     *
     *
-    Mthroutine Name(mthIssue_Runtime_Message)
-    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
-    Dowhile Cond(#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( ER ('- ' + #this_msg) (#LF_message_text) )
-    
-    Use Builtin(Get_Message) With_Args(Y) To_Get(#this_rc #LF_message_text)
-    Endwhile
-    Endroutine
-    
-    *
-    *
-    *
     Mthroutine Name(mthMake_File_Operational)
     Define_Map For(*INPUT) Class(#BIFA010A) Name(#this_file)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
@@ -512,11 +522,11 @@
     * Unload existing table data.
     If (#LF_unload_data = True)
     Use Builtin(Unload_File_Data) With_Args(#this_file *Default Y Y Y) To_Get(#LF_unload_file_rc)
+    #Com_Owner.mthAdd_SubMsg( #LF_unload_file_rc (' + Unload_File_Data: ' + #LF_unload_file_rc) ('') )
     If (#LF_unload_file_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( ER )
     #this_rc := ER
     Endif
-    
-    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Unload_File_Data: ' + #LF_unload_file_rc) ('') )
     Endif
     
     * Rebuild_File with the setup rules.
@@ -544,12 +554,12 @@
     * Rebuild the table using the new CTD with the old CTD.
     If (#this_rc = OK)
     Use Builtin(Rebuild_File) With_Args(#this_file #LF_rebuild_file_drop_option_value #LF_rebuild_file_create_option_value *Default *Default *Default *Default (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM + #this_file + '_old' + '.ctd')) To_Get(#LF_rebuild_file_rc)
-    If (#LF_rebuild_file_rc = ER)
-    #this_rc := ER
-    Endif
+    #Com_Owner.mthAdd_SubMsg( #LF_rebuild_file_rc ('  - Rebuild_File: ' + #LF_rebuild_file_rc) ('<Drop>(' + #LF_rebuild_file_drop_option_value + ') <Create>(' + #LF_rebuild_file_create_option_value + ')') )
     
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Rebuild_File: ' + #LF_rebuild_file_rc) ('<Drop>(' + #LF_rebuild_file_drop_option_value + ') <Create>(' + #LF_rebuild_file_create_option_value + ')') )
-    If (#LF_rebuild_file_rc = OK)
+    If (#LF_rebuild_file_rc = ER)
+    #Com_Owner.mthIssue_Runtime_Message( ER )
+    #this_rc := ER
+    Else
     * Delete the old CTD.
     #Com_Owner.mthRemove_File( #this_file, '.ctd', '_old' (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM) '../vl/xxx_old.ctd' TRUE #this_rc )
     Endif
@@ -559,13 +569,14 @@
     * Load the data.
     If ((#this_rc = OK) *And (#LF_unload_data = True))
     Use Builtin(Load_File_Data) With_Args(#this_file *Default *Default *Default *Default N *Default) To_Get(#LF_load_file_rc)
+    #Com_Owner.mthAdd_SubMsg( #LF_load_file_rc (' + Load_File_Data: ' + #LF_load_file_rc) ('') )
     If (#LF_load_file_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( ER )
     #this_rc := ER
     Endif
     
     Commit
     
-    #Com_Owner.mthAdd_SubMsg( #this_rc (' + Load_File_Data: ' + #LF_load_file_rc) ('') )
     Endif
     Endif
     Endif
@@ -714,12 +725,13 @@
     If (#this_rc = OK)
     Use Builtin(Rebuild_File) With_Args(#this_file 'U' 'Y' *Default *Default *Default *Default (*PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM + #this_file + '_old' + '.ctd') #LF_Script_File) To_Get(#this_rc)
     #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Rebuild_File: ' + #this_rc + '. <Drop>(U)') ('') )
-    If (#this_rc <> OK)
+    If Cond(#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( ER )
     #this_rc := ER
     Endif
     Else
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Failed to create file') ('') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Failed to copy file') ('') )
     Endif
     Endif
     Endroutine
