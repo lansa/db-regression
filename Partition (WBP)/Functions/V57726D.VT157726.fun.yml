@@ -4,6 +4,22 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    *
+    * ******************************************************************************************************
+    * Test Description
+    * MSI to not unload/reload data if there are no table changes.
+    * Similar to V57726C, but then uses saved packages rather than specialised BIFs.
+    * Specifically, to identify exactly what has changed in the table definition and execute the fewest
+    * operations to apply those changes.
+    * Changes are to the BIF Compare_File_Def
+    *
+    * Test uses copies of CTD and DLL in various states, saved in \\10.2.0.203\ccs\Tests\157000-157999\157726 currently
+    *
+    * It then uses these files with the Compare_File_Def BIF and Rebuild_File BIF, expecting specific results
+    * and of course that there are no errors.
+    *
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     

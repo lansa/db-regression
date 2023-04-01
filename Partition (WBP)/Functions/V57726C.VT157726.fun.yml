@@ -8,7 +8,7 @@
     * ******************************************************************************************************
     * Test Description
     * MSI to not unload/reload data if there are no table changes.
-    * Specifically, to identify exactly what has changed in the table defintion and execute the fewest
+    * Specifically, to identify exactly what has changed in the table definition and execute the fewest
     * operations to apply those changes.
     * Changes are to the BIF Compare_File_Def
     *
@@ -18,7 +18,7 @@
     *   - with a Logical View added
     * It then uses these files with the Compare_File_Def BIF and Rebuild_File BIF, expecting specific results
     * and of course that there are no errors. (As delivered, there were errors building the Table with the
-    * Logical View added because the incorrect drop option was specified when an Index has changed.)
+    * Logical View added because runsql did not cope with adding a View when another view already existed)
     *
     * ******************************************************************************************************
     
