@@ -4,11 +4,22 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    *
+    * ******************************************************************************************************
+    * Test Description
+    *
+    * Example of inserting data with particular values suited to the test case (in this case its about
+    * testing for *SQLNULL values in a Where clause using IsSqlNull and IsNotSqlNull) and testing its validity.
+    * It also uses the list #wLKData.
+    * There is a BLOB column and it is also tested for *SQLNULL explicitly in an IF statement as its not
+    * supported in a WHERE clause.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
     * Return messages.
-    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
     
     *
     Define Field(#LF_Data_Count) Reffld(#Std_Count)
@@ -84,7 +95,7 @@
     #Com_Owner.mthAdd_SubMsg( OK 'Empty table VTL156118D' '' )
     
     Clr_List Named(#w_lData)
-    Select Fields(*ALL) From_File(VTL156118D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F156118K1 #F156118K2) From_File(VTL156118D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lData)
     Endselect
     
@@ -126,16 +137,17 @@
     
     #this_sqlnull_record_counter := 0
     #F156118K1 := #this_key
-    #BIFBLOBA := *Sqlnull
+    
     Begin_Loop Using(#LF_i) To(#this_total_test_record)
     
     #F156118K2 := #LF_i
     Case Of_Field(#LF_i.Mod( 2 ))
     When Value_Is(= 1)
     #F156118D := 'Valid Data ' + #LF_i.AsString
-    
+    #BIFBLOBA := *Sys_Dir_Source + 'liiodef.h'
     When Value_Is(= 0)
     #F156118D := *Sqlnull
+    #BIFBLOBA := *Sqlnull
     #this_sqlnull_record_counter += 1
     Endcase
     
@@ -207,6 +219,24 @@
     Else
     #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
     Endif
+    
+    * Use the BLOB column
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#BIFBLOBA.IsSqlnull) *And (#F156118K2 <> 0))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118K2 <> 0)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFBLOBA.IsSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
     Endif
     Endroutine
     
@@ -256,6 +286,24 @@
     #LF_i := 0
     Select Fields(*ALL) From_File(VTL156118D) Where((#F156118D.IsNotSqlnull) *And (#F156118K2 <> 0)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * BLOB column
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#BIFBLOBA.IsNotSqlnull) *And (#F156118K2 <> 0))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118D) Where((#F156118D.IsNotSqlnull) *And (#F156118K2 <> 0)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFBLOBA.IsNotSqlNull)
+    #LF_i += 1
+    Endif
     Endselect
     
     If (#LF_i <> #this_expected_number_of_records)

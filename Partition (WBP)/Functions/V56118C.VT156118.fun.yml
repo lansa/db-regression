@@ -4,6 +4,19 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    *
+    * ******************************************************************************************************
+    * Test Description
+    *
+    * Example of inserting data with particular values suited to the test case (in this case its about
+    * testing for *SQLNULL values in a Where clause using IsSqlNull and IsNotSqlNull) and testing its validity.
+    * It uses the list #wLKData passed in from the test case driver which generates a unique key based on
+    * whether its being executed on Windows, IBM i or SuperServer, as well as a timestamp. This method does
+    * does not seem to be used by any other test case. It seems superfluous given the table is cleared before
+    * inserting the new test data. The CCS number is the lowest of all the test cases, so its presumed it
+    * seemed like a good idea at first but was found to be unnecessary.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
