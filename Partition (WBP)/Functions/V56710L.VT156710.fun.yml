@@ -40,7 +40,7 @@
     
     If (#LF_DB_Collection_Name = *Blanks)
     #LF_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xDepartments CTD file not found' )
+    #Com_Owner.mthAdd_SubMsg( ER 'Collection Name info not found' 'Unable to test as the xEmployee CTD file not found. Import Samples' )
     Endif
     Else
     #LF_DB_Quote := '`'
