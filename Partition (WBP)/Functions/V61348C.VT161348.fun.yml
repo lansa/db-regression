@@ -17,7 +17,7 @@
     * Locally defined Field Short Name
     *
     * Note: Contains Generic code for determining the format of the table identifier based on the current
-    * CPU Type and Database Type. Also code for determining the the quote character to use.
+    * CPU Type and Database Type. Also code for determining the quote character to use.
     * ******************************************************************************************************
     
     * Unique Key Data.
