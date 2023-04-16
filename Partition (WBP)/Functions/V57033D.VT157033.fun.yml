@@ -4,6 +4,23 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    *
+    * Inconsistent Generic(*YES) search results with NCHAR field type when using Long Name compared to
+    * Short Name in Logical View.
+    *
+    * Tests single and 2 key generic search of ALL 'string' field types. That is:
+    * Varchar, String, Varbinary, Nchar, Nvarchar, Alpha, Binary, Char, Alpha SBIN, Char SBIN.
+    * Table is identical to VTL157033C, except there is a BLOB column added to this table, which is not
+    * directly referenced anywhere, and thus not tested for validity. Adding a BLOB does force the table
+    * to use SQL on IBM i. This is probably the reason for the inclusion of the same tests, because on
+    * IBM i they will be exected differently.
+    * Single key tests are executed from both a Function and a Reusable Part.
+    * Single key tests are identical to those in Function V57033C.
+    * 2 key tests are executed from only a Function.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     

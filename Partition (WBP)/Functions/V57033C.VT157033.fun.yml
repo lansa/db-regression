@@ -4,6 +4,18 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    *
+    * Inconsistent Generic(*YES) search results with NCHAR field type when using Long Name compared to
+    * Short Name in Logical View.
+    *
+    * Tests single key generic search of ALL 'string' field types. That is:
+    * Varchar, String, Varbinary, Nchar, Nvarchar, Alpha, Binary, Char, Alpha SBIN, Char SBIN.
+    * Tests are executed from both a Function and a Reusable Part.
+    *
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     

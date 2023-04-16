@@ -4,6 +4,14 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    * Issues introduced by implementing 157033 fixes.
+    * 1. GENERIC search on Table's 2 ALPHA keys (Not a logical that is)
+    * 2. GENERIC search on NVARCHAR fields, one with *SQLNULL, over Logical View
+    *
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
