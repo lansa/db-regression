@@ -4,6 +4,22 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    *
+    * SELECT_SQL fails to compile when long names used for the FIELDS parameter
+    *
+    * Performs a test to ensure the syntax is correct and at least 1 record is returned.
+    * Then tests:
+    * Repository Field Long Name
+    * Repository Field Id (Short Name)
+    * Locally defined Field Long Name
+    * Locally defined Field Short Name
+    *
+    * Note: Contains Generic code for determining the format of the table identifier based on the current
+    * CPU Type and Database Type. Also code for determining the the quote character to use.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
@@ -60,8 +76,11 @@
     #LF_Database_Table := #LF_DB_Table_Qualifier + 'xEmployee' + #LF_DB_Quote
     #LF_SQL_Stmnt += #LF_Database_Table + ' order by ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote
     
-    #Com_Owner.mthSelect_SQL_With_Field_Id( #LF_Database_Table #LF_rc )
+    #Com_Owner.mthAdd_SubMsg( OK (#LF_SQL_Stmnt) ('') )
+    
+    #Com_Owner.mthSelect_SQL_Syntax_Check( #LF_Database_Table #LF_rc )
     If (#LF_rc = OK)
+    #Com_Owner.mthSelect_SQL_With_Field_Id
     #Com_Owner.mthSelect_SQL_With_Field_Long_Name
     #Com_Owner.mthSelect_SQL_With_Define_Short_Name
     #Com_Owner.mthSelect_SQL_With_Define_Long_Name
@@ -116,6 +135,7 @@
     
     * Table data under Field Names.
     Define Field(#LF_Field_Name_Count) Reffld(#Std_Count)
+    Define Field(#LF_Field_Id_Count) Reffld(#Std_Count)
     
     * Table data under Local Defined Short Names.
     Define Field(#LF_Id) Reffld(#xEmployeeIdentification)
@@ -128,7 +148,7 @@
     Define Field(#LF_Long_Name_Count) Reffld(#Std_Count)
     
     * Field Id.
-    Mthroutine Name(mthSelect_SQL_With_Field_Id)
+    Mthroutine Name(mthSelect_SQL_Syntax_Check)
     Define_Map For(*INPUT) Class(#BIFC256A) Name(#this_db_table)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
@@ -147,7 +167,19 @@
     Endif
     Endroutine
     
-    * Field Name.
+    * Repository Field Id.
+    Mthroutine Name(mthSelect_SQL_With_Field_Id)
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Field_Id) Using(...)') ('') )
+    
+    #LF_Field_Name_Count := 0
+    Select_Sql Fields(#XEMPLOYID #XSURNAME) Using(#LF_SQL_Stmnt)
+    #LF_Field_Id_Count += 1
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Field_Id_Count.AsString + ' record(s) found') ('') )
+    Endroutine
+    
+    * Repository Field Name.
     Mthroutine Name(mthSelect_SQL_With_Field_Long_Name)
     #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Field_Long_Name) Using(...)') ('') )
     
@@ -159,7 +191,7 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Field_Name_Count.AsString + ' record(s) found') ('') )
     Endroutine
     
-    * Local Defined Short Name.
+    * Locally Defined Short Name.
     Mthroutine Name(mthSelect_SQL_With_Define_Short_Name)
     #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Short_Name) Using(...)') ('') )
     
@@ -171,9 +203,9 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Short_Name_Count.AsString + ' record(s) found') ('') )
     Endroutine
     
-    * Local Defined Long Name.
+    * Locally Defined Long Name.
     Mthroutine Name(mthSelect_SQL_With_Define_Long_Name)
-    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Long_Name) Using(...)') #LF_SQL_Stmnt )
+    #Com_Owner.mthAdd_SubMsg( OK ('Select_SQL Fields(#Define_Long_Name) Using(...)') ('') )
     
     #LF_Long_Name_Count := 0
     Select_Sql Fields(#LF_xEmployeeIdentification #LF_xEmployeeSurname) Using(#LF_SQL_Stmnt)
@@ -187,7 +219,7 @@
     Mthroutine Name(mthCompare_Results)
     #Com_Owner.mthAdd_SubMsg( OK ('Compare Results') ('') )
     
-    If ((#LF_Field_Name_Count <> #LF_Short_Name_Count) *Or (#LF_Short_Name_Count <> #LF_Long_Name_Count))
+    If ((#LF_Field_Name_Count <> #LF_Short_Name_Count) *Or (#LF_Short_Name_Count <> #LF_Long_Name_Count) *Or (#LF_Long_Name_Count <> #LF_Field_Id_Count))
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected different record numbers') ('') )
     Else
     #Com_Owner.mthAdd_SubMsg( OK ('- Record numbers matched') ('') )
