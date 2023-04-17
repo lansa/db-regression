@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               BIFB256A
+  Type:               Binary
+  Length:             256
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Binary(512)"
+      Label:              "BIF Data Binary"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Binary(512)"
+
+  - ENG:
+      Description:        "BIF Data Binary(256)"
+      Label:              "BIF Data Binary"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Binary(256)"
+
+  - FRA:
+      Description:        "BIF Data Binary(512)"
+      Label:              "BIF Data Binary"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Binary(512)"
+
+  - JPN:
+      Description:        "BIF Data Binary(512)"
+      Label:              "BIF Data Binary"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Binary(512)"
+
+  - TRK:
+      Description:        "BIF Data Binary(512)"
+      Label:              "BIF Data Binary"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Binary(512)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    End_Com
