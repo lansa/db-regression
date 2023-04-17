@@ -4,6 +4,14 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    * Subset of V60553D.
+    * There is no check that the data returned by the database is the same as was inserted.
+    * It only checks that its SQLNULL when it should be and not SQLNULL when it isn’t meant to be.
+    * Ignore this for reference.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
