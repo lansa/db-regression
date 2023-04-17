@@ -4,6 +4,29 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    *
+    * OAM returns a fatal error when *GENERIC used with Date field.
+    * 1. OAM return ER on unsupported Generic Search Field Type.
+    * - Fixed to ignore the Generic Search if the last Key Field Type is not supported as per the online documentation.(GENERIC is ignored for Date, Time, Datetime and Float.)
+    *
+    * 2. Nbr_Keys(*COMPUTE) does not skip the DateTime Key Field when its state is *SQLNULL.
+    * - Fixed to skip *SQLNULL as well as *NULL for all Field types as per the online documentation. (When a key Field of ANY type is *NULL or *SQLNULL it is ignored.)
+    *
+    * Test implementation
+    * Each row contains 1 column with a valid value, with all the rest either blanks, 0 or *SQLNULL, and column #F1598211D describes which column has been set and its value. It repeats this data twice more with ‘false’ and ‘true’ alternately written for each set of the data - every row in a set has the same value of false or true.
+    * The ‘true’ records are there to have a difference only in the key field to check that they are not selected.
+    * The extra 2 rows for each set - ‘All Field Types’ and ‘Unknown’ don’t seem to improve on the test data differences provided by ‘true’ and ‘false’ rows.
+    * Data is used for Select Generic searches. 1 different method for each different column type in the Table. Each method contains 4 selects:
+    * 1. Nbr_Keys(2) each key with non-null data.
+    * 2. Nbr_Keys(*Compute) each key with non-null data.
+    * 3. Nbr_Keys(2) one key with non-null data. One with null data.
+    * 4. Nbr_Keys(*Compute) one key with non-null data. One with null data.
+    * Each select checks that the correct number of rows is returned.
+    * Though this is checking rows returned, it is also checking that the correct value is in each column by being used as the key.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
@@ -1042,9 +1065,9 @@
     Endif
     Endif
     
-    * Nbr_Keys(*Compute) with the middle key is *Sqlnull.
+    * Nbr_Keys(*Compute) with two last keys are *Sqlnull.
     If (#this_rc <> ER)
-    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), Middle Key is *Sqlnull') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK (' + Nbr_Keys(*Compute), 2 Last Keys are *Sqlnull') ('') )
     #LF_i := 0
     Select Fields(*ALL) From_File(L159821C9) With_Key(#LF_F1598211D #LF_F159821Z #LF_F1598212) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_i += 1
