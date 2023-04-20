@@ -33,9 +33,20 @@
     #FACVALFEC #FACAUTFINI #FACAUTFFIN #FACDOCFEMI #FACDOCFVEN #FACENTFEC #FACFOPFVEN #FACANTFREPA #FACANTFEPAG := #DATEX.Now
     #FACVALHOR #FACDOCHEMI #FACANTHOPAG := #TIMEX.Now
     #FACDOCNUMLI #FACANTVLR #FACVLRVLRBRUTO #FACVLRBASEIMP #FACVLRBRIMP #FACVLRDESCU #FACVLRSUMCARGOS #FACVLRSUMANTIC #FACVLRAPAGAR := 9
+    Define Field(#l_Count) Reffld(#STD_COUNT)
+    Def_List Name(#l_FFACTURAS) Fields(#FFNumero) Counter(#l_Count) Type(*WORKING)
     
-    * Insert Fields(#FFACTURAS) To_File(FFACTURAS)
-    Fetch Fields(*ALL) From_File(FFACTURAS)
+    Select Fields(*ALL) From_File(ffacturas)
+    Add_Entry To_List(#l_FFACTURAS)
+    Endselect
+    
+    If (#l_Count = 1)
+    Get_Entry Number(1)
+    Delete From_File(FFACTURAS) With_Key(#FFNumero)
+    Endif
+    
+    Insert Fields(#FFACTURAS) To_File(FFACTURAS)
+    * Fetch Fields(*ALL) From_File(FFACTURAS)
     #FFEstadoF := "B"
     Update Fields(#FFEstadoF) In_File(FFACTURAS) With_Key(#FFNUMERO) Io_Error(*NEXT)
     Fetch Fields(*ALL) From_File(FFACTURAS)

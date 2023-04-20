@@ -54,13 +54,13 @@
     
     Case Of_Field(#this_exec)
     When Value_Is(= I)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_I #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_I #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
     
     When Value_Is(= W)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_W #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_W #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
     
     When Value_Is(= U)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_U #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_U #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
     
     When Value_Is(= Q)
     * SuperServer I/O.

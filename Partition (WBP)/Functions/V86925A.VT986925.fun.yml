@@ -54,13 +54,13 @@
     
     Case Of_Field(#this_exec)
     When Value_Is(= I)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_I #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_I #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
     
     When Value_Is(= W)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_W #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_W #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
     
     When Value_Is(= U)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_U #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_U #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
     
     When Value_Is(= Q)
     * SuperServer I/O.
@@ -68,112 +68,112 @@
     When Value_Is(= I)
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QII #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QII #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= W)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QIW #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QIW #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= U)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QIU #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QIU #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     Endcase
     
     When Value_Is(= W)
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWI #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWI #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= W)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWW #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWW #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= U)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWU #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWU #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     Endcase
     
     When Value_Is(= U)
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUI #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUI #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= W)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUW #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUW #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= U)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUU #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_Q := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QUU #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_Q <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_Q := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     Endcase
     Endcase
     
@@ -183,112 +183,112 @@
     When Value_Is(= I)
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FII #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FII #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= W)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FIW #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FIW #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= U)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FIU #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FIU #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     Endcase
     
     When Value_Is(= W)
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWI #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWI #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= W)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWW #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWW #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= U)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWU #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FWU #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     Endcase
     
     When Value_Is(= U)
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUI #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUI #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= W)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUW #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUW #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     When Value_Is(= U)
-    * If (#this_is_a_valid_ssrv_test_case = True)
-    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUU #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
-    * Else
-    * #this_is_a_number_of_ssrv_call += 1
-    * If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
-    * #LF_VTMain_Current_LU := #this_ssv_name
-    * #LF_VTMain_Current_LU_F := #this_ssv_name
-    * #this_retcode := MT
-    * Endif
-    * Endif
+    If (#this_is_a_valid_ssrv_test_case = True)
+    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_FUU #this_DBIT #this_DBUT #this_ssv_name #this_ssc_token #this_local_platform #this_Remote_platform #this_retcode )
+    Else
+    #this_is_a_number_of_ssrv_call += 1
+    If (#LF_VTMain_Current_LU_F <> #this_ssv_name)
+    #LF_VTMain_Current_LU := #this_ssv_name
+    #LF_VTMain_Current_LU_F := #this_ssv_name
+    #this_retcode := MT
+    Endif
+    Endif
     Endcase
     Endcase
     
@@ -382,14 +382,14 @@
     *
     Mthroutine Name(mthSetupTestEnv)
     
-    * #Com_Owner.mthAddTestDB( SQLANYWHERE )
-    * #Com_Owner.mthAddTestDB( MSSQLS )
-    * #Com_Owner.mthAddTestDB( SQLAZURE )
-    * #Com_Owner.mthAddTestDB( ODBCORACLE )
-    * #Com_Owner.mthAddTestDB( MYSQL )
-    * #Com_Owner.mthAddTestDB( DB2ISERIES )
+    #Com_Owner.mthAddTestDB( SQLANYWHERE )
+    #Com_Owner.mthAddTestDB( MSSQLS )
+    #Com_Owner.mthAddTestDB( SQLAZURE )
+    #Com_Owner.mthAddTestDB( ODBCORACLE )
+    #Com_Owner.mthAddTestDB( MYSQL )
+    #Com_Owner.mthAddTestDB( DB2ISERIES )
     *
-    * #Com_Owner.mthAddTestEnv( IBMI )
+    #Com_Owner.mthAddTestEnv( IBMI )
     Endroutine
     
     *
@@ -511,14 +511,15 @@
     * Endif
     
     * Include test functions.
-    * Clr_List Named(#wl_VTTEMP_Function)
-    *
-    * #Com_Owner.mthAddFunction( VTFunc1 )
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VTFunc2 )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
+    Clr_List Named(#wl_VTTEMP_Function)
+    
+    #Com_Owner.mthAddFunction( V86925C )
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( V86925D )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
     
     * Log all the test functions.
     If (#LF_VTTEMP_Function_Count > 0)

@@ -46,3 +46,51 @@
 
       Allowed Next Functions:
       - "*ANY"
+
+  - V86925C:
+      Name:               V86925C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "LOB before Unicode Column"
+
+      - ENG:
+          Description:        "LOB before Unicode Column"
+
+      - FRA:
+          Description:        "LOB before Unicode Column"
+
+      - JPN:
+          Description:        "LOB before Unicode Column"
+
+      - TRK:
+          Description:        "LOB before Unicode Column"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V86925D:
+      Name:               V86925D
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "LOB before Unicode Column"
+
+      - ENG:
+          Description:        "LOB before Unicode Column"
+
+      - FRA:
+          Description:        "LOB before Unicode Column"
+
+      - JPN:
+          Description:        "LOB before Unicode Column"
+
+      - TRK:
+          Description:        "LOB before Unicode Column"
+
+      Allowed Next Functions:
+      - "*ANY"
