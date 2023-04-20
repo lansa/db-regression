@@ -408,8 +408,8 @@
     
     #this_result := True
     
-    If (#LF_DB_Type = ODBCORACLE)
-    * Inserting a *NULL in Oracle creates an *SQLNULL, so must treat them the same here. :(
+    If ((#LF_DB_Type = ODBCORACLE) *OrIf (#LF_DB_Type = MSSQLS))
+    * Inserting a *NULL in Oracle and MSSQLS creates an *SQLNULL, so must treat them the same here. :(
     * And that an EMPTY BLOB file is ALSO stored as *SQLNULL!
     If ((#this_db_BLOB.IsSqlNull) *OrIf (#this_list_BLOB.IsSqlNull) *OrIf (#this_db_BLOB.IsNull) *OrIf (#this_list_BLOB.IsNull))
     
