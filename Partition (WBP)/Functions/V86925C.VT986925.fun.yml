@@ -10,7 +10,7 @@
     * BLOB before Unicode column causes an access violation or data corruption
     *
     * This test is simply executed. If it completes then it passes.
-    *
+    * Throwing an AV is captured by the test harness.
     *
     * ******************************************************************************************************
     
@@ -40,7 +40,7 @@
     
     #Com_owner.mthThrowAV( #VTF_KEY1 #LF_rc )
     
-    #Com_Owner.mthCompare_Results()
+    * #Com_Owner.mthCompare_Results()
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -369,4 +369,6 @@
     #this_rc := ER
     Return
     Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Test did not throw AV') ('') )
     Endroutine

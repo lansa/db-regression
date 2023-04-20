@@ -49,48 +49,48 @@
 
   - V86925C:
       Name:               V86925C
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "LOB before Unicode Column"
+          Description:        "BLOB before Unicode Column throws AV"
 
       - ENG:
-          Description:        "LOB before Unicode Column"
+          Description:        "BLOB before Unicode Column throws AV"
 
       - FRA:
-          Description:        "LOB before Unicode Column"
+          Description:        "BLOB before Unicode Column throws AV"
 
       - JPN:
-          Description:        "LOB before Unicode Column"
+          Description:        "BLOB before Unicode Column throws AV"
 
       - TRK:
-          Description:        "LOB before Unicode Column"
+          Description:        "BLOB before Unicode Column throws AV"
 
       Allowed Next Functions:
       - "*ANY"
 
   - V86925D:
       Name:               V86925D
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "LOB before Unicode Column"
+          Description:        "CLOB before Unicode Column throws AV"
 
       - ENG:
-          Description:        "LOB before Unicode Column"
+          Description:        "CLOB before Unicode Column throws AV"
 
       - FRA:
-          Description:        "LOB before Unicode Column"
+          Description:        "CLOB before Unicode Column throws AV"
 
       - JPN:
-          Description:        "LOB before Unicode Column"
+          Description:        "CLOB before Unicode Column throws AV"
 
       - TRK:
-          Description:        "LOB before Unicode Column"
+          Description:        "CLOB before Unicode Column throws AV"
 
       Allowed Next Functions:
       - "*ANY"
