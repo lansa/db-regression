@@ -24,7 +24,7 @@
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
     
     Define Field(#LF_Count) Reffld(#STD_COUNT)
-    Def_List Name(#l_VTL986925C) Fields(#FFNumero) Counter(#LF_Count) Type(*WORKING)
+    Def_List Name(#l_VTL986925D) Fields(#FFNumero) Counter(#LF_Count) Type(*WORKING)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
@@ -318,9 +318,9 @@
     Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key1)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    Clr_List Named(#l_VTL986925C)
-    Select Fields(*ALL) From_File(VTL986925C) Io_Status(#this_rc) Io_Error(*NEXT)
-    Add_Entry To_List(#l_VTL986925C)
+    Clr_List Named(#l_VTL986925D)
+    Select Fields(*ALL) From_File(VTL986925D) Io_Status(#this_rc) Io_Error(*NEXT)
+    Add_Entry To_List(#l_VTL986925D)
     Endselect
     If ((#this_rc <> OK) *AndIf (#this_rc <> EF))
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected return code selecting existing data ' + #this_rc) '' )
@@ -332,13 +332,12 @@
     If (#LF_Count <> 0)
     If ((#LF_Count = 1))
     Get_Entry Number(1)
-    Delete From_File(VTL986925C) With_Key(#FFNumero) Io_Status(#this_rc) Io_Error(*NEXT)
+    Delete From_File(VTL986925D) With_Key(#FFNumero) Io_Status(#this_rc) Io_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected return code deleting row ' + #this_rc) '' )
     #this_rc := ER
     Return
     Endif
-    
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected numer of rows, should be 1 ' + #LF_Count.asString) '' )
     #this_rc := ER
@@ -348,7 +347,7 @@
     
     #FFNUMERO := A
     #RGCIIU := "A"
-    Insert Fields(*ALL) To_File(VTL986925C) Io_Status(#this_rc) Io_Error(*NEXT)
+    Insert Fields(*ALL) To_File(VTL986925D) Io_Status(#this_rc) Io_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected return code inserting data ' + #this_rc) '' )
     #this_rc := ER
@@ -356,17 +355,18 @@
     Endif
     
     #RGCIIU := "B"
-    Update Fields(#RGCIIU) In_File(VTL986925C) With_Key(#FFNUMERO) Io_Status(#this_rc) Io_Error(*NEXT)
+    Update Fields(#RGCIIU) In_File(VTL986925D) With_Key(#FFNUMERO) Io_Status(#this_rc) Io_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected return code updating data ' + #this_rc) '' )
     #this_rc := ER
     Return
     Endif
     
-    Fetch Fields(*ALL) From_File(VTL986925C) Io_Status(#this_rc) Io_Error(*NEXT)
+    Fetch Fields(*ALL) From_File(VTL986925D) Io_Status(#this_rc) Io_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected return code fetching data ' + #this_rc) '' )
     #this_rc := ER
     Return
     Endif
     Endroutine
+    

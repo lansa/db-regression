@@ -3,10 +3,6 @@
   Stored As:          User
 
   Objects:
-  - VTL986925:
-      Type:               File
-      Qualifier:          DEVWBPLIBF
-
   - V86925A:
       Type:               Funciton
       Qualifier:          VT986925
@@ -15,5 +11,17 @@
       Type:               Process
 
   - V86925C:
+      Type:               Funciton
+      Qualifier:          VT986925
+
+  - VTL986925C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTL986925D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V86925D:
       Type:               Funciton
       Qualifier:          VT986925
