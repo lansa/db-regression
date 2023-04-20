@@ -13,3 +13,7 @@
 
   - VT986925:
       Type:               Process
+
+  - V86925C:
+      Type:               Funciton
+      Qualifier:          VT986925

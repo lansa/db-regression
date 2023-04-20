@@ -1,0 +1,336 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * ******************************************************************************************************
+    * Test Case Description
+    *
+    * BLOB before Unicode column causes an access violation or data corruption
+    *
+    * This test is simply executed. If it completes then it passes.
+    *
+    *
+    * ******************************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    
+    Define Field(#l_Count) Reffld(#STD_COUNT)
+    Def_List Name(#l_VTL986925) Fields(#FFNumero) Counter(#l_Count) Type(*WORKING)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * Add your test case here
+    * It should be a list of method calls so its easy to read whats being tested.
+    
+    #Com_owner.mthThrowAV( #VTF_KEY1 #LF_rc )
+    
+    #Com_Owner.mthCompare_Results()
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    
+    * Compare results.
+    Mthroutine Name(mthCompare_Results)
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare Results') ('') )
+    
+    * Determine the test to use to determine if the result is successful or a failure...
+    If ((#std_count <> 1))
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected different record numbers') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record numbers matched') ('') )
+    Endif
+    Endroutine
+    
+    *
+    * mthFileCompare
+    * Though the parameter names refer to BLOB, it compares files of any type.
+    * It also deals with *SQLNULL database specific behaviour.
+    * Note that an Alpha buffer is used because it is not NUL sensitive. This means it will successfully read all binary data.
+    * But trailing blanks in the last read will exist unless the file is an exact multiple of the buffer size (256)
+    * The comparison still succeeds because trailing blanks are ignored in Alpha comparisons.
+    * If only the stream file BIFs supported Binary fields for the buffers!
+    *
+    Mthroutine Name(mthFileCompare)
+    Define_Map For(*INPUT) Class(#BIFS512A) Name(#this_db_BLOB)
+    Define_Map For(*INPUT) Class(#BIFS512A) Name(#this_list_BLOB)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001E) Name(#this_result) Desc('Boolean result')
+    
+    Define Field(#LF_DB_Fileno) Reffld(#BIFP0300A)
+    Define Field(#LF_List_Fileno) Reffld(#BIFP0300A)
+    Define Field(#LF_Test_Fileno) Reffld(#BIFP0300A)
+    Define Field(#LF_DB_rc) Reffld(#BIFA002A)
+    Define Field(#LF_List_rc) Reffld(#BIFA002A)
+    Define Field(#LF_Test_rc) Reffld(#BIFA002A)
+    Define Field(#LF_DB_Buf) Reffld(#BIFA256A)
+    Define Field(#LF_List_Buf) Reffld(#BIFA256A)
+    
+    * For the first call only, save a copy of the file. Used to check that all the data is being read correctly.
+    * Must be manually compared to the original file using kdiff or some other comparison tool
+    Define Field(#LF_Call_Count) Reffld(#STD_COUNT) Default(0)
+    
+    #LF_Call_count += 1
+    
+    #this_result := True
+    
+    If (#LF_DB_Type = ODBCORACLE)
+    * Inserting a *NULL in Oracle creates an *SQLNULL, so must treat them the same here. :(
+    * And that an EMPTY BLOB file is ALSO stored as *SQLNULL!
+    If ((#this_db_BLOB.IsSqlNull) *OrIf (#this_list_BLOB.IsSqlNull) *OrIf (#this_db_BLOB.IsNull) *OrIf (#this_list_BLOB.IsNull))
+    
+    If (#this_db_BLOB.IsSqlNull)
+    If ((#this_list_BLOB.IsSqlNull) *OrIf (#this_list_BLOB.IsNull))
+    #this_result := True
+    Else
+    * BLOB is neither *SQLNULL nor *NULL, so it should be a valid file.
+    * Now must check for 0 length file
+    Use Builtin(Stm_File_Open) With_Args(#this_list_BLOB 'Read Binary Lineterminator=NONE') To_Get(#LF_List_Fileno #LF_list_rc)
+    If (#LF_list_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Opening ' + #this_list_BLOB.asValue( '*SQLNULL' )) )
+    #this_rc := ER
+    #this_result := False
+    Return
+    Endif
+    
+    Use Builtin(Stm_File_Read) With_Args(#LF_List_Fileno) To_Get(#LF_List_Buf #LF_list_rc)
+    If (#LF_list_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Reading ' + #this_list_BLOB) ('') )
+    #this_rc := ER
+    #this_result := False
+    * Must continue on to attempt to close the file
+    Endif
+    
+    If ((#LF_list_rc = EF) *AndIf (#LF_list_Buf.CurSize = 0))
+    * Treat as if its a *NULL file
+    #this_result := True
+    Else
+    #this_result := False
+    Endif
+    
+    Use Builtin(Stm_File_Close) With_Args(#LF_List_Fileno) To_Get(#LF_list_rc)
+    If (#LF_list_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Closing ' + #this_list_BLOB) )
+    #this_rc := ER
+    #this_result := False
+    Return
+    Endif
+    
+    Endif
+    Else
+    If ((#this_db_BLOB.IsNull) *AndIf (#this_list_BLOB.IsNull))
+    #this_result := True
+    Else
+    #this_result := False
+    Endif
+    Endif
+    
+    Return
+    Endif
+    Else
+    If ((#this_db_BLOB.IsSqlNull) *OrIf (#this_list_BLOB.IsSqlNull))
+    If ((#this_db_BLOB.IsSqlNull) *AndIf (#this_list_BLOB.IsSqlNull))
+    #this_result := True
+    Else
+    #this_result := False
+    Endif
+    Return
+    Endif
+    
+    If ((#this_db_BLOB.IsNull) *OrIf (#this_list_BLOB.IsNull))
+    If ((#this_db_BLOB.IsNull) *AndIf (#this_list_BLOB.IsNull))
+    #this_result := True
+    Else
+    #this_result := False
+    Endif
+    Return
+    Endif
+    Endif
+    
+    Use Builtin(Stm_File_Open) With_Args(#this_db_BLOB 'Read Binary Lineterminator=NONE') To_Get(#LF_DB_Fileno #LF_DB_rc)
+    If (#LF_DB_rc <> OK)
+    * Use 'asValue' to ensure there is a value to display
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_DB_rc) ('Opening ' + #this_db_BLOB.asValue( '*SQLNULL' )) )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Return
+    Endif
+    
+    Use Builtin(Stm_File_Open) With_Args(#this_list_BLOB 'Read Binary Lineterminator=NONE') To_Get(#LF_List_Fileno #LF_list_rc)
+    If (#LF_list_rc <> OK)
+    * Use 'asValue' to ensure there is a value to display
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Opening ' + #this_list_BLOB.asValue( '*SQLNULL' )) )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Return
+    Endif
+    
+    If (#LF_Call_count = 1)
+    Define Field(#LF_TestFile) Reffld(#BIFA256A)
+    #LF_TestFile := *Temp_Dir + 'test.bin'
+    
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_TestFile)
+    Use Builtin(Stm_File_Open) With_Args(#LF_TestFile 'Write Binary Lineterminator=NONE') To_Get(#LF_Test_Fileno #LF_Test_rc)
+    If (#LF_Test_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_Test_rc) ('Opening ' + #LF_TestFile) )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Return
+    Endif
+    Endif
+    
+    #LF_DB_rc := OV
+    #LF_list_rc := OV
+    Dountil Cond((#LF_DB_rc = EF) *And (#LF_list_rc = EF))
+    
+    Use Builtin(STM_FILE_READ) With_Args(#LF_DB_Fileno) To_Get(#LF_DB_Buf #LF_DB_rc)
+    If (#LF_DB_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Reading ' + #this_db_BLOB.asValue( '*SQLNULL' )) ('') )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Leave
+    Endif
+    
+    Use Builtin(Stm_File_Read) With_Args(#LF_List_Fileno) To_Get(#LF_List_Buf #LF_list_rc)
+    If (#LF_list_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Reading ' + #this_list_BLOB.asValue( '*SQLNULL' )) ('') )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Leave
+    Endif
+    
+    If (#LF_DB_Buf <> #LF_List_Buf)
+    * This is not an error condition. Its up to the caller to know if thats the case or not
+    #this_result := False
+    Leave
+    Endif
+    
+    If ((#LF_Call_count = 1) *And (#LF_list_rc <> EF))
+    Use Builtin(Stm_File_Write) With_Args(#LF_Test_Fileno #LF_List_Buf) To_Get(#LF_Test_rc)
+    If (#LF_Test_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Writing ' + #LF_TestFile) ('') )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Leave
+    Endif
+    Endif
+    Enduntil
+    
+    Use Builtin(Stm_File_Close) With_Args(#LF_DB_Fileno) To_Get(#LF_DB_rc)
+    If (#LF_DB_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_DB_rc) ('Closing ' + #this_db_BLOB) )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Return
+    Endif
+    
+    Use Builtin(Stm_File_Close) With_Args(#LF_List_Fileno) To_Get(#LF_list_rc)
+    If (#LF_list_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Closing ' + #this_list_BLOB) )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Return
+    Endif
+    
+    If (#LF_Call_count = 1)
+    Use Builtin(Stm_File_Close) With_Args(#LF_Test_Fileno) To_Get(#LF_Test_rc)
+    If (#LF_Test_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Closing ' + #LF_TestFile) ('') )
+    #this_rc := ER
+    #this_result := False
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
+    Return
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthThrowAV)
+    Define_Map For(*INPUT) Class(#VTF_KEY1) Name(#this_key1)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Select Fields(*ALL) From_File(VTL986925)
+    Add_Entry To_List(#l_VTL986925)
+    Endselect
+    
+    If (#l_Count = 1)
+    Get_Entry Number(1)
+    Delete From_File(VTL986925) With_Key(#FFNumero)
+    Endif
+    
+    #FFNUMERO := A
+    #RGCIIU := "A"
+    Insert Fields(*ALL) To_File(VTL986925)
+    #RGCIIU := "B"
+    Update Fields(#RGCIIU) In_File(VTL986925) With_Key(#FFNUMERO) Io_Error(*NEXT)
+    Fetch Fields(*ALL) From_File(VTL986925)
+    Endroutine
