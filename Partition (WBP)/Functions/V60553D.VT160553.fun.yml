@@ -4,6 +4,23 @@
   Source: |
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
+    * ******************************************************************************************************
+    * Test Case Description
+    * Database error when using zero sized CLOB file
+    *
+    * INSERT, UPDATE, FETCH and DELETE are executed.
+    *
+    * Inserts records where #BIFNC256A and #BIFCLOBA are set to:
+    * *SQLNULL
+    * *NULL
+    * Zero sized file
+    * Non-Zero sized file
+    *
+    * Uses a Logical View to order the data based on #wLKData and a sequential value.
+    * It then compares the data values of #BIFP0300A, #BIFNC256A and #BIFCLOBA, and the correct count of
+    * records of each type are returned.
+    * ******************************************************************************************************
+    
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
