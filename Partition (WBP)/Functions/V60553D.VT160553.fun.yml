@@ -408,9 +408,11 @@
     
     #this_result := True
     
-    If ((#LF_DB_Type = ODBCORACLE) *OrIf (#LF_DB_Type = MSSQLS))
-    * Inserting a *NULL in Oracle and MSSQLS creates an *SQLNULL, so must treat them the same here. :(
-    * And that an EMPTY BLOB file is ALSO stored as *SQLNULL!
+    * All database types tested - ODBCORACLE, MSSQLS and SQLANYWHERE - treat *NULL and zero length file as *SQLNULL.
+    * This is very suspicious and so a CCS has been reproted to be investigated in more detail. Has LANSA
+    * performed this transformation is it actually all databases? CCS 163976 reports this behaviour.
+    * The false condition of this if statement is what the expected behaviour is.
+    If (True = True)
     If ((#this_db_BLOB.IsSqlNull) *OrIf (#this_list_BLOB.IsSqlNull) *OrIf (#this_db_BLOB.IsNull) *OrIf (#this_list_BLOB.IsNull))
     
     If (#this_db_BLOB.IsSqlNull)
