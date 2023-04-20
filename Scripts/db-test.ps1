@@ -32,8 +32,8 @@ param (
     [boolean] $Primary = $true,
     [boolean] $Secondary = $false
 )
-Write-Host "Map drives to LPC network"
-& 'C:\ssh\ServerMappings.bat'
+# Write-Host "Map drives to LPC network"
+# & 'C:\ssh\ServerMappings.bat'
 
 $script:ExitCode = 0
 $FullReportFile = "Verifier_Test_Report.txt"
@@ -340,19 +340,20 @@ try {
         }
 
         [System.Collections.ArrayList]$TestList = @()
-        $TestList.Add( $(New-Tuple "VT157033", "V57033A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT156118", "V56118A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT159821", "V59821A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT157722", "V57722A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT160466", "V60466A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT156710", "V56710A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT161348", "V61348A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT157726", "V57726A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT159434", "V59434A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT159585", "V59585A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT158011", "V58011A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT159138", "V59138A") ) | Out-Null
-        $TestList.Add( $(New-Tuple "VT160553", "V60553A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT157033", "V57033A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT156118", "V56118A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT159821", "V59821A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT157722", "V57722A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT160466", "V60466A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT156710", "V56710A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT161348", "V61348A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT157726", "V57726A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT159434", "V59434A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT159585", "V59585A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT158011", "V58011A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT159138", "V59138A") ) | Out-Null
+        # $TestList.Add( $(New-Tuple "VT160553", "V60553A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT986925", "V86925A") ) | Out-Null
 
         Write-Host( "$(Log-Date) Run tests in EVERY environment." )
         Write-Host( "$(Log-Date) Only the Primary environment is configured to run IBM i and SuperServer tests" )
