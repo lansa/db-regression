@@ -36,8 +36,6 @@
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
     
-    #Com_Owner.mthCompare_Results()
-    
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
     Return
@@ -83,18 +81,6 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
     Endif
     Endwhile
-    Endroutine
-    
-    * Compare results.
-    Mthroutine Name(mthCompare_Results)
-    #Com_Owner.mthAdd_SubMsg( OK ('Compare Results') ('') )
-    
-    * Determine the test to use to determine if the result is successful or a failure...
-    If ((#std_count <> 1))
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected different record numbers') ('') )
-    Else
-    #Com_Owner.mthAdd_SubMsg( OK ('- Record numbers matched') ('') )
-    Endif
     Endroutine
     
     *
