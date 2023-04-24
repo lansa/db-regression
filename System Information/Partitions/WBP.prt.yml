@@ -156,7 +156,7 @@
       - RB
 
   - Float:
-      Enabled:            No
+      Enabled:            Yes
       Length:             8
       Decimals:           0
       Default Value:      "*NULL"
@@ -192,6 +192,9 @@
       Length:             1
       Decimals:           0
       Default Value:      "*NULL"
+
+      Input Attributes:
+      - ASQN
 
   Universal Interface Options:
     Process Menu Style:             Number
@@ -233,8 +236,6 @@
       RLTB Support Required:       No
       Locale Uppercasing Required: No
       IGC Conversion Required:     No
-      IGC Conversion Function Key: 00
-      IGC Conversion Line Number:  00
       IBM i EBCDIC CCSID:          277
       Windows ANSI Code Page:      1252
 
@@ -358,8 +359,6 @@
       RLTB Support Required:       No
       Locale Uppercasing Required: No
       IGC Conversion Required:     No
-      IGC Conversion Function Key: 00
-      IGC Conversion Line Number:  00
 
       Menu Options:
         Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
@@ -481,10 +480,6 @@
       RLTB Support Required:       No
       Locale Uppercasing Required: No
       IGC Conversion Required:     No
-      IGC Conversion Function Key: 00
-      IGC Conversion Line Number:  00
-      IBM i EBCDIC CCSID:          "     "
-      Windows ANSI Code Page:      "     "
 
       Menu Options:
         Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
@@ -606,8 +601,6 @@
       RLTB Support Required:       No
       Locale Uppercasing Required: No
       IGC Conversion Required:     No
-      IGC Conversion Function Key: 00
-      IGC Conversion Line Number:  00
       IBM i EBCDIC CCSID:          5035
       Windows ANSI Code Page:      932
 
@@ -731,8 +724,6 @@
       RLTB Support Required:       No
       Locale Uppercasing Required: No
       IGC Conversion Required:     No
-      IGC Conversion Function Key: 00
-      IGC Conversion Line Number:  00
 
       Menu Options:
         Process Menu Prompt Line:    "Enter number of function required or place cursor on same line :"
@@ -944,25 +935,25 @@
       Description:        ActiveX Controls
 
   - BARS:
-      Identifier 1:       6518
+      Identifier 1:       10240
       Identifier 2:       100
       System Group:       Yes
       Description:        Progress, Status and Tool Bars
 
   - BARS:
-      Identifier 1:       10240
+      Identifier 1:       6518
       Identifier 2:       100
       System Group:       Yes
       Description:        Progress, Status and Tool Bars
 
   - BASIC CONTROLS:
-      Identifier 1:       10240
+      Identifier 1:       6518
       Identifier 2:       200
       System Group:       Yes
       Description:        Basic Controls
 
   - BASIC CONTROLS:
-      Identifier 1:       6518
+      Identifier 1:       10240
       Identifier 2:       200
       System Group:       Yes
       Description:        Basic Controls
@@ -1040,16 +1031,16 @@
       Description:        Demonstration Material
 
   - DEVICES:
-      Identifier 1:       6518
-      Identifier 2:       900
-      System Group:       Yes
-      Description:        Devices Components
-
-  - DEVICES:
       Identifier 1:       10240
       Identifier 2:       900
       System Group:       Yes
       Description:        Device Components
+
+  - DEVICES:
+      Identifier 1:       6518
+      Identifier 2:       900
+      System Group:       Yes
+      Description:        Devices Components
 
   - EMPLOYEE:
       Identifier 1:       10240
@@ -1070,17 +1061,17 @@
       Description:        Libraries
 
   - LISTS & GRIDS:
-      Identifier 1:       10240
-      Identifier 2:       700
-      System Group:       Yes
-      Description:        List and Grid Components
-
-  - LISTS & GRIDS:
       Identifier 1:       6518
       Identifier 2:       700
       System Group:       Yes
       Description:        List and Grid Componts
 
+  - LISTS & GRIDS:
+      Identifier 1:       10240
+      Identifier 2:       700
+      System Group:       Yes
+      Description:        List and Grid Components
+
   - MENUS:
       Identifier 1:       6518
       Identifier 2:       800
@@ -1092,18 +1083,18 @@
       Identifier 2:       800
       System Group:       Yes
       Description:        Menu and Menu Item Components
-
-  - PICTURES & SOUND:
-      Identifier 1:       10240
-      Identifier 2:       1000
-      System Group:       Yes
-      Description:        Picture, Image, Graph, Video and Sound
 
   - PICTURES & SOUND:
       Identifier 1:       6518
       Identifier 2:       1000
       System Group:       Yes
       Description:        Picture, Image, Graph, Vido and Sound
+
+  - PICTURES & SOUND:
+      Identifier 1:       10240
+      Identifier 2:       1000
+      System Group:       Yes
+      Description:        Picture, Image, Graph, Video and Sound
 
   - PRODUCT:
       Identifier 1:       10240
