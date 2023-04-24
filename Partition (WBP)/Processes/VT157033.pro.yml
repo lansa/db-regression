@@ -8,19 +8,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Inconsistant Generic Search Results"
+      Description:        "Inconsistent Generic Search Results"
 
   - ENG:
-      Description:        "Inconsistant Generic Search Results"
+      Description:        "Inconsistent Generic Search Results"
 
   - FRA:
-      Description:        "Inconsistant Generic Search Results"
+      Description:        "Inconsistent Generic Search Results"
 
   - JPN:
-      Description:        "Inconsistant Generic Search Results"
+      Description:        "Inconsistent Generic Search Results"
 
   - TRK:
-      Description:        "Inconsistant Generic Search Results"
+      Description:        "Inconsistent Generic Search Results"
 
   Functions:
   - V57033A:
@@ -54,19 +54,19 @@
 
       Multilingual Details:
       - DAN:
-          Description:        "Generic Search on all LV"
+          Description:        "Generic Character Search on LV"
 
       - ENG:
-          Description:        "Generic Search on all LV"
+          Description:        "Generic Character Search on LV"
 
       - FRA:
-          Description:        "Generic Search on all LV"
+          Description:        "Generic Character Search on LV"
 
       - JPN:
-          Description:        "Generic Search on all LV"
+          Description:        "Generic Character Search on LV"
 
       - TRK:
-          Description:        "Generic Search on all LV"
+          Description:        "Generic Character Search on LV"
 
       Allowed Next Functions:
       - "*ANY"
@@ -78,19 +78,19 @@
 
       Multilingual Details:
       - DAN:
-          Description:        "Generic Search on all LV (+ Blob Field)"
+          Description:        "Generic Character Search on LV + Blob"
 
       - ENG:
-          Description:        "Generic Search on all LV (+ Blob Field)"
+          Description:        "Generic Character Search on LV + Blob"
 
       - FRA:
-          Description:        "Generic Search on all LV (+ Blob Field)"
+          Description:        "Generic Character Search on LV + Blob"
 
       - JPN:
-          Description:        "Generic Search on all LV (+ Blob Field)"
+          Description:        "Generic Character Search on LV + Blob"
 
       - TRK:
-          Description:        "Generic Search on all LV (+ Blob Field)"
+          Description:        "Generic Character Search on LV + Blob"
 
       Allowed Next Functions:
       - "*ANY"
@@ -115,6 +115,30 @@
 
       - TRK:
           Description:        "158711 - Introduced by 157033"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57033F:
+      Name:               V57033F
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Generic non-Char Search on LV"
+
+      - ENG:
+          Description:        "Generic non-Char Search on LV"
+
+      - FRA:
+          Description:        "Generic non-Char Search on LV"
+
+      - JPN:
+          Description:        "Generic non-Char Search on LV"
+
+      - TRK:
+          Description:        "Generic non-Char Search on LV"
 
       Allowed Next Functions:
       - "*ANY"

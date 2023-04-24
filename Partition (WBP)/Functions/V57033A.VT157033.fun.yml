@@ -460,9 +460,10 @@
     * Include test functions.
     Clr_List Named(#wl_VTTEMP_Function)
     *
-    #Com_Owner.mthAddFunction( V57033C )
-    #Com_Owner.mthAddFunction( V57033D )
-    #Com_Owner.mthAddFunction( V57033E )
+    * #Com_Owner.mthAddFunction( V57033C )
+    * #Com_Owner.mthAddFunction( V57033D )
+    * #Com_Owner.mthAddFunction( V57033E )
+    #Com_Owner.mthAddFunction( V57033F )
     
     * If (#LF_VTTEMP_Skip_Test_Case = False)
     * #Com_Owner.mthAddFunction( VTFunc2 )

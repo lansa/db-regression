@@ -1,0 +1,268 @@
+﻿File:
+  Name:                           VTL157033F
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033F
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select With_Key on non-chars LV"
+
+  - ENG:
+      Description:        "157033 - Select With_Key on non-chars LV"
+
+  - FRA:
+      Description:        "157033 - Select With_Key on non-chars LV"
+
+  - JPN:
+      Description:        "157033 - Select With_Key on non-chars LV"
+
+  - TRK:
+      Description:        "157033 - Select With_Key on non-chars LV"
+
+  Real Fields:
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - BIFINT1A:
+      Type:               Integer
+      Length:             1
+      Decimals:           0
+
+  - BIFINT2A:
+      Type:               Integer
+      Length:             2
+      Decimals:           0
+
+  - BIFINT4A:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - BIFINT8A:
+      Type:               Integer
+      Length:             8
+      Decimals:           0
+
+  - BIFB001E:
+      Type:               Boolean
+      Length:             1
+      Decimals:           0
+
+  - BIFP1500A:
+      Type:               Decimal
+      Length:             15
+      Decimals:           0
+
+  - BIFP1504A:
+      Type:               Decimal
+      Length:             15
+      Decimals:           4
+
+  - BIFN0700A:
+      Type:               Signed
+      Length:             7
+      Decimals:           0
+
+  - BIFN0702A:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+
+  - BIFDATEA:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFTIMEA:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - BIFDT26C:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K1
+  - F157033K2
+
+  Logical Views:
+  - L157033FDT:
+      Identifier:         L157033FDT
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FDT
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFDT26C"
+
+      - ENG:
+          Description:        "Key: BIFDT26C"
+
+      - FRA:
+          Description:        "Key: BIFDT26C"
+
+      - JPN:
+          Description:        "Key: BIFDT26C"
+
+      - TRK:
+          Description:        "Key: BIFDT26C"
+
+      Keys:
+      - BIFDT26C:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033FN:
+      Identifier:         L157033FN
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FN
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFN0700A"
+
+      - ENG:
+          Description:        "Key: BIFN0700A"
+
+      - FRA:
+          Description:        "Key: BIFN0700A"
+
+      - JPN:
+          Description:        "Key: BIFN0700A"
+
+      - TRK:
+          Description:        "Key: BIFN0700A"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033FND:
+      Identifier:         L157033FND
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L1570533FM
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFN0702A"
+
+      - ENG:
+          Description:        "Key: BIFN0702A"
+
+      - FRA:
+          Description:        "Key: BIFN0702A"
+
+      - JPN:
+          Description:        "Key: BIFN0702A"
+
+      - TRK:
+          Description:        "Key: BIFN0702A"
+
+      Keys:
+      - BIFN0702A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033FPD:
+      Identifier:         L157033FPD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FPD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFP1504A"
+
+      - ENG:
+          Description:        "Key: BIFP1504A"
+
+      - FRA:
+          Description:        "Key: BIFP1504A"
+
+      - JPN:
+          Description:        "Key: BIFP1504A"
+
+      - TRK:
+          Description:        "Key: BIFP1504A"
+
+      Keys:
+      - BIFP1504A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033FI1:
+      Identifier:         L157033FI1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FI1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFINT1A"
+
+      - ENG:
+          Description:        "Key: BIFINT1A"
+
+      - FRA:
+          Description:        "Key: BIFINT1A"
+
+      - JPN:
+          Description:        "Key: BIFINT1A"
+
+      - TRK:
+          Description:        "Key: BIFINT1A"
+
+      Keys:
+      - BIFINT1A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed

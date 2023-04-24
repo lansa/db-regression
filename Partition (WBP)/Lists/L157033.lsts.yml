@@ -114,3 +114,11 @@
 
   - Z157033A:
       Type:               Form
+
+  - VTL157033F:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V57033F:
+      Type:               Funciton
+      Qualifier:          VT157033

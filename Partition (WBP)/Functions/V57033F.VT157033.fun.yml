@@ -1,0 +1,624 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * ******************************************************************************************************
+    * Test Case Description
+    *
+    * Generic Select using non-character With_key column types using Logical Views
+    *
+    * Tests single key generic search of ALL no-character' field types. That is:
+    * DATETIME, DATE, TIME, SIGNED, DECIMAL, INTEGER 1, 2, 4, 8, BOOLEAN
+    * Tests are executed from only a Function but NOT a Reusable Part.
+    *
+    * ******************************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    * List Of Test data.
+    Define Field(#LF_Test_Data) Reffld(#BIFN0702A)
+    Define Field(#LF_Test_Data_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Key_Count) Reffld(#Std_Count)
+    Def_List Name(#wLTestData) Fields(#LF_Test_Data) Counter(#LF_Test_Data_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestKey) Fields(#LF_Test_Data) Counter(#LF_Test_Key_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_j) Reffld(#Std_Count)
+    Define Field(#LF_Total_Errors) Reffld(#Std_Count)
+    Define Field(#LF_Total_Warnings) Reffld(#Std_Count)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha)
+    
+    Define Field(#LF_Test_Data_DATETIME) Reffld(#BIFDT26A)
+    Define Field(#LF_Test_Data_DATE) Reffld(#BIFDATEA)
+    Define Field(#LF_Test_Data_TIME) Reffld(#BIFTIMEA)
+    Define Field(#LF_Test_Data_SIGNED) Reffld(#BIFN0702A)
+    Define Field(#LF_Test_Data_DECIMAL) Reffld(#BIFP1504A)
+    Define Field(#LF_Test_Data_INT1) Reffld(#BIFINT1A)
+    Define Field(#LF_Test_Data_INT2) Reffld(#BIFINT2A)
+    Define Field(#LF_Test_Data_INT4) Reffld(#BIFINT4A)
+    Define Field(#LF_Test_Data_INT8) Reffld(#BIFINT8A)
+    Define Field(#LF_Test_Data_BOOLEAN) Reffld(#BIFB001E)
+    Define Field(#LF_Operation_Name) Reffld(#BIFMSG1)
+    
+    * Counter for the current Function's I/O queries.
+    Define Field(#LF_Func_L157033FI1) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FI2) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FI4) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FI8) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FB) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FP) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FPD) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FN) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FND) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FD) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FT) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033FDT) Reffld(#Std_Count)
+    
+    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033FI1 #LF_Func_L157033FI2 #LF_Func_L157033FI4 #LF_Func_L157033FI8 #LF_Func_L157033FB #LF_Func_L157033FP #LF_Func_L157033FPD #LF_Func_L157033FN #LF_Func_L157033FND #LF_Func_L157033FD #LF_Func_L157033FT #LF_Func_L157033FDT #LF_Total_Errors)
+    
+    Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(True)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    * SETUP THE TEST DATA.
+    Execute Subroutine(AddTestData)
+    
+    * DELETE / INSERT TEST DATA.
+    #LF_Execution_Type := #VTF_KEY1
+    #Com_Owner.mthDoDelete( #LF_rc )
+    #Com_Owner.mthDoInsert( #LF_rc )
+    
+    * SEARCH TEST.
+    If (#LF_rc = OK)
+    #Com_Owner.mthDoSearch( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( OK *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    *
+    * Add Test Data.
+    *
+    Subroutine Name(AddTestData)
+    Define Field(#LF_String) Reffld(#BIFC256A)
+    
+    Clr_List Named(#wLTestData)
+    * Generate numbers from 100.00 to 200.90
+    Begin_Loop Using(#LF_i) From(100) To(200) Step(10)
+    Begin_Loop Using(#LF_j) From(0) To(90) Step(6)
+    #LF_String := #LF_i.asString + '.' + #LF_j.asString
+    #LF_Test_Data := #LF_String.asNumber
+    Add_Entry To_List(#wLTestData)
+    End_Loop
+    End_Loop
+    
+    * Keys with trailing zeroes may return multiple rows when using Generic(*YES)
+    Clr_List Named(#wLTestKey)
+    #LF_Test_Data := 100
+    Add_Entry To_List(#wLTestKey)
+    #LF_Test_Data := 110
+    Add_Entry To_List(#wLTestKey)
+    #LF_Test_Data := 111
+    Add_Entry To_List(#wLTestKey)
+    #LF_Test_Data := 111.1
+    Add_Entry To_List(#wLTestKey)
+    Endroutine
+    
+    *
+    * Delete Data.
+    *
+    Mthroutine Name(mthDoDelete)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #LF_i := 0
+    Dowhile Cond(#this_rc = OK)
+    Fetch Fields(#F157033K1) From_File(VTL157033F) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    #LF_i += 1
+    Delete From_File(VTL157033F) With_Key(#F157033K1) Io_Error(*NEXT) Val_Error(*NEXT)
+    Endif
+    Endwhile
+    
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Delete Data' (#LF_i.AsString + ' set of key records deleted') )
+    Endroutine
+    
+    *
+    * Insert Data.
+    *
+    Mthroutine Name(mthDoInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #F157033K1 := #VTF_KEY1 + #VTF_KEY2 + #VTF_KEY3
+    #F157033K2 := 0
+    #BIFBLOBA := *SQLNULL
+    
+    If (#this_rc = OK)
+    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#wLTestData)
+    
+    #F157033K2 += 1
+    #BIFINT1A #BIFINT2A #BIFINT4A #BIFINT8A #BIFP1500A #BIFP1504A #BIFN0700A #BIFN0702A := #LF_Test_Data
+    #BIFB001E := *SQLNULL
+    #BIFDATEA := *SQLNULL
+    #BIFTIMEA := *SQLNULL
+    #BIFDT26C := *SQLNULL
+    
+    Insert Fields(*ALL) To_File(VTL157033F) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc *NE OK)
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted') )
+    Endroutine
+    
+    *
+    * Search.
+    *
+    Mthroutine Name(mthDoSearch)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Begin_Loop Using(#LF_i) To(#LF_Test_Key_Count)
+    Get_Entry Number(#LF_i) From_List(#wLTestKey)
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Seach Test: ' + *Quote + #LF_Test_Data.asString + *Quote) '' )
+    
+    #Com_Owner.mthSearch_By_Signed_Decimals( #LF_Test_Data #this_rc )
+    #Com_Owner.mthSearch_By_Signed( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Decimal_Decimals( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Decimal( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Integer1( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Integer2( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Integer4( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Integer8( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Datetime( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Date( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Time( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Boolean( #LF_Test_Data #this_rc )
+    
+    
+    If (#this_rc *NE OK)
+    Leave
+    Endif
+    End_Loop
+    Endif
+    Endroutine
+    
+    *
+    * Search By SIGNED with Decimals.
+    *
+    Mthroutine Name(mthSearch_By_Signed_Decimals)
+    Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthSearch_Generic_Signed_Decimals( #this_test_data #this_rc )
+    
+    * PERFORM SEARCH ON THE FULL STRING.
+    If (#this_rc = OK)
+    #Com_Owner.mthSearch_Signed_Decimals( #this_test_data #this_rc )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    * Search With_Key(<SIGNED(7,2)>) Generic(*Yes) Nbr_Keys(*Compute).
+    *
+    Mthroutine Name(mthSearch_Generic_Signed_Decimals)
+    Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #LF_Operation_Name := ' - Search Generic SIGNED(7,2): ' + *Quote + #this_test_value.asString + *Quote
+    
+    #Com_Owner.mthFunc_Search_Generic_Signed_Decimals( #LF_Operation_Name #this_test_value #this_rc )
+    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    * Search With_Key(<SIGNED(7,2)>).
+    *
+    Mthroutine Name(mthSearch_Signed_Decimals)
+    Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #LF_Operation_Name := ' - Search SIGNED(7,2): ' + *Quote + #this_test_value.asString + *Quote
+    
+    #Com_Owner.mthFunc_Search_Signed_Decimals( #LF_Operation_Name #this_test_value #this_rc )
+    
+    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_Signed_Decimals)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    * SIGNED(7,2).
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FND' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FPD' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Signed_Decimals)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    * SIGNED(7,2).
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FND' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FPD' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    * Validate the Selection Results.
+    *
+    Mthroutine Name(mthValidate_Decimal_Results)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    
+    Endif
+    
+    * If (#this_rc = OK)
+    * #LF_Total_Warnings := 0
+    *
+    * * Alpha / Char: Trailing blanks are not significant, and they will be trimmed off under Generic( *Yes ).
+    * * NChar supposed to be the same as Char.
+    *
+    * If ((#LF_Func_L157033C1 = #LF_Func_L157033C1_VARCHAR) *And (#LF_Func_L157033C8 = #LF_Func_L157033C8_NCHAR) *And (#LF_Func_L157033CA = #LF_Func_L157033CA_ALPHA) *And (#LF_Func_L157033CH = #LF_Func_L157033CH_CHAR) *And (#LF_Func_L157033CU = #LF_Func_L157033CU_SUNI) *And (#LF_Func_L157033C9 = #LF_Func_L157033C9_NVARCHAR) *And (#LF_Func_L157033CS = #LF_Func_L157033CS_SBIN))
+    *
+    * * Numbers of search result using Object Name and Object Id must be the same.
+    * #this_rc := OK
+    *
+    * * Alpha / Char records must be identical.
+    * If (#LF_Func_L157033CA <> #LF_Func_L157033CH)
+    * #this_rc := ER
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Alpha/Char) records mismatched: (' + #LF_Func_L157033CA.AsString + ', ' + #LF_Func_L157033CH.AsString + ')') )
+    * Else
+    * * Varchar / NVarchar records must be identical.
+    * If (#LF_Func_L157033C1 <> #LF_Func_L157033C9)
+    * #this_rc := ER
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033C1.AsString + ', ' + #LF_Func_L157033C9.AsString + ')') )
+    * Else
+    * * Alpha & SBIN records should be identical.
+    * If (#LF_Func_L157033CA <> #LF_Func_L157033CS)
+    * #LF_Total_Warnings += 1
+    *
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Alpha/SBIN) records not matched: (' + #LF_Func_L157033CA.AsString + ', ' + #LF_Func_L157033CS.AsString + ')') )
+    * Else
+    * * Char and SUNI records should be identical.
+    * If (#LF_Func_L157033CH <> #LF_Func_L157033CU)
+    * #LF_Total_Warnings += 1
+    *
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/SUNI) records not matched: (' + #LF_Func_L157033CH.AsString + ', ' + #LF_Func_L157033CU.AsString + ')') )
+    * Endif
+    * Endif
+    * Endif
+    * Endif
+    *
+    * If (#this_rc <> ER)
+    * * Check if the Re-usable Part Field Name and Field Id counters are matched.
+    * If ((#LF_RP_L157033C1 <> #LF_RP_L157033C1_VARCHAR) *Or (#LF_RP_L157033C8 <> #LF_RP_L157033C8_NCHAR) *Or (#LF_RP_L157033C9 <> #LF_RP_L157033C9_NVARCHAR) *Or (#LF_RP_L157033CA <> #LF_RP_L157033CA_ALPHA) *Or (#LF_RP_L157033CH <> #LF_RP_L157033CH_CHAR) *Or (#LF_RP_L157033CS <> #LF_RP_L157033CS_SBIN) *Or (#LF_RP_L157033CU <> #LF_RP_L157033CU_SUNI))
+    * #this_rc := ER
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Re-usable Part (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) ' + #LF_RP_L157033Ch.AsString + '/' + #LF_RP_L157033Ch_CHAR.AsString + ', ' + #LF_RP_L157033C1.AsString + '/' + #LF_RP_L157033C1_VARCHAR.AsString + ', ' + #LF_RP_L157033C8.AsString + '/' + #LF_RP_L157033C8_NCHAR.AsString + ', ' + #LF_RP_L157033C9.AsString + '/' + #LF_RP_L157033C9_NVARCHAR.AsString + ', ' + #LF_RP_L157033CA.AsString + '/' + #LF_RP_L157033CA_ALPHA.AsString + ', ' + #LF_RP_L157033CS.AsString + '/' + #LF_RP_L157033CS_SBIN.AsString + ', ' + #LF_RP_L157033CU.AsString + '/' + #LF_RP_L157033CU_SUNI.AsString + ')') )
+    * Else
+    * * Compare the Function counters to the Re-usable Part counters.
+    * If ((#LF_Func_L157033C1 <> #LF_RP_L157033C1) *Or (#LF_Func_L157033C8 <> #LF_RP_L157033C8) *Or (#LF_Func_L157033C9 <> #LF_RP_L157033C9) *Or (#LF_Func_L157033CA <> #LF_RP_L157033CA) *Or (#LF_Func_L157033CH <> #LF_RP_L157033CH) *Or (#LF_Func_L157033CS <> #LF_RP_L157033CS) *Or (#LF_Func_L157033CU <> #LF_RP_L157033CU))
+    * #this_rc := ER
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Function / RP) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) (' + #LF_Func_L157033Ch.AsString + '/' + #LF_RP_L157033Ch.AsString + ', ' + #LF_Func_L157033C1.AsString + '/' + #LF_RP_L157033C1.AsString + ', ' + #LF_Func_L157033C8.AsString + '/' + #LF_RP_L157033C8.AsString + ', ' + #LF_Func_L157033C9.AsString + '/' + #LF_RP_L157033C9.AsString + ', ' + #LF_Func_L157033Ca.AsString + '/' + #LF_RP_L157033Ca.AsString + ', ' + #LF_Func_L157033CS.AsString + '/' + #LF_RP_L157033CS.AsString + ') ' + 'Char/SUNI(' + #LF_Func_L157033CU.AsString + '/' + #LF_RP_L157033CU.AsString + ')') )
+    * Else
+    * * Up to here:
+    * * - Alpha / Char are identical.
+    * * - Varchar / NVarchar are identical.
+    * * If (#this_expect_different = False) then Alpha / Varchar must be identical.
+    * If ((#this_expect_different = False) *And ((#LF_Func_L157033Ca <> #LF_Func_L157033C1)))
+    * #this_rc := ER
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Unexpected differences: (Char/Varhar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033CH.AsString + ', ' + #LF_Func_L157033C1.AsString + ', ' + #LF_Func_L157033C8.AsString + ', ' + #LF_Func_L157033C9.AsString + ', ' + #LF_Func_L157033CA.AsString + ')') )
+    * Else
+    * If (#LF_Func_L157033CH <> #LF_Func_L157033C8)
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/NChar) records not matched: (' + #LF_Func_L157033CH.AsString + ', ' + #LF_Func_L157033C8.AsString + ')') )
+    * Else
+    * * Produce a simple text if all records are matched.
+    * If ((#LF_Func_L157033C1 = #LF_Func_L157033C8) *And (#LF_Func_L157033C8 = #LF_Func_L157033C9) *And (#LF_Func_L157033C9 = #LF_Func_L157033CA) *And (#LF_Func_L157033CA = #LF_Func_L157033CH))
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: ' + #LF_Func_L157033Ch.AsString + ' records') )
+    * Else
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: Found (Char/Varchar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033Ch.AsString + ', ' + #LF_Func_L157033C1.AsString + ', ' + #LF_Func_L157033C8.AsString + ', ' + #LF_Func_L157033C9.AsString + ', ' + #LF_Func_L157033CA.AsString + ')') )
+    * Endif
+    * Endif
+    * Endif
+    * Endif
+    * Endif
+    * Endif
+    * Else
+    * * Function's record counters are not matched.
+    * #this_rc := ER
+    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) ' + #LF_Func_L157033Ch.AsString + '/' + #LF_Func_L157033Ch_CHAR.AsString + ', ' + #LF_Func_L157033C1.AsString + '/' + #LF_Func_L157033C1_VARCHAR.AsString + ', ' + #LF_Func_L157033C8.AsString + '/' + #LF_Func_L157033C8_NCHAR.AsString + ', ' + #LF_Func_L157033C9.AsString + '/' + #LF_Func_L157033C9_NVARCHAR.AsString + ', ' + #LF_Func_L157033CA.AsString + '/' + #LF_Func_L157033CA_ALPHA.AsString + ', ' + #LF_Func_L157033CS.AsString + '/' + #LF_Func_L157033CS_SBIN.AsString + ', ' + #LF_Func_L157033CU.AsString + '/' + #LF_Func_L157033CU_SUNI.AsString + ')') )
+    * Endif
+    * Endif
+    Endroutine
+    
+    *
+    * Search By SIGNED with Decimals.
+    *
+    Mthroutine Name(mthSearch_By_Signed)
+    Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthSearch_Generic_Signed( #this_test_data #this_rc )
+    
+    * PERFORM SEARCH ON THE FULL STRING.
+    If (#this_rc = OK)
+    #Com_Owner.mthSearch_Signed( #this_test_data #this_rc )
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    * Search With_Key(<SIGNED(7,0)>) Generic(*Yes) Nbr_Keys(*Compute).
+    *
+    Mthroutine Name(mthSearch_Generic_Signed)
+    Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #LF_Operation_Name := ' - Search Generic SIGNED(7,0): ' + *Quote + #this_test_value.asString + *Quote
+    
+    #Com_Owner.mthFunc_Search_Generic_Signed( #LF_Operation_Name #this_test_value #this_rc )
+    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    * Search With_Key(<SIGNED(7,0)>).
+    *
+    Mthroutine Name(mthSearch_Signed)
+    Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    #LF_Operation_Name := ' - Search SIGNED(7,0): ' + *Quote + #this_test_value.asString + *Quote
+    
+    #Com_Owner.mthFunc_Search_Signed( #LF_Operation_Name #this_test_value #this_rc )
+    
+    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Generic_Signed)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    * SIGNED(7,2).
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FND' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FN' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FPD' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFP1504A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FI1' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthFunc_Search_Signed)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    * SIGNED(7,2).
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FND' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FPD' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    Endif
+    Endroutine
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_TraceMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    If (#LF_TraceData)
+    #Com_Owner.mthAdd_SubMsg( #this_msg_code #this_msg1 #this_msg2 )
+    Endif
+    Endroutine
