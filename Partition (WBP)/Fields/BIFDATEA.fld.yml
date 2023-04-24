@@ -1,0 +1,61 @@
+﻿Field:
+  Name:               BIFDATEA
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - ASQN
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF - Date"
+      Label:              "BIF - Date"
+      Heading1:           "BIF"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - ENG:
+      Description:        "BIF Date"
+      Label:              "BIF Date"
+      Heading1:           "BIF"
+      Heading2:           "Date"
+
+  - FRA:
+      Description:        "BIF - Date"
+      Label:              "BIF - Date"
+      Heading1:           "BIF"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - JPN:
+      Description:        "BIF - Date"
+      Label:              "BIF - Date"
+      Heading1:           "BIF"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  - TRK:
+      Description:        "BIF - Date"
+      Label:              "BIF - Date"
+      Heading1:           "BIF"
+      Heading2:           "-"
+      Heading3:           "Date"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVDT) Name(#VisualDateTime) Defaultvisual(True) Componentversion(1) Height(21) Width(581)
+    
+    End_Com
+    
+    
+    End_Com
+    
+    End_Com

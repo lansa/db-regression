@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               BIFTIMEA
+  Type:               Time
+  Length:             8
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Time"
+      Label:              "BIF Time"
+      Heading1:           "BIF"
+      Heading2:           "Time"
+
+  - ENG:
+      Description:        "BIF Time"
+      Label:              "BIF Time"
+      Heading1:           "BIF"
+      Heading2:           "Time"
+
+  - FRA:
+      Description:        "BIF Time"
+      Label:              "BIF Time"
+      Heading1:           "BIF"
+      Heading2:           "Time"
+
+  - JPN:
+      Description:        "BIF Time"
+      Label:              "BIF Time"
+      Heading1:           "BIF"
+      Heading2:           "Time"
+
+  - TRK:
+      Description:        "BIF Time"
+      Label:              "BIF Time"
+      Heading1:           "BIF"
+      Heading2:           "Time"
