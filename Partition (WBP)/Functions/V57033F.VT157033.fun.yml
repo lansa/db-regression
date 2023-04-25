@@ -64,6 +64,7 @@
     Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033FI1 #LF_Func_L157033FI2 #LF_Func_L157033FI4 #LF_Func_L157033FI8 #LF_Func_L157033FB #LF_Func_L157033FP #LF_Func_L157033FPD #LF_Func_L157033FN #LF_Func_L157033FND #LF_Func_L157033FD #LF_Func_L157033FT #LF_Func_L157033FDT #LF_Total_Errors)
     
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(True)
+    Define Field(#LF_View_Type) Reffld(#BIFC256A)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -80,9 +81,7 @@
     #Com_Owner.mthDoInsert( #LF_rc )
     
     * SEARCH TEST.
-    If (#LF_rc = OK)
     #Com_Owner.mthDoSearch( #LF_rc )
-    Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -96,7 +95,7 @@
     
     Clr_List Named(#wLTestData)
     * Generate numbers from 100.00 to 200.90
-    Begin_Loop Using(#LF_i) From(100) To(200) Step(10)
+    Begin_Loop Using(#LF_i) From(100) To(119)
     Begin_Loop Using(#LF_j) From(0) To(90) Step(6)
     #LF_String := #LF_i.asString + '.' + #LF_j.asString
     #LF_Test_Data := #LF_String.asNumber
@@ -177,7 +176,7 @@
     Begin_Loop Using(#LF_i) To(#LF_Test_Key_Count)
     Get_Entry Number(#LF_i) From_List(#wLTestKey)
     
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Seach Test: ' + *Quote + #LF_Test_Data.asString + *Quote) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Search Test: ' + *Quote + #LF_Test_Data.asString + *Quote) '' )
     
     #Com_Owner.mthSearch_By_Signed_Decimals( #LF_Test_Data #this_rc )
     #Com_Owner.mthSearch_By_Signed( #LF_Test_Data #this_rc )
@@ -225,10 +224,9 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc = OK)
-    #LF_Operation_Name := ' - Search Generic SIGNED(7,2): ' + *Quote + #this_test_value.asString + *Quote
+    #LF_Operation_Name := 'SELECT GENERIC Key: SIGNED(7,2)'
     
     #Com_Owner.mthFunc_Search_Generic_Signed_Decimals( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
     Endif
     Endroutine
     
@@ -240,11 +238,9 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc = OK)
-    #LF_Operation_Name := ' - Search SIGNED(7,2): ' + *Quote + #this_test_value.asString + *Quote
+    #LF_Operation_Name := 'SELECT EXACT Key: SIGNED(7,2)'
     
     #Com_Owner.mthFunc_Search_Signed_Decimals( #LF_Operation_Name #this_test_value #this_rc )
-    
-    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
     Endif
     Endroutine
     
@@ -260,9 +256,11 @@
     Change Field(#LF_Func_Counters) To(*NULL)
     
     * SIGNED(7,2).
+    #LF_View_Type := ' View Key: SIGNED(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FND += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -273,9 +271,11 @@
     Endif
     
     * DECIMALS(15,4).
+    #LF_View_Type := ' View Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FPD += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -304,9 +304,11 @@
     Change Field(#LF_Func_Counters) To(*NULL)
     
     * SIGNED(7,2).
+    #LF_View_Type := ' View Key: SIGNED(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FND += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -317,9 +319,11 @@
     Endif
     
     * DECIMALS(15,4).
+    #LF_View_Type := ' View Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FPD += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -334,95 +338,6 @@
     #this_rc := ER
     Endif
     Endif
-    Endroutine
-    
-    *
-    * Validate the Selection Results.
-    *
-    Mthroutine Name(mthValidate_Decimal_Results)
-    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    If (#this_rc = OK)
-    
-    Endif
-    
-    * If (#this_rc = OK)
-    * #LF_Total_Warnings := 0
-    *
-    * * Alpha / Char: Trailing blanks are not significant, and they will be trimmed off under Generic( *Yes ).
-    * * NChar supposed to be the same as Char.
-    *
-    * If ((#LF_Func_L157033C1 = #LF_Func_L157033C1_VARCHAR) *And (#LF_Func_L157033C8 = #LF_Func_L157033C8_NCHAR) *And (#LF_Func_L157033CA = #LF_Func_L157033CA_ALPHA) *And (#LF_Func_L157033CH = #LF_Func_L157033CH_CHAR) *And (#LF_Func_L157033CU = #LF_Func_L157033CU_SUNI) *And (#LF_Func_L157033C9 = #LF_Func_L157033C9_NVARCHAR) *And (#LF_Func_L157033CS = #LF_Func_L157033CS_SBIN))
-    *
-    * * Numbers of search result using Object Name and Object Id must be the same.
-    * #this_rc := OK
-    *
-    * * Alpha / Char records must be identical.
-    * If (#LF_Func_L157033CA <> #LF_Func_L157033CH)
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Alpha/Char) records mismatched: (' + #LF_Func_L157033CA.AsString + ', ' + #LF_Func_L157033CH.AsString + ')') )
-    * Else
-    * * Varchar / NVarchar records must be identical.
-    * If (#LF_Func_L157033C1 <> #LF_Func_L157033C9)
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033C1.AsString + ', ' + #LF_Func_L157033C9.AsString + ')') )
-    * Else
-    * * Alpha & SBIN records should be identical.
-    * If (#LF_Func_L157033CA <> #LF_Func_L157033CS)
-    * #LF_Total_Warnings += 1
-    *
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Alpha/SBIN) records not matched: (' + #LF_Func_L157033CA.AsString + ', ' + #LF_Func_L157033CS.AsString + ')') )
-    * Else
-    * * Char and SUNI records should be identical.
-    * If (#LF_Func_L157033CH <> #LF_Func_L157033CU)
-    * #LF_Total_Warnings += 1
-    *
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/SUNI) records not matched: (' + #LF_Func_L157033CH.AsString + ', ' + #LF_Func_L157033CU.AsString + ')') )
-    * Endif
-    * Endif
-    * Endif
-    * Endif
-    *
-    * If (#this_rc <> ER)
-    * * Check if the Re-usable Part Field Name and Field Id counters are matched.
-    * If ((#LF_RP_L157033C1 <> #LF_RP_L157033C1_VARCHAR) *Or (#LF_RP_L157033C8 <> #LF_RP_L157033C8_NCHAR) *Or (#LF_RP_L157033C9 <> #LF_RP_L157033C9_NVARCHAR) *Or (#LF_RP_L157033CA <> #LF_RP_L157033CA_ALPHA) *Or (#LF_RP_L157033CH <> #LF_RP_L157033CH_CHAR) *Or (#LF_RP_L157033CS <> #LF_RP_L157033CS_SBIN) *Or (#LF_RP_L157033CU <> #LF_RP_L157033CU_SUNI))
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Re-usable Part (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) ' + #LF_RP_L157033Ch.AsString + '/' + #LF_RP_L157033Ch_CHAR.AsString + ', ' + #LF_RP_L157033C1.AsString + '/' + #LF_RP_L157033C1_VARCHAR.AsString + ', ' + #LF_RP_L157033C8.AsString + '/' + #LF_RP_L157033C8_NCHAR.AsString + ', ' + #LF_RP_L157033C9.AsString + '/' + #LF_RP_L157033C9_NVARCHAR.AsString + ', ' + #LF_RP_L157033CA.AsString + '/' + #LF_RP_L157033CA_ALPHA.AsString + ', ' + #LF_RP_L157033CS.AsString + '/' + #LF_RP_L157033CS_SBIN.AsString + ', ' + #LF_RP_L157033CU.AsString + '/' + #LF_RP_L157033CU_SUNI.AsString + ')') )
-    * Else
-    * * Compare the Function counters to the Re-usable Part counters.
-    * If ((#LF_Func_L157033C1 <> #LF_RP_L157033C1) *Or (#LF_Func_L157033C8 <> #LF_RP_L157033C8) *Or (#LF_Func_L157033C9 <> #LF_RP_L157033C9) *Or (#LF_Func_L157033CA <> #LF_RP_L157033CA) *Or (#LF_Func_L157033CH <> #LF_RP_L157033CH) *Or (#LF_Func_L157033CS <> #LF_RP_L157033CS) *Or (#LF_Func_L157033CU <> #LF_RP_L157033CU))
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Function / RP) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) (' + #LF_Func_L157033Ch.AsString + '/' + #LF_RP_L157033Ch.AsString + ', ' + #LF_Func_L157033C1.AsString + '/' + #LF_RP_L157033C1.AsString + ', ' + #LF_Func_L157033C8.AsString + '/' + #LF_RP_L157033C8.AsString + ', ' + #LF_Func_L157033C9.AsString + '/' + #LF_RP_L157033C9.AsString + ', ' + #LF_Func_L157033Ca.AsString + '/' + #LF_RP_L157033Ca.AsString + ', ' + #LF_Func_L157033CS.AsString + '/' + #LF_RP_L157033CS.AsString + ') ' + 'Char/SUNI(' + #LF_Func_L157033CU.AsString + '/' + #LF_RP_L157033CU.AsString + ')') )
-    * Else
-    * * Up to here:
-    * * - Alpha / Char are identical.
-    * * - Varchar / NVarchar are identical.
-    * * If (#this_expect_different = False) then Alpha / Varchar must be identical.
-    * If ((#this_expect_different = False) *And ((#LF_Func_L157033Ca <> #LF_Func_L157033C1)))
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Unexpected differences: (Char/Varhar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033CH.AsString + ', ' + #LF_Func_L157033C1.AsString + ', ' + #LF_Func_L157033C8.AsString + ', ' + #LF_Func_L157033C9.AsString + ', ' + #LF_Func_L157033CA.AsString + ')') )
-    * Else
-    * If (#LF_Func_L157033CH <> #LF_Func_L157033C8)
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/NChar) records not matched: (' + #LF_Func_L157033CH.AsString + ', ' + #LF_Func_L157033C8.AsString + ')') )
-    * Else
-    * * Produce a simple text if all records are matched.
-    * If ((#LF_Func_L157033C1 = #LF_Func_L157033C8) *And (#LF_Func_L157033C8 = #LF_Func_L157033C9) *And (#LF_Func_L157033C9 = #LF_Func_L157033CA) *And (#LF_Func_L157033CA = #LF_Func_L157033CH))
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: ' + #LF_Func_L157033Ch.AsString + ' records') )
-    * Else
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: Found (Char/Varchar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033Ch.AsString + ', ' + #LF_Func_L157033C1.AsString + ', ' + #LF_Func_L157033C8.AsString + ', ' + #LF_Func_L157033C9.AsString + ', ' + #LF_Func_L157033CA.AsString + ')') )
-    * Endif
-    * Endif
-    * Endif
-    * Endif
-    * Endif
-    * Endif
-    * Else
-    * * Function's record counters are not matched.
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) ' + #LF_Func_L157033Ch.AsString + '/' + #LF_Func_L157033Ch_CHAR.AsString + ', ' + #LF_Func_L157033C1.AsString + '/' + #LF_Func_L157033C1_VARCHAR.AsString + ', ' + #LF_Func_L157033C8.AsString + '/' + #LF_Func_L157033C8_NCHAR.AsString + ', ' + #LF_Func_L157033C9.AsString + '/' + #LF_Func_L157033C9_NVARCHAR.AsString + ', ' + #LF_Func_L157033CA.AsString + '/' + #LF_Func_L157033CA_ALPHA.AsString + ', ' + #LF_Func_L157033CS.AsString + '/' + #LF_Func_L157033CS_SBIN.AsString + ', ' + #LF_Func_L157033CU.AsString + '/' + #LF_Func_L157033CU_SUNI.AsString + ')') )
-    * Endif
-    * Endif
     Endroutine
     
     *
@@ -450,10 +365,9 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc = OK)
-    #LF_Operation_Name := ' - Search Generic SIGNED(7,0): ' + *Quote + #this_test_value.asString + *Quote
+    #LF_Operation_Name := 'SELECT GENERIC Key: SIGNED(7,0)'
     
     #Com_Owner.mthFunc_Search_Generic_Signed( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
     Endif
     Endroutine
     
@@ -465,11 +379,10 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc = OK)
-    #LF_Operation_Name := ' - Search SIGNED(7,0): ' + *Quote + #this_test_value.asString + *Quote
+    #LF_Operation_Name := 'SELECT EXACT Key: SIGNED(7,0)'
     
     #Com_Owner.mthFunc_Search_Signed( #LF_Operation_Name #this_test_value #this_rc )
     
-    #Com_Owner.mthValidate_Decimal_Results( #LF_Operation_Name #this_rc )
     Endif
     Endroutine
     
@@ -485,9 +398,11 @@
     Change Field(#LF_Func_Counters) To(*NULL)
     
     * SIGNED(7,2).
+    #LF_View_Type := ' View Key: SIGNED(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FND += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -498,9 +413,11 @@
     Endif
     
     * SIGNED(7,0).
+    #LF_View_Type := ' View Key: SIGNED(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FN += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -511,9 +428,11 @@
     Endif
     
     * DECIMALS(15,4).
+    #LF_View_Type := ' View Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FPD += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -524,10 +443,13 @@
     Endif
     
     * INTEGER 1.
+    #LF_View_Type := ' View Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
+    
     #LF_Test_Data_INT1 := #this_test_value
-    Select Fields(#BIFP1504A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI1 += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -556,9 +478,11 @@
     Change Field(#LF_Func_Counters) To(*NULL)
     
     * SIGNED(7,2).
+    #LF_View_Type := ' View Key: SIGNED(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FND += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFN0702A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -568,15 +492,49 @@
     #this_rc := OK
     Endif
     
+    * SIGNED(7,0).
+    #LF_View_Type := ' View Key: SIGNED(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FN' )
+    Else
+    #this_rc := OK
+    Endif
+    
     * DECIMALS(15,4).
+    #LF_View_Type := ' View Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
     Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FPD += 1
-    #Com_Owner.mthAdd_TraceMsg( #this_rc #BIFP1504A.asString '' )
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FPD' )
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' View Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type + ' ' + #this_operation) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033FI1' )
     Else
     #this_rc := OK
     Endif
