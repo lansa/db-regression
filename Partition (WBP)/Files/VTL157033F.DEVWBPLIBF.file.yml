@@ -97,21 +97,6 @@
       Length:             7
       Decimals:           2
 
-  - BIFDATEA:
-      Type:               Date
-      Length:             10
-      Decimals:           0
-
-  - BIFTIMEA:
-      Type:               Time
-      Length:             8
-      Decimals:           0
-
-  - BIFDT26C:
-      Type:               Date Time
-      Length:             26
-      Decimals:           0
-
   - BIFBLOBA:
       Type:               BLOB
       Length:             -1
@@ -122,34 +107,34 @@
   - F157033K2
 
   Logical Views:
-  - L157033FDT:
-      Identifier:         L157033FDT
+  - L157033FI1:
+      Identifier:         L157033FI1
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      L157033FDT
+      Record Format:      L157033FI1
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "Key: BIFDT26C"
+          Description:        "Key: BIFINT1A"
 
       - ENG:
-          Description:        "Key: BIFDT26C"
+          Description:        "Key: BIFINT1A"
 
       - FRA:
-          Description:        "Key: BIFDT26C"
+          Description:        "Key: BIFINT1A"
 
       - JPN:
-          Description:        "Key: BIFDT26C"
+          Description:        "Key: BIFINT1A"
 
       - TRK:
-          Description:        "Key: BIFDT26C"
+          Description:        "Key: BIFINT1A"
 
       Keys:
-      - BIFDT26C:
+      - BIFINT1A:
           Key Order:          Ascending
-          Numeric Ordering:   Unsigned
+          Numeric Ordering:   Signed
 
   - L157033FN:
       Identifier:         L157033FN
@@ -235,34 +220,5 @@
 
       Keys:
       - BIFP1504A:
-          Key Order:          Ascending
-          Numeric Ordering:   Signed
-
-  - L157033FI1:
-      Identifier:         L157033FI1
-      Unique Key:         No
-      Access Path:        Immediate
-      Record Format:      L157033FI1
-      Dynamic Select:     No
-      Parameters:         LVLCHK(*YES)
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Key: BIFINT1A"
-
-      - ENG:
-          Description:        "Key: BIFINT1A"
-
-      - FRA:
-          Description:        "Key: BIFINT1A"
-
-      - JPN:
-          Description:        "Key: BIFINT1A"
-
-      - TRK:
-          Description:        "Key: BIFINT1A"
-
-      Keys:
-      - BIFINT1A:
           Key Order:          Ascending
           Numeric Ordering:   Signed

@@ -142,3 +142,27 @@
 
       Allowed Next Functions:
       - "*ANY"
+
+  - V57033G:
+      Name:               V57033G
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Non-Generic Search on LV"
+
+      - ENG:
+          Description:        "Non-Generic Search on LV"
+
+      - FRA:
+          Description:        "Non-Generic Search on LV"
+
+      - JPN:
+          Description:        "Non-Generic Search on LV"
+
+      - TRK:
+          Description:        "Non-Generic Search on LV"
+
+      Allowed Next Functions:
+      - "*ANY"

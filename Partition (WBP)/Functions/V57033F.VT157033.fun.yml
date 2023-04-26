@@ -11,6 +11,7 @@
     *
     * Tests single key generic search of ALL no-character' field types. That is:
     * DATETIME, DATE, TIME, SIGNED, DECIMAL, INTEGER 1, 2, 4, 8, BOOLEAN
+    * BLOB also added but not used. Its only there to force use of SQL on IBM i.
     * Tests are executed from only a Function but NOT a Reusable Part.
     *
     * ******************************************************************************************************
@@ -279,6 +280,8 @@
     Mthroutine Name(mthDoInsert)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    Define Field(#LF_iMod) Reffld(#STD_COUNT)
+    
     #F157033K1 := #VTF_KEY1 + #VTF_KEY2 + #VTF_KEY3
     #F157033K2 := 0
     #BIFBLOBA := *SQLNULL
@@ -289,10 +292,6 @@
     
     #F157033K2 += 1
     #BIFINT1A #BIFINT2A #BIFINT4A #BIFINT8A #BIFP1500A #BIFP1504A #BIFN0700A #BIFN0702A := #LF_Test_Data
-    #BIFB001E := *SQLNULL
-    #BIFDATEA := *SQLNULL
-    #BIFTIMEA := *SQLNULL
-    #BIFDT26C := *SQLNULL
     
     Insert Fields(*ALL) To_File(VTL157033F) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)

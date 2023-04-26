@@ -1,0 +1,112 @@
+﻿File:
+  Name:                           VTL157033G
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033G
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select  on non-generic LV"
+
+  - ENG:
+      Description:        "157033 - Select  on non-generic LV"
+
+  - FRA:
+      Description:        "157033 - Select  on non-generic LV"
+
+  - JPN:
+      Description:        "157033 - Select  on non-generic LV"
+
+  - TRK:
+      Description:        "157033 - Select  on non-generic LV"
+
+  Real Fields:
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - BIFB001E:
+      Type:               Boolean
+      Length:             1
+      Decimals:           0
+
+  - BIFDATEA:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFTIMEA:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - BIFDT26C:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K1
+  - F157033K2
+
+  Logical Views:
+  - L157033GDT:
+      Identifier:         L157033GDT
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033GDT
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFDT26C"
+
+      - ENG:
+          Description:        "Key: BIFDT26C"
+
+      - FRA:
+          Description:        "Key: BIFDT26C"
+
+      - JPN:
+          Description:        "Key: BIFDT26C"
+
+      - TRK:
+          Description:        "Key: BIFDT26C"
+
+      Keys:
+      - BIFDT26C:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
