@@ -7,10 +7,10 @@
     * ******************************************************************************************************
     * Test Case Description
     *
-    * Generic Select using non-character With_key column types using Logical Views
+    * Generic Select using non-character non-numeric With_key column types using Logical Views
     *
-    * Tests single key generic search of ALL no-character' field types. That is:
-    * DATETIME, DATE, TIME, SIGNED, DECIMAL, INTEGER 1, 2, 4, 8, BOOLEAN
+    * That is:
+    * DATETIME, DATE, TIME, BOOLEAN
     * BLOB also added but not used. Its only there to force use of SQL on IBM i.
     * Tests are executed from only a Function but NOT a Reusable Part.
     *
