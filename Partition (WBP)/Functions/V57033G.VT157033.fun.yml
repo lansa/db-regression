@@ -158,7 +158,7 @@
     
     #LF_i := 0
     Dowhile Cond(#this_rc = OK)
-    Fetch Fields(#F157033K1) From_File(VTL157033F) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Fetch Fields(#F157033K1) From_File(VTL157033G) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc = OK)
     #LF_i += 1
     Delete From_File(VTL157033G) With_Key(#F157033K1) Io_Error(*NEXT) Val_Error(*NEXT)
