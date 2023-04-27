@@ -1,0 +1,102 @@
+﻿File:
+  Name:                           VTL157033H
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033H
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select Generic Varchar Physical"
+
+  - ENG:
+      Description:        "157033 - Select Generic Varchar Physical"
+
+  - FRA:
+      Description:        "157033 - Select Generic Varchar Physical"
+
+  - JPN:
+      Description:        "157033 - Select Generic Varchar Physical"
+
+  - TRK:
+      Description:        "157033 - Select Generic Varchar Physical"
+
+  Real Fields:
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - F1570331:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
+  - F15703311:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K1
+  - F157033K2
+  - F1570331
+
+  Logical Views:
+  - L157033H1_VARCHAR:
+      Identifier:         L157033H1V
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033H1V
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - ENG:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - FRA:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - JPN:
+          Description:        "Key: F1570331_VARCHAR"
+
+      - TRK:
+          Description:        "Key: F1570331_VARCHAR"
+
+      Keys:
+      - F15703311:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1570331:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

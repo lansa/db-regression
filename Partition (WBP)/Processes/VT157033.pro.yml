@@ -166,3 +166,27 @@
 
       Allowed Next Functions:
       - "*ANY"
+
+  - V57033H:
+      Name:               V57033H
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Generic Character Search on Physical"
+
+      - ENG:
+          Description:        "Generic Character Search on Physical"
+
+      - FRA:
+          Description:        "Generic Character Search on Physical"
+
+      - JPN:
+          Description:        "Generic Character Search on Physical"
+
+      - TRK:
+          Description:        "Generic Character Search on Physical"
+
+      Allowed Next Functions:
+      - "*ANY"

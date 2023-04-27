@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select With_Key on non-chars LV"
+      Description:        "157033 - Select With_Key on Numeric  LV"
 
   - ENG:
-      Description:        "157033 - Select With_Key on non-chars LV"
+      Description:        "157033 - Select With_Key on Numeric  LV"
 
   - FRA:
-      Description:        "157033 - Select With_Key on non-chars LV"
+      Description:        "157033 - Select With_Key on Numeric  LV"
 
   - JPN:
-      Description:        "157033 - Select With_Key on non-chars LV"
+      Description:        "157033 - Select With_Key on Numeric  LV"
 
   - TRK:
-      Description:        "157033 - Select With_Key on non-chars LV"
+      Description:        "157033 - Select With_Key on Numeric  LV"
 
   Real Fields:
   - F157033K1:
@@ -70,11 +70,6 @@
   - BIFINT8A:
       Type:               Integer
       Length:             8
-      Decimals:           0
-
-  - BIFB001E:
-      Type:               Boolean
-      Length:             1
       Decimals:           0
 
   - BIFP1500A:

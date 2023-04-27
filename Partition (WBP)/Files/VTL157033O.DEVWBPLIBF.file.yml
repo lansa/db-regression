@@ -1,0 +1,63 @@
+﻿File:
+  Name:                           VTL157033O
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033O
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select Generic Int 1 Physical"
+
+  - ENG:
+      Description:        "157033 - Select Generic Int 1 Physical"
+
+  - FRA:
+      Description:        "157033 - Select Generic Int 1 Physical"
+
+  - JPN:
+      Description:        "157033 - Select Generic Int 1 Physical"
+
+  - TRK:
+      Description:        "157033 - Select Generic Int 1 Physical"
+
+  Real Fields:
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - BIFINT1A:
+      Type:               Integer
+      Length:             1
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K1
+  - F157033K2
+  - BIFINT1A

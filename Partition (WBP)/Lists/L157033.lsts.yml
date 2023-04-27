@@ -130,3 +130,15 @@
   - VTL157033G:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - VTL157033H:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V57033H:
+      Type:               Funciton
+      Qualifier:          VT157033
+
+  - VTL157033O:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
