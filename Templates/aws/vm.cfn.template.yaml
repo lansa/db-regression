@@ -29,7 +29,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref AMIID
-      InstanceType: "m5a.xlarge"
+      InstanceType: "m6in.xlarge"
       KeyName: "AzureDevOps"
       SubnetId: !Ref SUBNETIDFORVM
       IamInstanceProfile: !Ref IAMROLEFORVM
