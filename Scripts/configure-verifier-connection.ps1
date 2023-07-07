@@ -98,3 +98,6 @@ foreach($db in $dbTypes){
         $Content | Set-Content -Path $VerifierConnectionPath
     }
 }
+
+Write-Host("Final state of $VerifierConnectionPath")
+Get-Content $VerifierConnectionPath | Write-Host
