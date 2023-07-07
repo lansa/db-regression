@@ -71,7 +71,8 @@ Write-Host("Adding semicolon if not present with any db type in $VerifierConnect
 
 foreach ($string in (Get-Content $VerifierConnectionPath))
 {
-    if($string.Substring(0, 1) -ne ";"){
+    Write-Host("String being searched is '$string'")
+    if($string.Length -gt 0 -and $string.Substring(0, 1) -ne ";"){
         $newString = ";" + $string
         $Content = $Content -replace $string,$newString
     }
