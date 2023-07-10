@@ -61,7 +61,7 @@
     * Insert Fields(#RGACTURAS) To_File(RGNOLOB)
     * Fetch Fields(*ALL) From_File(RGNOLOB)
     #RGCIIU := "B"
-    Update Fields(#RGCIIU) In_File(RGNOLOB) With_Key(#FFNUMERO) Io_Error(*NEXT)
+    * Update Fields(#RGCIIU) In_File(RGNOLOB) With_Key(#FFNUMERO) Io_Error(*NEXT)
     * Fetch Fields(*ALL) From_File(RGNOLOB)
     
     Endroutine
