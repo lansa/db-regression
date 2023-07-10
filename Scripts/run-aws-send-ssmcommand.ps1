@@ -51,7 +51,13 @@ $instance_id = ((Get-EC2Instance -Filter @( `
                                     @{Name = "tag:LansaVersion"; Values=$LansaVersion}, `
                                     @{Name= "tag:aws:cloudformation:stack-name"; Values="DB-Regression-VM-$LansaVersion"}) `
                                     ).Instances `
-                                ).InstanceId `
+                                ).InstanceId
+
+if (-not $instance_id) {
+    throw "No EC2 instance found that matches $LansaVersion"
+} else {
+    Write-Host "EC2 instance $instance_id found matching $LansaVersion"
+}
 
 $ScriptPath = $scriptName
 if (-not $scriptNameIsFullPath) {
