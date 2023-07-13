@@ -27,14 +27,20 @@ try {
 
         Write-Host("Updating HOST name for Oracle in $TNSNamesPath to $oraServer")
 
-
+        $FoundTNSName = $false
         foreach ($string in (Get-Content $TNSNamesPath))
         {
-            if($string.Contains("(ADDRESS=(PROTOCOL=TCP)(HOST=")){
+            Write-Host( "First locate the ora19cdb TNS name")
+            if($string.Contains("ora19cdb")){
+                $FoundTNSName = $true
+            }
 
+            if($FoundTNSName -and $string.Contains("(ADDRESS=(PROTOCOL=TCP)(HOST=")){
                 $newString = "            (ADDRESS=(PROTOCOL=TCP)(HOST=ora" + $lansaVersion + ".cnyed5gpqwey.us-east-1.rds.amazonaws.com)(PORT=1521))"
                 $Content = $Content.replace($string,$newString)
-
+                Write-Host("Replaced $string with")
+                Write-Host("$newString")
+                break
             }
         }
         $Content | Set-Content -Path $TNSNamesPath
