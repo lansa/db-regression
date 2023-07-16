@@ -947,25 +947,25 @@
       Description:        Progress, Status and Tool Bars
 
   - BASIC CONTROLS:
-      Identifier 1:       6518
+      Identifier 1:       10240
       Identifier 2:       200
       System Group:       Yes
       Description:        Basic Controls
 
   - BASIC CONTROLS:
-      Identifier 1:       10240
+      Identifier 1:       6518
       Identifier 2:       200
       System Group:       Yes
       Description:        Basic Controls
 
   - BOXES:
-      Identifier 1:       6518
+      Identifier 1:       10240
       Identifier 2:       300
       System Group:       Yes
       Description:        Check, Edit and Group Boxes
 
   - BOXES:
-      Identifier 1:       10240
+      Identifier 1:       6518
       Identifier 2:       300
       System Group:       Yes
       Description:        Check, Edit and Group Boxes
@@ -1007,16 +1007,16 @@
       Description:        Currency Formatting, and Monetary Values
 
   - DATES & TIMES:
-      Identifier 1:       6518
-      Identifier 2:       600
-      System Group:       Yes
-      Description:        Dates, Date Formating, and Timestamping
-
-  - DATES & TIMES:
       Identifier 1:       10240
       Identifier 2:       600
       System Group:       Yes
       Description:        Dates, Date Formatting, and Timestamping
+
+  - DATES & TIMES:
+      Identifier 1:       6518
+      Identifier 2:       600
+      System Group:       Yes
+      Description:        Dates, Date Formating, and Timestamping
 
   - DBA VELDEN:
       Identifier 1:       65905
@@ -1061,22 +1061,16 @@
       Description:        Libraries
 
   - LISTS & GRIDS:
-      Identifier 1:       6518
-      Identifier 2:       700
-      System Group:       Yes
-      Description:        List and Grid Componts
-
-  - LISTS & GRIDS:
       Identifier 1:       10240
       Identifier 2:       700
       System Group:       Yes
       Description:        List and Grid Components
 
-  - MENUS:
+  - LISTS & GRIDS:
       Identifier 1:       6518
-      Identifier 2:       800
+      Identifier 2:       700
       System Group:       Yes
-      Description:        Menu and Menu Item Components
+      Description:        List and Grid Componts
 
   - MENUS:
       Identifier 1:       10240
@@ -1084,17 +1078,23 @@
       System Group:       Yes
       Description:        Menu and Menu Item Components
 
-  - PICTURES & SOUND:
+  - MENUS:
       Identifier 1:       6518
-      Identifier 2:       1000
+      Identifier 2:       800
       System Group:       Yes
-      Description:        Picture, Image, Graph, Vido and Sound
+      Description:        Menu and Menu Item Components
 
   - PICTURES & SOUND:
       Identifier 1:       10240
       Identifier 2:       1000
       System Group:       Yes
       Description:        Picture, Image, Graph, Video and Sound
+
+  - PICTURES & SOUND:
+      Identifier 1:       6518
+      Identifier 2:       1000
+      System Group:       Yes
+      Description:        Picture, Image, Graph, Vido and Sound
 
   - PRODUCT:
       Identifier 1:       10240
