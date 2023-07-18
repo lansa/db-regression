@@ -405,7 +405,7 @@ try {
 } finally {
     Write-Host
 
-    if ( $Test -or ((-not $Test) -and (-not $Import) -and (-not $Compile)) ) {
+    if ( $Test -or $Compile -or ((-not $Test) -and (-not $Import) -and (-not $Compile)) ) {
         # Search for errors in Verifier_Test_Report.txt
         Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "Total Summary File"
         Add-Content -Path (Join-Path $PrimaryPath $TotalSummaryFile) -Value "=================="
