@@ -146,6 +146,9 @@ function Compile{
         [string] $List
     )
 
+    $x_err = (Join-Path -Path $lansaRoot -ChildPath 'tmp\x_err.log')
+    Remove-Item $x_err -Force -ErrorAction SilentlyContinue | Out-Default | Write-Host
+
     if ( $List -eq '') {
         [String[]] $StdArguments = @(  "/PARTITION=$Partition", "/VCONLY=YES", "/OBJECTS=ALL",  "/EXCLUDE=VT_CVLEX", "/BUILDID=DBTEST")
     } else {
@@ -161,6 +164,13 @@ function Compile{
     &$installer_file $StdArguments
     Write-Host ("$(Log-Date) LastExitCode = $LastExitCode")
     if ( $LASTEXITCODE -ne 0 ){
+        if ( (Test-Path -Path $x_err) )
+        {
+            $ErrorMessage = "$(Log-Date) Compile $Arguments, $x_err exists and indicates a test error has occurred."
+            Write-Host $ErrorMessage
+            Get-Content $x_err | Add-Content -Path (Join-Path $LansaRoot $SummaryFile)
+            $global:TotalErrors++
+        }
         throw "$(Log-Date) Compile returned error code $LASTEXITCODE."
     }
 }
