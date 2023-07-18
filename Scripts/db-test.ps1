@@ -41,7 +41,6 @@ $SummaryFile = "Verifier_Test_Summary.txt"
 $TotalSummaryFile = "Verifier_Total_Summary.txt"
 $global:TotalErrors = 0
 $global:TotalMissingTests = 0
-$global:syd6 = '10.2.0.203'
 function Import{
     param (
         [Parameter(Mandatory=$true)]
@@ -241,14 +240,14 @@ try {
     $RootList
     Write-Host
 
-    if ($Import) {
-        $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
-        Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
-        if (-not (Test-Path -Path $ImportBasePath) ) {
-            Write-Host "$(Log-Date) $ImportBasePath does not exist"
-            throw
-        }
-    }
+    # if ($Import) {
+    #     $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
+    #     Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
+    #     if (-not (Test-Path -Path $ImportBasePath) ) {
+    #         Write-Host "$(Log-Date) $ImportBasePath does not exist"
+    #         throw
+    #     }
+    # }
 
     # All may be false when testing the summary logging code.
     if ( $Import -or $Compile -or $Test) {
