@@ -30,7 +30,9 @@ param (
     [boolean] $Compile = $false,
     [boolean] $Test = $true,
     [boolean] $Primary = $true,
-    [boolean] $Secondary = $false
+    [boolean] $Secondary = $false,
+    [boolean] $32bit = $true,
+    [boolean] $64bit = $false
 )
 # Write-Host "Map drives to LPC network"
 # & 'C:\ssh\ServerMappings.bat'
@@ -103,7 +105,9 @@ function Test{
         [Parameter(Mandatory=$true)]
         [string] $Process,
         [Parameter(Mandatory=$true)]
-        [string] $Function
+        [string] $Function,
+        [Parameter(Mandatory=$false)]
+        [switch] $64bit
     )
 
     # DEVF X_DEVFLAG_IMPORT_CHANGE_FILE_LIB_TO_PARTDTALIB | X_DEVFLAG_IMPORT_ALLOW_NAME_CHANGES | X_DEVFLAG_IMPORT_FORCE_NAME_CHANGES
@@ -113,7 +117,11 @@ function Test{
     $x_err = (Join-Path -Path $lansaRoot -ChildPath 'tmp\x_err.log')
     Remove-Item $x_err -Force -ErrorAction SilentlyContinue | Out-Default | Write-Host
 
-    $installer_file = Join-Path $LansaRoot 'x_win95\x_lansa\execute\x_run.exe'
+    $Platform = 'x_win95'
+    if ( $64bit ) {
+        $Platform = 'x_win64'
+    }
+    $installer_file = Join-Path $LansaRoot "$Platform\x_lansa\execute\x_run.exe"
 
     $Arguments = $StdArguments
 
@@ -370,7 +378,13 @@ try {
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
                 Write-Host ("$(Log-Date) Testing $Root $($TestItem.Item1) $($TestItem.Item2)")
-                Test $Root $TestItem.Item1 $TestItem.Item2
+                if ( $32bit ) {
+                    Test $Root $TestItem.Item1 $TestItem.Item2
+                }
+
+                if ( $64bit ) {
+                    Test $Root $TestItem.Item1 $TestItem.Item2 -64bit
+                }
             }
         }
     }
