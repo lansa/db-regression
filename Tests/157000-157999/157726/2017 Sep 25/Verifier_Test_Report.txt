@@ -1,0 +1,184 @@
+
+===================================
+CCS: 157726
+Partition: QAX
+Language: ENG 
+Function/Process: V57726A / VT157726
+Environment Type: WIN32 32-bit
+Environment Path: 'C:\VLX42\X_WIN95\X_LANSA\'
+DateTime: 2017-09-25 14:49:10
+Database: MSSQLS / VLX42
+-----
++ Windows.
+    2017-09-25 14:49:10 + Test Function: 1, 0 skipped
+    2017-09-25 14:49:10  (1) - V57726D
+    2017-09-25 14:49:10 + (1) - Calling Function: V57726D
+    2017-09-25 14:49:10 - V57726D. Start - Compare_File_Def - VTL157726D
+    2017-09-25 14:49:10 -  - Set up package. '1_original'
+    2017-09-25 14:49:10 -   + Import_Objects: OK.
+    2017-09-25 14:49:10 -   + Make_File_Operational: OK.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_1_original.ctd (../msi/xxx_yyy.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.dll -> VTL157726D_1_original.dll (../msi/xxx_yyy.dll)
+    2017-09-25 14:49:10 -  - Set up package. '2_add_file_field_d4'
+    2017-09-25 14:49:10 -   + Import_Objects: OK.
+    2017-09-25 14:49:10 -   + Make_File_Operational: OK.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_2_add_file_field_d4.ctd (../msi/xxx_yyy.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.dll -> VTL157726D_2_add_file_field_d4.dll (../msi/xxx_yyy.dll)
+    2017-09-25 14:49:10 -  - Set up package. '3_add_non_unique_index_on_d3'
+    2017-09-25 14:49:10 -   + Import_Objects: OK.
+    2017-09-25 14:49:10 -   + Make_File_Operational: OK.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_3_add_non_unique_index_on_d3.ctd (../msi/xxx_yyy.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.dll -> VTL157726D_3_add_non_unique_index_on_d3.dll (../msi/xxx_yyy.dll)
+    2017-09-25 14:49:10 -  - Set up package. '4_change_to_unique_index'
+    2017-09-25 14:49:10 -   + Import_Objects: OK.
+    2017-09-25 14:49:10 -   + Make_File_Operational: OK.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_4_change_to_unique_index.ctd (../msi/xxx_yyy.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.dll -> VTL157726D_4_change_to_unique_index.dll (../msi/xxx_yyy.dll)
+    2017-09-25 14:49:10 -  - Set up package. '1_original'
+    2017-09-25 14:49:10 -   + Import_Objects: OK.
+    2017-09-25 14:49:10 -   + Make_File_Operational: OK.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_1_original.ctd (../msi/xxx_yyy.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.dll -> VTL157726D_1_original.dll (../msi/xxx_yyy.dll)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(1_original) -> MSI(1_original)
+    2017-09-25 14:49:10 -   + Expecting result: NC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: NC.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 1 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(1_original) -> MSI(2_add_file_field_d4)
+    2017-09-25 14:49:10 -   + Expecting result: TC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_2_add_file_field_d4.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: TC.
+    2017-09-25 14:49:10 -   + Unload_File_Data: OK.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_2_add_file_field_d4.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_2_add_file_field_d4.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(Y) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Load_File_Data: OK.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 2 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(2_add_file_field_d4) -> MSI(3_add_non_unique_index_on_d3)
+    2017-09-25 14:49:10 -   + Expecting result: NO.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: NO.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(N) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 3 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(3_add_non_unique_index_on_d3) -> MSI(1_original)
+    2017-09-25 14:49:10 -   + Expecting result: TC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: TC.
+    2017-09-25 14:49:10 -   + Unload_File_Data: OK.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(Y) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Load_File_Data: OK.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 4 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(1_original) -> MSI(3_add_non_unique_index_on_d3)
+    2017-09-25 14:49:10 -   + Expecting result: TC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: TC.
+    2017-09-25 14:49:10 -   + Unload_File_Data: OK.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(Y) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Load_File_Data: OK.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 5 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(3_add_non_unique_index_on_d3) -> MSI(4_change_to_unique_index)
+    2017-09-25 14:49:10 -   + Expecting result: LC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_4_change_to_unique_index.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: LC.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_4_change_to_unique_index.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_4_change_to_unique_index.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(L) <Create>(N)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 6 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(4_change_to_unique_index) -> MSI(1_original)
+    2017-09-25 14:49:10 -   + Expecting result: TC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: TC.
+    2017-09-25 14:49:10 -   + Unload_File_Data: OK.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(Y) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Load_File_Data: OK.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 7 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(1_original) -> MSI(4_change_to_unique_index)
+    2017-09-25 14:49:10 -   + Expecting result: TC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_4_change_to_unique_index.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: TC.
+    2017-09-25 14:49:10 -   + Unload_File_Data: OK.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_4_change_to_unique_index.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_4_change_to_unique_index.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(Y) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Load_File_Data: OK.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 8 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(4_change_to_unique_index) -> MSI(3_add_non_unique_index_on_d3)
+    2017-09-25 14:49:10 -   + Expecting result: LC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: LC.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_3_add_non_unique_index_on_d3.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(L) <Create>(N)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 9 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(3_add_non_unique_index_on_d3) -> MSI(2_add_file_field_d4)
+    2017-09-25 14:49:10 -   + Expecting result: IC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_2_add_file_field_d4.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: IC.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_2_add_file_field_d4.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_2_add_file_field_d4.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(I) <Create>(N)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 10 record(s)
+    2017-09-25 14:49:10 -  - MSI Upgrade. VL(2_add_file_field_d4) -> MSI(1_original)
+    2017-09-25 14:49:10 -   + Expecting result: TC.
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../msi/xxx.ctd)
+    2017-09-25 14:49:10 -   + Compare_File_Def: TC.
+    2017-09-25 14:49:10 -   + Unload_File_Data: OK.
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D.ctd -> VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.ctd -> VTL157726D.ctd (../vl/xxx.ctd)
+    2017-09-25 14:49:10 -   + Copy_File: OK. VTL157726D_1_original.dll -> VTL157726D.dll (../vl/xxx.dll)
+    2017-09-25 14:49:10 -   + Rebuild_File: OK. <Drop>(Y) <Create>(Y)
+    2017-09-25 14:49:10 -   + Remove_File: OK. VTL157726D_old.ctd (../vl/xxx_old.ctd)
+    2017-09-25 14:49:10 -   + Load_File_Data: OK.
+    2017-09-25 14:49:10 -   + Insert: OK. Totall inserted 11 record(s)
+    2017-09-25 14:49:10 -  - Delete test data.
+    2017-09-25 14:49:10 -   + Delete: OK. Totally deleted 11 record(s)
+    2017-09-25 14:49:10 -  - Remove all temporary files.
+    2017-09-25 14:49:10 - V57726D. End
+    2017-09-25 14:49:10 Completed with <OK>.
+    2017-09-25 14:49:10 -----
+    2017-09-25 14:49:10 * Warning: Missing test database type SQLANYWHERE
+    2017-09-25 14:49:10 * Warning: Missing test database type SQLAZURE
+    2017-09-25 14:49:10 * Warning: Missing test database type ODBCORACLE
+    2017-09-25 14:49:10 * Warning: Missing test database type MYSQL
+Completed.

@@ -13,7 +13,7 @@
     * operations to apply those changes.
     * Changes are to the BIF Compare_File_Def
     *
-    * Test uses copies of CTD and DLL in various states, saved in C:\Tests\157000-157999\157726 currently
+    * Test uses copies of CTD and DLL in various states, saved in .\lansa\VersionControl\Tests\157000-157999\157726 currently
     *
     * It then uses these files with the Compare_File_Def BIF and Rebuild_File BIF, expecting specific results
     * and of course that there are no errors.
@@ -69,7 +69,7 @@
     
     * Initialize local variables.
     #LF_file_name := VTL157726D
-    #LF_package_path := 'C:\Tests\157000-157999\157726\VTL157726D\'
+    #LF_package_path := *ROOT_DIR + '\lansa\VersionControl\Tests\157000-157999\157726\VTL157726D\'
     #LF_vl_path := *PART_DIR + *PARTDTALIB + *PATHDELIM + 'source' + *PATHDELIM
     #LF_msi_path := *TEMP_DIR
     #LF_rc := OK

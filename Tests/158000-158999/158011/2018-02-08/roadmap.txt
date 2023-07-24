@@ -1,0 +1,74 @@
+During the execution, VTL158011C will be updated and built multiple times as in the following order:
+
+1_Original
+==========
+ + F158011C1: Key Field 1.
+ + F158011C2: Key Field 2, and also is an Identity Column.
+ + F158011C3.
+ + F158011C4.
+
+2_Swap_C3_And_C4_Around
+=======================
+ + F158011C1.
+ + F158011C2.
+ + F158011C4.
+ + F158011C3.
+
+3_Add_C5_Alpha_10_With_Default_AbC
+==================================
+ + F158011C1.
+ + F158011C2.
+ + F158011C4.
+ + F158011C3.
+ + F158011C5: Alpha(10) Default('AbC').
+
+
+4_Add_C6_Packed_With_Default_1
+==============================
+ + F158011C1.
+ + F158011C2.
+ + F158011C4.
+ + F158011C3.
+ + F158011C5.
+ + F158011C6: Packed(15, 2) Default(1).
+
+5_Add_C7_Blob_With_Default_Sqlnull
+==================================
+ + F158011C1.
+ + F158011C2.
+ + F158011C4.
+ + F158011C3.
+ + F158011C5.
+ + F158011C6.
+ + F158011C7: Blob Default(*Sqlnull).
+
+6_Change_C5_To_String_100_With_Default_Sqlnull
+==============================================
+ + F158011C1.
+ + F158011C2.
+ + F158011C4.
+ + F158011C3.
+ + F158011C5: String(100) Default(*Sqlnull).
+ + F158011C6.
+ + F158011C7.
+
+7_Add_Non_Unique_Index_To_C5
+============================
+
+8_Remove_C7_And_Add_Add_A_View_To_The_Non_Unique_Index
+======================================================
+ + F158011C1.
+ + F158011C2.
+ + F158011C4.
+ + F158011C3.
+ + F158011C5.
+ + F158011C6.
+
+1_Original
+==========
+ + F158011C1.
+ + F158011C2.
+ + F158011C3.
+ + F158011C4.
+
+

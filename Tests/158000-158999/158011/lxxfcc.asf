@@ -1,0 +1,20 @@
+XCCP_I    01A   3     1    3
+XCCCID    02A  10     4   13
+XCCCTX    03N   70   14   20
+XCCCCU    00A  20    21   40
+XCCCCV    00A  20    41   60
+XCC4GL    00A   1    61   61
+XCCAID    00A  10    62   71
+XCCPCI    00A   1    72   72
+XCCFI1    00N   90   73   81
+XCCFI2    00N   50   82   86
+XCCHNT    00A 250    87  336
+XCCSCO    00N   70  337  343
+XCCFE1    00N   70  344  350
+XCCFE2    00N   70  351  357
+XCCFE3    00N   70  358  364
+XCCFE4    00N   70  365  371
+XCCFE5    00A   5   372  376
+XCCFE6    00A  10   377  386
+XCCFE7    00A  20   387  406
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

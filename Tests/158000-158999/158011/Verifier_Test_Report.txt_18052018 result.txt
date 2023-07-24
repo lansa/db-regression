@@ -1,0 +1,313 @@
+===================================
+CCS: 158011
+Partition: QAX
+Language: ENG 
+Function/Process: V58011A / VT158011
+Environment Type: WIN32 32-bit
+Environment Path: 'C:\PROGRA~2\V14200~1\X_WIN95\X_LANSA\'
+DateTime: 2018-05-18 15:10:47
+Database: MSSQLS / v14sp2_0305
+-----
++ Windows.
+    2018-05-18 15:10:47 + Test Function: 1, 0 skipped
+    2018-05-18 15:10:47  (1) - V58011C
+    2018-05-18 15:10:47 + (1) - Calling Function: V58011C
+    2018-05-18 15:10:47 - V58011C. Start - ALTER TABLE & User Script Support
+    2018-05-18 15:10:47 -  - Empty table data.
+    2018-05-18 15:10:47 -   + Return code: NR.
+    2018-05-18 15:10:47 -  - Number of building packages: 11.
+    2018-05-18 15:10:47 -   + 1. '1_Orignial'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_1_Orignial.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_1_Orignial.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 2. '2_Swap_C3_And_C4_Around'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_2_Swap_C3_And_C4_Around.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_2_Swap_C3_And_C4_Around.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 3. '3_Add_C5_Alpha_10_With_Default_AbC'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 4. '4_Add_C6_Packed_With_Default_1'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_4_Add_C6_Packed_With_Default_1.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_4_Add_C6_Packed_With_Default_1.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 5. '5_Add_C7_Blob_With_Default_Sqlnull'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 6. '6_Change_C5_To_String_100_With_Default_Sqlnull'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 7. '7_Add_Non_Unique_Index_To_C5'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_7_Add_Non_Unique_Index_To_C5.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_7_Add_Non_Unique_Index_To_C5.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 8. '8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.ctd (../msi/xxx_yyy.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.dll (../msi/xxx_yyy.
+    2018-05-18 15:10:47 -   + 9. '9_Change_C6_Size_To_Be_Bigger'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_9_Change_C6_Size_To_Be_Bigger.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_9_Change_C6_Size_To_Be_Bigger.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 10. '6_Change_C5_To_String_100_With_Default_Sqlnull'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -   + 11. '1_Orignial'
+    2018-05-18 15:10:47 -    - Import_Objects: OK.
+    2018-05-18 15:10:47 -    - Make_File_Operational: OK.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_1_Orignial.ctd (../msi/xxx_yyy.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.dll -> VTL158011C_1_Orignial.dll (../msi/xxx_yyy.dll)
+    2018-05-18 15:10:47 -  - Upgrade by ALTER TABLE - START. 2018-05-18 05:11:12.631
+    2018-05-18 15:10:47 -   + 1. VL(1_Orignial) -> MSI(1_Orignial)
+    2018-05-18 15:10:47 -    - Expecting result: NC.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: NC.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 1 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 2 record(s)
+    2018-05-18 15:10:47 -   + 2. VL(1_Orignial) -> MSI(2_Swap_C3_And_C4_Around)
+    2018-05-18 15:10:47 -    - Expecting result: NC.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_2_Swap_C3_And_C4_Around.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: NC.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 3 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 4 record(s)
+    2018-05-18 15:10:47 -   + 3. VL(2_Swap_C3_And_C4_Around) -> MSI(3_Add_C5_Alpha_10_With_Default_AbC)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 5 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 6 record(s)
+    2018-05-18 15:10:47 -   + 4. VL(3_Add_C5_Alpha_10_With_Default_AbC) -> MSI(4_Add_C6_Packed_With_Default_1)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_4_Add_C6_Packed_With_Default_1.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_4_Add_C6_Packed_With_Default_1.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_4_Add_C6_Packed_With_Default_1.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 7 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 8 record(s)
+    2018-05-18 15:10:47 -   + 5. VL(4_Add_C6_Packed_With_Default_1) -> MSI(5_Add_C7_Blob_With_Default_Sqlnull)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 9 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 10 record(s)
+    2018-05-18 15:10:47 -   + 6. VL(5_Add_C7_Blob_With_Default_Sqlnull) -> MSI(6_Change_C5_To_String_100_With_Default_Sqlnull)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 11 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 12 record(s)
+    2018-05-18 15:10:47 -   + 7. VL(6_Change_C5_To_String_100_With_Default_Sqlnull) -> MSI(7_Add_Non_Unique_Index_To_C5)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_7_Add_Non_Unique_Index_To_C5.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_7_Add_Non_Unique_Index_To_C5.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_7_Add_Non_Unique_Index_To_C5.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 13 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 14 record(s)
+    2018-05-18 15:10:47 -   + 8. VL(7_Add_Non_Unique_Index_To_C5) -> MSI(8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 15 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 16 record(s)
+    2018-05-18 15:10:47 -   + 9. VL(8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index) -> MSI(9_Change_C6_Size_To_Be_Bigger)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_9_Change_C6_Size_To_Be_Bigger.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_9_Change_C6_Size_To_Be_Bigger.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_9_Change_C6_Size_To_Be_Bigger.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 17 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 18 record(s)
+    2018-05-18 15:10:47 -   + 10. VL(9_Change_C6_Size_To_Be_Bigger) -> MSI(6_Change_C5_To_String_100_With_Default_Sqlnull)
+    2018-05-18 15:10:47 -    - Expecting result: ER.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: ER.
+    2018-05-18 15:10:47 -    - Compare_File_Def: ER. As expected
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 19 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 20 record(s)
+    2018-05-18 15:10:47 -   + 11. VL(6_Change_C5_To_String_100_With_Default_Sqlnull) -> MSI(1_Orignial)
+    2018-05-18 15:10:47 -    - Expecting result: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.ctd -> VTL158011C.ctd (../msi/xxx.ctd)
+    2018-05-18 15:10:47 -    - Compare_File_Def: AT.
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File: OK. <Drop>(A) <Create>(N)
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 21 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 22 record(s)
+    2018-05-18 15:10:47 -  - Upgrade by ALTER TABLE - END. 2018-05-18 05:11:14.772
+    2018-05-18 15:10:47 -  - Upgrade by User Script - START. 2018-05-18 05:11:14.772
+    2018-05-18 15:10:47 -   + 1. VL(1_Orignial) -> MSI(1_Orignial)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_1_1_1.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 23 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 24 record(s)
+    2018-05-18 15:10:47 -   + 2. VL(1_Orignial) -> MSI(2_Swap_C3_And_C4_Around)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_2_2_1.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_2_Swap_C3_And_C4_Around.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_2_Swap_C3_And_C4_Around.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 25 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 26 record(s)
+    2018-05-18 15:10:47 -   + 3. VL(2_Swap_C3_And_C4_Around) -> MSI(3_Add_C5_Alpha_10_With_Default_AbC)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_3_3_2.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_3_Add_C5_Alpha_10_With_Default_AbC.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 27 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 28 record(s)
+    2018-05-18 15:10:47 -   + 4. VL(3_Add_C5_Alpha_10_With_Default_AbC) -> MSI(4_Add_C6_Packed_With_Default_1)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_4_4_3.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_4_Add_C6_Packed_With_Default_1.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_4_Add_C6_Packed_With_Default_1.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 29 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 30 record(s)
+    2018-05-18 15:10:47 -   + 5. VL(4_Add_C6_Packed_With_Default_1) -> MSI(5_Add_C7_Blob_With_Default_Sqlnull)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_5_5_4.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_5_Add_C7_Blob_With_Default_Sqlnull.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 31 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 32 record(s)
+    2018-05-18 15:10:47 -   + 6. VL(5_Add_C7_Blob_With_Default_Sqlnull) -> MSI(6_Change_C5_To_String_100_With_Default_Sqlnull)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_6_6_5.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 33 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 34 record(s)
+    2018-05-18 15:10:47 -   + 7. VL(6_Change_C5_To_String_100_With_Default_Sqlnull) -> MSI(7_Add_Non_Unique_Index_To_C5)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_7_7_6.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_7_Add_Non_Unique_Index_To_C5.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_7_Add_Non_Unique_Index_To_C5.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 35 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 36 record(s)
+    2018-05-18 15:10:47 -   + 8. VL(7_Add_Non_Unique_Index_To_C5) -> MSI(8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_8_8_7.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 37 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 38 record(s)
+    2018-05-18 15:10:47 -   + 9. VL(8_Remove_C7_And_Add_A_View_To_The_Non_Unique_Index) -> MSI(9_Change_C6_Size_To_Be_Bigger)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_9_9_8.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_9_Change_C6_Size_To_Be_Bigger.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_9_Change_C6_Size_To_Be_Bigger.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 39 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 40 record(s)
+    2018-05-18 15:10:47 -   + 10. VL(9_Change_C6_Size_To_Be_Bigger) -> MSI(6_Change_C5_To_String_100_With_Default_Sqlnull)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_10_6_9.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_6_Change_C5_To_String_100_With_Default_Sqlnull.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 41 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 42 record(s)
+    2018-05-18 15:10:47 -   + 11. VL(6_Change_C5_To_String_100_With_Default_Sqlnull) -> MSI(1_Orignial)
+    2018-05-18 15:10:47 -    - Script File Name. 'C:\Users\USER1S~1.000\AppData\Local\Temp\VTL158011C_MSSQLS_11_1_6.sql'
+    2018-05-18 15:10:47 -    - Remove_File: OK. VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C.ctd -> VTL158011C_old.ctd (../vl/xxx_old.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.ctd -> VTL158011C.ctd (../vl/xxx.ctd)
+    2018-05-18 15:10:47 -    - Copy_File: OK. VTL158011C_1_Orignial.dll -> VTL158011C.dll (../vl/xxx.dll)
+    2018-05-18 15:10:47 -    - Rebuild_File <Drop>(U): OK.
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 43 record(s)
+    2018-05-18 15:10:47 -    - Insert 1 record: OK. Totally inserted 44 record(s)
+    2018-05-18 15:10:47 -  - Upgrade by User Script - END. 2018-05-18 05:11:18.319
+    2018-05-18 15:10:47 -  - Delete test data.
+    2018-05-18 15:10:47 -   + Delete: OK. Totally deleted 44 record(s)
+    2018-05-18 15:10:47 -  - Remove all temporary files.
+    2018-05-18 15:10:47 - V58011C. End
+    2018-05-18 15:10:47 Completed with <OK>.
+    2018-05-18 15:10:47 -----
+    2018-05-18 15:10:47 * Warning: Missing test database type SQLANYWHERE
+    2018-05-18 15:10:47 * Warning: Missing test database type SQLAZURE
+    2018-05-18 15:10:47 * Warning: Missing test database type ODBCORACLE
+    2018-05-18 15:10:47 * Warning: Missing test database type MYSQL
+Completed.
