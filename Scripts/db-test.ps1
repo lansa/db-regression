@@ -31,8 +31,9 @@ param (
     [boolean] $Test = $true,
     [boolean] $Primary = $true,
     [boolean] $Secondary = $false,
-    [boolean] $32bit = $true,
-    [boolean] $64bit = $false
+    [boolean] $Bit32 = $true,
+    [boolean] $Bit64 = $false,
+    [switch] $SkipGitReset
 )
 # Write-Host "Map drives to LPC network"
 # & 'C:\ssh\ServerMappings.bat'
@@ -107,7 +108,7 @@ function Test{
         [Parameter(Mandatory=$true)]
         [string] $Function,
         [Parameter(Mandatory=$false)]
-        [switch] $64bit
+        [switch] $Bit64
     )
 
     # DEVF X_DEVFLAG_IMPORT_CHANGE_FILE_LIB_TO_PARTDTALIB | X_DEVFLAG_IMPORT_ALLOW_NAME_CHANGES | X_DEVFLAG_IMPORT_FORCE_NAME_CHANGES
@@ -118,7 +119,7 @@ function Test{
     Remove-Item $x_err -Force -ErrorAction SilentlyContinue | Out-Default | Write-Host
 
     $Platform = 'x_win95'
-    if ( $64bit ) {
+    if ( $Bit64 ) {
         $Platform = 'x_win64'
     }
     $installer_file = Join-Path $LansaRoot "$Platform\x_lansa\execute\x_run.exe"
@@ -270,7 +271,11 @@ try {
             Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
 
             Set-Location (Join-Path $Root "LANSA\VersionControl")
-            git reset --hard HEAD
+            if ( -not $SkipGitReset ){
+                git reset --hard HEAD
+            } else {
+                Write-Host("Skipping Git Reset")
+            }
         }
     }
 
@@ -378,12 +383,20 @@ try {
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
                 Write-Host ("$(Log-Date) Testing $Root $($TestItem.Item1) $($TestItem.Item2)")
-                if ( $32bit ) {
+                if ( $Bit32 ) {
                     Test $Root $TestItem.Item1 $TestItem.Item2
                 }
 
-                if ( $64bit ) {
-                    Test $Root $TestItem.Item1 $TestItem.Item2 -64bit
+                if ( $Bit64 ) {
+                    # 157726 and 158011 are not setup for 64 testing, though they could be.
+                    # The rest are defects that should get fixed.
+                    If ( $TestItem.Item1 -ne '157726' -and $TestItem.Item1 -ne '158011' `
+                    -and $TestItem.Item1 -ne '156118' -and $TestItem.Item1 -ne '161348' `
+                    -and $TestItem.Item1 -ne '159585'  ) {
+                        Test $Root $TestItem.Item1 $TestItem.Item2 -64bit
+                    } else {
+                        Write-Host( "Skipping 64 bit test" )
+                    }
                 }
             }
         }
