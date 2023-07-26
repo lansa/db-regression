@@ -5,6 +5,7 @@ param (
     [Parameter(Mandatory=$true)]
     [string] $azure_sql_server
 )
+$ErrorActionPreference = "Stop"
 
 Write-Host( "Getting Azure Service Principle and Secret from AWS Secret Manager")
 $spappid = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select-Object -ExpandProperty UID
@@ -101,3 +102,17 @@ foreach($db in $dbTypes){
 
 Write-Host("Final state of $VerifierConnectionPath")
 Get-Content $VerifierConnectionPath | Write-Host
+
+Write-Host("Ensuring 64 bit configured the same as 32 bit")
+$Configuration_Paths = @(
+    'C:\Program Files (x86)\Lansa',
+    'C:\Program Files (x86)\AZURESQL',
+    'C:\Program Files (x86)\ORACLE',
+    'C:\Program Files (x86)\SQLANYWHERE'
+)
+foreach ($Path in $Configuration_Paths) {
+    $SourcePath = [IO.PATH]::Combine( $Path, 'x_win95\x_lansa\x_lansa.pro')
+    $TargetPath = [IO.PATH]::Combine( $Path, 'x_win64\x_lansa\x_lansa.pro')
+    Write-Host("Copy from $SourcePath to $TargetPath")
+    Copy-Item $SourcePath $TargetPath -Force | Write-Host
+}
