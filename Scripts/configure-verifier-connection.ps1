@@ -1,5 +1,5 @@
 param (
-    [parameter(Mandatory=$true)]
+    [parameter(Mandatory=$false)]
     [string[]] $dbTypes,
 
     [Parameter(Mandatory=$true)]
