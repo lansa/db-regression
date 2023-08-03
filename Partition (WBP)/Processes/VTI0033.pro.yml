@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0033
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Virtual Column Tests"
+
+  - ENG:
+      Description:        "Virtual Column Tests"
+
+  - FRA:
+      Description:        "Virtual Column Tests"
+
+  - JPN:
+      Description:        "Virtual Column Tests"
+
+  - TRK:
+      Description:        "Virtual Column Tests"
+
+  Functions:
+  - VI0033A:
+      Name:               VI0033A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Issue #33 Test Case Driver"
+
+      - ENG:
+          Description:        "Issue #33 Test Case Driver"
+
+      - FRA:
+          Description:        "Issue #33 Test Case Driver"
+
+      - JPN:
+          Description:        "Issue #33 Test Case Driver"
+
+      - TRK:
+          Description:        "Issue #33 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0033C:
+      Name:               VI0033C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Virtual Column Substring/Concatenation"
+
+      - ENG:
+          Description:        "Virtual Column Substring/Concatenation"
+
+      - FRA:
+          Description:        "Virtual Column Substring/Concatenation"
+
+      - JPN:
+          Description:        "Virtual Column Substring/Concatenation"
+
+      - TRK:
+          Description:        "Virtual Column Substring/Concatenation"
+
+      Allowed Next Functions:
+      - "*ANY"

@@ -1,0 +1,328 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * ******************************************************************************************************
+    * Test Case Description
+    * Issue #33 Test virtual column substring and concatenation
+    * Then describe how this test case, tests related functionality
+    *
+    *
+    *
+    *
+    *
+    * ******************************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Original_Count) Reffld(#Std_Count)
+    Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    * Local Copies of Table Columns - matches following GROUP_BY fields
+    Define Field(#LF_BIFP0300A) Reffld(#BIFP0300A)
+    Define Field(#LF_BIFA256A) Reffld(#BIFA256A)
+    Define Field(#LF_BIFA010A) Reffld(#BIFA010A)
+    Define Field(#LF_BIFA010C) Reffld(#BIFA010C)
+    Define Field(#LF_BIFA010D) Reffld(#BIFA010D)
+    Define Field(#LF_BIFP0702A) Reffld(#BIFP0702A)
+    Define Field(#LF_BIFN0702A) Reffld(#BIFN0702A)
+    Define Field(#LF_BIFA001B) Reffld(#BIFA001B)
+    Define Field(#LF_BIFA040A) Reffld(#BIFA040A)
+    Define Field(#LF_BIFA040B) Reffld(#BIFA040B)
+             
+    * The following GROUP_BY and the 2 lists need to have the same list of Fields
+    Group_By Name(#LF_AllFields) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA001B #BIFA040A #BIFA040B)
+    
+    Def_List Name(#w_lOriginal) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA001B #BIFA040A #BIFA040B) Counter(#LF_Original_Count) Type(*WORKING)
+    Def_List Name(#w_lDB) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA001B #BIFA040A #BIFA040B) Counter(#LF_DB_Count) Type(*WORKING)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * Add your test case here
+    * It should be a list of method calls so its easy to read whats being tested.
+    #Com_Owner.mthClearData( #LF_rc )
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthInsert( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthUpdate( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthSelect( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthClearData)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data' '' )
+    
+    Clr_List Named(#w_lOriginal)
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(#BIFP0300A) From_File(VTLI0033D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lOriginal)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Original_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal)
+    
+    Delete From_File(VTLI0033D) With_Key(#BIFP0300A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFP0300A.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lOriginal)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Create Test Data list
+    
+    * Real Fields: #BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A
+    #LF_i := 1
+    
+    #BIFP0300A := #LF_i
+    #LF_i += 1
+    #BIFA256A := 'Insert'
+    #BIFA010A := 'AAAAAAAAAA'
+    #BIFA010C := 'CCCCC'
+    #BIFA010D := 'D'
+    #BIFP0702A := 99999.99
+    #BIFN0702A := 99999.99
+    Add_Entry To_List(#w_lOriginal)
+    
+    #BIFP0300A := #LF_i
+    #LF_i += 1
+    #BIFA010A := '         A'
+    #BIFA010C := '    C'
+    #BIFA010D := 'D'
+    #BIFP0702A := 0
+    #BIFN0702A := 0
+    Add_Entry To_List(#w_lOriginal)
+    
+    #BIFP0300A := #LF_i
+    #LF_i += 1
+    #BIFA010A := '    AA    '
+    #BIFA010C := ' CCCC'
+    #BIFA010D := '        D'
+    #BIFP0702A := 33333.33
+    #BIFN0702A := 33333.33
+    Add_Entry To_List(#w_lOriginal)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Selectlist Named(#w_lOriginal)
+    Insert Fields(#LF_AllFields) To_File(VTLI0033D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthUpdate)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Selectlist Named(#w_lOriginal)
+    #BIFA256A := 'Update'
+    Update Fields(#LF_AllFields) In_File(VTLI0033D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
+    Leave
+    Endif
+    Endselect
+    
+    Endroutine
+    
+    *
+    * mthSelect
+    *
+    Mthroutine Name(mthSelect)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Clr_List Named(#w_lDB)
+    Select Fields(#LF_AllFields) From_File(VTLI0033D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lDB)
+    Endselect
+    
+    If (#this_rc *EQ ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Selecting record ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    If (#LF_Original_Count *NE #LF_DB_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Expected # rows ' + #LF_Original_Count.asString) ('Actual rows ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    #LF_i := 1
+    Selectlist Named(#w_lOriginal)
+    #LF_AllFields := *NULL
+    #LF_BIFP0300A := #BIFP0300A
+    * #LF_BIFA256A := #BIFA256A
+    #LF_BIFA010A := #BIFA010A
+    #LF_BIFA010C := #BIFA010C
+    #LF_BIFA010D := #BIFA010D
+    #LF_BIFP0702A := #BIFP0702A
+    #LF_BIFN0702A := #BIFN0702A
+    #LF_BIFA001B := #BIFA001B
+    #LF_BIFA040A := #BIFA040A
+    #LF_BIFA040B := #BIFA040B
+    
+    Get_Entry Number(#LF_i) From_List(#w_lDB) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Entry Number ' + #LF_i.AsString + ' may not exist in list LF_lDB') )
+    Leave
+    Endif
+    
+    * Compare all the fields in the 2 lists
+    
+    If (#LF_BIFP0300A <> #BIFP0300A)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0300A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFP0300A.AsString + ' DB ' + #BIFP0300A.AsString) )
+    #this_rc := ER
+    Endif
+    
+    If (#LF_BIFP0300A <> #BIFP0300A)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0300A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFP0300A.AsString + ' DB ' + #BIFP0300A.AsString) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFA010A <> #BIFA010A)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA010A + ' DB ' + #BIFA010A) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFA010C <> #BIFA010C)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010C data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA010C + ' DB ' + #BIFA010C) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFA010A <> #BIFA010D)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010D data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA010A + ' DB ' + #BIFA010D) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFP0702A <> #BIFP0702A)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFP0702A.AsString + ' DB ' + #BIFP0702A.AsString) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFN0702A <> #BIFN0702A)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFN0702A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFN0702A.AsString + ' DB ' + #BIFN0702A.AsString) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFA001B <> #BIFA001B)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001B data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA001B + ' DB ' + #BIFA001B) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFA040A <> #BIFA040A)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA040A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA040A + ' DB ' + #BIFA040A) )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFA040B <> #BIFA040B)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA040B data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA040B + ' DB ' + #BIFA040B) )
+    #this_rc := ER
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Comparing record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
+    Leave
+    Endif
+    
+    #LF_i += 1
+    Endselect
+    
+    Endroutine
+    
+    
