@@ -198,8 +198,8 @@
     #BIFNC256A := #this_zero_size_file
     #BIFCLOBA := #this_zero_size_file
     Else
-    #BIFNC256A := *Sys_Dir_Source + 'liiodef.h'
-    #BIFCLOBA := *Sys_Dir_Source + 'liiodef.h'
+    #BIFCLOBA := *Sys_Dir_Source + 'u_bifnnn.c'
+    #BIFNC256A := #BIFCLOBA
     Endif
     Endif
     Endif
