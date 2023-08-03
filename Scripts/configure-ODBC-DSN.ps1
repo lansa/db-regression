@@ -12,11 +12,19 @@ try {
 
         $sqlserver = "db-regression-" + $lansaVersion + ".database.windows.net"
 
-        Write-Host("Updating Server name as $sqlserver and database name as $lansaVersion for AZURESQL")
+        Write-Host("Updating Server name as $sqlserver and database name as $lansaVersion for AZURESQL 32-bit")
 
         Set-OdbcDsn -Name "AZURESQL" -DsnType "System" -Platform "32-bit" -SetPropertyValue @("Server=$sqlserver", "Database=$lansaVersion") | Out-Default | Write-Host
     }
 
+    if ($DSNNames -contains "AZURESQL" -and (Get-OdbcDsn -Name "AZURESQL").Platform -eq "64-bit"){
+
+        $sqlserver = "db-regression-" + $lansaVersion + ".database.windows.net"
+
+        Write-Host("Updating Server name as $sqlserver and database name as $lansaVersion for AZURESQL 64-bit")
+
+        Set-OdbcDsn -Name "AZURESQL" -DsnType "System" -Platform "64-bit" -SetPropertyValue @("Server=$sqlserver", "Database=$lansaVersion") | Out-Default | Write-Host
+    }
 
     # Oracle
 
@@ -53,10 +61,22 @@ try {
 
         $mysqlServer = "mysql" + $lansaVersion + ".cnyed5gpqwey.us-east-1.rds.amazonaws.com"
 
-        Write-Host("Updating Server name as $mysqlServer and database name as $lansaVersion for MYSQL")
+        Write-Host("Updating Server name as $mysqlServer and database name as $lansaVersion for MYSQL 32-bit")
 
         $temp = Get-OdbcDsn -Name "MYSQL"
         Remove-OdbcDsn -Name "MYSQL" -DsnType "System" -Platform "32-bit" | Out-Default | Write-Host
+        Add-OdbcDsn -Name "MYSQL" -DriverName $temp.DriverName -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=$lansaVersion") | Out-Default | Write-Host
+
+    }
+
+    if ($DSNNames -contains "MYSQL" -and (Get-OdbcDsn -Name "MYSQL").Platform -eq "64-bit"){
+
+        $mysqlServer = "mysql" + $lansaVersion + ".cnyed5gpqwey.us-east-1.rds.amazonaws.com"
+
+        Write-Host("Updating Server name as $mysqlServer and database name as $lansaVersion for MYSQL 64-bit")
+
+        $temp = Get-OdbcDsn -Name "MYSQL" -Platform "64-bit"
+        Remove-OdbcDsn -Name "MYSQL" -DsnType "System" -Platform "64-bit" | Out-Default | Write-Host
         Add-OdbcDsn -Name "MYSQL" -DriverName $temp.DriverName -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=$lansaVersion") | Out-Default | Write-Host
 
     }
