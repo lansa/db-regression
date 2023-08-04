@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               BIFA005A
+  Type:               Alpha
+  Length:             5
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Alpha(5)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(5)"
+
+  - ENG:
+      Description:        "BIF Data Alpha(5)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(5)"
+
+  - FRA:
+      Description:        "BIF Data Alpha(5)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(5)"
+
+  - JPN:
+      Description:        "BIF Data Alpha(5)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(5)"
+
+  - TRK:
+      Description:        "BIF Data Alpha(5)"
+      Label:              "BIF Data Alpha("
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Alpha(5)"

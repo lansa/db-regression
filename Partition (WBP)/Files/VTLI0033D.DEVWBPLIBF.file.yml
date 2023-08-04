@@ -52,11 +52,6 @@
       Length:             256
       Decimals:           0
 
-  - BIFA256B:
-      Type:               Alphanumeric
-      Length:             256
-      Decimals:           0
-
   - BIFA010A:
       Type:               Alphanumeric
       Length:             10
@@ -92,7 +87,7 @@
       Decimals:           0
       Virtual Field Type: Concatenation
       Derive On Input:    Yes
-      Derive On Output:   No
+      Derive On Output:   Yes
       Fields:
       - BIFA010A
       - BIFA010C
@@ -117,7 +112,7 @@
       Virtual Field Type: Substring
       Derive On Input:    Yes
       Derive On Output:   No
-      Source Field:       BIFA256B
+      Source Field:       BIFA040A
       Start Position:     1
 
   - BIFA010E:
@@ -127,7 +122,7 @@
       Virtual Field Type: Substring
       Derive On Input:    Yes
       Derive On Output:   No
-      Source Field:       BIFA256B
+      Source Field:       BIFA040A
       Start Position:     11
 
   - BIFA010F:
@@ -137,5 +132,15 @@
       Virtual Field Type: Substring
       Derive On Input:    Yes
       Derive On Output:   No
-      Source Field:       BIFA256B
+      Source Field:       BIFA040A
       Start Position:     21
+
+  - BIFN0702B:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+      Virtual Field Type: Substring
+      Derive On Input:    Yes
+      Derive On Output:   No
+      Source Field:       BIFA040B
+      Start Position:     11
