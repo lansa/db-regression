@@ -49,7 +49,31 @@
 
   - VI0033C:
       Name:               VI0033C
-      Display on Menu:    Yes
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Virtual Column Date Conversion"
+
+      - ENG:
+          Description:        "Virtual Column Date Conversion"
+
+      - FRA:
+          Description:        "Virtual Column Date Conversion"
+
+      - JPN:
+          Description:        "Virtual Column Date Conversion"
+
+      - TRK:
+          Description:        "Virtual Column Date Conversion"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0033D:
+      Name:               VI0033D
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:

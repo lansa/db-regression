@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTLI0033D
+  Name:                           VTLI0033Z
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTLI0033D
+  Record Format Name:             VTLI0033Z
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              No
@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Virtual Column Substring/Concatenation"
+      Description:        "Copy of Virtual Column Substring/Concat"
 
   - ENG:
-      Description:        "Virtual Column Substring/Concatenation"
+      Description:        "Copy of Virtual Column Substring/Concat"
 
   - FRA:
-      Description:        "Virtual Column Substring/Concatenation"
+      Description:        "Copy of Virtual Column Substring/Concat"
 
   - JPN:
-      Description:        "Virtual Column Substring/Concatenation"
+      Description:        "Copy of Virtual Column Substring/Concat"
 
   - TRK:
-      Description:        "Virtual Column Substring/Concatenation"
+      Description:        "Copy of Virtual Column Substring/Concat"
 
   Real Fields:
   - BIFP0300A:
@@ -86,13 +86,23 @@
   - BIFP0300A
 
   Virtual Fields:
+  - BIFA001B:
+      Type:               Alphanumeric
+      Length:             1
+      Decimals:           0
+      Virtual Field Type: Substring
+      Derive On Input:    Yes
+      Derive On Output:   No
+      Source Field:       BIFA256A
+      Start Position:     1
+
   - BIFA040A:
       Type:               Alphanumeric
       Length:             40
       Decimals:           0
       Virtual Field Type: Concatenation
       Derive On Input:    Yes
-      Derive On Output:   No
+      Derive On Output:   Yes
       Fields:
       - BIFA010A
       - BIFA010C
@@ -107,8 +117,8 @@
       Derive On Output:   No
       Fields:
       - BIFA010A
+      - BIFP0702A
       - BIFN0702A
-      - BIFA010C
 
   - BIFA010B:
       Type:               Alphanumeric

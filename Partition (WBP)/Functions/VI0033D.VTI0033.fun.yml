@@ -26,6 +26,8 @@
     Define Field(#LF_i) Reffld(#Std_Count)
     Define Field(#LF_Original_Count) Reffld(#Std_Count)
     Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    Define Field(#LF_DataShown) Reffld(#BIFB001B)
+    
     * Local Copies of Table Columns - matches following GROUP_BY fields
     Define Field(#LF_BIFP0300A) Reffld(#BIFP0300A)
     Define Field(#LF_BIFA256A) Reffld(#BIFA256A)
@@ -34,15 +36,14 @@
     Define Field(#LF_BIFA010D) Reffld(#BIFA010D)
     Define Field(#LF_BIFP0702A) Reffld(#BIFP0702A)
     Define Field(#LF_BIFN0702A) Reffld(#BIFN0702A)
-    Define Field(#LF_BIFA001B) Reffld(#BIFA001B)
     Define Field(#LF_BIFA040A) Reffld(#BIFA040A)
     Define Field(#LF_BIFA040B) Reffld(#BIFA040B)
     
     * The following GROUP_BY and the 2 lists need to have the same list of Fields
-    Group_By Name(#LF_AllFields) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA001B #BIFA040A #BIFA040B)
+    Group_By Name(#LF_AllFields) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA040A #BIFA040B)
     
-    Def_List Name(#w_lOriginal) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA001B #BIFA040A #BIFA040B) Counter(#LF_Original_Count) Type(*WORKING)
-    Def_List Name(#w_lDB) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA001B #BIFA040A #BIFA040B) Counter(#LF_DB_Count) Type(*WORKING)
+    Def_List Name(#w_lOriginal) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA040A #BIFA040B) Counter(#LF_Original_Count) Type(*WORKING)
+    Def_List Name(#w_lDB) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFA040A #BIFA040B) Counter(#LF_DB_Count) Type(*WORKING)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
@@ -177,8 +178,21 @@
     #BIFA010A := 'AAAAAAAAAA'
     #BIFA010C := 'CCCCC'
     #BIFA010D := 'D'
-    #BIFP0702A := 99999.99
-    #BIFN0702A := 99999.99
+    #BIFP0702A := 99999.8
+    #BIFN0702A := 99999.8
+    Use Builtin(CONCAT) With_Args(#BIFA010A #BIFA010C #BIFA010D) To_Get(#BIFA040A)
+    Use Builtin(CONCAT) With_Args(#BIFA010A #BIFN0702A.asString.ReplaceAll( '.' '' ) #BIFA010C) To_Get(#BIFA040B)
+    Add_Entry To_List(#w_lOriginal)
+    
+    #BIFP0300A := #LF_i
+    #LF_i += 1
+    #BIFA010A := '    AA    '
+    #BIFA010C := ' CCCC'
+    #BIFA010D := '        D'
+    #BIFP0702A := 33.33
+    #BIFN0702A := 33.33
+    Use Builtin(CONCAT) With_Args(#BIFA010A #BIFA010C #BIFA010D) To_Get(#BIFA040A)
+    Use Builtin(CONCAT) With_Args(#BIFA010A #BIFN0702A.asString.ReplaceAll( '.' '' ) #BIFA010C) To_Get(#BIFA040B)
     Add_Entry To_List(#w_lOriginal)
     
     #BIFP0300A := #LF_i
@@ -188,15 +202,8 @@
     #BIFA010D := 'D'
     #BIFP0702A := 0
     #BIFN0702A := 0
-    Add_Entry To_List(#w_lOriginal)
-    
-    #BIFP0300A := #LF_i
-    #LF_i += 1
-    #BIFA010A := '    AA    '
-    #BIFA010C := ' CCCC'
-    #BIFA010D := '        D'
-    #BIFP0702A := 33333.33
-    #BIFN0702A := 33333.33
+    Use Builtin(CONCAT) With_Args(#BIFA010A #BIFA010C #BIFA010D) To_Get(#BIFA040A)
+    Use Builtin(CONCAT) With_Args(#BIFA010A #BIFN0702A.asString.ReplaceAll( '.' '' ) #BIFA010C) To_Get(#BIFA040B)
     Add_Entry To_List(#w_lOriginal)
     
     #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
@@ -262,7 +269,6 @@
     
     #LF_i := 1
     Selectlist Named(#w_lOriginal)
-    #LF_AllFields := *NULL
     #LF_BIFP0300A := #BIFP0300A
     * #LF_BIFA256A := #BIFA256A
     #LF_BIFA010A := #BIFA010A
@@ -270,52 +276,57 @@
     #LF_BIFA010D := #BIFA010D
     #LF_BIFP0702A := #BIFP0702A
     #LF_BIFN0702A := #BIFN0702A
-    #LF_BIFA001B := #BIFA001B
     #LF_BIFA040A := #BIFA040A
     #LF_BIFA040B := #BIFA040B
     
     Get_Entry Number(#LF_i) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Entry Number ' + #LF_i.AsString + ' may not exist in list LF_lDB') )
     Leave
     Endif
     
     * Compare all the fields in the 2 lists
-    
+    #LF_DataShown := False
+    #Com_Owner.mthShowData( #this_rc )
     If (#LF_BIFP0300A <> #BIFP0300A)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0300A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFP0300A.AsString + ' DB ' + #BIFP0300A.AsString) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0300A data mismatch') '' )
     #this_rc := ER
     Endif
     If (#LF_BIFA010A <> #BIFA010A)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA010A + ' DB ' + #BIFA010A) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010A data mismatch') '' )
     #this_rc := ER
     Endif
     If (#LF_BIFA010C <> #BIFA010C)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010C data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA010C + ' DB ' + #BIFA010C) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010C data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_BIFA010A <> #BIFA010D)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010D data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA010A + ' DB ' + #BIFA010D) )
+    If (#LF_BIFA010D <> #BIFA010D)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010D data mismatch') '' )
     #this_rc := ER
     Endif
     If (#LF_BIFP0702A <> #BIFP0702A)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFP0702A.AsString + ' DB ' + #BIFP0702A.AsString) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702A data mismatch') '' )
     #this_rc := ER
     Endif
     If (#LF_BIFN0702A <> #BIFN0702A)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFN0702A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFN0702A.AsString + ' DB ' + #BIFN0702A.AsString) )
-    #this_rc := ER
-    Endif
-    If (#LF_BIFA001B <> #BIFA001B)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001B data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA001B + ' DB ' + #BIFA001B) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFN0702A data mismatch') '' )
     #this_rc := ER
     Endif
     If (#LF_BIFA040A <> #BIFA040A)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA040A data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA040A + ' DB ' + #BIFA040A) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA040A data mismatch') '' )
     #this_rc := ER
     Endif
     If (#LF_BIFA040B <> #BIFA040B)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA040B data mismatch on Entry Number ' + #LF_i.AsString) ('Orig ' + #LF_BIFA040B + ' DB ' + #BIFA040B) )
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA040B data mismatch') '' )
     #this_rc := ER
     Endif
     
@@ -326,6 +337,47 @@
     
     #LF_i += 1
     Endselect
+    
+    Endroutine
+    
+    *
+    * mthShowData
+    *
+    Mthroutine Name(mthShowData)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (*Not #LF_DataShown)
+    #LF_DataShown := True
+    #Com_Owner.mthAdd_SubMsg( OK ('- data mismatch on Entry Number ' + #LF_i.AsString) ('') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Real Fields') ('') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0300A "' + #LF_BIFP0300A.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0300A "' + #BIFP0300A.asString + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFA010A "' + #LF_BIFA010A + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFA010A "' + #BIFA010A + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFA010C "' + #LF_BIFA010C + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFA010C "' + #BIFA010C + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFA010D "' + #LF_BIFA010D + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFA010D "' + #BIFA010D + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0702A "' + #LF_BIFP0702A.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0702A "' + #BIFP0702A.asString + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFN0702A "' + #LF_BIFN0702A.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFN0702A "' + #BIFN0702A.asString + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Virtuals') ('') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFA040A "' + #LF_BIFA040A + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFA040A "' + #BIFA040A + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFA040B "' + #LF_BIFA040B + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFA040B "' + #BIFA040B + '"') '' )
+    Endif
     
     Endroutine
     
