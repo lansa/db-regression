@@ -1,0 +1,23 @@
+﻿List:
+  Name:               I0033
+  Stored As:          User
+
+  Objects:
+  - VTI0033:
+      Type:               Process
+
+  - VI0033A:
+      Type:               Funciton
+      Qualifier:          VTI0033
+
+  - VI0033C:
+      Type:               Funciton
+      Qualifier:          VTI0033
+
+  - VI0033D:
+      Type:               Funciton
+      Qualifier:          VTI0033
+
+  - VTLI0033D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
