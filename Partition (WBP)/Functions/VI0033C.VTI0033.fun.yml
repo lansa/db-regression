@@ -42,10 +42,12 @@
     Define Field(#LF_BIFA010B) Reffld(#BIFA010B)
     Define Field(#LF_BIFA010E) Reffld(#BIFA010E)
     Define Field(#LF_BIFA010F) Reffld(#BIFA010F)
-    * The following 2 lists need to have the same list of Fields
     
-    Def_List Name(#w_lOriginal) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFN0702B #BIFA040A #BIFA040B #BIFA010B #BIFA010E #BIFA010F) Counter(#LF_Original_Count) Type(*WORKING)
-    Def_List Name(#w_lDB) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFN0702B #BIFA040A #BIFA040B #BIFA010B #BIFA010E #BIFA010F) Counter(#LF_DB_Count) Type(*WORKING)
+    * #XG_ALL includes all Fields in the Table
+    Group_By Name(#XG_ALL) Fields(#BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A #BIFN0702B #BIFA040A #BIFA040B #BIFA010B #BIFA010E #BIFA010F)
+    
+    Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING)
+    Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
@@ -325,7 +327,7 @@
     #LF_DataShown := False
     
     * Debug line - needs to be removed once the test is fully working
-    #Com_Owner.mthShowData( #this_rc )
+    * #Com_Owner.mthShowData( #this_rc )
     
     If (#LF_BIFP0300A <> #BIFP0300A)
     #Com_Owner.mthShowData( #this_rc )
