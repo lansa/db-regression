@@ -24,7 +24,7 @@ Resources:
     Properties:
       DBInstanceIdentifier: !Join [ "", [ "ora", !Ref LANSAVERSION ] ]
       DBSnapshotIdentifier: !Ref SNAPSHOTARN
-      DBInstanceClass: db.t3.large
+      DBInstanceClass: db.m5.xlarge
       Engine: oracle-se2-cdb
       VPCSecurityGroups:
         - !Ref SECURITYGROUPID
