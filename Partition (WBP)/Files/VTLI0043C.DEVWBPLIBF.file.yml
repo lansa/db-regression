@@ -47,10 +47,11 @@
       Length:             7
       Decimals:           0
 
-  - BIFS100A:
-      Type:               String
-      Length:             100
+  - BIFC010A:
+      Type:               Char
+      Length:             10
       Decimals:           0
 
   Primary Keys:
   - BIFN0700A
+  - BIFC010A
