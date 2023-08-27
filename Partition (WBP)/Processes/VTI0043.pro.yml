@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0043
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "SELECT OPTIONS"
+
+  - ENG:
+      Description:        "SELECT OPTIONS"
+
+  - FRA:
+      Description:        "SELECT OPTIONS"
+
+  - JPN:
+      Description:        "SELECT OPTIONS"
+
+  - TRK:
+      Description:        "SELECT OPTIONS"
+
+  Functions:
+  - VI0043A:
+      Name:               VI0043A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "#43 Test Case Driver"
+
+      - ENG:
+          Description:        "#43 Test Case Driver"
+
+      - FRA:
+          Description:        "#43 Test Case Driver"
+
+      - JPN:
+          Description:        "#43 Test Case Driver"
+
+      - TRK:
+          Description:        "#43 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043C:
+      Name:               VI0043C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SELECT *BACKWARDS"
+
+      - ENG:
+          Description:        "SELECT *BACKWARDS"
+
+      - FRA:
+          Description:        "SELECT *BACKWARDS"
+
+      - JPN:
+          Description:        "SELECT *BACKWARDS"
+
+      - TRK:
+          Description:        "SELECT *BACKWARDS"
+
+      Allowed Next Functions:
+      - "*ANY"
