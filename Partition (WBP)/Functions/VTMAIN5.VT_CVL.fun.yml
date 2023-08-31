@@ -53,8 +53,8 @@
     #Com_Owner.mthLogTestCase( #LF_VTMain_CCSId (*Function + ' / ' + *Process) *Blanks )
     
     If ((#LF_VTMain_CCSId = *Blanks) *Or (#LF_VTMain_CCSId = '000000'))
-    * ERROR.
-    #Com_Owner.mthLogEvent( ('*** CCS Id has not been specififed in #LF_VTMain_CCSId *** ( ' + *Function + ' / ' + *Process + ' )') )
+    * CCS Id has not been specififed => ERROR.
+    #Com_Owner.mthLogEvent( ('*** Invalid Test Case *** ( ' + *Function + ' / ' + *Process + ' )') )
     Use Builtin(NOTIFY_VERIFIER) With_Args(Failed)
     Else
     * Retrieve the local platform type.
@@ -108,12 +108,12 @@
     #LF_VTMain_Is_A_Valid_SSrv_Test_Case := (#VTF_PROC = *Process)
     #LF_VTMain_Prev_Invalid_Srv_Calls := #LF_VTMain_Number_Of_Invalid_SSrv_Calls
     
-    * Execute the test case on SuperServer - SuperServer I/O queries (Q).
     #LF_VTMain_Is_Exec_OK := False
-    #Com_Owner.mthExecute( Q #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token #VTF_SSCDT #VTF_SSCET #VTF_SSCEP #VTF_SSCIT #VTF_SSCII #VTF_SSCUT #VTF_SSCID #LF_VTMain_Is_A_Valid_SSrv_Test_Case #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
-    
     * Execute the test case on SuperServer - SuperServer Function Call (F).
     #Com_Owner.mthExecute( F #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token *Sqlnull *Blanks *Blanks *Blanks *Blanks *Blanks *Blanks #LF_VTMain_Is_A_Valid_SSrv_Test_Case #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
+    
+    * Execute the test case on SuperServer - SuperServer I/O queries (Q).
+    #Com_Owner.mthExecute( Q #LF_VTMain_Local_Platform #LF_VTMain_Remote_Platform #LF_VTMain_Supser_Server_Name #LF_VTMain_Supser_Server_Token #VTF_SSCDT #VTF_SSCET #VTF_SSCEP #VTF_SSCIT #VTF_SSCII #VTF_SSCUT #VTF_SSCID #LF_VTMain_Is_A_Valid_SSrv_Test_Case #LF_VTMain_Number_Of_Invalid_SSrv_Calls #LF_VTMain_Is_Exec_OK )
     
     * Mark down the successful tested SuperServer environment and database type.
     If ((#LF_VTMain_Is_Exec_OK = True) *And (#LF_VTMain_Prev_Invalid_Srv_Calls = #LF_VTMain_Number_Of_Invalid_SSrv_Calls))

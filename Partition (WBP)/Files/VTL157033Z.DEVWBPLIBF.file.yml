@@ -1,0 +1,165 @@
+﻿File:
+  Name:                           VTL157033Z
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033Z
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              No
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "157033 - Select Generic Numeric LV RDML"
+
+  - ENG:
+      Description:        "157033 - Select Generic Numeric LV RDML"
+
+  - FRA:
+      Description:        "157033 - Select Generic Numeric LV RDML"
+
+  - JPN:
+      Description:        "157033 - Select Generic Numeric LV RDML"
+
+  - TRK:
+      Description:        "157033 - Select Generic Numeric LV RDML"
+
+  Real Fields:
+  - BIFA040A:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - BIFP0700A:
+      Type:               Decimal
+      Length:             7
+      Decimals:           0
+
+  - BIFP1500A:
+      Type:               Decimal
+      Length:             15
+      Decimals:           0
+
+  - BIFP1504A:
+      Type:               Decimal
+      Length:             15
+      Decimals:           4
+
+  - BIFN0700A:
+      Type:               Signed
+      Length:             7
+      Decimals:           0
+
+  - BIFN0702A:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+
+  Primary Keys:
+  - BIFA040A
+  - BIFP0700A
+
+  Logical Views:
+  - L157033ZN:
+      Identifier:         L157033ZN
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033ZN
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFN0700A"
+
+      - ENG:
+          Description:        "Key: BIFN0700A"
+
+      - FRA:
+          Description:        "Key: BIFN0700A"
+
+      - JPN:
+          Description:        "Key: BIFN0700A"
+
+      - TRK:
+          Description:        "Key: BIFN0700A"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033ZND:
+      Identifier:         L157033ZND
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L1570533ZM
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFN0702A"
+
+      - ENG:
+          Description:        "Key: BIFN0702A"
+
+      - FRA:
+          Description:        "Key: BIFN0702A"
+
+      - JPN:
+          Description:        "Key: BIFN0702A"
+
+      - TRK:
+          Description:        "Key: BIFN0702A"
+
+      Keys:
+      - BIFN0702A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033ZPD:
+      Identifier:         L157033ZPD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033ZPD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFP1504A"
+
+      - ENG:
+          Description:        "Key: BIFP1504A"
+
+      - FRA:
+          Description:        "Key: BIFP1504A"
+
+      - JPN:
+          Description:        "Key: BIFP1504A"
+
+      - TRK:
+          Description:        "Key: BIFP1504A"
+
+      Keys:
+      - BIFP1504A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed

@@ -460,11 +460,11 @@
     * Include test functions.
     Clr_List Named(#wl_VTTEMP_Function)
     *
-    #Com_Owner.mthAddFunction( V57033C )
-    #Com_Owner.mthAddFunction( V57033D )
-    #Com_Owner.mthAddFunction( V57033E )
+    * #Com_Owner.mthAddFunction( V57033C )
+    * #Com_Owner.mthAddFunction( V57033D )
+    * #Com_Owner.mthAddFunction( V57033E )
     #Com_Owner.mthAddFunction( V57033F )
-    #Com_Owner.mthAddFunction( V57033G )
+    * #Com_Owner.mthAddFunction( V57033Z )
     
     * If (#LF_VTTEMP_Skip_Test_Case = False)
     * #Com_Owner.mthAddFunction( VTFunc2 )
@@ -488,6 +488,7 @@
     * Setup the unique key data.
     Clr_List Named(#wLKData)
     #VTF_KEY1 := #this_test
+    #VTF_KEY2 := #this_remote_platform
     Add_Entry To_List(#wlKData)
     
     If (#this_ssct = *Blanks)

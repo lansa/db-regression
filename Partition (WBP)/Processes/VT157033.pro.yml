@@ -169,7 +169,7 @@
 
   - V57033H:
       Name:               V57033H
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -187,6 +187,30 @@
 
       - TRK:
           Description:        "Generic Character Search on Physical"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57033Z:
+      Name:               V57033Z
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Generic Numeric Search on LV"
+
+      - ENG:
+          Description:        "Generic Numeric Search on LV"
+
+      - FRA:
+          Description:        "Generic Numeric Search on LV"
+
+      - JPN:
+          Description:        "Generic Numeric Search on LV"
+
+      - TRK:
+          Description:        "Generic Numeric Search on LV"
 
       Allowed Next Functions:
       - "*ANY"
