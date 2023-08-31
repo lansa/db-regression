@@ -388,13 +388,8 @@
     #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 0
     Add_Entry To_List(#wLTestResultGenericSigned)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 160
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
-    Else
-    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 160
-    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
-    Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
     
     * *** Exact Signed Results
@@ -438,13 +433,8 @@
     Endif
     Add_Entry To_List(#wLTestResultGenericSigned)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 16
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
-    Else
-    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 16
-    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
-    Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
     
     * *** Exact Signed Results
@@ -488,13 +478,8 @@
     Endif
     Add_Entry To_List(#wLTestResultGenericSigned)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 16
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
-    Else
-    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 16
-    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
-    Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
     
     * *** Exact Signed Results
