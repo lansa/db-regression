@@ -217,3 +217,119 @@
       - BIFP1504A:
           Key Order:          Ascending
           Numeric Ordering:   Signed
+
+  - L57033FI1D:
+      Identifier:         L57033FI1D
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FI1D
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFINT1A DESC"
+
+      - ENG:
+          Description:        "Key: BIFINT1A DESC"
+
+      - FRA:
+          Description:        "Key: BIFINT1A DESC"
+
+      - JPN:
+          Description:        "Key: BIFINT1A DESC"
+
+      - TRK:
+          Description:        "Key: BIFINT1A DESC"
+
+      Keys:
+      - BIFINT1A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
+  - L57033FND:
+      Identifier:         L57033FND
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FND
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFN0700A DESC"
+
+      - ENG:
+          Description:        "Key: BIFN0700A DESC"
+
+      - FRA:
+          Description:        "Key: BIFN0700A DESC"
+
+      - JPN:
+          Description:        "Key: BIFN0700A DESC"
+
+      - TRK:
+          Description:        "Key: BIFN0700A DESC"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
+  - L57033FNDD:
+      Identifier:         L57033FNDD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FNDD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFN0702A DESC"
+
+      - ENG:
+          Description:        "Key: BIFN0702A DESC"
+
+      - FRA:
+          Description:        "Key: BIFN0702A DESC"
+
+      - JPN:
+          Description:        "Key: BIFN0702A DESC"
+
+      - TRK:
+          Description:        "Key: BIFN0702A DESC"
+
+      Keys:
+      - BIFN0702A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
+  - L57033FPDD:
+      Identifier:         L57033FPDD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FPDD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFP1504A DESC"
+
+      - ENG:
+          Description:        "Key: BIFP1504A DESC"
+
+      - FRA:
+          Description:        "Key: BIFP1504A DESC"
+
+      - JPN:
+          Description:        "Key: BIFP1504A DESC"
+
+      - TRK:
+          Description:        "Key: BIFP1504A DESC"
+
+      Keys:
+      - BIFP1504A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed

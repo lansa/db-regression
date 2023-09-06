@@ -71,6 +71,7 @@
     Define Field(#LF_Test_Result_Exact_Signed_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_Signed_Decimals_Backwards_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_Signed_Backwards_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Generic_Signed_Forwards_Descending_Count) Reffld(#STD_COUNT)
     
     * Signed_Decimals
     Def_List Name(#wLTestResultGenericSigned_Decimals) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Signed_Decimals_Count) Type(*WORKING) Entrys(*MAX)
@@ -82,6 +83,8 @@
     Def_List Name(#wLTestResultGenericSigned) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Signed_Count) Type(*WORKING) Entrys(*MAX)
     
     Def_List Name(#wLTestResultGenericSignedBackwards) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Signed_Backwards_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Def_List Name(#wLTestResultGenericSignedForwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Signed_Forwards_Descending_Count) Type(*WORKING) Entrys(*MAX)
     
     Def_List Name(#wLTestResultExactSigned) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Exact_Signed_Count) Type(*WORKING) Entrys(*MAX)
     
@@ -95,6 +98,12 @@
     Get_Entry Number(1) From_List(#wLKData)
     #LF_Execution_Type := #VTF_KEY1
     #LF_Remote_Platform := #VTF_KEY2
+    
+    * Debug code to only run on a particular platform
+    * Local Windows execution = *BLANKS
+    * If (#LF_Remote_Platform *NE I)
+    * Return
+    * Endif
     
     * SETUP THE TEST DATA.
     Execute Subroutine(AddTestData)
@@ -144,6 +153,7 @@
     Clr_List Named(#wLTestResultGenericSigned_Decimals)
     Clr_List Named(#wLTestResultGenericSignedBackwards)
     Clr_List Named(#wLTestResultGenericSigned_DecimalsBackwards)
+    Clr_List Named(#wLTestResultGenericSignedForwardsDescending)
     
     
     * *****************************************************************************
@@ -174,6 +184,10 @@
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 336
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 321
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 672
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 642
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -220,6 +234,15 @@
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
     Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 352
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
+    Endif
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -266,7 +289,15 @@
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
     Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
-    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 64
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 34
+    Endif
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
     #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 0
@@ -308,6 +339,15 @@
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
     Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 64
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 34
+    Endif
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -345,6 +385,10 @@
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 320
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 640
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 640
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -391,6 +435,10 @@
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 160
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 320
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -436,6 +484,10 @@
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 16
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 32
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -481,6 +533,10 @@
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 16
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 32
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
     
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
@@ -579,6 +635,7 @@
     
     If (#LF_Total_Errors > 0)
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Total errors: ' + #LF_Total_Errors.asString) )
+    #this_rc := ER
     Else
     If ((#LF_Test_Result_L157033FI1 <> #LF_Func_L157033FI1) *OrIf (#LF_Test_Result_L157033FI2 <> #LF_Func_L157033FI2) *OrIf (#LF_Test_Result_L157033FI4 <> #LF_Func_L157033FI4) *OrIf (#LF_Test_Result_L157033FI8 <> #LF_Func_L157033FI8) *OrIf (#LF_Test_Result_L157033FP <> #LF_Func_L157033FP) *OrIf (#LF_Test_Result_L157033FPD <> #LF_Func_L157033FPD) *OrIf (#LF_Test_Result_L157033FN <> #LF_Func_L157033FN) *OrIf (#LF_Test_Result_L157033FND <> #LF_Func_L157033FND))
     #this_rc := ER
@@ -607,7 +664,9 @@
     Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS' )
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthSearch_By_Signed_Decimals' )
     #LF_Func_Counters := *NULL
     
     If (#LF_i > #LF_Test_Result_Generic_Signed_Decimals_Count)
@@ -652,7 +711,8 @@
     * ****************************************************************************
     * *BACKWARDS
     * ****************************************************************************
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS' )
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthSearch_By_Signed_Decimals' )
     Change Field(#LF_Func_Counters) To(*NULL)
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned_DecimalsBackwards)
     
@@ -685,6 +745,90 @@
     #this_rc := OK
     Endif
     
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *FORWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthSearch_By_Signed_Decimals' )
+    #LF_Func_Counters := *NULL
+    
+    If (#LF_i > #LF_Test_Result_Generic_Signed_Decimals_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned_DecimalsBackwards)
+    Endif
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *BACKWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthSearch_By_Signed_Decimals' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned_Decimals)
+    
+    * SIGNED( 7,2 ).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * REPORT ON THE FINDING.
     If (#LF_Total_Errors > 0)
@@ -702,8 +846,9 @@
     Define_Map For(*INPUT) Class(#BIFN0702A) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS' )
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_Signed_Decimals' )
     Change Field(#LF_Func_Counters) To(*NULL)
     
     If (#LF_i > #LF_Test_Result_Exact_Signed_Decimals_Count)
@@ -750,7 +895,6 @@
     
     #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
-    Endif
     Endroutine
     
     *
@@ -773,8 +917,9 @@
     Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS' )
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Generic_Signed' )
     Change Field(#LF_Func_Counters) To(*NULL)
     
     If (#LF_i > #LF_Test_Result_Generic_Signed_Count)
@@ -784,6 +929,10 @@
     Else
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned)
     Endif
+    
+    * ****************************************************************************
+    * *FORWARDS
+    * ****************************************************************************
     
     * SIGNED(7,2).
     #LF_View_Type := ' Key: S(7,2)'
@@ -852,7 +1001,8 @@
     * ****************************************************************************
     * *BACKWARDS
     * ****************************************************************************
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS' )
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_Signed' )
     Change Field(#LF_Func_Counters) To(*NULL)
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSignedBackwards)
     
@@ -920,7 +1070,149 @@
     Endif
     #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
+    * ****************************************************************************
+    * *FORWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Signed' )
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSignedForwardsDescending)
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
     Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *BACKWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthFunc_Search_Generic_Signed' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned)
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
     Endroutine
     
     *
@@ -931,8 +1223,9 @@
     Define_Map For(*INPUT) Class(#BIFN0700A) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS' )
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_Signed' )
     Change Field(#LF_Func_Counters) To(*NULL)
     
     If (#LF_i > #LF_Test_Result_Exact_Signed_Count)
@@ -1006,7 +1299,7 @@
     #this_rc := ER
     Endif
     #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    Endif
+    
     Endroutine
     
     * Add a message to the Return Message List.
