@@ -101,9 +101,15 @@
     
     * Debug code to only run on a particular platform
     * Local Windows execution = *BLANKS
-    * If (#LF_Remote_Platform *NE I)
+    If (#LF_Remote_Platform *NE I)
     * Return
-    * Endif
+    Endif
+    
+    * For debug. Don't run this function on IBM i. Saves time when tracing and need to look at the SuperServer IO results from IBM i
+    * SuperServer IO to IBM i has #LF_Remote_Platform *EQ I and *OSAPI *EQ WIN32
+    If (*OSAPI *EQ IBMI)
+    * Return
+    Endif
     
     * SETUP THE TEST DATA.
     Execute Subroutine(AddTestData)
@@ -118,6 +124,7 @@
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
+    
     Return
     
     *

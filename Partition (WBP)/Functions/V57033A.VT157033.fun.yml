@@ -459,18 +459,29 @@
     
     * Include test functions.
     Clr_List Named(#wl_VTTEMP_Function)
-    *
-    * #Com_Owner.mthAddFunction( V57033C )
-    * #Com_Owner.mthAddFunction( V57033D )
-    * #Com_Owner.mthAddFunction( V57033E )
-    #Com_Owner.mthAddFunction( V57033F )
+    
+    #Com_Owner.mthAddFunction( V57033C )
     * #Com_Owner.mthAddFunction( V57033Z )
     
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VTFunc2 )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( V57033D )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
+    
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( V57033E )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
+    
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( V57033F )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
     
     * Log all the test functions.
     If (#LF_VTTEMP_Function_Count > 0)
