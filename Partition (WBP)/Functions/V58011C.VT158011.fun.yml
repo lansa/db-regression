@@ -747,16 +747,16 @@
     Open File(VTL158011C)
     
     #F158011C1 := #VTF_KEY1 + ' ' + #this_package_name + ' (' + #this_further_details + ')'
-    #F158011C2 := 0
+    #F158011C2 := #LF_table_data_counter + 1
     #F158011C3 := *Default
     #F158011C4 := *Default
-    Insert Fields(*ALL) To_File(VTL158011C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Return_Rrn(#F158011C2)
+    Insert Fields(*ALL) To_File(VTL158011C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc = OK)
     #LF_F158011C1 := #F158011C1
     #LF_F158011C2 := #F158011C2
     Add_Entry To_List(#wl_Table_Data)
     
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Insert 1 record: ' + #this_rc) ('Totally inserted ' + #LF_table_data_counter.AsString + ' record(s)') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Insert 1 record: #LF_F158011C1= ' + #LF_F158011C1 + ' #LF_F158011C2= ' + #LF_F158011C2.AsString + ' ' + #this_rc) ('Totally inserted ' + #LF_table_data_counter.AsString + ' record(s)') )
     Else
     #Com_Owner.mthAdd_SubMsg( #this_rc ('  - Insert: ' + #this_rc) ('') )
     #this_rc := ER
@@ -773,11 +773,20 @@
     Mthroutine Name(mthDelete_Data)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK '- Delete test data' ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Listing rows to delete...') ('') )
+    
+    Begin_Loop Using(#LF_i) To(#LF_table_data_counter)
+    Get_Entry Number(#LF_i) From_List(#wl_Table_Data)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Need to delete #F158011C2 = ' + #LF_F158011C2.asString) ('') )
+    End_Loop
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Delete ' + #LF_table_data_counter.AsString + ' rows of test data') ('') )
     
     #LF_Items := 0
     Begin_Loop Using(#LF_i) To(#LF_table_data_counter)
     Get_Entry Number(#LF_i) From_List(#wl_Table_Data)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Deleting #F158011C2 = ' + #LF_F158011C2.asString) ('') )
     
     Delete From_File(VTL158011C) Where(#F158011C2 = #LF_F158011C2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc = OK)
