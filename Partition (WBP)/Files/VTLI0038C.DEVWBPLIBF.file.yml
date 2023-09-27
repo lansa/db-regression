@@ -60,15 +60,3 @@
   Primary Keys:
   - BIFP0700A
   - BIFA040A
-
-  Batch Control:
-  - Total:
-      Controlled File:    VTLI0038D
-
-      Keys:
-      - BIFP0700A
-      - BIFA040A
-
-      Links:
-      - Source Field:       BIFN0700A
-        Target Field:       BIFN0700A
