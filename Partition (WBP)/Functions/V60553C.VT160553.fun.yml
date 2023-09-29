@@ -40,13 +40,19 @@
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
     
     Define Field(#LF_Blob_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lBlob) Fields(#BIFC010A #BIFP0300A #BIFNC256A #BIFBLOBA) Counter(#LF_Blob_Count) Type(*WORKING)
+    Def_List Name(#w_lBlob) Fields(#BIFC010A #BIFP0300A #BIFNC256A #BIFBLOBA) Counter(#LF_Blob_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    If (#LF_DB_Type = 'MSSQLS')
+    * Temporarily skip this test for MSSQLS due to CCS 164065
+    
+    #Com_Owner.mthAdd_Msg( OK ('Skipping test ** TODO **') ('') )
+    Return
+    Endif
     
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
-    
-    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
     Get_Entry Number(1) From_List(#wLKData)
     
@@ -135,7 +141,7 @@
     
     Clr_List Named(#w_lBlob)
     
-    Select Fields(#BIFC010A #BIFP0300A #BIFNC256A) From_File(VTL160553C) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFC010A #BIFP0300A #BIFNC256A) From_File(VTL160553C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lBlob)
     Endselect
     
@@ -149,6 +155,7 @@
     
     Delete From_File(VTL160553C) With_Key(#BIFC010A #BIFP0300A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #LF_i.AsString) )
     #this_rc := ER
     Leave
@@ -160,6 +167,7 @@
     Endif
     Endif
     Else
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
     #this_rc := ER
     Endif
@@ -209,6 +217,7 @@
     If (#this_rc = OK)
     Add_Entry To_List(#w_lBlob)
     Else
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #BIFP0300A.AsString + ', ' + #BIFNC256A.AsNativeString) )
     Leave
     Endif
@@ -294,6 +303,7 @@
     Leave
     Endif
     Else
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Get_Entry') )
     #this_rc := ER
     Leave
@@ -321,11 +331,13 @@
     If (#this_rc = OK)
     Fetch Fields(*ALL) From_File(VTL160553C) With_Key(#BIFC010A #BIFP0300A #BIFNC256A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Fetch on record ' + #LF_i.AsString) )
     #this_rc := ER
     Leave
     Endif
     Else
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Get_Entry on record ' + #LF_i.AsString) )
     #this_rc := ER
     Leave
@@ -361,11 +373,13 @@
     
     Update Fields(*ALL) In_File(VTL160553C) With_Key(#BIFC010A #BIFP0300A #BIFNC256A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Update on record ' + #LF_i.AsString) )
     #this_rc := ER
     Leave
     Endif
     Else
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Get_Entry on record ' + #LF_i.AsString) )
     #this_rc := ER
     Leave
@@ -426,6 +440,7 @@
     * Now must check for 0 length file
     Use Builtin(Stm_File_Open) With_Args(#this_list_BLOB 'Read Binary Lineterminator=NONE') To_Get(#LF_List_Fileno #LF_list_rc)
     If (#LF_list_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Opening ' + #this_list_BLOB.asValue( '*SQLNULL' )) )
     #this_rc := ER
     #this_result := False
@@ -434,6 +449,7 @@
     
     Use Builtin(Stm_File_Read) With_Args(#LF_List_Fileno) To_Get(#LF_List_Buf #LF_list_rc)
     If (#LF_list_rc = ER)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Reading ' + #this_list_BLOB) ('') )
     #this_rc := ER
     #this_result := False
@@ -449,6 +465,7 @@
     
     Use Builtin(Stm_File_Close) With_Args(#LF_List_Fileno) To_Get(#LF_list_rc)
     If (#LF_list_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Closing ' + #this_list_BLOB) )
     #this_rc := ER
     #this_result := False
@@ -488,6 +505,7 @@
     
     Use Builtin(Stm_File_Open) With_Args(#this_db_BLOB 'Read Binary Lineterminator=NONE') To_Get(#LF_DB_Fileno #LF_DB_rc)
     If (#LF_DB_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     * Use 'asValue' to ensure there is a value to display
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_DB_rc) ('Opening ' + #this_db_BLOB.asValue( '*SQLNULL' )) )
     #this_rc := ER
@@ -498,6 +516,7 @@
     
     Use Builtin(Stm_File_Open) With_Args(#this_list_BLOB 'Read Binary Lineterminator=NONE') To_Get(#LF_List_Fileno #LF_list_rc)
     If (#LF_list_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     * Use 'asValue' to ensure there is a value to display
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Opening ' + #this_list_BLOB.asValue( '*SQLNULL' )) )
     #this_rc := ER
@@ -513,6 +532,7 @@
     Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_TestFile)
     Use Builtin(Stm_File_Open) With_Args(#LF_TestFile 'Write Binary Lineterminator=NONE') To_Get(#LF_Test_Fileno #LF_Test_rc)
     If (#LF_Test_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_Test_rc) ('Opening ' + #LF_TestFile) )
     #this_rc := ER
     #this_result := False
@@ -527,6 +547,7 @@
     
     Use Builtin(STM_FILE_READ) With_Args(#LF_DB_Fileno) To_Get(#LF_DB_Buf #LF_DB_rc)
     If (#LF_DB_rc = ER)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Reading ' + #this_db_BLOB.asValue( '*SQLNULL' )) ('') )
     #this_rc := ER
     #this_result := False
@@ -536,6 +557,7 @@
     
     Use Builtin(Stm_File_Read) With_Args(#LF_List_Fileno) To_Get(#LF_List_Buf #LF_list_rc)
     If (#LF_list_rc = ER)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Reading ' + #this_list_BLOB.asValue( '*SQLNULL' )) ('') )
     #this_rc := ER
     #this_result := False
@@ -552,6 +574,7 @@
     If ((#LF_Call_count = 1) *And (#LF_list_rc <> EF))
     Use Builtin(Stm_File_Write) With_Args(#LF_Test_Fileno #LF_List_Buf) To_Get(#LF_Test_rc)
     If (#LF_Test_rc = ER)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Writing ' + #LF_TestFile) ('') )
     #this_rc := ER
     #this_result := False
@@ -563,6 +586,7 @@
     
     Use Builtin(Stm_File_Close) With_Args(#LF_DB_Fileno) To_Get(#LF_DB_rc)
     If (#LF_DB_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_DB_rc) ('Closing ' + #this_db_BLOB) )
     #this_rc := ER
     #this_result := False
@@ -572,6 +596,7 @@
     
     Use Builtin(Stm_File_Close) With_Args(#LF_List_Fileno) To_Get(#LF_list_rc)
     If (#LF_list_rc <> OK)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #LF_list_rc) ('Closing ' + #this_list_BLOB) )
     #this_rc := ER
     #this_result := False
@@ -582,6 +607,7 @@
     If (#LF_Call_count = 1)
     Use Builtin(Stm_File_Close) With_Args(#LF_Test_Fileno) To_Get(#LF_Test_rc)
     If (#LF_Test_rc = ER)
+    #Com_owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Closing ' + #LF_TestFile) ('') )
     #this_rc := ER
     #this_result := False

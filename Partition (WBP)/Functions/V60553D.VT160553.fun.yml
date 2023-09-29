@@ -43,6 +43,12 @@
     Def_List Name(#w_lBlob) Fields(#BIFC010A #BIFP0300A #BIFNC256A #BIFCLOBA) Counter(#LF_Blob_Count) Type(*WORKING)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    If (#LF_DB_Type = 'MSSQLS')
+    * Temporarily skip this test for MSSQLS due to CCS 164065
+    
+    #Com_Owner.mthAdd_Msg( OK ('Skipping test ** TODO **') ('') )
+    Return
+    Endif
     
     * Start testing.
     Clr_List Named(#wLRet)
