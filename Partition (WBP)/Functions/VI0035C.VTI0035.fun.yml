@@ -1,0 +1,317 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * ******************************************************************************************************
+    * Test Case Description
+    * Issue #35 Simple Rules
+    *
+    *
+    * ******************************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_j) Reffld(#Std_Count)
+    Define Field(#LF_Original_Count) Reffld(#Std_Count)
+    Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    Define Field(#LF_DataShown) Reffld(#BIFB001B)
+    
+    Define Field(#LF_Alphabet) Reffld(#BIFA009A) Default('ABCDE')
+    Define Field(#LF_BIFN0700A_FromCount) Reffld(#std_count) Default(-4)
+    Define Field(#LF_BIFN0700A_ToCount) Reffld(#std_count) Default(10)
+    Define Field(#LF_BIFC010A_Count) Reffld(#std_count) Default(5)
+    Define Field(#LF_WorkingCount) Reffld(#std_count)
+    
+    
+    * Local Copies of Table Columns - matches following List fields
+    Define Field(#LF_BIFN0700A) Reffld(#BIFN0700A)
+    Define Field(#LF_BIFN0700A_key) Reffld(#BIFN0700A)
+    Define Field(#LF_BIFC010A) Reffld(#BIFC010A)
+    
+    
+    * #XG_ALL includes all Fields in the Table
+    Group_By Name(#XG_ALL) Fields(#BIFN0700A #BIFA032A)
+    
+    Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    
+    *
+    * Add your test case here
+    * It should be a list of method calls so its easy to read whats being tested.
+    #Com_Owner.mthClearData( #LF_rc )
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthInsert( #LF_rc )
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthClearData)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data' '' )
+    
+    Clr_List Named(#w_lOriginal)
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(#XG_ALL) From_File(VTLI0035C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lOriginal)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Original_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal)
+    
+    Delete From_File(VTLI0035C) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFN0700A.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lOriginal)
+    Endroutine
+    
+    *
+    * mthGet_Msg_Txt
+    *
+    * The intention was to use the message number, but when using SuperServer the msg number is not returned. Its always *STCMSG.
+    * So the msg text has been used instead
+    *
+    Mthroutine Name(mthGet_Msg_Txt) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*OUTPUT) Class(#BIFA010A) Name(#this_msg_num)
+    Define_Map For(*RESULT) Class(#BIFMSG1) Name(#this_msg_txt)
+    
+    #this_rc := OK
+    
+    Use Builtin(GET_MESSAGE) To_Get(#this_rc #this_msg_txt #this_msg_num)
+    If Cond(#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    If (#this_rc = NO)
+    #Com_Owner.mthAdd_SubMsg( ER ('GET_MESSAGE returned 0 messages') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('GET_MESSAGE Unexpected RC = ' + #this_rc) '' )
+    Endif
+    Endif
+    
+    Endroutine
+    
+    *
+    * mthCheck_Msg_txt
+    * Called after an IO that is expected to return VE
+    *
+    Mthroutine Name(mthCheck_Msg_Txt) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg_txt_expected)
+    
+    Define Field(#LF_msg_txt_actual) Reffld(#BIFMSG1)
+    Define Field(#LF_msg_num) Reffld(#BIFA010A)
+    
+    If ((#this_rc <> OK) *And (#this_rc <> VE))
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('Unexpected ' + #this_rc) '' )
+    Else
+    
+    If (#this_rc = VE)
+    #this_rc := OK
+    #LF_msg_txt_actual := #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Received message text "' + #LF_msg_txt_actual + '", ' + #LF_msg_num) '' )
+    If (#this_msg_txt_expected *NE #LF_msg_txt_actual)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('Calling mthGet_Msg_Txt()') '' )
+    Endif
+    Endif
+    
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    * mthCheck_Msg_txt
+    * Called after an IO that is NOT expected to return VE
+    *
+    Mthroutine Name(mthCheck_No_VE_Msgs) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If ((#this_rc <> OK) *And (#this_rc <> VE))
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('Unexpected ' + #this_rc) '' )
+    Else
+    
+    If (#this_rc = VE)
+    #this_rc := OK
+    #LF_msg_txt_actual := #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('VE message returned when it should be OK') '' )
+    #Com_Owner.mthAdd_SubMsg( ER ('Received message text "' + #LF_msg_txt_actual + '", ' + #LF_msg_num) '' )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('Calling mthGet_Msg_Txt()') '' )
+    Endif
+    Endif
+    
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Insert_Rule)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_rule_text)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg_txt_expected)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    If (#this_rc_expected = VE)
+    #Com_Owner.mthAdd_SubMsg( OK #this_rule_text ('Checking for message text "' + #this_msg_txt_expected + '"') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK #this_rule_text 'No VE messages expected' )
+    Endif
+    
+    Insert Fields(*ALL) To_File(VTLI0035C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc_expected = VE)
+    #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_msg_txt_expected )
+    Else
+    #Com_Owner.mthCheck_No_VE_Msgs( #this_rc )
+    Endif
+    
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Update_Rule)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_rule_text)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg_txt_expected)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    If (#this_rc_expected = VE)
+    #Com_Owner.mthAdd_SubMsg( OK #this_rule_text ('Checking for message text "' + #this_msg_txt_expected + '"') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK #this_rule_text 'No VE messages expected' )
+    Endif
+    
+    Update Fields(*ALL) In_File(VTLI0035C) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc_expected = VE)
+    #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_msg_txt_expected )
+    Else
+    #Com_Owner.mthCheck_No_VE_Msgs( #this_rc )
+    Endif
+    
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #BIFN0700A := 1
+    #BIFA032A := *BLANKS
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc 'Insert Rule: #BIFA032A Cannot be Blank. Value *BLANKS' 'Model' )
+    
+    #BIFA032A := 'NON-BLANK'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc 'Insert Rule: #BIFA032A Cannot be Blank. Value "NON-BLANK"' 'Model' 'OK' )
+    
+    #BIFA032A := *BLANKS
+    #Com_Owner.mthCheck_Update_Rule( #this_rc 'Update Rule: #BIFA032A Cannot be Blank. Value *BLANKS' 'Model' )
+    
+    #BIFA032A := 'NON-BLANK'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc 'Update Rule: #BIFA032A Cannot be Blank. Value "NON-BLANK"' 'Model' 'OK' )
+    
+    Endroutine
+    
+    

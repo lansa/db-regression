@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0035
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Tables Rules & Triggers"
+
+  - ENG:
+      Description:        "Tables Rules & Triggers"
+
+  - FRA:
+      Description:        "Tables Rules & Triggers"
+
+  - JPN:
+      Description:        "Tables Rules & Triggers"
+
+  - TRK:
+      Description:        "Tables Rules & Triggers"
+
+  Functions:
+  - VI0035A:
+      Name:               VI0035A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "#35 Test Case Driver"
+
+      - ENG:
+          Description:        "#35 Test Case Driver"
+
+      - FRA:
+          Description:        "#35 Test Case Driver"
+
+      - JPN:
+          Description:        "#35 Test Case Driver"
+
+      - TRK:
+          Description:        "#35 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0035C:
+      Name:               VI0035C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Simple Rules"
+
+      - ENG:
+          Description:        "Simple Rules"
+
+      - FRA:
+          Description:        "Simple Rules"
+
+      - JPN:
+          Description:        "Simple Rules"
+
+      - TRK:
+          Description:        "Simple Rules"
+
+      Allowed Next Functions:
+      - "*ANY"
