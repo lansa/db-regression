@@ -52,6 +52,11 @@
       Length:             32
       Decimals:           0
 
+  - BIFC500A:
+      Type:               Char
+      Length:             500
+      Decimals:           0
+
   Primary Keys:
   - BIFN0700A
 
@@ -67,3 +72,14 @@
         Negative Action:    Next
         Message File:       DC@M01
         Message Number:     ADW0201
+
+  - BIFC500A:
+    - Simple Logic Check:
+        Description:        "Digits (0-9) only"
+        Condition:          "#BIFC500A.IsMatch( \"^[0-9]+$\" )"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFC500A can only contain numeric digits"

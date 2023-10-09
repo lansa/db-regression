@@ -13,3 +13,7 @@
   - VI0035A:
       Type:               Funciton
       Qualifier:          VTI0035
+
+  - VTLI0035C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
