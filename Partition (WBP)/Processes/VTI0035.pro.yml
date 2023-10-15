@@ -49,7 +49,7 @@
 
   - VI0035C:
       Name:               VI0035C
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -67,6 +67,54 @@
 
       - TRK:
           Description:        "Simple Rules"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0035G:
+      Name:               VI0035G
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Triggers"
+
+      - ENG:
+          Description:        "Triggers"
+
+      - FRA:
+          Description:        "Triggers"
+
+      - JPN:
+          Description:        "Triggers"
+
+      - TRK:
+          Description:        "Triggers"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0035T:
+      Name:               VI0035T
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "File Trigger"
+
+      - ENG:
+          Description:        "File Trigger"
+
+      - FRA:
+          Description:        "File Trigger"
+
+      - JPN:
+          Description:        "File Trigger"
+
+      - TRK:
+          Description:        "File Trigger"
 
       Allowed Next Functions:
       - "*ANY"
