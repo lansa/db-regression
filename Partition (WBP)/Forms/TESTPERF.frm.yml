@@ -60,7 +60,7 @@
     Fetch Fields(#ARTACODE) From_File(ART08) With_Key(#ADMCODE #FSTCODE)
     Add_Entry To_List(#GRID)
     Endselect
-    * #STD_NUM := *TIME.AsTime.Difference( #RF_TIJD )
+    
     #Label1.Caption := 'Duration: ' + #LF_TIMING2.Now().AsDuration( #LF_TIMING ).AsString
     Endroutine
     
@@ -72,7 +72,7 @@
     Select_Sql Fields(#ARTCODE #ARTACODE #ARTOMS #LNDCODE #AVMACODE #KLSACODE #FSTACODE) Using(#QUERY)
     Add_Entry To_List(#GRID)
     Endselect
-    * #STD_NUM := *TIME.AsTime.Difference( #RF_TIJD )
+    
     #Label3.Caption := 'Duration: ' + #LF_TIMING2.Now().AsDuration( #LF_TIMING ).AsString
     Endroutine
     End_Com
