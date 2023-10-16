@@ -1,0 +1,55 @@
+﻿Field:
+  Name:               QUERY
+  Type:               String
+  Length:             4096
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Query"
+      Label:              "Query"
+      Heading1:           "Query"
+
+  - ENG:
+      Description:        "Query"
+      Label:              "Query"
+      Heading1:           "Query"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Query"
+      Label:              "Query"
+      Heading1:           "Query"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Query"
+      Label:              "Query"
+      Heading1:           "Query"
+
+  - TRK:
+      Description:        "Query"
+      Label:              "Query"
+      Heading1:           "Query"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(555)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_varchar.std_varchar') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               ARTISFST
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      +0
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Packing article"
+      Label:              "Packing"
+      Heading1:           "Packing article"
+
+  - ENG:
+      Description:        "Packing article"
+      Label:              "Packing"
+      Heading1:           "Packing article"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Packing article"
+      Label:              "Packing"
+      Heading1:           "Packing article"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Packing article"
+      Label:              "Packing"
+      Heading1:           "Packing article"
+
+  - TRK:
+      Description:        "Packing article"
+      Label:              "Packing"
+      Heading1:           "Packing article"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(185)
+    
+    End_Com
+    
+    End_Com

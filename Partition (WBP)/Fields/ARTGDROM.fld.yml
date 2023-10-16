@@ -1,0 +1,52 @@
+﻿Field:
+  Name:               ARTGDROM
+  Type:               Alpha
+  Length:             255
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Goods description"
+      Label:              "Goods descripti"
+      Heading1:           "Goods description"
+
+  - ENG:
+      Description:        "Goods description"
+      Label:              "Goods descripti"
+      Heading1:           "Goods description"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Goods description"
+      Label:              "Goods descripti"
+      Heading1:           "Goods description"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Goods description"
+      Label:              "Goods descripti"
+      Heading1:           "Goods description"
+
+  - TRK:
+      Description:        "Goods description"
+      Label:              "Goods descripti"
+      Heading1:           "Goods description"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(895)
+    
+    End_Com
+    
+    End_Com

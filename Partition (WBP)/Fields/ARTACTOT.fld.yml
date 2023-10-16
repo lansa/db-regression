@@ -1,0 +1,60 @@
+﻿Field:
+  Name:               ARTACTOT
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*DATE"
+  Reference Field:    RF_DAT
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - ASQN
+
+  Output Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Active until"
+      Label:              "Active until"
+      Heading1:           "Active until"
+
+  - ENG:
+      Description:        "Active until"
+      Label:              "Active until"
+      Heading1:           "Active until"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Active until"
+      Label:              "Active until"
+      Heading1:           "Active until"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Active until"
+      Label:              "Active until"
+      Heading1:           "Active until"
+
+  - TRK:
+      Description:        "Active until"
+      Label:              "Active until"
+      Heading1:           "Active until"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVDT) Name(#VisualDate) Defaultvisual(True) Height(19) Maxdate('2099-12-31 00:00:00.999999999') Mindate('1900-01-01 00:00:00.000000000') Showtime(False) Width(247)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_date.std_date') Name(#Weblet) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

@@ -1,0 +1,43 @@
+﻿Field:
+  Name:               ARTKOMS
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    RF_KOMS
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Short description"
+      Label:              "Short descr."
+      Heading1:           "Short descr."
+
+  - ENG:
+      Description:        "Short description"
+      Label:              "Short descr."
+      Heading1:           "Short descr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Short description"
+      Label:              "Short descr."
+      Heading1:           "Short descr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Short description"
+      Label:              "Short descr."
+      Heading1:           "Short descr."
+
+  - TRK:
+      Description:        "Short description"
+      Label:              "Short descr."
+      Heading1:           "Short descr."

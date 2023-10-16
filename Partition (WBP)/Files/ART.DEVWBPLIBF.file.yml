@@ -1,0 +1,743 @@
+﻿File:
+  Name:                           ART
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             ART
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE(*NOMAX) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Article"
+
+  - ENG:
+      Description:        "Article"
+
+  - FRA:
+      Description:        "Article"
+
+  - JPN:
+      Description:        "Article"
+
+  - TRK:
+      Description:        "Article"
+
+  Real Fields:
+  - ADMCODE:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - ARTCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTACODE:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - AHGCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - AGPCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - AVTCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTKOMS:
+      Type:               Alphanumeric
+      Length:             20
+      Decimals:           0
+
+  - ARTOMS:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - LNDCODE:
+      Type:               Alphanumeric
+      Length:             2
+      Decimals:           0
+
+  - AVMCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - KLSCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTKLEUR:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - ARTEENH1:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTEENH2:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTNTGEW:
+      Type:               Signed
+      Length:             9
+      Decimals:           4
+
+  - ARTKRIVK:
+      Type:               Signed
+      Length:             3
+      Decimals:           0
+
+  - ARTUITVK:
+      Type:               Signed
+      Length:             3
+      Decimals:           0
+
+  - ARTUHNTS:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTBGP:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTWEEG:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTINK:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTVERK:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTPROD:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTVRD:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTISVPK:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTISFST:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTISPAL:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTISTRF:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTLANG:
+      Type:               Signed
+      Length:             4
+      Decimals:           3
+
+  - ARTBREED:
+      Type:               Signed
+      Length:             4
+      Decimals:           3
+
+  - ARTHOOG:
+      Type:               Signed
+      Length:             4
+      Decimals:           3
+
+  - PFMCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTIKSTG:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTVKSTG:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTIKRET:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTVKRET:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTIKTSL:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTVKTSL:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTTSBGP:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTEGBTS:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTSTPVO:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARTGPBDR:
+      Type:               Signed
+      Length:             9
+      Decimals:           4
+
+  - ARTDOUAC:
+      Type:               Alphanumeric
+      Length:             4
+      Decimals:           0
+
+  - ARTMVRD:
+      Type:               Signed
+      Length:             11
+      Decimals:           4
+
+  - ARTBSTNV:
+      Type:               Signed
+      Length:             11
+      Decimals:           4
+
+  - ARTBSTGR:
+      Type:               Signed
+      Length:             11
+      Decimals:           4
+
+  - ARTFOTO:
+      Type:               Alphanumeric
+      Length:             100
+      Decimals:           0
+
+  - ARTKCBOM:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - ARTKCBPC:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - ARTPDOM:
+      Type:               Alphanumeric
+      Length:             58
+      Decimals:           0
+
+  - ARTGDROM:
+      Type:               Alphanumeric
+      Length:             255
+      Decimals:           0
+
+  - ARTVPKKS:
+      Type:               Signed
+      Length:             15
+      Decimals:           3
+
+  - ARTCEAN:
+      Type:               Alphanumeric
+      Length:             13
+      Decimals:           0
+
+  - ARTHEAN:
+      Type:               Alphanumeric
+      Length:             13
+      Decimals:           0
+
+  - ARTSTS:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - ARTACVAN:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - ARTACTOT:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - ARTOPSCH:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  Primary Keys:
+  - ADMCODE
+  - ARTCODE
+
+  Logical Views:
+  - ART01:
+      Identifier:         ART01
+      Unique Key:         Yes
+      Access Path:        Immediate
+      Record Format:      ART01
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART01 (unique)"
+
+      - ENG:
+          Description:        "Logical ART01 (unique)"
+
+      - FRA:
+          Description:        "Logical ART01 (unique)"
+
+      - JPN:
+          Description:        "Logical ART01 (unique)"
+
+      - TRK:
+          Description:        "Logical ART01 (unique)"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTACODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART02:
+      Identifier:         ART02
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART01
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART02"
+
+      - ENG:
+          Description:        "Logical ART02"
+
+      - FRA:
+          Description:        "Logical ART02"
+
+      - JPN:
+          Description:        "Logical ART02"
+
+      - TRK:
+          Description:        "Logical ART02"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTISVPK:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTISFST:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTISPAL:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTISTRF:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART03:
+      Identifier:         ART03
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART02
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART03"
+
+      - ENG:
+          Description:        "Logical ART03"
+
+      - FRA:
+          Description:        "Logical ART03"
+
+      - JPN:
+          Description:        "Logical ART03"
+
+      - TRK:
+          Description:        "Logical ART03"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AHGCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AGPCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AVTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AVMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - LNDCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - KLSCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART04:
+      Identifier:         ART04
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART04
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART04"
+
+      - ENG:
+          Description:        "Logical ART04"
+
+      - FRA:
+          Description:        "Logical ART04"
+
+      - JPN:
+          Description:        "Logical ART04"
+
+      - TRK:
+          Description:        "Logical ART04"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AHGCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AGPCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AVTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART05:
+      Identifier:         ART05
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART05
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART05"
+
+      - ENG:
+          Description:        "Logical ART05"
+
+      - FRA:
+          Description:        "Logical ART05"
+
+      - JPN:
+          Description:        "Logical ART05"
+
+      - TRK:
+          Description:        "Logical ART05"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AHGCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTACODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART06:
+      Identifier:         ART06
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART06
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART06"
+
+      - ENG:
+          Description:        "Logical ART06"
+
+      - FRA:
+          Description:        "Logical ART06"
+
+      - JPN:
+          Description:        "Logical ART06"
+
+      - TRK:
+          Description:        "Logical ART06"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AHGCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AGPCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTACODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART07:
+      Identifier:         ART07
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART07
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART07"
+
+      - ENG:
+          Description:        "Logical ART07"
+
+      - FRA:
+          Description:        "Logical ART07"
+
+      - JPN:
+          Description:        "Logical ART07"
+
+      - TRK:
+          Description:        "Logical ART07"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AHGCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AGPCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AVTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTACODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART08:
+      Identifier:         ART08
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART08
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART08"
+
+      - ENG:
+          Description:        "Logical ART08"
+
+      - FRA:
+          Description:        "Logical ART08"
+
+      - JPN:
+          Description:        "Logical ART08"
+
+      - TRK:
+          Description:        "Logical ART08"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      Select/Omit Criteria:
+      - Action:             Select
+        Type:               Compare
+        Field Name:         ARTMVRD
+        Operator:           Greater Than
+        Value:              +0
+
+  - ART09:
+      Identifier:         ART09
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART09
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART09"
+
+      - ENG:
+          Description:        "Logical ART09"
+
+      - FRA:
+          Description:        "Logical ART09"
+
+      - JPN:
+          Description:        "Logical ART09"
+
+      - TRK:
+          Description:        "Logical ART09"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTCEAN:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - ART10:
+      Identifier:         ART10
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ART10
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical ART10"
+
+      - ENG:
+          Description:        "Logical ART10"
+
+      - FRA:
+          Description:        "Logical ART10"
+
+      - JPN:
+          Description:        "Logical ART10"
+
+      - TRK:
+          Description:        "Logical ART10"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTHEAN:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

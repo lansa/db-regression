@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               AVMOMS
+  Type:               Alpha
+  Length:             40
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    RF_OMS
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Size descr."
+
+  - ENG:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Size descr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Size descr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Size descr."
+
+  - TRK:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Size descr."
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(324)
+    
+    End_Com
+    
+    End_Com

@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTNTGEW
+  Type:               Signed
+  Length:             9
+  Decimals:           4
+  Default Value:      "*ZERO"
+  Reference Field:    RF_GEW
+  Edit Mask:          "'  . 0 ,    '"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Net weight per unit"
+      Label:              "Net unit weight"
+      Heading1:           "Net unit weight"
+
+  - ENG:
+      Description:        "Net weight per unit"
+      Label:              "Net unit weight"
+      Heading1:           "Net unit weight"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Net weight per unit"
+      Label:              "Net unit weight"
+      Heading1:           "Net unit weight"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Net weight per unit"
+      Label:              "Net unit weight"
+      Heading1:           "Net unit weight"
+
+  - TRK:
+      Description:        "Net weight per unit"
+      Label:              "Net unit weight"
+      Heading1:           "Net unit weight"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(232)
+    
+    End_Com
+    
+    End_Com

@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTHOOG
+  Type:               Signed
+  Length:             4
+  Decimals:           3
+  Default Value:      "*ZEROS"
+  Reference Field:    RF_HOOG
+  Edit Mask:          "'0 ,   '"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Height"
+      Label:              "Height"
+      Heading1:           "Height"
+
+  - ENG:
+      Description:        "Height"
+      Label:              "Height"
+      Heading1:           "Height"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Height"
+      Label:              "Height"
+      Heading1:           "Height"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Height"
+      Label:              "Height"
+      Heading1:           "Height"
+
+  - TRK:
+      Description:        "Height"
+      Label:              "Height"
+      Heading1:           "Height"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    End_Com

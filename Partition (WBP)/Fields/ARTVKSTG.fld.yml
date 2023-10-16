@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTVKSTG
+  Type:               Signed
+  Length:             15
+  Decimals:           3
+  Default Value:      "*ZERO"
+  Reference Field:    RF_BEDR
+  Edit Mask:          "'   .   .   . 0 ,   -'"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Sales deposit"
+      Label:              "Sales deposit"
+      Heading1:           "Sales deposit"
+
+  - ENG:
+      Description:        "Sales deposit"
+      Label:              "Sales deposit"
+      Heading1:           "Sales deposit"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Sales deposit"
+      Label:              "Sales deposit"
+      Heading1:           "Sales deposit"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Sales deposit"
+      Label:              "Sales deposit"
+      Heading1:           "Sales deposit"
+
+  - TRK:
+      Description:        "Sales deposit"
+      Label:              "Sales deposit"
+      Heading1:           "Sales deposit"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    End_Com

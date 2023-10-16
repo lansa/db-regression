@@ -1,0 +1,62 @@
+﻿Field:
+  Name:               ARTUHNTS
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Don't allow sales without stock"
+      Label:              "No sales wo st."
+      Heading1:           "No sales w.o. stock"
+
+  - ENG:
+      Description:        "Don't allow sales without stock"
+      Label:              "No sales wo st."
+      Heading1:           "No sales w.o. stock"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Don't allow sales without stock"
+      Label:              "No sales wo st."
+      Heading1:           "No sales w.o. stock"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Don't allow sales without stock"
+      Label:              "No sales wo st."
+      Heading1:           "No sales w.o. stock"
+
+  - TRK:
+      Description:        "Don't allow sales without stock"
+      Label:              "No sales wo st."
+      Heading1:           "No sales w.o. stock"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Height(19) Usepicklist(False) Width(185)
+    
+    End_Com
+    
+    Begin_Com Role(*picklist) Name(#Picklist) Nomatchaction(ShowValue)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#Item) Caption('Nee') Default(True) Parent(#Picklist) Value(0)
+    Define_Com Class(#PRIM_PKIT) Name(#Item_1) Caption('Ja') Parent(#Picklist) Value(1)
+    
+    End_Com
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Width(178)
+    
+    End_Com
+    End_Com

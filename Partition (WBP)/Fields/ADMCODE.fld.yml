@@ -1,0 +1,55 @@
+﻿Field:
+  Name:               ADMCODE
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Administration code"
+      Label:              "Admin. code"
+      Heading1:           "Administration code"
+
+  - ENG:
+      Description:        "Administration code"
+      Label:              "Admin. code"
+      Heading1:           "Administration code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Administration code"
+      Label:              "Admin. code"
+      Heading1:           "Administration code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Administration code"
+      Label:              "Admin. code"
+      Heading1:           "Administration code"
+
+  - TRK:
+      Description:        "Administration code"
+      Label:              "Admin. code"
+      Heading1:           "Administration code"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Promptertabstop(False) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    Begin_Com Role(*Prompter #SELADMIN) Name(#Prompter) Defaultprompter(True)
+    
+    End_Com
+    
+    End_Com

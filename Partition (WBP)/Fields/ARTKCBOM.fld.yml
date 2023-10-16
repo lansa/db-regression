@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               ARTKCBOM
+  Type:               Alpha
+  Length:             40
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    RF_OMS
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "KCB description"
+      Label:              "KCB descr."
+      Heading1:           "KCB description"
+
+  - ENG:
+      Description:        "KCB description"
+      Label:              "KCB descr."
+      Heading1:           "KCB description"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "KCB description"
+      Label:              "KCB descr."
+      Heading1:           "KCB description"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "KCB description"
+      Label:              "KCB descr."
+      Heading1:           "KCB description"
+
+  - TRK:
+      Description:        "KCB description"
+      Label:              "KCB descr."
+      Heading1:           "KCB description"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(478)
+    
+    End_Com
+    
+    End_Com

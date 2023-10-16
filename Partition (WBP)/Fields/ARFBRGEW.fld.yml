@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARFBRGEW
+  Type:               Signed
+  Length:             9
+  Decimals:           4
+  Default Value:      "*ZERO"
+  Reference Field:    RF_GEW
+  Edit Mask:          "'  . 0 ,    '"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Gross weight"
+      Label:              "Gross weight"
+      Heading1:           "Gross weight"
+
+  - ENG:
+      Description:        "Gross weight"
+      Label:              "Gross weight"
+      Heading1:           "Gross weight"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Gross weight"
+      Label:              "Gross weight"
+      Heading1:           "Gross weight"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Gross weight"
+      Label:              "Gross weight"
+      Heading1:           "Gross weight"
+
+  - TRK:
+      Description:        "Gross weight"
+      Label:              "Gross weight"
+      Heading1:           "Gross weight"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(262)
+    
+    End_Com
+    
+    End_Com

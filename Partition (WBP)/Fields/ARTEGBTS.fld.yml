@@ -1,0 +1,63 @@
+﻿Field:
+  Name:               ARTEGBTS
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Permit single use"
+      Label:              "Single use"
+      Heading1:           "Permit single use"
+
+  - ENG:
+      Description:        "Permit single use"
+      Label:              "Single use"
+      Heading1:           "Permit single use"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Permit single use"
+      Label:              "Single use"
+      Heading1:           "Permit single use"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Permit single use"
+      Label:              "Single use"
+      Heading1:           "Permit single use"
+
+  - TRK:
+      Description:        "Permit single use"
+      Label:              "Single use"
+      Heading1:           "Permit single use"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Height(19) Usepicklist(False) Width(178)
+    
+    End_Com
+    
+    Begin_Com Role(*picklist) Name(#Picklist) Nomatchaction(ShowValue)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#Item_1) Caption(*MTXTNEE) Default(True) Image(#NEE) Parent(#Picklist)
+    Define_Com Class(#PRIM_PKIT) Name(#Item_2) Caption(*MTXTJA) Image(#JA) Parent(#Picklist) Value(1)
+    
+    End_Com
+    
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Width(178)
+    
+    End_Com
+    
+    End_Com

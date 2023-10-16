@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               AVMACODE
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Alpha size code"
+      Label:              "Size"
+      Heading1:           "Size code"
+
+  - ENG:
+      Description:        "Alpha size code"
+      Label:              "Size"
+      Heading1:           "Size code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Alpha size code"
+      Label:              "Size"
+      Heading1:           "Size code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Alpha size code"
+      Label:              "Size"
+      Heading1:           "Size code"
+
+  - TRK:
+      Description:        "Alpha size code"
+      Label:              "Size"
+      Heading1:           "Size code"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(247) Componentversion(1)
+    
+    End_Com
+    
+    End_Com

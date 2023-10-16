@@ -1,0 +1,78 @@
+﻿Form:
+  Name:               TESTPERF
+  Enabled For RDMLX:  Yes
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Test performance"
+
+  - ENG:
+      Description:        "Test performance"
+
+  - FRA:
+      Description:        "Test performance"
+
+  - JPN:
+      Description:        "Test performance"
+
+  - TRK:
+      Description:        "Test performance"
+
+  Source: |
+    Function Options(*DIRECT)
+    Begin_Com Role(*EXTENDS #PRIM_FORM) Componentversion(2) Top(189) Clientwidth(731) Clientheight(499) Left(377) Layoutmanager(#AttachLayout1) Caption('Test performance')
+    Define_Com Class(#PRIM_ATLM) Name(#AttachLayout1) Marginbottom(8) Marginleft(8) Marginright(8) Margintop(8)
+    Define_Com Class(#PRIM_ATLI) Name(#AttachLayout1Item1) Attachment(Center) Manage(#GRID) Parent(#AttachLayout1)
+    Define_Com Class(#PRIM_ATLI) Name(#AttachLayout1Item2) Attachment(Bottom) Manage(#Panel1) Parent(#AttachLayout1)
+    
+    Define_Com Class(#PRIM_GRID) Name(#GRID) Captionnoblanklines(True) Columnscroll(False) Componentversion(1) Left(8) Parent(#COM_OWNER) Showsortarrow(True) Top(8) Width(715) Height(413) Displayposition(2) Tabposition(2) Columnbuttonheight(19) Rowheight(19)
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn1) Parent(#GRID) Source(#ARTCODE) Visible(False)
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn2) Displayposition(1) Parent(#GRID) Source(#ARTACODE) Captiontype(Caption) Caption('Article') Widthtype(Characters) Width(25) Sortposition(1)
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn3) Displayposition(2) Parent(#GRID) Source(#ARTOMS) Captiontype(Caption) Caption('Article descr.') Widthtype(Characters) Width(40)
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn4) Displayposition(3) Parent(#GRID) Source(#LNDCODE) Captiontype(Caption) Caption('Country') Widthtype(Characters) Width(16)
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn5) Displayposition(4) Parent(#GRID) Source(#AVMACODE) Widthtype(Characters) Captiontype(Caption) Caption('Size')
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn6) Displayposition(5) Parent(#GRID) Source(#KLSACODE) Widthtype(Characters) Caption('Class') Captiontype(Caption)
+    Define_Com Class(#PRIM_GDCL) Name(#GridColumn7) Displayposition(6) Parent(#GRID) Source(#FSTACODE) Widthtype(Characters) Width(25) Captiontype(Caption) Caption('Packing')
+    Define_Com Class(#PRIM_PANL) Name(#Panel1) Displayposition(1) Left(8) Parent(#COM_OWNER) Tabposition(1) Tabstop(False) Top(421) Width(715) Height(70)
+    Define_Com Class(#PRIM_PHBN) Name(#RPBTNZK1) Caption('SELECT and FETCH') Parent(#Panel1) Top(16) Width(200) Displayposition(2) Tabposition(3) Left(0)
+    Define_Com Class(#PRIM_PHBN) Name(#RPBTNZK2) Caption('SELECT_SQL USING') Left(208) Parent(#Panel1) Top(16) Width(200) Displayposition(3) Tabposition(4)
+    Define_Com Class(#PRIM_LABL) Name(#Label1) Displayposition(1) Ellipses(Word) Height(19) Left(0) Parent(#Panel1) Tabposition(1) Tabstop(False) Top(52) Verticalalignment(Center) Width(193) Caption('Duration:')
+    Define_Com Class(#PRIM_LABL) Name(#Label3) Caption('Duration:') Displayposition(4) Ellipses(Word) Height(19) Left(208) Parent(#Panel1) Tabposition(2) Tabstop(False) Top(52) Verticalalignment(Center) Width(201)
+    
+    Define Field(#LF_TIMING) Type(*DATETIME)
+    Define Field(#LF_TIMING2) Type(*DATETIME)
+    
+    Evtroutine Handling(#COM_OWNER.CreateInstance) Options(*NOCLEARMESSAGES *NOCLEARERRORS)
+    #ADMCODE := 'RPO'
+    Endroutine
+    
+    Evtroutine Handling(#RPBTNZK1.Click)
+    Clr_List Named(#GRID)
+    #LF_TIMING := #LF_TIMING.Now()
+    Select Fields(#ARTCODE #ARTACODE #ARTOMS #LNDCODE #AHGCODE #AGPCODE #AVTCODE #AVMCODE #KLSCODE) From_File(ART) With_Key(#ADMCODE)
+    Fetch Fields(#AVMACODE) From_File(ARTVARMT) With_Key(#ADMCODE #AHGCODE #AGPCODE #AVTCODE #AVMCODE)
+    Fetch Fields(#KLSACODE) From_File(KLASSE) With_Key(#ADMCODE #KLSCODE)
+    Fetch Fields(#FSTCODE) From_File(ARF01) With_Key(#ADMCODE #ARTCODE 1)
+    Fetch Fields(#ARTACODE) From_File(ART08) With_Key(#ADMCODE #FSTCODE)
+    Add_Entry To_List(#GRID)
+    Endselect
+    * #STD_NUM := *TIME.AsTime.Difference( #RF_TIJD )
+    #Label1.Caption := 'Duration: ' + #LF_TIMING2.Now().AsDuration( #LF_TIMING ).AsString
+    Endroutine
+    
+    Evtroutine Handling(#RPBTNZK2.Click)
+    Clr_List Named(#GRID)
+    #LF_TIMING := #LF_TIMING.Now()
+    
+    #QUERY := "SELECT ART.ARTCODE, ART.ARTACODE, ART.ARTOMS, ART.LNDCODE, AVM.AVMACODE, KLS.KLSACODE, FST.ARTACODE FROM VWBPLIBF.ART AS ART LEFT JOIN VWBPLIBF.ARTVARMT AS AVM ON ART.ADMCODE = AVM.ADMCODE AND ART.AHGCODE = AVM.AHGCODE AND ART.AGPCODE = AVM.AGPCODE AND ART.AVTCODE = AVM.AVTCODE AND ART.AVMCODE = AVM.AVMCODE LEFT JOIN VWBPLIBF.KLASSE AS KLS ON ART.ADMCODE = KLS.ADMCODE AND ART.KLSCODE = KLS.KLSCODE LEFT JOIN VWBPLIBF.ARTFUST AS ARF ON ART.ADMCODE = ARF.ADMCODE AND ART.ARTCODE = ARF.ARTCODE AND ARF.ARFSTWRD = 1 LEFT JOIN VWBPLIBF.ART AS FST ON ARF.ADMCODE = FST.ADMCODE AND ARF.FSTCODE = FST.ARTCODE WHERE ART.ADMCODE = '" + #ADMCODE + "'"
+    Select_Sql Fields(#ARTCODE #ARTACODE #ARTOMS #LNDCODE #AVMACODE #KLSACODE #FSTACODE) Using(#QUERY)
+    Add_Entry To_List(#GRID)
+    Endselect
+    * #STD_NUM := *TIME.AsTime.Difference( #RF_TIJD )
+    #Label3.Caption := 'Duration: ' + #LF_TIMING2.Now().AsDuration( #LF_TIMING ).AsString
+    Endroutine
+    End_Com

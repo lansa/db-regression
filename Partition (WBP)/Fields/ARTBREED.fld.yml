@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTBREED
+  Type:               Signed
+  Length:             4
+  Decimals:           3
+  Default Value:      "*ZEROS"
+  Reference Field:    RF_BREED
+  Edit Mask:          "'0 ,   '"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Width"
+      Label:              "Width"
+      Heading1:           "Width"
+
+  - ENG:
+      Description:        "Width"
+      Label:              "Width"
+      Heading1:           "Width"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Width"
+      Label:              "Width"
+      Heading1:           "Width"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Width"
+      Label:              "Width"
+      Heading1:           "Width"
+
+  - TRK:
+      Description:        "Width"
+      Label:              "Width"
+      Heading1:           "Width"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    End_Com

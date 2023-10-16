@@ -1,0 +1,63 @@
+﻿Field:
+  Name:               ARTSTS
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      +0
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Status"
+      Label:              "Status"
+      Heading1:           "Status"
+
+  - ENG:
+      Description:        "Status"
+      Label:              "Status"
+      Heading1:           "Status"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Status"
+      Label:              "Status"
+      Heading1:           "Status"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Status"
+      Label:              "Status"
+      Heading1:           "Status"
+
+  - TRK:
+      Description:        "Status"
+      Label:              "Status"
+      Heading1:           "Status"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Height(19) Usepicklist(False) Width(185) Componentversion(1)
+    
+    End_Com
+    
+    Begin_Com Role(*picklist) Name(#Picklist) Nomatchaction(ShowValue)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#Item_1) Caption(*MTXTACTIEF) Default(True) Parent(#Picklist)
+    Define_Com Class(#PRIM_PKIT) Name(#Item_2) Caption(*MTXTNONACTIEF) Parent(#Picklist) Value(1)
+    
+    End_Com
+    
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Width(178) Caption(*MTXTNONACTIEF) Labeltype(Caption)
+    
+    End_Com
+    End_Com

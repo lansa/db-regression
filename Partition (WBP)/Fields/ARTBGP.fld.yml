@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTBGP
+  Type:               Signed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Reference Field:    BGPCODE
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "VAT group"
+      Label:              "VAT group"
+      Heading1:           "VAT group"
+
+  - ENG:
+      Description:        "VAT group"
+      Label:              "VAT group"
+      Heading1:           "VAT group"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "VAT group"
+      Label:              "VAT group"
+      Heading1:           "VAT group"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "VAT group"
+      Label:              "VAT group"
+      Heading1:           "VAT group"
+
+  - TRK:
+      Description:        "VAT group"
+      Label:              "VAT group"
+      Heading1:           "VAT group"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(193)
+    
+    End_Com
+    
+    End_Com

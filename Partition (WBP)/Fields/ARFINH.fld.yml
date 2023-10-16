@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARFINH
+  Type:               Signed
+  Length:             9
+  Decimals:           4
+  Default Value:      "*ZEROS"
+  Reference Field:    RF_INH
+  Edit Mask:          "'  . 0 ,    '"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Contents"
+      Label:              "Contents"
+      Heading1:           "Contents"
+
+  - ENG:
+      Description:        "Contents"
+      Label:              "Contents"
+      Heading1:           "Contents"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Contents"
+      Label:              "Contents"
+      Heading1:           "Contents"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Contents"
+      Label:              "Contents"
+      Heading1:           "Contents"
+
+  - TRK:
+      Description:        "Contents"
+      Label:              "Contents"
+      Heading1:           "Contents"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(255)
+    
+    End_Com
+    
+    End_Com

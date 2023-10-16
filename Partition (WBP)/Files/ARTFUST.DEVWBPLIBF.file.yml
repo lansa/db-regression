@@ -1,0 +1,162 @@
+﻿File:
+  Name:                           ARTFUST
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             ARTFUST
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE(*NOMAX) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Article: Coupled packing"
+
+  - ENG:
+      Description:        "Article: Coupled packing"
+
+  - FRA:
+      Description:        "Article: Coupled packing"
+
+  - JPN:
+      Description:        "Article: Coupled packing"
+
+  - TRK:
+      Description:        "Article: Coupled packing"
+
+  Real Fields:
+  - ADMCODE:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - ARTCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - VPKCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - FSTCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - ARFBRGEW:
+      Type:               Signed
+      Length:             9
+      Decimals:           4
+
+  - ARFINH:
+      Type:               Signed
+      Length:             9
+      Decimals:           4
+
+  - ARFSTWRD:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  Primary Keys:
+  - ADMCODE
+  - ARTCODE
+  - VPKCODE
+  - FSTCODE
+
+  Logical Views:
+  - ARF01:
+      Identifier:         ARF01
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      ARF01
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical on default article-packing"
+
+      - ENG:
+          Description:        "Logical on default article-packing"
+
+      - FRA:
+          Description:        "Logical on default article-packing"
+
+      - JPN:
+          Description:        "Logical on default article-packing"
+
+      - TRK:
+          Description:        "Logical on default article-packing"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - ARFSTWRD:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  File Level Validation Rules:
+  - FSTCODE:
+    - List Check:
+        Description:        "Moet ingevuld zijn"
+        Values:
+        - "*ZEROS"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message File:       ON1M01
+        Message Number:     MSG0001
+
+  - ARFBRGEW:
+    - List Check:
+        Description:        "Moet ingevuld zijn"
+        Values:
+        - "*ZEROS"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message File:       ON1M01
+        Message Number:     MSG0001
+
+  - ARFINH:
+    - List Check:
+        Description:        "Moet ingevuld zijn"
+        Values:
+        - "*ZEROS"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message File:       ON1M01
+        Message Number:     MSG0001

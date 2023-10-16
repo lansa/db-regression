@@ -1,0 +1,42 @@
+﻿Field:
+  Name:               ARTKLEUR
+  Type:               Alpha
+  Length:             40
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Color"
+      Label:              "Color"
+      Heading1:           "Color"
+
+  - ENG:
+      Description:        "Color"
+      Label:              "Color"
+      Heading1:           "Color"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Color"
+      Label:              "Color"
+      Heading1:           "Color"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Color"
+      Label:              "Color"
+      Heading1:           "Color"
+
+  - TRK:
+      Description:        "Color"
+      Label:              "Color"
+      Heading1:           "Color"

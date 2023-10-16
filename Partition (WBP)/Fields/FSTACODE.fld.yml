@@ -1,0 +1,52 @@
+﻿Field:
+  Name:               FSTACODE
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    ARTACODE
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Alpha packing code"
+      Label:              "Packing"
+      Heading1:           "Packing"
+
+  - ENG:
+      Description:        "Alpha packing code"
+      Label:              "Packing"
+      Heading1:           "Packing"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Alpha packing code"
+      Label:              "Packing"
+      Heading1:           "Packing"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Alpha packing code"
+      Label:              "Packing"
+      Heading1:           "Packing"
+
+  - TRK:
+      Description:        "Alpha packing code"
+      Label:              "Packing"
+      Heading1:           "Packing"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Promptertabstop(False) Usepicklist(False) Width(286) Componentversion(1)
+    
+    End_Com
+    
+    End_Com

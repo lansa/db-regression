@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTLANG
+  Type:               Signed
+  Length:             4
+  Decimals:           3
+  Default Value:      "*ZEROS"
+  Reference Field:    RF_LANG
+  Edit Mask:          "'0 ,   '"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Length"
+      Label:              "Length"
+      Heading1:           "Length"
+
+  - ENG:
+      Description:        "Length"
+      Label:              "Length"
+      Heading1:           "Length"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Length"
+      Label:              "Length"
+      Heading1:           "Length"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Length"
+      Label:              "Length"
+      Heading1:           "Length"
+
+  - TRK:
+      Description:        "Length"
+      Label:              "Length"
+      Heading1:           "Length"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    End_Com

@@ -1,0 +1,59 @@
+﻿Field:
+  Name:               RF_TIJD
+  Type:               Time
+  Length:             8
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - ASQN
+
+  Output Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Time"
+      Label:              "Time"
+      Heading1:           "Time"
+
+  - ENG:
+      Description:        "Time"
+      Label:              "Time"
+      Heading1:           "Time"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Time"
+      Label:              "Time"
+      Heading1:           "Time"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Time"
+      Label:              "Time"
+      Heading1:           "Time"
+
+  - TRK:
+      Description:        "Time"
+      Label:              "Time"
+      Heading1:           "Time"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVDT) Name(#VisualTime) Defaultvisual(True) Height(19) Showdate(False) Width(232)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_time.std_time') Name(#Weblet) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

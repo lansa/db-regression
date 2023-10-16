@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               AGPCODE
+  Type:               Signed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Code article group"
+      Label:              "Group"
+      Heading1:           "Article group"
+
+  - ENG:
+      Description:        "Code article group"
+      Label:              "Group"
+      Heading1:           "Article group"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Code article group"
+      Label:              "Group"
+      Heading1:           "Article group"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Code article group"
+      Label:              "Group"
+      Heading1:           "Article group"
+
+  - TRK:
+      Description:        "Code article group"
+      Label:              "Group"
+      Heading1:           "Article group"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Promptertabstop(False) Usepicklist(False) Width(201)
+    
+    End_Com
+    
+    End_Com

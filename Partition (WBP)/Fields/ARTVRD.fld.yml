@@ -1,0 +1,64 @@
+﻿Field:
+  Name:               ARTVRD
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      +0
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Stock"
+      Label:              "Stock"
+      Heading1:           "Stock"
+
+  - ENG:
+      Description:        "Stock"
+      Label:              "Stock"
+      Heading1:           "Stock"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Stock"
+      Label:              "Stock"
+      Heading1:           "Stock"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Stock"
+      Label:              "Stock"
+      Heading1:           "Stock"
+
+  - TRK:
+      Description:        "Stock"
+      Label:              "Stock"
+      Heading1:           "Stock"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Height(19) Usepicklist(False) Width(185)
+    
+    End_Com
+    
+    Begin_Com Role(*picklist) Name(#Picklist)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#Item_1) Caption('Nee') Default(True) Parent(#Picklist)
+    Define_Com Class(#PRIM_PKIT) Name(#Item_2) Caption('Ja') Parent(#Picklist) Value(1)
+    
+    End_Com
+    
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Width(178)
+    
+    End_Com
+    
+    End_Com

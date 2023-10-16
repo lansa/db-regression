@@ -1,0 +1,245 @@
+﻿List:
+  Name:               Performance Test
+  Stored As:          User
+
+  Objects:
+  - ARTACODE:
+      Type:               Field
+
+  - ARTACTOT:
+      Type:               Field
+
+  - ARTACVAN:
+      Type:               Field
+
+  - ARTBGP:
+      Type:               Field
+
+  - ARTBREED:
+      Type:               Field
+
+  - ARTBSTGR:
+      Type:               Field
+
+  - ARTBSTNV:
+      Type:               Field
+
+  - ARTCEAN:
+      Type:               Field
+
+  - ARTCODE:
+      Type:               Field
+
+  - ARTDOUAC:
+      Type:               Field
+
+  - ARTEENH1:
+      Type:               Field
+
+  - ARTEENH2:
+      Type:               Field
+
+  - ARTEGBTS:
+      Type:               Field
+
+  - ARTFOTO:
+      Type:               Field
+
+  - ARTGDROM:
+      Type:               Field
+
+  - ARTGPBDR:
+      Type:               Field
+
+  - ARTHEAN:
+      Type:               Field
+
+  - ARTHOOG:
+      Type:               Field
+
+  - ARTIKRET:
+      Type:               Field
+
+  - ARTIKSTG:
+      Type:               Field
+
+  - ARTIKTSL:
+      Type:               Field
+
+  - ARTINK:
+      Type:               Field
+
+  - ARTISFST:
+      Type:               Field
+
+  - ARTISPAL:
+      Type:               Field
+
+  - ARTISTRF:
+      Type:               Field
+
+  - ARTISVPK:
+      Type:               Field
+
+  - ARTKCBOM:
+      Type:               Field
+
+  - ARTKCBPC:
+      Type:               Field
+
+  - ARTKLEUR:
+      Type:               Field
+
+  - ARTKOMS:
+      Type:               Field
+
+  - ARTKRIVK:
+      Type:               Field
+
+  - ARTLANG:
+      Type:               Field
+
+  - ARTMVRD:
+      Type:               Field
+
+  - ARTNTGEW:
+      Type:               Field
+
+  - ARTOMS:
+      Type:               Field
+
+  - ARTOPSCH:
+      Type:               Field
+
+  - ARTPDOM:
+      Type:               Field
+
+  - ARTPROD:
+      Type:               Field
+
+  - ARTSTPVO:
+      Type:               Field
+
+  - ARTSTS:
+      Type:               Field
+
+  - ARTTSBGP:
+      Type:               Field
+
+  - ARTUHNTS:
+      Type:               Field
+
+  - ARTUITVK:
+      Type:               Field
+
+  - ARTVERK:
+      Type:               Field
+
+  - ARTVKRET:
+      Type:               Field
+
+  - ARTVKSTG:
+      Type:               Field
+
+  - ARTVKTSL:
+      Type:               Field
+
+  - ARTVPKKS:
+      Type:               Field
+
+  - ARTVRD:
+      Type:               Field
+
+  - ARTWEEG:
+      Type:               Field
+
+  - ADMCODE:
+      Type:               Field
+
+  - AGPCODE:
+      Type:               Field
+
+  - AHGCODE:
+      Type:               Field
+
+  - ARFBRGEW:
+      Type:               Field
+
+  - ARFINH:
+      Type:               Field
+
+  - ARFSTWRD:
+      Type:               Field
+
+  - AVMACODE:
+      Type:               Field
+
+  - AVMCODE:
+      Type:               Field
+
+  - AVMNAC:
+      Type:               Field
+
+  - AVMOMS:
+      Type:               Field
+
+  - AVMOPSCH:
+      Type:               Field
+
+  - AVTCODE:
+      Type:               Field
+
+  - FSTACODE:
+      Type:               Field
+
+  - FSTCODE:
+      Type:               Field
+
+  - KLSACODE:
+      Type:               Field
+
+  - KLSCODE:
+      Type:               Field
+
+  - KLSNAC:
+      Type:               Field
+
+  - KLSOMS:
+      Type:               Field
+
+  - KLSOPSCH:
+      Type:               Field
+
+  - LNDCODE:
+      Type:               Field
+
+  - PFMCODE:
+      Type:               Field
+
+  - QUERY:
+      Type:               Field
+
+  - RF_TIJD:
+      Type:               Field
+
+  - VPKCODE:
+      Type:               Field
+
+  - ART:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - ARTFUST:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - ARTVARMT:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - KLASSE:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - TESTPERF:
+      Type:               Form

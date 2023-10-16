@@ -1,0 +1,61 @@
+﻿Field:
+  Name:               ARTWEEG
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      +0
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Weigh article"
+      Label:              "Weigh article"
+      Heading1:           "Weigh article"
+
+  - ENG:
+      Description:        "Weigh article"
+      Label:              "Weigh article"
+      Heading1:           "Weigh article"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Weigh article"
+      Label:              "Weigh article"
+      Heading1:           "Weigh article"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Weigh article"
+      Label:              "Weigh article"
+      Heading1:           "Weigh article"
+
+  - TRK:
+      Description:        "Weigh article"
+      Label:              "Weigh article"
+      Heading1:           "Weigh article"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Height(19) Usepicklist(False) Width(178)
+    
+    End_Com
+    
+    Begin_Com Role(*picklist) Name(#Picklist)
+    
+    Define_Com Class(#PRIM_PKIT) Name(#Item_1) Caption('Nee') Default(True) Parent(#Picklist) Value(0)
+    Define_Com Class(#PRIM_PKIT) Name(#Item_2) Caption('Ja') Parent(#Picklist) Value(1)
+    
+    End_Com
+    Begin_Com Role(*Visual #PRIM_EVPL) Name(#VisualPicklist) Appearance(CheckBox) Componentversion(1) Defaultvisual(True) Height(19) Width(178)
+    
+    End_Com
+    End_Com

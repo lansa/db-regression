@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               PFMCODE
+  Type:               Signed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Pallet size code"
+      Label:              "Palllet size"
+      Heading1:           "Pallet size code"
+
+  - ENG:
+      Description:        "Pallet size code"
+      Label:              "Palllet size"
+      Heading1:           "Pallet size code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Pallet size code"
+      Label:              "Palllet size"
+      Heading1:           "Pallet size code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Pallet size code"
+      Label:              "Palllet size"
+      Heading1:           "Pallet size code"
+
+  - TRK:
+      Description:        "Pallet size code"
+      Label:              "Palllet size"
+      Heading1:           "Pallet size code"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(239)
+    
+    End_Com
+    
+    End_Com

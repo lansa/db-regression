@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTEENH1
+  Type:               Signed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Reference Field:    EHDCODE
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Stock unit 1"
+      Label:              "Unit 1"
+      Heading1:           "Stock unit 1"
+
+  - ENG:
+      Description:        "Stock unit 1"
+      Label:              "Unit 1"
+      Heading1:           "Stock unit 1"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Stock unit 1"
+      Label:              "Unit 1"
+      Heading1:           "Stock unit 1"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Stock unit 1"
+      Label:              "Unit 1"
+      Heading1:           "Stock unit 1"
+
+  - TRK:
+      Description:        "Stock unit 1"
+      Label:              "Unit 1"
+      Heading1:           "Stock unit 1"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(201)
+    
+    End_Com
+    
+    End_Com

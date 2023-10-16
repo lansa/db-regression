@@ -1,0 +1,43 @@
+﻿Field:
+  Name:               ARTFOTO
+  Type:               Alpha
+  Length:             100
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    RF_AFBLD
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Image of the article"
+      Label:              "Img of article"
+      Heading1:           "Img of article"
+
+  - ENG:
+      Description:        "Image of the article"
+      Label:              "Img of article"
+      Heading1:           "Img of article"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Image of the article"
+      Label:              "Img of article"
+      Heading1:           "Img of article"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Image of the article"
+      Label:              "Img of article"
+      Heading1:           "Img of article"
+
+  - TRK:
+      Description:        "Image of the article"
+      Label:              "Img of article"
+      Heading1:           "Img of article"

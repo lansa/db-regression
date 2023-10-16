@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               ARTOMS
+  Type:               Alpha
+  Length:             40
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Reference Field:    RF_OMS
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Article descr."
+
+  - ENG:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Article descr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Article descr."
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Article descr."
+
+  - TRK:
+      Description:        "Description"
+      Label:              "Description"
+      Heading1:           "Article descr."
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(478)
+    
+    End_Com
+    
+    End_Com

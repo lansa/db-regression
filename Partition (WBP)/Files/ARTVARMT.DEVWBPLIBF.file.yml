@@ -1,0 +1,141 @@
+﻿File:
+  Name:                           ARTVARMT
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             ARTVARMT
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         No
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE(*NOMAX) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Article variety: Size"
+
+  - ENG:
+      Description:        "Article variety: Size"
+
+  - FRA:
+      Description:        "Article variety: Size"
+
+  - JPN:
+      Description:        "Article variety: Size"
+
+  - TRK:
+      Description:        "Article variety: Size"
+
+  Real Fields:
+  - ADMCODE:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - AHGCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - AGPCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - AVTCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - AVMCODE:
+      Type:               Signed
+      Length:             9
+      Decimals:           0
+
+  - AVMACODE:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - AVMOMS:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - AVMNAC:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  - AVMOPSCH:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+  Primary Keys:
+  - ADMCODE
+  - AHGCODE
+  - AGPCODE
+  - AVTCODE
+  - AVMCODE
+
+  Logical Views:
+  - AVM01:
+      Identifier:         AVM01
+      Unique Key:         Yes
+      Access Path:        Immediate
+      Record Format:      AVM01
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Logical on avmacode (unique)"
+
+      - ENG:
+          Description:        "Logical on avmacode (unique)"
+
+      - FRA:
+          Description:        "Logical on avmacode (unique)"
+
+      - JPN:
+          Description:        "Logical on avmacode (unique)"
+
+      - TRK:
+          Description:        "Logical on avmacode (unique)"
+
+      Keys:
+      - ADMCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AHGCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AGPCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AVTCODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - AVMACODE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

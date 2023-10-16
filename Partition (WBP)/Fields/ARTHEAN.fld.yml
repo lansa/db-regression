@@ -1,0 +1,52 @@
+﻿Field:
+  Name:               ARTHEAN
+  Type:               Alpha
+  Length:             13
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "EAN-code commercial unit"
+      Label:              "CEAN-code"
+      Heading1:           "CEAN-code"
+
+  - ENG:
+      Description:        "EAN-code commercial unit"
+      Label:              "CEAN-code"
+      Heading1:           "CEAN-code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "EAN-code commercial unit"
+      Label:              "CEAN-code"
+      Heading1:           "CEAN-code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "EAN-code commercial unit"
+      Label:              "CEAN-code"
+      Heading1:           "CEAN-code"
+
+  - TRK:
+      Description:        "EAN-code commercial unit"
+      Label:              "CEAN-code"
+      Heading1:           "CEAN-code"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(260)
+    
+    End_Com
+    
+    End_Com

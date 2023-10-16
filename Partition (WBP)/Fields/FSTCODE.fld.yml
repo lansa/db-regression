@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               FSTCODE
+  Type:               Signed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Reference Field:    ARTCODE
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Packing code"
+      Label:              "Packing"
+      Heading1:           "Packing code"
+
+  - ENG:
+      Description:        "Packing code"
+      Label:              "Packing"
+      Heading1:           "Packing code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Packing code"
+      Label:              "Packing"
+      Heading1:           "Packing code"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Packing code"
+      Label:              "Packing"
+      Heading1:           "Packing code"
+
+  - TRK:
+      Description:        "Packing code"
+      Label:              "Packing"
+      Heading1:           "Packing code"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Promptertabstop(False) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    End_Com

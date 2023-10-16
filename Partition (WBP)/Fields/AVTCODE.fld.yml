@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               AVTCODE
+  Type:               Signed
+  Length:             9
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Code article variety"
+      Label:              "Variety"
+      Heading1:           "Article variety"
+
+  - ENG:
+      Description:        "Code article variety"
+      Label:              "Variety"
+      Heading1:           "Article variety"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Code article variety"
+      Label:              "Variety"
+      Heading1:           "Article variety"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Code article variety"
+      Label:              "Variety"
+      Heading1:           "Article variety"
+
+  - TRK:
+      Description:        "Code article variety"
+      Label:              "Variety"
+      Heading1:           "Article variety"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Promptertabstop(False) Usepicklist(False) Width(201)
+    
+    End_Com
+    
+    End_Com

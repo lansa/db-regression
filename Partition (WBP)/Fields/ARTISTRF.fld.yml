@@ -1,0 +1,53 @@
+﻿Field:
+  Name:               ARTISTRF
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      +0
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Tariff"
+      Label:              "Tariff"
+      Heading1:           "Tariff"
+
+  - ENG:
+      Description:        "Tariff"
+      Label:              "Tariff"
+      Heading1:           "Tariff"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Tariff"
+      Label:              "Tariff"
+      Heading1:           "Tariff"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Tariff"
+      Label:              "Tariff"
+      Heading1:           "Tariff"
+
+  - TRK:
+      Description:        "Tariff"
+      Label:              "Tariff"
+      Heading1:           "Tariff"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Usepicklist(False) Width(185)
+    
+    End_Com
+    
+    End_Com

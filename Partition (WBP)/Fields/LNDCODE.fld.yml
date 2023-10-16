@@ -1,0 +1,51 @@
+﻿Field:
+  Name:               LNDCODE
+  Type:               Alpha
+  Length:             2
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Code country"
+      Label:              "Country"
+      Heading1:           "Country"
+
+  - ENG:
+      Description:        "Code country"
+      Label:              "Country"
+      Heading1:           "Country"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Code country"
+      Label:              "Country"
+      Heading1:           "Country"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Code country"
+      Label:              "Country"
+      Heading1:           "Country"
+
+  - TRK:
+      Description:        "Code country"
+      Label:              "Country"
+      Heading1:           "Country"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Height(19) Showprompter(True) Usepicklist(False) Width(247) Componentversion(1)
+    
+    End_Com
+    
+    End_Com

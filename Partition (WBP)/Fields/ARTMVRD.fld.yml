@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               ARTMVRD
+  Type:               Signed
+  Length:             11
+  Decimals:           4
+  Default Value:      "*ZERO"
+  Reference Field:    RF_AAN
+  Edit Mask:          "' .   . 0 ,    -'"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Minimal stock"
+      Label:              "Minimal stock"
+      Heading1:           "Minimal stock"
+
+  - ENG:
+      Description:        "Minimal stock"
+      Label:              "Minimal stock"
+      Heading1:           "Minimal stock"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "Minimal stock"
+      Label:              "Minimal stock"
+      Heading1:           "Minimal stock"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "Minimal stock"
+      Label:              "Minimal stock"
+      Heading1:           "Minimal stock"
+
+  - TRK:
+      Description:        "Minimal stock"
+      Label:              "Minimal stock"
+      Heading1:           "Minimal stock"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Displayalignment(Right) Height(19) Usepicklist(False) Width(247)
+    
+    End_Com
+    
+    End_Com
