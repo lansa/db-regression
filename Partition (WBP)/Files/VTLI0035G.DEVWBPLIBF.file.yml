@@ -52,8 +52,18 @@
 
   File Level Triggers:
   - BIFN0700A:
-    - BEFOPN:
+    - All Trigger Points:
         Function:           VI0035T
         Trigger Points:
         - Before Open
+        - Before Close
+        - Before Read
         - Before Insert
+        - Before Update
+        - Before Delete
+        - After Open
+        - After Close
+        - After Read
+        - After Insert
+        - After Update
+        - After Delete

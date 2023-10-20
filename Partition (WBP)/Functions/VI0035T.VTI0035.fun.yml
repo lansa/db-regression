@@ -22,23 +22,13 @@
     * Do NOT define any fields in this list. They
     * are automatically included by the compiler.
     Def_List Name(#TRIG_LIST) Type(*WORKING) Entrys(2)
+    
     * =======================================================
     * Function Mainline : VI0035T
     * =======================================================
     * Assume a "good" return initially
     Change Field(#TRIG_RETC) To('OK')
-    *
-    * >>> DELETE all "not defined" events from the  <<<
-    * >>> the following CASE construct. (ie: Remove <<<
-    * >>> WHEN VALUE_IS commands that are not part  <<<
-    * >>> of the definition of this trigger BEFORE  <<<
-    * >>> specifying details of the events that are <<<
-    * >>> part of the definition of this trigger).  <<<
-    * >>> This simplifies logic in this function    <<<
-    * >>> and ensures an ABORT if someone attempts  <<<
-    * >>> to cause it to be invoked during an event <<<
-    * >>> that it has not been set up to handle.    <<<
-    *
+    
     Case Of_Field(#TRIG_OPER)
     * Handle a before open event
     When Value_Is('= BEFOPN')
@@ -46,35 +36,54 @@
     
     * Handle an after open event
     When Value_Is('= AFTOPN')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTOPN')
+    
     * Handle a before close event
     When Value_Is('= BEFCLS')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFCLS')
+    
     * Handle an after close event
     When Value_Is('= AFTCLS')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTCLS')
+    
     * Handle a before read event
     When Value_Is('= BEFRED')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFRED')
+    
     * Handle an after read event
     When Value_Is('= AFTRED')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTRED')
+    
     * Handle a before insert event
     When Value_Is('= BEFINS')
     Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFINS')
-    #TRIG_RETC := VE
     
     * Handle an after insert event
     When Value_Is('= AFTINS')
     Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTINS')
-    #TRIG_RETC := VE
     
     * Handle a before update event
     When Value_Is('= BEFUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFUPD')
+    
     * Handle an after update event
     When Value_Is('= AFTUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTUPD')
+    
     * Handle a before delete event
     When Value_Is('= BEFDLT')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFDLT')
+    
     * Handle an after delete event
     When Value_Is('= AFTDLT')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTDLT')
+    
     * Handle an event not catered for
     Otherwise
-    Abort Msgtxt('File VTLI0035G trigger function invalidly invoked/ used.')
+    * Abort Msgtxt('File VTLI0035G trigger function invalidly invoked/ used.')
+    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default ('File VTLI0035G in trigger function ' + *FUNCTION_DESC + ' invalidly invoked/used.'))
+    #TRIG_RETC := ER
+    
     Endcase
     * Return control to the invoker
     Return
