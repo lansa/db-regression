@@ -132,14 +132,17 @@
     Add_Entry To_List(#w_lMessages)
     #BIFC256A := 'BEFRED'
     Add_Entry To_List(#w_lMessages)
-    #BIFC256A := 'AFTRED'
-    Add_Entry To_List(#w_lMessages)
     
     Select Fields(#XG_ALL) From_File(VTLI0035G) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lOriginal)
     Endselect
     
     If (#this_rc = EF)
+    * If there is at least 1 row then an AFTRED trigger will be fired
+    If (#LF_Original_Count > 0)
+    #BIFC256A := 'AFTRED'
+    Add_Entry To_List(#w_lMessages)
+    Endif
     #Com_Owner.mthCheck_Msg_Txt( #this_rc EF True )
     
     #this_rc := OK
@@ -197,28 +200,25 @@
     
     *
     * mthCheck_Msg_txt
-    * Called after an IO that is expected to return VE
     *
     Mthroutine Name(mthCheck_Msg_Txt) Options(*RECEIVES_MESSAGES)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE) Help('Set to the expected return code form the previous IO executed')
     Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_use_expected_msg_count) Mandatory(false) Help('Default behaviour is to retrieve all messages issued. Setting this to True means only the number of messages expected are retrieved')
     
     Define Field(#LF_msg_txt_actual) Reffld(#BIFMSG1)
     Define Field(#LF_msg_num) Reffld(#BIFA010A)
     Define Field(#LF_msg_entry) Reffld(#BIFN0700A)
+    Define Field(#LF_unexpected_rc) Reffld(#BIFA002A)
     
-    If ((#this_rc <> #this_rc_expected))
-    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('Unexpected ' + #this_rc) '' )
-    Else
+    #LF_unexpected_rc := #this_rc
     
     If (#this_rc = #this_rc_expected)
     
     If (#this_use_expected_msg_count)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Checking for only the following messages:') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Checking for exactly the following messages:') '' )
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('- Checking for the following messages, and listing extras:') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Checking for all the following messages, and listing extras:') '' )
     Endif
     
     
@@ -272,14 +272,22 @@
     * An OK result means there are more messages and thats an error
     If (#this_rc *EQ OK)
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('There are more messages than the loop is able to retrieve') '' )
+    #Com_Owner.mthAdd_SubMsg( ER ('There are more messages issued than are being checked for') '' )
     Endif
     
     If (#this_rc *EQ NO)
     #this_rc := OK
+    If ((#LF_Message_Count > (#LF_msg_entry - 1)))
+    #Com_Owner.mthAdd_SubMsg( ER ('There are fewer messages issued than are being checked for') '' )
     Endif
     
     Endif
+    
+    Endif
+    
+    If (#LF_unexpected_rc <> #this_rc_expected)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('Unexpected ' + #LF_unexpected_rc + '. Expected ' + #this_rc_expected) '' )
     Endif
     
     * Log any messages not processed above
@@ -287,7 +295,7 @@
     Endroutine
     
     *
-    * mthCheck_Msg_txt
+    * mthCheck_No_VE_Msgs
     * Called after an IO that is NOT expected to return VE
     *
     Mthroutine Name(mthCheck_No_VE_Msgs) Options(*RECEIVES_MESSAGES)
@@ -319,13 +327,84 @@
     Mthroutine Name(mthCheck_Insert_Trigger)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
-    * Define_Map For(*INPUT) Class(#prim_lcol<#prim_alph>) Name(#this_msg_list) Help('Collection of expected messages') Pass(*BY_REFERENCE)
     
     #Com_Owner.mthAdd_SubMsg( OK ('Insert Trigger') ('') )
     
     Insert Fields(*ALL) To_File(VTLI0035G) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_rc_expected )
     
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Update_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Update Trigger') ('') )
+    
+    Update Fields(*ALL) In_File(VTLI0035G) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_rc_expected )
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Fetch_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Fetch Trigger') ('') )
+    
+    Fetch Fields(*ALL) From_File(VTLI0035G) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_rc_expected )
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Delete_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Delete Trigger') ('') )
+    
+    Delete From_File(VTLI0035G) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_rc_expected )
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Close_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Close Trigger') ('') )
+    
+    Close File(VTLI0035G) Io_Status(#BIFA002A) Io_Error(*NEXT) /* Io_Status(#this_rc) */
+    #this_rc := #BIFA002A
+    #Com_Owner.mthCheck_Msg_Txt( #this_rc #this_rc_expected )
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Endif
     Endroutine
     
     *
@@ -334,10 +413,12 @@
     Mthroutine Name(mthTriggers)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    *
+    * Insert
+    *
     #BIFN0700A := 1
     #BIFA032A := *BLANKS
-    #BIFC500A := '0123456789'
-    #BIFC256B := 'BEFINS'
+    * #BIFC500A := '0123456789'
     
     Use Builtin(CLR_MESSAGES)
     Clr_List Named(#w_lMessages)
@@ -347,6 +428,60 @@
     Add_Entry To_List(#w_lMessages)
     
     #Com_Owner.mthCheck_Insert_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Update
+    *
+    #BIFA032A := UPDATE
+    
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFUPD'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTUPD'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Update_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Fetch
+    *
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFRED'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTRED'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Fetch_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Delete
+    *
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFDLT'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTDLT'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Delete_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Close
+    *
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFCLS'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTCLS'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Close_Trigger( #this_rc OK )
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     
     Endroutine

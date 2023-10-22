@@ -47,6 +47,11 @@
       Length:             7
       Decimals:           0
 
+  - BIFA032A:
+      Type:               Alphanumeric
+      Length:             32
+      Decimals:           0
+
   Primary Keys:
   - BIFN0700A
 
