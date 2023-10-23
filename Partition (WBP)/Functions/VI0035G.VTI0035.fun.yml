@@ -61,7 +61,7 @@
     #Com_Owner.mthClearData( #LF_rc )
     
     If (#LF_rc *EQ OK)
-    #Com_Owner.mthTriggers( #LF_rc )
+    #Com_Owner.mthTestTriggers( #LF_rc )
     Endif
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
@@ -381,7 +381,7 @@
     *
     *
     *
-    Mthroutine Name(mthTriggers)
+    Mthroutine Name(mthTestTriggers)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     *
