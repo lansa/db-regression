@@ -33,7 +33,7 @@ param (
     [boolean] $Secondary = $false,
     [boolean] $Bit32 = $true,
     [boolean] $Bit64 = $false,
-    [switch] $SkipGitReset
+    [switch] $GitReset
 )
 # Write-Host "Map drives to LPC network"
 # & 'C:\ssh\ServerMappings.bat'
@@ -271,7 +271,7 @@ try {
             Write-Host( "$(Log-Date) Remove any residue from running previous tests..." )
 
             Set-Location (Join-Path $Root "LANSA\VersionControl")
-            if ( -not $SkipGitReset ){
+            if ( $GitReset ){
                 git reset --hard HEAD
             } else {
                 Write-Host("Skipping Git Reset")
