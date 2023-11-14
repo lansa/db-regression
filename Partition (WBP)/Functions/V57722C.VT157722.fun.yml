@@ -17,7 +17,7 @@
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     
     * Return messages.
-    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING)
     
     Define Field(#LF_image_path) Type(*STRING)
     Define Field(#LF_image_file) Type(*STRING)
@@ -309,7 +309,11 @@
     If (#this_number_of_test_records = #LF_i)
     #Com_Owner.mthAdd_SubMsg( OK (' + Matched number of record') ('') )
     Else
-    #Com_Owner.mthAdd_SubMsg( OK (' + Unmatched number of record') ('Inserted ' + #this_number_of_test_records.AsString + ' but found ' + #LF_i.AsString + ' from the SELECT command') )
+    If (#BIFA100A = 'Q: W -> I')
+    #Com_Owner.mthAdd_SubMsg( OK (' + Unmatched number of record') ('Inserted ' + #this_number_of_test_records.AsString + ' but found ' + #LF_i.AsString + ' from the SELECT command. Error ignored see CCS 164085') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER (' + Unmatched number of record') ('Inserted ' + #this_number_of_test_records.AsString + ' but found ' + #LF_i.AsString + ' from the SELECT command') )
+    Endif
     Endif
     Endroutine
     
