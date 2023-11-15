@@ -206,8 +206,11 @@
     #BIFNC256A := #this_zero_size_file
     #BIFBLOBA := #BIFNC256A.AsNativeString
     Else
+    If (*CPUTYPE = AS400)
+    #BIFNC256A := *SYS_DIR_SOURCE + 'liiodef.h'
+    Else
     #BIFNC256A := *SYS_DIR_EXECUTE + 'x_dll.dll'
-    * #BIFNC256A := *SYS_DIR_SOURCE + '.gitignore'
+    Endif
     #BIFBLOBA := #BIFNC256A.AsNativeString
     Endif
     Endif
