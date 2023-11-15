@@ -111,6 +111,8 @@
     
     Get_Entry Number(1) From_List(#wLKData)
     
+    
+    If (*CPUTYPE <> AS400)
     #LF_rc := OK
     #Com_Owner.mthInit_Data
     
@@ -148,6 +150,10 @@
     #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Big_Tree_Test 'Large number of data' True True True False False False )
     #Com_Owner.mthAdd_Test_Case( #LF_TEST_CASE_Kelvin_Test 'Kelvin''s Insert_In_Space error' True True True False False False )
     #Com_Owner.mthTest_Cases( #LF_rc )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' - Skipping Function running on IBMi') ('Due to defect CCS 164086') )
+    Endif
+    
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
