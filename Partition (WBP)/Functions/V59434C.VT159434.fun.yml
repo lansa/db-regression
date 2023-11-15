@@ -83,6 +83,8 @@
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     * If (#LF_DB_Type *NE MYSQL)
     
+    If (*CPUTYPE <> AS400)
+    
     * Delete leftover table data.
     #Com_Owner.mthSELECT( #VTF_KEY1 True #LF_rc )
     If (#LF_rc = OK)
@@ -103,6 +105,9 @@
     #Com_Owner.mthTransform_Test( #LF_Temp_Dir_TL #LF_Temp_Dir_DB 'AU' '_u' #LF_rc )
     Endif
     Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' - Skipping Function running on IBMi') ('due to defect CCS 164086') )
     Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
@@ -131,6 +136,30 @@
     #BIFMSG1 := ' ' + #this_msg1
     #BIFMSG2 := #this_msg2
     Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Else
+    If Cond(#LF_msg_rc <> NO)
+    #Com_Owner.mthIssue_Runtime_Message( #LF_msg_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('Error executing GET_MESSAGE') ('') )
+    Endif
+    Endif
+    Endwhile
     Endroutine
     
     *
@@ -174,18 +203,18 @@
     * Valid Blob / Clob.
     #BIFNC256A := #this_key
     #BIFP0500A := #LF_TL_Count + 1
-    #BIFC100A := 'x_txteng.dat'
-    #BIFBLOBA := *SYS_DIR + #BIFC100A
-    #BIFC100B := 'u_bifnnn.c'
-    #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
+    #BIFC100A := *SYS_DIR + 'x_txteng.dat'
+    #BIFBLOBA := #BIFC100A
+    #BIFC100B := *SYS_DIR_SOURCE + 'liiodef.h'
+    #BIFCLOBA := #BIFC100B
     #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
     Add_Entry To_List(#w_lTL)
     
     * Valid Blob, *Null & *Sqlnull Clob.
     #BIFNC256A := #this_key
     #BIFP0500A := #LF_TL_Count + 1
-    #BIFC100A := 'x_txtfra.dat'
-    #BIFBLOBA := *SYS_DIR + #BIFC100A
+    #BIFC100A := *SYS_DIR + 'x_txtfra.dat'
+    #BIFBLOBA := #BIFC100A
     #BIFC100B := '*null'
     #BIFCLOBA := *Null
     #BIFDT26C := #Com_Owner.mthGetNullDatetime( *NULL )
@@ -193,8 +222,8 @@
     
     #BIFNC256A := #this_key
     #BIFP0500A := #LF_TL_Count + 1
-    #BIFC100A := 'x_txtjpn.dat'
-    #BIFBLOBA := *SYS_DIR + #BIFC100A
+    #BIFC100A := *SYS_DIR + 'x_txtjpn.dat'
+    #BIFBLOBA := #BIFC100A
     #BIFC100B := '*sqlnull'
     #BIFCLOBA := *Sqlnull
     #BIFDT26C := *Sqlnull
@@ -205,8 +234,8 @@
     #BIFP0500A := #LF_TL_Count + 1
     #BIFC100A := '*null'
     #BIFBLOBA := *Null
-    #BIFC100B := 'u_bifnnn.c'
-    #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
+    #BIFC100B := *SYS_DIR_SOURCE + 'liiodef.h'
+    #BIFCLOBA := #BIFC100B
     #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
     Add_Entry To_List(#w_lTL)
     
@@ -214,8 +243,8 @@
     #BIFP0500A := #LF_TL_Count + 1
     #BIFC100A := '*sqlnull'
     #BIFBLOBA := *Sqlnull
-    #BIFC100B := 'u_bifnnn.c'
-    #BIFCLOBA := *SYS_DIR_SOURCE + #BIFC100B
+    #BIFC100B := *SYS_DIR_SOURCE + 'liiodef.h'
+    #BIFCLOBA := #BIFC100B
     #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( #BIFDT26C.Now )
     Add_Entry To_List(#w_lTL)
     
@@ -304,6 +333,7 @@
     
     Delete From_File(VTL159434C) With_Key(#BIFNC256A #BIFP0500A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc + ' on record ' + #LF_i.AsString) '' )
     #this_rc := ER
     Leave
@@ -325,6 +355,7 @@
     Selectlist Named(#w_lTL)
     Insert Fields(*ALL) To_File(VTL159434C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Row ' + #BIFP0500A.AsString + ' BLOB = ' + #BIFC100A + ' CLOB = ' + #BIFC100B) )
     #this_rc := ER
     Leave
@@ -351,6 +382,7 @@
     
     #LF_TL_Output_File := #this_tl_dir + *PATHDELIM + *Function + #this_file_postfix
     #LF_DB_Output_File := #this_db_dir + *PATHDELIM + *Function + #this_file_postfix
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('- #TL: ' + #LF_TL_Output_File) ('#DB: ' + #LF_DB_Output_File) )
     
     Clr_List Named(#w_lTF_From_TL)
     Clr_List Named(#w_lTF_From_DB)
