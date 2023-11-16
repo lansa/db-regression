@@ -376,6 +376,9 @@ try {
         $TestList.Add( $(New-Tuple "VT159138", "V59138A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VT160553", "V60553A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VT986925", "V86925A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0033",  "VI0033A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0035",  "VI0035A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0043",  "VI0043A") ) | Out-Null
 
         Write-Host( "$(Log-Date) Run tests in EVERY environment." )
         Write-Host( "$(Log-Date) Only the Primary environment is configured to run IBM i and SuperServer tests" )
