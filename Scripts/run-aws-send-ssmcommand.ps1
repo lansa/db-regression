@@ -73,7 +73,7 @@ $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment $localComment `
         -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {exit 1}" ); 'executionTimeout' = '10800'} `
-        -Target @(@{Key="tag:aws:cloudformation:stack-name"; Values = "DB-Regression-VM-$LansaVersion"}, @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
+        -Target @( @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
 
