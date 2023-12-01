@@ -5,11 +5,11 @@ param (
 
     [Parameter(Mandatory = $false)]
     [boolean]
-    $scriptNameIsFullPath = $false, # Defaults to presuming the script is in the DB Regression Repo in the Scripts directory
+    $scriptNameIsFullPath = $true, # Defaults to presuming the script is in the DB Regression Repo in the Scripts directory
 
     [Parameter(Mandatory = $false)]
     [string]
-    $scriptParameters, # e.g. "-Compile 0 -Test 1" Note that Boolean parameters must be passed as 1 or 0, not $true or $false. The SSM Command cannot pass booleans through to the script
+    $scriptParameters = 'Administrator', # e.g. "-Compile 0 -Test 1" Note that Boolean parameters must be passed as 1 or 0, not $true or $false. The SSM Command cannot pass booleans through to the script
 
     [Parameter(Mandatory = $true)]
     [string]
@@ -48,8 +48,7 @@ $DatabaseType_SystemRootPath = @{
 $root_directory = $DatabaseType_SystemRootPath[$dbtype]
 
 $instance_id = ((Get-EC2Instance -Filter @( `
-                                    @{Name = "tag:LansaVersion"; Values=$LansaVersion}, `
-                                    @{Name= "tag:aws:cloudformation:stack-name"; Values="DB-Regression-VM-$LansaVersion"}) `
+                                    @{Name = "tag:LansaVersion"; Values=$LansaVersion}) `
                                     ).Instances `
                                 ).InstanceId
 
