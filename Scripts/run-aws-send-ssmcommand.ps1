@@ -5,7 +5,7 @@ param (
 
     [Parameter(Mandatory = $false)]
     [boolean]
-    $scriptNameIsFullPath = $true, # Defaults to presuming the script is in the DB Regression Repo in the Scripts directory
+    $scriptNameIsFullPath = $false, # Defaults to presuming the script is in the DB Regression Repo in the Scripts directory
 
     [Parameter(Mandatory = $false)]
     [string]
@@ -72,7 +72,7 @@ Write-Host "Executing $ScriptPath $ScriptParameters on VM $lansaVersion"
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment $localComment `
-        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {exit 1}" ); 'executionTimeout' = '10800'} `
+        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {Write-Host 'Error running script'; exit 1}" ); 'executionTimeout' = '10800'} `
         -Target @( @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
