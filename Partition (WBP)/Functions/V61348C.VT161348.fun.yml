@@ -26,6 +26,8 @@
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
     
+    Define Field(#LF_Skip) Type(*BOOLEAN) Default(FALSE)
+    
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
@@ -42,6 +44,7 @@
     #LF_DB_Collection_Name := *PARTDTALIB
     #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + #LF_DB_Quote + #LF_DB_Separator + #LF_DB_Quote
     Else
+    If (*OSBITNESS = 32)
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
     Clr_List Named(#wLCTD)
@@ -68,13 +71,18 @@
     #LF_DB_Quote := '`'
     #LF_DB_Table_Qualifier := #LF_DB_Quote + #LF_DB_Collection_Name + '_'
     Endif
-    
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK 'Skipped 64 bit test' 'CTD file only exists in 32 bit environment. See CCS 164023' )
+    #LF_Skip := TRUE
+    Endif
     Endif
     
+    If (#LF_Skip <> TRUE)
     * Build the SQL statement.
     #LF_SQL_Stmnt := 'Select ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ',' + #LF_DB_Quote + 'xEmployeeSurname' + #LF_DB_Quote + ' From '
     #LF_Database_Table := #LF_DB_Table_Qualifier + 'xEmployee' + #LF_DB_Quote
     #LF_SQL_Stmnt += #LF_Database_Table + ' order by ' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote
+    
     
     #Com_Owner.mthAdd_SubMsg( OK (#LF_SQL_Stmnt) ('') )
     
@@ -86,6 +94,7 @@
     #Com_Owner.mthSelect_SQL_With_Define_Long_Name
     
     #Com_Owner.mthCompare_Results
+    Endif
     Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
