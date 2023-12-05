@@ -394,7 +394,7 @@ try {
                     # 157726 and 158011 are not setup for 64 testing, though they could be.
                     # The rest are defects that should get fixed.
                     If ( -not ( $TestItem.Item1 -eq 'VT157726' -or $TestItem.Item1 -eq 'VT158011' `
-                    -or $TestItem.Item1 -eq 'VT156118' ) ) {
+                    -or $TestItem.Item1 -eq 'VT156118' -or $TestItem.Item1 -eq 'VT159434') ) {
                         Test $Root $TestItem.Item1 $TestItem.Item2 -Bit64
                     } else {
                         Write-Host( "Skipping 64 bit test" )
