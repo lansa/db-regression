@@ -56,7 +56,7 @@ if ($ip_address_to_whitelist_on_Azure_SQLServer) {
 # Modifying Verifier_Connection.dat file
 
 $DB_LU_Map = @{
-    DB2ISERIES = "LANSA01_DEVPGMLIB"
+    DB2ISERIES = "LANSA01_P50PGMLIB"
     MSSQLS = "TestPrimaryMSSQLS"
     SQLAZURE = "TestSecondaryAZUR"
     SQLANYWHERE = "TestSecondarySQLA"
