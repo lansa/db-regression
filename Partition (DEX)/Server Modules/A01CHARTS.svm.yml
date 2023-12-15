@@ -1,0 +1,76 @@
+﻿ServerModule:
+  Name:               A01ChartSERVER
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Chart Server"
+
+  - FRA:
+      Description:        "Chart Server"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('A01SESSION')
+    
+    Define Field(#A01Title) Type(*NVARCHAR) Length(256)
+    Define Field(#A01NextDataSet) Type(*NVARCHAR) Length(256)
+    Def_List Name(#A01ChartItems) Fields(#A01ChartItemCaption #A01ChartItemValue) Type(*WORKING) Entrys(*MAX)
+    Define Field(#A01ChartItemCaption) Type(*NVARCHAR) Length(256)
+    Define Field(#A01ChartItemValue) Type(*DEC) Length(15) Decimals(2)
+    
+    Srvroutine Name(GetChartContent) Session(*REQUIRED)
+    Field_Map For(*BOTH) Field(#A01NextDataSet)
+    Field_Map For(*OUTPUT) Field(#A01Title)
+    List_Map For(*OUTPUT) List(#A01ChartItems)
+    
+    Case (#A01NextDataSet.UpperCase)
+    
+    When (= EXAMPLE2)
+    
+    #A01Title := "10 Largest Countries by landmasses (square kilometers)"
+    Execute Subroutine(AddItem) With_Parms("Algeria" 2380000)
+    Execute Subroutine(AddItem) With_Parms("Argentina" 2780000)
+    Execute Subroutine(AddItem) With_Parms("Australia" 4400000)
+    Execute Subroutine(AddItem) With_Parms("Brazil" 8510000)
+    Execute Subroutine(AddItem) With_Parms("Canada" 9984000)
+    Execute Subroutine(AddItem) With_Parms("China" 9600000)
+    Execute Subroutine(AddItem) With_Parms("India" 3290000)
+    Execute Subroutine(AddItem) With_Parms("Kazakhstan" 2720000)
+    Execute Subroutine(AddItem) With_Parms("Russia" 17100000)
+    Execute Subroutine(AddItem) With_Parms("USA" 9630000)
+    #A01NextDataSet := EXAMPLE3
+    
+    When (= EXAMPLE3)
+    
+    #A01Title := "Fastest Internet Speeds(mb/s)"
+    Execute Subroutine(AddItem) With_Parms("Singapore" 63.39)
+    Execute Subroutine(AddItem) With_Parms("Sweden" 46)
+    Execute Subroutine(AddItem) With_Parms("Denmark" 43.99)
+    Execute Subroutine(AddItem) With_Parms("Norway" 40.12)
+    Execute Subroutine(AddItem) With_Parms("Romania" 38.6)
+    Execute Subroutine(AddItem) With_Parms("Belgium" 36.71)
+    Execute Subroutine(AddItem) With_Parms("The Netherlands" 35.9)
+    Execute Subroutine(AddItem) With_Parms("Luxembourg" 35.14)
+    #A01NextDataSet := EXAMPLE1
+    
+    Otherwise
+    
+    #A01Title := "Smart Phone sales Q2 2018"
+    Execute Subroutine(AddItem) With_Parms("Samsung" 71600000)
+    Execute Subroutine(AddItem) With_Parms("Huawei" 38500000)
+    Execute Subroutine(AddItem) With_Parms("Apple" 41300000)
+    Execute Subroutine(AddItem) With_Parms("Xiaomi" 33000000)
+    Execute Subroutine(AddItem) With_Parms("Oppo" 29600000)
+    #A01NextDataSet := EXAMPLE2
+    
+    Endcase
+    
+    Endroutine
+    
+    Subroutine Name(AddItem) Parms((#A01ChartItemCaption *RECEIVED) (#A01ChartItemValue *RECEIVED))
+    
+    Add_Entry To_List(#A01ChartItems)
+    
+    Endroutine
+    
+    End_Com

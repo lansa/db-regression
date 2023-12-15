@@ -1,0 +1,19 @@
+﻿List:
+  Name:               APP 01
+  Stored As:          Repository
+
+  Objects:
+  - XNOTES:
+      Type:               File
+      Qualifier:          DC@DEMOLIB
+
+  - XATTCHMNT:
+      Type:               File
+      Qualifier:          DC@DEMOLIB
+
+  - XCONTACTS:
+      Type:               File
+      Qualifier:          DC@DEMOLIB
+
+  - A01MAIN:
+      Type:               Web Page

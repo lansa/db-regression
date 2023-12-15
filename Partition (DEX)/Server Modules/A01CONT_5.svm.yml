@@ -1,0 +1,42 @@
+﻿ServerModule:
+  Name:               A01Contact_UsSERVER
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Contact Us Server"
+
+  - FRA:
+      Description:        "Contact Us Server"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('A01SESSION')
+    
+    Define Field(#A01Name) Type(*STRING)
+    Define Field(#A01Email) Type(*STRING)
+    Define Field(#A01Phone) Type(*STRING)
+    Define Field(#A01Subject) Type(*STRING)
+    Define Field(#A01Message) Type(*STRING) Length(4096)
+    Define Field(#A01Result) Type(*BOOLEAN)
+    
+    Srvroutine Name(SumbitForm) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#A01Name) Parameter_Name(Name)
+    Field_Map For(*INPUT) Field(#A01Email) Parameter_Name(Email)
+    Field_Map For(*INPUT) Field(#A01Phone) Parameter_Name(Phone)
+    Field_Map For(*INPUT) Field(#A01Subject) Parameter_Name(Subject)
+    Field_Map For(*INPUT) Field(#A01Message) Parameter_Name(Message)
+    Field_Map For(*OUTPUT) Field(#A01Result) Parameter_Name(Result)
+    
+    * At this point you have the values of a â€œContact Usâ€ request.
+    
+    * You now need to decide what to do with them. For example you might
+    * email them to a monitored email address, or you might write them into a
+    * monitored data base table, or even send them to a monitored data queue
+    * for subsequent processing. You might even SMS them to someone.
+    
+    #A01Result := True
+    
+    Endroutine
+    
+    End_Com
+    

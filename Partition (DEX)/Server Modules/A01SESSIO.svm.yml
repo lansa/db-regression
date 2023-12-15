@@ -1,0 +1,38 @@
+﻿ServerModule:
+  Name:               A01Session
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Application Session"
+
+  - FRA:
+      Description:        "Application Session"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('A01SESSION')
+    
+    Define Field(#A01UserName) Type(*STRING)
+    Define Field(#A01Password) Type(*STRING)
+    Define Field(#A01ReturnCode) Type(*CHAR) Length(2)
+    
+    Srvroutine Name(SignIn)
+    Field_Map For(*INPUT) Field(#A01UserName) Parameter_Name(UserName)
+    Field_Map For(*INPUT) Field(#A01Password) Parameter_Name(Password)
+    Field_Map For(*OUTPUT) Field(#A01ReturnCode) Parameter_Name(ReturnCode)
+    
+    * TODO: Check username and password
+    
+    #COM_OWNER.StartSession Timeout(3600)
+    
+    #A01ReturnCode := OK
+    
+    Endroutine
+    
+    Srvroutine Name(SignOut) Session(*REQUIRED)
+    
+    #COM_OWNER.EndSession
+    
+    Endroutine
+    
+    End_Com

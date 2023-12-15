@@ -1,0 +1,60 @@
+﻿Web Dialog:
+  Name:               A01About
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "About"
+
+  - FRA:
+      Description:        "About"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_DLG) Height(489) Width(368) Layoutmanager(#LayoutMain) Autoclose(True) Verticalscroll(True)
+    
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(2) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow2) Displayposition(1) Parent(#LayoutMain) Height(60) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Alignment(TopCenter) Column(#LayoutMainColumn1) Manage(#Panel) Parent(#LayoutMain) Row(#LayoutMainRow2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Column(#LayoutMainColumn1) Manage(#Heading) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(ContentHeightFitToWidth) Flow(Down) Alignment(TopCenter) Margintop(15)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem3) Column(#LayoutMainColumn1) Manage(#Text1) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(ContentHeightFitToWidth) Flow(Down) Alignment(TopCenter) Margintop(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem4) Column(#LayoutMainColumn1) Manage(#Text2) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(ContentHeightFitToWidth) Flow(Down) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem5) Column(#LayoutMainColumn1) Manage(#Text3) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(ContentHeightFitToWidth) Flow(Down) Alignment(TopCenter)
+    
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutTopPanel)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutTopPanelRow1) Displayposition(1) Parent(#LayoutTopPanel)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutTopPanelColumn1) Displayposition(1) Parent(#LayoutTopPanel)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutTopPanelItem1) Alignment(CenterRight) Column(#LayoutTopPanelColumn1) Manage(#Icon) Parent(#LayoutTopPanel) Row(#LayoutTopPanelRow1) Sizing(None)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutTopPanelItem2) Alignment(CenterLeft) Column(#LayoutTopPanelColumn1) Manage(#Caption) Parent(#LayoutTopPanel) Row(#LayoutTopPanelRow1) Sizing(ContentWidth)
+    
+    Define_Com Class(#PRIM_PANL) Name(#Panel) Displayposition(5) Height(60) Left(0) Parent(#COM_OWNER) Tabposition(5) Tabstop(False) Top(0) Width(366) Themedrawstyle('MediumTitle') Layoutmanager(#LayoutTopPanel)
+    Define_Com Class(#PRIM_MD.Label) Name(#Caption) Caption('About') Displayposition(2) Left(0) Parent(#Panel) Tabposition(2) Themedrawstyle('Heading2') Top(12) Width(119) Icon('info') Captionmarginleft(12) Captionmarginright(12) Iconheight(32) Iconmarginleft(12)
+    Define_Com Class(#PRIM_MD.Icon) Name(#Icon) Displayposition(1) Icon('close') Left(318) Parent(#Panel) Tabposition(1) Top(6) Themedrawstyle('Text(224,224,224,1)')
+    
+    Define_Com Class(#PRIM_MD.Label) Name(#Heading) Displayposition(1) Left(0) Parent(#COM_OWNER) Tabposition(1) Themedrawstyle('ForegroundDarkPrimary+Heading1') Width(366) Caption('APP 01 ') Captionalignment(Center) Height(37) Top(75) Paddingbottom(6) Paddingleft(12) Paddingright(12)
+    Define_Com Class(#PRIM_MD.Label) Name(#Text1) Caption('This software is provided by the copyright holders, authors, and contributors as is and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. ') Displayposition(2) Left(0) Parent(#COM_OWNER) Tabposition(3) Top(120) Width(366) Wordwrap(True) Height(97) Paddingleft(16) Paddingright(16) Paddingbottom(12) Ellipses(False) Captionmarginbottom(0) Captionmarginleft(0) Captionmarginright(0) Captionmargintop(0)
+    Define_Com Class(#PRIM_MD.Label) Name(#Text2) Caption('In no event shall the copyright holder or any authors or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services loss of use, data, or profits; or business interruption) however caused, and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software.') Displayposition(3) Left(0) Parent(#COM_OWNER) Tabposition(2) Top(217) Width(366) Wordwrap(True) Height(164) Paddingleft(16) Paddingright(16) Paddingbottom(12) Ellipses(False) Captionmarginbottom(0) Captionmarginleft(0) Captionmarginright(0) Captionmargintop(0)
+    Define_Com Class(#PRIM_MD.Label) Name(#Text3) Displayposition(4) Left(0) Parent(#COM_OWNER) Tabposition(4) Top(381) Width(366) Caption('No personal or device information is collected by APP 01 .') Wordwrap(True) Height(58) Paddingright(16) Paddingbottom(24) Paddingleft(16) Captionmarginbottom(0) Captionmarginleft(0) Captionmarginright(0) Captionmargintop(0)
+    
+    Evtroutine Handling(#SYS_WEB.DeviceChanged)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #COM_OWNER.Placement := FullScreen
+    
+    Else
+    
+    #COM_OWNER.Placement := Center
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#Icon.Click)
+    
+    #COM_OWNER.Close
+    
+    Endroutine
+    
+    End_Com

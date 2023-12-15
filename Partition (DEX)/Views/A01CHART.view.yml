@@ -1,0 +1,276 @@
+﻿Web View:
+  Name:               A01Chart
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Chart"
+
+  - FRA:
+      Description:        "Chart"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_VIEW) Displayposition(1) Tabposition(1) Height(593) Width(577) Layoutmanager(#LayoutMain)
+    
+    * Layout - Main
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Parent(#LayoutMain) Displayposition(1)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Parent(#LayoutMain) Units(Pixels) Height(60) Displayposition(1)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#layoutMainRow2) Parent(#LayoutMain) Displayposition(2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Alignment(TopCenter) Column(#LayoutMainColumn1) Parent(#LayoutMain) Row(#LayoutMainRow1) Manage(#A01Title)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Alignment(TopCenter) Column(#LayoutMainColumn1) Manage(#Panel) Parent(#LayoutMain) Row(#layoutMainRow2) Marginbottom(12) Marginleft(12) Marginright(12) Margintop(12)
+    
+    * Layout - Chart Panel
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutChartPanel)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutChartPanelColumn1) Displayposition(1) Parent(#LayoutChartPanel)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutChartPanelColumn2) Displayposition(2) Parent(#LayoutChartPanel) Maxwidth(1000) Width(1000)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutChartPanelColumn3) Displayposition(3) Parent(#LayoutChartPanel)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutChartPanelRow1) Displayposition(1) Parent(#LayoutChartPanel) Height(36) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutChartPanelRow2) Displayposition(2) Parent(#LayoutChartPanel)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutChartPanelRow3) Displayposition(3) Parent(#LayoutChartPanel) Maxheight(600) Height(100)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutChartPanelRow4) Displayposition(4) Parent(#LayoutChartPanel)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutChartPanelItem1) Alignment(TopCenter) Column(#LayoutChartPanelColumn1) Manage(#COM_OWNER) Parent(#LayoutChartPanel) Row(#LayoutChartPanelRow2) Marginbottom(8) Marginleft(8) Marginright(8) Margintop(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutChartPanelItem2) Alignment(TopCenter) Column(#LayoutChartPanelColumn1) Manage(#PanelButtons) Parent(#LayoutChartPanel) Row(#LayoutChartPanelRow1) Columnspan(3)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutChartPanelItem4) Alignment(TopCenter) Column(#LayoutChartPanelColumn2) Manage(#PieChart) Parent(#LayoutChartPanel) Row(#LayoutChartPanelRow3) Marginbottom(32) Marginleft(32) Marginright(32) Margintop(32)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutChartPanelItem5) Alignment(TopCenter) Column(#LayoutChartPanelColumn2) Manage(#BarChart) Parent(#LayoutChartPanel) Row(#LayoutChartPanelRow3) Marginbottom(32) Marginleft(32) Marginright(32) Margintop(32)
+    
+    * Layout - ButtonsPanel
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutButtonsPanel)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutButtonsPanelColumn1) Displayposition(1) Parent(#LayoutButtonsPanel)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutButtonsPanelRow1) Displayposition(1) Parent(#LayoutButtonsPanel)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutButtonsPanelItem1) Alignment(CenterRight) Column(#LayoutButtonsPanelColumn1) Flow(Left) Manage(#ButtonBarChart) Parent(#LayoutButtonsPanel) Row(#LayoutButtonsPanelRow1) Sizing(None)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutButtonsPanelItem2) Alignment(CenterRight) Column(#LayoutButtonsPanelColumn1) Flow(Left) Manage(#ButtonPieChart) Parent(#LayoutButtonsPanel) Row(#LayoutButtonsPanelRow1) Sizing(None)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutButtonsPanelItem3) Alignment(CenterRight) Column(#LayoutButtonsPanelColumn1) Flow(Left) Manage(#RefreshButton) Parent(#LayoutButtonsPanel) Row(#LayoutButtonsPanelRow1) Sizing(None)
+    
+    * Controls
+    Define_Com Class(#PRIM_MD.Label) Name(#A01Title) Displayposition(1) Tabposition(1) Caption('Title') Top(0) Left(0) Height(60) Width(577) Themedrawstyle('ForegroundMediumPrimary+Heading1') Paddingtop(12) Wordwrap(True) Parent(#COM_OWNER) Paddingleft(12) Paddingbottom(12)
+    Define_Com Class(#PRIM_MD.FlatButton) Name(#RefreshButton) Displayposition(1) Left(515) Parent(#PanelButtons) Tabposition(3) Top(0) Icon('refresh') Width(36) Iconopacity(48) Themedrawstyle('ForegroundTheme900')
+    Define_Com Class(#PRIM_PPNL.Menu) Name(#BarChartPopupMenu) Closeonclick(True) Menusizing(Popup) Width(100) Top(54)
+    Define_Com Class(#PRIM_PPNL.MenuItem) Name(#MenuItemHorizontal) Caption('Horizontal Bars') Displayposition(1) Parent(#BarChartPopupMenu) Tabposition(1) Tabstop(False) Height(40)
+    Define_Com Class(#PRIM_PPNL.MenuItem) Name(#MenuItemVertical) Caption('Vertical Bars') Displayposition(2) Parent(#BarChartPopupMenu) Tabposition(2) Tabstop(False) Top(25) Height(40)
+    Define_Com Class(#PRIM_PANL) Name(#Panel) Displayposition(2) Height(509) Parent(#COM_OWNER) Tabposition(2) Tabstop(False) Top(72) Width(553) Layoutmanager(#LayoutChartPanel) Themedrawstyle('Card+Shadow2') Left(12)
+    Define_Com Class(#PRIM_PANL) Name(#PanelButtons) Displayposition(1) Left(0) Parent(#Panel) Tabposition(1) Top(0) Width(551) Layoutmanager(#LayoutButtonsPanel) Height(36)
+    Define_Com Class(#PRIM_MD.FlatButton) Name(#ButtonPieChart) Displayposition(2) Left(479) Tabposition(1) Top(0) Icon('Pie_Chart') Width(36) Parent(#PanelButtons) Themedrawstyle('ForegroundTheme900') Iconopacity(48)
+    Define_Com Class(#PRIM_MD.FlatButton) Name(#ButtonBarChart) Parent(#PanelButtons) Displayposition(3) Left(443) Tabposition(2) Top(0) Icon('Fa-bar-chart') Width(36) Themedrawstyle('ForegroundTheme900') Iconopacity(48)
+    Define_Com Class(#PRIM_CHRT.PieChart) Name(#PieChart) Displayposition(2) Height(398) Left(33) Parent(#Panel) Tabposition(2) Tabstop(False) Top(73) Width(486) Legendposition(Right)
+    Define_Com Class(#PRIM_CHRT.PieChartCaption) Name(#PieChartCaption) Parent(#PieChart)
+    Define_Com Class(#PRIM_CHRT.PieChartValue) Name(#PieChartValue) Displayposition(1) Parent(#PieChart)
+    Define_Com Class(#PRIM_CHRT.BarChart) Name(#BarChart) Displayposition(3) Gridlines(Horizontal) Height(398) Left(33) Parent(#Panel) Tabposition(3) Tabstop(False) Top(73) Width(486) Visible(False)
+    Define_Com Class(#PRIM_CHRT.BarChartCaption) Name(#BarChartCaption) Parent(#BarChart)
+    Define_Com Class(#PRIM_CHRT.BarChartValue) Name(#BarChartValue) Displayposition(1) Parent(#BarChart)
+    
+    * Variables
+    Define_Com Class(#PRIM_STR) Name(#CurrentChartType) Value('PIE')
+    Define_Com Class(#PRIM_LCOL<#PRIM_STR>) Name(#ThemeDrawStyles)
+    Define_Com Class(#STD_INT) Name(#ThemeDrawStyleIndex)
+    
+    * Fields
+    Define Field(#A01NextDataSet) Type(*NVARCHAR) Length(256)
+    Define Field(#A01ChartItemCaption) Type(*NVARCHAR) Length(256)
+    Define Field(#A01ChartItemValue) Type(*DEC) Length(15) Decimals(2)
+    
+    * Working list
+    Def_List Name(#A01ChartItems) Fields(#A01ChartItemCaption #A01ChartItemValue) Type(*WORKING) Entrys(*MAX)
+    
+    Evtroutine Handling(#COM_OWNER.CreateInstance)
+    
+    #PieChart.Visible #BarChart.Visible := False
+    
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(0,150,136,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(244,67,54,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(33,150,243,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(255,235,59,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(156,39,176,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(139,195,74,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(255,152,0,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(233,30,99,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(63,81,181,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(255,193,7,1)" )
+    #COM_OWNER.AddThemeDrawStyle( "Border(255,255,255,1)+Back(0,150,136,1)" )
+    
+    Endroutine
+    
+    Evtroutine Handling(#COM_OWNER.Prepare)
+    
+    #RefreshButton.Visible #ButtonBarChart.Visible #ButtonPieChart.Visible := True
+    
+    #COM_OWNER.GetChartContentFromServer
+    
+    Endroutine
+    
+    Evtroutine Handling(#SYS_WEB.DeviceChanged)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #A01Title.ThemeDrawStyle := 'ForegroundMediumPrimary+Heading2'
+    
+    Else
+    
+    #A01Title.ThemeDrawStyle := 'ForegroundMediumPrimary+Heading1'
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(GetChartContentFromServer) Access(*PRIVATE)
+    
+    Define_Com Class(#A01ChartServer.GetChartContent) Name(#GetChartContent)
+    
+    #GetChartContent.ExecuteAsync A01title(#A01Title.Caption) A01nextdataset(#A01NextDataSet) A01chartitems(#A01ChartItems)
+    
+    Evtroutine Handling(#GetChartContent.Completed)
+    
+    #COM_OWNER.ShowChart( #CurrentChartType )
+    
+    Endroutine
+    
+    Endroutine
+    
+    Evtroutine Handling(#RefreshButton.Click)
+    
+    #COM_OWNER.GetChartContentFromServer
+    
+    Endroutine
+    
+    Evtroutine Handling(#ButtonBarChart.Click)
+    
+    #BarChartPopupMenu.ShowPopup Top(156) Context(#ButtonBarChart)
+    
+    Endroutine
+    
+    Evtroutine Handling(#MenuItemHorizontal.Click)
+    
+    #COM_OWNER.ShowChart( HORIZONTAL_BAR )
+    
+    Endroutine
+    
+    Evtroutine Handling(#MenuItemVertical.Click)
+    
+    #COM_OWNER.ShowChart( VERTICAL_BAR )
+    
+    Endroutine
+    
+    Evtroutine Handling(#ButtonPieChart.Click)
+    
+    #COM_OWNER.ShowChart( PIE )
+    
+    Endroutine
+    
+    Evtroutine Handling(#BarChart.FormatTick) Value(#Value) Label(#Label)
+    
+    Case (#Value)
+    
+    When (> 1000000)
+    
+    #Label := (#Value / 1000000).Round.AsString + "M"
+    
+    When (> 1000)
+    
+    #Label := (#Value / 1000).Round.AsString + "K"
+    
+    Otherwise
+    
+    #Label := #Value.AsString
+    
+    Endcase
+    
+    Endroutine
+    
+    Mthroutine Name(ShowChart) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#PRIM_STR) Name(#ChartType)
+    
+    #CurrentChartType := #ChartType
+    
+    Case (#CurrentChartType)
+    
+    When (= PIE)
+    
+    #BarChart.Visible := False
+    #PieChart.Visible := True
+    
+    #COM_OWNER.LoadPieChart
+    
+    When (= HORIZONTAL_BAR)
+    
+    #PieChart.Visible := False
+    #BarChart.Visible := True
+    #BarChart.Orientation := Horizontal
+    #BarChart.GridLines := Vertical
+    
+    #COM_OWNER.LoadBarChart
+    
+    When (= VERTICAL_BAR)
+    
+    #PieChart.Visible := False
+    #BarChart.Visible := True
+    #BarChart.Orientation := Vertical
+    #BarChart.GridLines := Horizontal
+    
+    #COM_OWNER.LoadBarChart
+    
+    Endcase
+    
+    Endroutine
+    
+    Mthroutine Name(LoadPieChart) Access(*PRIVATE)
+    
+    #ThemeDrawStyleIndex := 0
+    
+    Clr_List Named(#PieChart)
+    
+    Selectlist Named(#A01ChartItems)
+    
+    #PieChartCaption := #A01ChartItemCaption
+    #PieChartValue := #A01ChartItemValue
+    
+    Add_Entry To_List(#PieChart)
+    
+    #PieChartValue.CurrentItem.ThemeDrawStyle := #COM_OWNER.NextThemeDrawStyle
+    
+    Endselect
+    
+    Endroutine
+    
+    Mthroutine Name(LoadBarChart) Access(*PRIVATE)
+    
+    #ThemeDrawStyleIndex := 0
+    
+    Clr_List Named(#BarChart)
+    
+    Selectlist Named(#A01ChartItems)
+    
+    #BarChartValue := #A01ChartItemValue
+    #BarChartCaption := #A01ChartItemCaption
+    
+    Add_Entry To_List(#BarChart)
+    
+    #BarChartValue.CurrentItem.ThemeDrawStyle := #COM_OWNER.NextThemeDrawStyle
+    
+    Endselect
+    
+    Endroutine
+    
+    Mthroutine Name(AddThemeDrawStyle) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#PRIM_STR) Name(#ThemeDrawStyle)
+    
+    #ThemeDrawStyles.Insert( #ThemeDrawStyle )
+    
+    Endroutine
+    
+    Mthroutine Name(NextThemeDrawStyle) Access(*PRIVATE)
+    
+    Define_Map For(*RESULT) Class(#PRIM_STR) Name(#ThemeDrawstyle)
+    
+    #ThemeDrawStyleIndex += 1
+    
+    If (#ThemeDrawStyleIndex >= #ThemeDrawStyles.ItemCount)
+    
+    #ThemeDrawStyleIndex := 1
+    
+    Endif
+    
+    #ThemeDrawstyle := #ThemeDrawStyles<#ThemeDrawStyleIndex>
+    
+    Endroutine
+    
+    End_Com

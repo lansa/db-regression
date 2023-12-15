@@ -1,0 +1,262 @@
+﻿Web Page:
+  Name:               A01Main
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "APP 01"
+
+  - FRA:
+      Description:        "APP 01"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_WEB) Theme(#SYS_THEME<MaterialDesignPurple>) Layoutmanager(#LayoutMain)
+    
+    * Layout - Main
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain) Units(Content) Width(220)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn2) Displayposition(2) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(1) Parent(#LayoutMain) Height(56) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow2) Displayposition(2) Parent(#LayoutMain) Height(40) Units(Content)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow3) Displayposition(2) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Column(#LayoutMainColumn1) Manage(#AppBar) Parent(#LayoutMain) Row(#LayoutMainRow1) Columnspan(2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Column(#LayoutMainColumn1) Manage(#AppDrawer) Parent(#LayoutMain) Row(#LayoutMainRow2) Sizing(FitToHeight) Rowspan(2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem4) Column(#LayoutMainColumn2) Manage(#SearchString) Parent(#LayoutMain) Row(#LayoutMainRow2) Sizing(FitToWidth) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem3) Column(#LayoutMainColumn2) Manage(#ViewContainer) Parent(#LayoutMain) Row(#LayoutMainRow3)
+    
+    * Layout - App Bar
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAppBarRow1) Displayposition(1) Parent(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAppBarColumn1) Displayposition(1) Parent(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppBarItem1) Alignment(CenterRight) Column(#LayoutAppBarColumn1) Manage(#SearchIcon) Parent(#LayoutAppBar) Row(#LayoutAppBarRow1) Sizing(None)
+    
+    * Layout - App Drawer
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAppDrawer)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAppDrawerColumn1) Displayposition(1) Parent(#LayoutAppDrawer)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAppDrawerRow1) Displayposition(1) Parent(#LayoutAppDrawer)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppDrawerItem1) Column(#LayoutAppDrawerColumn1) Manage(#Menu) Parent(#LayoutAppDrawer) Row(#LayoutAppDrawerRow1)
+    
+    * Controls - App Bar
+    Define_Com Class(#PRIM_MD.AppBar) Name(#AppBar) Displayposition(1) Parent(#COM_OWNER) Tabposition(1) Tabstop(False) Width(1200) Themedrawstyle('Heading1') Caption('APP 01 ') Captionmarginbottom(0) Captionmarginright(0) Captionmargintop(0) Icon("menu") Layoutmanager(#LayoutAppBar)
+    Define_Com Class(#PRIM_MD.Icon) Name(#SearchIcon) Displayposition(1) Icon('search') Left(1152) Parent(#AppBar) Tabposition(1) Tabstop(False) Top(4)
+    
+    * Controls - App Drawer
+    Define_Com Class(#PRIM_MD.AppDrawer) Name(#AppDrawer) Displayposition(2) Parent(#COM_OWNER) Tabposition(2) Tabstop(False) Top(56) Height(744) Layoutmanager(#LayoutAppDrawer) Themedrawstyle('MediumTitle') Width(220)
+    Define_Com Class(#PRIM_MD.Menu) Name(#Menu) Displayposition(1) Height(462) Parent(#AppDrawer) Showselection(False) Tabposition(1) Verticalscroll(True) Width(220)
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemContacts) Caption('Contacts') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(1) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(1) Tabstop(False) Top(0) Width(219) Height(48) Icon('view_quilt') Link('/Contacts')
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemContact_Us) Caption('Contact Us') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(2) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(2) Tabstop(False) Top(0) Width(219) Height(48) Icon('view_quilt') Link('/Contact_Us')
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemChart) Caption('Chart') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(3) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(3) Tabstop(False) Top(0) Width(219) Height(48) Icon('view_quilt') Link('/Chart')
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemSettings) Caption('Settings') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(4) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(4) Tabstop(False) Top(192) Width(219) Height(48) Icon('settings') Themedrawstyle('TopDivider') Link('/Settings')
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemSignOut) Caption('Sign Out') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(7) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(7) Tabstop(False) Top(192) Width(219) Height(48) Icon('exit_to_app')
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemQuickLinks) Caption('Quick Links') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(5) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(5) Tabstop(False) Top(192) Width(219) Height(48) Icon('help') Link('/QuickLinks')
+    Define_Com Class(#PRIM_MD.MenuItem) Name(#MenuItemAbout) Caption('About') Captionalignment(CenterLeft) Captionmarginleft(16) Displayposition(6) Iconmarginleft(16) Left(0) Parent(#Menu) Tabposition(6) Tabstop(False) Top(192) Width(219) Height(48) Icon('info') Dialog(#About)
+    
+    * Controls - Search
+    Define_Com Class(#PRIM_MD.Edit) Name(#SearchString) Appearance(None) Displayposition(4) Height(40) Helperposition(None) Captionposition(None) Left(220) Parent(#COM_OWNER) Tabposition(4) Top(56) Width(980) Icon('search') Placeholder('Search') Themedrawstyle('BottomDivider') Visible(False)
+    
+    * Router and Routes
+    Define_Com Class(#prim_web.Router) Name(#Router)
+    
+    Define_Com Class(#prim_web.Route) Name(#Default) Path('/') Parent(#Router) Redirect('/Home')
+    Define_Com Class(#prim_web.Route) Name(#Home) Path('/Home') Parent(#Router)
+    
+    Define_Com Class(#prim_web.Route) Name(#SigninRoute) Path('/SignIn') Parent(#Router)
+    
+    Define_Com Class(#prim_web.Route) Name(#ContactsRoute) Path('/Contacts') Parent(#Router) View(#A01Contacts) Access(Protected)
+    
+    Define_Com Class(#prim_web.Route) Name(#Contact_UsRoute) Path('/Contact_Us') Parent(#Router) View(#A01Contact_Us)
+    
+    Define_Com Class(#prim_web.Route) Name(#ChartRoute) Path('/Chart') Parent(#Router) View(#A01Chart) Access(Protected)
+    
+    Define_Com Class(#prim_web.Route) Name(#SettingsRoute) Path('/Settings') Parent(#Router) View(#A01Settings) Access(Protected)
+    
+    Define_Com Class(#prim_web.Route) Name(#QuickLinksRoute) Path('/QuickLinks') Parent(#Router) View(#A01QuickLinks)
+    
+    * Views
+    Define_Com Class(#PRIM_MD.ViewContainer) Name(#ViewContainer) Displayposition(3) Left(220) Parent(#COM_OWNER) Tabposition(3) Tabstop(False) Top(56) Height(744) Width(980) Router(#Router)
+    
+    * Dialogs
+    Define_Com Class(#A01SignIn) Name(#SignIn)
+    Define_Com Class(#A01About) Name(#About)
+    
+    Define_Com Class(#prim_boln) Name(#IsSignedIn)
+    Define_Com Class(#prim_dc.UnicodeString) Name(#RedirectOnSignIn) Value('/')
+    
+    * ************** *
+    * Event Routines *
+    * ************** *
+    
+    Evtroutine Handling(#SYS_WEB.RoutingChanged)
+    
+    #sys_appln.CloseAllDialogs
+    
+    If (#sys_web.Routing.ActivePath = #SignInRoute.Path)
+    
+    #IsSignedIn := false
+    #ViewContainer.Clear
+    #SignIn.ShowForSignIn
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#Router.Match) Route(#Route) Allow(#Allow) Redirect(#Redirect)
+    
+    If (#Route.IsProtected)
+    
+    If (#IsSignedIn = true)
+    
+    #Allow := true
+    
+    Else
+    
+    #Redirect := #SignInRoute.Path
+    #RedirectOnSignIn := #Route.FullPath
+    
+    Endif
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#SignIn.Completed)
+    
+    #IsSignedIn := true
+    #sys_web.Routing.Navigate( #RedirectOnSignIn )
+    #RedirectOnSignIn := "/"
+    
+    Endroutine
+    
+    Evtroutine Handling(#MenuItemSignOut.Click)
+    
+    #IsSignedIn := false
+    #ViewContainer.Clear
+    #SignIn.ShowForSignOut
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppBar.IconClick)
+    
+    #AppDrawer.ToggleDrawer
+    
+    Endroutine
+    
+    Evtroutine Handling(#Sys_Web.DeviceChanged)
+    
+    If (#Sys_Web.Device = Mobile)
+    
+    #AppDrawer.DrawerStyle := SlideInLeft
+    
+    Else
+    
+    #AppDrawer.DrawerStyle := Permanent
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#SearchIcon.Click)
+    
+    If (#SearchString <> "")
+    
+    #SearchString := ""
+    
+    #com_owner.SetFilter
+    
+    Endif
+    
+    #SearchString.Visible := *Not #SearchString.Visible
+    
+    Endroutine
+    
+    Evtroutine Handling(#SearchString.AutoSuggest)
+    
+    #com_owner.SetFilter
+    
+    Endroutine
+    
+    Evtroutine Handling(#ViewContainer.ActiveViewChanged)
+    
+    If (#ViewContainer.ActiveView *IsNot *null)
+    
+    #SearchIcon.Visible := #ViewContainer.ActiveView.ComponentTag = 'HasSearch'
+    
+    #SearchString := ""
+    
+    #SearchString.Visible := False
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#SYS_WEB.RequestFailed) Reason(#Reason) Handled(#Handled)
+    
+    If (#Reason = SessionInvalid)
+    
+    #ViewContainer.Clear
+    
+    #SYS_APPLN.CloseAllDialogs
+    
+    #SignIn.ShowForSessionExpired
+    
+    #Handled := True
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(SetFilter)
+    
+    If (#ViewContainer.ActiveView *IsNot *null)
+    
+    If (#ViewContainer.ActiveView.ComponentTag = 'HasSearch')
+    
+    If (#ViewContainer.ActiveView *Is #A01Contacts)
+    
+    (#ViewContainer.ActiveView *As #A01Contacts).Filter := #searchstring
+    
+    Endif
+    
+    
+    Endif
+    
+    Endif
+    
+    Endroutine
+    
+    End_Com
+
+  Components:
+  - A01Contacts
+  - A01ContactsDetails
+  - A01ContactsServer
+  - A01ContactsDelete
+  - A01Contact_Us
+  - A01Contact_UsSERVER
+  - A01Chart
+  - A01ChartSERVER
+  - A01Settings
+  - A01Session
+  - A01SignIn
+  - A01About
+  - A01QuickLinks
+  - xAddImage
+  - xAttachmentDialog
+  - xAttachmentDragAndDropWidget
+  - xAttachmentContainer
+  - xAttachmentDataServer
+  - xNotesDialog
+  - xNoteEditor
+  - xNoteQuillEditor
+  - xNotesDataServer
+  - xGoogleBasicChart
+
+  Offline Support:    No
+  Allow Zoom:         No
+
+  Web App Manifest:
+
+  Loading Screen:
+    Image:              Spinner
+
+  Security Policy:    None

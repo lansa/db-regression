@@ -1,0 +1,125 @@
+﻿Web Dialog:
+  Name:               A01SignIn
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Sign In"
+
+  - FRA:
+      Description:        "Sign In"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_DLG) Layoutmanager(#LayoutMain) Height(353) Width(329) Verticalscroll(True)
+    
+    * Layout
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(1) Parent(#LayoutMain) Minheight(120)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow2) Displayposition(2) Parent(#LayoutMain) Height(2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Column(#LayoutMainColumn1) Manage(#ApplicationName) Parent(#LayoutMain) Row(#LayoutMainRow1) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Alignment(BottomCenter) Column(#LayoutMainColumn1) Manage(#Message) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(FitToWidth) Flow(Down)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem3) Column(#LayoutMainColumn1) Manage(#Username) Parent(#LayoutMain) Row(#LayoutMainRow2) Sizing(FitToWidth) Flow(Down) Margintop(16) Marginleft(24) Marginright(24) Alignment(TopRight)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem4) Column(#LayoutMainColumn1) Manage(#Password) Parent(#LayoutMain) Row(#LayoutMainRow2) Sizing(FitToWidth) Flow(Down) Marginleft(24) Marginright(24) Alignment(TopRight) Margintop(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem5) Column(#LayoutMainColumn1) Manage(#ButtonSignIn) Parent(#LayoutMain) Row(#LayoutMainRow2) Sizing(None) Alignment(TopRight) Marginright(24) Flow(Down) Margintop(40)
+    
+    * Controls
+    Define_Com Class(#PRIM_MD.Label) Name(#ApplicationName) Caption('APP 01 ') Displayposition(4) Height(120) Left(0) Parent(#COM_OWNER) Tabposition(4) Themedrawstyle('DarkTitle+Title') Top(0) Width(327) Captionalignment(Center) Iconthemedrawstyle('Title')
+    Define_Com Class(#PRIM_MD.Label) Name(#Message) Caption('Your session has expired. Please sign in again.') Displayposition(1) Left(0) Parent(#COM_OWNER) Tabposition(5) Top(96) Width(327) Themedrawstyle('DarkTitle+Subheading') Height(24) Captionmarginleft(24) Captionalignment(BottomLeft) Captionmarginbottom(5) Captionmarginright(0) Captionmargintop(0)
+    Define_Com Class(#PRIM_MD.Edit) Name(#Username) Displayposition(2) Left(24) Parent(#COM_OWNER) Tabposition(1) Top(136) Height(56) Width(279) Caption('Username') Helperposition(None)
+    Define_Com Class(#PRIM_MD.Edit) Name(#Password) Displayposition(3) Left(24) Parent(#COM_OWNER) Tabposition(2) Top(200) Height(56) Width(279) Caption('Password') Passwordchar('*') Helperposition(None)
+    Define_Com Class(#PRIM_MD.RaisedButton) Name(#ButtonSignIn) Caption('Sign in') Displayposition(5) Left(203) Parent(#COM_OWNER) Tabposition(3) Top(296) Buttondefault(True) Themedrawstyle('DarkTitle')
+    
+    * Events
+    Define_Evt Name(Completed)
+    
+    * ************** *
+    * Event Routines *
+    * ************** *
+    
+    Evtroutine Handling(#COM_OWNER.CreateInstance #SYS_WEB.DeviceChanged)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #COM_OWNER.Placement := FullScreen
+    
+    Else
+    
+    #COM_OWNER.Placement := Center
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#ButtonSignIn.Click)
+    
+    #COM_OWNER.SignIn
+    
+    Endroutine
+    
+    Mthroutine Name(SignIn)
+    
+    Define_Com Class(#A01Session.SignIn) Name(#SignIn)
+    Define_Com Class(#PRIM_STR) Name(#ReturnCode)
+    
+    #SignIn.ExecuteAsync Username(#Username) Password(#Password) Returncode(#ReturnCode)
+    
+    Evtroutine Handling(#SignIn.Completed)
+    
+    If (#ReturnCode = OK)
+    
+    #COM_OWNER.Close
+    
+    #Password := ""
+    
+    Signal Event(Completed)
+    
+    Endif
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowForSignIn)
+    
+    #Username := "user1"
+    #Password := "password"
+    #Message := ""
+    
+    #COM_OWNER.Show
+    
+    Endroutine
+    
+    Mthroutine Name(ShowForSignOut)
+    
+    Define_Com Class(#A01Session.SignOut) Name(#SignOut)
+    
+    #Password := ""
+    #Message := "You have succesfully signed out."
+    
+    #SignOut.ExecuteAsync
+    
+    #COM_OWNER.Show
+    
+    Evtroutine Handling(#SignOut.Failed) Reason(#Reason) Handled(#Handled)
+    
+    If (#Reason = SessionInvalid)
+    
+    #Handled := True
+    
+    Endif
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowForSessionExpired)
+    
+    #Password := ""
+    #Message := "Your session has expired. Please sign in again."
+    
+    #COM_OWNER.Show
+    
+    Endroutine
+    
+    End_Com

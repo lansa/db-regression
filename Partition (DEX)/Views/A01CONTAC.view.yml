@@ -1,0 +1,343 @@
+﻿Web View:
+  Name:               A01Contacts
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Contacts"
+
+  - FRA:
+      Description:        "Contacts"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_VIEW) Displayposition(1) Height(449) Width(633) Layoutmanager(#LayoutMobile) Caption('Contacts') Componenttag('HasSearch')
+    
+    * Styles
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleSearch) Shape(Rounded)
+    
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleAssociationItem) Backgroundbrush(#BrushAssociationItem)
+    Define_Com Class(#PRIM_VS.SolidBrush) Name(#BrushAssociationItem) Color(240:240:240)
+    
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleNoAssociation) Foregroundbrush(#BrushNoAssociation) Cursor(Hand)
+    Define_Com Class(#PRIM_VS.SolidBrush) Name(#BrushNoAssociation) Color(220:220:220)
+    
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleHand) Cursor(Hand)
+    
+    * Layout - Desktop
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutDesktop)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutDesktopRow1) Displayposition(1) Parent(#LayoutDesktop)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutDesktopColumn1) Displayposition(1) Parent(#LayoutDesktop)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDesktopItem2) Alignment(BottomRight) Column(#LayoutDesktopColumn1) Manage(#CreateButton) Parent(#LayoutDesktop) Row(#LayoutDesktopRow1) Sizing(None) Marginbottom(16) Marginright(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDesktopItem3) Column(#LayoutDesktopColumn1) Manage(#List) Parent(#LayoutDesktop) Row(#LayoutDesktopRow1)
+    
+    * Layout - Mobile
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMobile)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMobileColumn1) Displayposition(1) Parent(#LayoutMobile)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMobileRow2) Displayposition(1) Parent(#LayoutMobile)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMobileItem2) Manage(#List) Parent(#LayoutMobile) Row(#LayoutMobileRow2) Column(#LayoutMobileColumn1)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMobileItem3) Alignment(BottomRight) Column(#LayoutMobileColumn1) Manage(#CreateButton) Parent(#LayoutMobile) Row(#LayoutMobileRow2) Sizing(None) Marginbottom(16) Marginright(16)
+    
+    * Layout - List Item
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutList)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutRow1) Displayposition(1) Parent(#LayoutList) Width(1.11)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutColumn1) Displayposition(1) Parent(#LayoutList) Height(88) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem1) Alignment(CenterLeft) Column(#LayoutRow1) Manage(#ListImage) Marginleft(20) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(None)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem2) Alignment(CenterLeft) Column(#LayoutRow1) Flow(CenterVertical) Manage(#ListxContactFullName) Marginleft(86) Marginright(56) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(FitToWidth)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem3) Alignment(CenterLeft) Column(#LayoutRow1) Flow(CenterVertical) Manage(#ListxContactFullAddress) Marginleft(86) Marginright(56) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(FitToWidth)
+     
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutItem4) Alignment(CenterLeft) Column(#LayoutRow1) Flow(CenterVertical) Manage(#ListxContactEmailAddress) Marginleft(86) Marginright(56) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(FitToWidth)
+     
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutListItemAttachments) Column(#LayoutRow1) Manage(#AttachmentsIcon) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(None) Flow(Left) Alignment(CenterRight) Marginright(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutListItemNotes) Column(#LayoutRow1) Manage(#NotesIcon) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(None) Flow(Left) Alignment(CenterRight)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutListItemAssociations) Alignment(CenterRight) Column(#LayoutRow1) Manage(#AssociationsIcon) Parent(#LayoutList) Row(#LayoutColumn1) Sizing(None) Flow(Left)
+    * Layout Popup Panel
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAssociationsPopup) Sizing(ContentHeight)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAssociationsPopupColumn) Displayposition(1) Parent(#LayoutAssociationsPopup)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow1) Displayposition(1) Parent(#LayoutAssociationsPopup) Height(8) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow2) Displayposition(2) Parent(#LayoutAssociationsPopup) Height(32) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow3) Displayposition(3) Parent(#LayoutAssociationsPopup) Height(32) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow4) Displayposition(4) Parent(#LayoutAssociationsPopup) Units(Pixels) Height(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAssociationsPopupItem1) Alignment(TopCenter) Column(#LayoutAssociationsPopupColumn) Manage(#AssociationAttachments) Parent(#LayoutAssociationsPopup) Row(#LayoutAssociationsPopupRow2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAssociationsPopupItem2) Alignment(TopCenter) Column(#LayoutAssociationsPopupColumn) Manage(#AssociationNotes) Parent(#LayoutAssociationsPopup) Row(#LayoutAssociationsPopupRow3)
+    
+    
+    * Controls - Create Button
+    Define_Com Class(#PRIM_MD.ActionButton) Name(#CreateButton) Displayposition(1) Icon('add') Left(561) Parent(#COM_OWNER) Tabposition(1) Top(377) Themedrawstyle('DarkAccent') Tabstop(False)
+    
+    * Controls - List
+    Define_Com Class(#PRIM_MD.List) Name(#List) Displayposition(2) Layoutmanager(#LayoutList) Left(0) Parent(#COM_OWNER) Rowheight(88) Tabposition(2) Top(0) Height(449) Width(633)
+    Define_Com Class(#PRIM_MD.ListIcon) Name(#ListImage) Displayposition(9) Icon('image') Left(20) Parent(#List) Tabposition(1) Top(19) Height(50) Width(50) Themedrawstyle('MediumTitle+Rounded')
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListxContactFullName) Caption('Full Name') Displayposition(4) Height(20) Left(86) Parent(#List) Tabposition(4) Tabstop(False) Top(14) Width(531) Source(#xContactFullName)
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListxContactFullAddress) Caption('Full Address') Displayposition(5) Height(20) Left(86) Parent(#List) Tabposition(5) Tabstop(False) Top(34) Width(531) Source(#xContactFullAddress) Themedrawstyle('ForegroundSecondary')
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListxContactEmailAddress) Caption('Email Address') Displayposition(6) Height(20) Left(86) Parent(#List) Tabposition(6) Tabstop(False) Top(54) Width(531) Source(#xContactEmailAddress) Themedrawstyle('ForegroundSecondary')
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListxContactIdentification) Displayposition(5) Height(0) Left(0) Parent(#List) Tabposition(6) Tabstop(False) Top(0) Width(0) Source(#xContactIdentification) Visible(False)
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListHasAttachment) Displayposition(10) Height(0) Left(0) Parent(#List) Tabposition(6) Top(0) Width(0) Source(#xAttachmentHasAttachments) Visible(False)
+    Define_Com Class(#PRIM_MD.ListLabel) Name(#ListHasNotes) Displayposition(6) Height(0) Left(0) Parent(#List) Tabposition(4) Top(0) Width(0) Source(#xNoteHasNotes) Visible(False)
+    Define_Com Class(#PRIM_MD.ListIcon) Name(#AttachmentsIcon) Displayposition(2) Dragstyle(None) Icon('attach_file') Left(529) Parent(#List) Tabposition(8) Top(20) Themedrawstyle('ForegroundMediumAccent') Style(#StyleHand)
+    Define_Com Class(#PRIM_MD.ListIcon) Name(#NotesIcon) Displayposition(4) Dragstyle(None) Icon('note') Left(481) Parent(#List) Tabposition(11) Top(20) Themedrawstyle('ForegroundMediumPrimary') Style(#StyleHand)
+    Define_Com Class(#prim_md.listIcon) Name(#AssociationsIcon) Parent(#List) Displayposition(1) Tabposition(2) Left(585) Top(20) Icon('more_vert') Themedrawstyle('ForegroundSecondary') Style(#StyleHand)
+    
+    * Popup Panel for Attachments and Notes
+    Define_Com Class(#PRIM_PPNL) Name(#AssociationsPopup) Layoutmanager(#LayoutAssociationsPopup) Height(52) Closeonclick(True) Width(212) Left(285) Top(37)
+    Define_Com Class(#PRIM_MD.Label) Name(#AssociationAttachments) Caption('Attachments') Displayposition(1) Left(0) Parent(#AssociationsPopup) Tabposition(1) Themedrawstyle('Heading3+ForegroundSecondary') Top(13) Width(210) Height(32) Icon('attachment') Iconmarginleft(24) Iconmarginright(24) Mouseoverstyle(#StyleAssociationItem)
+    Define_Com Class(#PRIM_MD.Label) Name(#AssociationNotes) Caption('Notes') Displayposition(2) Left(0) Parent(#AssociationsPopup) Tabposition(2) Themedrawstyle('Heading3+ForegroundSecondary') Top(45) Width(210) Height(32) Iconmarginleft(24) Iconmarginright(24) Icon('note') Mouseoverstyle(#StyleAssociationItem)
+    
+    
+    * Filter, exposed as a property
+    Define_Com Class(#STD_STRNG) Name(#Filter)
+    Define_Pty Name(Filter) Get(*AUTO #Filter) Set(SetFilter)
+    
+    * ***************** *
+    * Property Routines *
+    * ***************** *
+    
+    Ptyroutine Name(SetFilter)
+    Define_Map For(*INPUT) Class(#STD_STRNG) Name(#Value)
+    
+    #Filter := #Value
+    
+    If (#COM_OWNER.IsActiveView)
+    
+    #COM_OWNER.Refresh
+    
+    Endif
+    Endroutine
+    
+    
+    * ************** *
+    * Event Routines *
+    * ************** *
+    
+    Evtroutine Handling(#COM_OWNER.Prepare)
+    
+    #Filter := ""
+    
+    #COM_OWNER.Refresh
+    
+    Endroutine
+    
+    Evtroutine Handling(#List.ItemClick) Com_Sender(#Sender)
+    
+    #COM_OWNER.ShowCurrentItem
+    
+    Endroutine
+    
+    
+    Evtroutine Handling(#CreateButton.Click)
+    
+    #COM_OWNER.Create
+    
+    Endroutine
+    
+    Evtroutine Handling(#SYS_WEB.DeviceChanged)
+    
+    Define_Com Class(#prim_nmbr) Name(#CaptionMargin)
+    
+    Case (#SYS_WEB.Device)
+    
+    When (= Mobile)
+    
+    #ListxContactFullName.CaptionMarginRight #ListxContactFullAddress.CaptionMarginRight #ListxContactEmailAddress.CaptionMarginRight #CaptionMargin := 48
+    
+    #COM_OWNER.LayoutManager <= #LayoutMobile
+    
+    Otherwise
+    
+    #ListxContactFullName.CaptionMarginRight #ListxContactFullAddress.CaptionMarginRight #ListxContactEmailAddress.CaptionMarginRight #CaptionMargin := 104
+    
+    #COM_OWNER.LayoutManager <= #LayoutDesktop
+    
+    Endcase
+    
+    If (#LIST.ITEMS.ItemCount > 0)
+    
+    Selectlist Named(#List)
+    
+    #ListxContactFullName.CaptionMarginRight #ListxContactFullAddress.CaptionMarginRight #ListxContactEmailAddress.CaptionMarginRight := #CaptionMargin
+    
+    Endselect
+    
+    #com_owner.SetAvailableOptions
+    
+    Endif
+    
+    #AttachmentsIcon.Visible #NotesIcon.Visible := (#SYS_WEB.Device = Desktop) Or (#SYS_WEB.Device = Tablet)
+    
+    #AssociationsIcon.Visible := (#SYS_WEB.Device = Mobile)
+    
+    Endroutine
+    
+    Evtroutine Handling(#AttachmentsIcon.Click) Handled(#Handled)
+    
+    #Handled := True
+    
+    #COM_OWNER.ShowAttachments
+    
+    Endroutine
+    
+    Evtroutine Handling(#NotesIcon.Click) Handled(#Handled)
+    
+    #Handled := True
+    
+    #COM_OWNER.ShowNotes
+    
+    Endroutine
+    
+    Evtroutine Handling(#AssociationsIcon.Click) Handled(#Handled)
+    
+    #Handled := True
+    
+    #AssociationsPopup.ShowPopup
+    
+    Endroutine
+    
+    Evtroutine Handling(#AssociationAttachments.Click)
+    
+    #COM_OWNER.ShowAttachments
+    
+    Endroutine
+    
+    Evtroutine Handling(#AssociationNotes.Click)
+    
+    #COM_OWNER.ShowNotes
+    
+    Endroutine
+    
+    
+    * *************** *
+    * Method Routines *
+    * *************** *
+    
+    Mthroutine Name(Refresh) Access(*PRIVATE)
+    Define_Com Class(#A01ContactsServer.Find) Name(#Find)
+    
+    Clr_List Named(#List)
+    
+    #COM_OWNER.Image <= #SYS_WEB.LoadingImage
+    
+    #Find.ExecuteAsync( #Filter #List )
+    
+    Evtroutine Handling(#Find.Completed)
+    
+    Selectlist Named(#List)
+    
+    If (#xAttachmentHasAttachments = True)
+    
+    #AttachmentsIcon.CurrentItem.Themedrawstyle := 'ForegroundMediumAccent'
+    
+    Else
+    
+    #AttachmentsIcon.CurrentItem.Themedrawstyle := 'Text(211,211,211,1)'
+    
+    Endif
+    
+    If (#xNoteHasNotes = True)
+    
+    #NotesIcon.CurrentItem.Themedrawstyle := 'ForegroundMediumPrimary'
+    
+    Else
+    
+    #NotesIcon.CurrentItem.Themedrawstyle := 'Text(211,211,211,1)'
+    
+    Endif
+    
+    Endselect
+    
+    #COM_OWNER.Image <= *NULL
+    
+    #com_owner.SetAvailableOptions
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(Create) Access(*PRIVATE)
+    Define_Com Class(#A01ContactsDetails) Name(#Details)
+    
+    #Details.Create
+    
+    Evtroutine Handling(#Details.ItemSaved)
+    
+    #COM_OWNER.Refresh
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(SetAvailableOptions)
+    
+    Selectlist Named(#List)
+    
+    #AttachmentsIcon.CurrentItem.Visible #NotesIcon.CurrentItem.Visible := (#SYS_WEB.Device = Desktop) Or (#SYS_WEB.Device = Tablet)
+    
+    #AssociationsIcon.CurrentItem.Visible := (#SYS_WEB.Device = Mobile)
+    
+    Endselect
+    
+    #AttachmentsIcon.Visible #NotesIcon.Visible := (#SYS_WEB.Device = Desktop) Or (#SYS_WEB.Device = Tablet)
+    
+    #AssociationsIcon.Visible := (#SYS_WEB.Device = Mobile)
+    
+    Endroutine
+    
+    Mthroutine Name(ShowCurrentItem) Access(*PRIVATE)
+    Define_Com Class(#A01ContactsDetails) Name(#Details)
+    
+    #Details.ShowItem( #xContactIdentification )
+    
+    Evtroutine Handling(#Details.ItemDeleted #Details.ItemSaved)
+    
+    #COM_OWNER.Refresh
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowAttachments) Access(*PRIVATE)
+    Define_Com Class(#xAttachmentDialog) Name(#Attachments) Reference(*DYNAMIC)
+    
+    #Attachments <= *New #xAttachmentDialog
+    
+    #Attachments.ShowAttachments( "xContacts" (#xContactIdentification.AsString) )
+    
+    Evtroutine Handling(#Attachments.CloseAttachments) Iattachmentchanged(#Changed)
+    
+    #Attachments.Close
+    
+    If (#Changed)
+    
+    #COM_OWNER.Refresh
+    
+    Endif
+    
+    #Attachments <= *NULL
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowNotes) Access(*PRIVATE)
+    Define_Com Class(#xNotesDialog) Name(#Notes) Reference(*DYNAMIC)
+    
+    #Notes <= *New #xNotesDialog
+    
+    #Notes.ShowNotes( "xContacts" (#xContactIdentification.AsString) )
+    
+    Evtroutine Handling(#Notes.CloseNotes) Inoteschanged(#Changed)
+    
+    #Notes.Close
+    
+    If (#Changed)
+    
+    #COM_OWNER.Refresh
+    
+    Endif
+    
+    #Notes <= *null
+    
+    Endroutine
+    
+    Endroutine
+    
+    End_Com
+    

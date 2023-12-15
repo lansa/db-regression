@@ -1,0 +1,49 @@
+﻿Web Dialog:
+  Name:               A01ContactsDelete
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Contacts Delete"
+
+  - FRA:
+      Description:        "Contacts Delete"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_DLG) Height(190) Layoutmanager(#LayoutMain) Width(300) Autoclose(True)
+    
+    * Layout
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Column(#LayoutMainColumn1) Manage(#Text) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(ContentHeightFitToWidth) Marginleft(16) Marginright(16) Alignment(TopCenter) Margintop(32)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Column(#LayoutMainColumn1) Manage(#ButtonNo) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(None) Flow(CenterHorizontal) Alignment(BottomCenter) Marginbottom(24) Marginleft(8) Marginright(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem3) Column(#LayoutMainColumn1) Manage(#ButtonYes) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(None) Flow(CenterHorizontal) Alignment(BottomCenter) Marginbottom(24) Marginleft(8) Marginright(8)
+    
+    * Controls
+    Define_Com Class(#PRIM_MD.Label) Name(#Text) Caption('Are you sure you want to delete this item?') Displayposition(1) Parent(#COM_OWNER) Tabposition(1) Themedrawstyle('Heading2') Top(32) Height(50) Width(266) Captionalignment(Center) Wordwrap(True) Ellipses(False) Left(16)
+    Define_Com Class(#PRIM_MD.RaisedButton) Name(#ButtonNo) Caption('NO') Displayposition(2) Left(41) Parent(#COM_OWNER) Tabposition(2) Top(114) Height(50)
+    Define_Com Class(#PRIM_MD.RaisedButton) Name(#ButtonYes) Caption('YES') Displayposition(3) Left(157) Parent(#COM_OWNER) Tabposition(3) Top(114) Height(50)
+    
+    * Events
+    Define_Evt Name(DeleteConfirmed)
+    
+    * ************** *
+    * Event Routines *
+    * ************** *
+    
+    Evtroutine Handling(#ButtonYes.Click)
+    
+    Signal Event(DeleteConfirmed)
+    
+    #COM_OWNER.Close
+    
+    Endroutine
+    
+    Evtroutine Handling(#ButtonNo.Click)
+    
+    #COM_OWNER.Close
+    
+    Endroutine
+    
+    End_Com

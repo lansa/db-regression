@@ -1,0 +1,145 @@
+﻿ServerModule:
+  Name:               A01ContactsServer
+  Target Platform:    Windows/IBM i/Linux
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Contacts Server"
+
+  - FRA:
+      Description:        "Contacts Server"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_SRVM) Sessionidentifier('A01SESSION')
+    
+    Define Field(#A01ListCount) Type(*INT)
+    Define Field(#HasNotes) Type(*BOOLEAN)
+    
+    Def_List Name(#List) Fields(#xContactIdentification #xContactEmailAddress #xContactFullName #xContactFullAddress #xAttachmentHasAttachments #xNoteHasNotes) Counter(#A01ListCount) Type(*WORKING) Entrys(*MAX)
+    
+    Group_By Name(#Fields) Fields(#xContactIdentification #xContactTitle #xContactLastName #xContactFirstName #xContactGender #xContactEmailAddress #xContactMobilePhone #xContactHomePhone #xContactFaxNumber #xContactBusinessPhone #xContactNotes #xContactPhoto #xContactInterests #xContactBirthdate #xContactHometown #xContactCity #xContactJobTitle #xContactCompany #xContactAddress #xContactCompanySite #xContactFullName #xContactFullAddress)
+    
+    Srvroutine Name(Find) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#STD_STRNG) Parameter_Name(Filter)
+    List_Map For(*OUTPUT) List(#List)
+    
+    #STD_STRNG := #STD_STRNG.UpperCase.Trim
+    
+    Select Fields(#List) From_File(xContacts) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If ((#STD_STRNG = *BLANKS) *OrIf (#xContactEmailAddress.UpperCase.Contains( #STD_STRNG )) *OrIf (#xContactFullName.UpperCase.Contains( #STD_STRNG )) *OrIf (#xContactFullAddress.UpperCase.Contains( #STD_STRNG )))
+    
+    #xAttachmentHasAttachments := #COM_OWNER.CheckForAssociations( "ATTACHMENTS" "xContacts" (#xContactIdentification.AsString) )
+    
+    #xNoteHasNotes := #COM_OWNER.CheckForAssociations( 'NOTES' "xContacts" (#xContactIdentification.AsString) )
+    
+    Add_Entry To_List(#List)
+    
+    Endif
+    
+    Endselect
+    
+    Endroutine
+    
+    Srvroutine Name(Read) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#xContactIdentification)
+    Group_Map For(*OUTPUT) Group(#Fields)
+    
+    Fetch Fields(#Fields) From_File(xContacts) With_Key(#xContactIdentification) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Endroutine
+    
+    Srvroutine Name(Save) Session(*REQUIRED)
+    Group_Map For(*INPUT) Group(#Fields)
+    Field_Map For(*OUTPUT) Field(#STD_CODE) Parameter_Name(ReturnCode)
+    
+    Update Fields(#Fields) In_File(xContacts) With_Key(#xContactIdentification) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If_Status Is(*NORECORD)
+    
+    Insert Fields(#Fields) To_File(xContacts) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Endif
+    
+    If_Status Is(*OKAY)
+    
+    #STD_CODE := "OK"
+    
+    Else
+    
+    #STD_CODE := "ER"
+    
+    Endif
+    
+    Endroutine
+    
+    Srvroutine Name(Delete) Session(*REQUIRED)
+    Field_Map For(*INPUT) Field(#xContactIdentification)
+    
+    Delete From_File(xContacts) With_Key(#xContactIdentification) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    #COM_OWNER.DeleteAttachmentsAndNotes( "xContacts" (#xContactIdentification.AsString) )
+    
+    
+    Endroutine
+    
+    Srvroutine Name(GetHomePanelItems) Session(*REQUIRED)
+    List_Map For(*OUTPUT) List(#List)
+    
+    Select Fields(#List) From_File(xContacts) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Add_Entry To_List(#List)
+    
+    If (#A01ListCount > 3)
+    Leave
+    Endif
+    
+    Endselect
+    
+    Endroutine
+    
+    Mthroutine Name(CheckForAssociations) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#PRIM_ALPH) Name(#iType)
+    Define_Map For(*INPUT) Class(#xAttachmentOwnerType) Name(#iOwnerType)
+    Define_Map For(*INPUT) Class(#xAttachmentOwnerKey) Name(#iOwnerKey)
+    Define_Map For(*RESULT) Class(#PRIM_BOLN) Name(#Result)
+    
+    If (#iType = 'ATTACHMENTS')
+    
+    Check_For In_File(xAssociatedAttachmentByType) With_Key(#iOwnerType #iOwnerKey) Io_Error(*NEXT)
+    
+    Endif
+    
+    If (#iType = 'NOTES')
+    
+    Check_For In_File(xNoteByType) With_Key(#iOwnerType #iOwnerKey) Io_Error(*NEXT)
+    
+    Endif
+    
+    If_Status Is(*OKAY)
+    
+    #Result := True
+    
+    Endif
+    
+    If_Status Is(*EQUALKEY)
+    
+    #Result := True
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(DeleteAttachmentsAndNotes) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#xAttachmentOwnerType) Name(#iOwnerType)
+    Define_Map For(*INPUT) Class(#xAttachmentOwnerKey) Name(#iOwnerKey)
+    
+    
+    Delete From_File(xAssociatedAttachmentByType) With_Key(#iOwnerType #iOwnerKey) Io_Error(*NEXT)
+    
+    Delete From_File(xNoteByType) With_Key(#iOwnerType #iOwnerKey) Io_Error(*NEXT)
+    
+    Endroutine
+    
+    End_Com
+    

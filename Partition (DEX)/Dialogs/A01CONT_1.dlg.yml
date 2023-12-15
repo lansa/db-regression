@@ -1,0 +1,327 @@
+﻿Web Dialog:
+  Name:               A01ContactsDetails
+  Enabled For RDMLX:  Yes
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Contacts Details"
+
+  - FRA:
+      Description:        "Contacts Details"
+
+  Source: |
+    Begin_Com Role(*EXTENDS #PRIM_DLG) Height(561) Width(808) Layoutmanager(#LayoutMain) Autoclose(True)
+    
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleAssociationItem) Backgroundbrush(#BrushAssociationItem)
+    Define_Com Class(#PRIM_VS.SolidBrush) Name(#BrushAssociationItem) Color(240:240:240)
+    
+    
+    * Layout - Main
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutMainColumn1) Displayposition(1) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow1) Displayposition(1) Parent(#LayoutMain) Height(56) Units(Content)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow2) Displayposition(2) Parent(#LayoutMain) Height(10) Units(Content)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutMainRow3) Displayposition(3) Parent(#LayoutMain)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem1) Column(#LayoutMainColumn1) Manage(#Appbar) Parent(#LayoutMain) Row(#LayoutMainRow1) Sizing(FitToWidth) Alignment(TopCenter)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutMainItem2) Manage(#Details) Parent(#LayoutMain) Row(#LayoutMainRow3) Column(#LayoutMainColumn1)
+    
+    * Layout - App Bar
+    
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAppBarRow1) Displayposition(1) Parent(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAppBarColumn1) Displayposition(1) Parent(#LayoutAppBar)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppBarItem1) Column(#LayoutAppBarColumn1) Flow(Left) Manage(#DeleteIcon) Parent(#LayoutAppBar) Row(#LayoutAppBarRow1) Sizing(None) Alignment(CenterRight)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppBarItem2) Column(#LayoutAppBarColumn1) Flow(Left) Manage(#SaveIcon) Parent(#LayoutAppBar) Row(#LayoutAppBarRow1) Sizing(None) Alignment(CenterRight)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAppBarItemAttach) Alignment(CenterRight) Column(#LayoutAppBarColumn1) Flow(Left) Manage(#IconAttachmentsAndNotes) Parent(#LayoutAppBar) Row(#LayoutAppBarRow1) Sizing(None)
+    
+    * Layout - Details
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutDetails)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutDetailsRow1) Displayposition(1) Parent(#LayoutDetails)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutDetailsColumn1) Displayposition(1) Parent(#LayoutDetails)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItemErrorText) Manage(#ErrorText) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(ContentHeightFitToWidth) Column(#LayoutDetailsColumn1) Alignment(TopCenter) Flow(Down)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem1) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactTitle) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem2) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactLastName) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem3) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactFirstName) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem4) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactGender) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem5) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactEmailAddress) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem6) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactMobilePhone) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem7) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactHomePhone) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem8) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactFaxNumber) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem9) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactBusinessPhone) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem10) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactNotes) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem11) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactPhoto) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem12) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactInterests) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem13) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactBirthdate) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem14) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactHometown) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem15) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactCity) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem16) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactJobTitle) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem17) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactCompany) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem18) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactAddress) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem19) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactCompanySite) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem20) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactFullName) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutDetailsItem21) Alignment(TopCenter) Column(#LayoutDetailsColumn1) Manage(#xContactFullAddress) Parent(#LayoutDetails) Row(#LayoutDetailsRow1) Sizing(FitToWidth) Flow(Down) Marginright(16) Marginleft(16)
+    
+    * Layout Popup Panels
+    Define_Com Class(#PRIM_TBLO) Name(#LayoutAssociationsPopup) Sizing(ContentHeight)
+    Define_Com Class(#PRIM_TBLO.Column) Name(#LayoutAssociationsPopupColumn) Displayposition(1) Parent(#LayoutAssociationsPopup)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow1) Displayposition(1) Parent(#LayoutAssociationsPopup) Height(8) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow2) Displayposition(2) Parent(#LayoutAssociationsPopup) Height(32) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow3) Displayposition(3) Parent(#LayoutAssociationsPopup) Height(32) Units(Pixels)
+    Define_Com Class(#PRIM_TBLO.Row) Name(#LayoutAssociationsPopupRow4) Displayposition(4) Parent(#LayoutAssociationsPopup) Units(Pixels) Height(8)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAssociationsPopupItem1) Alignment(TopCenter) Column(#LayoutAssociationsPopupColumn) Manage(#AssociationAttachments) Parent(#LayoutAssociationsPopup) Row(#LayoutAssociationsPopupRow2)
+    Define_Com Class(#PRIM_TBLO.Item) Name(#LayoutAssociationsPopupItem2) Alignment(TopCenter) Column(#LayoutAssociationsPopupColumn) Manage(#AssociationNotes) Parent(#LayoutAssociationsPopup) Row(#LayoutAssociationsPopupRow3)
+    
+    
+    
+    * Controls - App Bar
+    Define_Com Class(#PRIM_MD.AppBar) Name(#Appbar) Displayposition(1) Icon('arrow_back') Parent(#COM_OWNER) Tabposition(2) Width(806) Layoutmanager(#LayoutAppBar) Caption('Details') Themedrawstyle('Heading1')
+    Define_Com Class(#PRIM_MD.Icon) Name(#SaveIcon) Displayposition(2) Left(710) Parent(#Appbar) Tabposition(1) Top(0) Height(57) Icon('check')
+    Define_Com Class(#PRIM_MD.Icon) Name(#DeleteIcon) Displayposition(3) Icon('delete_forever') Left(662) Parent(#Appbar) Tabposition(3) Top(0) Height(57)
+    Define_Com Class(#PRIM_MD.Icon) Name(#IconAttachmentsAndNotes) Displayposition(1) Icon('more_vert') Left(758) Parent(#Appbar) Tabposition(2) Top(4)
+    
+    * Controls - Details
+    Define_Com Class(#PRIM_PANL) Name(#Details) Displayposition(2) Height(493) Imagealignment(Stretch) Parent(#COM_OWNER) Tabposition(1) Top(66) Width(806) Verticalscroll(True) Layoutmanager(#LayoutDetails) Left(0)
+    Define_Com Class(#PRIM_MD.Label) Name(#ErrorText) Caption('Errors') Displayposition(1) Left(0) Parent(#Details) Tabposition(3) Height(49) Width(788) Captionmarginleft(0) Captionmarginbottom(0) Captionalignment(TopLeft) Captionmarginright(0) Captionmargintop(0) Paddingbottom(16) Paddingtop(16) Paddingright(16) Paddingleft(16) Themedrawstyle('LightError') Iconheight(32) Top(0) Visible(False)
+    Define_Com Class(#xContactTitle.EditField) Name(#xContactTitle) Displayposition(2) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(2)
+    Define_Com Class(#xContactLastName.EditField) Name(#xContactLastName) Displayposition(3) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(3)
+    Define_Com Class(#xContactFirstName.EditField) Name(#xContactFirstName) Displayposition(4) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(4)
+    Define_Com Class(#xContactGender.EditField) Name(#xContactGender) Displayposition(5) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(5)
+    Define_Com Class(#xContactEmailAddress.EditField) Name(#xContactEmailAddress) Displayposition(6) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(6)
+    Define_Com Class(#xContactMobilePhone.EditField) Name(#xContactMobilePhone) Displayposition(7) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(7)
+    Define_Com Class(#xContactHomePhone.EditField) Name(#xContactHomePhone) Displayposition(8) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(8)
+    Define_Com Class(#xContactFaxNumber.EditField) Name(#xContactFaxNumber) Displayposition(9) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(9)
+    Define_Com Class(#xContactBusinessPhone.EditField) Name(#xContactBusinessPhone) Displayposition(10) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(10)
+    Define_Com Class(#xContactNotes.EditField) Name(#xContactNotes) Displayposition(11) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(11)
+    Define_Com Class(#xContactPhoto.EditField) Name(#xContactPhoto) Displayposition(12) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(12)
+    Define_Com Class(#xContactInterests.EditField) Name(#xContactInterests) Displayposition(13) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(13)
+    Define_Com Class(#xContactBirthdate.DateTimeField) Name(#xContactBirthdate) Displayposition(14) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(14)
+    Define_Com Class(#xContactHometown.EditField) Name(#xContactHometown) Displayposition(15) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(15)
+    Define_Com Class(#xContactCity.EditField) Name(#xContactCity) Displayposition(16) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(16)
+    Define_Com Class(#xContactJobTitle.EditField) Name(#xContactJobTitle) Displayposition(17) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(17)
+    Define_Com Class(#xContactCompany.EditField) Name(#xContactCompany) Displayposition(18) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(18)
+    Define_Com Class(#xContactAddress.EditField) Name(#xContactAddress) Displayposition(19) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(19)
+    Define_Com Class(#xContactCompanySite.EditField) Name(#xContactCompanySite) Displayposition(20) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(20)
+    Define_Com Class(#xContactFullName.EditField) Name(#xContactFullName) Displayposition(21) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(21)
+    Define_Com Class(#xContactFullAddress.EditField) Name(#xContactFullAddress) Displayposition(22) Captiontype(Description) Parent(#Details) Readonly(False) Tabposition(22)
+    
+    Group_By Name(#Fields) Fields(#xContactIdentification #xContactTitle #xContactLastName #xContactFirstName #xContactGender #xContactEmailAddress #xContactMobilePhone #xContactHomePhone #xContactFaxNumber #xContactBusinessPhone #xContactNotes #xContactPhoto #xContactInterests #xContactBirthdate #xContactHometown #xContactCity #xContactJobTitle #xContactCompany #xContactAddress #xContactCompanySite #xContactFullName #xContactFullAddress)
+    
+    * Dialogs - Delete Confirmation
+    Define_Com Class(#A01ContactsDelete) Name(#DeleteDialog)
+    
+    * Popup Attachments and Layout
+    Define_Com Class(#PRIM_PPNL) Name(#AssociationsPopup) Layoutmanager(#LayoutAssociationsPopup) Height(82) Closeonclick(True) Width(212) Left(594) Top(56) Parent(#COM_OWNER)
+    Define_Com Class(#PRIM_MD.Label) Name(#AssociationAttachments) Caption('Attachments') Displayposition(1) Left(0) Parent(#AssociationsPopup) Tabposition(1) Themedrawstyle('Heading3+ForegroundSecondary') Top(8) Width(210) Height(32) Icon('attachment') Iconmarginleft(24) Iconmarginright(24) Mouseoverstyle(#StyleAssociationItem)
+    Define_Com Class(#PRIM_MD.Label) Name(#AssociationNotes) Caption('Notes') Displayposition(2) Left(0) Parent(#AssociationsPopup) Tabposition(2) Themedrawstyle('Heading3+ForegroundSecondary') Top(40) Width(210) Height(32) Iconmarginleft(24) Iconmarginright(24) Icon('note') Mouseoverstyle(#StyleAssociationItem)
+    
+    Define_Com Class(#PRIM_BOLN) Name(#AttachmentsChanged)
+    Define_Com Class(#PRIM_BOLN) Name(#NotesChanged)
+    
+    * Events
+    Define_Evt Name(ItemSaved)
+    Define_Evt Name(ItemDeleted)
+    
+    * Filter, exposed as a property
+    
+    
+    * ****************
+    * Event Routines *
+    * ****************
+    
+    Evtroutine Handling(#COM_OWNER.CreateInstance #SYS_WEB.DeviceChanged)
+    
+    If (#SYS_WEB.Device = Mobile)
+    
+    #COM_OWNER.Placement := FullScreen
+    
+    Else
+    
+    #COM_OWNER.Placement := Center
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#Appbar.IconClick)
+    
+    If ((#AttachmentsChanged) Or (#NotesChanged))
+    
+    Signal Event(ItemSaved)
+    
+    Endif
+    
+    #Com_Owner.Close
+    
+    Endroutine
+    
+    Evtroutine Handling(#SaveIcon.Click)
+    
+    If (#COM_OWNER.Validate( Update #xContacts ))
+    
+    #COM_OWNER.Save
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#DeleteIcon.Click)
+    
+    #DeleteDialog.Show
+    
+    Endroutine
+    
+    Evtroutine Handling(#DeleteDialog.DeleteConfirmed)
+    
+    #COM_OWNER.Delete
+    
+    Endroutine
+    
+    Evtroutine Handling(#IconAttachmentsAndNotes.Click)
+    
+    #AssociationsPopup.ShowPopup Left(#Appbar.Width - #AssociationsPopup.Width) Top(#Appbar.Height)
+    
+    Endroutine
+    
+    Evtroutine Handling(#AssociationAttachments.Click)
+    
+    #COM_OWNER.ShowAttachments
+    
+    Endroutine
+    
+    Evtroutine Handling(#AssociationNotes.Click)
+    
+    #COM_OWNER.ShowNotes
+    
+    Endroutine
+    
+    
+    * *****************
+    * Method Routines *
+    * *****************
+    
+    Mthroutine Name(Create)
+    
+    Set Com(#DeleteIcon) Visible(False)
+    
+    #COM_OWNER.Show
+    
+    Endroutine
+    
+    Mthroutine Name(ShowItem)
+    Define_Map For(*INPUT) Class(#xContactIdentification) Name(#Key1)
+    
+    Define_Com Class(#A01ContactsServer.Read) Name(#Read)
+    
+    Set Com(#Details #SaveIcon #DeleteIcon) Visible(False)
+    
+    #Read.ExecuteAsync( #Key1 #Fields )
+    
+    #COM_OWNER.Show
+    
+    Evtroutine Handling(#Read.Completed)
+    
+    Set Com(#Details #SaveIcon #DeleteIcon) Visible(True)
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(Save) Access(*PRIVATE)
+    
+    Define_Com Class(#A01ContactsServer.Save) Name(#Save)
+    
+    #SYS_MSGQ.ClearAll
+    
+    #ErrorText.Visible := False
+    
+    #Save.ExecuteAsync( #Fields #STD_CODE )
+    
+    Evtroutine Handling(#Save.Completed)
+    
+    If (#STD_CODE = "OK")
+    
+    #COM_OWNER.Close
+    
+    Signal Event(ItemSaved)
+    
+    Else
+    
+    #ErrorText.Caption := ""
+    
+    For Each(#Message) In(#SYS_MSGQ.Messages)
+    
+    #ErrorText.Caption += #Message.Text + (10).AsUnicodeString
+    
+    Endfor
+    
+    #ErrorText.Visible := True
+    
+    #Details.VerticalScrollPos := 0
+    
+    Endif
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(Delete) Access(*PRIVATE)
+    
+    Define_Com Class(#A01ContactsServer.Delete) Name(#Delete)
+    
+    #ErrorText.Visible := False
+    
+    #Delete.ExecuteAsync( #xContactIdentification )
+    
+    Evtroutine Handling(#Delete.Completed)
+    
+    #COM_OWNER.Close
+    
+    Signal Event(ItemDeleted)
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowAttachments) Access(*PRIVATE)
+    Define_Com Class(#xAttachmentDialog) Name(#Attachments) Reference(*DYNAMIC)
+    
+    #Attachments <= *New #xAttachmentDialog
+    
+    #Attachments.ShowAttachments( "xContacts" (#xContactIdentification.AsString) )
+    
+    Evtroutine Handling(#Attachments.CloseAttachments) Iattachmentchanged(#Changed)
+    
+    #AttachmentsChanged := #Changed
+    
+    #Attachments.Close
+    
+    #Attachments <= *NULL
+    
+    Endroutine
+    
+    Endroutine
+    
+    Mthroutine Name(ShowNotes) Access(*PRIVATE)
+    Define_Com Class(#xNotesDialog) Name(#Notes) Reference(*DYNAMIC)
+    
+    #Notes <= *New #xNotesDialog
+    
+    #Notes.ShowNotes( "xContacts" (#xContactIdentification.AsString) )
+    
+    Evtroutine Handling(#Notes.CloseNotes) Inoteschanged(#Changed)
+    
+    #NotesChanged := #Changed
+    
+    #COM_OWNER.Modified := #Notes.Modified
+    
+    #Notes.Close
+    
+    #Notes <= *null
+    
+    Endroutine
+    
+    Endroutine
+    
+    
+    End_Com
+    
