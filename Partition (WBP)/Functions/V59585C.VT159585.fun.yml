@@ -112,7 +112,7 @@
     Get_Entry Number(1) From_List(#wLKData)
     
     
-    If (*CPUTYPE <> AS400)
+    If (*CPUTYPE <> IGNORE)
     #LF_rc := OK
     #Com_Owner.mthInit_Data
     

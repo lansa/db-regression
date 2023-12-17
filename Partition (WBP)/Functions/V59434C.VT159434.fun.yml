@@ -83,7 +83,7 @@
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     * If (#LF_DB_Type *NE MYSQL)
     
-    If (*CPUTYPE <> AS400)
+    If (*CPUTYPE <> IGNORE)
     
     * Delete leftover table data.
     #Com_Owner.mthSELECT( #VTF_KEY1 True #LF_rc )
