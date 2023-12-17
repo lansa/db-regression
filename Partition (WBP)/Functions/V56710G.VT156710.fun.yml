@@ -24,8 +24,14 @@
     If (#LF_DB_Type *NE MYSQL)
     #Com_Owner.mthSelect_SQL_VTL156710C( #LF_rc )
     #Com_Owner.mthSelect_SQL_VTL156710D( #LF_rc )
+    
+    If (*CPUTYPE *NE AS400)
     #Com_Owner.mthSelect_SQL_VTL156710E( #LF_rc )
     #Com_Owner.mthSelect_SQL_VTL156710F( #LF_rc )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' - Skipping methods running on IBMi') ('Due to alternate filename not working in IBM SQL unless library name specified!') )
+    Endif
+    
     Endif
     
     #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_As_Correclation( #LF_rc )
@@ -132,7 +138,7 @@
     #Com_Owner.mthAdd_SubMsg( OK 'Valid Long File Name' '' )
     
     #Com_Owner.mthAdd_SubMsg( OK '- VTL156710E: File name & File ID as Correlation' ('Select_SQL Fields(#F1 (#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') (#F3-LN ' + *Quote + 'L1-ID.F3-LN' + *Quote + ')) From_Files((L1-LN))') )
-    Select_Sql Fields(#F156710A (#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710B') (#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710E.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name))
+    Select_Sql Fields(#F156710A (#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710B') (#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710E.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710E))
     Leave
     Endselect
     
@@ -172,6 +178,7 @@
     Leave
     Endselect
     
+    If (*CPUTYPE *NE AS400)
     #Com_Owner.mthAdd_SubMsg( OK '- From_Files( E, F )' '' )
     Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name L1)(VTL156710_F_Invalid_Long_Name_As_Too_Long L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
     Leave
@@ -181,6 +188,9 @@
     Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_F_Invalid_Long_Name_As_Too_Long L1)(VTL156710_E_Long_Name L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
     Leave
     Endselect
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' - Skipping selects E and F running on IBMi') ('Due to alternate filename not working in IBM SQL unless library name specified!') )
+    Endif
     Endif
     Endroutine
     
@@ -200,6 +210,7 @@
     Leave
     Endselect
     
+    If (*CPUTYPE *NE AS400)
     #Com_Owner.mthAdd_SubMsg( OK '- From_Files( E, F )' '' )
     Select_Sql Fields((#F156710A VTL156710_E_Long_Name.F156710A) (#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_E_Long_Name)(VTL156710_F_Invalid_Long_Name_As_Too_Long L2)) Where('VTL156710_E_Long_Name.F156710B = L2.F156710_B_Long_Name')
     Leave
@@ -209,7 +220,11 @@
     Select_Sql Fields((#F156710A L1.F156710A) (#F156710_B_Long_Name 'L1.F156710_B_Long_Name') (#F156710_C_Invalid_Long_Name_As_Too_Long 'L2.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710_F_Invalid_Long_Name_As_Too_Long L1)(VTL156710_E_Long_Name L2)) Where('L1.F156710B = L2.F156710_B_Long_Name')
     Leave
     Endselect
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK (' - Skipping selects E and F running on IBMi') ('Due to alternate filename not working in IBM SQL unless library name specified!') )
     Endif
+    Endif
+    
     Endroutine
     
     
