@@ -8,7 +8,7 @@
     * Test Case Description
     * Subset of V60553D.
     * There is no check that the data returned by the database is the same as was inserted.
-    * It only checks that its SQLNULL when it should be and not SQLNULL when it isn’t meant to be.
+    * It only checks that its SQLNULL when it should be and not SQLNULL when it isn?t meant to be.
     * Ignore this for reference.
     * ******************************************************************************************************
     
