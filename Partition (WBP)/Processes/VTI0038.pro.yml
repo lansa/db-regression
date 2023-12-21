@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0038
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Virtual Column Tests"
+
+  - ENG:
+      Description:        "Virtual Column Tests"
+
+  - FRA:
+      Description:        "Virtual Column Tests"
+
+  - JPN:
+      Description:        "Virtual Column Tests"
+
+  - TRK:
+      Description:        "Virtual Column Tests"
+
+  Functions:
+  - VI0038A:
+      Name:               VI0038A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Issue #38 Test Case Driver"
+
+      - ENG:
+          Description:        "Issue #38 Test Case Driver"
+
+      - FRA:
+          Description:        "Issue #38 Test Case Driver"
+
+      - JPN:
+          Description:        "Issue #38 Test Case Driver"
+
+      - TRK:
+          Description:        "Issue #38 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0038C:
+      Name:               VI0038C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Batch Control"
+
+      - ENG:
+          Description:        "Batch Control"
+
+      - FRA:
+          Description:        "Batch Control"
+
+      - JPN:
+          Description:        "Batch Control"
+
+      - TRK:
+          Description:        "Batch Control"
+
+      Allowed Next Functions:
+      - "*ANY"
