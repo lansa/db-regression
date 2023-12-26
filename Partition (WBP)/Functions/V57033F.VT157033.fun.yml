@@ -79,10 +79,10 @@
     Define Field(#LF_Test_Result_Exact_Decimal_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_Decimal_Backwards_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_Decimal_Forwards_Descending_Count) Reffld(#Std_Count)
-    * Define Field(#LF_Test_Result_Generic_Integer1_Count) Reffld(#Std_Count)
-    * Define Field(#LF_Test_Result_Exact_Integer1_Count) Reffld(#Std_Count)
-    * Define Field(#LF_Test_Result_Generic_Integer2_Count) Reffld(#Std_Count)
-    * Define Field(#LF_Test_Result_Exact_Integer2_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Generic_Integer1_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Exact_Integer1_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Generic_Integer2_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Exact_Integer2_Count) Reffld(#Std_Count)
     * Define Field(#LF_Test_Result_Generic_Integer4_Count) Reffld(#Std_Count)
     * Define Field(#LF_Test_Result_Exact_Integer4_Count) Reffld(#Std_Count)
     * Define Field(#LF_Test_Result_Generic_Integer8_Count) Reffld(#Std_Count)
@@ -118,21 +118,25 @@
     *
     Def_List Name(#wLTestResultExactDecimal) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Exact_Decimal_Count) Type(*WORKING) Entrys(*MAX)
     
-    * Def_List Name(#wLTestResultGenericInteger1) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
-    *
-    * Def_List Name(#wLTestResultGenericInteger1Backwards) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
-    *
-    * Def_List Name(#wLTestResultGenericInteger1ForwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
-    *
-    * Def_List Name(#wLTestResultExactInteger1) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Exact_Integer1_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger1) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
     
-    * Def_List Name(#wLTestResultGenericInteger2) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger1Backwards) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
     
-    * Def_List Name(#wLTestResultGenericInteger2Backwards) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger1ForwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
     
-    * Def_List Name(#wLTestResultGenericInteger2ForwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger1BackwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer1_Count) Type(*WORKING) Entrys(*MAX)
     
-    * Def_List Name(#wLTestResultExactInteger2) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Exact_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultExactInteger1) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Exact_Integer1_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Def_List Name(#wLTestResultGenericInteger2) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Def_List Name(#wLTestResultGenericInteger2Backwards) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Def_List Name(#wLTestResultGenericInteger2ForwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Def_List Name(#wLTestResultGenericInteger2BackwardsDescending) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    
+    Def_List Name(#wLTestResultExactInteger2) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Exact_Integer2_Count) Type(*WORKING) Entrys(*MAX)
     
     * Def_List Name(#wLTestResultGenericInteger4) Fields(#LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND) Counter(#LF_Test_Result_Generic_Integer4_Count) Type(*WORKING) Entrys(*MAX)
     
@@ -230,14 +234,16 @@
     Clr_List Named(#wLTestResultGenericDecimal)
     Clr_List Named(#wLTestResultGenericDecimalBackwards)
     Clr_List Named(#wLTestResultGenericDecimalForwardsDescending)
-    * Clr_List Named(#wLTestResultExactInteger1)
-    * Clr_List Named(#wLTestResultGenericInteger1)
-    * Clr_List Named(#wLTestResultGenericInteger1Backwards)
-    * Clr_List Named(#wLTestResultGenericInteger1ForwardsDescending)
-    * Clr_List Named(#wLTestResultExactInteger2)
-    * Clr_List Named(#wLTestResultGenericInteger2)
-    * Clr_List Named(#wLTestResultGenericInteger2Backwards)
-    * Clr_List Named(#wLTestResultGenericInteger2ForwardsDescending)
+    Clr_List Named(#wLTestResultExactInteger1)
+    Clr_List Named(#wLTestResultGenericInteger1)
+    Clr_List Named(#wLTestResultGenericInteger1Backwards)
+    Clr_List Named(#wLTestResultGenericInteger1ForwardsDescending)
+    Clr_List Named(#wLTestResultGenericInteger1BackwardsDescending)
+    Clr_List Named(#wLTestResultExactInteger2)
+    Clr_List Named(#wLTestResultGenericInteger2)
+    Clr_List Named(#wLTestResultGenericInteger2Backwards)
+    Clr_List Named(#wLTestResultGenericInteger2ForwardsDescending)
+    Clr_List Named(#wLTestResultGenericInteger2BackwardsDescending)
     * Clr_List Named(#wLTestResultExactInteger4)
     * Clr_List Named(#wLTestResultGenericInteger4Backwards)
     * Clr_List Named(#wLTestResultGenericInteger4)
@@ -259,6 +265,7 @@
     * BACKWARDS
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 321
     Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
+    
     * FORWARDS DESCENDING
     #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 321
     Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
@@ -284,6 +291,10 @@
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 672
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 642
     Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FND #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
+    #LF_Test_Result_L157033FP := 336
+    Add_Entry To_List(#wLTestResultGenericSigned)
      
     * *** Exact Signed Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 16
@@ -291,11 +302,6 @@
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
     Add_Entry To_List(#wLTestResultExactSigned)
     
-    * BACKWARDS DESCENDING
-    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FND #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
-    Add_Entry To_List(#wLTestResultGenericSigned)
-    
-    * *******************Issue#30-remove this comment later*************************
     * *** Generic Packed Decimals Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
     #LF_Test_Result_L157033FPD := 320
@@ -312,19 +318,18 @@
     #LF_Test_Result_L157033FPD := 320
     Add_Entry To_List(#wLTestResultGenericPacked_DecimalsBackwards)
     
-    * * * *** Exact Packed Decimals Results
+    * *** Exact Packed Decimals Results
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
     Add_Entry To_List(#wLTestResultExactPacked_Decimals)
     
     * *** Generic Decimal Results
-    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 320
-    #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 320
-    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 320
+    #LF_Test_Result_L157033FN #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
     Add_Entry To_List(#wLTestResultGenericDecimal)
     * BACKWARDS
-    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 336
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 := 336
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 321
-    #LF_Test_Result_L157033FP := 336
+    #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 336
     Add_Entry To_List(#wLTestResultGenericDecimalBackwards)
     
     * FORWARDS DESCENDING
@@ -338,54 +343,63 @@
     #LF_Test_Result_L157033FP := 320
     Add_Entry To_List(#wLTestResultGenericDecimalBackwards)
     
-    * * *** Exact Decimal Results
+    * *** Exact Decimal Results
     #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 16
     #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
     Add_Entry To_List(#wLTestResultExactDecimal)
     
-    *
-    * * *** Generic Integer1 Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
-    * Add_Entry To_List(#wLTestResultGenericInteger1)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 336
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 321
-    * Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 320
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
-    * Add_Entry To_List(#wLTestResultGenericInteger1ForwardsDescending)
-    *
-    * * *** Exact Integer1 Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 0
-    *
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 0
-    *
-    * Add_Entry To_List(#wLTestResultExactInteger1)
+    * *** Generic Integer1 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 320
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
+    Add_Entry To_List(#wLTestResultGenericInteger1)
+    * BACKWARDS
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 336
+    #LF_Test_Result_L157033FP := 320
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 321
+    Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
     
-    * * *** Generic Integer2 Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 0
-    * Add_Entry To_List(#wLTestResultGenericInteger2)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 0
-    * Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 0
-    * Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
-    *
-    * * *** Exact Integer2 Results
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 0
-    *
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 0
-    *
-    * Add_Entry To_List(#wLTestResultExactInteger2)
-    *
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 672
+    #LF_Test_Result_L157033FP := 656
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 642
+    Add_Entry To_List(#wLTestResultGenericInteger1ForwardsDescending)
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FPD := 320
+    #LF_Test_Result_L157033FP := 336
+    #LF_Test_Result_L157033FND := 320
+    Add_Entry To_List(#wLTestResultGenericInteger1BackwardsDescending)
+    
+    * *** Exact Integer1 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactInteger1)
+    
+    * *** Generic Integer2 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 320
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 320
+    Add_Entry To_List(#wLTestResultGenericInteger2)
+    * BACKWARDS
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 336
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 321
+    Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
+    
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 672
+    #LF_Test_Result_L157033FP := 656
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 642
+    Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 320
+    #LF_Test_Result_L157033FP := 336
+    #LF_Test_Result_L157033FND #LF_Test_Result_L157033FPD := 320
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
+    
+    * *** Exact Integer2 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FP := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactInteger2)
+    
     * * *** Generic Integer4 Results
     * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
     * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 0
@@ -843,8 +857,8 @@
     #Com_Owner.mthSearch_By_Signed( #LF_Test_Data #this_rc )
     #Com_Owner.mthSearch_By_Decimal_Decimals( #LF_Test_Data #this_rc )
     #Com_Owner.mthSearch_By_Decimal( #LF_Test_Data #this_rc )
-    * #Com_Owner.mthSearch_By_Integer1( #LF_Test_Data #this_rc )
-    * #Com_Owner.mthSearch_By_Integer2( #LF_Test_Data #this_rc )
+    #Com_Owner.mthSearch_By_Integer1( #LF_Test_Data #this_rc )
+    #Com_Owner.mthSearch_By_Integer2( #LF_Test_Data #this_rc )
     * #Com_Owner.mthSearch_By_Integer4( #LF_Test_Data #this_rc )
     * #Com_Owner.mthSearch_By_Integer8( #LF_Test_Data #this_rc )
     
@@ -2074,7 +2088,7 @@
     #LF_Func_L157033FND += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *FORWARDS. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2088,7 +2102,7 @@
     #LF_Func_L157033FN += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *FORWARDS. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2102,7 +2116,7 @@
     #LF_Func_L157033FPD += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *FORWARDS. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2116,7 +2130,7 @@
     #LF_Func_L157033FP += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA *FORWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2132,7 +2146,7 @@
     #LF_Func_L157033FI1 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *FORWARDS. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2148,7 +2162,7 @@
     #LF_Func_L157033FI2 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2 *FORWARDS. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2164,7 +2178,7 @@
     #LF_Func_L157033FI4 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4 *FORWARDS. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2180,7 +2194,7 @@
     #LF_Func_L157033FI8 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
     Endselect
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8 *FORWARDS. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
@@ -2743,1275 +2757,1413 @@
     Endroutine
     
     Mthroutine Name(mthSearch_By_Integer1)
-    * Define_Map For(*INPUT) Class(#BIFINT1A) Name(#this_test_value)
-    * Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    *
-    * #Com_Owner.mthFunc_Search_Generic_Integer1( '*** SELECT GENERIC Key: Int(1)' #this_test_value #this_rc )
-    * #Com_Owner.mthFunc_Search_Exact_Integer1( '*** SELECT EXACT Key: Int(1)' #this_test_value #this_rc )
+    Define_Map For(*INPUT) Class(#BIFINT1A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthFunc_Search_Generic_Integer1( '*** SELECT GENERIC Key: Int(1)' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Exact_Integer1( '*** SELECT EXACT Key: Int(1)' #this_test_value #this_rc )
     
     Endroutine
     
     Mthroutine Name(mthFunc_Search_Generic_Integer1)
-    * Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    * Define_Map For(*INPUT) Class(#BIFINT1A) Name(#this_test_value)
-    * Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFINT1A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Generic_Integer1' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Generic_Integer1_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1)
+    Endif
+    
     *
-    * #this_rc := OK
+    * FORWARDS
     *
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Generic_Integer1' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
+    * SIGNED( 7,2 ).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED( 7,0 ).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,4 ).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,0 ).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L157033FPA) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
     *
-    * If (#LF_i > #LF_Test_Result_Generic_Integer1_Count)
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
-    * Return
-    * Else
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1)
-    * Endif
+    * BACKWARDS
     *
-    * *
-    * * FORWARDS
-    * *
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_Integer1' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1Backwards)
+    
+    * SIGNED( 7,2 ).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED( 7,0 ).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,4 ).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,0 ).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L157033FPA) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
     *
-    * * SIGNED( 7,2 ).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    * FORWARDS DESCENDING
     *
-    * * SIGNED( 7,0 ).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Interger1' )
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1ForwardsDescending)
+    
+    * SIGNED( 7,2 ).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED( 7,0 ).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,4 ).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,0 )
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L57033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPD. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
     *
-    * * DECIMALS( 15,4 ).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    * BACKWARDS DESCENDING
     *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    *
-    * *
-    * * BACKWARDS
-    * *
-    * #this_rc := OK
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_Integer1' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1Backwards)
-    *
-    * * SIGNED( 7,2 ).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED( 7,0 ).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS( 15,4 ).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    *
-    * *
-    * * FORWARDS DESCENDING
-    * *
-    * #this_rc := OK
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Interger1' )
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1ForwardsDescending)
-    *
-    * * SIGNED( 7,2 ).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED( 7,0 ).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS( 15,4 ).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    *
-    * *
-    * * BACKWARDS DESCENDING
-    * *
-    * #this_rc := OK
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthFunc_Search_Generic_Signed' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned)
-    *
-    * * SIGNED( 7,2 ).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED( 7,0 ).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS( 15,4 ).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D *BACKWARDS. Rows = ' + #LF_Func_L157033FI2.asString) (' Expected = ' + #LF_Test_Result_L157033FI2.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D *BACKWARDS. Rows = ' + #LF_Func_L157033FI4.asString) (' Expected = ' + #LF_Test_Result_L157033FI4.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D *BACKWARDS. Rows = ' + #LF_Func_L157033FI8.asString) (' Expected = ' + #LF_Test_Result_L157033FI8.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthFunc_Search_Generic_Integer1' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger1BackwardsDescending)
+    
+    * SIGNED( 7,2 ).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED( 7,0 ).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,4 ).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS( 15,0 )
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L57033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPD *BACKWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D *BACKWARDS. Rows = ' + #LF_Func_L157033FI2.asString) (' Expected = ' + #LF_Test_Result_L157033FI2.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D *BACKWARDS. Rows = ' + #LF_Func_L157033FI4.asString) (' Expected = ' + #LF_Test_Result_L157033FI4.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D *BACKWARDS. Rows = ' + #LF_Func_L157033FI8.asString) (' Expected = ' + #LF_Test_Result_L157033FI8.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     Endroutine
     
     Mthroutine Name(mthFunc_Search_Exact_Integer1)
-    * Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    * Define_Map For(*INPUT) Class(#BIFINT1A) Name(#this_test_value)
-    * Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    *
-    * #this_rc := OK
-    *
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_Integer1' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    *
-    * If (#LF_i > #LF_Test_Result_Exact_Integer1_Count)
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
-    * Return
-    * Else
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultExactInteger1)
-    * Endif
-    *
-    * * SIGNED(7,2).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED(7,0).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS(15,4).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFINT1A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_Integer1' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Exact_Integer1_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultExactInteger1)
+    Endif
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *FORWARDS. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *FORWARDS. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *FORWARDS. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,0).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L157033FPA) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA *FORWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *FORWARDS. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2 *FORWARDS. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4 *FORWARDS. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8 *FORWARDS. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     Endroutine
     
     Mthroutine Name(mthSearch_By_Integer2)
-    * Define_Map For(*INPUT) Class(#BIFINT2A) Name(#this_test_value)
-    * Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    *
-    * #Com_Owner.mthFunc_Search_Generic_Integer2( '*** SELECT GENERIC Key: Int(2)' #this_test_value #this_rc )
-    * #Com_Owner.mthFunc_Search_Exact_Integer2( '*** SELECT EXACT Key: Int(2)' #this_test_value #this_rc )
+    Define_Map For(*INPUT) Class(#BIFINT2A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthFunc_Search_Generic_Integer2( '*** SELECT GENERIC Key: Int(2)' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Exact_Integer2( '*** SELECT EXACT Key: Int(2)' #this_test_value #this_rc )
     
     Endroutine
     
     Mthroutine Name(mthFunc_Search_Generic_Integer2)
-    * Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    * Define_Map For(*INPUT) Class(#BIFINT2A) Name(#this_test_value)
-    * Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    *
-    * #this_rc := OK
-    *
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Generic_Integer2' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    *
-    * If (#LF_i > #LF_Test_Result_Generic_Integer2_Count)
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
-    * Return
-    * Else
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2)
-    * Endif
-    *
-    * * ****************************************************************************
-    * * *FORWARDS
-    * * ****************************************************************************
-    *
-    * * SIGNED(7,2).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED(7,0).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS(15,4).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    *
-    * * ****************************************************************************
-    * * *BACKWARDS
-    * * ****************************************************************************
-    * #this_rc := OK
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_Integer1' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2Backwards)
-    *
-    * * SIGNED(7,2).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED(7,0).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS(15,4).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    *
-    * * ****************************************************************************
-    * * *FORWARDS DESCENDING
-    * * ****************************************************************************
-    * #this_rc := OK
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Interger2' )
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2ForwardsDescending)
-    *
-    * * SIGNED(7,2).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED(7,0).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS(15,4).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
-    *
-    * * ****************************************************************************
-    * * *BACKWARDS DESCENDING
-    * * ****************************************************************************
-    * #this_rc := OK
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthFunc_Search_Generic_Signed' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultGenericSigned)
-    *
-    * * SIGNED(7,2).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED(7,0).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS(15,4).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D *BACKWARDS. Rows = ' + #LF_Func_L157033FI2.asString) (' Expected = ' + #LF_Test_Result_L157033FI2.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D *BACKWARDS. Rows = ' + #LF_Func_L157033FI4.asString) (' Expected = ' + #LF_Test_Result_L157033FI4.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D *BACKWARDS. Rows = ' + #LF_Func_L157033FI8.asString) (' Expected = ' + #LF_Test_Result_L157033FI8.asString) )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFINT2A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Generic_Integer2' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Generic_Integer2_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2)
+    Endif
+    
+    * ****************************************************************************
+    * *FORWARDS
+    * ****************************************************************************
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *FORWARDS. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *FORWARDS. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *FORWARDS. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,0).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L157033FPA) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA *FORWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *FORWARDS. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2 *FORWARDS. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4 *FORWARDS. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8 *FORWARDS. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *BACKWARDS
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_Integer2' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2Backwards)
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,0).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L157033FPA) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA *BACKWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2 *BACKWARDS. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4 *BACKWARDS. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8 *BACKWARDS. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *FORWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Integer2' )
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2ForwardsDescending)
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD *FORWARDS. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNN *FORWARDS. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD *FORWARDS. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,0).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L57033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPD *FORWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D *FORWARDS. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D *FORWARDS. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D *FORWARDS. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D *FORWARDS. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *BACKWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthFunc_Search_Generic_Integer2' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2BackwardsDescending)
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L57033FNDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FNDD *BACKWARDS. Rows = ' + #LF_Func_L157033FND.asString) (' Expected = ' + #LF_Test_Result_L157033FND.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L57033FND) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FND *BACKWARDS. Rows = ' + #LF_Func_L157033FN.asString) (' Expected = ' + #LF_Test_Result_L157033FN.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L57033FPDD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPDD *BACKWARDS. Rows = ' + #LF_Func_L157033FPD.asString) (' Expected = ' + #LF_Test_Result_L157033FPD.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,0).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L57033FPD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FPD *BACKWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L57033FI1D) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI1D *BACKWARDS. Rows = ' + #LF_Func_L157033FI1.asString) (' Expected = ' + #LF_Test_Result_L157033FI1.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L57033FI2D) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI2D *BACKWARDS. Rows = ' + #LF_Func_L157033FI2.asString) (' Expected = ' + #LF_Test_Result_L157033FI2.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI4D *BACKWARDS. Rows = ' + #LF_Func_L157033FI4.asString) (' Expected = ' + #LF_Test_Result_L157033FI4.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L57033FI8D *BACKWARDS. Rows = ' + #LF_Func_L157033FI8.asString) (' Expected = ' + #LF_Test_Result_L157033FI8.asString) )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     Endroutine
     
     Mthroutine Name(mthFunc_Search_Exact_Integer2)
-    * Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    * Define_Map For(*INPUT) Class(#BIFINT2A) Name(#this_test_value)
-    * Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    *
-    * #this_rc := OK
-    *
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_Integer2' )
-    * Change Field(#LF_Func_Counters) To(*NULL)
-    *
-    * If (#LF_i > #LF_Test_Result_Exact_Integer2_Count)
-    * #this_rc := ER
-    * #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
-    * Return
-    * Else
-    * Get_Entry Number(#LF_i) From_List(#wLTestResultExactInteger2)
-    * Endif
-    *
-    * * SIGNED(7,2).
-    * #LF_View_Type := ' Key: S(7,2)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FND += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * SIGNED(7,0).
-    * #LF_View_Type := ' Key: S(7,0)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FN += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * DECIMALS(15,4).
-    * #LF_View_Type := ' Key: DECIMALS(15,4)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FPD += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 1.
-    * #LF_View_Type := ' Key: INTEGER 1'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT1 := #this_test_value
-    * Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI1 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    *
-    * * INTEGER 2.
-    * #LF_View_Type := ' Key: INTEGER 2'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT2 := #this_test_value
-    * Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI2 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 4.
-    * #LF_View_Type := ' Key: INTEGER 4'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT4 := #this_test_value
-    * Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI4 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * INTEGER 8.
-    * #LF_View_Type := ' Key: INTEGER 8'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * #LF_Test_Data_INT8 := #this_test_value
-    * Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FI8 += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
-    *
-    * * REPORT ON THE FINDING.
-    * If (#LF_Total_Errors > 0)
-    * #this_rc := ER
-    * Endif
-    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFINT2A) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_Integer2' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Exact_Integer2_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultExactInteger2)
+    Endif
+    
+    * SIGNED(7,2).
+    #LF_View_Type := ' Key: S(7,2)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0702A) From_File(L157033FND) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FND += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0702A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FND *FORWARDS. Rows = ' + #LF_Func_L157033FND.asString + ' Expected = ' + #LF_Test_Result_L157033FND.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * SIGNED(7,0).
+    #LF_View_Type := ' Key: S(7,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFN0700A) From_File(L157033FN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FN += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFN0700A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FN *FORWARDS. Rows = ' + #LF_Func_L157033FN.asString + ' Expected = ' + #LF_Test_Result_L157033FN.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,4).
+    #LF_View_Type := ' Key: DECIMALS(15,4)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1504A) From_File(L157033FPD) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FPD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1504A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPD *FORWARDS. Rows = ' + #LF_Func_L157033FPD.asString + ' Expected = ' + #LF_Test_Result_L157033FPD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DECIMALS(15,0).
+    #LF_View_Type := ' Key: DECIMALS(15,0)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFP1500A) From_File(L157033FPA) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FP += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFP1500A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FPA *FORWARDS. Rows = ' + #LF_Func_L157033FP.asString + ' Expected = ' + #LF_Test_Result_L157033FP.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 1.
+    #LF_View_Type := ' Key: INTEGER 1'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT1 := #this_test_value
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI1 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI1 *FORWARDS. Rows = ' + #LF_Func_L157033FI1.asString + ' Expected = ' + #LF_Test_Result_L157033FI1.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 2.
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT2 := #this_test_value
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI2 *FORWARDS. Rows = ' + #LF_Func_L157033FI2.asString + ' Expected = ' + #LF_Test_Result_L157033FI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 4.
+    #LF_View_Type := ' Key: INTEGER 4'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT4 := #this_test_value
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI4 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI4 *FORWARDS. Rows = ' + #LF_Func_L157033FI4.asString + ' Expected = ' + #LF_Test_Result_L157033FI4.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * INTEGER 8.
+    #LF_View_Type := ' Key: INTEGER 8'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #LF_Test_Data_INT8 := #this_test_value
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FI8 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033FI8 *FORWARDS. Rows = ' + #LF_Func_L157033FI8.asString + ' Expected = ' + #LF_Test_Result_L157033FI8.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     Endroutine
     
