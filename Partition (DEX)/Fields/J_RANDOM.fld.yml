@@ -1,0 +1,24 @@
+﻿Field:
+  Name:               J_RANDOM
+  Type:               Signed
+  Length:             10
+  Decimals:           9
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - ENG:
+      Description:        "J_RANDOM"
+      Label:              "J_RANDOM"
+      Heading1:           "J_RANDOM"
+
+  - FRA:
+      Description:        "J_RANDOM"
+      Label:              "J_RANDOM"
+      Heading1:           "J_RANDOM"

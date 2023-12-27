@@ -1,0 +1,19 @@
+﻿Field:
+  Name:               Scheduled_Summ_Pull_Dt
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Multilingual Details:
+  - ENG:
+      Description:        "Scheduled_Summ_Pull_Dt"
+      Label:              "Scheduled_Summ_"
+      Heading1:           "Scheduled_Summ_Pull_"
+
+  - FRA:
+      Description:        "Scheduled_Summ_Pull_Dt"
+      Label:              "Scheduled_Summ_"
+      Heading1:           "Scheduled_Summ_Pull_"

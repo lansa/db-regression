@@ -1,0 +1,24 @@
+﻿Field:
+  Name:               J_T1CNT
+  Type:               Integer
+  Length:             4
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - ENG:
+      Description:        "J_T1CNT"
+      Label:              "J_T1CNT"
+      Heading1:           "J_T1CNT"
+
+  - FRA:
+      Description:        "J_T1CNT"
+      Label:              "J_T1CNT"
+      Heading1:           "J_T1CNT"

@@ -1,0 +1,22 @@
+﻿Field:
+  Name:               CourtNumber2
+  Type:               String
+  Length:             1
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - LC
+
+  Multilingual Details:
+  - ENG:
+      Description:        "CourtNumber2"
+      Label:              "CourtNumber2"
+      Heading1:           "CourtNumber2"
+
+  - FRA:
+      Description:        "CourtNumber2"
+      Label:              "CourtNumber2"
+      Heading1:           "CourtNumber2"

@@ -1,0 +1,19 @@
+﻿Field:
+  Name:               CourtDate
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Multilingual Details:
+  - ENG:
+      Description:        "CourtDate"
+      Label:              "CourtDate"
+      Heading1:           "CourtDate"
+
+  - FRA:
+      Description:        "CourtDate"
+      Label:              "CourtDate"
+      Heading1:           "CourtDate"

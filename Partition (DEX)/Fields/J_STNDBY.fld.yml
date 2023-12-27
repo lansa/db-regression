@@ -1,0 +1,24 @@
+﻿Field:
+  Name:               J_STNDBY
+  Type:               Integer
+  Length:             4
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - ENG:
+      Description:        "J_STNDBY"
+      Label:              "J_STNDBY"
+      Heading1:           "J_STNDBY"
+
+  - FRA:
+      Description:        "J_STNDBY"
+      Label:              "J_STNDBY"
+      Heading1:           "J_STNDBY"
