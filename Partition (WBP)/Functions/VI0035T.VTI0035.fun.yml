@@ -32,56 +32,56 @@
     Case Of_Field(#TRIG_OPER)
     * Handle a before open event
     When Value_Is('= BEFOPN')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFOPN')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFOPN')
     
     * Handle an after open event
     When Value_Is('= AFTOPN')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTOPN')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTOPN')
     
     * Handle a before close event
     When Value_Is('= BEFCLS')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFCLS')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFCLS')
     
     * Handle an after close event
     When Value_Is('= AFTCLS')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTCLS')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTCLS')
     
     * Handle a before read event
     When Value_Is('= BEFRED')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFRED')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFRED')
     
     * Handle an after read event
     When Value_Is('= AFTRED')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTRED')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTRED')
     
     * Handle a before insert event
     When Value_Is('= BEFINS')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFINS')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFINS')
     
     * Handle an after insert event
     When Value_Is('= AFTINS')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTINS')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTINS')
     
     * Handle a before update event
     When Value_Is('= BEFUPD')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFUPD')
     
     * Handle an after update event
     When Value_Is('= AFTUPD')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTUPD')
     
     * Handle a before delete event
     When Value_Is('= BEFDLT')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'BEFDLT')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFDLT')
     
     * Handle an after delete event
     When Value_Is('= AFTDLT')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default 'AFTDLT')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTDLT')
     
     * Handle an event not catered for
     Otherwise
     * Abort Msgtxt('File VTLI0035G trigger function invalidly invoked/ used.')
-    Use Builtin(ISSUEMESSAGE) With_Args(AQUEUE M DCM9898 'DC@M01' *Default ('File VTLI0035G in trigger function ' + *FUNCTION_DESC + ' invalidly invoked/used.'))
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default ('File VTLI0035G in trigger function ' + *FUNCTION_DESC + ' invalidly invoked/used.'))
     #TRIG_RETC := ER
     
     Endcase
