@@ -26,7 +26,7 @@
     #LF_DB_Separator := '/'
     #LF_DB_Collection_Name := *PARTDTALIB
     Else
-    If (*OSBITNESS = 32)
+    If (*OSBITNESS *NE 0)
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     If (#LF_DB_Type *NE MYSQL)
     #LF_DB_Separator := '.'

@@ -27,7 +27,7 @@
     #LF_DB_Collection_Name := *PARTDTALIB
     #LF_DB_Table_Qualifier := #LF_DB_Collection_Name + #LF_DB_Separator + #LF_DB_Quote
     Else
-    If (*OSBITNESS *EQ 32)
+    If (*OSBITNESS *NE 0)
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
     Clr_List Named(#wLCTD)
