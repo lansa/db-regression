@@ -103,7 +103,8 @@
     Case Of_Field(#this_Remote_platform)
     When Value_Is(= I)
     If (#this_is_a_valid_ssrv_test_case = True)
-    #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWI #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    * #Com_Owner.mthPerformTest( #LF_VTTEMP_Exec_Mode_QWI #this_DBIT #this_DBUT *Blanks *Blanks #this_local_platform #this_Remote_platform #this_retcode )
+    #Com_Owner.mthLogEvent( '*** <Quotes in filename not valid on IBMi so skip test when running on Windows using SuperServer IO to IBMi>' )
     Else
     #this_is_a_number_of_ssrv_call += 1
     If (#LF_VTMain_Current_LU <> #this_ssv_name)
