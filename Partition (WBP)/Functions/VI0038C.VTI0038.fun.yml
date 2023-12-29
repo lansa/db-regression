@@ -20,7 +20,7 @@
     
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
-    Define Field(#LF_Original_Count) Reffld(#Std_Count)
+    Define Field(#LF_Records_Count) Reffld(#Std_Count)
     Define Field(#LF_DB_Count) Reffld(#Std_Count)
     Define Field(#LF_DataShown) Reffld(#BIFB001B)
     
@@ -28,8 +28,8 @@
     Group_By Name(#XG_ALL_TABLE_C) Fields(#BIFP0700A #BIFA040A #BIFN0700A)
     Group_By Name(#XG_ALL_TABLE_D) Fields(#BIFP0700A #BIFN0700A)
     
-    Def_List Name(#w_lTableC) Fields(#XG_ALL_TABLE_C) Counter(#LF_Original_Count) Type(*WORKING)
-    Def_List Name(#w_lTableD) Fields(#XG_ALL_TABLE_D) Counter(#LF_Original_Count) Type(*WORKING)
+    Def_List Name(#w_lTableC) Fields(#XG_ALL_TABLE_C) Counter(#LF_Records_Count) Type(*WORKING)
+    Def_List Name(#w_lTableD) Fields(#XG_ALL_TABLE_D) Counter(#LF_Records_Count) Type(*WORKING)
     
     Def_List Name(#w_lDB) Fields(#XG_ALL_TABLE_C) Counter(#LF_DB_Count) Type(*WORKING)
     
@@ -41,23 +41,26 @@
     
     Get_Entry Number(1) From_List(#wLKData)
     
-    #Com_Owner.mthClearDataFromTableD( #LF_rc )
     
-    If (#LF_rc *EQ OK)
-    #Com_Owner.mthInsertIntoTableD( #LF_rc )
-    Endif
     *
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
-    #Com_Owner.mthClearDataFromTableC( #LF_rc )
+    #Com_Owner.clearDataFromTableC( #LF_rc )
+    #Com_Owner.clearDataFromTableD( #LF_rc )
     
     If (#LF_rc *EQ OK)
-    #Com_Owner.mthInsertIntoTableC( #LF_rc )
+    #Com_Owner.initTableD( #LF_rc )
     Endif
     
-    #Com_Owner.mthShowDataFromTableC( #LF_rc )
+    #Com_Owner.showDataFromTableD( #LF_rc )
     
-    #Com_Owner.mthShowDataFromTableD( #LF_rc )
+    If (#LF_rc *EQ OK)
+    #Com_Owner.insertIntoTableC( #LF_rc )
+    Endif
+    
+    #Com_Owner.showDataFromTableC( #LF_rc )
+    
+    #Com_Owner.showDataFromTableD( #LF_rc )
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -110,10 +113,10 @@
     *
     * This routine is responsible to reset the data in the table VTLI0038C
     *
-    Mthroutine Name(mthClearDataFromTableD)
+    Mthroutine Name(clearDataFromTableD)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data from table D' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table D' '' )
     
     Clr_List Named(#w_lTableD)
     Clr_List Named(#w_lDB)
@@ -124,10 +127,10 @@
     
     If (#this_rc = EF)
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
     
-    If (#LF_Original_Count > 0)
-    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    If (#LF_Records_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
     Get_Entry Number(#LF_i) From_List(#w_lTableD)
     
     Delete From_File(VTLI0038D) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
@@ -156,10 +159,10 @@
     * This routine is responsible to initialize table VTLI0038C with the Tst Data
     * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
     *
-    Mthroutine Name(mthInsertIntoTableD)
+    Mthroutine Name(initTableD)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Create Test Data in Table D' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Initialize table D' '' )
     
     Define Field(#LF_k) Reffld(#Std_Count)
     #LF_k := 0
@@ -175,7 +178,7 @@
     
     End_Loop
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count.AsString + ' record(s)') '' )
     Selectlist Named(#w_lTableD)
     Insert Fields(*ALL) To_File(VTLI0038D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
@@ -195,10 +198,10 @@
     *
     * This routine is responsible to reset the data in the table VTLI0038C
     *
-    Mthroutine Name(mthClearDataFromTableC)
+    Mthroutine Name(clearDataFromTableC)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data from table C' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table C' '' )
     
     Clr_List Named(#w_lTableC)
     Clr_List Named(#w_lDB)
@@ -209,10 +212,10 @@
     
     If (#this_rc = EF)
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
     
-    If (#LF_Original_Count > 0)
-    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    If (#LF_Records_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
     Get_Entry Number(#LF_i) From_List(#w_lTableC)
     
     Delete From_File(VTLI0038C) With_Key(#BIFP0700A #BIFA040A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
@@ -240,10 +243,10 @@
     * This routine is responsible to initialize table VTLI0038C with the Tst Data
     * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
     *
-    Mthroutine Name(mthInsertIntoTableC)
+    Mthroutine Name(insertIntoTableC)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Create Test Data into table C' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Create Test data into table C' '' )
     
     * Define Field(#LF_k) Reffld(#Std_Count)
     #LF_k := 1
@@ -276,7 +279,7 @@
     End_Loop
     End_Loop
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count.AsString + ' record(s)') '' )
     Selectlist Named(#w_lTableC)
     Insert Fields(*ALL) To_File(VTLI0038C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
@@ -296,10 +299,10 @@
     * This routine is responsible to display the data in the table VTLI0038C
     * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
     *
-    Mthroutine Name(mthShowDataFromTableC)
+    Mthroutine Name(showDataFromTableC)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Show Data from Table C' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Show data from table C' '' )
     
     Clr_List Named(#w_lTableC)
     Clr_List Named(#w_lDB)
@@ -310,11 +313,11 @@
     
     If (#this_rc = EF)
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
     
-    If (#LF_Original_Count > 0)
+    If (#LF_Records_Count > 0)
     #LF_i := 1
-    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
     Get_Entry Number(#LF_i) From_List(#w_lTableC)
     #Com_Owner.mthAdd_SubMsg( OK ('- #BIFP0700A ' + #BIFP0700A.asString + ' #BIFA040A ' + #BIFA040A + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
     End_Loop
@@ -332,10 +335,10 @@
     * This routine is responsible to display the data in the table VTLI0038C
     * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
     *
-    Mthroutine Name(mthShowDataFromTableD)
+    Mthroutine Name(showDataFromTableD)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Show Data from Table D' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Show Accumulated data from table D' '' )
     
     Clr_List Named(#w_lTableD)
     Clr_List Named(#w_lDB)
@@ -346,11 +349,11 @@
     
     If (#this_rc = EF)
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
     
-    If (#LF_Original_Count > 0)
+    If (#LF_Records_Count > 0)
     #LF_i := 1
-    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
     Get_Entry Number(#LF_i) From_List(#w_lTableD)
     #Com_Owner.mthAdd_SubMsg( OK ('- #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
     End_Loop
