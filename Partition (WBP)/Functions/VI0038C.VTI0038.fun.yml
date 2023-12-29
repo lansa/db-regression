@@ -45,22 +45,22 @@
     *
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
-    #Com_Owner.clearDataFromTableC( #LF_rc )
-    #Com_Owner.clearDataFromTableD( #LF_rc )
+    * Table C refers to VTLI0038C and D refers to VTLI0038D
+    #Com_Owner.mthClearDataFromTableC( #LF_rc )
+    #Com_Owner.mthClearDataFromTableD( #LF_rc )
     
     If (#LF_rc *EQ OK)
-    #Com_Owner.initTableD( #LF_rc )
+    #Com_Owner.mthInitTableD( #LF_rc )
     Endif
-    
-    #Com_Owner.showDataFromTableD( #LF_rc )
     
     If (#LF_rc *EQ OK)
-    #Com_Owner.insertIntoTableC( #LF_rc )
+    #Com_Owner.mthInsertIntoTableC( #LF_rc )
     Endif
     
-    #Com_Owner.showDataFromTableC( #LF_rc )
+    #Com_Owner.mthShowDataFromTableC( #LF_rc )
+    #Com_Owner.mthShowDataFromTableD( #LF_rc )
     
-    #Com_Owner.showDataFromTableD( #LF_rc )
+    #Com_Owner.mthValidateDataFromTableD( #LF_rc )
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -113,10 +113,55 @@
     *
     * This routine is responsible to reset the data in the table VTLI0038C
     *
-    Mthroutine Name(clearDataFromTableD)
+    Mthroutine Name(mthClearDataFromTableC)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table D' '' )
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0038C' '' )
+    
+    Clr_List Named(#w_lTableC)
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(#BIFP0700A #BIFA040A) From_File(VTLI0038C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lTableC)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lTableC)
+    
+    Delete From_File(VTLI0038C) With_Key(#BIFP0700A #BIFA040A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFP0700A.AsString + ',' + #BIFA040A) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lTableC)
+    Endroutine
+    
+    
+    *
+    * This routine is responsible to reset the data in the table VTLI0038D
+    *
+    Mthroutine Name(mthClearDataFromTableD)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0038D' '' )
     
     Clr_List Named(#w_lTableD)
     Clr_List Named(#w_lDB)
@@ -156,26 +201,22 @@
     
     
     *
-    * This routine is responsible to initialize table VTLI0038C with the Tst Data
-    * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
+    * This routine is responsible to initialize the table VTLI0038D with the aggregated sum values of #BIFN0700A data from table VTLI0038C.
+    * Initially all the aggregated values are set to 0 for each Key.
+    * Real Fields: #BIFP0700A #BIFN0700A
     *
-    Mthroutine Name(initTableD)
+    Mthroutine Name(mthInitTableD)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Initialize table D' '' )
-    
-    Define Field(#LF_k) Reffld(#Std_Count)
-    #LF_k := 0
+    #Com_Owner.mthAdd_SubMsg( OK ('Initialize the table VTLI0038D with Aggregated data but with default values of #BIFN0700A as 0') '' )
     
     Define Field(#LF_i) Reffld(#Std_Count)
     Begin_Loop Using(#LF_i) To(5)
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- #BIFP0700A ' + #LF_i.asString + ' #BIFN0700A ' + #LF_k.asString) ('') )
     #BIFP0700A := #LF_i
-    #BIFN0700A := #LF_k
-    
+    #BIFN0700A := 0
     Add_Entry To_List(#w_lTableD)
     
+    #Com_Owner.mthAdd_SubMsg( OK ('- #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
     End_Loop
     
     #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count.AsString + ' record(s)') '' )
@@ -196,59 +237,16 @@
     
     
     *
-    * This routine is responsible to reset the data in the table VTLI0038C
-    *
-    Mthroutine Name(clearDataFromTableC)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table C' '' )
-    
-    Clr_List Named(#w_lTableC)
-    Clr_List Named(#w_lDB)
-    
-    Select Fields(#BIFP0700A #BIFA040A) From_File(VTLI0038C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    Add_Entry To_List(#w_lTableC)
-    Endselect
-    
-    If (#this_rc = EF)
-    #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
-    
-    If (#LF_Records_Count > 0)
-    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
-    Get_Entry Number(#LF_i) From_List(#w_lTableC)
-    
-    Delete From_File(VTLI0038C) With_Key(#BIFP0700A #BIFA040A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    If (#this_rc <> OK)
-    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFP0700A.AsString + ',' + #BIFA040A) )
-    #this_rc := ER
-    Leave
-    Endif
-    End_Loop
-    
-    If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
-    Endif
-    Endif
-    Else
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
-    #this_rc := ER
-    Endif
-    
-    Clr_List Named(#w_lTableC)
-    Endroutine
-    
-    *
-    * This routine is responsible to initialize table VTLI0038C with the Tst Data
+    * This routine is responsible to initialize the table VTLI0038C with the Transactional Test Data.
+    * For each value of #BIFP0700A, the aggregated sum values of #BIFN0700A is updated into the table VTLI0038D
     * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
     *
-    Mthroutine Name(insertIntoTableC)
+    Mthroutine Name(mthInsertIntoTableC)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Create Test data into table C' '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Create Transactional data into table VTLI0038C') '' )
     
-    * Define Field(#LF_k) Reffld(#Std_Count)
+    Define Field(#LF_k) Reffld(#Std_Count)
     #LF_k := 1
     
     Begin_Loop Using(#LF_i) To(5)
@@ -299,10 +297,10 @@
     * This routine is responsible to display the data in the table VTLI0038C
     * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
     *
-    Mthroutine Name(showDataFromTableC)
+    Mthroutine Name(mthShowDataFromTableC)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Show data from table C' '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Show data from table VTLI0038C') '' )
     
     Clr_List Named(#w_lTableC)
     Clr_List Named(#w_lDB)
@@ -332,13 +330,14 @@
     
     
     *
-    * This routine is responsible to display the data in the table VTLI0038C
-    * Real Fields: #BIFP0700A #BIFA040A #BIFN0700A
+    * This routine is responsible to display the data from the table VTLI0038D
+    * Real Fields: #BIFP0700A #BIFN0700A
     *
-    Mthroutine Name(showDataFromTableD)
+    Mthroutine Name(mthShowDataFromTableD)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Show Accumulated data from table D' '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Show data from table VTLI0038D') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('This table contains aggregated sum values of #BIFN0700A for each value of #BIFP0700A from table VTLI0038C') '' )
     
     Clr_List Named(#w_lTableD)
     Clr_List Named(#w_lDB)
@@ -367,5 +366,53 @@
     Endroutine
     
     
+    *
+    * This routine is responsible to validate the data from the table VTLI0038D.
+    * This table contains aggregated totals of #BIFN0700A for each value of #BIFP0700A from table VTLI0038C
+    * Real Fields: #BIFP0700A #BIFN0700A
+    *
+    Mthroutine Name(mthValidateDataFromTableD)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    #Com_Owner.mthAdd_SubMsg( OK ('Validate data from table VTLI0038D') '' )
     
+    Clr_List Named(#w_lTableD)
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(#XG_ALL_TABLE_D) From_File(VTLI0038D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lTableD)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count <> 5)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Total records in the table mismatch. Actual ' + #LF_Records_Count.AsString + ' Expected only 5') '' )
+    #this_rc := ER
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Total records in the table are ' + #LF_Records_Count.AsString + '. OK') '' )
+    #LF_i := 1
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lTableD)
+    #Com_Owner.mthAdd_SubMsg( OK ('- #LF_i ' + #LF_i.AsString + ' #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
+    
+    If ((((#LF_i *EQ 1) *And (#BIFP0700A *EQ 1)) *And (#BIFN0700A *EQ 15)) *Or (((#LF_i *EQ 2) *And (#BIFP0700A *EQ 2)) *And (#BIFN0700A *EQ 40)) Or (((#LF_i *EQ 3) *And (#BIFP0700A *EQ 3)) *And (#BIFN0700A *EQ 65)) *Or (((#LF_i *EQ 4) *And (#BIFP0700A *EQ 4)) *And (#BIFN0700A *EQ 90)) *Or (((#LF_i *EQ 5) *And (#BIFP0700A *EQ 5)) *And (#BIFN0700A *EQ 115)) *And ((((#LF_i *EQ 1) *And (#BIFP0700A *EQ 1)) *And (#BIFN0700A *NE 90)) *Or (((#LF_i *EQ 2) *And (#BIFP0700A *EQ 2)) *And (#BIFN0700A *NE 115)) Or (((#LF_i *EQ 3) *And (#BIFP0700A *EQ 3)) *And (#BIFN0700A *NE 15)) *Or (((#LF_i *EQ 4) *And (#BIFP0700A *EQ 4)) *And (#BIFN0700A *NE 40)) *Or (((#LF_i *EQ 5) *And (#BIFP0700A *EQ 5)) *And (#BIFN0700A *NE 65))))
+    #Com_Owner.mthAdd_SubMsg( OK ('- Test Case OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0700A and #BIFN0700A Data mismatch') '' )
+    #this_rc := ER
+    Endif
+    End_Loop
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- ALL Tests Successful') '' )
+    Endif
+    
+    Clr_List Named(#w_lTableD)
+    Endroutine
