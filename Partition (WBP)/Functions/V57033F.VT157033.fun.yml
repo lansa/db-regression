@@ -423,56 +423,248 @@
     * *****************************************************************************
     * Search <2>
     * *****************************************************************************
-    * #LF_Test_Data := 110
-    * #LF_TraceData := False
-    * Add_Entry To_List(#wLTestKey)
-    * * *** Generic Signed_Decimals Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
-    * Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
-    * * BACKWARDS
-    * If (#LF_Remote_Platform *EQ I)
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
-    * Else
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
-    * Endif
-    * Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
-    *
-    * * *** Exact Signed_Decimals Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
-    * Add_Entry To_List(#wLTestResultExactSigned_Decimals)
-    *
-    * * *** Generic Signed Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 160
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 0
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
-    * Add_Entry To_List(#wLTestResultGenericSigned)
-    * * BACKWARDS
-    * If (#LF_Remote_Platform *EQ I)
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
-    * Else
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 176
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
-    * Endif
-    * Add_Entry To_List(#wLTestResultGenericSignedBackwards)
-    * * FORWARDS DESCENDING
-    * If (#LF_Remote_Platform *EQ I)
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 32
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
-    * Else
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 352
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
-    * Endif
-    * Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
-    *
-    * * *** Exact Signed Results
-    * #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FN := 16
-    * #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 0
-    *
-    * #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
-    * Add_Entry To_List(#wLTestResultExactSigned)
+    #LF_Test_Data := 110
+    #LF_TraceData := False
+    Add_Entry To_List(#wLTestKey)
+    * *** Generic Signed_Decimals Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
+    
+    * *** Exact Signed_Decimals Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactSigned_Decimals)
+    
+    * *** Generic Signed Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    Add_Entry To_List(#wLTestResultGenericSigned)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 176
+      
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericSignedBackwards)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 352
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
+    Endif
+    Add_Entry To_List(#wLTestResultGenericSignedForwardsDescending)
+    
+    * *** Exact Signed Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactSigned)
+    
+    * *** Generic Packed Decimals Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 0
+    #LF_Test_Result_L157033FPD := 160
+    #LF_Test_Result_L157033FND := 0
+    Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FPD := 1
+    Else
+    #LF_Test_Result_L157033FPD := 161
+    Endif
+    #LF_Test_Result_L157033FND := 0
+    Add_Entry To_List(#wLTestResultGenericPacked_DecimalsBackwards)
+    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FPD := 1
+    Else
+    #LF_Test_Result_L157033FPD := 161
+    Endif
+    #LF_Test_Result_L157033FND := 0
+    Add_Entry To_List(#wLTestResultGenericPacked_DecimalsForwardsDescending)
+    
+    * *** Exact Packed Decimals Results
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactPacked_Decimals)
+    
+    * *** Generic Decimal Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP := 160
+    #LF_Test_Result_L157033FN #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    Add_Entry To_List(#wLTestResultGenericDecimal)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 176
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDecimalBackwards)
+    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 352
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDecimalForwardsDescending)
+    
+    * *** Exact Decimal Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FP := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactDecimal)
+    
+    * *** Generic Integer1 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    Add_Entry To_List(#wLTestResultGenericInteger1)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FP := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 176
+    #LF_Test_Result_L157033FP := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
+    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FP := 176
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 352
+    #LF_Test_Result_L157033FP := 336
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger1ForwardsDescending)
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FP := 16
+    Else
+    #LF_Test_Result_L157033FP := 176
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger1BackwardsDescending)
+    
+    * *** Exact Integer1 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FND #LF_Test_Result_L157033FPD := 1
+    
+    Add_Entry To_List(#wLTestResultExactInteger1)
+    
+    * *** Generic Integer2 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    Add_Entry To_List(#wLTestResultGenericInteger2)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 176
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
+    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 352
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
+    
+    * *** Exact Integer2 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactInteger2)
+    
+    * *** Generic Integer4 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 160
+    Add_Entry To_List(#wLTestResultGenericInteger4)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 176
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger4Backwards)
+    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 2
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 352
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 322
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger4ForwardsDescending)
+    
+    * *** Exact Integer4 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FP #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactInteger4)
+    
+    * *** Generic Integer8 Results
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN #LF_Test_Result_L157033FND := 160
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FP := 640
+    Add_Entry To_List(#wLTestResultGenericInteger8)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FP := 640
+    #LF_Test_Result_L157033FND := 1
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 176
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FP := 640
+    #LF_Test_Result_L157033FND := 161
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger8Backwards)
+    
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 32
+    #LF_Test_Result_L157033FND := 2
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FP := 1280
+    
+    Else
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 352
+    #LF_Test_Result_L157033FND := 322
+    #LF_Test_Result_L157033FPD #LF_Test_Result_L157033FP := 1280
+    Endif
+    Add_Entry To_List(#wLTestResultGenericInteger8ForwardsDescending)
+    
+    * ***Exact Integer8 Results
+    #LF_Test_Result_L157033FP #LF_Test_Result_L157033FPD := 0
+    #LF_Test_Result_L157033FI1 #LF_Test_Result_L157033FI2 #LF_Test_Result_L157033FI4 #LF_Test_Result_L157033FI8 #LF_Test_Result_L157033FN := 16
+    #LF_Test_Result_L157033FND := 1
+    Add_Entry To_List(#wLTestResultExactInteger8)
     *
     * * *****************************************************************************
     * * Search <3>
