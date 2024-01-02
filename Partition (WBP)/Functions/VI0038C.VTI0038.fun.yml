@@ -20,6 +20,7 @@
     
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_Tmp_Records_Count) Reffld(#Std_Count)
     Define Field(#LF_Records_Count) Reffld(#Std_Count)
     Define Field(#LF_DB_Count) Reffld(#Std_Count)
     Define Field(#LF_DataShown) Reffld(#BIFB001B)
@@ -29,6 +30,7 @@
     Group_By Name(#XG_ALL_TABLE_D) Fields(#BIFP0700A #BIFN0700A)
     
     Def_List Name(#w_lTableC) Fields(#XG_ALL_TABLE_C) Counter(#LF_Records_Count) Type(*WORKING)
+    Def_List Name(#w_lTmp) Fields(#XG_ALL_TABLE_D) Counter(#LF_Tmp_Records_Count) Type(*WORKING)
     Def_List Name(#w_lTableD) Fields(#XG_ALL_TABLE_D) Counter(#LF_Records_Count) Type(*WORKING)
     
     Def_List Name(#w_lDB) Fields(#XG_ALL_TABLE_C) Counter(#LF_DB_Count) Type(*WORKING)
@@ -119,6 +121,7 @@
     #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0038C' '' )
     
     Clr_List Named(#w_lTableC)
+    Clr_List Named(#w_lTmp)
     Clr_List Named(#w_lDB)
     
     Select Fields(#BIFP0700A #BIFA040A) From_File(VTLI0038C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
@@ -251,6 +254,8 @@
     
     Begin_Loop Using(#LF_i) To(5)
     Define Field(#LF_j) Reffld(#Std_Count)
+    Define Field(#LF_l) Reffld(#Std_Count)
+    #LF_l := 0
     Begin_Loop Using(#LF_j) To(5)
     Define Field(#LF_c) Type(*CHAR) Length(1)
     Case Of_Field(#LF_j)
@@ -273,11 +278,18 @@
     
     Add_Entry To_List(#w_lTableC)
     
+    #LF_l += #LF_k
     #LF_k += 1
     End_Loop
+    
+    #BIFN0700A := #LF_l
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding entry to Tmp. #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
+    Add_Entry To_List(#w_lTmp)
     End_Loop
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count.AsString + ' record(s)') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Tmp_Records_Count.AsString + ' record(s) into Tmp.') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count.AsString + ' record(s) into  table VTLI0038C') '' )
     Selectlist Named(#w_lTableC)
     Insert Fields(*ALL) To_File(VTLI0038C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
@@ -326,6 +338,12 @@
     Endif
     
     Clr_List Named(#w_lTableC)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Show data from Tmp. i.e., expected data from table VTLI0038D') '' )
+    Begin_Loop Using(#LF_i) To(#LF_Tmp_Records_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lTmp)
+    #Com_Owner.mthAdd_SubMsg( OK ('- #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
+    End_Loop
     Endroutine
     
     
@@ -387,20 +405,38 @@
     #this_rc := OK
     #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count.AsString + ' record(s) found') '' )
     
-    If (#LF_Records_Count <> 5)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Total records in the table mismatch. Actual ' + #LF_Records_Count.AsString + ' Expected only 5') '' )
+    If (#LF_Records_Count <> #LF_Tmp_Records_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Total records in the table mismatch. Actual ' + #LF_Records_Count.AsString + ' Expected only ' + #LF_Tmp_Records_Count.AsString) '' )
     #this_rc := ER
     Else
     #Com_Owner.mthAdd_SubMsg( OK ('- Total records in the table are ' + #LF_Records_Count.AsString + '. OK') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Comparing records with Tmp') '' )
+    
     #LF_i := 1
     Begin_Loop Using(#LF_i) To(#LF_Records_Count)
     Get_Entry Number(#LF_i) From_List(#w_lTableD)
-    #Com_Owner.mthAdd_SubMsg( OK ('- #LF_i ' + #LF_i.AsString + ' #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record from table - #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
+    Define Field(#LF_BIFP0700A_TableD) Reffld(#Std_Count)
+    Define Field(#LF_BIFN0700A_TableD) Reffld(#Std_Count)
+    #LF_BIFP0700A_TableD := #BIFP0700A
+    #LF_BIFN0700A_TableD := #BIFN0700A
     
-    If ((((#LF_i *EQ 1) *And (#BIFP0700A *EQ 1)) *And (#BIFN0700A *EQ 15)) *Or (((#LF_i *EQ 2) *And (#BIFP0700A *EQ 2)) *And (#BIFN0700A *EQ 40)) Or (((#LF_i *EQ 3) *And (#BIFP0700A *EQ 3)) *And (#BIFN0700A *EQ 65)) *Or (((#LF_i *EQ 4) *And (#BIFP0700A *EQ 4)) *And (#BIFN0700A *EQ 90)) *Or (((#LF_i *EQ 5) *And (#BIFP0700A *EQ 5)) *And (#BIFN0700A *EQ 115)) *And ((((#LF_i *EQ 1) *And (#BIFP0700A *EQ 1)) *And (#BIFN0700A *NE 90)) *Or (((#LF_i *EQ 2) *And (#BIFP0700A *EQ 2)) *And (#BIFN0700A *NE 115)) Or (((#LF_i *EQ 3) *And (#BIFP0700A *EQ 3)) *And (#BIFN0700A *NE 15)) *Or (((#LF_i *EQ 4) *And (#BIFP0700A *EQ 4)) *And (#BIFN0700A *NE 40)) *Or (((#LF_i *EQ 5) *And (#BIFP0700A *EQ 5)) *And (#BIFN0700A *NE 65))))
+    Get_Entry Number(#LF_i) From_List(#w_lTmp)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record from Tmp   - #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.asString) ('') )
+    Define Field(#LF_BIFP0700A_Tmp) Reffld(#Std_Count)
+    Define Field(#LF_BIFN0700A_Tmp) Reffld(#Std_Count)
+    #LF_BIFP0700A_Tmp := #BIFP0700A
+    #LF_BIFN0700A_Tmp := #BIFN0700A
+    
+    If ((#LF_BIFP0700A_TableD *EQ #LF_BIFP0700A_Tmp) *And (#LF_BIFN0700A_TableD *EQ #LF_BIFN0700A_Tmp))
     #Com_Owner.mthAdd_SubMsg( OK ('- Test Case OK') '' )
     Else
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0700A and #BIFN0700A Data mismatch') '' )
+    If (#LF_BIFP0700A_TableD *NE #LF_BIFP0700A_Tmp)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0700A Data mismatch') '' )
+    Endif
+    If (#LF_BIFN0700A_TableD *NE #LF_BIFN0700A_Tmp)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFN0700A Data mismatch') '' )
+    Endif
     #this_rc := ER
     Endif
     End_Loop
@@ -414,5 +450,6 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- ALL Tests Successful') '' )
     Endif
     
+    Clr_List Named(#w_lTmp)
     Clr_List Named(#w_lTableD)
     Endroutine
