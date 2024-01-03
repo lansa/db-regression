@@ -64,8 +64,10 @@ try {
         Write-Host("Updating Server name as $mysqlServer and database name as lansa for MYSQL 32-bit")
 
         $temp = Get-OdbcDsn -Name "MYSQL"
+        $temp  | Out-Default | Write-Host
+        $DriverName = @($temp.DriverName)   # Sometimes a list is returned rather than a string. Thank you Oracle!
         Remove-OdbcDsn -Name "MYSQL" -DsnType "System" -Platform "32-bit" | Out-Default | Write-Host
-        Add-OdbcDsn -Name "MYSQL" -DriverName $temp.DriverName -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=LANSA") | Out-Default | Write-Host
+        Add-OdbcDsn -Name "MYSQL" -DriverName $DriverName[0] -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=LANSA") | Out-Default | Write-Host
     }
 
     if ($DSNNames -contains "MYSQL" -and (Get-OdbcDsn -Name "MYSQL").Platform -eq "64-bit"){
@@ -75,8 +77,10 @@ try {
         Write-Host("Updating Server name as $mysqlServer and database name as lansa for MYSQL 64-bit")
 
         $temp = Get-OdbcDsn -Name "MYSQL" -Platform "64-bit"
+        $temp  | Out-Default | Write-Host
+        $DriverName = @($temp.DriverName)   # Sometimes a list is returned rather than a string. Thank you Oracle!
         Remove-OdbcDsn -Name "MYSQL" -DsnType "System" -Platform "64-bit" | Out-Default | Write-Host
-        Add-OdbcDsn -Name "MYSQL" -DriverName $temp.DriverName -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=LANSA") | Out-Default | Write-Host
+        Add-OdbcDsn -Name "MYSQL" -DriverName $DriverName[0] -Platform $temp.Platform -DsnType $temp.DsnType -SetPropertyValue @("Server=$mysqlServer", "PORT=$temp.Attribute.PORT", "Database=LANSA") | Out-Default | Write-Host
     }
 } catch {
     $_ | Out-Default | Write-Host
