@@ -56,10 +56,15 @@
     Define Field(#LF_Test_Result_L157033FDT) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_DateTime_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Exact_DateTime_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Generic_Date_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Exact_Date_Count) Reffld(#Std_Count)
     
-    * Signed_Decimals
+    * DateTime
     Def_List Name(#wLTestResultGenericDateTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_DateTime_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#wLTestResultExactDateTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_DateTime_Count) Type(*WORKING) Entrys(*MAX)
+    * Date
+    Def_List Name(#wLTestResultGenericDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Date_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultExactDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Date_Count) Type(*WORKING) Entrys(*MAX)
     
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
@@ -124,6 +129,8 @@
     Clr_List Named(#wLTestKey)
     Clr_List Named(#wLTestResultExactDateTime)
     Clr_List Named(#wLTestResultGenericDateTime)
+    Clr_List Named(#wLTestResultExactDate)
+    Clr_List Named(#wLTestResultGenericDate)
     
     * Search <1>
     #LF_Test_Data := '2001-01-01 01:01:01.010101'
@@ -137,6 +144,15 @@
     #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
     Add_Entry To_List(#wLTestResultExactDateTime)
     
+    * Generic Date Results
+    #LF_Test_Result_L157033FB := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    Add_Entry To_List(#wlTestResultGenericDate)
+    * Exact Date Results
+    #LF_Test_Result_L157033FB := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    Add_Entry To_List(#wlTestResultExactDate)
+    
     * Search <2>
     #LF_Test_Data := '2012-12-12 12:12:12.121212'
     Add_Entry To_List(#wLTestKey)
@@ -148,6 +164,16 @@
     #LF_Test_Result_L157033FB := 0
     #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
     Add_Entry To_List(#wLTestResultExactDateTime)
+    
+    * Generic Date Results
+    #LF_Test_Result_L157033FB := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    Add_Entry To_List(#wlTestResultGenericDate)
+    * Exact Date Results
+    #LF_Test_Result_L157033FB := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    Add_Entry To_List(#wLTestResultExactDate)
+    
     Endroutine
     
     *
@@ -209,7 +235,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Search Test: ' + *Quote + #LF_Test_Data.asString + *Quote) '' )
     
     #Com_Owner.mthSearch_By_DateTime( #LF_Test_Data #this_rc )
-    * #Com_Owner.mthSearch_By_Date( #LF_Test_Data #this_rc )
+    #Com_Owner.mthSearch_By_Date( #LF_Test_Data #this_rc )
     * #Com_Owner.mthSearch_By_Time( #LF_Test_Data #this_rc )
     
     If (#this_rc *NE OK)
@@ -245,7 +271,7 @@
     Endroutine
     
     *
-    * Search By BOOLEAN
+    * Search By DateTime
     *
     Mthroutine Name(mthSearch_By_DateTime)
     Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_test_value)
@@ -311,8 +337,66 @@
     Endif
     Endroutine
     *
+    * Search by Date
     *
-    *
+    Mthroutine Name(mthSearch_By_Date)
+    Define_Map For(*INPUT) Class(#BIFDATEA) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthFunc_Search_Generic_Date( 'SELECT GENERIC Key: DATE' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Exact_Date( 'SELECT EXACT Key: DATE' #this_test_value #this_rc )
+    
+    Endroutine
+    
+    Mthroutine Name(mthFunc_Search_Generic_Date)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFDATEA) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Generic_Date_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDate)
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthFunc_Search_Exact_Date)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFDATEA) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Exact_Date_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultExactDate)
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Endif
+    Endroutine
     
     * Add a message to the Return Message List.
     Mthroutine Name(mthAdd_Msg)
