@@ -34,3 +34,69 @@
   - VTL156118D:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - BIFB001C:
+      Type:               Field
+
+  - BIFB256A:
+      Type:               Field
+
+  - BIFBLOBA:
+      Type:               Field
+
+  - BIFC001KA:
+      Type:               Field
+
+  - BIFCLOBA:
+      Type:               Field
+
+  - BIFDATEA:
+      Type:               Field
+
+  - BIFDT19C:
+      Type:               Field
+
+  - BIFP6315S:
+      Type:               Field
+
+  - BIFINT1S:
+      Type:               Field
+
+  - BIFINT2S:
+      Type:               Field
+
+  - BIFINT4S:
+      Type:               Field
+
+  - BIFINT8S:
+      Type:               Field
+
+  - BIFU100C:
+      Type:               Field
+
+  - BIFNV512B:
+      Type:               Field
+
+  - BIFS512E:
+      Type:               Field
+
+  - BIFUINT1S:
+      Type:               Field
+
+  - BIFUINT2S:
+      Type:               Field
+
+  - BIFUINT4S:
+      Type:               Field
+
+  - BIFUNIT8S:
+      Type:               Field
+
+  - BIFVB256S:
+      Type:               Field
+
+  - BIFF0400S:
+      Type:               Field
+
+  - BIFF0800S:
+      Type:               Field

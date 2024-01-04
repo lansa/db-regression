@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               BIFINT1S
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Edit Mask:          J
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Int(1)"
+      Label:              "BIF Int(1)"
+      Heading1:           "BIF"
+      Heading2:           "Int(1)"
+
+  - ENG:
+      Description:        "BIF Int(1)"
+      Label:              "BIF Int(1)"
+      Heading1:           "BIF"
+      Heading2:           "Int(1)"
+
+  - FRA:
+      Description:        "BIF Int(1)"
+      Label:              "BIF Int(1)"
+      Heading1:           "BIF"
+      Heading2:           "Int(1)"
+
+  - JPN:
+      Description:        "BIF Int(1)"
+      Label:              "BIF Int(1)"
+      Heading1:           "BIF"
+      Heading2:           "Int(1)"
+
+  - TRK:
+      Description:        "BIF Int(1)"
+      Label:              "BIF Int(1)"
+      Heading1:           "BIF"
+      Heading2:           "Int(1)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(196)
+    
+    End_Com
+    
+    End_Com
