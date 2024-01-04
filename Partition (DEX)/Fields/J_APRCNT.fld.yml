@@ -17,6 +17,8 @@
       Description:        "J_APRCNT"
       Label:              "J_APRCNT"
       Heading1:           "J_APRCNT"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_APRCNT"

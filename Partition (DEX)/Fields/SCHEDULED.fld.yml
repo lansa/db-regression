@@ -12,6 +12,8 @@
       Description:        "Scheduled_Summ_Pull_Dt"
       Label:              "Scheduled_Summ_"
       Heading1:           "Scheduled_Summ_Pull_"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "Scheduled_Summ_Pull_Dt"

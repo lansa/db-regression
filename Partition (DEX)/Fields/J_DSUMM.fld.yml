@@ -17,6 +17,8 @@
       Description:        "J_DSUMM"
       Label:              "J_DSUMM"
       Heading1:           "J_DSUMM"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_DSUMM"

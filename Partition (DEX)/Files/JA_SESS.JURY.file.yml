@@ -1,0 +1,380 @@
+﻿File:
+  Name:                           JA_SESS
+  File Type:                      PC Other File
+  Library:                        JURY
+  Record Format Name:             JA_SESS
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            No
+  Create RRNO Column:             No
+  Auto RRNO Is Fixed:             No
+  Convert Special Characters:     Yes
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - ENG:
+      Description:        "JA_SESS"
+
+  - FRA:
+      Description:        "JA_SESS"
+
+  Real Fields:
+  - COURTNUMB:
+      Type:               String
+      Length:             1
+      Decimals:           0
+
+  - COURTDATE:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+      PC Column Data:
+        Name:               CourtDate
+        Data Type:          91
+        Precision:          10
+        Length:             6
+        Scale:              0
+        Radix:              -1
+        Nullable:           0
+
+  - COURTTYPE:
+      Type:               String
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               CourtType
+        Data Type:          12
+        Precision:          4
+        Length:             4
+        Scale:              -1
+        Radix:              -1
+        Nullable:           0
+
+  - J_RANDOM:
+      Type:               Signed
+      Length:             10
+      Decimals:           9
+
+      PC Column Data:
+        Name:               J_RANDOM
+        Data Type:          3
+        Precision:          10
+        Length:             12
+        Scale:              9
+        Radix:              10
+        Nullable:           1
+
+  - J_NORSTH:
+      Type:               String
+      Length:             2
+      Decimals:           0
+
+  - J_DIRECT:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_DIRECT
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_STNDBY:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_STNDBY
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_DSUMM:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_DSUMM
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_SSUMM:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_SSUMM
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_DNEED:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_DNEED
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_TACNT:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_TACNT
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_TDCNT:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_TDCNT
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_T1CNT:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_T1CNT
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_APRCNT:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_APRCNT
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - J_ACNT:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_ACNT
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - SCHEDULED:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+      PC Column Data:
+        Name:               Scheduled_Summ_Pull_Dt
+        Data Type:          91
+        Precision:          10
+        Length:             6
+        Scale:              0
+        Radix:              -1
+        Nullable:           0
+
+  - ACTUAL_SU:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+      PC Column Data:
+        Name:               Actual_Summ_Pull_Dt
+        Data Type:          91
+        Precision:          10
+        Length:             6
+        Scale:              0
+        Radix:              -1
+        Nullable:           0
+
+  - J_DOVER:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               J_DOVER
+        Data Type:          4
+        Precision:          10
+        Length:             4
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  Primary Keys:
+  - COURTNUMB
+  - COURTDATE
+  - COURTTYPE
+
+  Logical Views:
+  - JA_SESS01:
+      Identifier:         JAXSESS01
+      Unique Key:         No
+      Access Path:        Immediate
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - ENG:
+          Description:        "External File, 'JA_SESS'"
+
+      - FRA:
+          Description:        "External File, 'JA_SESS'"
+
+      Keys:
+      - COURTDATE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - COURTNUMB:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - COURTTYPE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - JA_SESS02:
+      Identifier:         JAXSESS02
+      Unique Key:         No
+      Access Path:        Immediate
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - ENG:
+          Description:        "External File, 'JA_SESS'"
+
+      - FRA:
+          Description:        "External File, 'JA_SESS'"
+
+      Keys:
+      - SCHEDULED:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - pk_JASESS:
+      Identifier:         PKXJASESS
+      Unique Key:         Yes
+      Access Path:        Immediate
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - ENG:
+          Description:        "External File, 'JA_SESS'"
+
+      - FRA:
+          Description:        "External File, 'JA_SESS'"
+
+      Keys:
+      - COURTNUMB:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - COURTDATE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - COURTTYPE:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  Other File Definition:
+    Table:              JA_SESS
+    Owner:              Jury
+    Database Type:      MSSQLS
+    Qualifier:          JuryAdmn
+    Data Source:        JURYDEV
+    Encrypted:          Yes
+    Read-only File:     No
+    Add LOB Columns:    No
+    Quote Character:    "\""
+
+    Connection Parameters: |
+      36E50DF4F7507A8C08F09B6B0B44F2E05664BE44B4221C58916B199BF370A8DE356345ED4AE952927BA3C347617ADC377A37
+      60F6F3DEF4D44D531AF8FFC5C8622D1CF0E5B408CD345785FB89715980C29A9E9DC0E40C3843E01D46E1512354645AE79D17
+      0CB92F85D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595

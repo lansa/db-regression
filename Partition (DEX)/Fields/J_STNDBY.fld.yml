@@ -17,6 +17,8 @@
       Description:        "J_STNDBY"
       Label:              "J_STNDBY"
       Heading1:           "J_STNDBY"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_STNDBY"

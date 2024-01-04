@@ -17,6 +17,8 @@
       Description:        "J_TDCNT"
       Label:              "J_TDCNT"
       Heading1:           "J_TDCNT"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_TDCNT"

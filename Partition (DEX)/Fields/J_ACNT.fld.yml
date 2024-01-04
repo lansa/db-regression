@@ -17,6 +17,8 @@
       Description:        "J_ACNT"
       Label:              "J_ACNT"
       Heading1:           "J_ACNT"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_ACNT"

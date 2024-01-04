@@ -12,6 +12,8 @@
       Description:        "Actual_Summ_Pull_Dt"
       Label:              "Actual_Summ_Pul"
       Heading1:           "Actual_Summ_Pull_Dt"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "Actual_Summ_Pull_Dt"

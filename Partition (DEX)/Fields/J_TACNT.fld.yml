@@ -17,6 +17,8 @@
       Description:        "J_TACNT"
       Label:              "J_TACNT"
       Heading1:           "J_TACNT"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_TACNT"

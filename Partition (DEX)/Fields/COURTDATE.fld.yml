@@ -12,8 +12,24 @@
       Description:        "CourtDate"
       Label:              "CourtDate"
       Heading1:           "CourtDate"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "CourtDate"
       Label:              "CourtDate"
       Heading1:           "CourtDate"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVDT) Name(#VisualDate) Defaultvisual(True) Showtime(False) Componentversion(1) Height(21) Width(335)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_datepicker.std_datepicker') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

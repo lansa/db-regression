@@ -17,6 +17,8 @@
       Description:        "J_T1CNT"
       Label:              "J_T1CNT"
       Heading1:           "J_T1CNT"
+      Heading2:           " "
+      Heading3:           " "
 
   - FRA:
       Description:        "J_T1CNT"
