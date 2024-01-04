@@ -131,6 +131,93 @@
           Key Order:          Ascending
           Numeric Ordering:   Signed
 
+  - L157033FI2:
+      Identifier:         L157033FI2
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FI2
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFINT2A"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFINT2A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033FI4:
+      Identifier:         L157033FI4
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FI4
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFINT4A"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFINT4A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033FI8:
+      Identifier:         L157033FI8
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FI8
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFINT8A"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFINT8A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
   - L157033FN:
       Identifier:         L157033FN
       Unique Key:         No
@@ -186,6 +273,35 @@
 
       Keys:
       - BIFN0702A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - L157033FPA:
+      Identifier:         L157033FPA
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033FPA
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFP1500A"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFP1500A:
           Key Order:          Ascending
           Numeric Ordering:   Signed
 
@@ -247,6 +363,93 @@
           Key Order:          Descending
           Numeric Ordering:   Signed
 
+  - L57033FI2D:
+      Identifier:         L57033FI2D
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FI2D
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFINT2A DESC"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFINT2A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
+  - L57033FI4D:
+      Identifier:         L57033FI4D
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FI4D
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFINT4A DESC"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFINT4A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
+  - L57033FI8D:
+      Identifier:         L57033FI8D
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FI8D
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFINT8A DESC"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFINT8A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
   - L57033FND:
       Identifier:         L57033FND
       Unique Key:         No
@@ -302,6 +505,35 @@
 
       Keys:
       - BIFN0702A:
+          Key Order:          Descending
+          Numeric Ordering:   Signed
+
+  - L57033FPD:
+      Identifier:         L57033FPD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033FPD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFP1500A DESC"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFP1500A:
           Key Order:          Descending
           Numeric Ordering:   Signed
 
