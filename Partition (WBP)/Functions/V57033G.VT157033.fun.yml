@@ -58,6 +58,10 @@
     Define Field(#LF_Test_Result_Exact_DateTime_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_Date_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Exact_Date_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Generic_Time_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Exact_Time_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Generic_Boolean_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Exact_Boolean_Count) Reffld(#Std_Count)
     
     * DateTime
     Def_List Name(#wLTestResultGenericDateTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_DateTime_Count) Type(*WORKING) Entrys(*MAX)
@@ -65,6 +69,12 @@
     * Date
     Def_List Name(#wLTestResultGenericDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Date_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#wLTestResultExactDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Date_Count) Type(*WORKING) Entrys(*MAX)
+    * Time
+    Def_List Name(#wLTestResultGenericTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Time_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultExactTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Time_Count) Type(*WORKING) Entrys(*MAX)
+    * Boolean
+    Def_List Name(#wLTestResultGenericBoolean) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Boolean_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultExactBoolean) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Boolean_Count) Type(*WORKING) Entrys(*MAX)
     
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
@@ -131,6 +141,8 @@
     Clr_List Named(#wLTestResultGenericDateTime)
     Clr_List Named(#wLTestResultExactDate)
     Clr_List Named(#wLTestResultGenericDate)
+    Clr_List Named(#wLTestResultExactBoolean)
+    Clr_List Named(#wLTestResultGenericBoolean)
     
     * Search <1>
     #LF_Test_Data := '2001-01-01 01:01:01.010101'
@@ -152,6 +164,18 @@
     #LF_Test_Result_L157033FB := 0
     #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
     Add_Entry To_List(#wlTestResultExactDate)
+    
+    * Generic Time Results
+    #LF_Test_Result_L157033FB := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    Add_Entry To_List(#wlTestResultGenericTime)
+    * Exact Time Results
+    #LF_Test_Result_L157033FB := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    Add_Entry To_List(#wlTestResultExactTime)
+    
+    * Boolean Results
+    
     
     * Search <2>
     #LF_Test_Data := '2012-12-12 12:12:12.121212'
