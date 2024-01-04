@@ -2591,13 +2591,13 @@
     Else
     #this_rc := OK
     Endif
-    *
-    * * INTEGER 4.
+    
+    * INTEGER 4.
     #LF_View_Type := ' Key: INTEGER 4'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
     #LF_Test_Data_INT4 := #this_test_value
-    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI4 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
     Endselect
@@ -2607,13 +2607,12 @@
     Else
     #this_rc := OK
     Endif
-    *
-    * * INTEGER 8.
+    
+    * INTEGER 8.
     #LF_View_Type := ' Key: INTEGER 8'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT8 := #this_test_value
-    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI8 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
     Endselect
@@ -2730,8 +2729,7 @@
     #LF_View_Type := ' Key: INTEGER 4'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT4 := #this_test_value
-    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(#BIFINT4A) From_File(L157033FI4) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     #LF_Func_L157033FI4 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
     Endselect
@@ -2746,8 +2744,7 @@
     #LF_View_Type := ' Key: INTEGER 8'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT8 := #this_test_value
-    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(#BIFINT8A) From_File(L157033FI8) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     #LF_Func_L157033FI8 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
     Endselect
@@ -2858,13 +2855,12 @@
     Else
     #this_rc := OK
     Endif
-    *
-    * * INTEGER 4.
+    
+    * INTEGER 4.
     #LF_View_Type := ' Key: INTEGER 4'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT4 := #this_test_value
-    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI4 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
     Endselect
@@ -2874,13 +2870,12 @@
     Else
     #this_rc := OK
     Endif
-    *
-    * * INTEGER 8.
+    
+    * INTEGER 8.
     #LF_View_Type := ' Key: INTEGER 8'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT8 := #this_test_value
-    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI8 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
     Endselect
@@ -2977,7 +2972,7 @@
     #this_rc := OK
     Endif
     
-    * * INTEGER 2.
+    * INTEGER 2.
     #LF_View_Type := ' Key: INTEGER 2'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
@@ -2992,13 +2987,12 @@
     Else
     #this_rc := OK
     Endif
-    *
-    * * INTEGER 4.
+    
+    * INTEGER 4.
     #LF_View_Type := ' Key: INTEGER 4'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT4 := #this_test_value
-    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#LF_Test_Data_INT4) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(#BIFINT4A) From_File(L57033FI4D) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     #LF_Func_L157033FI4 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT4A.asString) )
     Endselect
@@ -3008,13 +3002,12 @@
     Else
     #this_rc := OK
     Endif
-    *
-    * * INTEGER 8.
+    
+    * INTEGER 8.
     #LF_View_Type := ' Key: INTEGER 8'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT8 := #this_test_value
-    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#LF_Test_Data_INT8) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(#BIFINT8A) From_File(L57033FI8D) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     #LF_Func_L157033FI8 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT8A.asString) )
     Endselect
@@ -3126,7 +3119,7 @@
     #this_rc := OK
     Endif
     
-    * * INTEGER 2.
+    * INTEGER 2.
     #LF_View_Type := ' Key: INTEGER 2'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
@@ -3142,7 +3135,7 @@
     #this_rc := OK
     Endif
     
-    * * INTEGER 4.
+    * INTEGER 4.
     #LF_View_Type := ' Key: INTEGER 4'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
@@ -3157,7 +3150,7 @@
     #this_rc := OK
     Endif
     
-    * * INTEGER 8.
+    * INTEGER 8.
     #LF_View_Type := ' Key: INTEGER 8'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
@@ -4218,8 +4211,7 @@
     #LF_View_Type := ' Key: INTEGER 1'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT1 := #this_test_value
-    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI1 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
     Endselect
@@ -4234,8 +4226,7 @@
     #LF_View_Type := ' Key: INTEGER 2'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT2 := #this_test_value
-    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033FI2 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
     Endselect
@@ -4350,8 +4341,7 @@
     #LF_View_Type := ' Key: INTEGER 1'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT1 := #this_test_value
-    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#LF_Test_Data_INT1) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(#BIFINT1A) From_File(L157033FI1) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     #LF_Func_L157033FI1 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT1A.asString) )
     Endselect
@@ -4366,8 +4356,7 @@
     #LF_View_Type := ' Key: INTEGER 2'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
-    #LF_Test_Data_INT2 := #this_test_value
-    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#LF_Test_Data_INT2) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(#BIFINT2A) From_File(L157033FI2) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     #LF_Func_L157033FI2 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2A.asString) )
     Endselect
