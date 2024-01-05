@@ -59,6 +59,8 @@
     #Com_Owner.mthAdd_SubMsg( OK '*** SKIPPED' 'Skipped under MySQL database until 156943 is RFTed' )
     Else
     #Com_Owner.mthCCS_Select_SQL_Group_By_Surname( #LF_rc )
+    Endif
+    
     #Com_Owner.mthCCS_Select_With_Key_Surname( #LF_rc )
     
     * The SQL format not being supported on IBM i. The error message is:
@@ -85,7 +87,7 @@
     If (#LF_DB_Type *NE ODBCORACLE)
     #Com_Owner.mthCCS_Select_SQL_Using_NVarchar( #LF_rc True )
     Endif
-    Endif
+    
     Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )

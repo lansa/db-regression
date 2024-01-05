@@ -21,8 +21,9 @@
     *
     * #Com_Owner.mthAdd_SubMsg( OK 'Coding ...' '' )
     *
-    If (#LF_DB_Type *NE MYSQL)
     #Com_Owner.mthSelect_SQL_VTL156710C( #LF_rc )
+    
+    If (#LF_DB_Type *NE MYSQL)
     #Com_Owner.mthSelect_SQL_VTL156710D( #LF_rc )
     
     If (*CPUTYPE *NE AS400)
@@ -34,11 +35,11 @@
     
     Endif
     
-    #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_As_Correclation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_As_Correlation( #LF_rc )
     
     
     If (#LF_DB_Type *NE MYSQL)
-    #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_And_File_Name_As_Correclation( #LF_rc )
+    #Com_Owner.mthSelect_SQL_Join_Files_Using_Alias_And_File_Name_As_Correlation( #LF_rc )
     Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
@@ -91,25 +92,27 @@
     Leave
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: File Name as Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1))') )
+    If (#LF_DB_Type *NE MYSQL)
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: File Name as Correlation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1))') )
     Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C))
     Leave
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Order_By with Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Order_By(L1-F3-LN)') )
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Order_By with Correlation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Order_By(L1-F3-LN)') )
     Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)) Order_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long)
     Leave
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Group_By with Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Group_By(L1.F3-LN)') )
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Group_By with Correlation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Group_By(L1.F3-LN)') )
     Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)) Group_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long)
     Leave
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Order/Group_By with Correclation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Group_By(L1.F3-LN) Order_By(L1-F3-LN)') )
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710C: Order/Group_By with Correlation' ('Select_SQL Fields(#F3-LN ' + *Quote + 'L1.F3-LN' + *Quote + ') From_Files((L1)) Group_By(L1.F3-LN) Order_By(L1-F3-LN)') )
     Select_Sql Fields((#F156710_C_Invalid_Long_Name_As_Too_Long 'VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long')) From_Files((VTL156710C)) Group_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long) Order_By(VTL156710C.F156710_C_Invalid_Long_Name_As_Too_Long)
     Leave
     Endselect
+    Endif
     Endif
     Endroutine
     
@@ -124,7 +127,7 @@
     Leave
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710D: Order/Group_By with Correclation' ('Select_SQL Fields(#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') From_Files((L1)) Group_By(L1-LN.F2-ID) Order_By(L1-ID.F2-LN)') )
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710D: Order/Group_By with Correlation' ('Select_SQL Fields(#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ') From_Files((L1)) Group_By(L1-LN.F2-ID) Order_By(L1-ID.F2-LN)') )
     Select_Sql Fields((#F156710_B_Long_Name 'VTL156710_D_Disabled_Long_Name.F156710B')) From_Files((VTL156710D)) Group_By(VTL156710_D_Disabled_Long_Name.F156710B) Order_By(VTL156710D.F156710_B_Long_Name)
     Leave
     Endselect
@@ -142,7 +145,7 @@
     Leave
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710E: Order/Group_By with Correclation' ('Select_SQL Fields((#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ')) From_Files((L1-LN)) Group_By(L1-LN.F2-ID) Order_By(L1-ID.F2-LN)') )
+    #Com_Owner.mthAdd_SubMsg( OK '- VTL156710E: Order/Group_By with Correlation' ('Select_SQL Fields((#F2-LN ' + *Quote + 'L1-LN.F2-ID' + *Quote + ')) From_Files((L1-LN)) Group_By(L1-LN.F2-ID) Order_By(L1-ID.F2-LN)') )
     Select_Sql Fields((#F156710_B_Long_Name 'VTL156710_E_Long_Name.F156710B')) From_Files((VTL156710_E_Long_Name)) Group_By(VTL156710_E_Long_Name.F156710B) Order_By(VTL156710E.F156710_B_Long_Name)
     Leave
     Endselect
@@ -162,7 +165,7 @@
     Endif
     Endroutine
     
-    Mthroutine Name(mthSelect_SQL_Join_Files_Using_Alias_As_Correclation)
+    Mthroutine Name(mthSelect_SQL_Join_Files_Using_Alias_As_Correlation)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc *NE ER)
@@ -194,7 +197,7 @@
     Endif
     Endroutine
     
-    Mthroutine Name(mthSelect_SQL_Join_Files_Using_Alias_And_File_Name_As_Correclation)
+    Mthroutine Name(mthSelect_SQL_Join_Files_Using_Alias_And_File_Name_As_Correlation)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc *NE ER)

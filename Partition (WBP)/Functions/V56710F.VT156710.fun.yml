@@ -27,6 +27,8 @@
     #Com_Owner.mthSelect_SQL_Join_LN_And_SN_Using_Alias_As_Correlation( #LF_rc )
     #Com_Owner.mthSelect_SQL_Join_LN_And_LN_Using_Alias_As_Correlation( #LF_rc )
     
+    * MYSQL uses a schema syntax which is incompatible with the classic SELECT_SQL parser.
+    * The workaround is to use an ALIAS for the correlation as is used above
     If (#LF_DB_Type *NE MYSQL)
     #Com_Owner.mthSelect_SQL_Join_SN_And_LN_Using_File_Name_As_Correlation( #LF_rc )
     #Com_Owner.mthSelect_SQL_Join_LN_And_SN_Using_File_Name_As_Correlation( #LF_rc )
