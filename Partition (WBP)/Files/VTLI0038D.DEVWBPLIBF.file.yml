@@ -47,11 +47,6 @@
       Length:             7
       Decimals:           0
 
-  - BIFA040A:
-      Type:               Alphanumeric
-      Length:             40
-      Decimals:           0
-
   - BIFN0700A:
       Type:               Signed
       Length:             7
@@ -59,5 +54,3 @@
 
   Primary Keys:
   - BIFP0700A
-  - BIFA040A
-  - BIFN0700A

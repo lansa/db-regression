@@ -1,0 +1,23 @@
+﻿List:
+  Name:               I0038
+  Stored As:          User
+
+  Objects:
+  - VI0038C:
+      Type:               Funciton
+      Qualifier:          VTI0038
+
+  - VTLI0038C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTLI0038D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0038A:
+      Type:               Funciton
+      Qualifier:          VTI0038
+
+  - VTI0038:
+      Type:               Process
