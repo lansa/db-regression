@@ -53,6 +53,8 @@
     Define Field(#LF_message_text) Type(*CHAR) Length(132)
     Define Field(#LF_Items) Reffld(#Std_Count)
     
+    Define Field(#LF_DB_Type) Reffld(#BIFA032A)
+    
     Define Field(#LF_i) Reffld(#Std_Count)
     Define Field(#LF_package_no) Reffld(#Std_Count)
     
@@ -74,6 +76,16 @@
     #LF_msi_path := *TEMP_DIR
     #LF_rc := OK
     
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    If (#LF_rc = OK)
+    If ((#LF_DB_Type = MYSQL))
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + *FUNCTION + ' does not support ' + #LF_DB_Type) ('') )
+    #LF_rc := ER /* Terminate this test */
+    Endif
+    Endif
+    
+    If (#LF_rc = OK)
     Use Builtin(OV_File_Service) With_Args(CHECK_DIR (#LF_package_path)) To_Get(#LF_rc)
     If Cond(#LF_rc = ER)
     #Com_Owner.mthAdd_SubMsg( ER ('- Import Directory does not exist: ' + #LF_package_path) ('') )
@@ -94,6 +106,8 @@
     Leave
     Endif
     End_Loop
+    
+    Endif
     
     Endif
     
