@@ -56,25 +56,21 @@
     Define Field(#LF_Test_Result_L157033FDT) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Generic_DateTime_Count) Reffld(#Std_Count)
     Define Field(#LF_Test_Result_Exact_DateTime_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_Generic_Date_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_Exact_Date_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_Generic_Time_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_Exact_Time_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_Generic_Boolean_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_Exact_Boolean_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Date_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Time_Count) Reffld(#Std_Count)
+    Define Field(#LF_Test_Result_Boolean_Count) Reffld(#Std_Count)
+    
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
     
     * DateTime
     Def_List Name(#wLTestResultGenericDateTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_DateTime_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#wLTestResultExactDateTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_DateTime_Count) Type(*WORKING) Entrys(*MAX)
     * Date
-    Def_List Name(#wLTestResultGenericDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Date_Count) Type(*WORKING) Entrys(*MAX)
-    Def_List Name(#wLTestResultExactDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Date_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultDate) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Date_Count) Type(*WORKING) Entrys(*MAX)
     * Time
-    Def_List Name(#wLTestResultGenericTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Time_Count) Type(*WORKING) Entrys(*MAX)
-    Def_List Name(#wLTestResultExactTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Time_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultTime) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Time_Count) Type(*WORKING) Entrys(*MAX)
     * Boolean
-    Def_List Name(#wLTestResultGenericBoolean) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Generic_Boolean_Count) Type(*WORKING) Entrys(*MAX)
-    Def_List Name(#wLTestResultExactBoolean) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Exact_Boolean_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultBoolean) Fields(#LF_Test_Result_L157033FB #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT) Counter(#LF_Test_Result_Boolean_Count) Type(*WORKING) Entrys(*MAX)
     
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
@@ -114,22 +110,22 @@
     Case (#LF_iMod)
     When (= 1)
     #BIFB001E := True
-    #BIFDT26C := '2001-01-01 01:01:01.010101'
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( '2001-01-01 01:01:01.010101' )
     #BIFDATEA := #BIFDT26C
     #BIFTIMEA := #BIFDT26C
     When (= 2)
     #BIFB001E := False
-    #BIFDT26C := '2010-10-10 10:10:10.101010'
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( '2010-10-10 10:10:10.101010' )
     #BIFDATEA := #BIFDT26C
     #BIFTIMEA := #BIFDT26C
     When (= 3)
     #BIFB001E := True
-    #BIFDT26C := '2011-11-11 11:11:11.111111'
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( '2011-11-11 11:11:11.111111' )
     #BIFDATEA := #BIFDT26C
     #BIFTIMEA := #BIFDT26C
     When (= 0)
     #BIFB001E := False
-    #BIFDT26C := '2012-12-12 12:12:12.121212'
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( '2012-12-12 12:12:12.121212' )
     #BIFDATEA := #BIFDT26C
     #BIFTIMEA := #BIFDT26C
     Endcase
@@ -139,65 +135,127 @@
     Clr_List Named(#wLTestKey)
     Clr_List Named(#wLTestResultExactDateTime)
     Clr_List Named(#wLTestResultGenericDateTime)
-    Clr_List Named(#wLTestResultExactDate)
-    Clr_List Named(#wLTestResultGenericDate)
-    Clr_List Named(#wLTestResultExactBoolean)
-    Clr_List Named(#wLTestResultGenericBoolean)
+    * Clr_List Named(#wLTestResultDate)
+    * Clr_List Named(#wLTestResultTime)
+    * Clr_List Named(#wLTestResultBoolean)
     
     * Search <1>
     #LF_Test_Data := '2001-01-01 01:01:01.010101'
     Add_Entry To_List(#wLTestKey)
     * Generic DateTime Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
     Add_Entry To_List(#wLTestResultGenericDateTime)
+    * BACKWARDS
+    #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FD := 20
+    #LF_Test_Result_L157033FT := 10
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * FORWARDS DESCENDING
+    #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FD := 30
+    #LF_Test_Result_L157033FT := 20
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FD := 40
+    #LF_Test_Result_L157033FT := 10
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    
     * Exact DateTime Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FB #LF_Test_Result_L157033FDT := 0
+    #LF_Test_Result_L157033FD := 50
+    #LF_Test_Result_L157033FT := 10
     Add_Entry To_List(#wLTestResultExactDateTime)
     
     * Generic Date Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wlTestResultGenericDate)
-    * Exact Date Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wlTestResultExactDate)
-    
-    * Generic Time Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wlTestResultGenericTime)
-    * Exact Time Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wlTestResultExactTime)
-    
-    * Boolean Results
-    
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultDate)
+    * * Exact Date Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultDate)
+    *
+    * * Generic Time Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultTime)
+    * * Exact Time Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultTime)
+    *
+    * * Generic Boolean Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultBoolean)
+    * * Exact Boolean Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultBoolean)
     
     * Search <2>
-    #LF_Test_Data := '2012-12-12 12:12:12.121212'
-    Add_Entry To_List(#wLTestKey)
-    * Generic DateTime Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wLTestResultGenericDateTime)
-    * Exact DateTime Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wLTestResultExactDateTime)
+    * #LF_Test_Data := '2012-12-12 12:12:12.121212'
+    * Add_Entry To_List(#wLTestKey)
+    * * Generic DateTime Results
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wLTestResultGenericDateTime)
+    * * Exact DateTime Results
+    * #LF_Test_Result_L157033FD := 100
+    * #LF_Test_Result_L157033FT := 10
+    * #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wLTestResultExactDateTime)
     
-    * Generic Date Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wlTestResultGenericDate)
-    * Exact Date Results
-    #LF_Test_Result_L157033FB := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
-    Add_Entry To_List(#wLTestResultExactDate)
+    * * Generic Date Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wLTestResultDate)
+    * * Exact Date Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultDate)
+        
+    * * Generic Time Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultTime)
+    * * Exact Time Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultTime)
+    *
+    * * Generic Boolean Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultBoolean)
+    * * Exact Boolean Results
+    * #LF_Test_Result_L157033FB := 0
+    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT #LF_Test_Result_L157033FDT := 0
+    * Add_Entry To_List(#wlTestResultBoolean)
     
+    Endroutine
+    
+    Mthroutine Name(mthGetDBValidDatetime)
+    Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_datetime)
+    Define_Map For(*RESULT) Class(#BIFDT26C) Name(#this_result)
+    #this_result := #this_datetime
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB Type = ' + #LF_DB_Type) '' )
+    If ((#LF_DB_Type = MYSQL))
+    * MySQL does not support fractional seconds
+    Define Field(#DT19String) Type(*STRING) Length(19)
+    #DT19String := #this_datetime.AsString
+    #this_result := #DT19String.AsDateTime
+    #Com_Owner.mthAdd_SubMsg( OK ('- datetime = ' + #this_result.AsString) '' )
+    Endif
+    If ((#LF_DB_Type = SQLAZURE) *Or (#LF_DB_Type = MSSQLS))
+    * SQLAZURE and MSSQLS round the 6 digit fractional seconds to 2 and rounding differences may occur.
+    * So only use the 2 fractional seconds
+    Define Field(#DT22String) Type(*STRING) Length(22)
+    #DT22String := #this_datetime.AsString
+    #this_result := #DT22String.AsDateTime
+    #Com_Owner.mthAdd_SubMsg( OK ('- datetime = ' + #this_result.AsString) '' )
+    Endif
     Endroutine
     
     *
@@ -259,7 +317,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Search Test: ' + *Quote + #LF_Test_Data.asString + *Quote) '' )
     
     #Com_Owner.mthSearch_By_DateTime( #LF_Test_Data #this_rc )
-    #Com_Owner.mthSearch_By_Date( #LF_Test_Data #this_rc )
+    * #Com_Owner.mthSearch_By_Date( #LF_Test_Data #this_rc )
     * #Com_Owner.mthSearch_By_Time( #LF_Test_Data #this_rc )
     
     If (#this_rc *NE OK)
@@ -301,8 +359,8 @@
     Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthFunc_Search_Generic_DateTime( 'SELECT GENERIC Key: DATETIME' #this_test_value #this_rc )
-    #Com_Owner.mthFunc_Search_Exact_DateTime( 'SELECT EXACT Key: DATETIME' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Generic_DateTime( 'SELECT GENERIC Key: DATE TIME(26)' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Exact_DateTime( 'SELECT EXACT Key: DATE TIME(26)' #this_test_value #this_rc )
     
     Endroutine
     
@@ -313,6 +371,11 @@
     Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
     Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Generic_DateTime' )
+    Change Field(#LF_Func_Counters) To(*NULL)
     
     If (#this_rc = OK)
     Change Field(#LF_Func_Counters) To(*NULL)
@@ -325,6 +388,210 @@
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDateTime)
     Endif
     
+    * ****************************************************************************
+    * *FORWARDS
+    * ****************************************************************************
+    
+    * DATETIME (26).
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DATE
+    #LF_View_Type := ' Key: Date(10)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDATEA) From_File(L157033GD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDATEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GD *FORWARDS. Rows = ' + #LF_Func_L157033FD.asString + ' Expected = ' + #LF_Test_Result_L157033FD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * TIME
+    #LF_View_Type := ' Key: Time(8)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GT *FORWARDS. Rows = ' + #LF_Func_L157033FT.asString + ' Expected = ' + #LF_Test_Result_L157033FT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * ****************************************************************************
+    * *BACKWARDS
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_DateTime' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDateTime)
+    
+    * DATETIME(26).
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *BACKWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DATE
+    #LF_View_Type := ' Key: Date(10)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDATEA) From_File(L157033GD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDATEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GD *BACKWARDS. Rows = ' + #LF_Func_L157033FD.asString + ' Expected = ' + #LF_Test_Result_L157033FD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * TIME
+    #LF_View_Type := ' Key: Time(8)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GT *BACKWARDS. Rows = ' + #LF_Func_L157033FT.asString + ' Expected = ' + #LF_Test_Result_L157033FT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * ****************************************************************************
+    * *FORWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_DateTime' )
+    #LF_Func_Counters := *NULL
+    
+    If (#LF_i > #LF_Test_Result_Generic_DateTime_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDateTime)
+    Endif
+    
+    
+    * DATETIME(26).
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DATE
+    #LF_View_Type := ' Key: Date(10)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDATEA) From_File(L157033GD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDATEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GD *FORWARDS. Rows = ' + #LF_Func_L157033FD.asString + ' Expected = ' + #LF_Test_Result_L157033FD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * TIME
+    #LF_View_Type := ' Key: Time(8)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GT *FORWARDS. Rows = ' + #LF_Func_L157033FT.asString + ' Expected = ' + #LF_Test_Result_L157033FT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * ****************************************************************************
+    * *BACKWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING  mthFunc_Search_Generic_DateTime' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDateTime)
+    
+    * DATETIME
+    #LF_View_Type := ' Key: Date Time(26)'
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *BACKWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DATE
+    #LF_View_Type := ' Key: Date(10)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDATEA) From_File(L157033GD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDATEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GD *BACKWARDS. Rows = ' + #LF_Func_L157033FD.asString + ' Expected = ' + #LF_Test_Result_L157033FD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * TIME
+    #LF_View_Type := ' Key: Time(8)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GT *BACKWARDS. Rows = ' + #LF_Func_L157033FT.asString + ' Expected = ' + #LF_Test_Result_L157033FT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * REPORT ON THE FINDING.
     If (#LF_Total_Errors > 0)
@@ -340,6 +607,11 @@
     Define_Map For(*INPUT) Class(#BIFDT26C) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    #this_rc := OK
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_Search_Exact_DateTime' )
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
     If (#this_rc = OK)
     Change Field(#LF_Func_Counters) To(*NULL)
     
@@ -349,6 +621,47 @@
     Return
     Else
     Get_Entry Number(#LF_i) From_List(#wLTestResultExactDateTime)
+    Endif
+    
+    * DATETIME
+    #LF_View_Type := ' Key: Date Time(26)'
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * DATE
+    #LF_View_Type := ' Key: Date(10)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDATEA) From_File(L157033GD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FD += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDATEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GD *FORWARDS. Rows = ' + #LF_Func_L157033FD.asString + ' Expected = ' + #LF_Test_Result_L157033FD.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * TIME
+    #LF_View_Type := ' Key: Time(8)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GT *FORWARDS. Rows = ' + #LF_Func_L157033FT.asString + ' Expected = ' + #LF_Test_Result_L157033FT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
     Endif
     
     
@@ -380,12 +693,12 @@
     If (#this_rc = OK)
     Change Field(#LF_Func_Counters) To(*NULL)
     
-    If (#LF_i > #LF_Test_Result_Generic_Date_Count)
+    If (#LF_i > #LF_Test_Result_Date_Count)
     #this_rc := ER
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
     Return
     Else
-    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDate)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultDate)
     Endif
     
     * REPORT ON THE FINDING.
@@ -405,12 +718,12 @@
     If (#this_rc = OK)
     Change Field(#LF_Func_Counters) To(*NULL)
     
-    If (#LF_i > #LF_Test_Result_Exact_Date_Count)
+    If (#LF_i > #LF_Test_Result_Date_Count)
     #this_rc := ER
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
     Return
     Else
-    Get_Entry Number(#LF_i) From_List(#wLTestResultExactDate)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultDate)
     Endif
     
     * REPORT ON THE FINDING.
@@ -419,6 +732,114 @@
     Endif
     
     #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Endif
+    Endroutine
+    *
+    * Search by Time
+    *
+    Mthroutine Name(mthSearch_By_Time)
+    Define_Map For(*INPUT) Class(#BIFTIMEA) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthFunc_Search_Generic_Time( 'SELECT GENERIC Key: TIME' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Exact_Time( 'SELECT EXACT Key: TIME' #this_test_value #this_rc )
+    
+    Endroutine
+    
+    Mthroutine Name(mthFunc_Search_Generic_Time)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFTIMEA) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Time_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultTime)
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthFunc_Search_Exact_Time)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFTIMEA) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Time_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultTime)
+    Endif
+    Endif
+    Endroutine
+    *
+    * Search by Boolean
+    *
+    Mthroutine Name(mthSearch_By_Boolean)
+    Define_Map For(*INPUT) Class(#BIFB001E) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthFunc_Search_Generic_Boolean( 'SELECT GENERIC Key: BOOLEAN' #this_test_value #this_rc )
+    #Com_Owner.mthFunc_Search_Exact_Boolean( 'SELECT EXACT Key: BOOLEAN' #this_test_value #this_rc )
+    
+    Endroutine
+    
+    Mthroutine Name(mthFunc_Search_Generic_Boolean)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFB001E) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Time_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultBoolean)
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthFunc_Search_Exact_Boolean)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFB001E) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Change Field(#LF_Func_Counters) To(*NULL)
+    
+    If (#LF_i > #LF_Test_Result_Boolean_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultBoolean)
+    Endif
     Endif
     Endroutine
     
