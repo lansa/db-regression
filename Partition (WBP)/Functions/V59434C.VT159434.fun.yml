@@ -81,7 +81,7 @@
     #LF_Temp_Dir_DB := *TEMP_DIR + *Function + '_db'
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
-    * If (#LF_DB_Type *NE MYSQL)
+    
     
     If (*CPUTYPE <> IGNORE)
     
