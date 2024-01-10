@@ -111,35 +111,6 @@
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
-  - L157033GDT:
-      Identifier:         L157033GDT
-      Unique Key:         No
-      Access Path:        Immediate
-      Record Format:      L157033GDT
-      Dynamic Select:     No
-      Parameters:         LVLCHK(*YES)
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Key: BIFDT26C"
-
-      - ENG:
-          Description:        "Key: BIFDT26C"
-
-      - FRA:
-          Description:        "Key: BIFDT26C"
-
-      - JPN:
-          Description:        "Key: BIFDT26C"
-
-      - TRK:
-          Description:        "Key: BIFDT26C"
-
-      Keys:
-      - BIFDT26C:
-          Key Order:          Ascending
-          Numeric Ordering:   Unsigned
-
   - L157033GD:
       Identifier:         L157033GD
       Unique Key:         No
@@ -166,6 +137,35 @@
 
       Keys:
       - BIFDATEA:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L157033GDT:
+      Identifier:         L157033GDT
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033GDT
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: BIFDT26C"
+
+      - ENG:
+          Description:        "Key: BIFDT26C"
+
+      - FRA:
+          Description:        "Key: BIFDT26C"
+
+      - JPN:
+          Description:        "Key: BIFDT26C"
+
+      - TRK:
+          Description:        "Key: BIFDT26C"
+
+      Keys:
+      - BIFDT26C:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
@@ -196,4 +196,120 @@
       Keys:
       - BIFTIMEA:
           Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - L57033GDTD:
+      Identifier:         L57033GDTD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033GDTD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFDT26C"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFDT26C:
+          Key Order:          Descending
+          Numeric Ordering:   Unsigned
+
+  - L57033GDD:
+      Identifier:         L57033GDD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033GDD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFDATEA"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFDATEA:
+          Key Order:          Descending
+          Numeric Ordering:   Unsigned
+
+  - L57033GTD:
+      Identifier:         L57033GTD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033GTD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: BIFTIMEA"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFTIMEA:
+          Key Order:          Descending
+          Numeric Ordering:   Unsigned
+
+  - L57033GBD:
+      Identifier:         L57033GBD
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L57033GBD
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: L57033GBD"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - BIFB001E:
+          Key Order:          Descending
           Numeric Ordering:   Unsigned
