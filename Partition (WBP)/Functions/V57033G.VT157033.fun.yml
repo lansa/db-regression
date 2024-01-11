@@ -165,7 +165,7 @@
     Clr_List Named(#wLTestResultGenericBoolean)
     
     * Search <1>
-    #LF_Test_Data := '2001-01-01 01:01:01.0101010'
+    #LF_Test_Data := '2001-01-01 01:01:01.01'
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
@@ -430,7 +430,7 @@
     Add_Entry To_List(#wlTestResultExactTime)
     
     * Search <3>
-    #LF_Test_Data := '2001-01-01 01:01:01.0100000'
+    #LF_Test_Data := '2010-10-10 10:10:10.10'
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
@@ -552,7 +552,7 @@
     Add_Entry To_List(#wlTestResultExactTime)
     
     * Search <4>
-    #LF_Test_Data := '2011-11-11 11:11:11.1100000'
+    #LF_Test_Data := '2011-11-11 11:11:11.11'
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
@@ -1213,7 +1213,7 @@
     * TIME
     * #LF_View_Type := ' Key: Time(8)'
     * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    * Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value.AsDateTime) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     * #LF_Func_L157033FT += 1
     * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
     * Endselect
@@ -1224,7 +1224,7 @@
     * Else
     * #this_rc := OK
     * Endif
-    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     * ****************************************************************************
     * *BACKWARDS
@@ -1278,7 +1278,7 @@
     * Else
     * #this_rc := OK
     * Endif
-    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     * ****************************************************************************
     * *FORWARDS DESCENDING
@@ -1328,7 +1328,7 @@
     * TIME
     * #LF_View_Type := ' Key: Time(8)'
     * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFTIMEA) From_File(L57033GTD) With_Key(#BIFDT26C) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    * Select Fields(#BIFTIMEA) From_File(L57033GTD) With_Key(#this_test_value.AsDateTime) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     * #LF_Func_L157033FT += 1
     * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
     * Endselect
@@ -1339,7 +1339,7 @@
     * Else
     * #this_rc := OK
     * Endif
-    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    * #Com_Owner.mthDoTestResult( #this_operation #this_rc )
     
     * ****************************************************************************
     * *BACKWARDS DESCENDING
@@ -1383,7 +1383,7 @@
     * #LF_View_Type := ' Key: Time(8)'
     * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     *
-    * Select Fields(#BIFTIMEA) From_File(L57033GTD) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    * Select Fields(#BIFTIMEA) From_File(L57033GTD) With_Key(#this_test_value.AsDateTime) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     * #LF_Func_L157033FT += 1
     * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
     * Endselect
@@ -1458,7 +1458,7 @@
     * #LF_View_Type := ' Key: Time(8)'
     * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     * * Fetch the time part of the string from DateTimeField
-    * Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#BIFDT26C) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    * Select Fields(#BIFTIMEA) From_File(L157033GT) With_Key(#this_test_value.AsDateTime) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     * #LF_Func_L157033FT += 1
     * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFTIMEA.asString) )
     * Endselect
@@ -1762,7 +1762,6 @@
     * DATETIME
     * #LF_View_Type := ' Key: Date Time(26)'
     * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.AsString) )
-    * * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('ERROR') )
     * Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     * #LF_Func_L157033FDT += 1
     * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
