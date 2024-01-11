@@ -86,3 +86,7 @@
   - VTFUNC2:
       Type:               Funciton
       Qualifier:          VT_CVL
+
+  - VTLI0038C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
