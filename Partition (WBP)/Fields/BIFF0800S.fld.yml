@@ -10,6 +10,7 @@
   Input Attributes:
   - FE
   - RB
+  - ASQN
 
   Multilingual Details:
   - DAN:
@@ -41,3 +42,13 @@
       Label:              "BIF Float(8)"
       Heading1:           "BIF"
       Heading2:           "Float(8)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Weblet 'std_float.std_float') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

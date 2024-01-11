@@ -11,6 +11,7 @@
   Input Attributes:
   - FE
   - RB
+  - ASQN
 
   Multilingual Details:
   - DAN:
@@ -47,3 +48,13 @@
       Heading1:           "BIF"
       Heading2:           "DATA"
       Heading3:           "Packed"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(951)
+    
+    End_Com
+    
+    End_Com
