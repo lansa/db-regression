@@ -1,0 +1,43 @@
+﻿Field:
+  Name:               BIFVB256S
+  Type:               VarBinary
+  Length:             256
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF VARBINARY"
+      Label:              "BIF VARBINARY"
+      Heading1:           "BIF"
+      Heading2:           "VARBINARY"
+
+  - ENG:
+      Description:        "BIF VARBINARY"
+      Label:              "BIF VARBINARY"
+      Heading1:           "BIF"
+      Heading2:           "VARBINARY"
+
+  - FRA:
+      Description:        "BIF VARBINARY"
+      Label:              "BIF VARBINARY"
+      Heading1:           "BIF"
+      Heading2:           "VARBINARY"
+
+  - JPN:
+      Description:        "BIF VARBINARY"
+      Label:              "BIF VARBINARY"
+      Heading1:           "BIF"
+      Heading2:           "VARBINARY"
+
+  - TRK:
+      Description:        "BIF VARBINARY"
+      Label:              "BIF VARBINARY"
+      Heading1:           "BIF"
+      Heading2:           "VARBINARY"

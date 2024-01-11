@@ -1,0 +1,60 @@
+﻿Field:
+  Name:               BIFP6315S
+  Type:               Packed
+  Length:             63
+  Decimals:           15
+  Default Value:      "*ZERO"
+  Edit Mask:          J
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF DATA Packed (63,15)"
+      Label:              "BIF DATA Packed"
+      Heading1:           "BIF"
+      Heading2:           "DATA"
+      Heading3:           "Packed"
+
+  - ENG:
+      Description:        "BIF DATA Packed (63,15)"
+      Label:              "BIF DATA Packed"
+      Heading1:           "BIF"
+      Heading2:           "DATA"
+      Heading3:           "Packed"
+
+  - FRA:
+      Description:        "BIF DATA Packed (63,15)"
+      Label:              "BIF DATA Packed"
+      Heading1:           "BIF"
+      Heading2:           "DATA"
+      Heading3:           "Packed"
+
+  - JPN:
+      Description:        "BIF DATA Packed (63,15)"
+      Label:              "BIF DATA Packed"
+      Heading1:           "BIF"
+      Heading2:           "DATA"
+      Heading3:           "Packed"
+
+  - TRK:
+      Description:        "BIF DATA Packed (63,15)"
+      Label:              "BIF DATA Packed"
+      Heading1:           "BIF"
+      Heading2:           "DATA"
+      Heading3:           "Packed"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(951)
+    
+    End_Com
+    
+    End_Com

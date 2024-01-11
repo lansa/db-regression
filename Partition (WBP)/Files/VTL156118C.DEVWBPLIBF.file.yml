@@ -57,6 +57,116 @@
       Length:             100
       Decimals:           0
 
+  - BIFB001C:
+      Type:               Boolean
+      Length:             1
+      Decimals:           0
+
+  - BIFB256A:
+      Type:               Binary
+      Length:             256
+      Decimals:           0
+
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  - BIFC001KA:
+      Type:               Char
+      Length:             1000
+      Decimals:           0
+
+  - BIFCLOBA:
+      Type:               CLOB
+      Length:             -1
+      Decimals:           0
+
+  - BIFDATEA:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFDT19C:
+      Type:               Date Time
+      Length:             19
+      Decimals:           0
+
+  - BIFP6315S:
+      Type:               Decimal
+      Length:             63
+      Decimals:           15
+
+  - BIFINT1S:
+      Type:               Integer
+      Length:             1
+      Decimals:           0
+
+  - BIFINT2S:
+      Type:               Integer
+      Length:             2
+      Decimals:           0
+
+  - BIFINT4S:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - BIFINT8S:
+      Type:               Integer
+      Length:             8
+      Decimals:           0
+
+  - BIFU100C:
+      Type:               NChar
+      Length:             100
+      Decimals:           0
+
+  - BIFNV512B:
+      Type:               NVarChar
+      Length:             512
+      Decimals:           0
+
+  - BIFS512E:
+      Type:               String
+      Length:             512
+      Decimals:           0
+
+  - BIFUINT1S:
+      Type:               Integer
+      Length:             1
+      Decimals:           0
+
+  - BIFUINT2S:
+      Type:               Integer
+      Length:             2
+      Decimals:           0
+
+  - BIFUINT4S:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - BIFUINT8S:
+      Type:               Integer
+      Length:             8
+      Decimals:           0
+
+  - BIFF0400S:
+      Type:               Float
+      Length:             4
+      Decimals:           0
+
+  - BIFF0800S:
+      Type:               Float
+      Length:             8
+      Decimals:           0
+
+  - BIFVB256S:
+      Type:               VarBinary
+      Length:             256
+      Decimals:           0
+
   Primary Keys:
   - F156118K1
   - F156118K2
