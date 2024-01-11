@@ -167,6 +167,11 @@
       Length:             256
       Decimals:           0
 
+  - BIFTIMEA:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
   Primary Keys:
   - F156118K1
   - F156118K2

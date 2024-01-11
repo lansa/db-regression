@@ -100,3 +100,6 @@
 
   - BIFF0800S:
       Type:               Field
+
+  - BIFTIMEA:
+      Type:               Field

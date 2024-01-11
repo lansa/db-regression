@@ -145,9 +145,54 @@
     Case Of_Field(#LF_i.Mod( 2 ))
     When Value_Is(= 1)
     #F156118D := 'Valid Data ' + #LF_i.AsString
-    
+    #BIFB001C := True
+    #BIFB256A := #this_key
+    #BIFBLOBA := *SYS_DIR + 'x_txtfra.dat'
+    #BIFC001KA := 'VALID DATA'
+    #BIFCLOBA := *SYS_DIR_SOURCE + 'liiodef.h'
+    #BIFDT19C := '2011-11-11 11:11:11'
+    #BIFDATEA := #BIFDT19C
+    #BIFP6315S := #LF_i
+    #BIFINT1S := #LF_i
+    #BIFINT2S := #LF_i
+    #BIFINT4S := #LF_i
+    #BIFINT8S := #LF_i
+    #BIFU100C := 'Valid data'
+    #BIFNV512B := 'Valid data'
+    #BIFS512E := 'Valid data'
+    #BIFUINT1S := #LF_i
+    #BIFUINT2S := #LF_i
+    #BIFUINT4S := #LF_i
+    #BIFUINT8S := #LF_i
+    #BIFF0400S := #LF_i
+    #BIFF0800S := #LF_i
+    #BIFVB256S := #this_key
+    #BIFTIMEA := #BIFDT19C
     When Value_Is(= 0)
     #F156118D := *Sqlnull
+    #BIFB001C := *Sqlnull
+    #BIFB256A := *Sqlnull
+    #BIFBLOBA := *Sqlnull
+    #BIFC001KA := *Sqlnull
+    #BIFCLOBA := *Sqlnull
+    #BIFDATEA := *Sqlnull
+    #BIFDT19C := *Sqlnull
+    #BIFP6315S := *Sqlnull
+    #BIFINT1S := *Sqlnull
+    #BIFINT2S := *Sqlnull
+    #BIFINT4S := *Sqlnull
+    #BIFINT8S := *Sqlnull
+    #BIFU100C := *Sqlnull
+    #BIFNV512B := *Sqlnull
+    #BIFS512E := *Sqlnull
+    #BIFUINT1S := *Sqlnull
+    #BIFUINT2S := *Sqlnull
+    #BIFUINT4S := *Sqlnull
+    #BIFUINT8S := *Sqlnull
+    #BIFF0400S := *Sqlnull
+    #BIFF0800S := *Sqlnull
+    #BIFVB256S := *Sqlnull
+    #BIFTIMEA := *Sqlnull
     #this_sqlnull_record_counter += 1
     Endcase
     
@@ -220,6 +265,422 @@
     #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
     Endif
     Endif
+    
+    * Boolean Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFB001C.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFB001C.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Binary Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFB256A.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFB256A.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * BLOB Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFBLOBA.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFBLOBA.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Char Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFC001KA.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFC001KA.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * CLOB Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFCLOBA.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFCLOBA.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Date Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDATEA.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFDATEA.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Date Time Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDT19C.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFDT19C.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Decimal Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFP6315S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFP6315S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Interger (1) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT1S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT1S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Integer(2) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT2S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT2S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Integer(4) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT4S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT4S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Integer(8) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT8S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT8S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * NCHAR Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFU100C.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFU100C.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * NVarChar Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFNV512B.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFNV512B.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * String Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFS512E.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFS512E.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Unsigned Integer (1) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT1S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT1S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * UnsignedInteger (2) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT2S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT2S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Unsigned Integer (4) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT4S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT4S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Unsigned Integer (8) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT8S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT8S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * float(4) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0400S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFF0400S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * float(8) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0800S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFF0800S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * VARBinary Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFVB256S.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFVB256S.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * TIme Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFTIMEA.IsSqlnull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFTIMEA.IsSqlnull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    
     Endroutine
     
     *
@@ -268,6 +729,419 @@
     #LF_i := 0
     Select Fields(*ALL) From_File(VTL156118C) Where((#F156118D.IsNotSqlnull) *And (#F156118K2 <> 0)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_i += 1
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    * Boolean Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFB001C.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFB001C.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Binary Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFB256A.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFB256A.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * BLOB Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFBLOBA.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFBLOBA.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Char Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFC001KA.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFC001KA.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * CLOB Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFCLOBA.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFCLOBA.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Date Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDATEA.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFDATEA.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Date Time Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDT19C.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFDT19C.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Decimal Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFP6315S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFP6315S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Interger (1) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT1S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT1S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Integer(2) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT2S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT2S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Integer(4) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT4S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT4S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Integer(8) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT8S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFINT8S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * NCHAR Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFU100C.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFU100C.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * NVarChar Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFNV512B.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFNV512B.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * String Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFS512E.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFS512E.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Unsigned Integer (1) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT1S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT1S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * UnsignedInteger (2) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT2S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT2S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Unsigned Integer (4) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT4S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT4S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * Unsigned Integer (8) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT8S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFUINT8S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * float(4) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0400S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFF0400S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * float(8) Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0800S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFF0800S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * VARBinary Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFVB256S.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFVB256S.IsNotSqlNull)
+    #LF_i += 1
+    Endif
+    Endselect
+    
+    If (#LF_i <> #this_expected_number_of_records)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( ER ' + Mismatched results' ('Only found ' + #LF_i.AsString + ' item(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ' + Matched results' '' )
+    Endif
+    Endif
+    
+    * TIme Column.
+    If (#this_rc <> ER)
+    #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFTIMEA.IsNotSqlNull))' '' )
+    #LF_i := 0
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#BIFTIMEA.IsNotSqlNull)
+    #LF_i += 1
+    Endif
     Endselect
     
     If (#LF_i <> #this_expected_number_of_records)
