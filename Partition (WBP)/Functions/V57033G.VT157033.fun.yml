@@ -84,6 +84,7 @@
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
     
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
@@ -170,42 +171,38 @@
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
     Else
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * BACKWARDS
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
     Else
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * FORWARDS DESCENDING
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
     Else
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * BACKWARDS DESCENDING
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
     Else
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * ***Exact DateTime Results
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
     Else
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wLTestResultExactDateTime)
+    
     * ***Generic Date Results
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
@@ -246,6 +243,7 @@
     #LF_Test_Result_L157033FD := 10
     Endif
     Add_Entry To_List(#wlTestResultExactDate)
+    
     * ***Generic Time Results
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
@@ -278,6 +276,7 @@
     #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wLTestResultGenericTime)
+    
     * *** Exact Time Results
     If (#LF_Remote_Platform *EQ I)
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
@@ -286,6 +285,7 @@
     #LF_Test_Result_L157033FT := 10
     Endif
     Add_Entry To_List(#wlTestResultExactTime)
+    
     * *** Generic Boolean Results
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
     #LF_Test_Result_L157033FB := 20
@@ -308,214 +308,370 @@
     Add_Entry To_List(#wlTestResultExactBoolean)
     
     * Search <2>
-    #LF_Test_Data := '2012-12-12 12:12:12.121212'
+    #LF_Test_Data := '2012-12-12 12:12:12.12'
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * BACKWARDS
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * FORWARDS DESCENDING
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
     * BACKWARDS DESCENDING
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDateTime)
-    
     * ***Exact DateTime Results
-    #LF_Test_Result_L157033FDT := 0
-    #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultExactDateTime)
     
     * ***Generic Date Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
     #LF_Test_Result_L157033FD := 10
-    
+    Endif
     Add_Entry To_List(#wlTestResultGenericDate)
     * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
     #LF_Test_Result_L157033FD := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDate)
     * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
     #LF_Test_Result_L157033FD := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDate)
     * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
     #LF_Test_Result_L157033FD := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericDate)
-    
     * ***Exact Date Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
     #LF_Test_Result_L157033FD := 10
+    Endif
     Add_Entry To_List(#wlTestResultExactDate)
     
     * ***Generic Time Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
     #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wlTestResultGenericTime)
     * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
     #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericTime)
     * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
     #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericTime)
     * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
     #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wLTestResultGenericTime)
     
     * *** Exact Time Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
     #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
     #LF_Test_Result_L157033FT := 10
+    Endif
     Add_Entry To_List(#wlTestResultExactTime)
     
     * Search <3>
-    * #LF_Test_Data := '2010-10-10 10:10:10.1010100'
-    * Add_Entry To_List(#wLTestKey)
-    * * ***Generic DateTime Results
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    * * BACKWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    *
-    * * ***Exact DateTime Results
-    * * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultExactDateTime)
-    *
-    * * ***Generic Date Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    *
-    * Add_Entry To_List(#wlTestResultGenericDate)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wLTestResultGenericDate)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wLTestResultGenericDate)
-    * * BACKWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wLTestResultGenericDate)
-    *
-    * * ***Exact Date Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wlTestResultExactDate)
-    *
-    * * ***Generic Time Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wlTestResultGenericTime)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericTime)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericTime)
-    * * BACKWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericTime)
-    *
-    * * *** Exact Time Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wlTestResultExactTime)
+    #LF_Test_Data := '2001-01-01 01:01:01.0100000'
+    Add_Entry To_List(#wLTestKey)
+    * ***Generic DateTime Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * ***Exact DateTime Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultExactDateTime)
     
-    * Search<4>
-    * #LF_Test_Data := '2011-11-11 11:11:11.1111110'
-    * Add_Entry To_List(#wLTestKey)
-    * * ***Generic DateTime Results
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    * * BACKWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericDateTime)
-    *
-    * * ***Exact DateTime Results
-    * #LF_Test_Result_L157033FDT := 0
-    * #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultExactDateTime)
-    *
-    * * ***Generic Date Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    *
-    * Add_Entry To_List(#wlTestResultGenericDate)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wLTestResultGenericDate)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wLTestResultGenericDate)
-    * * BACKWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wLTestResultGenericDate)
-    *
-    * * ***Exact Date Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
-    * #LF_Test_Result_L157033FD := 10
-    * Add_Entry To_List(#wlTestResultExactDate)
-    *
-    * * ***Generic Time Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wlTestResultGenericTime)
-    * * BACKWARDS
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericTime)
-    * * FORWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericTime)
-    * * BACKWARDS DESCENDING
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wLTestResultGenericTime)
-    *
-    * * *** Exact Time Results
-    * #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
-    * #LF_Test_Result_L157033FT := 10
-    * Add_Entry To_List(#wlTestResultExactTime)
+    * ***Generic Date Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wlTestResultGenericDate)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDate)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDate)
+    * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDate)
+    * ***Exact Date Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wlTestResultExactDate)
+    
+    * ***Generic Time Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wlTestResultGenericTime)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericTime)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericTime)
+    * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericTime)
+    
+    * *** Exact Time Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wlTestResultExactTime)
+    
+    * Search <4>
+    #LF_Test_Data := '2011-11-11 11:11:11.1100000'
+    Add_Entry To_List(#wLTestKey)
+    * ***Generic DateTime Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDateTime)
+    * ***Exact DateTime Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultExactDateTime)
+    
+    * ***Generic Date Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wlTestResultGenericDate)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDate)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDate)
+    * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericDate)
+    * ***Exact Date Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FT := 0
+    #LF_Test_Result_L157033FD := 10
+    Endif
+    Add_Entry To_List(#wlTestResultExactDate)
+    
+    * ***Generic Time Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wlTestResultGenericTime)
+    * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericTime)
+    * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericTime)
+    * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wLTestResultGenericTime)
+    
+    * *** Exact Time Results
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD #LF_Test_Result_L157033FT := 0
+    Else
+    #LF_Test_Result_L157033FDT #LF_Test_Result_L157033FD := 0
+    #LF_Test_Result_L157033FT := 10
+    Endif
+    Add_Entry To_List(#wlTestResultExactTime)
     
     Endroutine
     
@@ -690,19 +846,19 @@
     * *FORWARDS
     * ****************************************************************************
     * DATE TIME (26).
-    * #LF_View_Type := ' Key: Date Time(26)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    *
-    * Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FDT += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * DATE
     #LF_View_Type := ' Key: Date(10)'
@@ -745,19 +901,19 @@
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDateTime)
     
     * DATETIME(26).
-    * #LF_View_Type := ' Key: Date Time(26)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FDT += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *BACKWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
-    *
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *BACKWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * DATE
     #LF_View_Type := ' Key: Date(10)'
@@ -806,19 +962,19 @@
     Endif
     
     * DATETIME(26).
-    * #LF_View_Type := ' Key: Date Time(26)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FDT += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
-    *
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * DATE
     #LF_View_Type := ' Key: Date(10)'
@@ -860,19 +1016,19 @@
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericDateTime)
     
     * DATETIME
-    * #LF_View_Type := ' Key: Date Time(26)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
-    * #LF_Func_L157033FDT += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *BACKWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
-    *
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *BACKWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * DATE
     #LF_View_Type := ' Key: Date(10)'
@@ -935,19 +1091,19 @@
     Endif
     
     * DATETIME
-    * #LF_View_Type := ' Key: Date Time(26)'
-    * #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
-    * Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    * #LF_Func_L157033FDT += 1
-    * #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
-    * Endselect
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
-    *
-    * If ((#this_rc = ER) *Or (#this_rc = VE))
-    * #LF_Total_Errors += 1
-    * Else
-    * #this_rc := OK
-    * Endif
+    #LF_View_Type := ' Key: Date Time(26)'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    Select Fields(#BIFDT26C) From_File(L157033GDT) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033FDT += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDT26C.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GDT *FORWARDS. Rows = ' + #LF_Func_L157033FDT.asString + ' Expected = ' + #LF_Test_Result_L157033FDT.asString) '' )
+    
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
     
     * DATE
     #LF_View_Type := ' Key: Date(10)'
