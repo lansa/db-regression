@@ -1,6 +1,6 @@
 ﻿Field:
   Name:               BIFINT2S
-  Type:               Signed
+  Type:               Integer
   Length:             2
   Decimals:           0
   Default Value:      "*ZEROS"

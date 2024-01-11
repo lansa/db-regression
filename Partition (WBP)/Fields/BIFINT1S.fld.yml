@@ -1,6 +1,6 @@
 ﻿Field:
   Name:               BIFINT1S
-  Type:               Signed
+  Type:               Integer
   Length:             1
   Decimals:           0
   Default Value:      "*ZEROS"

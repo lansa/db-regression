@@ -1,6 +1,6 @@
 ﻿Field:
   Name:               BIFINT8S
-  Type:               Signed
+  Type:               Integer
   Length:             8
   Decimals:           0
   Default Value:      "*ZEROS"
