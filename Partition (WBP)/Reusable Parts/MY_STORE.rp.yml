@@ -1,0 +1,217 @@
+﻿Reusable Part:
+  Name:               MY_STORE
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Data Store"
+
+  - ENG:
+      Description:        "Data Store"
+
+  - FRA:
+      Description:        "Data Store"
+
+  - JPN:
+      Description:        "Data Store"
+
+  - TRK:
+      Description:        "Data Store"
+
+  Source: |
+    * **************************************************
+    *                                                  *
+    *  This reusable part describes the DATA STORE     *
+    *                                                  *
+    *  The data store is a non-visual object that      *
+    *  controls access to the data base.               *
+    *                                                  *
+    * **************************************************
+    
+    Function Options(*DIRECT)
+    
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Define_Com Class(#PRIM_LCOL<#MY_DATA>) Name(#ProxyList)
+    
+    Define_Pty Name(ProxyList) Get(*COLLECTION #ProxyList)
+    
+    Define_Evt Name(ObjectCreated)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    Define_Evt Name(ObjectUpdated)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    Define_Evt Name(ObjectDeleted)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * ****************
+    * Event Handling *
+    * ****************
+    
+    Evtroutine Handling(#COM_OWNER.CreateInstance)
+    
+    Define_Com Class(#MY_DATA) Name(#Proxy) Reference(*DYNAMIC)
+    
+    * **********************************************************************
+    * NOTE: This is where the proxy data should be read from the database. *
+    * **********************************************************************
+    
+    * Create SAMPLE DATA for the datastore.
+    Begin_Loop Using(#STD_INT) To(10)
+    
+    #Proxy <= *New #MY_DATA
+    
+    * Pretend we read a record out of a database.
+    #STD_NAME := "Name_" + #STD_INT.AsString
+    #STD_DESC := "Description_" + #STD_INT.AsString
+    
+    * Populate the proxy.
+    #COM_OWNER.PopulateProxy( #Proxy )
+    
+    * And add it to the list.
+    #ProxyList.Insert( #Proxy )
+    
+    End_Loop
+    
+    Endroutine
+    
+    * *********
+    * Methods *
+    * *********
+    
+    Mthroutine Name(FindProxy)
+    Define_Map For(*INPUT) Class(#PRIM_ALPH) Name(#Identifier)
+    Define_Map For(*RESULT) Class(#MY_DATA) Name(#Result) Pass(*BY_REFERENCE)
+    
+    For Each(#Proxy) In(#ProxyList)
+    
+    If (#Proxy.p_Identifier = #Identifier)
+    
+    #Result <= #Proxy
+    
+    Return
+    
+    Endif
+    
+    Endfor
+    
+    Endroutine
+    
+    Mthroutine Name(Open)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    Define_Map For(*RESULT) Class(#MY_DATA) Name(#Document) Pass(*BY_REFERENCE)
+    
+    * Create a new document.
+    #Document <= *New #MY_DATA
+    
+    * ************************************************************************
+    * NOTE: This is where the document should be restored from the database. *
+    * ************************************************************************
+    
+    * For the SAMPLE DATA, we read the data out of the proxy instead of using the proxy as a key into the database.
+    #STD_NAME := #Proxy.p_Name
+    #STD_DESC := #Proxy.p_Description
+    
+    * Populate the document.
+    #COM_OWNER.PopulateDocument( #Document )
+    
+    Endroutine
+    
+    Mthroutine Name(Insert)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Document) Pass(*BY_REFERENCE)
+    Define_Map For(*RESULT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * Extract the document into fields.
+    #COM_OWNER.ExtractDocument( #Document )
+    
+    * ************************************************************************************
+    * NOTE: This is where the correpsonding record should be inserted into the database. *
+    * ************************************************************************************
+    
+    * We need to create a proxy to represent this document.
+    #Proxy <= *New #MY_DATA
+    
+    * Populate it.
+    #COM_OWNER.PopulateProxy( #Proxy )
+    
+    * And insert it into the data store.
+    #ProxyList.Insert( #Proxy )
+    
+    * Notify the application
+    Signal Event(ObjectCreated) Proxy(#Proxy)
+    
+    Endroutine
+    
+    Mthroutine Name(Update)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Document) Pass(*BY_REFERENCE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * Extract the document into fields.
+    #COM_OWNER.ExtractDocument( #Document )
+    
+    * *********************************************************************************
+    * NOTE: This is where the correpsonding record should be updated in the database. *
+    * *********************************************************************************
+    
+    * Now update the proxy with the latest information out of the document.
+    #COM_OWNER.PopulateProxy( #Proxy )
+    
+    * Notify the application
+    Signal Event(ObjectUpdated) Proxy(#Proxy)
+    
+    Endroutine
+    
+    Mthroutine Name(Delete)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * ***********************************************************************
+    * NOTE: This is where the document should be deleted from the database. *
+    * ***********************************************************************
+    
+    * Remove the object from the proxy list.
+    #ProxyList.Remove( #Proxy )
+    
+    * Notify the application
+    Signal Event(ObjectDeleted) Proxy(#Proxy)
+    
+    Endroutine
+    
+    Mthroutine Name(PopulateDocument) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Document) Pass(*BY_REFERENCE)
+    
+    * A document must be populated with all available data.
+    
+    #Document.p_Name := #STD_NAME
+    #Document.p_Description := #STD_DESC
+    
+    Endroutine
+    
+    Mthroutine Name(PopulateProxy) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * A proxy only needs to contain the key data and any additional information that's displayed in the browser.
+    
+    * NOTE: this application has been generated to show ALL available data on the proxy. Remove any unwanted columns and don't populate the corresponding proxy data.
+    
+    #Proxy.p_Name := #STD_NAME
+    #Proxy.p_Description := #STD_DESC
+    
+    Endroutine
+    
+    Mthroutine Name(ExtractDocument) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Document) Pass(*BY_REFERENCE)
+    
+    * Extract all the document data into the corresponding fields in preparation for insert/update operations.
+    
+    #STD_NAME := #Document.p_Name
+    #STD_DESC := #Document.p_Description
+    
+    Endroutine
+    
+    End_Com

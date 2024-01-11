@@ -1,0 +1,180 @@
+﻿Reusable Part:
+  Name:               MY_BRWSR
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Object Browser"
+
+  - ENG:
+      Description:        "Object Browser"
+
+  - FRA:
+      Description:        "Object Browser"
+
+  - JPN:
+      Description:        "Object Browser"
+
+  - TRK:
+      Description:        "Object Browser"
+
+  Source: |
+    * *******************************************************
+    *                                                       *
+    *  This visual reusable part defines the OBJECT BROWSER *
+    *                                                       *
+    * *******************************************************
+    
+    Function Options(*DIRECT)
+    
+    Begin_Com Role(*EXTENDS #PRIM_PANL) Displayposition(1) Height(423) Layoutmanager(#ATLM_Browser) Left(0) Tabposition(1) Top(0) Width(340)
+    
+    * The browser contains a layout manager managing a tree view.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_Browser)
+    Define_Com Class(#PRIM_TRVW) Name(#Tree) Columnbuttonheight(19) Componentversion(2) Displayposition(1) Fullrowselect(True) Height(423) Keyboardpositioning(SortColumn) Left(0) Parent(#COM_OWNER) Popupmenu(#ContextMenu) Tabposition(1) Top(0) Viewstyle(UnLevelled) Width(340)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_1) Attachment(Center) Manage(#Tree) Parent(#ATLM_Browser)
+    Define_Com Class(#PRIM_TVCL) Name(#TVCL_1) Caption('Name') Captiontype(Caption) Displayposition(1) Level(2) Parent(#Tree) Sortonclick(True) Source(#STD_NAME) Width(26) Widthtype(Fixed)
+    Define_Com Class(#PRIM_TVCL) Name(#TVCL_2) Caption('Description') Captiontype(Caption) Displayposition(2) Level(2) Parent(#Tree) Sortonclick(True) Source(#STD_DESC) Width(52) Widthtype(Fixed)
+    
+    * A context menu for actions on the object.
+    Define_Com Class(#PRIM_PMNU) Name(#ContextMenu)
+    Define_Com Class(#PRIM_MITM) Name(#MenuItemOpen) Caption('Open') Displayposition(1) Image(#xImageOpen16) Parent(#ContextMenu)
+    Define_Com Class(#PRIM_MITM) Name(#MenuItemDelete) Caption('Delete') Displayposition(2) Image(#xImageDelete16) Parent(#ContextMenu)
+    
+    * A reference to the data store.
+    Define_Com Class(#MY_STORE) Name(#DataStore) Reference(*DYNAMIC)
+    
+    * A reference to the main form.
+    Define_Com Class(#MY_MAIN) Name(#MainForm) Reference(*DYNAMIC)
+    
+    * *********
+    * Methods *
+    * *********
+    
+    Mthroutine Name(Init)
+    Define_Map For(*INPUT) Class(#MY_MAIN) Name(#i_MainForm MainForm) Pass(*BY_REFERENCE)
+    Define_Map For(*INPUT) Class(#MY_STORE) Name(#i_DataStore DataStore) Pass(*BY_REFERENCE)
+    
+    * Keep references to main form and data store.
+    #MainForm <= #i_MainForm
+    #DataStore <= #i_DataStore
+    
+    * Load the treeview from the data store.
+    For Each(#Proxy) In(#DataStore.ProxyList)
+    
+    #COM_OWNER.CreateTreeItem( #Proxy )
+    
+    Endfor
+    
+    Endroutine
+    
+    Mthroutine Name(CreateTreeItem) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * Assign the column data.
+    #COM_OWNER.AssignColumnData( #Proxy )
+    
+    * Create the tree entry.
+    Add_Entry To_List(#Tree)
+    
+    * Keep a reference to the proxy for the menu-actions to work with.
+    #Tree.CurrentItem.RelatedReference <= #Proxy
+    
+    Endroutine
+    
+    Mthroutine Name(AssignColumnData) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * Update the column-fields with information out of the proxy.
+    #STD_NAME := #Proxy.p_Name
+    #STD_DESC := #Proxy.p_Description
+    
+    Endroutine
+    
+    * *****************************
+    * Event Handling - Menu Items *
+    * *****************************
+    
+    Evtroutine Handling(#Tree.DoubleClick #MenuItemOpen.Click)
+    
+    Define_Com Class(#MY_DATA) Name(#Proxy) Reference(*DYNAMIC)
+    
+    If (#Tree.FocusItem *IsNot *null)
+    
+    #Proxy <= #Tree.FocusItem.RelatedReference *As #MY_DATA
+    
+    * Delegate to the main form.
+    #MainForm.Open( #Proxy )
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#MenuItemDelete.Click)
+    
+    Define_Com Class(#MY_DATA) Name(#Proxy) Reference(*DYNAMIC)
+    
+    If (#Tree.FocusItem *IsNot *null)
+    
+    #Proxy <= #Tree.FocusItem.RelatedReference *As #MY_DATA
+    
+    * Delegate to the main form.
+    #MainForm.Delete( #Proxy )
+    
+    Endif
+    
+    Endroutine
+    
+    * *****************************
+    * Event Handling - Data Store *
+    * *****************************
+    
+    Evtroutine Handling(#DataStore.ObjectDeleted) Proxy(#Proxy)
+    
+    Define_Com Class(#PRIM_TVIT) Name(#TreeItem) Reference(*DYNAMIC)
+    
+    * The data store has deleted an object. Remove it from the browser.
+    #TreeItem <= #Tree.FindItem( #Proxy )
+    
+    If (#TreeItem *IsNot *NULL)
+    
+    Dlt_Entry Number(#TreeItem.Entry) From_List(#Tree)
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#DataStore.ObjectUpdated) Proxy(#Proxy)
+    
+    Define_Com Class(#PRIM_TVIT) Name(#TreeItem) Reference(*DYNAMIC)
+    
+    * The data store has updated an object. Update it in the browser.
+    #TreeItem <= #Tree.FindItem( #Proxy )
+    
+    If (#TreeItem *IsNot *NULL)
+    
+    Get_Entry Number(#TreeItem.Entry) From_List(#Tree)
+    
+    * Assign the column data.
+    #COM_OWNER.AssignColumnData( #Proxy )
+    
+    * Update the tree entry.
+    Upd_Entry In_List(#Tree)
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#DataStore.ObjectCreated) Proxy(#Proxy)
+    
+    * The data store has created an object. Update it in the browser.
+    #COM_OWNER.CreateTreeItem( #Proxy )
+    
+    Endroutine
+    
+    End_Com

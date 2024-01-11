@@ -1,0 +1,762 @@
+﻿Form:
+  Name:               MY_MAIN
+  Enabled For RDMLX:  Yes
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Main Form"
+
+  - ENG:
+      Description:        "Main Form"
+
+  - FRA:
+      Description:        "Main Form"
+
+  - JPN:
+      Description:        "Main Form"
+
+  - TRK:
+      Description:        "Main Form"
+
+  Source: |
+    * **************************************************
+    *                                                  *
+    *  The application's MAIN FORM.                    *
+    *                                                  *
+    *  This form defines:                              *
+    *                                                  *
+    *  - A Ribbon                                      *
+    *                                                  *
+    *  - A Tab Folder containing                       *
+    *                                                  *
+    *    - An Editor Sheet docked in the center        *
+    *                                                  *
+    *    - An Object Browser that can float as         *
+    *      well as dock left, right and bottom         *
+    *                                                  *
+    *                                                  *
+    *  This application is intended as a start for     *
+    *  writing your own Visual LANSA Application.      *
+    *                                                  *
+    *  All standard editing functionality is provided, *
+    *  it can be altered of course, or extended with   *
+    *  functionality specific to your business.        *
+    *                                                  *
+    * **************************************************
+    
+    Function Options(*DIRECT)
+    
+    Begin_Com Role(*EXTENDS #PRIM_FORM) Clientheight(644) Clientwidth(1156) Formposition(ScreenCenter) Height(682) Layoutmanager(#ATLM_Form) Left(651) Top(182) Width(1172) Theme(#SYS_THEME<2015Blue>) Renderstyle(DirectX)
+    
+    * Form layout manager.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_Form)
+    
+    * Ribbon
+    Define_Com Class(#PRIM_RBBN) Name(#Ribbon) Displayposition(1) Height(140) Left(0) Parent(#COM_OWNER) Tabposition(1) Tabstop(False) Top(0) Width(1156)
+    
+    * Quick Access Toolbar: Commands.
+    Define_Com Class(#PRIM_RBBN.QuickAccessToolbar) Name(#QuickAccessToolbar) Displayposition(1) Height(20) Layoutmanager(#ATLM_QuickAccessToolbar) Parent(#Ribbon) Tabposition(2) Top(0) Width(100)
+    Define_Com Class(#PRIM_SPBN) Name(#QuickMenuNew) Buttonstyle(FlatButton) Displayposition(1) Height(20) Hint('New') Image(#xImageNew16) Left(0) Parent(#QuickAccessToolbar) Tabposition(1) Top(0)
+    Define_Com Class(#PRIM_SPBN) Name(#QuickMenuSave) Buttonstyle(FlatButton) Displayposition(2) Height(20) Hint('Save') Image(#xImageSave16) Left(28) Parent(#QuickAccessToolbar) Tabposition(2) Top(0)
+    
+    * Quick Access Toolbar: Layout.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_QuickAccessToolbar)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_QuickMenuSave) Attachment(Left) Manage(#QuickMenuSave) Parent(#ATLM_QuickAccessToolbar)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_QuickMenuNew) Attachment(Left) Manage(#QuickMenuNew) Parent(#ATLM_QuickAccessToolbar)
+    
+    * Help Toolbar: Commands.
+    Define_Com Class(#PRIM_RBBN.HelpToolbar) Name(#HelpToolbar) Displayposition(2) Height(20) Layoutmanager(#ATLM_HelpToolbar) Left(1106) Parent(#Ribbon) Tabposition(3) Top(29)
+    Define_Com Class(#PRIM_SPBN) Name(#HelpToolbarClose) Buttonstyle(FlatButton) Displayposition(2) Height(20) Hint('Close current document') Image(#xImageCloseDocument16) Left(30) Parent(#HelpToolbar) Tabposition(2) Top(0) Width(20)
+    Define_Com Class(#PRIM_SPBN) Name(#HelpToolbarMinimize) Buttonstyle(FlatButton) Displayposition(1) Height(20) Hint('Minimize the Ribbon') Image(#xImageMinimizeRibbon16) Parent(#HelpToolbar) Tabposition(1) Top(0) Width(20)
+    
+    * Help Toolbar: Layout.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_HelpToolbar)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_HelpToolbarClose) Attachment(Right) Manage(#HelpToolbarClose) Parent(#ATLM_HelpToolbar)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_HelpToolbarMinimize) Attachment(Right) Manage(#HelpToolbarMinimize) Parent(#ATLM_HelpToolbar)
+    
+    * Application menu
+    Define_Com Class(#PRIM_RBBN.ApplicationMenu) Name(#AppMenu) Caption('File') Displayposition(1) Height(250) Keytip('F') Layoutmanager(#ATLM_App_Menu) Parent(#Ribbon) Tabposition(1) Width(100)
+    Define_Com Class(#PRIM_RBBN.ApplicationMenuContent) Name(#AppMenuContent) Displayposition(2) Height(250) Layoutmanager(#ATLM_App_Content) Parent(#Ribbon) Tabposition(2) Width(300)
+    Define_Com Class(#PRIM_RBBN.ApplicationMenuFooter) Name(#AppMenuFooter) Displayposition(3) Height(24) Layoutmanager(#ATLM_App_Menu_Footer) Parent(#Ribbon) Popupmenu(#PMNU_OpenObjects) Tabposition(3) Width(400)
+    
+    * Application menu: COMMANDS
+    Define_Com Class(#PRIM_SPBN) Name(#AppMenuNew) Alignment(Left) Autosize(False) Buttonstyle(FlatButton) Caption('New') Componentversion(1) Displayposition(1) Height(33) Image(#xImageNew32) Left(2) Parent(#AppMenu) Tabposition(5) Top(2) Width(96)
+    Define_Com Class(#PRIM_SPBN) Name(#AppMenuSave) Alignment(Left) Autosize(False) Buttonstyle(FlatButton) Caption('Save') Componentversion(1) Displayposition(2) Height(33) Image(#xImageSave32) Left(2) Parent(#AppMenu) Tabposition(3) Top(42) Width(96)
+    Define_Com Class(#PRIM_SPBN) Name(#AppMenuSaveAll) Alignment(Left) Autosize(False) Buttonstyle(FlatButton) Caption('Save All') Componentversion(1) Displayposition(3) Height(33) Image(#xImageSaveAll32) Left(2) Parent(#AppMenu) Tabposition(4) Top(82) Width(96)
+    Define_Com Class(#PRIM_SPBN) Name(#AppMenuClose) Alignment(Left) Autosize(False) Buttonstyle(FlatButton) Caption('Close') Componentversion(1) Displayposition(4) Height(33) Image(#xImageClose32) Left(2) Parent(#AppMenu) Tabposition(2) Top(122) Width(96)
+    Define_Com Class(#PRIM_SPBN) Name(#AppMenuCloseAll) Alignment(Left) Autosize(False) Buttonstyle(FlatButton) Caption('Close All') Componentversion(1) Displayposition(5) Height(33) Image(#xImageCloseAll32) Left(2) Parent(#AppMenu) Tabposition(1) Top(162) Width(96)
+    
+    * Application menu: LAYOUT.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_App_Menu)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_App_Menu_New) Attachment(Top) Manage(#AppMenuNew) Marginbottom(5) Marginleft(2) Marginright(2) Margintop(2) Parent(#ATLM_App_Menu)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_App_Menu_Save) Attachment(Top) Manage(#AppMenuSave) Marginbottom(5) Marginleft(2) Marginright(2) Margintop(2) Parent(#ATLM_App_Menu)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_App_Menu_Save_All) Attachment(Top) Manage(#AppMenuSaveAll) Marginbottom(5) Marginleft(2) Marginright(2) Margintop(2) Parent(#ATLM_App_Menu)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_App_Menu_Close) Attachment(Top) Manage(#AppMenuClose) Marginbottom(5) Marginleft(2) Marginright(2) Margintop(2) Parent(#ATLM_App_Menu)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_App_Menu_Close_All) Attachment(Top) Manage(#AppMenuCloseAll) Marginbottom(5) Marginleft(2) Marginright(2) Margintop(2) Parent(#ATLM_App_Menu)
+    
+    * Application menu content: LAST OPENED.
+    Define_Com Class(#PRIM_LABL) Name(#LastOpenedLabel) Caption('Last Opened') Displayposition(1) Height(20) Left(5) Parent(#AppMenuContent) Style(#StyleBold) Tabposition(1) Tabstop(False) Top(5) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem1) Alignment(Left) Buttonstyle(FlatButton) Caption('1. Item 1') Displayposition(2) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(10) Top(27) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem2) Alignment(Left) Buttonstyle(FlatButton) Caption('2. Item 2') Displayposition(3) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(9) Top(51) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem3) Alignment(Left) Buttonstyle(FlatButton) Caption('3. Item 3') Displayposition(4) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(8) Top(75) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem4) Alignment(Left) Buttonstyle(FlatButton) Caption('4. Item 4') Displayposition(5) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(7) Top(99) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem5) Alignment(Left) Buttonstyle(FlatButton) Caption('5. Item 5') Displayposition(6) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(6) Top(123) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem6) Alignment(Left) Buttonstyle(FlatButton) Caption('6. Item 6') Displayposition(7) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(5) Top(147) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem7) Alignment(Left) Buttonstyle(FlatButton) Caption('7. Item 7') Displayposition(8) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(4) Top(171) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem8) Alignment(Left) Buttonstyle(FlatButton) Caption('8. Item 8') Displayposition(9) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(3) Top(195) Width(290)
+    Define_Com Class(#PRIM_SPBN) Name(#LastOpenedItem9) Alignment(Left) Buttonstyle(FlatButton) Caption('9. Item 9') Displayposition(10) Height(22) Left(5) Parent(#AppMenuContent) Tabposition(2) Top(219) Width(290)
+    
+    * Application menu content: LAYOUT.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedLabel) Attachment(Top) Manage(#LastOpenedLabel) Marginleft(5) Marginright(5) Margintop(5) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem1) Attachment(Top) Manage(#LastOpenedItem1) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem2) Attachment(Top) Manage(#LastOpenedItem2) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem3) Attachment(Top) Manage(#LastOpenedItem3) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem4) Attachment(Top) Manage(#LastOpenedItem4) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem5) Attachment(Top) Manage(#LastOpenedItem5) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem6) Attachment(Top) Manage(#LastOpenedItem6) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem7) Attachment(Top) Manage(#LastOpenedItem7) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem8) Attachment(Top) Manage(#LastOpenedItem8) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_LastOpenedItem9) Attachment(Top) Manage(#LastOpenedItem9) Marginleft(5) Marginright(5) Margintop(2) Parent(#ATLM_App_Content)
+    
+    * Application menu footer: COMMANDS.
+    Define_Com Class(#PRIM_SPBN) Name(#AppMenuExit) Alignment(Left) Autosize(False) Buttonstyle(FlatButton) Caption('Exit') Componentversion(1) Displayposition(1) Height(20) Image(#xImageExit16) Left(348) Parent(#AppMenuFooter) Tabposition(1) Top(2) Width(50)
+    
+    * Application menu footer: LAYOUT.
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_App_Menu_Footer)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_Exit) Attachment(Right) Manage(#AppMenuExit) Marginbottom(2) Marginleft(2) Marginright(2) Margintop(2) Parent(#ATLM_App_Menu_Footer)
+    
+    * Ribbon Sheet: HOME.
+    Define_Com Class(#Prim_rbbn.Sheet) Name(#SheetHome) Caption('Home') Displayposition(3) Height(91) Keytip('H') Left(0) Parent(#Ribbon) Tabposition(1) Top(49) Width(1156)
+    
+    * Ribbon Group: VIEWS.
+    Define_Com Class(#Prim_rbbn.Group) Name(#GroupViews) Caption('Views') Displayposition(1) Height(91) Left(12) Parent(#SheetHome) Tabposition(1) Top(0) Width(150)
+    Define_Com Class(#PRIM_SPBN) Name(#ViewBrowser) Autosize(False) Buttonstyle(FlatButton) Componentversion(1) Displayposition(1) Height(50) Hint('Shows the object browser.') Hinttitle('Show Browser') Image(#xImageView32) Imageposition(AboveCaption) Left(5) Parent(#GroupViews) Tabposition(2) Width(50)
+    Define_Com Class(#PRIM_SPBN) Name(#ViewOpenObjects) Autosize(False) Buttonstyle(FlatButton) Componentversion(1) Displayposition(2) Height(50) Hint('Shows an alphabetical list of open objects.') Hinttitle('Open Objects') Image(#xImageOpenObjects32) Imageposition(AboveCaption) Left(60) Menu(#PMNU_OpenObjects) Parent(#GroupViews) Tabposition(1) Width(70)
+    
+    * Ribbon Access keys + short cuts.
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyNew) Control(#AppMenuNew) Keytip('N') Parent(#Ribbon) Shortcut(Ctrl+N)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeySave) Control(#AppMenuSave) Keytip('S') Parent(#Ribbon) Shortcut(Ctrl+S)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyClose) Control(#AppMenuClose) Keytip('C') Parent(#Ribbon) Shortcut(Alt+F4)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem1) Control(#LastOpenedItem1) Keytip('1') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem2) Control(#LastOpenedItem2) Keytip('2') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem3) Control(#LastOpenedItem3) Keytip('3') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem4) Control(#LastOpenedItem4) Keytip('4') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem5) Control(#LastOpenedItem5) Keytip('5') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem6) Control(#LastOpenedItem6) Keytip('6') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem7) Control(#LastOpenedItem7) Keytip('7') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem8) Control(#LastOpenedItem8) Keytip('8') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyLastOpenedItem9) Control(#LastOpenedItem9) Keytip('9') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyExit) Control(#AppMenuExit) Keytip('X') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyBrowser) Control(#ViewBrowser) Keytip('B') Parent(#Ribbon)
+    Define_Com Class(#PRIM_RBBN.AccessKey) Name(#AccessKeyOpenObjects) Control(#ViewOpenObjects) Keytip('O') Parent(#Ribbon)
+    
+    * Tab folder.
+    Define_Com Class(#PRIM_TAB) Name(#TabFolder) Bottomlayoutpriority(4) Bottomtabheight(250) Componentversion(1) Displayposition(2) Height(480) Left(0) Leftlayoutpriority(1) Lefttablocation(Right) Lefttabwidth(348) Parent(#COM_OWNER) Rightlayoutpriority(2) Righttablocation(Left) Righttabwidth(250) Showpagetabs(False) Tabposition(2) Top(140) Toplayoutpriority(3) Width(1156)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_TabFolder) Attachment(Center) Manage(#TabFolder) Parent(#ATLM_Form)
+    
+    * Tab sheet for Browser.
+    Define_Com Class(#PRIM_TBSH) Name(#TBSH_Browser) Caption('Browser') Displayposition(1) Dockallowedpositions(Left+Bottom+Right) Dockallowundock(True) Dockclosebutton(True) Dockposition(Left) Height(472) Image(#xImageView16) Layoutmanager(#ATLM_Browser) Left(4) Opened(True) Parent(#TabFolder) Tabposition(1) Tabstop(False) Top(4) Width(320)
+    Define_Com Class(#MY_BRWSR) Name(#Browser) Height(457) Parent(#TBSH_Browser) Tabstop(False) Top(15) Width(320)
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_Browser)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_Browser) Attachment(Center) Manage(#Browser) Parent(#ATLM_Browser)
+    
+    * Tab sheet for Editor.
+    Define_Com Class(#PRIM_TBSH) Name(#TBSH_Editor) Caption('Editor') Displayposition(1) Dockallowedpositions(None) Height(480) Layoutmanager(#ATLM_Editor) Left(353) Opened(True) Parent(#TabFolder) Tabposition(1) Tabstop(False) Top(0) Width(803)
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_Editor)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_Editor) Attachment(Center) Parent(#ATLM_Editor)
+    
+    * Status bar.
+    Define_Com Class(#PRIM_STBR) Name(#StatusBar) Displayposition(3) Height(24) Left(0) Messageposition(1) Parent(#COM_OWNER) Tabposition(3) Top(620) Width(1156)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_StatusBar) Attachment(Bottom) Manage(#StatusBar) Parent(#ATLM_Form)
+    
+    * Open objects popup menu.
+    Define_Com Class(#PRIM_PMNU) Name(#PMNU_OpenObjects)
+    Define_Com Class(#PRIM_SACO<#PRIM_MITM>) Name(#OpenObjectMenuItems)
+    
+    * Styles.
+    Define_Com Class(#PRIM_VS.Style) Name(#StyleBold) Bold(True)
+    
+    * Data store.
+    Define_Com Class(#MY_STORE) Name(#DataStore)
+    
+    * Editor references.
+    Define_Com Class(#PRIM_LCOL<#MY_EDIT>) Name(#OpenEditorList)
+    Define_Com Class(#MY_EDIT) Name(#ActiveEditor) Reference(*DYNAMIC)
+    
+    * Last Opened list
+    Define_Com Class(#PRIM_LCOL<#MY_DATA>) Name(#LastOpenedProxyList)
+    Define_Com Class(#PRIM_LCOL<#PRIM_SPBN>) Name(#LastOpenedItemList)
+    
+    * ****************************
+    * Event Handling - Main Form *
+    * ****************************
+    
+    Evtroutine Handling(#com_owner.Initialize)
+    
+    * Determine our appearance.
+    #SYS_APPLN.ThemedForms := True
+    #SYS_APPLN.Theme := 2007Silver
+    
+    * Initialize the browser so it can load the proxies.
+    #Browser.Init( #COM_OWNER #DataStore )
+    
+    * Initialize the caption.
+    #COM_OWNER.UpdateCaption
+    
+    * Initialize the last opened item list.
+    #LastOpenedItemList.Insert( #LastOpenedItem1 )
+    #LastOpenedItemList.Insert( #LastOpenedItem2 )
+    #LastOpenedItemList.Insert( #LastOpenedItem3 )
+    #LastOpenedItemList.Insert( #LastOpenedItem4 )
+    #LastOpenedItemList.Insert( #LastOpenedItem5 )
+    #LastOpenedItemList.Insert( #LastOpenedItem6 )
+    #LastOpenedItemList.Insert( #LastOpenedItem7 )
+    #LastOpenedItemList.Insert( #LastOpenedItem8 )
+    #LastOpenedItemList.Insert( #LastOpenedItem9 )
+    
+    * Create the last opened proxy list using the values stored in the registry.
+    #COM_OWNER.InitLastOpenedProxyList
+    
+    * Update the menu to match the proxy list.
+    #COM_OWNER.UpdateLastOpenedMenu
+    
+    Endroutine
+    
+    Evtroutine Handling(#COM_OWNER.CloseQuery) Continue(#Continue)
+    
+    * OK to close the application after all editors have been closed without the user cancelling.
+    #Continue := #COM_OWNER.CloseAllEditors
+    
+    Endroutine
+    
+    Evtroutine Handling(#COM_OWNER.Closing)
+    
+    * Remember the last opened list for next time.
+    #COM_OWNER.RememberLastOpenedProxyList
+    
+    Endroutine
+    
+    * *************************
+    * Event Handling - Ribbon *
+    * *************************
+    
+    Evtroutine Handling(#ViewBrowser.Click)
+    
+    * Show the browser, make sure to activate it ( ensure it pops up if it was auto-hidden )
+    #TBSH_Browser.ShowSheet Activate(True)
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppMenuNew.Click #QuickMenuNew.Click)
+    Define_Com Class(#MY_DATA) Name(#Proxy) Reference(*DYNAMIC)
+    
+    * Create an editor for a new document.
+    Define_Com Class(#MY_EDIT) Name(#Editor) Reference(*DYNAMIC)
+    
+    #Editor <= *New #MY_EDIT.CreateForNew( #DataStore )
+    
+    #OpenEditorList.Insert( #Editor )
+    
+    * Activate it.
+    #COM_OWNER.ActivateEditor( #Editor )
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppMenuSave.Click #QuickMenuSave.Click)
+    
+    If (#ActiveEditor *IsNot *null)
+    
+    #ActiveEditor.Save
+    
+    #COM_OWNER.AddToLastOpenedMenu( #ActiveEditor.p_Proxy )
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppMenuSaveAll.Click)
+    
+    For Each(#Editor) In(#OpenEditorList)
+    
+    #Editor.Save
+    
+    #COM_OWNER.AddToLastOpenedMenu( #Editor.p_Proxy )
+    
+    Endfor
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppMenuClose.Click #HelpToolbarClose.Click)
+    
+    If (#ActiveEditor *IsNot *null)
+    
+    #COM_OWNER.CloseActiveEditor
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppMenuCloseAll.Click)
+    
+    #COM_OWNER.CloseAllEditors
+    
+    Endroutine
+    
+    Evtroutine Handling(#AppMenuExit.Click)
+    
+    * Close the application after all editors have been closed without the user cancelling.
+    If (#COM_OWNER.CloseAllEditors)
+    
+    #COM_OWNER.CloseForm
+    
+    Endif
+    
+    Endroutine
+    
+    Evtroutine Handling(#LastOpenedItemList<>.Click) Com_Sender(#Sender)
+    
+    #STD_INT := #LastOpenedItemList.IndexOf<#Sender>
+    
+    #COM_OWNER.Open( #LastOpenedProxyList<#STD_INT> )
+    
+    Endroutine
+    
+    Evtroutine Handling(#PMNU_OpenObjects.Prepare)
+    Define_Com Class(#PRIM_MITM) Name(#MenuItem) Reference(*DYNAMIC)
+    
+    * Initialize the (sorted) menu items array.
+    #OpenObjectMenuItems.RemoveAll
+    
+    * Create menu items in a sorted array, make sure they hang on to the index
+    * of the corresponding editor.
+    #STD_INT := 1
+    
+    For Each(#Editor) In(#OpenEditorList)
+    
+    #MenuItem <= *New #PRIM_MITM
+    
+    #MenuItem.Caption := #Editor.p_ModifiedCaption
+    
+    #MenuItem.Checked := (#Editor *IsEqualTo #ActiveEditor)
+    
+    #MenuItem.Tag := #STD_INT
+    
+    #OpenObjectMenuItems.Insert( #MenuItem )
+    
+    #STD_INT += 1
+    
+    Endfor
+    
+    * Now we can add them into the menu in alphabetical order.
+    For Each(#SortedMenuItem) In(#OpenObjectMenuItems)
+    
+    #SortedMenuItem.Parent <= #PMNU_OpenObjects
+    
+    Endfor
+    
+    Endroutine
+    
+    Evtroutine Handling(#OpenObjectMenuItems<>.Click) Com_Sender(#Sender)
+    
+    * Activate the corresponding editor.
+    #STD_INT := (#Sender *As #PRIM_MITM).Tag
+    
+    #COM_OWNER.ActivateEditor( #OpenEditorList<#STD_INT> )
+    
+    Endroutine
+    
+    Evtroutine Handling(#OpenObjectMenuItems.Compare) Object(#Object) Subject(#Subject) Result(#Result)
+    
+    * We'd like to sort the menu item captions.
+    #Result := (#Subject *As #PRIM_MITM).Caption.Compare( (#Object *As #PRIM_MITM).Caption )
+    
+    Endroutine
+    
+    Evtroutine Handling(#HelpToolbarMinimize.Click)
+    
+    * Toggle the minimized state.
+    #Ribbon.Minimized := *Not #Ribbon.Minimized
+    
+    * Update image and hint.
+    If (#Ribbon.Minimized)
+    
+    #HelpToolbarMinimize.Image <= #xImageMaximizeRibbon16
+    #HelpToolbarMinimize.Hint := "Expand the Ribbon"
+    
+    Else
+    
+    #HelpToolbarMinimize.Image <= #xImageMinimizeRibbon16
+    #HelpToolbarMinimize.Hint := "Minimize the Ribbon"
+    
+    Endif
+    
+    Endroutine
+    
+    * *************************
+    * Event Handling - Editor *
+    * *************************
+    
+    Evtroutine Handling(#ActiveEditor.Changed)
+    
+    * Update the caption to reflect the modified flag.
+    #COM_OWNER.UpdateCaption
+    
+    Endroutine
+    
+    * *****************************
+    * Event Handling - Data Store *
+    * *****************************
+    
+    Evtroutine Handling(#DataStore.ObjectDeleted) Proxy(#Proxy)
+    
+    If (#LastOpenedProxyList.Contains( #Proxy ))
+    
+    * Remove the proxy from the Last Opened list.
+    #LastOpenedProxyList.Remove( #Proxy )
+    
+    Endif
+    
+    * Update the menu.
+    #COM_OWNER.UpdateLastOpenedMenu
+    
+    Endroutine
+    
+    * *******************
+    * Methods
+    * *******************
+    
+    Mthroutine Name(Open)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    Define_Com Class(#MY_EDIT) Name(#Editor) Reference(*DYNAMIC)
+    
+    * Check if it's already open.
+    #Editor <= #COM_OWNER.GetOpenEditorFor( #Proxy )
+    
+    If (#Editor *Is *NULL)
+    
+    * If not, create a new editor.
+    #Editor <= *New #MY_EDIT.CreateForOpen( #DataStore #Proxy )
+    
+    #OpenEditorList.Insert( #Editor )
+    
+    Endif
+    
+    * Show the editor.
+    #COM_OWNER.ActivateEditor( #Editor )
+    
+    Endroutine
+    
+    Mthroutine Name(Delete)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * Check if the object is currently open in the editor.
+    If (#COM_OWNER.GetOpenEditorFor( #Proxy ) *IsNot *NULL)
+    
+    * Let the user know.
+    Use Builtin(MESSAGE_BOX_ADD) With_Args(("Can't delete " + #Proxy.p_Caption + "."))
+    Use Builtin(MESSAGE_BOX_ADD) With_Args(" ")
+    Use Builtin(MESSAGE_BOX_ADD) With_Args(("It is open in the editor."))
+    
+    Use Builtin(MESSAGE_BOX_SHOW) With_Args(OK OK ERROR "My Editor")
+    
+    Else
+    
+    * Confirm the deletion.
+    Use Builtin(MESSAGE_BOX_ADD) With_Args(("Are you sure want to delete " + #Proxy.p_Caption + "?"))
+    
+    Use Builtin(MESSAGE_BOX_SHOW) With_Args(YESNO NO QUESTION "My Editor") To_Get(#STD_CODEL)
+    
+    If (#STD_CODEL = YES)
+    
+    #DataStore.Delete( #Proxy )
+    
+    Endif
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(ActivateEditor) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_EDIT) Name(#Editor) Pass(*BY_REFERENCE)
+    
+    If (#ActiveEditor *IsNot *null)
+    
+    * Unparent the editor panel.
+    #ActiveEditor.Parent <= *null
+    
+    * Unhook the layout item.
+    #ATLI_Editor.Manage <= *null
+    
+    Endif
+    
+    #ActiveEditor <= #Editor
+    
+    If (#ActiveEditor *IsNot *null)
+    
+    * Parent the editor to the central tabsheet.
+    #ActiveEditor.Parent <= #TBSH_Editor
+    
+    * Hook up the layout item.
+    #ATLI_Editor.Manage <= #ActiveEditor
+    
+    * Make sure the editor is realized ( has a visual representation ). This is needed because we create it dynamically.
+    #ActiveEditor.Realize
+    
+    * Add as the first item in the last opened menu.
+    #COM_OWNER.AddToLastOpenedMenu( #ActiveEditor.p_Proxy )
+    
+    Endif
+    
+    * Ensure our caption reflects the active editor.
+    #Com_Owner.UpdateCaption
+    
+    Endroutine
+    
+    Mthroutine Name(UpdateCaption) Access(*PRIVATE)
+    
+    Define_Com Class(#PRIM_ALPH) Name(#ApplicationCaption)
+    
+    * Build up a caption string.
+    #ApplicationCaption := "My Editor"
+    
+    If (#ActiveEditor *IsNot *null)
+    
+    #ApplicationCaption += " - "
+    
+    #ApplicationCaption += #ActiveEditor.p_ModifiedCaption
+    
+    Endif
+    
+    * Apply the caption to the main form.
+    #COM_OWNER.Caption := #ApplicationCaption
+    
+    Endroutine
+    
+    Mthroutine Name(GetOpenEditorFor) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    Define_Map For(*RESULT) Class(#MY_EDIT) Name(#Editor) Pass(*BY_REFERENCE)
+    
+    * Check the open editors list for one that is editing this proxy.
+    For Each(#OpenEditor) In(#OpenEditorList)
+    
+    If (#OpenEditor.p_Proxy *IsEqualTo #Proxy)
+    
+    #Editor <= #OpenEditor
+    
+    Leave
+    
+    Endif
+    
+    Endfor
+    
+    Endroutine
+    
+    Mthroutine Name(CloseAllEditors) Access(*PRIVATE)
+    Define_Map For(*RESULT) Class(#PRIM_BOLN) Name(#Result)
+    
+    * Keep closing editors until the last one is gone or the user has cancelled.
+    Dowhile (#ActiveEditor *IsNot *null)
+    
+    If (*Not #COM_OWNER.CloseActiveEditor)
+    
+    #Result := False
+    
+    Return
+    
+    Endif
+    
+    Endwhile
+    
+    #Result := True
+    
+    Endroutine
+    
+    Mthroutine Name(CloseActiveEditor) Access(*PRIVATE)
+    Define_Map For(*RESULT) Class(#PRIM_BOLN) Name(#Result)
+    
+    * Don't close a modified editor without asking confirmation.
+    #STD_CODEL := OK
+    
+    If (#ActiveEditor.p_Modified)
+    
+    * Ask for confirmation.
+    Use Builtin(MESSAGE_BOX_ADD) With_Args((#ActiveEditor.p_Caption + " has been modified."))
+    Use Builtin(MESSAGE_BOX_ADD) With_Args(" ")
+    Use Builtin(MESSAGE_BOX_ADD) With_Args(("Would you like to save the changes ?"))
+    
+    Use Builtin(MESSAGE_BOX_SHOW) With_Args(YESNOCANCEL YES INFORMATION "My Editor") To_Get(#STD_CODEL)
+    
+    If (#STD_CODEL = CANCEL)
+    
+    * Return false if the user cancels the close.
+    #Result := False
+    
+    Return
+    
+    Endif
+    
+    If (#STD_CODEL = YES)
+    
+    * Save,
+    #ActiveEditor.Save
+    
+    * Update last opened, names might have changed and new documents will now have a proxy.
+    #COM_OWNER.AddToLastOpenedMenu( #ActiveEditor.p_Proxy )
+    
+    Endif
+    
+    Endif
+    
+    * All good, remove this open editor.
+    #OpenEditorList.Remove( #ActiveEditor )
+    
+    * Activate another one. ( This will set the active editor to *NULL when the list is empty ).
+    #COM_OWNER.ActivateEditor( #OpenEditorList.First )
+    
+    * Return true, the user hasn't cancelled the close.
+    #Result := True
+    
+    Endroutine
+    
+    Mthroutine Name(InitLastOpenedProxyList) Access(*PRIVATE)
+    
+    * We need 9 last opened ID's that can be remembered in the registry.
+    Define Field(#LastId1) Type(*STRING)
+    Define Field(#LastId2) Type(*STRING)
+    Define Field(#LastId3) Type(*STRING)
+    Define Field(#LastId4) Type(*STRING)
+    Define Field(#LastId5) Type(*STRING)
+    Define Field(#LastId6) Type(*STRING)
+    Define Field(#LastId7) Type(*STRING)
+    Define Field(#LastId8) Type(*STRING)
+    Define Field(#LastId9) Type(*STRING)
+    
+    * Restore the remembered values.
+    #LastId1 #LastId2 #LastId3 #LastId4 #LastId5 #LastId6 #LastId7 #LastId8 #LastId9 := *REMEMBERED_VALUE_FOR_USER
+    
+    * Add the corresponing proxies to the list.
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId1 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId2 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId3 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId4 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId5 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId6 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId7 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId8 )
+    #COM_OWNER.AddToLastOpenedProxyList( #LastId9 )
+    
+    Endroutine
+    
+    Mthroutine Name(RememberLastOpenedProxyList) Access(*PRIVATE)
+    
+    * Assign the ID's to the fields, the field values will be remembered when the application is finished.
+    #LastId1 := #COM_OWNER.GetLastOpenedProxyIdentifier( 1 )
+    #LastId2 := #COM_OWNER.GetLastOpenedProxyIdentifier( 2 )
+    #LastId3 := #COM_OWNER.GetLastOpenedProxyIdentifier( 3 )
+    #LastId4 := #COM_OWNER.GetLastOpenedProxyIdentifier( 4 )
+    #LastId5 := #COM_OWNER.GetLastOpenedProxyIdentifier( 5 )
+    #LastId6 := #COM_OWNER.GetLastOpenedProxyIdentifier( 6 )
+    #LastId7 := #COM_OWNER.GetLastOpenedProxyIdentifier( 7 )
+    #LastId8 := #COM_OWNER.GetLastOpenedProxyIdentifier( 8 )
+    #LastId9 := #COM_OWNER.GetLastOpenedProxyIdentifier( 9 )
+    
+    Endroutine
+    
+    Mthroutine Name(AddToLastOpenedProxyList) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#PRIM_ALPH) Name(#Identifier)
+    
+    Define_Com Class(#MY_DATA) Name(#Proxy) Reference(*DYNAMIC)
+    
+    * Find the proxy with this identifier.
+    If (#Identifier <> *BLANKS)
+    
+    #Proxy <= #DataStore.FindProxy( #Identifier )
+    
+    If (#Proxy *IsNot *NULL)
+    
+    * Add it to the list.
+    #LastOpenedProxyList.Insert( #Proxy )
+    
+    Endif
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(GetLastOpenedProxyIdentifier) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#STD_INT) Name(#Index)
+    Define_Map For(*RESULT) Class(#PRIM_ALPH) Name(#Result)
+    
+    * Check if we've got a proxy at this index.
+    If (#LastOpenedProxyList.ItemCount >= #Index)
+    
+    * Return its identifier.
+    #Result := #LastOpenedProxyList<#Index>.p_Identifier
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(AddToLastOpenedMenu) Access(*PRIVATE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#Proxy) Pass(*BY_REFERENCE)
+    
+    * Allow for *NULL so we can call this with #ActiveEditor.p_Proxy without worrying about new documents that don't have a proxy yet.
+    If (#Proxy *IsNot *NULL)
+    
+    * Remove the proxy if it was already on the list.
+    If (#LastOpenedProxyList.Contains( #Proxy ))
+    
+    #LastOpenedProxyList.Remove( #Proxy )
+    
+    Endif
+    
+    * Add it as the first item on the list.
+    #LastOpenedProxyList.InsertFirst( #Proxy )
+    
+    * Ensure we never have more than 9 items.
+    If (#LastOpenedProxyList.ItemCount > 9)
+    
+    #LastOpenedProxyList.RemoveLast
+    
+    Endif
+    
+    * Update the menu.
+    #COM_OWNER.UpdateLastOpenedMenu
+    
+    Endif
+    
+    Endroutine
+    
+    Mthroutine Name(UpdateLastOpenedMenu) Access(*PRIVATE)
+    
+    #STD_INT := 1
+    
+    * Starting at the first one, assign each menu item the name of the corresponding proxy in the last opened proxy list.
+    For Each(#Proxy) In(#LastOpenedProxyList)
+    
+    #LastOpenedItemList<#STD_INT>.Visible := True
+    
+    #LastOpenedItemList<#STD_INT>.Caption := #STD_INT.AsString + ". " + #Proxy.p_Caption
+    
+    #STD_INT += 1
+    
+    Endfor
+    
+    * Hide any left over menu items.
+    Dowhile Cond(#STD_INT <= 9)
+    
+    #LastOpenedItemList<#STD_INT>.Visible := False
+    
+    #STD_INT += 1
+    
+    Endwhile
+    
+    Endroutine
+    
+    End_Com

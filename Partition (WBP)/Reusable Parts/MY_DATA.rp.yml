@@ -1,0 +1,67 @@
+﻿Reusable Part:
+  Name:               MY_DATA
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Data Object"
+
+  - ENG:
+      Description:        "Data Object"
+
+  - FRA:
+      Description:        "Data Object"
+
+  - JPN:
+      Description:        "Data Object"
+
+  - TRK:
+      Description:        "Data Object"
+
+  Source: |
+    * **************************************************
+    *                                                  *
+    *  This reusable part defines the data we are      *
+    *  displaying and editing as an object.            *
+    *                                                  *
+    *  This object will be used both as a document by  *
+    *  the editor and as a proxy by the browser.       *
+    *                                                  *
+    * **************************************************
+    
+    Function Options(*DIRECT)
+    
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Define_Pty Name(p_Name) Get(*AUTO #STD_NAME) Set(*AUTO #STD_NAME)
+    Define_Pty Name(p_Description) Get(*AUTO #STD_DESC) Set(*AUTO #STD_DESC)
+    
+    Define_Pty Name(p_Caption) Get(GetCaption)
+    Define_Pty Name(p_Identifier) Get(GetIdentifier)
+    
+    * *******************
+    * Property Routines *
+    * *******************
+    
+    Ptyroutine Name(GetCaption)
+    Define_Map For(*OUTPUT) Class(#PRIM_ALPH) Name(#Caption)
+    
+    * Select the best field to describe this object, or format a nice display string.
+    #Caption := #STD_NAME + " - " + #STD_DESC
+    
+    Endroutine
+    
+    Ptyroutine Name(GetIdentifier)
+    Define_Map For(*OUTPUT) Class(#PRIM_ALPH) Name(#Identifier)
+    
+    * Create a string out of the key fields to identify this data object.
+    #Identifier := #STD_NAME
+    
+    Endroutine
+    
+    End_Com

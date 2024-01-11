@@ -1,0 +1,171 @@
+﻿Reusable Part:
+  Name:               MY_EDIT
+  Enabled For RDMLX:  Yes
+  Target Platform:    Windows/IBM i/Linux
+
+  Framework:
+    Id1:                10240
+    Id2:                30
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Document Editor"
+
+  - ENG:
+      Description:        "Document Editor"
+
+  - FRA:
+      Description:        "Document Editor"
+
+  - JPN:
+      Description:        "Document Editor"
+
+  - TRK:
+      Description:        "Document Editor"
+
+  Source: |
+    * ********************************************************
+    *                                                        *
+    *  This visual reusable part defines the DOCUMENT EDITOR *
+    *                                                        *
+    * ********************************************************
+    
+    Function Options(*DIRECT)
+    
+    Begin_Com Role(*EXTENDS #PRIM_PANL) Displayposition(1) Height(451) Layoutmanager(#ATLM_Editor) Left(0) Tabposition(1) Top(0) Verticalscroll(True) Width(540)
+    
+    * Visual appearance
+    Define_Com Class(#PRIM_ATLM) Name(#ATLM_Editor) Marginbottom(10) Marginleft(10) Marginright(10) Margintop(10)
+    Define_Com Class(#STD_NAME.Visual) Name(#STD_NAME) Caption('Name') Componentversion(1) Displayposition(1) Height(21) Labeltype(Caption) Left(15) Parent(#COM_OWNER) Tabposition(1) Top(15) Usepicklist(False) Width(510)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_Name) Attachment(Top) Manage(#STD_NAME) Marginbottom(5) Marginleft(5) Marginright(5) Margintop(5) Parent(#ATLM_Editor)
+    Define_Com Class(#STD_DESC.Visual) Name(#STD_DESC) Caption('Description') Componentversion(1) Displayposition(2) Height(21) Labeltype(Caption) Left(15) Parent(#COM_OWNER) Tabposition(2) Top(46) Usepicklist(False) Width(510)
+    Define_Com Class(#PRIM_ATLI) Name(#ATLI_Description) Attachment(Top) Manage(#STD_DESC) Marginbottom(5) Marginleft(5) Marginright(5) Margintop(5) Parent(#ATLM_Editor)
+    
+    * References
+    Define_Com Class(#MY_STORE) Name(#DataStore) Reference(*DYNAMIC)
+    Define_Com Class(#MY_DATA) Name(#Proxy) Reference(*DYNAMIC)
+    Define_Com Class(#MY_DATA) Name(#Document) Reference(*DYNAMIC)
+    
+    Define_Com Class(#PRIM_BOLN) Name(#EditorModified)
+    
+    * Properties
+    Define_Pty Name(p_Proxy) Get(*REFERENCE #Proxy)
+    Define_Pty Name(p_Modified) Get(*Auto #EditorModified)
+    
+    Define_Pty Name(p_Caption) Get(GetCaption)
+    Define_Pty Name(p_ModifiedCaption) Get(GetModifiedCaption)
+    
+    * Events
+    Define_Evt Name(Changed)
+    
+    * *****************
+    * Method Routines *
+    * *****************
+    
+    Mthroutine Name(CreateForNew) Options(*CONSTRUCTOR)
+    Define_Map For(*INPUT) Class(#MY_STORE) Name(#i_DataStore) Pass(*BY_REFERENCE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#i_Proxy) Mandatory(*NULL) Pass(*BY_REFERENCE)
+    
+    #DataStore <= #i_DataStore
+    
+    #Document <= *New #MY_DATA
+    
+    #EditorModified := True
+    
+    Endroutine
+    
+    Mthroutine Name(CreateForOpen) Options(*CONSTRUCTOR)
+    Define_Map For(*INPUT) Class(#MY_STORE) Name(#i_DataStore) Pass(*BY_REFERENCE)
+    Define_Map For(*INPUT) Class(#MY_DATA) Name(#i_Proxy) Pass(*BY_REFERENCE)
+    
+    #DataStore <= #i_DataStore
+    
+    #Proxy <= #i_Proxy
+    
+    #Document <= #DataStore.Open( #Proxy )
+    
+    Endroutine
+    
+    Mthroutine Name(Save)
+    
+    If (#Proxy *Is *null)
+    
+    #Proxy <= #DataStore.Insert( #Document )
+    
+    Else
+    
+    #DataStore.Update( #Document #Proxy )
+    
+    Endif
+    
+    #EditorModified := False
+    
+    Signal Event(Changed)
+    
+    Endroutine
+    
+    * ****************
+    * Event Routines *
+    * ****************
+    
+    Evtroutine Handling(#COM_OWNER.Initialize)
+    
+    * Show the document data.
+    #STD_NAME := #Document.p_Name
+    #STD_DESC := #Document.p_Description
+    
+    Endroutine
+    
+    Evtroutine Handling(#STD_NAME.Changed)
+    
+    #Document.p_Name := #STD_NAME
+    
+    #EditorModified := True
+    
+    Signal Event(Changed)
+    
+    Endroutine
+    
+    Evtroutine Handling(#STD_DESC.Changed)
+    
+    #Document.p_Description := #STD_DESC
+    
+    #EditorModified := True
+    
+    Signal Event(Changed)
+    
+    Endroutine
+    
+    * *******************
+    * Property Routines *
+    * *******************
+    
+    Ptyroutine Name(GetCaption)
+    Define_Map For(*OUTPUT) Class(#STD_NAME) Name(#Caption)
+    
+    If (#Proxy *Is *null)
+    
+    #Caption := "New Document"
+    
+    Else
+    
+    #Caption := #Proxy.p_Caption
+    
+    Endif
+    
+    Endroutine
+    
+    Ptyroutine Name(GetModifiedCaption)
+    Define_Map For(*OUTPUT) Class(#STD_NAME) Name(#Caption)
+    
+    #Caption := #COM_OWNER.p_Caption
+    
+    If (#COM_OWNER.p_Modified)
+    
+    #Caption += "*"
+    
+    Endif
+    
+    Endroutine
+    
+    End_Com
