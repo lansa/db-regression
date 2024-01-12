@@ -270,7 +270,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFB001C.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFB001C.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFB001C.IsSqlnull)
     #LF_i += 1
     Endif
@@ -324,7 +324,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFC001KA.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFC001KA.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFC001KA.IsSqlnull)
     #LF_i += 1
     Endif
@@ -360,7 +360,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDATEA.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFDATEA.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFDATEA.IsSqlnull)
     #LF_i += 1
     Endif
@@ -378,7 +378,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDT19C.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFDT19C.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFDT19C.IsSqlnull)
     #LF_i += 1
     Endif
@@ -396,7 +396,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFP6315S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFP6315S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFP6315S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -414,7 +414,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT1S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT1S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT1S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -432,7 +432,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT2S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT2S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT2S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -450,7 +450,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT4S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT4S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT4S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -468,7 +468,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT8S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT8S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT8S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -486,7 +486,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFU100C.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFU100C.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFU100C.IsSqlnull)
     #LF_i += 1
     Endif
@@ -504,7 +504,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFNV512B.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFNV512B.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFNV512B.IsSqlnull)
     #LF_i += 1
     Endif
@@ -522,7 +522,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFS512E.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFS512E.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFS512E.IsSqlnull)
     #LF_i += 1
     Endif
@@ -540,7 +540,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT1S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT1S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT1S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -558,7 +558,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT2S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT2S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT2S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -576,7 +576,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT4S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT4S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT4S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -594,7 +594,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT8S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT8S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT8S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -612,7 +612,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0400S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFF0400S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFF0400S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -630,7 +630,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0800S.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFF0800S.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFF0800S.IsSqlnull)
     #LF_i += 1
     Endif
@@ -666,7 +666,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFTIMEA.IsSqlnull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFTIMEA.IsSqlnull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFTIMEA.IsSqlnull)
     #LF_i += 1
     Endif
@@ -742,7 +742,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFB001C.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFB001C.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFB001C.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -796,7 +796,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFC001KA.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFC001KA.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFC001KA.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -832,7 +832,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDATEA.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFDATEA.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFDATEA.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -850,7 +850,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFDT19C.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFDT19C.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFDT19C.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -868,7 +868,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFP6315S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFP6315S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFP6315S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -886,7 +886,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT1S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT1S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT1S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -904,7 +904,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT2S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT2S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT2S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -922,7 +922,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT4S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT4S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT4S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -940,7 +940,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFINT8S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFINT8S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFINT8S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -958,7 +958,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFU100C.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFU100C.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFU100C.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -976,7 +976,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFNV512B.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFNV512B.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFNV512B.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -994,7 +994,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFS512E.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFS512E.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFS512E.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1012,7 +1012,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT1S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT1S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT1S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1030,7 +1030,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT2S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT2S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT2S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1048,7 +1048,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT4S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT4S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT4S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1066,7 +1066,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFUINT8S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFUINT8S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFUINT8S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1084,7 +1084,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0400S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFF0400S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFF0400S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1102,7 +1102,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFF0800S.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFF0800S.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFF0800S.IsNotSqlNull)
     #LF_i += 1
     Endif
@@ -1138,7 +1138,7 @@
     If (#this_rc <> ER)
     #Com_Owner.mthAdd_SubMsg( OK '- ((#F156118K2 <> 0) *And (#BIFTIMEA.IsNotSqlNull))' '' )
     #LF_i := 0
-    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#F156118D.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTL156118C) Where((#F156118K2 <> 0) *And (#BIFTIMEA.IsNotSqlNull)) With_Key(#this_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#BIFTIMEA.IsNotSqlNull)
     #LF_i += 1
     Endif
