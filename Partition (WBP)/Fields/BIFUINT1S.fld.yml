@@ -1,0 +1,65 @@
+﻿Field:
+  Name:               BIFUINT1S
+  Type:               Integer
+  Length:             1
+  Decimals:           0
+  Default Value:      "*NULL"
+  Edit Mask:          J
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+  - ASQN
+  - SUNS
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Unsigned Int(1)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(1)"
+
+  - ENG:
+      Description:        "BIF Unsigned Int(1)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(1)"
+
+  - FRA:
+      Description:        "BIF Unsigned Int(1)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(1)"
+
+  - JPN:
+      Description:        "BIF Unsigned Int(1)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(1)"
+
+  - TRK:
+      Description:        "BIF Unsigned Int(1)"
+      Label:              "BIF Unsigned In"
+      Heading1:           "BIF"
+      Heading2:           "Unsigned"
+      Heading3:           "Int(1)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(243)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_integer.std_integer') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

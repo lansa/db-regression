@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               BIFF0400S
+  Type:               Float
+  Length:             4
+  Decimals:           0
+  Default Value:      "*NULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF  Float(4)"
+      Label:              "BIF  Float(4)"
+      Heading1:           "BIF"
+      Heading2:           "Float(4)"
+
+  - ENG:
+      Description:        "BIF  Float(4)"
+      Label:              "BIF  Float(4)"
+      Heading1:           "BIF"
+      Heading2:           "Float(4)"
+
+  - FRA:
+      Description:        "BIF  Float(4)"
+      Label:              "BIF  Float(4)"
+      Heading1:           "BIF"
+      Heading2:           "Float(4)"
+
+  - JPN:
+      Description:        "BIF  Float(4)"
+      Label:              "BIF  Float(4)"
+      Heading1:           "BIF"
+      Heading2:           "Float(4)"
+
+  - TRK:
+      Description:        "BIF  Float(4)"
+      Label:              "BIF  Float(4)"
+      Heading1:           "BIF"
+      Heading2:           "Float(4)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Weblet 'std_float.std_float') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com
