@@ -103,6 +103,10 @@
     * Return
     Endif
     
+    If ((#LF_DB_Type *EQ ODBCORACLE))
+    #Com_Owner.mthAdd_SubMsg( OK ('- ODBCORACLE skipped due to defect in CCS 164111') '' )
+    Else
+    
     * SETUP THE TEST DATA.
     Execute Subroutine(AddTestData)
     
@@ -113,6 +117,8 @@
     
     * SEARCH TEST.
     #Com_Owner.mthDoSearch( #LF_rc )
+    
+    Endif
     
     #Com_Owner.mthAdd_Msg( OK *Function 'End' )
     Use Builtin(CLR_MESSAGES)
