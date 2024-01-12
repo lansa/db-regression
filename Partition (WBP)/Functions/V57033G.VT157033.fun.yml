@@ -85,6 +85,7 @@
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
@@ -103,8 +104,8 @@
     * Return
     Endif
     
-    If ((#LF_DB_Type *EQ ODBCORACLE))
-    #Com_Owner.mthAdd_SubMsg( OK ('- ODBCORACLE skipped due to defect in CCS 164111') '' )
+    If ((#LF_DB_Type *EQ ODBCORACLE) *OrIf (#LF_DB_Type *EQ DB2ISERIES) *OrIf (#LF_Remote_Platform *EQ I))
+    #Com_Owner.mthAdd_SubMsg( OK ('- Platform skipped due to defect in CCS 164111 or 164112') ('#LF_DB_Type= ' + #LF_DB_Type + '#LF_Remote_Platform= ' + #LF_Remote_Platform) )
     Else
     
     * SETUP THE TEST DATA.
@@ -873,6 +874,7 @@
     #LF_Func_L157033FD += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFDATEA.asString) )
     Endselect
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV L157033GD *FORWARDS. Rows = ' + #LF_Func_L157033FD.asString + ' Expected = ' + #LF_Test_Result_L157033FD.asString) '' )
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -2015,4 +2017,23 @@
     If (#LF_TraceData)
     #Com_Owner.mthAdd_SubMsg( #this_msg_code #this_msg1 #this_msg2 )
     Endif
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
     Endroutine
