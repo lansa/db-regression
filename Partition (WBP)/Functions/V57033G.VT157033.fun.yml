@@ -137,7 +137,7 @@
     #BIFTIMEA := #BIFDT26C
     When (= 0)
     #BIFB001E := True
-    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( '2001-01-01 01:01:01.0101010' )
+    #BIFDT26C := #Com_Owner.mthGetDBValidDatetime( '2001-01-01 01:01:01.010101' )
     #BIFDATEA := #BIFDT26C
     #BIFTIMEA := #BIFDT26C
     When (= 2)
@@ -165,7 +165,7 @@
     Clr_List Named(#wLTestResultGenericBoolean)
     
     * Search <1>
-    #LF_Test_Data := '2001-01-01 01:01:01.01'
+    #LF_Test_Data := #Com_Owner.mthGetDBValidDatetime( '2001-01-01 01:01:01.0101010' )
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
@@ -308,7 +308,7 @@
     Add_Entry To_List(#wlTestResultExactBoolean)
     
     * Search <2>
-    #LF_Test_Data := '2012-12-12 12:12:12.12'
+    #LF_Test_Data := #Com_Owner.mthGetDBValidDatetime( '2012-12-12 12:12:12.121212' )
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
@@ -430,7 +430,7 @@
     Add_Entry To_List(#wlTestResultExactTime)
     
     * Search <3>
-    #LF_Test_Data := '2010-10-10 10:10:10.10'
+    #LF_Test_Data := #Com_Owner.mthGetDBValidDatetime( '2010-10-10 10:10:10.101010' )
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
@@ -552,7 +552,7 @@
     Add_Entry To_List(#wlTestResultExactTime)
     
     * Search <4>
-    #LF_Test_Data := '2011-11-11 11:11:11.11'
+    #LF_Test_Data := #Com_Owner.mthGetDBValidDatetime( '2011-11-11 11:11:11.111111' )
     Add_Entry To_List(#wLTestKey)
     * ***Generic DateTime Results
     If (#LF_Remote_Platform *EQ I)
