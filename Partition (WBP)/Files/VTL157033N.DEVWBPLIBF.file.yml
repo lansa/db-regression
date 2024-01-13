@@ -1,0 +1,72 @@
+﻿File:
+  Name:                           VTL157033N
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTL157033N
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000     1000      3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Generic Character Search on Physical"
+
+  - ENG:
+      Description:        "Generic Character Search on Physical"
+
+  - FRA:
+      Description:        "Generic Character Search on Physical"
+
+  - JPN:
+      Description:        "Generic Character Search on Physical"
+
+  - TRK:
+      Description:        "Generic Character Search on Physical"
+
+  Real Fields:
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
+  - F157033U:
+      Type:               Char
+      Length:             40
+      Decimals:           0
+
+  - F157033U1:
+      Type:               Char
+      Length:             40
+      Decimals:           0
+
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
+      Decimals:           0
+
+  Primary Keys:
+  - F157033K1
+  - F157033K2
