@@ -16,3 +16,4 @@
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
     
+    * Impementation pending for the required functionality
