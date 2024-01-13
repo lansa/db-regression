@@ -10,3 +10,12 @@
   - VTLI0039D:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - VTI0039:
+      Type:               Process
+
+  - VI0039A:
+      Type:               Funciton
+
+  - VI0039C:
+      Type:               Funciton
