@@ -70,3 +70,37 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+
+  Logical Views:
+  - L157033MS_SBIN:
+      Identifier:         L157033MS1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033S1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033S_SBIN"
+
+      - ENG:
+          Description:        "Key: F157033S_SBIN"
+
+      - FRA:
+          Description:        "Key: F157033S_SBIN"
+
+      - JPN:
+          Description:        "Key: F157033S_SBIN"
+
+      - TRK:
+          Description:        "Key: F157033S_SBIN"
+
+      Keys:
+      - F157033S1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F157033S:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

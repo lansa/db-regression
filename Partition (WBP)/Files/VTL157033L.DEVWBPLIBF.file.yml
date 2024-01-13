@@ -70,3 +70,37 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+
+  Logical Views:
+  - L157033LH_CHAR:
+      Identifier:         L157033LH1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033H1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033H_CHAR"
+
+      - ENG:
+          Description:        "Key: F157033H_CHAR"
+
+      - FRA:
+          Description:        "Key: F157033H_CHAR"
+
+      - JPN:
+          Description:        "Key: F157033H_CHAR"
+
+      - TRK:
+          Description:        "Key: F157033H_CHAR"
+
+      Keys:
+      - F157033H1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F157033H:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

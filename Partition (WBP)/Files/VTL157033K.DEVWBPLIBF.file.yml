@@ -70,3 +70,37 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+
+  Logical Views:
+  - L157033KA_ALPHA:
+      Identifier:         L157033KA1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033A1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033A_ALPHA"
+
+      - ENG:
+          Description:        "Key: F157033A_ALPHA"
+
+      - FRA:
+          Description:        "Key: F157033A_ALPHA"
+
+      - JPN:
+          Description:        "Key: F157033A_ALPHA"
+
+      - TRK:
+          Description:        "Key: F157033A_ALPHA"
+
+      Keys:
+      - F157033A1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F157033A:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

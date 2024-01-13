@@ -70,3 +70,37 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+
+  Logical Views:
+  - L157033J9_NVARCHAR:
+      Identifier:         L157033J91
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV15703391
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - ENG:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - FRA:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - JPN:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      - TRK:
+          Description:        "Key: F1570339_NVARCHAR"
+
+      Keys:
+      - F15703391:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1570339:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

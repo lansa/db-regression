@@ -70,3 +70,37 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+
+  Logical Views:
+  - L157033NU_SUNI:
+      Identifier:         L157033NU1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LV157033U1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key: F157033U_SUNI"
+
+      - ENG:
+          Description:        "Key: F157033U_SUNI"
+
+      - FRA:
+          Description:        "Key: F157033U_SUNI"
+
+      - JPN:
+          Description:        "Key: F157033U_SUNI"
+
+      - TRK:
+          Description:        "Key: F157033U_SUNI"
+
+      Keys:
+      - F157033U1:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F157033U:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned

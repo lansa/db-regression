@@ -73,28 +73,28 @@
 
   Logical Views:
   - L157033I8_NCHAR:
-      Identifier:         L157033I8C
+      Identifier:         L157033I81
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      L157033I8C
+      Record Format:      LV15703381
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "New Index"
+          Description:        "Key: F1570338_NCHAR"
 
       - ENG:
           Description:        "Key: F1570338_NCHAR"
 
       - FRA:
-          Description:        "New Index"
+          Description:        "Key: F1570338_NCHAR"
 
       - JPN:
-          Description:        "New Index"
+          Description:        "Key: F1570338_NCHAR"
 
       - TRK:
-          Description:        "New Index"
+          Description:        "Key: F1570338_NCHAR"
 
       Keys:
       - F15703381:
