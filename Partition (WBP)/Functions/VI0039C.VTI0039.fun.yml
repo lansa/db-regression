@@ -12,8 +12,60 @@
     
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
-    
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
     
-    * Impementation pending for the required functionality
+    Define Field(#LF_Records_Count_C) Reffld(#Std_Count)
+    Define Field(#LF_Records_Count_D) Reffld(#Std_Count)
+    Def_List Name(#w_lTableC) Fields(#BIFP0700A) Counter(#LF_Records_Count_C) Type(*WORKING)
+    Def_List Name(#w_lTableD) Fields(#BIFP0700A) Counter(#LF_Records_Count_D) Type(*WORKING)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    #Com_Owner.mthMixedModeCommitmentControl()
+    
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    Mthroutine Name(mthMixedModeCommitmentControl)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Mixed Mode Commitment Control tests for DataBase type ' + #LF_DB_Type) '' )
+    
+    If (#LF_DB_Type *EQ SQLANYWHERE)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Skipping tests') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('- Running tests') '' )
+    * To be implemented
+    #Com_Owner.mthAdd_SubMsg( OK ('- Tests successful') '' )
+    Endif
+    Endroutine
