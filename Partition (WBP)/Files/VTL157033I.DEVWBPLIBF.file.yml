@@ -70,3 +70,37 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+
+  Logical Views:
+  - L157033I8_NCHAR:
+      Identifier:         L157033I8C
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      L157033I8C
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "New Index"
+
+      - ENG:
+          Description:        "Key: F1570338_NCHAR"
+
+      - FRA:
+          Description:        "New Index"
+
+      - JPN:
+          Description:        "New Index"
+
+      - TRK:
+          Description:        "New Index"
+
+      Keys:
+      - F15703381:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+      - F1570338:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
