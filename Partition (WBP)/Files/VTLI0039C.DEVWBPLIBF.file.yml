@@ -27,22 +27,24 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Enabling Commitment Control"
+      Description:        "Enabled Commitment Control"
 
   - ENG:
-      Description:        "Enabling Commitment Control"
+      Description:        "Enabled Commitment Control"
 
   - FRA:
-      Description:        "Enabling Commitment Control"
+      Description:        "Enabled Commitment Control"
 
   - JPN:
-      Description:        "Enabling Commitment Control"
+      Description:        "Enabled Commitment Control"
 
   - TRK:
-      Description:        "Enabling Commitment Control"
+      Description:        "Enabled Commitment Control"
 
   Real Fields:
-  - BIFN0700A:
+  - BIFP0700A:
       Type:               Signed
       Length:             7
       Decimals:           0
+  Primary Keys:
+  - BIFP0700A

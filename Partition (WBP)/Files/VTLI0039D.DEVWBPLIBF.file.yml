@@ -27,22 +27,24 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Disabling Commitment Control"
+      Description:        "Disabled Commitment Control"
 
   - ENG:
-      Description:        "Disabling Commitment Control"
+      Description:        "Disabled Commitment Control"
 
   - FRA:
-      Description:        "Disabling Commitment Control"
+      Description:        "Disabled Commitment Control"
 
   - JPN:
-      Description:        "Disabling Commitment Control"
+      Description:        "Disabled Commitment Control"
 
   - TRK:
-      Description:        "Disabling Commitment Control"
+      Description:        "Disabled Commitment Control"
 
   Real Fields:
-  - BIFN0700A:
+  - BIFP0700A:
       Type:               Signed
       Length:             7
       Decimals:           0
+  Primary Keys:
+  - BIFP0700A
