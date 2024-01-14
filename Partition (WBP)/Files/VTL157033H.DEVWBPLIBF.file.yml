@@ -42,6 +42,11 @@
       Description:        "157033 - Select Generic Varchar Physical"
 
   Real Fields:
+  - F1570331:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
   - F157033K1:
       Type:               Char
       Length:             50
@@ -52,19 +57,12 @@
       Length:             4
       Decimals:           0
 
-  - F1570331:
-      Type:               String
-      Length:             40
-      Decimals:           0
-
   - F15703311:
       Type:               String
       Length:             40
       Decimals:           0
 
   Primary Keys:
-  - F157033K1
-  - F157033K2
   - F1570331
 
   Logical Views:
