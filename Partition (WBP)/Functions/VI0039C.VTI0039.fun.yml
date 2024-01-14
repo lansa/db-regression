@@ -7,13 +7,15 @@
     * ******************************************************************************************************
     * Test Case Description
     * Issue #39 Programmer Commitment Control
-    * https://github.com/lansa/db-regression/issues/39
+    * Validate the data integrity of the tables VTLI0039C and VTLI0039D considering the Programmer Commitment Controls
+    * defined
     * ******************************************************************************************************
     
     * Unique Key Data.
     Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
     
     Define Field(#LF_Records_Count_C) Reffld(#Std_Count)
     Define Field(#LF_Records_Count_D) Reffld(#Std_Count)
@@ -23,12 +25,14 @@
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    * Define Field(#LF_Data) Reffld(#Std_Count)
+    
     
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
-    #Com_Owner.mthMixedModeCommitmentControl()
+    #Com_Owner.mthMixedModeCommitmentControl( #LF_rc )
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -58,14 +62,146 @@
     Add_Entry To_List(#wLRet)
     Endroutine
     
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    
+    *
+    * This routine is responsible to reset the data in the table VTLI0039C
+    *
+    Mthroutine Name(mthClearDataFromTables)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0039C' '' )
+    
+    Clr_List Named(#w_lTableC)
+    
+    Select Fields(#BIFP0700A) From_File(VTLI0039C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lTableC)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count_C.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count_C > 0)
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count_C)
+    Get_Entry Number(#LF_i) From_List(#w_lTableC)
+    
+    Delete From_File(VTLI0039C) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFP0700A.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Commit
+    
+    Clr_List Named(#w_lTableC)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0039D' '' )
+    
+    Clr_List Named(#w_lTableD)
+    
+    Select Fields(#BIFP0700A) From_File(VTLI0039D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lTableD)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Records_Count_D.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count_D > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count_D)
+    Get_Entry Number(#LF_i) From_List(#w_lTableD)
+    
+    Delete From_File(VTLI0039D) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFP0700A.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lTableD)
+    Endroutine
+    
+    Mthroutine Name(Add_Record_To_TableC)
+    Define_Map For(*INPUT) Class(#Std_Count) Name(#LF_Data)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    Clr_List Named(#w_lTableC)
+    
+    #BIFP0700A := #LF_Data
+    #Com_Owner.mthAdd_SubMsg( OK ('Inserting record as #BIFP0700A ' + #BIFP0700A.asString + ' into table VTLI0039C') ('') )
+    
+    Add_Entry To_List(#w_lTableC)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count_C.AsString + ' record(s)') '' )
+    Selectlist Named(#w_lTableC)
+    Insert Fields(*ALL) To_File(VTLI0039C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record into VTLI0039C ' + #BIFP0700A.AsString) )
+    Leave
+    Endif
+    Endselect
+    Clr_List Named(#w_lTableC)
+    Endroutine
+    
     Mthroutine Name(mthMixedModeCommitmentControl)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
     #Com_Owner.mthAdd_SubMsg( OK ('- Mixed Mode Commitment Control tests for DataBase type ' + #LF_DB_Type) '' )
     
     If (#LF_DB_Type *EQ SQLANYWHERE)
     #Com_Owner.mthAdd_SubMsg( OK ('- Skipping tests') '' )
     Else
     #Com_Owner.mthAdd_SubMsg( OK ('- Running tests') '' )
-    * To be implemented
+    
+    #Com_Owner.mthClearDataFromTables( #LF_rc )
+    
+    #LF_i := 0
+    #Com_Owner.mthAdd_SubMsg( OK ('- Inserting record with data as ' + #LF_i.AsString + ' into table VTLI0039C') ('') )
+    #Com_Owner.Add_Record_To_TableC( #LF_i #LF_rc )
+    
     #Com_Owner.mthAdd_SubMsg( OK ('- Tests successful') '' )
     Endif
     Endroutine
