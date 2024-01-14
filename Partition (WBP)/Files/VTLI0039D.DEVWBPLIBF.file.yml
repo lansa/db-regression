@@ -43,12 +43,14 @@
 
   Real Fields:
   - BIFP0700A:
-      Type:               Signed
+      Type:               Decimal
       Length:             7
       Decimals:           0
+
   - BIFN0700A:
       Type:               Signed
       Length:             7
       Decimals:           0
+
   Primary Keys:
   - BIFP0700A

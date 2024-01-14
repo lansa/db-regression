@@ -7,8 +7,11 @@
     * ******************************************************************************************************
     * Test Case Description
     * Issue #39 Programmer Commitment Control
-    * Validate the data integrity of the tables VTLI0039C and VTLI0039D considering the Programmer Commitment Controls
-    * defined
+    * Introducing Test-Cases to validate the data integrity of the tables VTLI0039C and VTLI0039D
+    * considering the Programmer Commitment Controls pre-defined on the tables.
+    * Two types of tests are introduced as below
+    * 1. Mixed Mode Commitment Control
+    * 2. DBMS OPTIMIZE
     * ******************************************************************************************************
     
     * Unique Key Data.
@@ -25,7 +28,6 @@
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
-    * Define Field(#LF_Data) Reffld(#Std_Count)
     
     
     * Start testing.
@@ -82,12 +84,12 @@
     Endroutine
     
     *
-    * This routine is responsible to reset the data in the table VTLI0039C
+    * This routine is responsible to clear the data from table VTLI0039C and VTLI0039D
     *
     Mthroutine Name(mthClearDataFromTables)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0039C' '' )
+    #Com_Owner.mthAdd_SubMsg( OK '- Clear data from table VTLI0039C' '' )
     
     Clr_List Named(#w_lTableC)
     
@@ -126,7 +128,7 @@
     
     Clr_List Named(#w_lTableC)
     
-    #Com_Owner.mthAdd_SubMsg( OK 'Clear data from table VTLI0039D' '' )
+    #Com_Owner.mthAdd_SubMsg( OK '- Clear data from table VTLI0039D' '' )
     
     Clr_List Named(#w_lTableD)
     
@@ -163,29 +165,293 @@
     Clr_List Named(#w_lTableD)
     Endroutine
     
+    *
+    * This routine is responsible to add a record to table VTLI0039C
+    *
     Mthroutine Name(Add_Record_To_TableC)
-    Define_Map For(*INPUT) Class(#Std_Count) Name(#LF_Data)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
     
-    Clr_List Named(#w_lTableC)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Inserting record as #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.AsString + ' into table VTLI0039C') ('') )
     
-    #BIFP0700A := #LF_Data
-    #Com_Owner.mthAdd_SubMsg( OK ('Inserting record as #BIFP0700A ' + #BIFP0700A.asString + ' into table VTLI0039C') ('') )
-    
-    Add_Entry To_List(#w_lTableC)
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Records_Count_C.AsString + ' record(s)') '' )
-    Selectlist Named(#w_lTableC)
+    #this_is_ok := true
     Insert Fields(*ALL) To_File(VTLI0039C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #this_is_ok := false
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record into VTLI0039C ' + #BIFP0700A.AsString) )
-    Leave
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
     Endif
-    Endselect
-    Clr_List Named(#w_lTableC)
     Endroutine
     
+    *
+    * This routine is responsible to add a record to table VTLI0039D
+    *
+    Mthroutine Name(Add_Record_To_TableD)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Inserting record as #BIFP0700A ' + #BIFP0700A.asString + ' #BIFN0700A ' + #BIFN0700A.AsString + ' into table VTLI0039D') ('') )
+    
+    #this_is_ok := true
+    Insert Fields(*ALL) To_File(VTLI0039D) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to fetch record from the table VTLI0039C
+    *
+    Mthroutine Name(Fetch_Record_From_TableC)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetching record from table VTLI0039C with Key as #BIFP0700A ' + #BIFP0700A.asString) ('') )
+    #this_is_ok := true
+    Fetch Fields(*ALL) From_File(VTLI0039C) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is not able to fetch record from the table VTLI0039C
+    *
+    Mthroutine Name(Fetch_Record_From_TableC_Has_Failed)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := true
+    If (#Com_Owner.Fetch_Record_From_TableC( #this_rc ))
+    #this_is_ok := false
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to fetch record from the table VTLI0039D
+    *
+    Mthroutine Name(Fetch_Record_From_TableD)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetching record from table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.asString) ('') )
+    #this_is_ok := true
+    Fetch Fields(*ALL) From_File(VTLI0039D) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to fetch record from the table VTLI0039D
+    *
+    Mthroutine Name(Fetch_Record_From_TableD_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Fetch_Record_From_TableD( #this_rc ))
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to delete record from the table VTLI0039D
+    *
+    Mthroutine Name(Delete_Record_From_TableD)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Deleting record from table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.asString) ('') )
+    #this_is_ok := true
+    Delete From_File(VTLI0039D) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to delete record from the table VTLI0039D
+    *
+    Mthroutine Name(Delete_Record_From_TableD_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Delete_Record_From_TableD( #this_rc ))
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to fetch record from the table VTLI0039C
+    *
+    Mthroutine Name(Fetch_Record_From_TableC_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Fetch_Record_From_TableC( #this_rc ))
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to delete record from the table VTLI0039C
+    *
+    Mthroutine Name(Delete_Record_From_TableC)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Deleting record from table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.asString) ('') )
+    #this_is_ok := true
+    Delete From_File(VTLI0039C) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to delete record from the table VTLI0039C
+    *
+    Mthroutine Name(Delete_Record_From_TableC_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Delete_Record_From_TableC( #this_rc ))
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is unable to fetch record from the table VTLI0039D
+    *
+    Mthroutine Name(Fetch_Record_From_TableD_Has_Failed)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := true
+    If (#Com_Owner.Fetch_Record_From_TableD( #this_rc ))
+    #this_is_ok := false
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to update record from the table VTLI0039C
+    *
+    Mthroutine Name(Update_Record_From_TableC)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039C for Key #BIFP0700A ' + #BIFP0700A.AsString + ' value of #BIFN0700A as ' + #BIFN0700A.AsString) ('') )
+    #this_is_ok := true
+    Update Fields(#BIFN0700A) In_File(VTLI0039C) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to update record from the table VTLI0039C
+    *
+    Mthroutine Name(Update_Record_Of_TableC_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Update_Record_From_TableC( #this_rc ))
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to update record from the table VTLI0039D
+    *
+    Mthroutine Name(Update_Record_From_TableD)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039D for Key #BIFP0700A ' + #BIFP0700A.AsString + ' value of #BIFN0700A as ' + #BIFN0700A.AsString) ('') )
+    #this_is_ok := true
+    Update Fields(#BIFN0700A) In_File(VTLI0039D) With_Key(#BIFP0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to update record from the table VTLI0039D
+    *
+    Mthroutine Name(Update_Record_Of_TableD_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Update_Record_From_TableD( #this_rc ))
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to determine
+    * that the restoration in table VTLI0039C
+    *
+    Mthroutine Name(Record_From_TableC_Is_Restored_Successfully)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Fetch_Record_From_TableC( #this_rc ) *And (#BIFN0700A = #BIFN0700A_Old))
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Record of table VTLI0039D as #BIFP0700A ' + #BIFP0700A.AsString + ' has been restored as #BIFN0700A ' + #BIFN0700A.AsString) ('') )
+    #this_is_ok := true
+    Endif
+    #BIFN0700A := #BIFN0700A_New
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to update the record from table VTLI0039D
+    *
+    Mthroutine Name(Record_From_TableD_Is_Update_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Fetch_Record_From_TableD( #this_rc ) *And (#BIFN0700A = #BIFN0700A_New))
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Record of table VTLI0039D with key #BIFP0700A ' + #BIFP0700A.AsString + ' has been updated as #BIFN0700A ' + #BIFN0700A.AsString) ('') )
+    #this_is_ok := true
+    Endif
+    #BIFN0700A := #BIFN0700A_New
+    Endroutine
+    
+    *
+    * This routine returns boolean value true if for the given key, the process is able to update the record from table VTLI0039C
+    *
+    Mthroutine Name(Record_From_TableC_Is_Update_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := false
+    If (#Com_Owner.Fetch_Record_From_TableC( #this_rc ) *And (#BIFN0700A = #BIFN0700A_New))
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Record of table VTLI0039C with key #BIFP0700A ' + #BIFP0700A.AsString + ' has been updated as #BIFN0700A ' + #BIFN0700A.AsString) ('') )
+    #this_is_ok := true
+    Endif
+    #BIFN0700A := #BIFN0700A_New
+    Endroutine
+    
+    *
+    * This routine is responsible to validate the tests for Mixed Mode Commitment control for tables VTLI0039C and VTLI0039D
+    *
     Mthroutine Name(mthMixedModeCommitmentControl)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
@@ -198,10 +464,274 @@
     
     #Com_Owner.mthClearDataFromTables( #LF_rc )
     
-    #LF_i := 0
-    #Com_Owner.mthAdd_SubMsg( OK ('- Inserting record with data as ' + #LF_i.AsString + ' into table VTLI0039C') ('') )
-    #Com_Owner.Add_Record_To_TableC( #LF_i #LF_rc )
+    * INSERT C
+    * ROLLBACK
+    * INSERT D
+    * FETCH C - check row does not exist
+    * FETCH D - check row exists
+    * DELETE D
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Tests successful') '' )
+    #BIFP0700A := 1
+    #Com_Owner.mthAdd_SubMsg( OK ('- Initialized table Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Table VTLI0039C with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableC( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Rolling back the changes') ('') )
+    Rollback
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableD( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from table VTLI0039C. It must not have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableC_Has_Failed( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from Table VTLI0039D. It must have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableD_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Deleting data from Table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Delete_Record_From_TableD_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    * INSERT C
+    * COMMIT
+    * INSERT D
+    * FETCH C - check row exists
+    * FETCH D - check row exists
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Table VTLI0039C with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableC( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableD( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from table VTLI0039C. It must have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableC_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from table VTLI0039D. It must have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableD_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    * DELETE C
+    * ROLLBACK
+    * DELETE D
+    * FETCH C - check row exists
+    * FETCH D - check row does not exist
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Deleting data from Table VTLI0039C with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Delete_Record_From_TableC_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Rolling back the changes') ('') )
+    Rollback
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Deleting data from Table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Delete_Record_From_TableD_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    If (#Com_Owner.Fetch_Record_From_TableC_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from table VTLI0039D. It must not have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableD_Has_Failed( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    * INSERT D
+    * DELETE C
+    * COMMIT
+    * DELETE D
+    * FETCH C - check row does not exist
+    * FETCH D - check row does not exist
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableD( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Deleting data from Table VTLI0039C with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Delete_Record_From_TableC_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Deleting data from Table VTLI0039D with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Delete_Record_From_TableD_Is_Successful( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from table VTLI0039C. It must not have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableC_Has_Failed( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from table VTLI0039D. It must not have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Fetch_Record_From_TableD_Has_Failed( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    
+    * INSERT C
+    * COMMIT
+    * INSERT D
+    * UPDATE C
+    * ROLLBACK
+    * UPDATE D
+    * FETCH C - check updated row does not exist
+    * FETCH D - check updated row exists
+    
+    #BIFN0700A := 1
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding record to table VTLI0039C as #BIFP0700A ' + #BIFP0700A.AsString + '#BIFN0700A ' + #BIFN0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableC( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding record to table VTLI0039D as #BIFP0700A ' + #BIFP0700A.AsString + ' #BIFN0700A ' + #BIFN0700A.AsString) ('') )
+    If (#Com_Owner.Add_Record_To_TableD( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    Endif
+    
+    Define Field(#BIFN0700A_Old) Reffld(#Std_Count)
+    #BIFN0700A_Old := #BIFN0700A
+    Define Field(#BIFN0700A_New) Reffld(#Std_Count)
+    #BIFN0700A_New := 2
+    
+    #BIFN0700A := #BIFN0700A_New
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039C for Key #BIFP0700A ' + #BIFP0700A.AsString + ' value of #BIFN0700A as ' + #BIFN0700A.AsString) ('') )
+    If (#Com_Owner.Update_Record_Of_TableC_Is_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Rolling back the changes') ('') )
+    Rollback
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039D for Key #BIFP0700A ' + #BIFP0700A.AsString + ' value of #BIFN0700A as ' + #BIFN0700A.AsString) ('') )
+    If (#Com_Owner.Update_Record_Of_TableD_Is_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Check for table VTLI0038C, update has been restored successfully for key #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Record_From_TableC_Is_Restored_Successfully( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Restoration failed') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Check for table VTLI0038D, update has been successful for key #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Record_From_TableD_Is_Update_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Update failed') ('') )
+    Endif
+    
+    * UPDATE C
+    * COMMIT
+    * UPDATE D
+    * FETCH C - check updated row exists
+    * FETCH D - check updated row exists
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039C for Key #BIFP0700A ' + #BIFP0700A.AsString + ' value of #BIFN0700A as ' + #BIFN0700A.AsString) ('') )
+    If (#Com_Owner.Update_Record_Of_TableC_Is_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exists') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Rolling back the changes') ('') )
+    Commit
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039D for Key #BIFP0700A ' + #BIFP0700A.AsString + ' value of #BIFN0700A as ' + #BIFN0700A.AsString) ('') )
+    If (#Com_Owner.Update_Record_Of_TableD_Is_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Update failed') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Check for table VTLI0038C, update has been successful for key #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Record_From_TableC_Is_Update_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Update failed') ('') )
+    Endif
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Check for table VTLI0038D, update has been successful for key #BIFP0700A ' + #BIFP0700A.AsString) ('') )
+    If (#Com_Owner.Record_From_TableD_Is_Update_Successful( #LF_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Update failed') ('') )
+    Endif
+    
     Endif
     Endroutine

@@ -19,7 +19,7 @@
   Create RRNO Column:             Yes
   Auto RRNO Is Fixed:             Yes
   Convert Special Characters:     No
-  Enable Commitment Control:      Yes 
+  Enable Commitment Control:      Yes
   Auto Commit:                    No
   Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
   Read-only Access:               No
@@ -43,12 +43,14 @@
 
   Real Fields:
   - BIFP0700A:
-      Type:               Signed
+      Type:               Decimal
       Length:             7
       Decimals:           0
+
   - BIFN0700A:
       Type:               Signed
       Length:             7
       Decimals:           0
+
   Primary Keys:
   - BIFP0700A
