@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic NVarchar Physical"
 
   - ENG:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic NVarchar Physical"
 
   - FRA:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic NVarchar Physical"
 
   - JPN:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic NVarchar Physical"
 
   - TRK:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic NVarchar Physical"
 
   Real Fields:
   - F157033K1:
@@ -70,6 +70,7 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+  - F1570339
 
   Logical Views:
   - L157033J9_NVARCHAR:

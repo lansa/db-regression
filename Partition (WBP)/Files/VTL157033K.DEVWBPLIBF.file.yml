@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - ENG:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - FRA:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - JPN:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - TRK:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   Real Fields:
   - F157033K1:
@@ -70,6 +70,7 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+  - F157033A
 
   Logical Views:
   - L157033KA_ALPHA:

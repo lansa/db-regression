@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - ENG:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - FRA:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - JPN:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - TRK:
-      Description:        "Generic Character Search on Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   Real Fields:
   - F157033K1:
@@ -70,6 +70,7 @@
   Primary Keys:
   - F157033K1
   - F157033K2
+  - F157033H
 
   Logical Views:
   - L157033LH_CHAR:
