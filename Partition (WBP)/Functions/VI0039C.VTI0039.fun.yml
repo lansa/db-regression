@@ -36,6 +36,8 @@
     
     #Com_Owner.mthMixedModeCommitmentControl( #LF_rc )
     
+    #Com_Owner.mthDbmsOptimize( #LF_rc )
+    
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
     Return
@@ -734,4 +736,35 @@
     Endif
     
     Endif
+    Endroutine
+    
+    *
+    * This routine is responsible to validate the tests for DBMS Optimize for tables VTLI0039C and VTLI0039D
+    *
+    Mthroutine Name(mthDbmsOptimize)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- DBMS Optimize tests for DataBase type ' + #LF_DB_Type) '' )
+    
+    #Com_Owner.mthClearDataFromTables( #this_rc )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- For table VTLI0039D, inserting 101 records') '' )
+    
+    Use Builtin(set_session_value) With_Args(DBMS_OPTIMIZE BEGIN_SYNC_100)
+    Begin_Loop Using(#LF_i) To(101)
+    #BIFP0700A := #LF_i
+    Insert Fields(*ALL) To_File(VTLI0039D)
+    Use Builtin(set_session_value) With_Args(DBMS_OPTIMIZE SYNC_POINT)
+    End_Loop
+    Rollback
+    Use Builtin(set_session_value) With_Args(DBMS_OPTIMIZE END_SYNC)
+    
+    * Test that row 100 is in table but 101 is not in table.
+    #Com_Owner.mthAdd_SubMsg( OK ('- For table VTLI0039D, check if 101th record does not exists') '' )
+    If (#Com_Owner.Fetch_Record_From_TableD_Has_Failed( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('- Ok. Record does not exists') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists ') '' )
+    Endif
+    
     Endroutine
