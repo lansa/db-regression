@@ -47,6 +47,11 @@
       Length:             40
       Decimals:           0
 
+  - F15703311:
+      Type:               String
+      Length:             40
+      Decimals:           0
+
   - F157033K1:
       Type:               Char
       Length:             50
@@ -57,13 +62,14 @@
       Length:             4
       Decimals:           0
 
-  - F15703311:
-      Type:               String
-      Length:             40
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
       Decimals:           0
 
   Primary Keys:
   - F1570331
+  - F15703311
 
   Logical Views:
   - L157033H1_VARCHAR:

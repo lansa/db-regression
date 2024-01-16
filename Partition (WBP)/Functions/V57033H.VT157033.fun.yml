@@ -12,7 +12,7 @@
     * This is a copy of V57033D with one LV query replaced by a physical query.
     *
     * Tests single and 2 key generic search of ALL 'string' field types. That is:
-    * Varchar, String, Nchar, Nvarchar, Alpha, Char, Alpha SBIN, Char SBIN.
+    * Varchar, String, Nchar, Nvarchar, Alpha, Char, Char SBIN.
     * Tables are a subset of VTL157033D.
     * A BLOB exists to force the table to use SQL on IBM i.
     * All tests are executed only from a Function but NOT a Reusable Part.
@@ -60,32 +60,11 @@
     Define Field(#LF_Func_L157033DA_ALPHA) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DH) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DH_CHAR) Reffld(#Std_Count)
-    Define Field(#LF_Func_L157033DS) Reffld(#Std_Count)
-    Define Field(#LF_Func_L157033DS_SBIN) Reffld(#Std_Count)
+    
     Define Field(#LF_Func_L157033DU) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DU_SUNI) Reffld(#Std_Count)
     
-    * Counter for the Re-Usable Part's I/O Queries.
-    Define Field(#LF_RP_L157033D1) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033D1_VARCHAR) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033D8) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033D8_NCHAR) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033D9) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033D9_NVARCHAR) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DA) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DA_ALPHA) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DH) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DH_CHAR) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DS) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DS_SBIN) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DU) Reffld(#Std_Count)
-    Define Field(#LF_RP_L157033DU_SUNI) Reffld(#Std_Count)
-    
-    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033D1 #LF_Func_L157033D1_VARCHAR #LF_Func_L157033D8 #LF_Func_L157033D8_NCHAR #LF_Func_L157033D9 #LF_Func_L157033D9_NVARCHAR #LF_Func_L157033DA #LF_Func_L157033DA_ALPHA #LF_Func_L157033DH #LF_Func_L157033DH_CHAR #LF_Func_L157033DS #LF_Func_L157033DS_SBIN #LF_Func_L157033DU #LF_Func_L157033DU_SUNI #LF_Total_Errors)
-    
-    Group_By Name(#LF_RP_Counters) Fields(#LF_Total_Errors #LF_RP_L157033D1 #LF_RP_L157033D1_VARCHAR #LF_RP_L157033D8 #LF_RP_L157033D8_NCHAR #LF_RP_L157033D9 #LF_RP_L157033D9_NVARCHAR #LF_RP_L157033DA #LF_RP_L157033DA_ALPHA #LF_RP_L157033DH #LF_RP_L157033DH_CHAR #LF_RP_L157033DS #LF_RP_L157033DS_SBIN #LF_RP_L157033DU #LF_RP_L157033DU_SUNI)
-    
-    Define_Com Class(#R157033A) Name(#o_Query)
+    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033D1 #LF_Func_L157033D1_VARCHAR #LF_Func_L157033D8 #LF_Func_L157033D8_NCHAR #LF_Func_L157033D9 #LF_Func_L157033D9_NVARCHAR #LF_Func_L157033DA #LF_Func_L157033DA_ALPHA #LF_Func_L157033DH #LF_Func_L157033DH_CHAR #LF_Func_L157033DU #LF_Func_L157033DU_SUNI #LF_Total_Errors)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -108,8 +87,6 @@
     * SEARCH TEST.
     If (#LF_rc = OK)
     * DEFAULT SEARCH CRITERIA.
-    #o_Query.Use_File := VTL157033D
-    
     #Com_Owner.mthDoSearch( #LF_rc )
     Endif
     
@@ -159,7 +136,7 @@
     Get_Entry Number(#LF_i) From_List(#wLTestData)
     
     #F157033K2 += 1
-    #F1570331 #F1570331_VARCHAR #F1570332 #F1570332_VARBINARY #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033B #F157033B_BINARY #F157033H #F157033H_CHAR #F157033S #F157033S_SBIN #F157033U #F157033U_SUNI := #LF_Test_Data
+    #F1570331 #F1570331_VARCHAR #F1570332 #F1570332_VARBINARY #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033B #F157033B_BINARY #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
     
     Insert Fields(*ALL) To_File(VTL157033H) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
@@ -182,7 +159,7 @@
     Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
     Get_Entry Number(#LF_i) From_List(#wLTestData)
     
-    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Seach Test: ' + *Quote + #LF_Test_Data + *Quote) 'Compare Search Generic(*YES) Nbr_Keys(*Compute) results from Function & Re-Usable Part' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Seach Test: ' + *Quote + #LF_Test_Data + *Quote) 'Compare Search Generic(*YES) Nbr_Keys(*Compute) results from Function' )
     
     #Com_Owner.mthSearch_By_Varchar( #LF_Test_Data #this_rc )
     #Com_Owner.mthSearch_By_Char( #LF_Test_Data #this_rc )
@@ -246,7 +223,6 @@
     #LF_Operation_Name := ' - Search Generic VARCHAR(40): ' + *Quote + #this_test_value + *Quote
     
     #Com_Owner.mthFunc_Search_Generic_Compute_By_Varchar( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthRP_Search_Varchar( #LF_Operation_Name True #this_test_value #this_rc )
     #Com_Owner.mthValidate_Results( #LF_Operation_Name True #this_rc )
     Endif
     Endroutine
@@ -262,7 +238,6 @@
     #LF_Operation_Name := ' - Search VARCHAR(40): ' + *Quote + #this_test_value + *Quote
     
     #Com_Owner.mthFunc_Search_Varchar( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthRP_Search_Varchar( #LF_Operation_Name False #this_test_value #this_rc )
     #Com_Owner.mthValidate_Results( #LF_Operation_Name False #this_rc )
     Endif
     Endroutine
@@ -285,15 +260,15 @@
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical View VTL157033H' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
-    Select Fields(#F1570331_VARCHAR) From_File(L157033D1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033D1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D1_VARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033H1_VARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -383,27 +358,6 @@
     Endif
     Endif
     
-    * ALPHA + SBIN.
-    Select Fields(#F157033S) From_File(L157033DS) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS' )
-    Else
-    Select Fields(#F157033S_SBIN) From_File(L157033DS_SBIN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS_SBIN += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS_SBIN' )
-    Else
-    #this_rc := OK
-    Endif
-    Endif
-    
     * CHAR + SUNI.
     Select Fields(#F157033U) From_File(L157033DU) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033DU += 1
@@ -450,15 +404,15 @@
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical View VTL157033H' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
-    Select Fields(#F1570331_VARCHAR) From_File(L157033D1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033D1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D1_VARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033H1_VARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -543,27 +497,6 @@
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DH_CHAR' )
-    Else
-    #this_rc := OK
-    Endif
-    Endif
-    
-    * ALPHA + SBIN.
-    Select Fields(#F157033S) From_File(L157033DS) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS' )
-    Else
-    Select Fields(#F157033S_SBIN) From_File(L157033DS_SBIN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS_SBIN += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS_SBIN' )
     Else
     #this_rc := OK
     Endif
@@ -635,7 +568,6 @@
     #LF_Operation_Name := ' - Search Generic CHAR(40): ' + *Quote + #this_test_value + *Quote
     
     #Com_Owner.mthFunc_Search_Generic_Compute_By_Char( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthRP_Search_Char( #LF_Operation_Name True #this_test_value #this_rc )
     #Com_Owner.mthValidate_Results( #LF_Operation_Name True #this_rc )
     Endif
     Endroutine
@@ -651,7 +583,6 @@
     #LF_Operation_Name := ' - Search CHAR(40): ' + *Quote + #this_test_value + *Quote
     
     #Com_Owner.mthFunc_Search_Char( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthRP_Search_Char( #LF_Operation_Name False #this_test_value #this_rc )
     #Com_Owner.mthValidate_Results( #LF_Operation_Name False #this_rc )
     Endif
     Endroutine
@@ -674,15 +605,15 @@
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical View VTL157033H' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
-    Select Fields(#F1570331_VARCHAR) From_File(L157033D1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033D1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D1_VARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033H1_VARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -772,27 +703,6 @@
     Endif
     Endif
     
-    * ALPHA + SBIN.
-    Select Fields(#F157033S) From_File(L157033DS) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS' )
-    Else
-    Select Fields(#F157033S_SBIN) From_File(L157033DS_SBIN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS_SBIN += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS_SBIN' )
-    Else
-    #this_rc := OK
-    Endif
-    Endif
-    
     * CHAR + SUNI.
     Select Fields(#F157033U) From_File(L157033DU) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033DU += 1
@@ -839,15 +749,15 @@
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical View VTL157033H' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
-    Select Fields(#F1570331_VARCHAR) From_File(L157033D1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033D1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D1_VARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033H1_VARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -932,27 +842,6 @@
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DH_CHAR' )
-    Else
-    #this_rc := OK
-    Endif
-    Endif
-    
-    * ALPHA + SBIN.
-    Select Fields(#F157033S) From_File(L157033DS) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS' )
-    Else
-    Select Fields(#F157033S_SBIN) From_File(L157033DS_SBIN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS_SBIN += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS_SBIN' )
     Else
     #this_rc := OK
     Endif
@@ -1024,7 +913,6 @@
     #LF_Operation_Name := ' - Search Generic ALPHA(40): ' + *Quote + #this_test_value + *Quote
     
     #Com_Owner.mthFunc_Search_Generic_Compute_By_Alpha( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthRP_Search_Alpha( #LF_Operation_Name True #this_test_value #this_rc )
     #Com_Owner.mthValidate_Results( #LF_Operation_Name True #this_rc )
     Endif
     Endroutine
@@ -1040,7 +928,6 @@
     #LF_Operation_Name := ' - Search ALPHA(40): ' + *Quote + #this_test_value + *Quote
     
     #Com_Owner.mthFunc_Search_Alpha( #LF_Operation_Name #this_test_value #this_rc )
-    #Com_Owner.mthRP_Search_Alpha( #LF_Operation_Name False #this_test_value #this_rc )
     #Com_Owner.mthValidate_Results( #LF_Operation_Name False #this_rc )
     Endif
     Endroutine
@@ -1063,15 +950,15 @@
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical View VTL157033H' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
-    Select Fields(#F1570331_VARCHAR) From_File(L157033D1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033D1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D1_VARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033H1_VARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -1161,27 +1048,6 @@
     Endif
     Endif
     
-    * ALPHA + SBIN.
-    Select Fields(#F157033S) From_File(L157033DS) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS' )
-    Else
-    Select Fields(#F157033S_SBIN) From_File(L157033DS_SBIN) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS_SBIN += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logial View L157033DS_SBIN' )
-    Else
-    #this_rc := OK
-    Endif
-    Endif
-    
     * CHAR + SUNI.
     Select Fields(#F157033U) From_File(L157033DU) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033DU += 1
@@ -1228,15 +1094,15 @@
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical View VTL157033H' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
-    Select Fields(#F1570331_VARCHAR) From_File(L157033D1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033D1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D1_VARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033H1_VARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -1326,27 +1192,6 @@
     Endif
     Endif
     
-    * ALPHA + SBIN.
-    Select Fields(#F157033S) From_File(L157033DS) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS' )
-    Else
-    Select Fields(#F157033S_SBIN) From_File(L157033DS_SBIN) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033DS_SBIN += 1
-    Endselect
-    
-    If ((#this_rc = ER) *Or (#this_rc = VE))
-    #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033DS_SBIN' )
-    Else
-    #this_rc := OK
-    Endif
-    Endif
-    
     * CHAR + SUNI.
     Select Fields(#F157033U) From_File(L157033DU) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Func_L157033DU += 1
@@ -1388,7 +1233,7 @@
     
     * Alpha / Char: Trailing blanks are not significant, and they will be trimmed off under Generic( *Yes ).
     
-    If ((#LF_Func_L157033D1 = #LF_Func_L157033D1_VARCHAR) *And (#LF_Func_L157033D8 = #LF_Func_L157033D8_NCHAR) *And (#LF_Func_L157033DA = #LF_Func_L157033DA_ALPHA) *And (#LF_Func_L157033DH = #LF_Func_L157033DH_CHAR) *And (#LF_Func_L157033DU = #LF_Func_L157033DU_SUNI) *And (#LF_Func_L157033D9 = #LF_Func_L157033D9_NVARCHAR) *And (#LF_Func_L157033DS = #LF_Func_L157033DS_SBIN))
+    If ((#LF_Func_L157033D1 = #LF_Func_L157033D1_VARCHAR) *And (#LF_Func_L157033D8 = #LF_Func_L157033D8_NCHAR) *And (#LF_Func_L157033DA = #LF_Func_L157033DA_ALPHA) *And (#LF_Func_L157033DH = #LF_Func_L157033DH_CHAR) *And (#LF_Func_L157033DU = #LF_Func_L157033DU_SUNI) *And (#LF_Func_L157033D9 = #LF_Func_L157033D9_NVARCHAR))
     
     * Numbers of search result using Object Name and Object Id must be the same.
     #this_rc := OK
@@ -1402,36 +1247,10 @@
     If (#LF_Func_L157033D1 <> #LF_Func_L157033D9)
     #this_rc := ER
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033D1.AsString + ', ' + ', ' + #LF_Func_L157033D9.AsString + ')') )
-    Else
-    * Alpha & SBIN records should be identical.
-    If (#LF_Func_L157033DA <> #LF_Func_L157033DS)
-    #LF_Total_Warnings += 1
-    
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Alpha/SBIN) records not matched: (' + #LF_Func_L157033DA.AsString + ', ' + #LF_Func_L157033DS.AsString + ')') )
-    Else
-    * Char and SUNI records should be identical.
-    If (#LF_Func_L157033DH <> #LF_Func_L157033DU)
-    #LF_Total_Warnings += 1
-    
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/SUNI) records not matched: (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033DU.AsString + ')') )
-    Endif
-    Endif
     Endif
     Endif
     
     If (#this_rc <> ER)
-    * Check if the Re-usable Part Field Name and Field Id counters are matched.
-    If ((#LF_RP_L157033D1 <> #LF_RP_L157033D1_VARCHAR) *Or (#LF_RP_L157033D8 <> #LF_RP_L157033D8_NCHAR) *Or (#LF_RP_L157033D9 <> #LF_RP_L157033D9_NVARCHAR) *Or (#LF_RP_L157033DA <> #LF_RP_L157033DA_ALPHA) *Or (#LF_RP_L157033DH <> #LF_RP_L157033DH_CHAR) *Or (#LF_RP_L157033DS <> #LF_RP_L157033DS_SBIN) *Or (#LF_RP_L157033DU <> #LF_RP_L157033DU_SUNI))
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Re-usable (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) ' + #LF_RP_L157033Dh.AsString + '/' + #LF_RP_L157033Dh_CHAR.AsString + ', ' + #LF_RP_L157033D1.AsString + '/' + #LF_RP_L157033D1_VARCHAR.AsString + ', ' + #LF_RP_L157033D8.AsString + '/' + #LF_RP_L157033D8_NCHAR.AsString + ', ' + #LF_RP_L157033D9.AsString + '/' + #LF_RP_L157033D9_NVARCHAR.AsString + ', ' + #LF_RP_L157033DA.AsString + '/' + #LF_RP_L157033DA_ALPHA.AsString + ', ' + #LF_RP_L157033DS.AsString + '/' + #LF_RP_L157033DS_SBIN.AsString + ', ' + #LF_RP_L157033DU.AsString + '/' + #LF_RP_L157033DU_SUNI.AsString + ')') )
-    
-    Else
-    * Compare the Function counters to the Re-usable Part counters.
-    If ((#LF_Func_L157033D1 <> #LF_RP_L157033D1) *Or (#LF_Func_L157033D8 <> #LF_RP_L157033D8) *Or (#LF_Func_L157033D9 <> #LF_RP_L157033D9) *Or (#LF_Func_L157033DA <> #LF_RP_L157033DA) *Or (#LF_Func_L157033DH <> #LF_RP_L157033DH) *Or (#LF_Func_L157033DS <> #LF_RP_L157033DS) *Or (#LF_Func_L157033DU <> #LF_RP_L157033DU))
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Function / RP) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) (' + #LF_Func_L157033Dh.AsString + '/' + #LF_RP_L157033Dh.AsString + ', ' + #LF_Func_L157033D1.AsString + '/' + #LF_RP_L157033D1.AsString + ', ' + #LF_Func_L157033D8.AsString + '/' + #LF_RP_L157033D8.AsString + ', ' + #LF_Func_L157033D9.AsString + '/' + #LF_RP_L157033D9.AsString + ', ' + #LF_Func_L157033Da.AsString + '/' + #LF_RP_L157033Da.AsString + ', ' + #LF_Func_L157033DS.AsString + '/' + #LF_RP_L157033DS.AsString + ') ' + 'Char/SUNI(' + #LF_Func_L157033DU.AsString + '/' + #LF_RP_L157033DU.AsString + ')') )
-    Else
-    * Up to here:
     * - Alpha / Char are identical.
     * - Varchar / NVarchar are identical.
     * If (#this_expect_different = False) then Alpha / Varchar must be identical.
@@ -1452,290 +1271,15 @@
     Endif
     Endif
     Endif
-    Endif
     Else
     * Function's record counters are not matched.
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SBIN/SUNI) ' + #LF_Func_L157033Dh.AsString + '/' + #LF_Func_L157033Dh_CHAR.AsString + ', ' + #LF_Func_L157033D1.AsString + '/' + #LF_Func_L157033D1_VARCHAR.AsString + ', ' + #LF_Func_L157033D8.AsString + '/' + #LF_Func_L157033D8_NCHAR.AsString + ', ' + #LF_Func_L157033D9.AsString + '/' + #LF_Func_L157033D9_NVARCHAR.AsString + ', ' + #LF_Func_L157033DA.AsString + '/' + #LF_Func_L157033DA_ALPHA.AsString + ', ' + #LF_Func_L157033DS.AsString + '/' + #LF_Func_L157033DS_SBIN.AsString + ', ' + #LF_Func_L157033DU.AsString + '/' + #LF_Func_L157033DU_SUNI.AsString + ')') )
-    Endif
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SUNI) ' + #LF_Func_L157033Dh.AsString + '/' + #LF_Func_L157033Dh_CHAR.AsString + ', ' + #LF_Func_L157033D1.AsString + '/' + #LF_Func_L157033D1_VARCHAR.AsString + ', ' + #LF_Func_L157033D8.AsString + '/' + #LF_Func_L157033D8_NCHAR.AsString + ', ' + #LF_Func_L157033D9.AsString + '/' + #LF_Func_L157033D9_NVARCHAR.AsString + ', ' + #LF_Func_L157033DA.AsString + '/' + #LF_Func_L157033DA_ALPHA.AsString + ', ' + ', ' + #LF_Func_L157033DU.AsString + '/' + #LF_Func_L157033DU_SUNI.AsString + ')') )
     Endif
     Endroutine
     
     *
     * Component Query Operations.
-    *
-    Mthroutine Name(mthRP_Search_Varchar)
-    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_generic_setting)
-    Define_Map For(*INPUT) Class(#F1570331) Name(#this_test_value)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    If (#this_rc = OK)
-    Change Field(#LF_RP_Counters) To(*NULL)
-    
-    #o_Query.Use_Generic := #this_generic_setting
-    
-    * VARCHAR.
-    #o_Query.Use_VarChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D1_VARCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D1 )
-    
-    * NCHAR.
-    #o_Query.Use_NChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D8_NCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D8 )
-    
-    * NVARCHAR.
-    #o_Query.Use_NVarChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D9_NVARCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D9 )
-    
-    * ALPHA.
-    #o_Query.Use_Alpha := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DA_ALPHA )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DA )
-    
-    * CHAR.
-    #o_Query.Use_Char := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DH_CHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DH )
-    
-    * SBIN.
-    #o_Query.Use_SBIN := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DS_SBIN )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DS )
-    
-    * SUNI.
-    #o_Query.Use_SUNI := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DU_SUNI )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DU )
-    Endif
-    Endroutine
-    
-    Mthroutine Name(mthRP_Search_Char)
-    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_generic_setting)
-    Define_Map For(*INPUT) Class(#F157033h) Name(#this_test_value)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    If (#this_rc = OK)
-    Change Field(#LF_RP_Counters) To(*NULL)
-    
-    #o_Query.Use_Generic := #this_generic_setting
-    
-    * VARCHAR.
-    #o_Query.Use_VarChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D1_VARCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D1 )
-    
-    * NCHAR.
-    #o_Query.Use_NChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D8_NCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D8 )
-    
-    * NVARCHAR.
-    #o_Query.Use_NVarChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D9_NVARCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D9 )
-    
-    * ALPHA.
-    #o_Query.Use_Alpha := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DA_ALPHA )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DA )
-    
-    * CHAR.
-    #o_Query.Use_Char := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DH_CHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DH )
-    
-    * SBIN.
-    #o_Query.Use_SBIN := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DS_SBIN )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DS )
-    
-    * SUNI.
-    #o_Query.Use_SUNI := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DU_SUNI )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DU )
-    Endif
-    Endroutine
-    
-    Mthroutine Name(mthRP_Search_Alpha)
-    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
-    Define_Map For(*INPUT) Class(#BIFB001A) Name(#this_generic_setting)
-    Define_Map For(*INPUT) Class(#F157033a) Name(#this_test_value)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    If (#this_rc = OK)
-    Change Field(#LF_RP_Counters) To(*NULL)
-    
-    #o_Query.Use_Generic := #this_generic_setting
-    
-    * VARCHAR.
-    #o_Query.Use_VarChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D1_VARCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D1 )
-    
-    * NCHAR.
-    #o_Query.Use_NChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D8_NCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D8 )
-    
-    * NVARCHAR.
-    #o_Query.Use_NVarChar := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D9_NVARCHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033D9 )
-    
-    * ALPHA.
-    #o_Query.Use_Alpha := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DA_ALPHA )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DA )
-    
-    * CHAR.
-    #o_Query.Use_Char := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DH_CHAR )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DH )
-    
-    * SBIN.
-    #o_Query.Use_SBIN := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DS_SBIN )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DS )
-    
-    * SUNI.
-    #o_Query.Use_SUNI := #this_test_value
-    
-    #o_Query.Use_Field_Name := True
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DU_SUNI )
-    
-    #o_Query.Use_Field_Name := False
-    #o_Query.DoSearch
-    #o_Query.Get_Search_Result( #LF_RP_L157033DU )
-    Endif
-    Endroutine
-    
-    *
-    *
     *
     Mthroutine Name(mthSearch_Generic_By_2_Varchar_Keys)
     Define_Map For(*INPUT) Class(#F1570331) Name(#this_short_field_name_data)
@@ -1751,14 +1295,14 @@
     
     * Select With_Key(<...> <...>) Generic(*Yes).
     #LF_Key1_And_Key2_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D1) With_Key(#F1570331 #F1570331_VARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033H) With_Key(#F1570331 #F1570331_VARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_WithKey_Counter += 1
     Endselect
     
     If (#LF_Key1_And_Key2_WithKey_Counter > 0)
     * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Key1_And_Key2_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D1) With_Key(#F1570331 #F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033H) With_Key(#F1570331 #F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_Compute_Counter += 1
     Endselect
     
@@ -1771,14 +1315,14 @@
     
     * Select With_Key(<...> *Blank) Generic(*Yes).
     #LF_Key1_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D1) With_Key(#F1570331 #F1570331_VARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033H) With_Key(#F1570331 #F1570331_VARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Blank_WithKey_Counter += 1
     Endselect
     
     If (#LF_Key1_And_Blank_WithKey_Counter > 0)
     * Select With_Key(<...> *Blank) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Key1_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D1) With_Key(#F1570331 #F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033H) With_Key(#F1570331 #F1570331_VARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Blank_Compute_Counter += 1
     Endselect
     
@@ -2386,165 +1930,6 @@
     *
     *
     *
-    Mthroutine Name(mthSearch_Generic_By_2_SBIN_Keys)
-    Define_Map For(*INPUT) Class(#F157033S) Name(#this_short_field_name_data)
-    Define_Map For(*INPUT) Class(#F157033S_SBIN) Name(#this_long_field_name_data)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    #Com_Owner.mthAdd_SubMsg( OK (' + With_Key(*SBIN *SBIN)') ('') )
-    
-    * With_Key(<Field Id> <Long Name>).
-    If (#this_rc = OK)
-    #F157033S := #this_short_field_name_data
-    #F157033S_SBIN := #this_long_field_name_data
-    
-    * Select With_Key(<...> <...>) Generic(*Yes).
-    #LF_Key1_And_Key2_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS) With_Key(#F157033S #F157033S_SBIN) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Key2_WithKey_Counter += 1
-    Endselect
-    
-    If (#LF_Key1_And_Key2_WithKey_Counter > 0)
-    * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
-    #LF_Key1_And_Key2_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS) With_Key(#F157033S #F157033S_SBIN) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Key2_Compute_Counter += 1
-    Endselect
-    
-    * The counters must be identical.
-    If (#LF_Key1_And_Key2_WithKey_Counter = #LF_Key1_And_Key2_Compute_Counter)
-    #Com_Owner.mthAdd_SubMsg( OK ('  - With_Key(<Id> <L-Name>) Successfully') ('As expected: WithKey(' + #LF_Key1_And_Key2_WithKey_Counter.AsString + ') = Compute(' + #LF_Key1_And_Key2_Compute_Counter.AsString + ')') )
-    
-    #F157033S := #this_short_field_name_data
-    #F157033S_SBIN := *Blank
-    
-    * Select With_Key(<...> *Blank) Generic(*Yes).
-    #LF_Key1_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS) With_Key(#F157033S #F157033S_SBIN) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Blank_WithKey_Counter += 1
-    Endselect
-    
-    If (#LF_Key1_And_Blank_WithKey_Counter > 0)
-    * Select With_Key(<...> *Blank) Generic(*Yes) Nbr_Keys(*Compute).
-    #LF_Key1_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS) With_Key(#F157033S #F157033S_SBIN) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Blank_Compute_Counter += 1
-    Endselect
-    
-    * The result of search from <Where(key1 = 'xyz' and key2 like '%')> must be less than <Where(key1 like 'xyz%')>.
-    If (#LF_Key1_And_Blank_WithKey_Counter < #LF_Key1_And_Blank_Compute_Counter)
-    #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('  - With_Key(<Id> *Blank) Successfully') ('As expected: WithKey(' + #LF_Key1_And_Blank_WithKey_Counter.AsString + ') < Compute(' + #LF_Key1_And_Blank_Compute_Counter.AsString + ')') )
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<Id> *Blank)') ('Unexpected results: WithKey(' + #LF_Key1_And_Blank_WithKey_Counter.AsString + '), Compute(' + #LF_Key1_And_Blank_Compute_Counter.AsString + ')') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<Id> *Blank)') ('Unexpected no return records') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<Id> <L-Name>)') ('Unexpected different results. WithKey(' + #LF_Key1_And_Key2_WithKey_Counter.AsString + '), Compute(' + #LF_Key1_And_Key2_Compute_Counter.AsString + ')') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<Id> <L-Name>)') ('Unexpected no return records') )
-    Endif
-    Endif
-    
-    * With_Key(<Long Name> <Field Id>).
-    If (#this_rc = OK)
-    #F157033S_SBIN := #this_long_field_name_data
-    #F157033S := #this_short_field_name_data
-    
-    * Select With_Key(<...> <...>) Generic(*Yes).
-    #LF_Key1_And_Key2_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN #F157033S) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Key2_WithKey_Counter += 1
-    Endselect
-    
-    If (#LF_Key1_And_Key2_WithKey_Counter > 0)
-    * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
-    #LF_Key1_And_Key2_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN #F157033S) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Key2_Compute_Counter += 1
-    Endselect
-    
-    * The counters must be identical.
-    If (#LF_Key1_And_Key2_WithKey_Counter = #LF_Key1_And_Key2_Compute_Counter)
-    #Com_Owner.mthAdd_SubMsg( OK ('  - With_Key(<L-Name> <Id>) Successfully') ('As expected: WithKey(' + #LF_Key1_And_Key2_WithKey_Counter.AsString + ') = Compute(' + #LF_Key1_And_Key2_Compute_Counter.AsString + ')') )
-    
-    #F157033S_SBIN := #this_long_field_name_data
-    #F157033S := *Blank
-    
-    * Select With_Key(<...> *Blank) Generic(*Yes).
-    #LF_Key1_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN #F157033S) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Blank_WithKey_Counter += 1
-    Endselect
-    
-    If (#LF_Key1_And_Blank_WithKey_Counter > 0)
-    * Select With_Key(<...> *Blank) Generic(*Yes) Nbr_Keys(*Compute).
-    #LF_Key1_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN #F157033S) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Blank_Compute_Counter += 1
-    Endselect
-    
-    * The result of search from <Where(key1 = 'xyz' and key2 like '%')> must be less than <Where(key1 like 'xyz%')>.
-    If (#LF_Key1_And_Blank_WithKey_Counter < #LF_Key1_And_Blank_Compute_Counter)
-    #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('  - With_Key(<L-Name> *Blank) Successfully') ('As expected: WithKey(' + #LF_Key1_And_Blank_WithKey_Counter.AsString + ') < Compute(' + #LF_Key1_And_Blank_Compute_Counter.AsString + ')') )
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<L-Name> *Blank)') ('Unexpected results: WithKey(' + #LF_Key1_And_Blank_WithKey_Counter.AsString + '), Compute(' + #LF_Key1_And_Blank_Compute_Counter.AsString + ')') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<L-Name> *Blank)') ('Unexpected no return records') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<L-Name> <Id>)') ('Unexpected different results. WithKey(' + #LF_Key1_And_Key2_WithKey_Counter.AsString + '), Compute(' + #LF_Key1_And_Key2_Compute_Counter.AsString + ')') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(<L-Name> <Id>)') ('Unexpected no return records') )
-    Endif
-    Endif
-    
-    * With_Key(*Blank *Blank).
-    If (#this_rc = OK)
-    #F157033S_SBIN := *Blank
-    #F157033S := *Blank
-    
-    * Select With_Key(<...> <...>) Generic(*Yes).
-    #LF_Blank_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN #F157033S) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Key1_And_Key2_WithKey_Counter += 1
-    Endselect
-    
-    If (#LF_Blank_And_Blank_WithKey_Counter = 0)
-    * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
-    #LF_Blank_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033DS_SBIN) With_Key(#F157033S_SBIN #F157033S) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Blank_And_Blank_Compute_Counter += 1
-    Endselect
-    
-    If (#LF_Blank_And_Blank_WithKey_Counter < #LF_Blank_And_Blank_Compute_Counter)
-    #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('  - With_Key(*Blank *Blank) Successfully') ('As expected: WithKey(' + #LF_Blank_And_Blank_WithKey_Counter.AsString + ') < Compute(' + #LF_Blank_And_Blank_Compute_Counter.AsString + ')') )
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(*Blank *Blank) Nbr_Keys(*Compute)') ('Unexpected no return records') )
-    Endif
-    Else
-    #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( ER ('  - With_Key(*Blank *Blank)') ('Unexpected return records') )
-    Endif
-    Endif
-    Endroutine
-    
     * Add a message to the Return Message List.
     Mthroutine Name(mthAdd_Msg)
     Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
