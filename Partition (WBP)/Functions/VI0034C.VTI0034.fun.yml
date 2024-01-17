@@ -283,9 +283,9 @@
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #$$@# Data not updated') '' )
     Endif
     If (#LF_Updated_Field2 *NE #LF_Original_Field2)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@#$Data not updated') '' )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@#$ Data not updated') '' )
     Endif
-    If (#LF_Updated_Field3 *NE #LF_Original_Field2)
+    If (#LF_Updated_Field3 *NE #LF_Original_Field3)
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #@@@@@@@@@ Data not updated') '' )
     Endif
     #this_rc := ER
