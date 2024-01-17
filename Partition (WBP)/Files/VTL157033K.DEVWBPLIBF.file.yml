@@ -42,16 +42,6 @@
       Description:        "157033- Select Generic Alpha Physical"
 
   Real Fields:
-  - F157033K1:
-      Type:               Char
-      Length:             50
-      Decimals:           0
-
-  - F157033K2:
-      Type:               Integer
-      Length:             4
-      Decimals:           0
-
   - F157033A:
       Type:               Alphanumeric
       Length:             40
@@ -62,15 +52,24 @@
       Length:             40
       Decimals:           0
 
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
   - BIFBLOBA:
       Type:               BLOB
       Length:             -1
       Decimals:           0
 
   Primary Keys:
-  - F157033K1
-  - F157033K2
   - F157033A
+  - F157033A1
 
   Logical Views:
   - L157033KA_ALPHA:
