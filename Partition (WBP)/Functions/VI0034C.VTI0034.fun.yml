@@ -7,9 +7,8 @@
     * ******************************************************************************************************
     * Test Case Description
     * Issue #34 Test Convert Special Characters in Column Names
-    * The Test Data is setup with the values that all the Fields will have names in secial charactors
-    * And the table attributes of Convert Special Characters in Column Names is set to YES,
-    * table has been recompiled, to have the Convert Special Characters in Column Names to be working.
+    * The test setup includes table column names with special characters
+    * The table attribute "Convert Special Characters in Column Names" is set to YES.
     * ******************************************************************************************************
     
     * Unique Key Data.
@@ -36,11 +35,16 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
+    #Com_Owner.mthGetExecutionType()
+    
     Get_Entry Number(1) From_List(#wLKData)
     
     *
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
+    If (#LF_Execution_Type *EQ Q)
+    #Com_Owner.mthAdd_Msg( OK ('Skipping SuperServer IO test due to defect described in #34') ('') )
+    Else
     #Com_Owner.mthClearData( #LF_rc )
     
     If (#LF_rc *EQ OK)
@@ -54,10 +58,38 @@
     If (#LF_rc *EQ OK)
     #Com_Owner.mthSelect( #LF_rc )
     Endif
+    Endif
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
     Return
+    
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
+    Endroutine
     
     * Add a message to the Return Message List.
     Mthroutine Name(mthAdd_Msg)
@@ -206,9 +238,11 @@
     
     #Com_Owner.mthAdd_SubMsg( OK ('Update: ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
-    Select Fields(*ALL) From_File(@@#$)
+    Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #@#$ := 911119
-    Update Fields(#@#$) In_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #$$@# := 1234567
+    #@@@@@@@@@ := 7654321
+    Update Fields(#$$@# #@#$ #@@@@@@@@@) In_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     
     If (#this_rc <> OK)
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
@@ -232,13 +266,27 @@
     #Com_Owner.mthAdd_SubMsg( OK ('Test the updated : ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
     #LF_@#$ := 911119
-    Select Fields(*ALL) From_File(@@#$)
+    #LF_$$@# := 1234567
+    #LF_@@@@@@ := 7654321
+    Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     
-    * Validate all the rows and only #$$@# field has been updated using mthUpdate method
-    
+    * Validate all the Updated column data
+    If (#this_rc = OK)
     If (#LF_@#$ *NE #@#$)
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #@#$# not updated as ') (#LF_@#$.AsString) )
     #this_rc := ER
+    Endif
+    
+    If (#LF_$$@# *NE #$$@#)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #$$@# not updated as ') (#LF_$$@#.AsString) )
+    #this_rc := ER
+    Endif
+    
+    If (#LF_@@@@@@ *NE #@@@@@@@@@)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@@@@@@@@@ not updated as ') (#LF_@@@@@@.AsString) )
+    #this_rc := ER
+    Endif
+    
     Endif
     
     If (#this_rc <> OK)
