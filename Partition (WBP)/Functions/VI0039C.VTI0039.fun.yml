@@ -22,8 +22,8 @@
     
     Define Field(#LF_Records_Count_C) Reffld(#Std_Count)
     Define Field(#LF_Records_Count_D) Reffld(#Std_Count)
-    Def_List Name(#w_lTableC) Fields(#BIFP0700A) Counter(#LF_Records_Count_C) Type(*WORKING)
-    Def_List Name(#w_lTableD) Fields(#BIFP0700A) Counter(#LF_Records_Count_D) Type(*WORKING)
+    Def_List Name(#w_lTableC) Fields(#BIFP0700A) Counter(#LF_Records_Count_C) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#w_lTableD) Fields(#BIFP0700A) Counter(#LF_Records_Count_D) Type(*WORKING) Entrys(*MAX)
     
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
