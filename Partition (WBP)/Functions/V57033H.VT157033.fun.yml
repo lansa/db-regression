@@ -12,7 +12,7 @@
     * This is a copy of V57033D with one LV query replaced by a physical query.
     *
     * Tests single and 2 key generic search of ALL 'string' field types. That is:
-    * Varchar, String, Nchar, Nvarchar, Alpha, Char, Char SBIN.
+    * Varchar, String, Nchar, Nvarchar, Alpha, Char, Char SUNI.
     * Tables are a subset of VTL157033D.
     * A BLOB exists to force the table to use SQL on IBM i.
     * All tests are executed only from a Function but NOT a Reusable Part.
@@ -50,8 +50,8 @@
     Define Field(#LF_Blank_And_Blank_Compute_Counter) Reffld(#Std_Count)
     
     * Counter for the current Function's I/O queries.
-    Define Field(#LF_Func_L157033D1) Reffld(#Std_Count)
-    Define Field(#LF_Func_L157033D1_VARCHAR) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033H1) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033H1_VARCHAR) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033D8) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033D8_NCHAR) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033D9) Reffld(#Std_Count)
@@ -64,7 +64,7 @@
     Define Field(#LF_Func_L157033DU) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DU_SUNI) Reffld(#Std_Count)
     
-    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033D1 #LF_Func_L157033D1_VARCHAR #LF_Func_L157033D8 #LF_Func_L157033D8_NCHAR #LF_Func_L157033D9 #LF_Func_L157033D9_NVARCHAR #LF_Func_L157033DA #LF_Func_L157033DA_ALPHA #LF_Func_L157033DH #LF_Func_L157033DH_CHAR #LF_Func_L157033DU #LF_Func_L157033DU_SUNI #LF_Total_Errors)
+    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033H1 #LF_Func_L157033H1_VARCHAR #LF_Func_L157033D8 #LF_Func_L157033D8_NCHAR #LF_Func_L157033D9 #LF_Func_L157033D9_NVARCHAR #LF_Func_L157033DA #LF_Func_L157033DA_ALPHA #LF_Func_L157033DH #LF_Func_L157033DH_CHAR #LF_Func_L157033DU #LF_Func_L157033DU_SUNI #LF_Total_Errors)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -136,7 +136,7 @@
     Get_Entry Number(#LF_i) From_List(#wLTestData)
     
     #F157033K2 += 1
-    #F1570331 #F1570331_VARCHAR #F1570332 #F1570332_VARBINARY #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033B #F157033B_BINARY #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
+    #F1570331 #F1570331_VARCHAR #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
     
     Insert Fields(*ALL) To_File(VTL157033H) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
@@ -178,10 +178,6 @@
     #Com_Owner.mthSearch_Generic_By_2_NChar_Keys( #LF_Test_String #LF_Test_String #this_rc )
     #Com_Owner.mthSearch_Generic_By_2_NVarchar_Keys( #LF_Test_String #LF_Test_String #this_rc )
     #Com_Owner.mthSearch_Generic_By_2_Alpha_Keys( #LF_Test_String #LF_Test_String #this_rc )
-    
-    * Remove this test case due to it had already failed in V14 SP1 on IBM i, and no intention
-    * to make any change to the Native Coding area.
-    * #Com_Owner.mthSearch_Generic_By_2_SBIN_Keys( #LF_Test_String #LF_Test_String #this_rc )
     Endif
     Endroutine
     
@@ -255,7 +251,7 @@
     
     * VARCHAR.
     Select Fields(#F1570331) From_File(VTL157033H) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1 += 1
+    #LF_Func_L157033H1 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -263,7 +259,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
     Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1_VARCHAR += 1
+    #LF_Func_L157033H1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -399,7 +395,7 @@
     
     * VARCHAR.
     Select Fields(#F1570331) From_File(VTL157033H) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1 += 1
+    #LF_Func_L157033H1 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -407,7 +403,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
     Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1_VARCHAR += 1
+    #LF_Func_L157033H1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -600,7 +596,7 @@
     
     * VARCHAR.
     Select Fields(#F1570331) From_File(VTL157033H) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1 += 1
+    #LF_Func_L157033H1 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -608,7 +604,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
     Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1_VARCHAR += 1
+    #LF_Func_L157033H1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -744,7 +740,7 @@
     
     * VARCHAR.
     Select Fields(#F1570331) From_File(VTL157033H) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1 += 1
+    #LF_Func_L157033H1 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -752,7 +748,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
     Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1_VARCHAR += 1
+    #LF_Func_L157033H1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -945,7 +941,7 @@
     
     * VARCHAR.
     Select Fields(#F1570331) From_File(VTL157033H) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1 += 1
+    #LF_Func_L157033H1 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -953,7 +949,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
     Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1_VARCHAR += 1
+    #LF_Func_L157033H1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -1089,7 +1085,7 @@
     
     * VARCHAR.
     Select Fields(#F1570331) From_File(VTL157033H) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1 += 1
+    #LF_Func_L157033H1 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -1097,7 +1093,7 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033H' )
     Else
     Select Fields(#F1570331_VARCHAR) From_File(L157033H1_VARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D1_VARCHAR += 1
+    #LF_Func_L157033H1_VARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -1233,7 +1229,7 @@
     
     * Alpha / Char: Trailing blanks are not significant, and they will be trimmed off under Generic( *Yes ).
     
-    If ((#LF_Func_L157033D1 = #LF_Func_L157033D1_VARCHAR) *And (#LF_Func_L157033D8 = #LF_Func_L157033D8_NCHAR) *And (#LF_Func_L157033DA = #LF_Func_L157033DA_ALPHA) *And (#LF_Func_L157033DH = #LF_Func_L157033DH_CHAR) *And (#LF_Func_L157033DU = #LF_Func_L157033DU_SUNI) *And (#LF_Func_L157033D9 = #LF_Func_L157033D9_NVARCHAR))
+    If ((#LF_Func_L157033H1 = #LF_Func_L157033H1_VARCHAR) *And (#LF_Func_L157033D8 = #LF_Func_L157033D8_NCHAR) *And (#LF_Func_L157033DA = #LF_Func_L157033DA_ALPHA) *And (#LF_Func_L157033DH = #LF_Func_L157033DH_CHAR) *And (#LF_Func_L157033DU = #LF_Func_L157033DU_SUNI) *And (#LF_Func_L157033D9 = #LF_Func_L157033D9_NVARCHAR))
     
     * Numbers of search result using Object Name and Object Id must be the same.
     #this_rc := OK
@@ -1244,9 +1240,9 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Alpha/Char/NChar) records mismatched: (' + #LF_Func_L157033DA.AsString + ', ' + #LF_Func_L157033DH.AsString + ')') )
     Else
     * Varchar / NVarchar records must be identical.
-    If (#LF_Func_L157033D1 <> #LF_Func_L157033D9)
+    If (#LF_Func_L157033H1 <> #LF_Func_L157033D9)
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033D1.AsString + ', ' + ', ' + #LF_Func_L157033D9.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033H1.AsString + ', ' + ', ' + #LF_Func_L157033D9.AsString + ')') )
     Endif
     Endif
     
@@ -1254,18 +1250,18 @@
     * - Alpha / Char are identical.
     * - Varchar / NVarchar are identical.
     * If (#this_expect_different = False) then Alpha / Varchar must be identical.
-    If ((#this_expect_different = False) *And ((#LF_Func_L157033Da <> #LF_Func_L157033D1)))
+    If ((#this_expect_different = False) *And ((#LF_Func_L157033Da <> #LF_Func_L157033H1)))
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Unexpected differences: (Char/Varhar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033D1.AsString + ', ' + #LF_Func_L157033D8.AsString + ', ' + #LF_Func_L157033D9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Unexpected differences: (Char/Varhar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033H1.AsString + ', ' + #LF_Func_L157033D8.AsString + ', ' + #LF_Func_L157033D9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
     Else
     If (#LF_Func_L157033DH <> #LF_Func_L157033D8)
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/NChar) records not matched: (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033D8.AsString + ')') )
     Else
     * Produce a simple text if all records are matched.
-    If ((#LF_Func_L157033D1 = #LF_Func_L157033D8) *And (#LF_Func_L157033D8 = #LF_Func_L157033D9) *And (#LF_Func_L157033D9 = #LF_Func_L157033DA) *And (#LF_Func_L157033DA = #LF_Func_L157033DH))
+    If ((#LF_Func_L157033H1 = #LF_Func_L157033D8) *And (#LF_Func_L157033D8 = #LF_Func_L157033D9) *And (#LF_Func_L157033D9 = #LF_Func_L157033DA) *And (#LF_Func_L157033DA = #LF_Func_L157033DH))
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: ' + #LF_Func_L157033Dh.AsString + ' records') )
     Else
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: Found (Char/Varchar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033Dh.AsString + ', ' + #LF_Func_L157033D1.AsString + ', ' + #LF_Func_L157033D8.AsString + ', ' + #LF_Func_L157033D9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: Found (Char/Varchar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033Dh.AsString + ', ' + #LF_Func_L157033H1.AsString + ', ' + #LF_Func_L157033D8.AsString + ', ' + #LF_Func_L157033D9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
     Endif
     Endif
     Endif
@@ -1274,7 +1270,7 @@
     Else
     * Function's record counters are not matched.
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SUNI) ' + #LF_Func_L157033Dh.AsString + '/' + #LF_Func_L157033Dh_CHAR.AsString + ', ' + #LF_Func_L157033D1.AsString + '/' + #LF_Func_L157033D1_VARCHAR.AsString + ', ' + #LF_Func_L157033D8.AsString + '/' + #LF_Func_L157033D8_NCHAR.AsString + ', ' + #LF_Func_L157033D9.AsString + '/' + #LF_Func_L157033D9_NVARCHAR.AsString + ', ' + #LF_Func_L157033DA.AsString + '/' + #LF_Func_L157033DA_ALPHA.AsString + ', ' + ', ' + #LF_Func_L157033DU.AsString + '/' + #LF_Func_L157033DU_SUNI.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SUNI) ' + #LF_Func_L157033Dh.AsString + '/' + #LF_Func_L157033Dh_CHAR.AsString + ', ' + #LF_Func_L157033H1.AsString + '/' + #LF_Func_L157033H1_VARCHAR.AsString + ', ' + #LF_Func_L157033D8.AsString + '/' + #LF_Func_L157033D8_NCHAR.AsString + ', ' + #LF_Func_L157033D9.AsString + '/' + #LF_Func_L157033D9_NVARCHAR.AsString + ', ' + #LF_Func_L157033DA.AsString + '/' + #LF_Func_L157033DA_ALPHA.AsString + ', ' + ', ' + #LF_Func_L157033DU.AsString + '/' + #LF_Func_L157033DU_SUNI.AsString + ')') )
     Endif
     Endroutine
     
