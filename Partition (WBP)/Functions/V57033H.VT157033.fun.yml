@@ -54,8 +54,8 @@
     Define Field(#LF_Func_L157033H1_VARCHAR) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033I8) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033I8_NCHAR) Reffld(#Std_Count)
-    Define Field(#LF_Func_L157033D9) Reffld(#Std_Count)
-    Define Field(#LF_Func_L157033D9_NVARCHAR) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033J9) Reffld(#Std_Count)
+    Define Field(#LF_Func_L157033J9_NVARCHAR) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DA) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DA_ALPHA) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DH) Reffld(#Std_Count)
@@ -64,7 +64,7 @@
     Define Field(#LF_Func_L157033DU) Reffld(#Std_Count)
     Define Field(#LF_Func_L157033DU_SUNI) Reffld(#Std_Count)
     
-    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033H1 #LF_Func_L157033H1_VARCHAR #LF_Func_L157033I8 #LF_Func_L157033I8_NCHAR #LF_Func_L157033D9 #LF_Func_L157033D9_NVARCHAR #LF_Func_L157033DA #LF_Func_L157033DA_ALPHA #LF_Func_L157033DH #LF_Func_L157033DH_CHAR #LF_Func_L157033DU #LF_Func_L157033DU_SUNI #LF_Total_Errors)
+    Group_By Name(#LF_Func_Counters) Fields(#LF_Func_L157033H1 #LF_Func_L157033H1_VARCHAR #LF_Func_L157033I8 #LF_Func_L157033I8_NCHAR #LF_Func_L157033J9 #LF_Func_L157033J9_NVARCHAR #LF_Func_L157033DA #LF_Func_L157033DA_ALPHA #LF_Func_L157033DH #LF_Func_L157033DH_CHAR #LF_Func_L157033DU #LF_Func_L157033DU_SUNI #LF_Total_Errors)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -128,9 +128,19 @@
     Delete From_File(VTL157033I) With_Key(#F1570338) Io_Error(*NEXT) Val_Error(*NEXT)
     Endif
     Endwhile
-    
     #this_rc := OK
     #Com_Owner.mthAdd_SubMsg( #this_rc 'Delete Data' (#LF_i.AsString + ' set of key records deleted from VTL157033I') )
+    
+    #LF_i := 0
+    Dowhile Cond(#this_rc = OK)
+    Fetch Fields(#F1570339) From_File(VTL157033J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    #LF_i += 1
+    Delete From_File(VTL157033J) With_Key(#F1570339) Io_Error(*NEXT) Val_Error(*NEXT)
+    Endif
+    Endwhile
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Delete Data' (#LF_i.AsString + ' set of key records deleted from VTL157033J') )
     Endroutine
     
     *
@@ -174,6 +184,22 @@
     End_Loop
     Endif
     #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted into VTL157033I') )
+    
+    #F157033K2 := 0
+    If (#this_rc = OK)
+    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
+    Get_Entry Number(#LF_i) From_List(#wLTestData)
+    #F157033K2 += 1
+    #F1570331 #F1570331_VARCHAR #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
+    
+    Insert Fields(*ALL) To_File(VTL157033J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc *NE OK)
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    Endif
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted into VTL157033J') )
     
     Endroutine
     *
@@ -319,21 +345,21 @@
     Endif
     
     * NVARCHAR.
-    Select Fields(#F1570339) From_File(L157033D9) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9 += 1
+    Select Fields(#F1570339) From_File(VTL157033J) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033J' )
     Else
-    Select Fields(#F1570339_NVARCHAR) From_File(L157033D9_NVARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9_NVARCHAR += 1
+    Select Fields(#F1570339_NVARCHAR) From_File(L157033J9_NVARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9_NVARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9_NVARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033J9_NVARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -463,21 +489,21 @@
     Endif
     
     * NVARCHAR.
-    Select Fields(#F1570339) From_File(L157033D9) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9 += 1
+    Select Fields(#F1570339) From_File(VTL157033J) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033J' )
     Else
-    Select Fields(#F1570339_NVARCHAR) From_File(L157033D9_NVARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9_NVARCHAR += 1
+    Select Fields(#F1570339_NVARCHAR) From_File(L157033J9_NVARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9_NVARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9_NVARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033J9_NVARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -664,21 +690,21 @@
     Endif
     
     * NVARCHAR.
-    Select Fields(#F1570339) From_File(L157033D9) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9 += 1
+    Select Fields(#F1570339) From_File(VTL157033J) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033J' )
     Else
-    Select Fields(#F1570339_NVARCHAR) From_File(L157033D9_NVARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9_NVARCHAR += 1
+    Select Fields(#F1570339_NVARCHAR) From_File(L157033J9_NVARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9_NVARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9_NVARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033J9_NVARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -808,21 +834,21 @@
     Endif
     
     * NVARCHAR.
-    Select Fields(#F1570339) From_File(L157033D9) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9 += 1
+    Select Fields(#F1570339) From_File(VTL157033J) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033J' )
     Else
-    Select Fields(#F1570339_NVARCHAR) From_File(L157033D9_NVARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9_NVARCHAR += 1
+    Select Fields(#F1570339_NVARCHAR) From_File(L157033J9_NVARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9_NVARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9_NVARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033J9_NVARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -1009,21 +1035,21 @@
     Endif
     
     * NVARCHAR.
-    Select Fields(#F1570339) From_File(L157033D9) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9 += 1
+    Select Fields(#F1570339) From_File(VTL157033J) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033J' )
     Else
-    Select Fields(#F1570339_NVARCHAR) From_File(L157033D9_NVARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9_NVARCHAR += 1
+    Select Fields(#F1570339_NVARCHAR) From_File(L157033J9_NVARCHAR) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9_NVARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9_NVARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033J9_NVARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -1153,21 +1179,21 @@
     Endif
     
     * NVARCHAR.
-    Select Fields(#F1570339) From_File(L157033D9) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9 += 1
+    Select Fields(#F1570339) From_File(VTL157033J) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9 += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Physical table VTL157033J' )
     Else
-    Select Fields(#F1570339_NVARCHAR) From_File(L157033D9_NVARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #LF_Func_L157033D9_NVARCHAR += 1
+    Select Fields(#F1570339_NVARCHAR) From_File(L157033J9_NVARCHAR) With_Key(#this_test_value) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #LF_Func_L157033J9_NVARCHAR += 1
     Endselect
     
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033D9_NVARCHAR' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation 'On Logical View L157033J9_NVARCHAR' )
     Else
     #this_rc := OK
     Endif
@@ -1256,7 +1282,7 @@
     
     * Alpha / Char: Trailing blanks are not significant, and they will be trimmed off under Generic( *Yes ).
     
-    If ((#LF_Func_L157033H1 = #LF_Func_L157033H1_VARCHAR) *And (#LF_Func_L157033I8 = #LF_Func_L157033I8_NCHAR) *And (#LF_Func_L157033DA = #LF_Func_L157033DA_ALPHA) *And (#LF_Func_L157033DH = #LF_Func_L157033DH_CHAR) *And (#LF_Func_L157033DU = #LF_Func_L157033DU_SUNI) *And (#LF_Func_L157033D9 = #LF_Func_L157033D9_NVARCHAR))
+    If ((#LF_Func_L157033H1 = #LF_Func_L157033H1_VARCHAR) *And (#LF_Func_L157033I8 = #LF_Func_L157033I8_NCHAR) *And (#LF_Func_L157033DA = #LF_Func_L157033DA_ALPHA) *And (#LF_Func_L157033DH = #LF_Func_L157033DH_CHAR) *And (#LF_Func_L157033DU = #LF_Func_L157033DU_SUNI) *And (#LF_Func_L157033J9 = #LF_Func_L157033J9_NVARCHAR))
     
     * Numbers of search result using Object Name and Object Id must be the same.
     #this_rc := OK
@@ -1267,9 +1293,9 @@
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Alpha/Char/NChar) records mismatched: (' + #LF_Func_L157033DA.AsString + ', ' + #LF_Func_L157033DH.AsString + ')') )
     Else
     * Varchar / NVarchar records must be identical.
-    If (#LF_Func_L157033H1 <> #LF_Func_L157033D9)
+    If (#LF_Func_L157033H1 <> #LF_Func_L157033J9)
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033H1.AsString + ', ' + ', ' + #LF_Func_L157033D9.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('(Varchar/NVarchar) records mismatched: (' + #LF_Func_L157033H1.AsString + ', ' + ', ' + #LF_Func_L157033J9.AsString + ')') )
     Endif
     Endif
     
@@ -1279,16 +1305,16 @@
     * If (#this_expect_different = False) then Alpha / Varchar must be identical.
     If ((#this_expect_different = False) *And ((#LF_Func_L157033Da <> #LF_Func_L157033H1)))
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Unexpected differences: (Char/Varhar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033H1.AsString + ', ' + #LF_Func_L157033I8.AsString + ', ' + #LF_Func_L157033D9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Unexpected differences: (Char/Varhar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033H1.AsString + ', ' + #LF_Func_L157033I8.AsString + ', ' + #LF_Func_L157033J9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
     Else
     If (#LF_Func_L157033DH <> #LF_Func_L157033I8)
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('*** WARNING (Char/NChar) records not matched: (' + #LF_Func_L157033DH.AsString + ', ' + #LF_Func_L157033I8.AsString + ')') )
     Else
     * Produce a simple text if all records are matched.
-    If ((#LF_Func_L157033H1 = #LF_Func_L157033I8) *And (#LF_Func_L157033I8 = #LF_Func_L157033D9) *And (#LF_Func_L157033D9 = #LF_Func_L157033DA) *And (#LF_Func_L157033DA = #LF_Func_L157033DH))
+    If ((#LF_Func_L157033H1 = #LF_Func_L157033I8) *And (#LF_Func_L157033I8 = #LF_Func_L157033J9) *And (#LF_Func_L157033J9 = #LF_Func_L157033DA) *And (#LF_Func_L157033DA = #LF_Func_L157033DH))
     #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: ' + #LF_Func_L157033Dh.AsString + ' records') )
     Else
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: Found (Char/Varchar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033Dh.AsString + ', ' + #LF_Func_L157033H1.AsString + ', ' + #LF_Func_L157033I8.AsString + ', ' + #LF_Func_L157033D9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Completed: Found (Char/Varchar/NChar/NVarchar/Alpha) (' + #LF_Func_L157033Dh.AsString + ', ' + #LF_Func_L157033H1.AsString + ', ' + #LF_Func_L157033I8.AsString + ', ' + #LF_Func_L157033J9.AsString + ', ' + #LF_Func_L157033DA.AsString + ')') )
     Endif
     Endif
     Endif
@@ -1297,7 +1323,7 @@
     Else
     * Function's record counters are not matched.
     #this_rc := ER
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SUNI) ' + #LF_Func_L157033Dh.AsString + '/' + #LF_Func_L157033Dh_CHAR.AsString + ', ' + #LF_Func_L157033H1.AsString + '/' + #LF_Func_L157033H1_VARCHAR.AsString + ', ' + #LF_Func_L157033I8.AsString + '/' + #LF_Func_L157033I8_NCHAR.AsString + ', ' + #LF_Func_L157033D9.AsString + '/' + #LF_Func_L157033D9_NVARCHAR.AsString + ', ' + #LF_Func_L157033DA.AsString + '/' + #LF_Func_L157033DA_ALPHA.AsString + ', ' + ', ' + #LF_Func_L157033DU.AsString + '/' + #LF_Func_L157033DU_SUNI.AsString + ')') )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Function (ID / LN) records mismatched. (Char/Varchar/NChar/NVarchar/Alpha/SUNI) ' + #LF_Func_L157033Dh.AsString + '/' + #LF_Func_L157033Dh_CHAR.AsString + ', ' + #LF_Func_L157033H1.AsString + '/' + #LF_Func_L157033H1_VARCHAR.AsString + ', ' + #LF_Func_L157033I8.AsString + '/' + #LF_Func_L157033I8_NCHAR.AsString + ', ' + #LF_Func_L157033J9.AsString + '/' + #LF_Func_L157033J9_NVARCHAR.AsString + ', ' + #LF_Func_L157033DA.AsString + '/' + #LF_Func_L157033DA_ALPHA.AsString + ', ' + ', ' + #LF_Func_L157033DU.AsString + '/' + #LF_Func_L157033DU_SUNI.AsString + ')') )
     Endif
     Endroutine
     
@@ -1643,14 +1669,14 @@
     
     * Select With_Key(<...> <...>) Generic(*Yes).
     #LF_Key1_And_Key2_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9) With_Key(#F1570339 #F1570339_NVARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033J) With_Key(#F1570339 #F1570339_NVARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_WithKey_Counter += 1
     Endselect
     
     If (#LF_Key1_And_Key2_WithKey_Counter > 0)
     * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Key1_And_Key2_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9) With_Key(#F1570339 #F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033J) With_Key(#F1570339 #F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_Compute_Counter += 1
     Endselect
     
@@ -1663,14 +1689,14 @@
     
     * Select With_Key(<...> *Blank) Generic(*Yes).
     #LF_Key1_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9) With_Key(#F1570339 #F1570339_NVARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033J) With_Key(#F1570339 #F1570339_NVARCHAR) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Blank_WithKey_Counter += 1
     Endselect
     
     If (#LF_Key1_And_Blank_WithKey_Counter > 0)
     * Select With_Key(<...> *Blank) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Key1_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9) With_Key(#F1570339 #F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(VTL157033J) With_Key(#F1570339 #F1570339_NVARCHAR) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Blank_Compute_Counter += 1
     Endselect
     
@@ -1703,14 +1729,14 @@
     
     * Select With_Key(<...> <...>) Generic(*Yes).
     #LF_Key1_And_Key2_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(L157033J9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_WithKey_Counter += 1
     Endselect
     
     If (#LF_Key1_And_Key2_WithKey_Counter > 0)
     * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Key1_And_Key2_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(L157033J9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_Compute_Counter += 1
     Endselect
     
@@ -1723,14 +1749,14 @@
     
     * Select With_Key(<...> *Blank) Generic(*Yes).
     #LF_Key1_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(L157033J9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Blank_WithKey_Counter += 1
     Endselect
     
     If (#LF_Key1_And_Blank_WithKey_Counter > 0)
     * Select With_Key(<...> *Blank) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Key1_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(L157033J9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Blank_Compute_Counter += 1
     Endselect
     
@@ -1763,14 +1789,14 @@
     
     * Select With_Key(<...> <...>) Generic(*Yes).
     #LF_Blank_And_Blank_WithKey_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(L157033J9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Key1_And_Key2_WithKey_Counter += 1
     Endselect
     
     If (#LF_Blank_And_Blank_WithKey_Counter = 0)
     * Select With_Key(<...> <...>) Generic(*Yes) Nbr_Keys(*Compute).
     #LF_Blank_And_Blank_Compute_Counter := 0
-    Select Fields(#F157033K1) From_File(L157033D9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#F157033K1) From_File(L157033J9_NVARCHAR) With_Key(#F1570339_NVARCHAR #F1570339) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     #LF_Blank_And_Blank_Compute_Counter += 1
     Endselect
     
