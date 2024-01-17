@@ -17,8 +17,10 @@
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
     
+    Define Field(#LF_i) Reffld(#Std_Count)
     Define Field(#LF_rc) Reffld(#BIFA002A)
     Define Field(#LF_Original_Count) Reffld(#Std_Count)
+    Define Field(#LF_DB_Count) Reffld(#Std_Count)
     
     * Local Copies of Table Columns - matches following List fields
     Define Field(#LF_$$@#) Reffld(#$$@#)
@@ -30,6 +32,7 @@
     Group_By Name(#XG_ALL) Fields(#$$@# #@#$ #@@@@@@@@@)
     
     Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING)
+    Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -37,13 +40,11 @@
     
     #Com_Owner.mthGetExecutionType()
     
-    Get_Entry Number(1) From_List(#wLKData)
-    
     *
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
     If (#LF_Execution_Type *EQ Q)
-    #Com_Owner.mthAdd_Msg( OK ('Skipping SuperServer IO test due to defect described in #34') ('') )
+    #Com_Owner.mthAdd_Msg( OK ('Skipping SuperServer IO test due to defect described in CCS 164115') ('') )
     Else
     #Com_Owner.mthClearData( #LF_rc )
     
@@ -63,33 +64,6 @@
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
     Return
-    
-    * Local Function
-    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
-    * SuperServer Function Call
-    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
-    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
-    * SuperServer IO Call
-    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
-    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
-    *
-    Mthroutine Name(mthGetExecutionType)
-    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
-    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
-    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
-    
-    Get_Entry Number(1) From_List(#wLKData)
-    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
-    
-    #LF_Execution_Type := #VTF_KEY1
-    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
-    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
-    
-    If (#LF_Local_Platform *EQ '')
-    #LF_Local_Platform := #LF_Execution_Type
-    Endif
-    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
-    Endroutine
     
     * Add a message to the Return Message List.
     Mthroutine Name(mthAdd_Msg)
@@ -239,9 +213,9 @@
     #Com_Owner.mthAdd_SubMsg( OK ('Update: ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
     Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    #@#$ := 911119
-    #$$@# := 1234567
-    #@@@@@@@@@ := 7654321
+    #@#$ := #@#$ + 1
+    #$$@# := #$$@# + 1
+    #@@@@@@@@@ := #@@@@@@@@@ + 1
     Update Fields(#$$@# #@#$ #@@@@@@@@@) In_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     
     If (#this_rc <> OK)
@@ -252,7 +226,8 @@
     Endif
     Endselect
     
-    If (#this_rc = OK)
+    If (#this_rc = EF)
+    #this_rc := OK
     #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
     Endif
     Endroutine
@@ -265,40 +240,94 @@
     
     #Com_Owner.mthAdd_SubMsg( OK ('Test the updated : ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
-    #LF_@#$ := 911119
-    #LF_$$@# := 1234567
-    #LF_@@@@@@ := 7654321
+    Clr_List Named(#w_lDB)
+    
     Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    
-    * Validate all the Updated column data
-    If (#this_rc = OK)
-    If (#LF_@#$ *NE #@#$)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@#$# not updated as ') (#LF_@#$.AsString) )
-    #this_rc := ER
-    Endif
-    
-    If (#LF_$$@# *NE #$$@#)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #$$@# not updated as ') (#LF_$$@#.AsString) )
-    #this_rc := ER
-    Endif
-    
-    If (#LF_@@@@@@ *NE #@@@@@@@@@)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@@@@@@@@@ not updated as ') (#LF_@@@@@@.AsString) )
-    #this_rc := ER
-    Endif
-    
-    Endif
-    
-    If (#this_rc <> OK)
-    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Retriving record ' + #$$@#.AsString) )
-    #this_rc := ER
-    Leave
-    Endif
+    Add_Entry To_List(#w_lDB)
     Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_DB_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Original_Count <> #LF_DB_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Total records in the table mismatch. Actual ' + #LF_Original_Count.AsString + ' Expected only ' + #LF_DB_Count.AsString) '' )
+    #this_rc := ER
+    Else
+    
+    #LF_i := 1
+    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal)
+    
+    Define Field(#LF_Original_Field1) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Original_Field2) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Original_Field3) Type(*DEC) Length(7) Decimals(0)
+    #LF_Original_Field1 := #$$@#
+    #LF_Original_Field2 := #@#$
+    #LF_Original_Field3 := #@@@@@@@@@
+    
+    Get_Entry Number(#LF_i) From_List(#w_lDB)
+    
+    Define Field(#LF_Updated_Field1) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Updated_Field2) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Updated_Field3) Type(*DEC) Length(7) Decimals(0)
+    #LF_Updated_Field1 := #$$@#
+    #LF_Updated_Field2 := #@#$
+    #LF_Updated_Field3 := #@@@@@@@@@
+    
+    If ((#LF_Updated_Field1 *EQ (#LF_Original_Field1 + 1)) *And (#LF_Updated_Field2 *EQ (#LF_Original_Field2 + 1)) *And (#LF_Updated_Field3 *EQ (#LF_Original_Field3 + 1)))
+    #Com_Owner.mthAdd_SubMsg( OK ('- Test Case Data Row - ' + #LF_i.AsString + ' - OK') '' )
+    #this_rc := OK
+    Else
+    If (#LF_Updated_Field1 *EQ #LF_Original_Field1)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #$$@# Data not updated') '' )
+    Endif
+    If (#LF_Updated_Field2 *NE #LF_Original_Field2)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@#$Data not updated') '' )
+    Endif
+    If (#LF_Updated_Field3 *NE #LF_Original_Field2)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@@@@@@@@@ Data not updated') '' )
+    Endif
+    #this_rc := ER
+    Endif
+    
+    End_Loop
+    Endif
+    
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
     
     If (#this_rc = OK)
     #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
     Endif
+    Endroutine
+    
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
     Endroutine
     
