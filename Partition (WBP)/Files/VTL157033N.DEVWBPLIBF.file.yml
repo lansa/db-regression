@@ -42,16 +42,6 @@
       Description:        "157033-Select Generic Char-SUNI Physical"
 
   Real Fields:
-  - F157033K1:
-      Type:               Char
-      Length:             50
-      Decimals:           0
-
-  - F157033K2:
-      Type:               Integer
-      Length:             4
-      Decimals:           0
-
   - F157033U:
       Type:               Char
       Length:             40
@@ -62,15 +52,24 @@
       Length:             40
       Decimals:           0
 
+  - F157033K1:
+      Type:               Char
+      Length:             50
+      Decimals:           0
+
+  - F157033K2:
+      Type:               Integer
+      Length:             4
+      Decimals:           0
+
   - BIFBLOBA:
       Type:               BLOB
       Length:             -1
       Decimals:           0
 
   Primary Keys:
-  - F157033K1
-  - F157033K2
   - F157033U
+  - F157033U1
 
   Logical Views:
   - L157033NU_SUNI:
