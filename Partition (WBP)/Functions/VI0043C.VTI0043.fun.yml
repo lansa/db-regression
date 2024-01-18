@@ -200,11 +200,11 @@
     Mthroutine Name(mthSelectAllChar)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Compare All Rows Backwards: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare All Alpha Rows Backwards: ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
     Clr_List Named(#w_lDB)
     
-    Select Fields(*ALL) From_File(VTLI0043C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Select Fields(*ALL) From_File(LI0043CA) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
     Add_Entry To_List(#w_lDB)
     Endselect
     
@@ -223,8 +223,6 @@
     #LF_j := 1
     Begin_Loop Using(#LF_i) From((#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFN0700A := #BIFN0700A
-    #LF_BIFC010A := #BIFC010A
     #LF_BIFA001C := #BIFA001C
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
@@ -234,8 +232,10 @@
     Leave
     Endif
     
-    #Com_Owner.mthCompareAllFields( #this_rc )
-    If (#this_rc <> OK)
+    If (#LF_BIFA001C <> #BIFA001C)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001C data mismatch') '' )
+    #this_rc := ER
     Leave
     Endif
     
@@ -260,7 +260,7 @@
     Add_Entry To_List(#w_lDB)
     Endselect
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Compare Rows Backwards #BIFA001C = ' + #LF_BIFC010A_Key + ' : ' + #LF_DB_Count.AsString + ' record(s)') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare Alpha Rows Backwards where #BIFA001C = ' + #LF_BIFC010A_Key + ' : ' + #LF_DB_Count.AsString + ' record(s)') '' )
     
     If (#this_rc *EQ ER)
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
@@ -280,8 +280,6 @@
     #LF_j := 1
     Begin_Loop Using(#LF_i) From((#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFN0700A := #BIFN0700A
-    #LF_BIFC010A := #BIFC010A
     #LF_BIFA001C := #BIFA001C
     
     * Only check the matching rows
@@ -296,8 +294,10 @@
     Leave
     Endif
     
-    #Com_Owner.mthCompareAllFields( #this_rc )
-    If (#this_rc <> OK)
+    If (#LF_BIFA001C <> #BIFA001C)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001C data mismatch') '' )
+    #this_rc := ER
     Leave
     Endif
     
@@ -309,36 +309,6 @@
     Endif
     Endroutine
     
-    Mthroutine Name(mthCompareAllFields)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    * Compare all the fields in the 2 lists
-    #LF_DataShown := False
-    
-    * Debug line - needs to be removed once the test is fully working
-    * #Com_Owner.mthShowData( #this_rc )
-    
-    If (#LF_BIFN0700A <> #BIFN0700A)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFN0700A data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_BIFC010A <> #BIFC010A)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFC010A data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_BIFA001C <> #BIFA001C)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001C data mismatch') '' )
-    #this_rc := ER
-    Endif
-    
-    
-    If (#this_rc <> OK)
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Comparing record ') )
-    Return
-    Endif
-    Endroutine
     *
     * mthShowData
     *
