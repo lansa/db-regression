@@ -175,58 +175,29 @@
     #this_rc := ER
     Leave
     Endif
-    End_Loop
-    Endif
-    
-    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted into VTL157033H') )
-    
-    #F157033K2 := 0
-    If (#this_rc = OK)
-    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
-    Get_Entry Number(#LF_i) From_List(#wLTestData)
-    #F157033K2 += 1
-    #F1570331 #F1570331_VARCHAR #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
     
     Insert Fields(*ALL) To_File(VTL157033I) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
     #this_rc := ER
     Leave
     Endif
-    End_Loop
-    Endif
-    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted into VTL157033I') )
-    
-    #F157033K2 := 0
-    If (#this_rc = OK)
-    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
-    Get_Entry Number(#LF_i) From_List(#wLTestData)
-    #F157033K2 += 1
-    #F1570331 #F1570331_VARCHAR #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
     
     Insert Fields(*ALL) To_File(VTL157033J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
     #this_rc := ER
     Leave
     Endif
-    End_Loop
-    Endif
-    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted into VTL157033J') )
-    
-    #F157033K2 := 0
-    If (#this_rc = OK)
-    Begin_Loop Using(#LF_i) To(#LF_Test_Data_Count)
-    Get_Entry Number(#LF_i) From_List(#wLTestData)
-    #F157033K2 += 1
-    #F1570331 #F1570331_VARCHAR #F1570338 #F1570338_NCHAR #F1570339 #F1570339_NVARCHAR #F157033A #F157033A_ALPHA #F157033H #F157033H_CHAR #F157033U #F157033U_SUNI := #LF_Test_Data
     
     Insert Fields(*ALL) To_File(VTL157033K) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
     #this_rc := ER
     Leave
     Endif
+    
     End_Loop
     Endif
-    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted into VTL157033K') )
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted') )
     
     Endroutine
     *
