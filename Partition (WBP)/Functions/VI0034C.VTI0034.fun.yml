@@ -1,0 +1,333 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * ******************************************************************************************************
+    * Test Case Description
+    * Issue #34 Test Convert Special Characters in Column Names
+    * The test setup includes table column names with special characters
+    * The table attribute "Convert Special Characters in Column Names" is set to YES.
+    * ******************************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_Original_Count) Reffld(#Std_Count)
+    Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    
+    * Local Copies of Table Columns - matches following List fields
+    Define Field(#LF_$$@#) Reffld(#$$@#)
+    Define Field(#LF_@#$) Reffld(#@#$)
+    Define Field(#LF_@@@@@@) Reffld(#$$@#)
+    
+    * #XG_ALL includes all Fields in the Table
+    
+    Group_By Name(#XG_ALL) Fields(#$$@# #@#$ #@@@@@@@@@)
+    
+    Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING)
+    Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    #Com_Owner.mthGetExecutionType()
+    
+    *
+    * Add your test case here
+    * It should be a list of method calls so its easy to read whats being tested.
+    If (#LF_Execution_Type *EQ Q)
+    #Com_Owner.mthAdd_Msg( OK ('Skipping SuperServer IO test due to defect described in CCS 164115') ('') )
+    Else
+    #Com_Owner.mthClearData( #LF_rc )
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthInsert( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthUpdate( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthSelect( #LF_rc )
+    Endif
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthClearData)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data' '' )
+    
+    Clr_List Named(#w_lOriginal)
+    
+    Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    Add_Entry To_List(#w_lOriginal)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Original_Count > 0)
+    Select Fields(*ALL) From_File(@@#$)
+    
+    Delete From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #$$@#.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lOriginal)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Create Test Data list
+    
+    * Fields: #$$@# #@#$ #@@@@@@@@@
+    
+    #$$@# := 11111
+    #@#$ := 1111111
+    #@@@@@@@@@ := 111111
+    Add_Entry To_List(#w_lOriginal)
+    
+    #$$@# := 2222
+    #@#$ := 222222
+    #@@@@@@@@@ := 2222222
+    Add_Entry To_List(#w_lOriginal)
+    
+    #$$@# := 333
+    #@#$ := 333333
+    #@@@@@@@@@ := 2333333
+    Add_Entry To_List(#w_lOriginal)
+    
+    #$$@# := 4444444
+    #@#$ := 444433
+    #@@@@@@@@@ := 4444444
+    Add_Entry To_List(#w_lOriginal)
+    
+    #$$@# := 555555
+    #@#$ := 5555
+    #@@@@@@@@@ := 55
+    Add_Entry To_List(#w_lOriginal)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Selectlist Named(#w_lOriginal)
+    Insert Fields(*ALL) To_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #$$@#.AsString) )
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    * mthUpdate
+    *
+    Mthroutine Name(mthUpdate)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Update: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #@#$ := #@#$ + 1
+    #$$@# := #$$@# + 1
+    #@@@@@@@@@ := #@@@@@@@@@ + 1
+    Update Fields(#$$@# #@#$ #@@@@@@@@@) In_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Updating record ' + #$$@#.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    * mthSelect
+    *
+    Mthroutine Name(mthSelect)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Test the updated : ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(*ALL) From_File(@@#$) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lDB)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_DB_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Original_Count <> #LF_DB_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Total records in the table mismatch. Actual ' + #LF_Original_Count.AsString + ' Expected only ' + #LF_DB_Count.AsString) '' )
+    #this_rc := ER
+    Else
+    
+    #LF_i := 1
+    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal)
+    
+    Define Field(#LF_Original_Field1) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Original_Field2) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Original_Field3) Type(*DEC) Length(7) Decimals(0)
+    #LF_Original_Field1 := #$$@#
+    #LF_Original_Field2 := #@#$
+    #LF_Original_Field3 := #@@@@@@@@@
+    
+    Get_Entry Number(#LF_i) From_List(#w_lDB)
+    
+    Define Field(#LF_Updated_Field1) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Updated_Field2) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#LF_Updated_Field3) Type(*DEC) Length(7) Decimals(0)
+    #LF_Updated_Field1 := #$$@#
+    #LF_Updated_Field2 := #@#$
+    #LF_Updated_Field3 := #@@@@@@@@@
+    
+    If ((#LF_Updated_Field1 *EQ (#LF_Original_Field1 + 1)) *And (#LF_Updated_Field2 *EQ (#LF_Original_Field2 + 1)) *And (#LF_Updated_Field3 *EQ (#LF_Original_Field3 + 1)))
+    #Com_Owner.mthAdd_SubMsg( OK ('- Test Case Data Row - ' + #LF_i.AsString + ' - OK') '' )
+    #this_rc := OK
+    Else
+    If (#LF_Updated_Field1 *EQ #LF_Original_Field1)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #$$@# Data not updated') '' )
+    Endif
+    If (#LF_Updated_Field2 *NE #LF_Original_Field2)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@#$ Data not updated') '' )
+    Endif
+    If (#LF_Updated_Field3 *NE #LF_Original_Field3)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #@@@@@@@@@ Data not updated') '' )
+    Endif
+    #this_rc := ER
+    Endif
+    
+    End_Loop
+    Endif
+    
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
+    Endroutine
+    

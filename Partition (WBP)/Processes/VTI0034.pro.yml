@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0034
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Table Attribute Tests"
+
+  - ENG:
+      Description:        "Table Attribute Tests"
+
+  - FRA:
+      Description:        "Table Attribute Tests"
+
+  - JPN:
+      Description:        "Table Attribute Tests"
+
+  - TRK:
+      Description:        "Table Attribute Tests"
+
+  Functions:
+  - VI0034A:
+      Name:               VI0034A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Issue #34 Test Case Driver"
+
+      - ENG:
+          Description:        "Issue #34 Test Case Driver"
+
+      - FRA:
+          Description:        "Issue #34 Test Case Driver"
+
+      - JPN:
+          Description:        "Issue #34 Test Case Driver"
+
+      - TRK:
+          Description:        "Issue #34 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0034C:
+      Name:               VI0034C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Convert Special Characters"
+
+      - ENG:
+          Description:        "Convert Special Characters"
+
+      - FRA:
+          Description:        "Convert Special Characters"
+
+      - JPN:
+          Description:        "Convert Special Characters"
+
+      - TRK:
+          Description:        "Convert Special Characters"
+
+      Allowed Next Functions:
+      - "*ANY"

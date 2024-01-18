@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               @#$
+  Type:               Signed
+  Length:             7
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Convert Special Characters"
+      Label:              "Convert Special"
+      Heading1:           "Convert"
+      Heading2:           "Special"
+      Heading3:           "Characters"
+
+  - ENG:
+      Description:        "Convert Special Characters"
+      Label:              "Convert Special"
+      Heading1:           "Convert"
+      Heading2:           "Special"
+      Heading3:           "Characters"
+
+  - FRA:
+      Description:        "Convert Special Characters"
+      Label:              "Convert Special"
+      Heading1:           "Convert"
+      Heading2:           "Special"
+      Heading3:           "Characters"
+
+  - JPN:
+      Description:        "Convert Special Characters"
+      Label:              "Convert Special"
+      Heading1:           "Convert"
+      Heading2:           "Special"
+      Heading3:           "Characters"
+
+  - TRK:
+      Description:        "Convert Special Characters"
+      Label:              "Convert Special"
+      Heading1:           "Convert"
+      Heading2:           "Special"
+      Heading3:           "Characters"
