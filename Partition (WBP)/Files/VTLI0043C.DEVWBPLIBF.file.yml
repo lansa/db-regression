@@ -42,14 +42,14 @@
       Description:        "SELECT *BACKWARDS"
 
   Real Fields:
-  - BIFN0700A:
-      Type:               Signed
-      Length:             7
-      Decimals:           0
-
   - BIFC010A:
       Type:               Char
       Length:             10
+      Decimals:           0
+
+  - BIFN0700A:
+      Type:               Signed
+      Length:             7
       Decimals:           0
 
   - BIFA001C:
@@ -138,8 +138,8 @@
       Decimals:           0
 
   Primary Keys:
-  - BIFN0700A
   - BIFC010A
+  - BIFN0700A
 
   Logical Views:
   - LI0043CA:
@@ -167,13 +167,13 @@
           Description:        "Last Key: BIFA001C"
 
       Keys:
-      - BIFN0700A:
-          Key Order:          Ascending
-          Numeric Ordering:   Unsigned
-
       - BIFA001C:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
+
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
 
   - LI0043CB:
       Identifier:         LI0043CB
@@ -205,6 +205,39 @@
           Numeric Ordering:   Signed
 
       - BIFB001C:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - LI0043CC:
+      Identifier:         LI0043CC
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0043CC
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key: BIFC010A"
+
+      - ENG:
+          Description:        "Last Key: BIFC010A"
+
+      - FRA:
+          Description:        "Last Key: BIFC010A"
+
+      - JPN:
+          Description:        "Last Key: BIFC010A"
+
+      - TRK:
+          Description:        "Last Key: BIFC010A"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+      - BIFC010A:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
@@ -274,36 +307,69 @@
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
-  - LI0043CP:
-      Identifier:         LI0043CP
+  - LI0043CF4:
+      Identifier:         LI0043CF4
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      LI0043CP
+      Record Format:      LI0043CF4
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "Last Key: BIFP6315S"
+          Description:        "Last Key: BIFF0400S"
 
       - ENG:
-          Description:        "Last Key: BIFP6315S"
+          Description:        "Last Key: BIFF0400S"
 
       - FRA:
-          Description:        "Last Key: BIFP6315S"
+          Description:        "Last Key: BIFF0400S"
 
       - JPN:
-          Description:        "Last Key: BIFP6315S"
+          Description:        "Last Key: BIFF0400S"
 
       - TRK:
-          Description:        "Last Key: BIFP6315S"
+          Description:        "Last Key: BIFF0400S"
 
       Keys:
       - BIFN0700A:
           Key Order:          Ascending
           Numeric Ordering:   Signed
 
-      - BIFP6315S:
+      - BIFF0400S:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - LI0043CF8:
+      Identifier:         LI0043CF8
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0043CF8
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key: BIFF0800S"
+
+      - ENG:
+          Description:        "Last Key: BIFF0800S"
+
+      - FRA:
+          Description:        "Last Key: BIFF0800S"
+
+      - JPN:
+          Description:        "Last Key: BIFF0800S"
+
+      - TRK:
+          Description:        "Last Key: BIFF0800S"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+      - BIFF0800S:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
@@ -472,6 +538,72 @@
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
+  - LI0043CP:
+      Identifier:         LI0043CP
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0043CP
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key: BIFP6315S"
+
+      - ENG:
+          Description:        "Last Key: BIFP6315S"
+
+      - FRA:
+          Description:        "Last Key: BIFP6315S"
+
+      - JPN:
+          Description:        "Last Key: BIFP6315S"
+
+      - TRK:
+          Description:        "Last Key: BIFP6315S"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+      - BIFP6315S:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  - LI0043CTIME:
+      Identifier:         LI0043CTIM
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0043CTIM
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Last Key: BIFTIMEA"
+
+      - ENG:
+          Description:        "Last Key: BIFTIMEA"
+
+      - FRA:
+          Description:        "Last Key: BIFTIMEA"
+
+      - JPN:
+          Description:        "Last Key: BIFTIMEA"
+
+      - TRK:
+          Description:        "Last Key: BIFTIMEA"
+
+      Keys:
+      - BIFN0700A:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+      - BIFTIMEA:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
   - LI0043CUI1:
       Identifier:         LI0043CUI1
       Unique Key:         No
@@ -601,137 +733,5 @@
           Numeric Ordering:   Signed
 
       - BIFUINT8S:
-          Key Order:          Ascending
-          Numeric Ordering:   Unsigned
-
-  - LI0043CF4:
-      Identifier:         LI0043CF4
-      Unique Key:         No
-      Access Path:        Immediate
-      Record Format:      LI0043CF4
-      Dynamic Select:     No
-      Parameters:         LVLCHK(*YES)
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Last Key: BIFF0400S"
-
-      - ENG:
-          Description:        "Last Key: BIFF0400S"
-
-      - FRA:
-          Description:        "Last Key: BIFF0400S"
-
-      - JPN:
-          Description:        "Last Key: BIFF0400S"
-
-      - TRK:
-          Description:        "Last Key: BIFF0400S"
-
-      Keys:
-      - BIFN0700A:
-          Key Order:          Ascending
-          Numeric Ordering:   Signed
-
-      - BIFF0400S:
-          Key Order:          Ascending
-          Numeric Ordering:   Unsigned
-
-  - LI0043CF8:
-      Identifier:         LI0043CF8
-      Unique Key:         No
-      Access Path:        Immediate
-      Record Format:      LI0043CF8
-      Dynamic Select:     No
-      Parameters:         LVLCHK(*YES)
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Last Key: BIFF0800S"
-
-      - ENG:
-          Description:        "Last Key: BIFF0800S"
-
-      - FRA:
-          Description:        "Last Key: BIFF0800S"
-
-      - JPN:
-          Description:        "Last Key: BIFF0800S"
-
-      - TRK:
-          Description:        "Last Key: BIFF0800S"
-
-      Keys:
-      - BIFN0700A:
-          Key Order:          Ascending
-          Numeric Ordering:   Signed
-
-      - BIFF0800S:
-          Key Order:          Ascending
-          Numeric Ordering:   Unsigned
-
-  - LI0043CTIME:
-      Identifier:         LI0043CTIM
-      Unique Key:         No
-      Access Path:        Immediate
-      Record Format:      LI0043CTIM
-      Dynamic Select:     No
-      Parameters:         LVLCHK(*YES)
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Last Key: BIFTIMEA"
-
-      - ENG:
-          Description:        "Last Key: BIFTIMEA"
-
-      - FRA:
-          Description:        "Last Key: BIFTIMEA"
-
-      - JPN:
-          Description:        "Last Key: BIFTIMEA"
-
-      - TRK:
-          Description:        "Last Key: BIFTIMEA"
-
-      Keys:
-      - BIFN0700A:
-          Key Order:          Ascending
-          Numeric Ordering:   Signed
-
-      - BIFTIMEA:
-          Key Order:          Ascending
-          Numeric Ordering:   Unsigned
-
-  - LI0043CC:
-      Identifier:         LI0043CC
-      Unique Key:         No
-      Access Path:        Immediate
-      Record Format:      LI0043CC
-      Dynamic Select:     No
-      Parameters:         LVLCHK(*YES)
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Last Key: BIFC010A"
-
-      - ENG:
-          Description:        "Last Key: BIFC010A"
-
-      - FRA:
-          Description:        "Last Key: BIFC010A"
-
-      - JPN:
-          Description:        "Last Key: BIFC010A"
-
-      - TRK:
-          Description:        "Last Key: BIFC010A"
-
-      Keys:
-      - BIFN0700A:
-          Key Order:          Ascending
-          Numeric Ordering:   Signed
-
-      - BIFC010A:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
