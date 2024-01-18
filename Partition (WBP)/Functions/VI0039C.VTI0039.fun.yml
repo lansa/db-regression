@@ -579,7 +579,7 @@
     * FETCH C - check row does not exist
     * FETCH D - check row does not exist
     
-    #Com_Owner.mth_Add_Record_To_TableD_Is_Successful( #LF_rc )
+    #Com_Owner.mth_Add_Record_To_TableD_Is_Successful( #this_rc )
     #Com_Owner.Delete_Record_From_TableC_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
     Commit
@@ -603,10 +603,10 @@
     
     #BIFN0700A := 1
     
-    #Com_Owner.mth_Add_Record_To_TableC_Is_Successful( #LF_rc )
+    #Com_Owner.mth_Add_Record_To_TableC_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
     Commit
-    #Com_Owner.mth_Add_Record_To_TableD_Is_Successful( #LF_rc )
+    #Com_Owner.mth_Add_Record_To_TableD_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
     Commit
     
@@ -617,14 +617,14 @@
     #BIFN0700A := #BIFN0700A_New
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Updating record of table VTLI0039C') ('') )
-    #Com_Owner.Update_Record_Of_TableC_Is_Successful( #LF_rc )
+    #Com_Owner.Update_Record_Of_TableC_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Rolling back the changes') ('') )
     Rollback
-    #Com_Owner.Update_Record_Of_TableD_Is_Successful( #LF_rc )
+    #Com_Owner.Update_Record_Of_TableD_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Rolling back the changes') ('') )
     Rollback
-    #Com_Owner.Record_From_TableC_Is_Restored_Successfully( #LF_rc )
-    #Com_Owner.Record_From_TableD_Is_Update_Successful( #LF_rc )
+    #Com_Owner.Record_From_TableC_Is_Restored_Successfully( #this_rc )
+    #Com_Owner.Record_From_TableD_Is_Update_Successful( #this_rc )
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Entering Stage#6') '' )
     * UPDATE C
@@ -634,14 +634,14 @@
     * FETCH C - check updated row exists
     * FETCH D - check updated row exists
     
-    #Com_Owner.Update_Record_Of_TableC_Is_Successful( #LF_rc )
+    #Com_Owner.Update_Record_Of_TableC_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
     Commit
-    #Com_Owner.Update_Record_Of_TableD_Is_Successful( #LF_rc )
+    #Com_Owner.Update_Record_Of_TableD_Is_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- Committing the changes') ('') )
     Commit
-    #Com_Owner.Record_From_TableC_Is_Update_Successful( #LF_rc )
-    #Com_Owner.Record_From_TableD_Is_Update_Successful( #LF_rc )
+    #Com_Owner.Record_From_TableC_Is_Update_Successful( #this_rc )
+    #Com_Owner.Record_From_TableD_Is_Update_Successful( #this_rc )
     #Com_Owner.mthAdd_SubMsg( OK ('- OK') ('') )
     
     Endif
