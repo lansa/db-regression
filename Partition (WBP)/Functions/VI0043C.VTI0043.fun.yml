@@ -63,11 +63,11 @@
     Endif
     
     If (#LF_rc *EQ OK)
-    #Com_Owner.mthSelectAllChar( #LF_rc )
+    #Com_Owner.mthSelectAllAlpha( #LF_rc )
     Endif
     
     If (#LF_rc *EQ OK)
-    #Com_Owner.mthSelectSubsetChar( #LF_rc )
+    #Com_Owner.mthSelectSubsetAlpha( #LF_rc )
     Endif
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
@@ -195,9 +195,9 @@
     Endroutine
     
     *
-    * mthSelectAllChar
+    * mthSelectAllAlpha
     *
-    Mthroutine Name(mthSelectAllChar)
+    Mthroutine Name(mthSelectAllAlpha)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     #Com_Owner.mthAdd_SubMsg( OK ('Compare All Alpha Rows Backwards: ' + #LF_Original_Count.AsString + ' record(s)') '' )
@@ -248,9 +248,9 @@
     Endroutine
     
     *
-    * mthSelectSubsetChar
+    * mthSelectSubsetAlpha
     *
-    Mthroutine Name(mthSelectSubsetChar)
+    Mthroutine Name(mthSelectSubsetAlpha)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     #LF_BIFC010A_key := '2'
