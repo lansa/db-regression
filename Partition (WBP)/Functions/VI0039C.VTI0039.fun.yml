@@ -386,9 +386,9 @@
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Verifying data from Table VTLI0039D. It must have the record with Key as #BIFP0700A ' + #BIFP0700A.AsString) ('') )
     If (#Com_Owner.mthFetch_Record_From_TableD( #this_rc ))
-    #Com_Owner.mthAdd_SubMsg( OK ('- Record does not exist') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record exists') ('') )
     Else
-    #Com_Owner.mthAdd_SubMsg( ER ('- Record exists') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exist') ('') )
     Endif
     Endroutine
     
@@ -544,7 +544,7 @@
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Deleting data from Table VTLI0039C') ('') )
     If (#Com_Owner.mthDelete_Record_From_TableC( #this_rc ))
-    #Com_Owner.mthAdd_SubMsg( OK ('- Record existss') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Record exists') '' )
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exist') ('') )
     Endif
