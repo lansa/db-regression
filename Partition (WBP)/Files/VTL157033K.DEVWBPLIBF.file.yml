@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTL157033H
+  Name:                           VTL157033K
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTL157033H
+  Record Format Name:             VTL157033K
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,28 +27,28 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Alpha Physical"
 
   Real Fields:
-  - F1570331:
-      Type:               String
+  - F157033A:
+      Type:               Alphanumeric
       Length:             40
       Decimals:           0
 
-  - F15703311:
-      Type:               String
+  - F157033A1:
+      Type:               Alphanumeric
       Length:             40
       Decimals:           0
 
@@ -68,39 +68,39 @@
       Decimals:           0
 
   Primary Keys:
-  - F1570331
-  - F15703311
+  - F157033A
+  - F157033A1
 
   Logical Views:
-  - L157033H1_VARCHAR:
-      Identifier:         L157033H1V
+  - L157033KA_ALPHA:
+      Identifier:         L157033KA1
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      L157033H1V
+      Record Format:      LV157033A1
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033A_ALPHA"
 
       - ENG:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033A_ALPHA"
 
       - FRA:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033A_ALPHA"
 
       - JPN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033A_ALPHA"
 
       - TRK:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033A_ALPHA"
 
       Keys:
-      - F15703311:
+      - F157033A1:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
-      - F1570331:
+      - F157033A:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned

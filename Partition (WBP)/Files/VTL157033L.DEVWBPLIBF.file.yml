@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTL157033H
+  Name:                           VTL157033L
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTL157033H
+  Record Format Name:             VTL157033L
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,28 +27,28 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033- Select Generic Char Physical"
 
   Real Fields:
-  - F1570331:
-      Type:               String
+  - F157033H:
+      Type:               Char
       Length:             40
       Decimals:           0
 
-  - F15703311:
-      Type:               String
+  - F157033H1:
+      Type:               Char
       Length:             40
       Decimals:           0
 
@@ -68,39 +68,39 @@
       Decimals:           0
 
   Primary Keys:
-  - F1570331
-  - F15703311
+  - F157033H
+  - F157033H1
 
   Logical Views:
-  - L157033H1_VARCHAR:
-      Identifier:         L157033H1V
+  - L157033LH_CHAR:
+      Identifier:         L157033LH1
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      L157033H1V
+      Record Format:      LV157033H1
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033H_CHAR"
 
       - ENG:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033H_CHAR"
 
       - FRA:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033H_CHAR"
 
       - JPN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033H_CHAR"
 
       - TRK:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033H_CHAR"
 
       Keys:
-      - F15703311:
+      - F157033H1:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
-      - F1570331:
+      - F157033H:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned

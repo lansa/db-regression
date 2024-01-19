@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTL157033H
+  Name:                           VTL157033N
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTL157033H
+  Record Format Name:             VTL157033N
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,28 +27,28 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033-Select Generic Char-SUNI Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033-Select Generic Char-SUNI Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033-Select Generic Char-SUNI Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033-Select Generic Char-SUNI Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033-Select Generic Char-SUNI Physical"
 
   Real Fields:
-  - F1570331:
-      Type:               String
+  - F157033U:
+      Type:               Char
       Length:             40
       Decimals:           0
 
-  - F15703311:
-      Type:               String
+  - F157033U1:
+      Type:               Char
       Length:             40
       Decimals:           0
 
@@ -68,39 +68,39 @@
       Decimals:           0
 
   Primary Keys:
-  - F1570331
-  - F15703311
+  - F157033U
+  - F157033U1
 
   Logical Views:
-  - L157033H1_VARCHAR:
-      Identifier:         L157033H1V
+  - L157033NU_SUNI:
+      Identifier:         L157033NU1
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      L157033H1V
+      Record Format:      LV157033U1
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033U_SUNI"
 
       - ENG:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033U_SUNI"
 
       - FRA:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033U_SUNI"
 
       - JPN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033U_SUNI"
 
       - TRK:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F157033U_SUNI"
 
       Keys:
-      - F15703311:
+      - F157033U1:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
-      - F1570331:
+      - F157033U:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned

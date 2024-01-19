@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTL157033H
+  Name:                           VTL157033I
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTL157033H
+  Record Format Name:             VTL157033I
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,29 +27,29 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033 - Select Generic NChar Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033 - Select Generic NChar Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033 - Select Generic NChar Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033 - Select Generic NChar Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Varchar Physical"
+      Description:        "157033 - Select Generic NChar Physical"
 
   Real Fields:
-  - F1570331:
-      Type:               String
-      Length:             40
+  - F1570338:
+      Type:               NChar
+      Length:             100
       Decimals:           0
 
-  - F15703311:
-      Type:               String
-      Length:             40
+  - F15703381:
+      Type:               NChar
+      Length:             100
       Decimals:           0
 
   - F157033K1:
@@ -68,39 +68,39 @@
       Decimals:           0
 
   Primary Keys:
-  - F1570331
-  - F15703311
+  - F1570338
+  - F15703381
 
   Logical Views:
-  - L157033H1_VARCHAR:
-      Identifier:         L157033H1V
+  - L157033I8_NCHAR:
+      Identifier:         L157033I81
       Unique Key:         No
       Access Path:        Immediate
-      Record Format:      L157033H1V
+      Record Format:      LV15703381
       Dynamic Select:     No
       Parameters:         LVLCHK(*YES)
 
       Multilingual Details:
       - DAN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F1570338_NCHAR"
 
       - ENG:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F1570338_NCHAR"
 
       - FRA:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F1570338_NCHAR"
 
       - JPN:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F1570338_NCHAR"
 
       - TRK:
-          Description:        "Key: F1570331_VARCHAR"
+          Description:        "Key: F1570338_NCHAR"
 
       Keys:
-      - F15703311:
+      - F15703381:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
 
-      - F1570331:
+      - F1570338:
           Key Order:          Ascending
           Numeric Ordering:   Unsigned
