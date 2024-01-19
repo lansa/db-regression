@@ -42,6 +42,11 @@
       Description:        "157033 - Select Generic Int 1 Physical"
 
   Real Fields:
+  - BIFINT1A:
+      Type:               Integer
+      Length:             1
+      Decimals:           0
+
   - F157033K1:
       Type:               Char
       Length:             50
@@ -52,12 +57,10 @@
       Length:             4
       Decimals:           0
 
-  - BIFINT1A:
-      Type:               Integer
-      Length:             1
+  - BIFBLOBA:
+      Type:               BLOB
+      Length:             -1
       Decimals:           0
 
   Primary Keys:
-  - F157033K1
-  - F157033K2
   - BIFINT1A
