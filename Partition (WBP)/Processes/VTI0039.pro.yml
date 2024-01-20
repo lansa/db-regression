@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0039
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Programmer Commitment Control Tests"
+
+  - ENG:
+      Description:        "Programmer Commitment Control Tests"
+
+  - FRA:
+      Description:        "Programmer Commitment Control Tests"
+
+  - JPN:
+      Description:        "Programmer Commitment Control Tests"
+
+  - TRK:
+      Description:        "Programmer Commitment Control Tests"
+
+  Functions:
+  - VI0039A:
+      Name:               VI0039A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Issue #39 Test case Driver"
+
+      - ENG:
+          Description:        "Issue #39 Test case Driver"
+
+      - FRA:
+          Description:        "Issue #39 Test case Driver"
+
+      - JPN:
+          Description:        "Issue #39 Test case Driver"
+
+      - TRK:
+          Description:        "Issue #39 Test case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0039C:
+      Name:               VI0039C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Programmer Commitment Control Tests"
+
+      - ENG:
+          Description:        "Programmer Commitment Control Tests"
+
+      - FRA:
+          Description:        "Programmer Commitment Control Tests"
+
+      - JPN:
+          Description:        "Programmer Commitment Control Tests"
+
+      - TRK:
+          Description:        "Programmer Commitment Control Tests"
+
+      Allowed Next Functions:
+      - "*ANY"
