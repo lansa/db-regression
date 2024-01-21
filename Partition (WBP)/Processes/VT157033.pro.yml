@@ -215,6 +215,30 @@
       Allowed Next Functions:
       - "*ANY"
 
+  - V57033J:
+      Name:               V57033J
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Non-Char Non-Numeric Search on LV"
+
+      - ENG:
+          Description:        "Non-Char Non-Numeric Search on LV"
+
+      - FRA:
+          Description:        "Non-Char Non-Numeric Search on LV"
+
+      - JPN:
+          Description:        "Non-Char Non-Numeric Search on LV"
+
+      - TRK:
+          Description:        "Non-Char Non-Numeric Search on LV"
+
+      Allowed Next Functions:
+      - "*ANY"
+
   - V57033Z:
       Name:               V57033Z
       Display on Menu:    No
