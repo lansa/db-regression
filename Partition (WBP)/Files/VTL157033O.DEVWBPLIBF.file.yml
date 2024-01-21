@@ -47,14 +47,14 @@
       Length:             1
       Decimals:           0
 
-  - F157033K1:
-      Type:               Char
-      Length:             50
-      Decimals:           0
-
   - F157033K2:
       Type:               Integer
       Length:             4
+      Decimals:           0
+
+  - F157033K1:
+      Type:               Char
+      Length:             50
       Decimals:           0
 
   - BIFBLOBA:
