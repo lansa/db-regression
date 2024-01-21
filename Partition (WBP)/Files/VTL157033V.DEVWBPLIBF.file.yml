@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTL157033O
+  Name:                           VTL157033V
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTL157033O
+  Record Format Name:             VTL157033V
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,25 +27,25 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic SignedDecimals Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic SignedDecimals Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic SignedDecimals Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic SignedDecimals Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic SignedDecimals Physical"
 
   Real Fields:
-  - BIFINT1A:
-      Type:               Integer
-      Length:             1
-      Decimals:           0
+  - BIFN0702A:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
 
   - F157033K2:
       Type:               Integer
@@ -63,5 +63,5 @@
       Decimals:           0
 
   Primary Keys:
-  - BIFINT1A
+  - BIFN0702A
   - F157033K2

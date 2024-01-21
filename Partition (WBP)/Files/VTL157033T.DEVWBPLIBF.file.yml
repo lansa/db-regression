@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTL157033O
+  Name:                           VTL157033T
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTL157033O
+  Record Format Name:             VTL157033T
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,25 +27,25 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic PackedDecimals Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic PackedDecimals Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic PackedDecimals Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic PackedDecimals Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Int1 Physical"
+      Description:        "157033 - Generic PackedDecimals Physical"
 
   Real Fields:
-  - BIFINT1A:
-      Type:               Integer
-      Length:             1
-      Decimals:           0
+  - BIFP1504A:
+      Type:               Decimal
+      Length:             15
+      Decimals:           4
 
   - F157033K2:
       Type:               Integer
@@ -63,5 +63,5 @@
       Decimals:           0
 
   Primary Keys:
-  - BIFINT1A
+  - BIFP1504A
   - F157033K2
