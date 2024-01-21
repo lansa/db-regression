@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "157033 - Select Generic Int4 Physical"
+      Description:        "157033 - Select Generic Int8 Physical"
 
   - ENG:
-      Description:        "157033 - Select Generic Int4 Physical"
+      Description:        "157033 - Select Generic Int8 Physical"
 
   - FRA:
-      Description:        "157033 - Select Generic Int4 Physical"
+      Description:        "157033 - Select Generic Int8 Physical"
 
   - JPN:
-      Description:        "157033 - Select Generic Int4 Physical"
+      Description:        "157033 - Select Generic Int8 Physical"
 
   - TRK:
-      Description:        "157033 - Select Generic Int4 Physical"
+      Description:        "157033 - Select Generic Int8 Physical"
 
   Real Fields:
   - BIFINT8A:
@@ -47,14 +47,14 @@
       Length:             8
       Decimals:           0
 
-  - F157033K1:
-      Type:               Char
-      Length:             50
-      Decimals:           0
-
   - F157033K2:
       Type:               Integer
       Length:             4
+      Decimals:           0
+
+  - F157033K1:
+      Type:               Char
+      Length:             50
       Decimals:           0
 
   - BIFBLOBA:
