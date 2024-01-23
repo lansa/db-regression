@@ -60,6 +60,8 @@
   Primary Keys:
   - XEMPLOYID
 
+  Virtual Fields:
+
   Access Routes:
   - I0041TODEP:
       Description:        To Department Table
@@ -75,3 +77,8 @@
 
       Keys:
       - XDEPTMENT
+
+      PJFs:
+      - I0041DEPT:
+          PJF Type:           Lookup
+          Source Field:       DEPTDESC
