@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0049
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Performance Metrics"
+
+  - ENG:
+      Description:        "Performance Metrics"
+
+  - FRA:
+      Description:        "Performance Metrics"
+
+  - JPN:
+      Description:        "Performance Metrics"
+
+  - TRK:
+      Description:        "Performance Metrics"
+
+  Functions:
+  - VI0049A:
+      Name:               VI0049A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "#49 Test Case Driver"
+
+      - ENG:
+          Description:        "#49 Test Case Driver"
+
+      - FRA:
+          Description:        "#49 Test Case Driver"
+
+      - JPN:
+          Description:        "#49 Test Case Driver"
+
+      - TRK:
+          Description:        "#49 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0049C:
+      Name:               VI0049C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Performance Metrics- Literal and Bind"
+
+      - ENG:
+          Description:        "Performance Metrics- Literal and Bind"
+
+      - FRA:
+          Description:        "Performance Metrics- Literal and Bind"
+
+      - JPN:
+          Description:        "Performance Metrics- Literal and Bind"
+
+      - TRK:
+          Description:        "Performance Metrics- Literal and Bind"
+
+      Allowed Next Functions:
+      - "*ANY"

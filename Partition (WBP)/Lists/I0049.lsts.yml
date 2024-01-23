@@ -1,0 +1,15 @@
+﻿List:
+  Name:               I0049
+  Stored As:          User
+
+  Objects:
+  - VTI0044:
+      Type:               Process
+
+  - VI0044A:
+      Type:               Funciton
+      Qualifier:          VTI0044
+
+  - VI0049C:
+      Type:               Funciton
+      Qualifier:          VTI0044
