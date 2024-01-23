@@ -8,3 +8,9 @@
 
   - VTLI0041B:
       Type:               File
+
+  - I0041DEPT:
+      Type:               Field
+
+  - I0041TOTA:
+      Type:               Field

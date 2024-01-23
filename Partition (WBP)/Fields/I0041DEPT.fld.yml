@@ -1,0 +1,54 @@
+﻿Field:
+  Name:               I0041DeptDescPJC
+  Type:               Alpha
+  Length:             20
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Keyboard Shift:     SbcsAndDbcs
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - LC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  - ENG:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  - FRA:
+      Description:        "Département"
+      Label:              "Description . ."
+      Heading1:           "Description"
+      Heading2:           "Département"
+
+  - JPN:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  - TRK:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(489)
+    
+    End_Com
+    
+    End_Com
