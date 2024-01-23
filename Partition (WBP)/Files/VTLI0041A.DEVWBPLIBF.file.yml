@@ -54,3 +54,19 @@
 
   Primary Keys:
   - XEMPLOYID
+
+  Access Routes:
+  - I0041TODEP:
+      Description:        To Department Table
+      File:               VTLI0041B
+      Library:            "*FIRST"
+      Association Type:   Derive
+      Association Rule:   Derive
+      Documentation Only: No
+      Maximum Records:    1
+      Default Action:     Dummy
+      Keep Last:          0
+      Derivation:         After Virtual Fields
+
+      Keys:
+      - XDEPTMENT
