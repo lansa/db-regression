@@ -57,6 +57,36 @@
       Length:             500
       Decimals:           0
 
+  - BIFNC256A:
+      Type:               NChar
+      Length:             256
+      Decimals:           0
+
+  - BIFNV512A:
+      Type:               NVarChar
+      Length:             512
+      Decimals:           0
+
+  - BIFS512A:
+      Type:               String
+      Length:             512
+      Decimals:           0
+
+  - BIFS512B:
+      Type:               String
+      Length:             512
+      Decimals:           0
+
+  - BIFA040A:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
+  - BIFA040B:
+      Type:               Alphanumeric
+      Length:             40
+      Decimals:           0
+
   Primary Keys:
   - BIFN0700A
 
@@ -83,3 +113,69 @@
         Positive Action:    Next
         Negative Action:    Error
         Message Text:       "BIFC500A can only contain numeric digits"
+
+  - BIFNC256A:
+    - Simple Logic Check:
+        Description:        "Uppercase A-Z only"
+        Condition:          "#BIFNC256A.IsMatch( \"^[A-Z]+$\" )"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFNC256A can only contain uppercase A to Z"
+
+  - BIFNV512A:
+    - Simple Logic Check:
+        Description:        "Lowercase a-z only"
+        Condition:          "#BIFNV512A.IsMatch( \"^[a-z]+$\" )"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFNV512A can only contain lowercase a to z"
+
+  - BIFS512A:
+    - Simple Logic Check:
+        Description:        "No uppercase"
+        Condition:          "#BIFS512A.IsMatch( \"^[^A-Z]+$\" )"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFS512A cannot contain uppercase characters"
+
+  - BIFS512B:
+    - Simple Logic Check:
+        Description:        "No lowercase"
+        Condition:          "#BIFS512B.IsMatch( \"^[^a-z]+$\" )"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFS512B cannot contain lowercase characters"
+
+  - BIFA040A:
+    - Simple Logic Check:
+        Description:        "Is an email address"
+        Condition:          "#BIFA040A.IsValidEmail"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFA040A is not a valid email address format"
+
+  - BIFA040B:
+    - Simple Logic Check:
+        Description:        "Is a valid password"
+        Condition:          "#BIFA040B.IsValidPassword( Strong )"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFA040B must have 1 upper, 1 lower, 1 digit and one special char"

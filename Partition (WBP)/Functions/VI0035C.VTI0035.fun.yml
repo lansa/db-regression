@@ -337,9 +337,18 @@
     Mthroutine Name(mthTestRules)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    * *********************************************************************************************
+    * Cannot be blank
     #BIFN0700A := 1
     #BIFA032A := *BLANKS
     #BIFC500A := '0123456789'
+    #BIFNV512A := 'lowercasevalue'
+    #BIFNC256A := 'ABCZYX'
+    #BIFS512A := 'nouppercase'
+    #BIFS512B := 'NOLOWERCASE'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'ABCdef123@'
+    
     #BIFC256A := '#BIFA032A Cannot be Blank'
     #BIFC256B := 'Model'
     
@@ -357,10 +366,17 @@
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
     #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
     * *********************************************************************************************
+    * Digits (0-9) only
     
     #BIFN0700A := 1
     #BIFA032A := 'NON-BLANK'
     #BIFC500A := 'ABCDE'
+    #BIFNV512A := 'lowercasevalue'
+    #BIFNC256A := 'ABCZYX'
+    #BIFS512A := 'nouppercase'
+    #BIFS512B := 'NOLOWERCASE'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'ABCdef123@'
     
     #BIFC256A := 'BIFC500A can only contain numeric digits'
     #BIFC256B := #BIFC256A
@@ -375,6 +391,182 @@
     
     #BIFC500A := '0123456789'
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFC500A) #BIFC256B 'OK' )
+    
+    #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    
+    * *********************************************************************************************
+    * Uppercase A-Z only
+    
+    #BIFN0700A := 1
+    #BIFA032A := 'NON-BLANK'
+    #BIFC500A := '0123456789'
+    #BIFNV512A := 'lowercasevalue'
+    #BIFNC256A := 'abczxyzzz'
+    #BIFS512A := 'nouppercase'
+    #BIFS512B := 'NOLOWERCASE'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'ABCdef123@'
+    
+    #BIFC256A := 'BIFNC256A can only contain uppercase A to Z'
+    #BIFC256B := #BIFC256A
+    
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNC256A.AsNativeString) #BIFC256B )
+    
+    #BIFNC256A := 'ABCZXY'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNC256A.AsNativeString) #BIFC256B 'OK' )
+    
+    #BIFNC256A := 'abczxyzzz'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNC256A.AsNativeString) #BIFC256B )
+    
+    #BIFNC256A := 'ABCZXY'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNC256A.AsNativeString) #BIFC256B 'OK' )
+    
+    #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    
+    * *********************************************************************************************
+    * Lowercase a-z only
+    
+    #BIFN0700A := 1
+    #BIFA032A := 'NON-BLANK'
+    #BIFC500A := '0123456789'
+    #BIFNC256A := 'ABCZYX'
+    #BIFNV512A := 'ABCDEDED'
+    #BIFS512A := 'nouppercase'
+    #BIFS512B := 'NOLOWERCASE'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'ABCdef123@'
+    
+    #BIFC256A := 'BIFNV512A can only contain lowercase a to z'
+    #BIFC256B := #BIFC256A
+    
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNV512A.AsNativeString) #BIFC256B )
+    
+    #BIFNV512A := 'abczxyzzz'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNV512A.AsNativeString) #BIFC256B 'OK' )
+    
+    #BIFNV512A := 'ABCDABCD'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNV512A.AsNativeString) #BIFC256B )
+    
+    #BIFNV512A := 'abczxyzzz'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFNV512A.AsNativeString) #BIFC256B 'OK' )
+    
+    #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    
+    * *********************************************************************************************
+    * No uppercase
+    #BIFN0700A := 1
+    #BIFA032A := 'NON-BLANK'
+    #BIFC500A := '0123456789'
+    #BIFNC256A := 'ABCZYX'
+    #BIFNV512A := 'abcdefgh'
+    #BIFS512A := 'NOUPPERCASE'
+    #BIFS512B := 'NOLOWERCASE'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'ABCdef123@'
+    
+    #BIFC256A := 'BIFS512A cannot contain uppercase characters'
+    #BIFC256B := #BIFC256A
+    
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512A) #BIFC256B )
+    
+    #BIFS512A := 'abczxyzzz'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512A) #BIFC256B 'OK' )
+    
+    #BIFS512A := 'ABCDABCD'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512A) #BIFC256B )
+    
+    #BIFS512A := 'abczxyzzz'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512A) #BIFC256B 'OK' )
+    
+    #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    
+    * *********************************************************************************************
+    * No lowercase
+    #BIFN0700A := 1
+    #BIFA032A := 'NON-BLANK'
+    #BIFC500A := '0123456789'
+    #BIFNC256A := 'ABCZYX'
+    #BIFNV512A := 'abcdefgh'
+    #BIFS512A := 'abcdef'
+    #BIFS512B := 'nolowercase'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'ABCdef123@'
+    
+    #BIFC256A := 'BIFS512B cannot contain lowercase characters'
+    #BIFC256B := #BIFC256A
+    
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512B) #BIFC256B )
+    
+    #BIFS512B := 'ABCDEFGH'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512B) #BIFC256B 'OK' )
+    
+    #BIFS512B := 'abcdefghi'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512B) #BIFC256B )
+    
+    #BIFS512B := 'ABCDEFGHIJK'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFS512A) #BIFC256B 'OK' )
+    
+    #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    
+    * *********************************************************************************************
+    * Is an email address
+    #BIFN0700A := 1
+    #BIFA032A := 'NON-BLANK'
+    #BIFC500A := '0123456789'
+    #BIFNC256A := 'ABCZYX'
+    #BIFNV512A := 'abcdefgh'
+    #BIFS512A := 'abcdef'
+    #BIFS512B := 'ABCEDRFAS'
+    #BIFA040A := 'emailaddres.com'
+    #BIFA040B := 'ABCdef123@'
+    
+    #BIFC256A := 'BIFA040A is not a valid email address format'
+    #BIFC256B := #BIFC256A
+    
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040A) #BIFC256B )
+    
+    #BIFA040A := 'emailaddres@gmail.com'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040A) #BIFC256B 'OK' )
+    
+    #BIFA040A := 'emailaddres@gmail'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040A) #BIFC256B )
+    
+    #BIFA040A := 'emailaddres@gmail.com'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040A) #BIFC256B 'OK' )
+    
+    #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
+    
+    * *********************************************************************************************
+    * Is an valid password
+    #BIFN0700A := 1
+    #BIFA032A := 'NON-BLANK'
+    #BIFC500A := '0123456789'
+    #BIFNC256A := 'ABCZYX'
+    #BIFNV512A := 'abcdefgh'
+    #BIFS512A := 'abcdef'
+    #BIFS512B := 'ABCEDRFAS'
+    #BIFA040A := 'emailaddres@gmail.com'
+    #BIFA040B := 'PASSword'
+    
+    #BIFC256A := 'BIFA040B must have 1 upper, 1 lower, 1 digit and one special char'
+    #BIFC256B := #BIFC256A
+    
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040B) #BIFC256B )
+    
+    #BIFA040B := 'ABCdef123@'
+    #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040B) #BIFC256B 'OK' )
+    
+    #BIFA040B := 'TestPASS123'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040B) #BIFC256B )
+    
+    #BIFA040B := 'ABCdef123@'
+    #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFA040B) #BIFC256B 'OK' )
     
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
     #Com_Owner.mthCheck_Delete_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
