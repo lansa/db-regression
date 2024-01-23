@@ -1,9 +1,5 @@
--- Execute query to see the performance statistics with bind query.
--- This is required each time a new VM is created because the HOSTNAME changes.
--- Note: Variables cannot be used in DDL statments.
--- Instead, a string needs to be constructed containing the DDL and into which the variable may be concatenated.
--- Then the string is executed as an SQL script.
--- To aid debugging the script to be executed is first printed
+-- Execute query to see the performance statistics using bind variables.
+
 USE [LANSA]
 DECLARE @rowCount INT = 1;
 DECLARE @l_description varchar(1000);
@@ -14,7 +10,7 @@ WHILE @rowCount <= 1000
 BEGIN
     
     DECLARE l_rc CURSOR FOR
-		SELECT [F157033K1] FROM [VWBPLIBF].[VTLPerformanceStats] WHERE [F157033K2] = @rowCount
+		SELECT [F157033K1] FROM [VWBPLIBF].[VTLI0049] WHERE [F157033K2] = @rowCount
     OPEN l_rc;	
     FETCH NEXT FROM l_rc INTO @l_description;
     CLOSE l_rc;

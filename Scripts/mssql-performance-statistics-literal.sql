@@ -1,9 +1,5 @@
--- Execute query to see the performance statistics with literal query.
--- This is required each time a new VM is created because the HOSTNAME changes.
--- Note: Variables cannot be used in DDL statments.
--- Instead, a string needs to be constructed containing the DDL and into which the variable may be concatenated.
--- Then the string is executed as an SQL script.
--- To aid debugging the script to be executed is first printed
+-- Execute query to see the performance statistics using literal variables.
+
 USE [LANSA]
 DECLARE @rowCount INT = 1;
 DECLARE @l_description varchar(1000);
@@ -15,7 +11,7 @@ BEGIN
     
     set @sstr = 'DECLARE l_rc CURSOR FOR
     SELECT [F157033K1]
-    FROM [VWBPLIBF].[VTLPerformanceStats]
+    FROM [VWBPLIBF].[VTLI0049]
     WHERE [F157033K2] ='+ CAST(@rowCount AS VARCHAR(4));
 
 	EXECUTE sp_executesql @sstr;

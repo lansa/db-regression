@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTLPerformanceStats
+  Name:                           VTLI0049
   File Type:                      LANSA File
   Library:                        DEVWBPLIBF
-  Record Format Name:             VTLPERFO_1
+  Record Format Name:             VTLI0049
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,19 +27,19 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "Performance Measurement"
+      Description:        "Performance Test - Bind Variables"
 
   - ENG:
-      Description:        "Performance Measurement"
+      Description:        "Performance Test - Bind Variables"
 
   - FRA:
-      Description:        "Performance Measurement"
+      Description:        "Performance Test - Bind Variables"
 
   - JPN:
-      Description:        "Performance Measurement"
+      Description:        "Performance Test - Bind Variables"
 
   - TRK:
-      Description:        "Performance Measurement"
+      Description:        "Performance Test - Bind Variables"
 
   Real Fields:
   - F157033K2:
