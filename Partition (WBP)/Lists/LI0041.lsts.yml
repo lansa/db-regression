@@ -14,3 +14,12 @@
 
   - I0041TOTA:
       Type:               Field
+
+  - VI0041A:
+      Type:               Funciton
+
+  - VI0041C:
+      Type:               Funciton
+
+  - VTI0041:
+      Type:               Process

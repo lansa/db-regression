@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0041
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Predetermined Join Columns"
+
+  - ENG:
+      Description:        "Predetermined Join Columns"
+
+  - FRA:
+      Description:        "Predetermined Join Columns"
+
+  - JPN:
+      Description:        "Predetermined Join Columns"
+
+  - TRK:
+      Description:        "Predetermined Join Columns"
+
+  Functions:
+  - VI0041A:
+      Name:               VI0041A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Issue #41 Test Case Driver"
+
+      - ENG:
+          Description:        "Issue #41 Test Case Driver"
+
+      - FRA:
+          Description:        "Issue #41 Test Case Driver"
+
+      - JPN:
+          Description:        "Issue #41 Test Case Driver"
+
+      - TRK:
+          Description:        "Issue #41 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0041C:
+      Name:               VI0041C
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Tests for PJC type LOOKUP"
+
+      - ENG:
+          Description:        "Tests for PJC type LOOKUP"
+
+      - FRA:
+          Description:        "Tests for PJC type LOOKUP"
+
+      - JPN:
+          Description:        "Tests for PJC type LOOKUP"
+
+      - TRK:
+          Description:        "Tests for PJC type LOOKUP"
+
+      Allowed Next Functions:
+      - "*ANY"
