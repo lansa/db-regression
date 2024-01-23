@@ -1,4 +1,4 @@
-[string[]] $Roots = @("C:\Program Files (x86)\AZURESQL", "C:\Program Files (x86)\LANSA", "C:\Program Files (x86)\SQLANYWHERE", "C:\Program Files (x86)\ORACLE")
+[string[]] $Roots = @("C:\Program Files (x86)\AZURESQL", "C:\Program Files (x86)\LANSA", "C:\Program Files (x86)\MYSQL", "C:\Program Files (x86)\SQLANYWHERE", "C:\Program Files (x86)\ORACLE")
 
 Push-Location
 Write-Host "Pulling all repos..."
