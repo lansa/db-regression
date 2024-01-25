@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               BIFDATED
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIFDATED"
+      Label:              "BIFDATED"
+      Heading1:           "BIFDATED"
+
+  - ENG:
+      Description:        "BIFDATED"
+      Label:              "BIFDATED"
+      Heading1:           "BIFDATED"
+
+  - FRA:
+      Description:        "BIFDATED"
+      Label:              "BIFDATED"
+      Heading1:           "BIFDATED"
+
+  - JPN:
+      Description:        "BIFDATED"
+      Label:              "BIFDATED"
+      Heading1:           "BIFDATED"
+
+  - TRK:
+      Description:        "BIFDATED"
+      Label:              "BIFDATED"
+      Heading1:           "BIFDATED"

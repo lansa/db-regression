@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               BIFDATEC
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIFDATEC"
+      Label:              "BIFDATEC"
+      Heading1:           "BIFDATEC"
+
+  - ENG:
+      Description:        "BIFDATEC"
+      Label:              "BIFDATEC"
+      Heading1:           "BIFDATEC"
+
+  - FRA:
+      Description:        "BIFDATEC"
+      Label:              "BIFDATEC"
+      Heading1:           "BIFDATEC"
+
+  - JPN:
+      Description:        "BIFDATEC"
+      Label:              "BIFDATEC"
+      Heading1:           "BIFDATEC"
+
+  - TRK:
+      Description:        "BIFDATEC"
+      Label:              "BIFDATEC"
+      Heading1:           "BIFDATEC"

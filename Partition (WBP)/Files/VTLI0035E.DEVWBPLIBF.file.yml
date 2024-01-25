@@ -1,0 +1,148 @@
+﻿File:
+  Name:                           VTLI0035E
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTLI0035E
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Simple Date Rules"
+
+  - ENG:
+      Description:        "Simple Date Rules"
+
+  - FRA:
+      Description:        "Simple Date Rules"
+
+  - JPN:
+      Description:        "Simple Date Rules"
+
+  - TRK:
+      Description:        "Simple Date Rules"
+
+  Real Fields:
+  - BIFN0700A:
+      Type:               Signed
+      Length:             7
+      Decimals:           0
+
+  - BIFDATEA:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFDT19C:
+      Type:               Date Time
+      Length:             19
+      Decimals:           0
+
+  - BIFTIMEA:
+      Type:               Time
+      Length:             8
+      Decimals:           0
+
+  - BIFDATEB:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFDATEC:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFDATED:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  Primary Keys:
+  - BIFN0700A
+
+  File Level Validation Rules:
+  - BIFDATEA:
+    - Simple Logic Check:
+        Description:        "After today"
+        Condition:          "#BIFDATEA > *yyyymmdd"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFDATEA must be after today"
+
+  - BIFDT19C:
+    - Simple Logic Check:
+        Description:        "Cannot be SQLNull"
+        Condition:          "#BIFDT19C.isSQLNull"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message Text:       "BIFDT19C cannot be SQLNull"
+
+  - BIFTIMEA:
+    - Simple Logic Check:
+        Description:        "Cannot be SQLNull"
+        Condition:          "#BIFTIMEA.isSQLNull"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Error
+        Negative Action:    Next
+        Message Text:       "BIFTIMEA cannot be SQLNull"
+
+  - BIFDATEB:
+    - Simple Logic Check:
+        Description:        "Before today"
+        Condition:          "#BIFDATEB < *yyyymmdd"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFDATEB must be before today"
+
+  - BIFDATEC:
+    - Simple Logic Check:
+        Description:        "Today or in the future"
+        Condition:          "#BIFDATEC >= *yyyymmdd"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFDATEC must be today or in the future"
+
+  - BIFDATED:
+    - Simple Logic Check:
+        Description:        "Today or in the past"
+        Condition:          "#BIFDATED <= *yyyymmdd"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message Text:       "BIFDATED must be today or in the past"
