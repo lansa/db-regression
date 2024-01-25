@@ -45,3 +45,15 @@
   - VI0035E:
       Type:               Funciton
       Qualifier:          VTI0035
+
+  - VTLI0035F:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0035F:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI00351:
+      Type:               Funciton
+      Qualifier:          VTI0035
