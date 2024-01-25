@@ -364,7 +364,7 @@
     Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
     * BACKWARDS
     If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
+    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
     Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
     Endif
@@ -380,15 +380,9 @@
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 160
     Add_Entry To_List(#wLTestResultGenericSigned)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 176
       
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
     
     * *** Exact Signed Results
@@ -403,11 +397,7 @@
     #LF_Test_Result_VTL157033V := 0
     Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T := 1
-    Else
     #LF_Test_Result_VTL157033T := 161
-    Endif
     #LF_Test_Result_VTL157033V := 0
     Add_Entry To_List(#wLTestResultGenericPacked_DecimalsBackwards)
     
@@ -420,13 +410,9 @@
     #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 160
     Add_Entry To_List(#wLTestResultGenericDecimal)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericDecimalBackwards)
     
     * *** Exact Decimal Results
@@ -439,15 +425,10 @@
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 160
     Add_Entry To_List(#wLTestResultGenericInteger1)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033S := 160
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 176
     #LF_Test_Result_VTL157033S := 160
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
     
     * *** Exact Integer1 Results
@@ -462,13 +443,8 @@
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * *** Exact Integer2 Results
@@ -482,13 +458,8 @@
     Add_Entry To_List(#wLTestResultGenericInteger4)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger4Backwards)
     
     * *** Exact Integer4 Results
@@ -502,15 +473,9 @@
     Add_Entry To_List(#wLTestResultGenericInteger8)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
-    #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
     #LF_Test_Result_VTL157033V := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger8Backwards)
     
     * ***Exact Integer8 Results
@@ -531,11 +496,7 @@
     Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
     
     * *** Exact Signed_Decimals Results
@@ -549,13 +510,8 @@
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 16
     Add_Entry To_List(#wLTestResultGenericSigned)
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
     
     * *** Exact Signed Results
@@ -570,11 +526,7 @@
     Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T := 1
-    Else
     #LF_Test_Result_VTL157033T := 17
-    Endif
     #LF_Test_Result_VTL157033V := 0
     Add_Entry To_List(#wLTestResultGenericPacked_DecimalsBackwards)
     
@@ -588,13 +540,9 @@
     Add_Entry To_List(#wLTestResultGenericDecimal)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericDecimalBackwards)
     
     * *** Exact Decimal Results
@@ -609,9 +557,9 @@
     
     * BACKWARDS
     If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
+    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
+    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033S := 16
@@ -631,13 +579,8 @@
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * *** Exact Integer2 Results
@@ -651,13 +594,8 @@
     Add_Entry To_List(#wLTestResultGenericInteger4)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger4Backwards)
     
     * *** Exact Integer4 Results
@@ -671,15 +609,9 @@
     Add_Entry To_List(#wLTestResultGenericInteger8)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
-    #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
     #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger8Backwards)
     
     * ***Exact Integer8 Results
@@ -702,7 +634,7 @@
     
     * BACKWARDS
     If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 0
+    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 2
     Endif
     Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
     
@@ -717,13 +649,9 @@
     Add_Entry To_List(#wLTestResultGenericSigned)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericSignedBackwards)
     
     * *** Exact Signed Results
@@ -739,11 +667,7 @@
     Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T := 0
-    Else
     #LF_Test_Result_VTL157033T := 2
-    Endif
     #LF_Test_Result_VTL157033V := 0
     Add_Entry To_List(#wLTestResultGenericPacked_DecimalsBackwards)
     
@@ -757,13 +681,8 @@
     Add_Entry To_List(#wLTestResultGenericDecimal)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericDecimalBackwards)
     
     * *** Exact Decimal Results
@@ -777,14 +696,10 @@
     Add_Entry To_List(#wLTestResultGenericInteger1)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033S := 16
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
     
     * *** Exact Integer1 Results
@@ -799,13 +714,8 @@
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * *** Exact Integer2 Results
@@ -819,13 +729,8 @@
     Add_Entry To_List(#wLTestResultGenericInteger4)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger4Backwards)
     
     * *** Exact Integer4 Results
@@ -839,15 +744,10 @@
     Add_Entry To_List(#wLTestResultGenericInteger8)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
-    #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
     #LF_Test_Result_VTL157033V := 17
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger8Backwards)
     
     * ***Exact Integer8 Results
@@ -998,11 +898,7 @@
     * *** Generic Signed_Decimals Results
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 0
     #Com_Owner.mthAdd_SubMsg( OK ('Remote Platform = ' + #LF_Remote_Platform) 'Trace' )
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
     
     * BACKWARDS
@@ -1015,14 +911,8 @@
     Add_Entry To_List(#wLTestResultExactSigned_Decimals)
     
     * *** Generic Signed Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
-    
     Add_Entry To_List(#wLTestResultGenericSigned)
     
     * BACKWARDS
@@ -1040,11 +930,7 @@
     * *** Generic Packed Decimals Results
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 0
     #LF_Test_Result_VTL157033V := 0
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T := 1
-    Else
     #LF_Test_Result_VTL157033T := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
     
     * BACKWARDS
@@ -1061,13 +947,8 @@
     Add_Entry To_List(#wLTestResultExactPacked_Decimals)
     
     * *** Generic Decimal Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
-    Endif
     Add_Entry To_List(#wLTestResultGenericDecimal)
     
     * BACKWARDS
@@ -1086,25 +967,14 @@
     Add_Entry To_List(#wLTestResultExactDecimal)
     
     * *** Generic Integer1 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger1)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 160
-    #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 160
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 160
     #LF_Test_Result_VTL157033S := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 160
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
     
     * *** Exact Integer1 Results
@@ -1114,13 +984,8 @@
     Add_Entry To_List(#wLTestResultExactInteger1)
     
     * *** Generic Integer2 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
@@ -1139,13 +1004,9 @@
     Add_Entry To_List(#wLTestResultExactInteger2)
     
     * *** Generic Integer4 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 161
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 176
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger4)
     
     * BACKWARDS
@@ -1164,13 +1025,9 @@
     Add_Entry To_List(#wLTestResultExactInteger4)
     
     * *** Generic Integer8 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033V := 161
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 176
-    Endif
+    
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
     Add_Entry To_List(#wLTestResultGenericInteger8)
     
@@ -1199,11 +1056,7 @@
     
     * *** Generic Signed_Decimals Results
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 0
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
     Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
     
     * BACKWARDS
@@ -1216,13 +1069,8 @@
     Add_Entry To_List(#wLTestResultExactSigned_Decimals)
     
     * *** Generic Signed Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericSigned)
     
     * BACKWARDS
@@ -1237,11 +1085,7 @@
     
     * *** Generic Packed Decimals Results
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 0
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T := 1
-    Else
     #LF_Test_Result_VTL157033T := 17
-    Endif
     #LF_Test_Result_VTL157033V := 0
     Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
     
@@ -1259,13 +1103,8 @@
     Add_Entry To_List(#wLTestResultExactPacked_Decimals)
     
     * *** Generic Decimal Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericDecimal)
     
     * BACKWARDS
@@ -1284,25 +1123,14 @@
     Add_Entry To_List(#wLTestResultExactDecimal)
     
     * *** Generic Integer1 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger1)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 16
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
     #LF_Test_Result_VTL157033S := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 16
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
     
     * *** Exact Integer1 Results
@@ -1312,13 +1140,8 @@
     Add_Entry To_List(#wLTestResultExactInteger1)
     
     * *** Generic Integer2 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
@@ -1337,13 +1160,8 @@
     Add_Entry To_List(#wLTestResultExactInteger2)
     
     * *** Generic Integer4 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericInteger4)
     
     * BACKWARDS
@@ -1363,13 +1181,9 @@
     
     * *** Generic Integer8 Results
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger8)
     
     * BACKWARDS
@@ -1399,12 +1213,9 @@
     
     * *** Generic Signed_Decimals Results
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 0
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 0
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 2
-    Endif
     Add_Entry To_List(#wLTestResultGenericSigned_Decimals)
+    
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 2
     Add_Entry To_List(#wLTestResultGenericSigned_DecimalsBackwards)
     
@@ -1414,13 +1225,9 @@
     Add_Entry To_List(#wLTestResultExactSigned_Decimals)
     
     * *** Generic Signed Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericSigned)
     
     * BACKWARDS
@@ -1435,12 +1242,9 @@
     
     * *** Generic Packed Decimals Results
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 0
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 0
-    Else
     #LF_Test_Result_VTL157033T := 2
     #LF_Test_Result_VTL157033V := 0
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericPacked_Decimals)
     
     * BACKWARDS
@@ -1453,13 +1257,8 @@
     Add_Entry To_List(#wLTestResultExactPacked_Decimals)
     
     * *** Generic Decimal Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
     Add_Entry To_List(#wLTestResultGenericDecimal)
     
     * BACKWARDS
@@ -1478,24 +1277,16 @@
     Add_Entry To_List(#wLTestResultExactDecimal)
     
     * *** Generic Integer1 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger1)
     
     * BACKWARDS
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U #LF_Test_Result_VTL157033S := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 16
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
     #LF_Test_Result_VTL157033S := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 16
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger1Backwards)
     
     * *** Exact Integer1 Results
@@ -1505,13 +1296,9 @@
     Add_Entry To_List(#wLTestResultExactInteger1)
     
     * *** Generic Integer2 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    Else
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
@@ -1530,13 +1317,9 @@
     Add_Entry To_List(#wLTestResultExactInteger2)
     
     * *** Generic Integer4 Results
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033S #LF_Test_Result_VTL157033U := 32
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger4)
     
     * BACKWARDS
@@ -1556,13 +1339,9 @@
     
     * *** Generic Integer8 Results
     #LF_Test_Result_VTL157033T #LF_Test_Result_VTL157033S := 640
-    If (#LF_Remote_Platform *EQ I)
-    #LF_Test_Result_VTL157033V := 1
-    #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 16
-    Else
     #LF_Test_Result_VTL157033V := 17
     #LF_Test_Result_VTL157033O #LF_Test_Result_VTL157033P #LF_Test_Result_VTL157033Q #LF_Test_Result_VTL157033R #LF_Test_Result_VTL157033U := 32
-    Endif
+    
     Add_Entry To_List(#wLTestResultGenericInteger8)
     
     * BACKWARDS
