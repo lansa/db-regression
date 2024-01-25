@@ -100,14 +100,33 @@
     #DeptCode := 'LNZ1'
     #DeptDescription := 'Development Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
-    * #Com_Owner.mthFetch_Record_From_Department_Table_Is_Successful( #this_rc )
     
     #EmpID := '001'
     #SALARY := 2500
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
-    * #Com_Owner.mthFetch_Record_From_Employee_Table_Is_Successful( #this_rc )
     
-    #Com_Owner.mthCheck_Department_Description_PJC_Lookup_For_Employee_Table_Is_Correctly_Computed( #this_rc )
+    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Computed( #this_rc )
+    
+    #DeptCode := 'LNZ2'
+    #DeptDescription := 'QA Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    
+    #EmpID := '002'
+    #SALARY := 3000
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    
+    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Computed( #this_rc )
+    
+    #DeptCode := 'LNZ3'
+    #DeptDescription := 'Marketing Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    
+    #EmpID := '003'
+    #SALARY := 4500
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    
+    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Computed( #this_rc )
+    
     Endroutine
     
     *
@@ -127,6 +146,65 @@
     #Com_Owner.mthAdd_SubMsg( ER ('- Failed') '' )
     Endif
     Endroutine
+    
+    Mthroutine Name(mthAdd_Record_To_Department_Table_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Department Table VTLI0041B') ('') )
+    If (#Com_Owner.mthAdd_Record_To_Department_Table( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Record does not exist') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthAdd_Record_To_Employee_Table_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Employee Table VTLI0041A') ('') )
+    If (#Com_Owner.mthAdd_Record_To_Employee_Table( #this_rc ))
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Record does not exist') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Computed)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Check for each Employee, Department Description is correctly mapped') ('') )
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Select Fields(#EmpID) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lEmployeeTable)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('-  ' + #LF_Records_Count_Employee_Table.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count_Employee_Table > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count_Employee_Table)
+    Get_Entry Number(#LF_i) From_List(#w_lEmployeeTable)
+    
+    #Com_Owner.mthFetch_Record_From_Employee_Table_Is_Successful( #this_rc )
+    #Com_Owner.mthFetch_Record_From_Department_Table_Is_Successful( #this_rc )
+    If (#I0041DeptDescPJC *EQ #DeptDescription)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Correctly mapped Department Description as "' + #I0041DeptDescPJC + '"') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrectly mapped Department Description as "' + #I0041DeptDescPJC + '"') ('') )
+    Leave
+    Endif
+    End_Loop
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Endroutine
+    
     
     Mthroutine Name(mthClearDataFromEmployeeTable)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
@@ -206,16 +284,6 @@
     Clr_List Named(#w_lDepartmentTable)
     Endroutine
     
-    Mthroutine Name(mthAdd_Record_To_Department_Table_Is_Successful)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Department Table VTLI0041B') ('') )
-    If (#Com_Owner.mthAdd_Record_To_Department_Table( #this_rc ))
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Record does not exist') ('') )
-    Else
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
-    Endif
-    Endroutine
     
     *
     * This routine returns boolean value true if for the given key, the process is able to fetch record from the table VTLI0041B
@@ -266,16 +334,6 @@
     Endif
     Endroutine
     
-    Mthroutine Name(mthAdd_Record_To_Employee_Table_Is_Successful)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Employee Table VTLI0041A') ('') )
-    If (#Com_Owner.mthAdd_Record_To_Employee_Table( #this_rc ))
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Record does not exist') ('') )
-    Else
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
-    Endif
-    Endroutine
     
     *
     * This routine returns boolean value true if for the given key, the process is able to fetch record from the table VTLI0041A
@@ -325,18 +383,4 @@
     Endif
     Endroutine
     
-    Mthroutine Name(mthCheck_Department_Description_PJC_Lookup_For_Employee_Table_Is_Correctly_Computed)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Validating PJC Type, Lookup for Department Description of Employee table') ('') )
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Check for the #EmpID "' + #EmpID + '" #DeptCode ' + #DeptCode + '" Department Description is correctly generated') ('') )
-    
-    #Com_Owner.mthFetch_Record_From_Employee_Table_Is_Successful( #this_rc )
-    #Com_Owner.mthFetch_Record_From_Department_Table_Is_Successful( #this_rc )
-    If (#I0041DeptDescPJC *EQ #DeptDescription)
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Correct Department Description is mapped as "' + #I0041DeptDescPJC + '"') ('') )
-    Else
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Department Description is mapped as "' + #I0041DeptDescPJC + '"') ('') )
-    
-    Endif
-    Endroutine
