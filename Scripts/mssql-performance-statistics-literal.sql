@@ -1,14 +1,12 @@
 -- Execute query to see the performance statistics using literal variables.
 
-USE [LANSA]
 DECLARE @rowCount INT = 1;
 DECLARE @l_description varchar(1000);
 DECLARE @l_start DATETIME2 = GETDATE();
 DECLARE @sstr nvarchar(500);
 
 WHILE @rowCount <= 1000
-BEGIN
-    
+BEGIN    
     set @sstr = 'DECLARE l_rc CURSOR FOR
     SELECT [F157033K1]
     FROM [VWBPLIBF].[VTLI0049]
@@ -22,7 +20,7 @@ BEGIN
     set @rowCount = @rowCount + 1;
 END
 
-PRINT CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ' MilliSeconds...';
+PRINT 'SQL Server Literal ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ' MilliSeconds...';
 
 
  

@@ -18,31 +18,31 @@
     
     Define Field(#LF_i) Reffld(#Std_Count)
     Define Field(#LF_Count) Reffld(#Std_Count)
-    Define Field(#LF_rc) Reffld(#BIFA002A)
-    Define Field(#LF_logfile_name) Reffld(#BIFA010A)
-    Define Field(#LF_commandLine_script) Reffld(#BIFA010A)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_logfile_name) Reffld(#BIFA256A)
+    * DB Type
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
-    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthGetExecutionType()
     
-    * DELETE / INSERT TEST DATA.
+    If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W))
+    * DELETE and INSERT TEST DATA.
     #com_owner.mthDoDelete( #LF_rc )
     #Com_Owner.mthInsert( #LF_rc )
+    If (*OSBITNESS *EQ 32)
+    * Execute SQL Script
+    #Com_Owner.mthExecuteSqlScript( #Lf_rc )
+    Endif
+    Else
+    #Com_Owner.mthAdd_Msg( OK ('Skipping all platforms except Local Windows') ('') )
+    Endif
     
-    *
-    * Execute SQL script
-    *
-    * Initialize local variables.
-    * #LF_rc := OK
-    * #LF_logfile_name := 'c:\temp\PerformanceMetricsLog.txt'
-    * #LF_commandLine_script := 'SQLCMD -S <servername/InstanceName> -U -P -i "C:\Program Files (x86)\Lansa\LANSA\VersionControl\Scripts\mssql-performance-statistics-bind.sql'
-    *
-    * Use Builtin(SYSTEM_COMMAND) With_Args('X' #LF_commandLine_script ' ' #LF_logfile_name) To_Get(#STD_NUM)
-    * If Cond(#LF_rc = ER)
-    * #Com_Owner.mthAdd_SubMsg( ER ('- Log file path does not exist: ' + #LF_logfile_name) ('') )
-    * Endif
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Return
     
     *
     * Delete Data.
@@ -52,7 +52,7 @@
     
     #LF_i := 0
     Dowhile Cond(#this_rc = OK)
-    Fetch Fields(#F157033K1 #F157033K2) From_File(VTLI0049) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Fetch Fields(#F157033K2) From_File(VTLI0049) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc = OK)
     #LF_i += 1
     Delete From_File(VTLI0049) With_Key(#F157033K2) Io_Error(*NEXT) Val_Error(*NEXT)
@@ -89,8 +89,76 @@
     Endif
     Endroutine
     
+    *
+    * Execute Sql Script on MSSQL, MySql,Azure SQL, Oracle and SQL Anywhere
+    *
+    Mthroutine Name(mthExecuteSqlScript)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    #LF_rc := OK
+    #LF_logfile_name := *ROOT_DIR + '\PerformanceMetricsLog.txt'
     
+    Define Field(#LF_script) Reffld(#STD_STRNG)
+    Define Field(#LF_Command) Reffld(#STD_STRNG)
+    Define Field(#LF_parameters) Reffld(#STD_STRNG)
+    Define Field(#LF_ReturnCode) Reffld(#STD_INT)
+    
+    Case Of_Field(#LF_DB_Type)
+    When Value_Is(= MSSQLS)
+    #LF_Command := 'mssql-performance-statistics.ps1'
+    
+    When Value_Is(= SQLAZURE)
+    * #LF_Command := 'sqlazure-performance-statistics.ps1'
+    
+    When Value_Is(= ODBCORACLE)
+    * #LF_Command := 'odbcoracle-performance-statistics.ps1'
+    
+    When Value_Is(= MYSQL)
+    * #LF_Command := 'mysql-performance-statistics.ps1'
+    
+    When Value_Is(= SQLANYWHERE)
+    * #LF_command := 'sqlanywhere-performance-statistics.ps1'
+    Endcase
+    
+    #Com_Owner.RunPowershellScript Scriptname(#LF_Command) Parameters('') Logname(#LF_logfile_name) Isignoreerrors(False) Returncode(#LF_ReturnCode)
+    
+    If (#LF_ReturnCode <> 0)
+    #Com_Owner.mthAdd_SubMsg( ER ('PowerShell error Return Code ' + #LF_ReturnCode.asString) ('') )
+    #this_rc := ER
+    Endif
+    
+    Endroutine
+    
+    *
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
+    Endroutine
+    
+    *
     * Add a message to the Return Message List.
+    *
     Mthroutine Name(mthAdd_Msg)
     Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
     Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
@@ -102,7 +170,9 @@
     Add_Entry To_List(#wLRet)
     Endroutine
     
+    *
     * Add a sub message to the Return Message List.
+    *
     Mthroutine Name(mthAdd_SubMsg)
     Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
     Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
@@ -133,3 +203,93 @@
     Endwhile
     Endroutine
     
+    Mthroutine Name(RunPowershellScript) Options(*FINAL)
+    Define_Map For(*INPUT) Class(#STD_STRNG) Name(#ScriptName)
+    Define_Map For(*INPUT) Class(#STD_STRNG) Name(#Parameters)
+    Define_Map For(*INPUT) Class(#STD_STRNG) Name(#LogName)
+    Define_Map For(*INPUT) Class(#PRIM_BOLN) Name(#IsIgnoreErrors) Mandatory(false)
+    Define_Map For(*INPUT) Class(#STD_STRNG) Name(#ScriptDirectory) Mandatory(*NULL) Desc('Default is git repo scripts directory')
+    Define_Map For(*OUTPUT) Class(#STD_INT) Name(#ReturnCode) Mandatory(0)
+    Define_Map For(*RESULT) Class(#Prim_boln) Name(#Result)
+    
+    Define_Com Class(#std_strng) Name(#CmdLine)
+    
+    #Result := False
+    
+    If (#ScriptDirectory.IsNull)
+    #ScriptDirectory := *ROOT_DIR + '\LANSA\VersionControl\Scripts\'
+    Endif
+    
+    #CmdLine := '%SystemRoot%\sysnative\WindowsPowerShell\v1.0\powershell.exe '
+    #CmdLine += '-NonInteractive -NoProfile -ExecutionPolicy unrestricted -command "& {'
+    #CmdLine += 'cmd /c exit -2;' /* set an exit code that indicates there is a syntax error elsewhere on this cmdline */
+    * #CmdLine += '$env:processor_architecture; '    /* Enable this to show the bitness of Powershell being executed - expected to be 64 bit */
+    #CmdLine += "&'" + #ScriptDirectory + #ScriptName + "'" + ' '
+    #CmdLine += #Parameters
+    * #CmdLine += ';pause' /* Enable this line to diagnose syntax issues */
+    * #CmdLine += " 2>&1 | Out-File -Append -Encoding 'ASCII' -FilePath '" + #LogName + "';"
+    #CmdLine += ';exit $LastExitCode}"'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Running ' + #CmdLine) (' in directory ' + #ScriptDirectory) )
+    
+    If ((*Not #COM_SELF.ExecuteSystemCommand( #CmdLine #ScriptDirectory #LogName #ReturnCode )) *And (*Not #IsIgnoreErrors))
+    #Com_Owner.mthAdd_SubMsg( ER ('Powershell error ' + #ReturnCode.AsString) ('') )
+    Endif
+    
+    Endroutine
+    
+    * Execute a non-builtin program
+    * Command line programs like dir, copy, etc will not work.
+    Mthroutine Name(ExecuteSystemCommand)
+    Define_Map For(*INPUT) Class(#std_strng) Name(#Command)
+    Define_Map For(*INPUT) Class(#std_strng) Name(#Directory) Mandatory('')
+    Define_Map For(*INPUT) Class(#std_strng) Name(#LogFileName) Mandatory(true)
+    Define_Map For(*OUTPUT) Class(#STD_INT) Name(#ReturnCode) Mandatory(0)
+    Define_Map For(*RESULT) Class(#Prim_boln) Name(#Result)
+    
+    Define_Com Class(#STD_qsel) Name(#CommandFile)
+    Define_Com Class(#STD_NUM) Name(#StartPos)
+    
+    Def_List Name(#Cmd) Fields(#STD_STRNG) Type(*WORKING)
+    
+    #Result := False
+    
+    #CommandFile := *temp_dir + 'ExecuteSystemCommand.cmd'
+    
+    Clr_List Named(#Cmd)
+    
+    If (#Directory = *blank)
+    #directory := *ROOT_DIR
+    Endif
+    
+    #StartPos := 1
+    If (#Directory.Substring( 1 1 ) *EQ '"')
+    * Skip past a double quote
+    #StartPos := 2
+    Endif
+    
+    #STD_STRNG := "@ECHO OFF"
+    Add_Entry To_List(#Cmd)
+    
+    #STD_STRNG := #Directory.substring( #StartPos 2 )
+    Add_Entry To_List(#Cmd)
+    
+    #STD_STRNG := 'cd ' + #Directory
+    Add_Entry To_List(#Cmd)
+    
+    #STD_STRNG := #Command
+    Add_Entry To_List(#Cmd)
+    
+    Use Builtin(transform_list) With_Args(#Cmd #CommandFile T *Default *Default '.') To_Get(#LF_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Running ' + #CommandFile + ' logged to ' + #LogFileName) ('') )
+    
+    Use Builtin(SYSTEM_COMMAND) With_Args(B (#CommandFile + ' >> "' + #LogFileName + '" 2>&1')) To_Get(#ReturnCode)
+    
+    If (#ReturnCode <> 0)
+    Return
+    Endif
+    
+    #Result := True
+    
+    Endroutine
