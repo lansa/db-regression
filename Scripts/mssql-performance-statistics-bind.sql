@@ -16,4 +16,4 @@ BEGIN
     set @rowCount = @rowCount + 1;
 END
 
-PRINT 'MSSQLS, Bind, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ' milliseconds';
+PRINT 'MSSQLS, Bind, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ', milliseconds';

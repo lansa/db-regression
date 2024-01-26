@@ -20,4 +20,4 @@ BEGIN
     set @rowCount = @rowCount + 1;
 END
 
-PRINT 'MSSQLS, Literal, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ' milliseconds';
+PRINT 'MSSQLS, Literal, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ', milliseconds';
