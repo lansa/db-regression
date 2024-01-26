@@ -344,15 +344,15 @@
     #BIFDT19C := *SQLNULL
     #BIFTIMEA := '20:10:14'
     #BIFDATEA := *DATE
-    #BIFDATED := #BIFDATEA
-    #BIFDATEB := #BIFDATEA.Adjust( -1 )
-    #BIFDATEA := #BIFDATEA.Adjust( 1 )
-    #BIFDATEC := #BIFDATEB.Adjust( 1 )
+    #BIFDATED := #BIFDATEA.Adjust( -4 )
+    #BIFDATEB := #BIFDATEA.Adjust( -4 )
+    #BIFDATEA := #BIFDATEA.Adjust( 4 )
+    #BIFDATEC := #BIFDATEB.Adjust( 10 )
     
     #BIFC256A := 'BIFDT19C cannot be SQLNull'
     #BIFC256B := #BIFC256A
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Test Data: ' + #BIFDATEA.AsString) 'No VE messages expected' )
+    #Com_Owner.mthAdd_SubMsg( OK ('Value test: ' + #BIFDATEA.AsString) 'No VE messages expected' )
     
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDT19C.AsString) #BIFC256B )
     
@@ -374,10 +374,10 @@
     #BIFN0700A := 1
     #BIFDT19C := '2030-12-30 00:00:00'
     #BIFDATEA := *DATE
-    #BIFDATED := #BIFDATEA
-    #BIFDATEB := #BIFDATEA.Adjust( -1 )
-    #BIFDATEA := #BIFDATEA.Adjust( 1 )
-    #BIFDATEC := #BIFDATEB.Adjust( 1 )
+    #BIFDATED := #BIFDATEA.Adjust( -4 )
+    #BIFDATEB := #BIFDATEA.Adjust( -4 )
+    #BIFDATEA := #BIFDATEA.Adjust( 4 )
+    #BIFDATEC := #BIFDATEB.Adjust( 10 )
     #BIFTIMEA := *SQLNULL
     
     #BIFC256A := 'BIFTIMEA cannot be SQLNull'
@@ -404,22 +404,23 @@
     #BIFDT19C := '2030-12-30 00:00:00'
     #BIFTIMEA := '10:10:10'
     #BIFDATEA := *DATE
-    #BIFDATED := #BIFDATEA
-    #BIFDATEB := #BIFDATEA.Adjust( -1 )
-    #BIFDATEC := #BIFDATEB.Adjust( 1 )
+    #BIFDATED := #BIFDATEA.Adjust( -4 )
+    #BIFDATEB := #BIFDATEA.Adjust( -4 )
+    #BIFDATEA := #BIFDATEA.Adjust( -4 )
+    #BIFDATEC := #BIFDATEB.Adjust( 10 )
     
     #BIFC256A := 'BIFDATEA must be after today'
     #BIFC256B := #BIFC256A
     
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEA.AsString) #BIFC256B )
     
-    #BIFDATEA := #BIFDATEA.Adjust( 2 )
+    #BIFDATEA := #BIFDATEA.Adjust( 10 )
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEA.AsString) #BIFC256B 'OK' )
     
-    #BIFDATEA := *DATE
+    #BIFDATEA := #BIFDATEA.Adjust( -20 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEA.AsString) #BIFC256B )
     
-    #BIFDATEA := #BIFDATEA.Adjust( 1 )
+    #BIFDATEA := #BIFDATEA.Adjust( 30 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEA.AsString) #BIFC256B 'OK' )
     
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
@@ -432,22 +433,24 @@
     #BIFDT19C := '2030-12-30 00:00:00'
     #BIFTIMEA := '10:10:10'
     #BIFDATEB := *DATE
-    #BIFDATED := #BIFDATEB
-    #BIFDATEA := #BIFDATEB.Adjust( 1 )
-    #BIFDATEC := #BIFDATEB.Adjust( 1 )
+    #BIFDATED := #BIFDATEB.Adjust( -4 )
+    #BIFDATEB := #BIFDATEB.Adjust( 6 )
+    #BIFDATEA := #BIFDATEB.Adjust( 10 )
+    #BIFDATEC := #BIFDATEB.Adjust( 10 )
+    
     
     #BIFC256A := 'BIFDATEB must be before today'
     #BIFC256B := #BIFC256A
     
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEB.AsString) #BIFC256B )
     
-    #BIFDATEB := #BIFDATEB.Adjust( -1 )
+    #BIFDATEB := #BIFDATEB.Adjust( -10 )
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEB.AsString) #BIFC256B 'OK' )
     
-    #BIFDATEB := *DATE
+    #BIFDATEB := #BIFDATEB.Adjust( 20 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEB.AsString) #BIFC256B )
     
-    #BIFDATEB := #BIFDATEB.Adjust( -1 )
+    #BIFDATEB := #BIFDATEB.Adjust( -30 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEB.AsString) #BIFC256B 'OK' )
     
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
@@ -460,23 +463,24 @@
     #BIFDT19C := '2030-12-30 00:00:00'
     #BIFTIMEA := '10:10:10'
     #BIFDATEC := *DATE
-    #BIFDATED := #BIFDATEC
-    #BIFDATEB := #BIFDATEC.Adjust( -1 )
-    #BIFDATEA := #BIFDATEC.Adjust( 1 )
-    #BIFDATEC := #BIFDATEC.Adjust( -2 )
+    #BIFDATED := #BIFDATEC.Adjust( -4 )
+    #BIFDATEB := #BIFDATEC.Adjust( -6 )
+    #BIFDATEA := #BIFDATEC.Adjust( 10 )
+    #BIFDATEC := #BIFDATEC.Adjust( -20 )
+    
     
     #BIFC256A := 'BIFDATEC must be today or in the future'
     #BIFC256B := #BIFC256A
     
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEC.AsString) #BIFC256B )
     
-    #BIFDATEC := #BIFDATEC.Adjust( 5 )
+    #BIFDATEC := #BIFDATEC.Adjust( 20 )
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEC.AsString) #BIFC256B 'OK' )
     
-    #BIFDATEC := #BIFDATEC.Adjust( -10 )
+    #BIFDATEC := #BIFDATEC.Adjust( -30 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEC.AsString) #BIFC256B )
     
-    #BIFDATEC := #BIFDATEC.Adjust( 20 )
+    #BIFDATEC := #BIFDATEC.Adjust( 40 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEC.AsString) #BIFC256B 'OK' )
     
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
@@ -489,23 +493,23 @@
     #BIFDT19C := '2030-12-30 00:00:00'
     #BIFTIMEA := '10:10:10'
     #BIFDATED := *DATE
-    #BIFDATEB := #BIFDATED.Adjust( -1 )
-    #BIFDATEA := #BIFDATED.Adjust( 1 )
+    #BIFDATEB := #BIFDATED.Adjust( -4 )
+    #BIFDATEA := #BIFDATED.Adjust( 5 )
     #BIFDATEC := #BIFDATED.Adjust( 20 )
-    #BIFDATED := #BIFDATED.Adjust( 1 )
+    #BIFDATED := #BIFDATED.Adjust( 40 )
     
     #BIFC256A := 'BIFDATED must be today or in the past'
     #BIFC256B := #BIFC256A
     
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATED.AsString) #BIFC256B )
     
-    #BIFDATED := #BIFDATEC.Adjust( -20 )
+    #BIFDATED := #BIFDATED.Adjust( -50 )
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATED.AsString) #BIFC256B 'OK' )
     
-    #BIFDATED := #BIFDATEC.Adjust( 40 )
+    #BIFDATED := #BIFDATED.Adjust( 60 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATED.AsString) #BIFC256B )
     
-    #BIFDATED := *DATE
+    #BIFDATED := #BIFDATED.Adjust( -80 )
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATED.AsString) #BIFC256B 'OK' )
     
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )
