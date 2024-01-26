@@ -35,12 +35,27 @@
     * Local Copies of Table Columns - matches following List fields
     Define Field(#LF_BIFN0700A) Reffld(#BIFN0700A)
     Define Field(#LF_BIFC010A_key) Reffld(#BIFC010A)
+    Define Field(#LF_numeric_key) Reffld(#BIFINT1S)
     Define Field(#LF_BIFC010A) Reffld(#BIFC010A)
     Define Field(#LF_BIFA001C) Reffld(#BIFA001C)
-    
+    Define Field(#LF_BIFP6315S) Reffld(#BIFP6315S)
+    Define Field(#LF_BIFINT1S) Reffld(#BIFINT1S)
+    Define Field(#LF_BIFINT2S) Reffld(#BIFINT2S)
+    Define Field(#LF_BIFINT4S) Reffld(#BIFINT4S)
+    Define Field(#LF_BIFINT8S) Reffld(#BIFINT8S)
+    Define Field(#LF_BIFU100C) Reffld(#BIFU100C)
+    Define Field(#LF_BIFUINT1S) Reffld(#BIFUINT1S)
+    Define Field(#LF_BIFUINT2S) Reffld(#BIFUINT2S)
+    Define Field(#LF_BIFUINT4S) Reffld(#BIFUINT4S)
+    Define Field(#LF_BIFUINT8S) Reffld(#BIFUINT8S)
+    Define Field(#LF_BIFNV100A) Reffld(#BIFNV100A)
+    Define Field(#LF_BIFF0400S) Reffld(#BIFF0400S)
+    Define Field(#LF_BIFF0800S) Reffld(#BIFF0800S)
+    Define Field(#LF_BIFS100A) Reffld(#BIFS100A)
+    Define Field(#LF_From) Reffld(#STD_COUNT)
     
     * #XG_ALL includes all Fields in the Table
-    Group_By Name(#XG_ALL) Fields(#BIFN0700A #BIFC010A #BIFA001C)
+    Group_By Name(#XG_ALL) Fields(#BIFN0700A #BIFC010A #BIFA001C #BIFU100C #BIFNV100A #BIFS100A #BIFP6315S #BIFINT1S #BIFINT2S #BIFINT4S #BIFINT8S #BIFUINT1S #BIFUINT2S #BIFUINT4S #BIFUINT8S #BIFF0400S #BIFF0800S)
     
     Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING) Entrys(*MAX)
@@ -69,7 +84,13 @@
     If (#LF_rc *EQ OK)
     #Com_Owner.mthSelectSubsetAlpha( #LF_rc )
     Endif
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthSelectAllDecimal( #LF_rc )
+    Endif
     
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthSelectSubsetDecimal( #LF_rc )
+    Endif
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
     Return
@@ -173,7 +194,8 @@
     Begin_Loop Using(#LF_J) To(#LF_BIFC010A_COUNT)
     Begin_Loop Using(#LF_I) From(#LF_BIFN0700A_FromCount) To(#LF_BIFN0700A_ToCount)
     #BIFN0700A := #LF_i
-    #BIFC010A #BIFA001C := #LF_Alphabet.Substring( #LF_J 1 )
+    #BIFC010A #BIFA001C #BIFU100C #BIFNV100A #BIFS100A := #LF_Alphabet.Substring( #LF_J 1 )
+    #BIFP6315S #BIFINT1S #BIFINT2S #BIFINT4S #BIFINT8S #BIFUINT1S #BIFUINT2S #BIFUINT4S #BIFUINT8S #BIFF0400S #BIFF0800S := #LF_Alphabet.Substring( #LF_J 1 ).AsNumber()
     Add_Entry To_List(#w_lOriginal)
     End_Loop
     End_Loop
@@ -309,6 +331,124 @@
     Endif
     Endroutine
     
+    *
+    * mthSelectAllDecimal
+    *
+    Mthroutine Name(mthSelectAllDecimal)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare All Decimal Rows Backwards: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(*ALL) From_File(LI0043CP) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Add_Entry To_List(#w_lDB)
+    Endselect
+    
+    If (#this_rc *EQ ER)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Selecting record ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    If (#LF_Original_Count *NE #LF_DB_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Expected # rows ' + #LF_Original_Count.asString) ('Actual rows ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    * Loop through the original list backwards and the DB list forwards (which has the BACKWARDS rows)
+    
+    #LF_j := 1
+    #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
+    
+    Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
+    #LF_BIFP6315S := #BIFP6315S
+    
+    Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Entry Number ' + #LF_j.AsString + ' may not exist in list LF_lDB') )
+    Leave
+    Endif
+    
+    If (#LF_BIFP6315S <> #BIFP6315S)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP6315S data mismatch') '' )
+    #this_rc := ER
+    Leave
+    Endif
+    
+    #LF_j += 1
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    * mthSelectSubsetDecimal
+    *
+    Mthroutine Name(mthSelectSubsetDecimal)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #LF_numeric_key := 2
+    
+    Clr_List Named(#w_lDB)
+    Select Fields(*ALL) From_File(LI0043CP) With_Key(#LF_numeric_key) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS)
+    Add_Entry To_List(#w_lDB)
+    Endselect
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare Decimal Rows Backwards where #BIFP6315S = ' + #LF_numeric_Key.AsString + ' : ' + #LF_DB_Count.AsString + ' record(s)') '' )
+    
+    If (#this_rc *EQ ER)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Selecting record ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    #LF_WorkingCount := #LF_Original_Count / (#LF_Alphabet.CurChars)
+    
+    * Expecting 1 set of Numeric data (2,A), (2,B), etc
+    If (#LF_WorkingCount *NE #LF_DB_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Expected # rows ' + #LF_WorkingCount.asString) ('Actual rows ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    * Loop through the original list backwards and the DB list forwards (which has the BACKWARDS rows)
+    #LF_j := 1
+    #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
+    
+    Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
+    #LF_BIFP6315S := #BIFP6315S
+    
+    * Only check the matching rows
+    If (#LF_BIFP6315S *NE #LF_BIFC010A_key.Substring( 1 1 ).AsNumber)
+    Continue
+    Endif
+    
+    Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Entry Number ' + #LF_j.AsString + ' may not exist in list LF_lDB') )
+    Leave
+    Endif
+    
+    If (#LF_BIFP6315S <> #BIFP6315S)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP6315S data mismatch') '' )
+    #this_rc := ER
+    Leave
+    Endif
+    
+    #LF_j += 1
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
     *
     * mthShowData
     *
