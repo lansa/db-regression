@@ -27,7 +27,7 @@ WHILE @rowCount <= 1000 Do
 	END;
 END WHILE;
 
-SELECT concat('MYSQL, Literal, ' , TIMESTAMPDIFF(microsecond, l_start, now(3))/1000, ', milliseconds') as Elapsedtime;
+SELECT concat('MYSQL, Literal, ' , TRUNCATE(TIMESTAMPDIFF(microsecond, l_start, now(3))/1000,0), ', milliseconds') as Elapsedtime;
 END$$
 
 DELIMITER ;
