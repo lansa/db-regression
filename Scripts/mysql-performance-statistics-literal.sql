@@ -18,7 +18,7 @@ SET  @rowCount = 1;
 SET l_start = now(3);
 WHILE @rowCount <= 1000 Do
 	BEGIN		  
-        SET @l_sqlQuery =CONCAT('SELECT BIFC001KA INTO @l_description FROM LANSA.VWBPLIBF_VTLI0049C Where BIFINT4A=', @rowCount,' limit 1');
+        SET @l_sqlQuery =CONCAT('SELECT F157033K1 INTO @l_description FROM LANSA.VWBPLIBF_VTLI0049 Where F157033K2=', @rowCount,' limit 1');
         PREPARE statement FROM @l_sqlQuery;
         EXECUTE statement;
 		DEALLOCATE PREPARE statement;
@@ -27,7 +27,7 @@ WHILE @rowCount <= 1000 Do
 	END;
 END WHILE;
 
-SELECT concat(TIMESTAMPDIFF(microsecond, l_start, now(3))/1000, ' milliseconds') as Elapsedtime;
+SELECT concat('MYSQL, Literal, ' , TIMESTAMPDIFF(microsecond, l_start, now(3))/1000, ', milliseconds') as Elapsedtime;
 END$$
 
 DELIMITER ;

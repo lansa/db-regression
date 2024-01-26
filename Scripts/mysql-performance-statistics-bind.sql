@@ -23,7 +23,7 @@ WHILE @rowCount <= 1000 Do
 	END;
 END WHILE;
 
-SELECT concat(TIMESTAMPDIFF(microsecond, l_start, now(3))/1000, ' milliseconds') as Elapsedtime;
+SELECT concat('MYSQL, Bind, ' , TIMESTAMPDIFF(microsecond, l_start, now(3))/1000, ', milliseconds') as Elapsedtime;
 END$$
 
 DELIMITER ;
