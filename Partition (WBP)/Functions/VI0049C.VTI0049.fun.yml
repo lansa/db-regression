@@ -20,7 +20,7 @@
     Define Field(#LF_Count) Reffld(#Std_Count)
     Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
     Define Field(#LF_logfile_name) Reffld(#BIFA256A)
-    * DB Type
+    
     Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
@@ -28,17 +28,26 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     #Com_Owner.mthGetExecutionType()
+    #Com_Owner.mthAdd_SubMsg( OK 'Database Type' (#LF_DB_Type) )
     
-    If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W))
-    * DELETE and INSERT TEST DATA.
+    *
+    * Tests are only to be executed when run from within the MSSQL System.
+    * Only on Windows 32 bit.
+    * The MSSQL Test is only executed when its all local, not in SuperServer mode.
+    * All the other databases are ONLY run when running as a SuperServer Function (not local and not SuperServer IO).
+    *
+    If (*OSBITNESS *EQ 32)
+    * If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS) OrIf (#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS))
+    If (((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS)) OrIf ((#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS)))
     #com_owner.mthDoDelete( #LF_rc )
     #Com_Owner.mthInsert( #LF_rc )
-    If (*OSBITNESS *EQ 32)
-    * Execute SQL Script
+    
     #Com_Owner.mthExecuteSqlScript( #Lf_rc )
+    Else
+    #Com_Owner.mthAdd_Msg( OK ('Skipping test on this platform') ('') )
     Endif
     Else
-    #Com_Owner.mthAdd_Msg( OK ('Skipping all platforms except Local Windows') ('') )
+    #Com_Owner.mthAdd_Msg( OK ('Skipping test on 64 bit') ('') )
     Endif
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
@@ -95,7 +104,7 @@
     Mthroutine Name(mthExecuteSqlScript)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     #LF_rc := OK
-    #LF_logfile_name := *ROOT_DIR + '\PerformanceMetricsLog.txt'
+    #LF_logfile_name := 'c:\program files (x86)\lansa\PerformanceMetricsLog.txt' /* This is purposely specifically written to the MSSQLS System so that the performance statistics for all the databases are gathered in 1 file */
     
     Define Field(#LF_script) Reffld(#STD_STRNG)
     Define Field(#LF_Command) Reffld(#STD_STRNG)
@@ -107,16 +116,16 @@
     #LF_Command := 'mssql-performance-statistics.ps1'
     
     When Value_Is(= SQLAZURE)
-    * #LF_Command := 'sqlazure-performance-statistics.ps1'
+    #LF_Command := 'sqlazure-performance-statistics.ps1'
     
     When Value_Is(= ODBCORACLE)
-    * #LF_Command := 'odbcoracle-performance-statistics.ps1'
+    #LF_Command := 'odbcoracle-performance-statistics.ps1'
     
     When Value_Is(= MYSQL)
-    * #LF_Command := 'mysql-performance-statistics.ps1'
+    #LF_Command := 'mysql-performance-statistics.ps1'
     
     When Value_Is(= SQLANYWHERE)
-    * #LF_command := 'sqlanywhere-performance-statistics.ps1'
+    #LF_command := 'sqlanywhere-performance-statistics.ps1'
     Endcase
     
     #Com_Owner.RunPowershellScript Scriptname(#LF_Command) Parameters('') Logname(#LF_logfile_name) Isignoreerrors(False) Returncode(#LF_ReturnCode)
@@ -293,3 +302,4 @@
     #Result := True
     
     Endroutine
+    
