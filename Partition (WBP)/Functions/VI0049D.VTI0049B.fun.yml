@@ -1,0 +1,135 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    <-
+    
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * *********************************************************************************************
+    * Test Case Description
+    * Issue#49 Continued : PerformanceMetrics data Table generation.
+    * VTI0049B will be calling Function VI0049D which the pipeline will execute after VTI0049.
+    * The test setup will reformat 'PerformanceMetricsLog.txt' into 'PerformanceMetricsTable.xls'.
+    * This test case will be write the comma separated contents of a text file into an xls file through a list using TRANSFOMR_FILE and TRANSFORM_LIST.
+    * *********************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Define Field(#LF_Count) Reffld(#Std_Count)
+    Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_logtablefile_name) Reffld(#BIFA256A)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    #Com_Owner.mthGetExecutionType()
+    * Export the contents of log file into an xls file only if the log file exists
+    If (#LF_rc = OK)
+    #Com_owner.mthExportPerformanceMetricsIntoTable( #Lf_rc )
+    Else
+    #Com_Owner.mthAdd_Msg( OK ('Skipping test on this platform') ('') )
+    Endif
+    Return
+    
+    *
+    * Export the contents of text file into an xls sheet
+    *
+    Mthroutine Name(mthExportPerformanceMetricsIntoTable)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define Field(#LF_logfile_name) Reffld(#BIFA256A)
+    Define Field(#LF_TL_Output_File) Reffld(#BIFA256A)
+    Define Field(#LF_TL_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lTL) Fields(#BIFA256A #BIFA256B #BIFINT4A #BIFA256C) Counter(#LF_TL_Count) Type(*WORKING)
+    #LF_rc := OK
+    * The Log file exists in the absolute path
+    #LF_logfile_name := 'c:\program files (x86)\lansa\PerformanceMetricsLog.txt'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Transforming File (' + #LF_logfile_name + ')') '' )
+    * TODO- Incomplete Still
+    * Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File 'xls') To_Get(#this_rc)
+    * #Com_Owner.mthAdd_SubMsg( #this_rc ('- Transform_List ' + #this_rc) (*Quote + #LF_TL_Output_File + *Quote) )
+    * If (#this_rc = OK)
+    *
+    * Use Builtin(TRANSFORM_File) With_Args(#w_lTL #LF_TL_Output_File 'xls') To_Get(#this_rc)
+    * Endif
+    Endroutine
+    
+    *
+    * Add a message to the Messages list
+    *
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Add a sub message to the Return Message List.
+    *
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    *
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
+    Endroutine
