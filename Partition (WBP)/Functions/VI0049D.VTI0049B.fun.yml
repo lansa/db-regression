@@ -2,16 +2,14 @@
   Enabled For RDMLX:  Yes
 
   Source: |
-    <-
-    
     Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
     
     * *********************************************************************************************
     * Test Case Description
     * Issue#49 Continued : PerformanceMetrics data Table generation.
     * VTI0049B will be calling Function VI0049D which the pipeline will execute after VTI0049.
-    * The test setup will reformat 'PerformanceMetricsLog.txt' into 'PerformanceMetricsTable.xls'.
-    * This test case will be write the comma separated contents of a text file into an xls file through a list using TRANSFOMR_FILE and TRANSFORM_LIST.
+    * The test setup will reformat 'PerformanceMetricsLog.txt' into 'PerformanceMetricsTable.txt'.
+    * This test case will be write the contents of 'PerformanceMetricsLog.txt' into a comma-delimited TEXT file which Excel can render easily.
     * *********************************************************************************************
     
     * Unique Key Data.
@@ -25,22 +23,37 @@
     Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
     Define Field(#LF_logtablefile_name) Reffld(#BIFA256A)
     
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     #Com_Owner.mthGetExecutionType()
-    * Export the contents of log file into an xls file only if the log file exists
+    
+    *
+    * Tests are only to be executed when run from within the MSSQL System.
+    * Only on Windows 32 bit.
+    * The MSSQL Test is only executed when its all local, not in SuperServer mode.
+    * All the other databases are ONLY run when running as a SuperServer Function (not local and not SuperServer IO)
+    
+    If (*OSBITNESS *EQ 32)
+    * If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS) OrIf (#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS))
+    If (((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS)) OrIf ((#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS)))
+    * Export the contents of log file into an comma separated text file
     If (#LF_rc = OK)
-    #Com_owner.mthExportPerformanceMetricsIntoTable( #Lf_rc )
+    #Com_owner.mthTransformPerformanceMetricsLogIntoTable( #Lf_rc )
     Else
     #Com_Owner.mthAdd_Msg( OK ('Skipping test on this platform') ('') )
+    Endif
+    Endif
     Endif
     Return
     
     *
-    * Export the contents of text file into an xls sheet
+    * Transform the contents of the performance log file into a table displayable by Excel
     *
-    Mthroutine Name(mthExportPerformanceMetricsIntoTable)
+    Mthroutine Name(mthTransformPerformanceMetricsLogIntoTable)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define Field(#LF_logfile_name) Reffld(#BIFA256A)
     Define Field(#LF_TL_Output_File) Reffld(#BIFA256A)
