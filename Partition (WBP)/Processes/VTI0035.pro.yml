@@ -71,6 +71,78 @@
       Allowed Next Functions:
       - "*ANY"
 
+  - VI0035D:
+      Name:               VI0035D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Simple Numeric Rules"
+
+      - ENG:
+          Description:        "Simple Numeric Rules"
+
+      - FRA:
+          Description:        "Simple Numeric Rules"
+
+      - JPN:
+          Description:        "Simple Numeric Rules"
+
+      - TRK:
+          Description:        "Simple Numeric Rules"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0035E:
+      Name:               VI0035E
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Simple Date Rules"
+
+      - ENG:
+          Description:        "Simple Date Rules"
+
+      - FRA:
+          Description:        "Simple Date Rules"
+
+      - JPN:
+          Description:        "Simple Date Rules"
+
+      - TRK:
+          Description:        "Simple Date Rules"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0035F:
+      Name:               VI0035F
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Check Rules"
+
+      - ENG:
+          Description:        "Check Rules"
+
+      - FRA:
+          Description:        "Check Rules"
+
+      - JPN:
+          Description:        "Check Rules"
+
+      - TRK:
+          Description:        "Check Rules"
+
+      Allowed Next Functions:
+      - "*ANY"
+
   - VI0035G:
       Name:               VI0035G
       Display on Menu:    No

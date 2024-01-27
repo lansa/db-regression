@@ -29,3 +29,31 @@
   - VTLI0035G:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - VTLI0035D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0035D:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VTLI0035E:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0035E:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VTLI0035F:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0035F:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI00351:
+      Type:               Funciton
+      Qualifier:          VTI0035

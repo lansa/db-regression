@@ -1,0 +1,150 @@
+﻿File:
+  Name:                           VTLI0035F
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTLI0035F
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Check Rules"
+
+  - ENG:
+      Description:        "Check Rules"
+
+  - FRA:
+      Description:        "Check Rules"
+
+  - JPN:
+      Description:        "Check Rules"
+
+  - TRK:
+      Description:        "Check Rules"
+
+  Real Fields:
+  - BIFN0700A:
+      Type:               Signed
+      Length:             7
+      Decimals:           0
+
+  - BIFN0702A:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+
+  - BIFA032A:
+      Type:               Alphanumeric
+      Length:             32
+      Decimals:           0
+
+  - BIFDATEA:
+      Type:               Date
+      Length:             10
+      Decimals:           0
+
+  - BIFN0702B:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+
+  - BIFA10A:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  Primary Keys:
+  - BIFN0700A
+
+  File Level Validation Rules:
+  - BIFN0702A:
+    - Range Check:
+        Description:        "New range check"
+        Ranges:
+        - From:               +100
+          To:                 +200
+        - From:               +2000
+          To:                 +3000
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message File:       DC@M01
+        Message Number:     DCU0001
+
+  - BIFA032A:
+    - List Check:
+        Description:        "New list check"
+        Values:
+        - "'abc123'"
+        - "'ABC321'"
+        - "'XYZ1234'"
+        - "'ABCD'"
+        - "'1234'"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message File:       DC@M01
+        Message Number:     DCU0002
+
+  - BIFDATEA:
+    - Date Check:
+        Description:        "New date check"
+        Date Format:        SysFmt
+        Days After:         37000
+        Days Before:        3000
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message File:       DC@M01
+        Message Number:     DCU0006
+
+  - BIFN0702B:
+    - Simple Logic Check:
+        Description:        "New simple logic check"
+        Condition:          "(#BIFN0702B *GE 1) *And (#BIFN0702B *LE 100)"
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message File:       DC@M01
+        Message Number:     DCU0004
+
+  - BIFA10A:
+    - Lookup Check:
+        Description:        "New lookup check"
+        File:               XPRODUCT
+        Keys:
+        - BIFA10A
+        When Inserting:     Always
+        When Updating:      Always
+        When Deleting:      Never
+        Positive Action:    Next
+        Negative Action:    Error
+        Message File:       DC@M01
+        Message Number:     DCU0003

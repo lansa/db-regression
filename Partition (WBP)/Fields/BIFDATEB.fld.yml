@@ -1,0 +1,44 @@
+﻿Field:
+  Name:               BIFDATEB
+  Type:               Date
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Date"
+      Label:              "BIF Date"
+      Heading1:           "BIF"
+      Heading2:           "Date"
+
+  - ENG:
+      Description:        "BIF Date"
+      Label:              "BIF Date"
+      Heading1:           "BIF"
+      Heading2:           "Date"
+
+  - FRA:
+      Description:        "BIF Date"
+      Label:              "BIF Date"
+      Heading1:           "BIF"
+      Heading2:           "Date"
+
+  - JPN:
+      Description:        "BIF Date"
+      Label:              "BIF Date"
+      Heading1:           "BIF"
+      Heading2:           "Date"
+
+  - TRK:
+      Description:        "BIF Date"
+      Label:              "BIF Date"
+      Heading1:           "BIF"
+      Heading2:           "Date"
