@@ -3,13 +3,24 @@
   Stored As:          User
 
   Objects:
-  - VTI0044:
+  - VTI0049:
       Type:               Process
 
-  - VI0044A:
+  - VI0049A:
       Type:               Funciton
-      Qualifier:          VTI0044
+      Qualifier:          VTI0049
 
   - VI0049C:
       Type:               Funciton
-      Qualifier:          VTI0044
+      Qualifier:          VTI0049
+
+  - VTI0049B:
+      Type:               Process
+
+  - VI0049B:
+      Type:               Funciton
+      Qualifier:          VTI0049B
+
+  - VI0049D:
+      Type:               Funciton
+      Qualifier:          VTI0049B
