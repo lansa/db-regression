@@ -54,6 +54,14 @@
       Type:               Funciton
       Qualifier:          VTI0035
 
-  - VI00351:
+  - VI035AA:
       Type:               Funciton
       Qualifier:          VTI0035
+
+  - VI0035H:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VTLI0035H:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
