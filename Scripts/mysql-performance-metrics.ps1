@@ -17,8 +17,8 @@ Add-Content $filecsv ("password=" + $sql_password)
 Add-Content $filecsv ("host="+ $ODBC.server)
 
 #execute the performance statistics for both bind and literal
-get-content mysql-performance-statistics-literal.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
-get-content mysql-performance-statistics-bind.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
+get-content mysql-performance-metrics-literal.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
+get-content mysql-performance-metrics-bind.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
 
 #remove the configuration file 
 if (Test-Path $filecsv) {
