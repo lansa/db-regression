@@ -61,35 +61,31 @@
     Define Field(#LF_TL_Count) Reffld(#Std_Count)
     Def_List Name(#w_lTL) Fields(#BIFA256A #BIFA256B #BIFINT4A) Counter(#LF_TL_Count) Type(*WORKING)
     #LF_rc := OK
+    
     * The Log file exists in the absolute path
     #LF_logfile_name := 'c:\program files (x86)\Lansa\PerformanceMetricsLog.txt'
     * Log table File
     #LF_TL_Output_File := 'c:\program files (x86)\Lansa\PerformanceMetricsLogTable.txt'
     
-    #Com_Owner.mthAdd_Msg( #this_rc ('-Started-Transforming the log file into a list: ' + #LF_logfile_name) ('') )
+    #Com_Owner.mthAdd_Msg( #this_rc ('#Started Transforming the log file into a list: ' + #LF_logfile_name) ('') )
     * Transform the log file into a list
-    Use Builtin(TRANSFORM_FILE) With_Args(#w_lTL #LF_logfile_name 'T') To_Get(#this_rc)
-    If (#this_rc = OK)
-    #Com_Owner.mthAdd_Msg( #this_rc ('-Successfully transformed the log file into List ' + #this_rc) (*Quote + #LF_logfile_name + *Quote) )
+    Dowhile (#this_rc *NE EF)
+    Use Builtin(TRANSFORM_FILE) With_Args(#w_lTL #LF_logfile_name 'O') To_Get(#this_rc)
+    Endwhile
+    If (#this_rc = EF)
+    #Com_Owner.mthAdd_Msg( #this_rc ('#Successfully transformed the log file into a list ' + #this_rc) (*Quote + #LF_logfile_name + *Quote) )
     
-    * Create a new  comma separated table file if it doesn't exist - it is not working still,hence commented
-    * Use Builtin(OV_FILE_SERVICE) With_Args(CHECK_FILE #LF_TL_Output_File) To_Get(#this_rc)
-    If (#this_rc = OK)
     * Transform the list into a table
-    Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File 'T') To_Get(#this_rc)
+    Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File 'O') To_Get(#this_rc)
     
     If (#this_rc = OK)
-    #Com_Owner.mthAdd_Msg( #this_rc ('- #Successfully transformed the list into a log table: ' + #LF_TL_Output_File) ('') )
+    #Com_Owner.mthAdd_Msg( #this_rc ('#Successfully transformed the list into a log table: ' + #LF_TL_Output_File) ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('#Attempt to transform the list into a log table failed' + #this_rc) ('') )
+    Endif
     
     Else
-    #Com_Owner.mthAdd_Msg( #this_rc ('- #Failed to transform the list into a log table: ' + #LF_TL_Output_File) ('') )
-    Endif
-    Else
-    #Com_Owner.mthAdd_Msg( #this_rc ('- #Attempt to create a log table file failed: ' + #LF_TL_Output_File) ('') )
-    Endif
-    Else
-    #Com_Owner.mthAdd_Msg( #this_rc ('Failed') ('') )
-    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('#Attempt to transform the logfile to a list failed ' + #this_rc) ('') )
     #this_rc := ER
     Endif
     
