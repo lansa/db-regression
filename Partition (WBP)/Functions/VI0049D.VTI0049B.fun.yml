@@ -38,9 +38,8 @@
     * All the other databases are ONLY run when running as a SuperServer Function (not local and not SuperServer IO)
     
     If (*OSBITNESS *EQ 32)
-    * If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS) OrIf (#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS))
-    If (((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS)) OrIf ((#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS)))
-    * Export the contents of log file into an comma separated text file
+    If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS))
+    * Transform the log file into a comma separated text file
     If (#LF_rc = OK)
     #Com_owner.mthTransformPerformanceMetricsLogIntoTable( #Lf_rc )
     Else
@@ -57,20 +56,43 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define Field(#LF_logfile_name) Reffld(#BIFA256A)
     Define Field(#LF_TL_Output_File) Reffld(#BIFA256A)
+    
+    * Transform List
     Define Field(#LF_TL_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lTL) Fields(#BIFA256A #BIFA256B #BIFINT4A #BIFA256C) Counter(#LF_TL_Count) Type(*WORKING)
+    Def_List Name(#w_lTL) Fields(#BIFA256A #BIFA256B #BIFINT4A) Counter(#LF_TL_Count) Type(*WORKING)
     #LF_rc := OK
     * The Log file exists in the absolute path
-    #LF_logfile_name := 'c:\program files (x86)\lansa\PerformanceMetricsLog.txt'
+    #LF_logfile_name := 'c:\program files (x86)\Lansa\PerformanceMetricsLog.txt'
+    * Log table File
+    #LF_TL_Output_File := 'c:\program files (x86)\Lansa\PerformanceMetricsLogTable.txt'
     
-    #Com_Owner.mthAdd_SubMsg( OK ('Transforming File (' + #LF_logfile_name + ')') '' )
-    * TODO- Incomplete Still
-    * Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File 'xls') To_Get(#this_rc)
-    * #Com_Owner.mthAdd_SubMsg( #this_rc ('- Transform_List ' + #this_rc) (*Quote + #LF_TL_Output_File + *Quote) )
-    * If (#this_rc = OK)
-    *
-    * Use Builtin(TRANSFORM_File) With_Args(#w_lTL #LF_TL_Output_File 'xls') To_Get(#this_rc)
-    * Endif
+    #Com_Owner.mthAdd_Msg( #this_rc ('-Started-Transforming the log file into a list: ' + #LF_logfile_name) ('') )
+    * Transform the log file into a list
+    Use Builtin(TRANSFORM_FILE) With_Args(#w_lTL #LF_logfile_name 'T') To_Get(#this_rc)
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_Msg( #this_rc ('-Successfully transformed the log file into List ' + #this_rc) (*Quote + #LF_logfile_name + *Quote) )
+    
+    * Create a new  comma separated table file if it doesn't exist - it is not working still,hence commented
+    * Use Builtin(OV_FILE_SERVICE) With_Args(CHECK_FILE #LF_TL_Output_File) To_Get(#this_rc)
+    If (#this_rc = OK)
+    * Transform the list into a table
+    Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File 'T') To_Get(#this_rc)
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_Msg( #this_rc ('- #Successfully transformed the list into a log table: ' + #LF_TL_Output_File) ('') )
+    
+    Else
+    #Com_Owner.mthAdd_Msg( #this_rc ('- #Failed to transform the list into a log table: ' + #LF_TL_Output_File) ('') )
+    Endif
+    Else
+    #Com_Owner.mthAdd_Msg( #this_rc ('- #Attempt to create a log table file failed: ' + #LF_TL_Output_File) ('') )
+    Endif
+    Else
+    #Com_Owner.mthAdd_Msg( #this_rc ('Failed') ('') )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #this_rc := ER
+    Endif
+    
     Endroutine
     
     *

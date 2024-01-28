@@ -39,9 +39,11 @@
     If (*OSBITNESS *EQ 32)
     * If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS) OrIf (#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS))
     If (((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS)) OrIf ((#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS)))
+    #LF_logfile_name := 'c:\program files (x86)\lansa\PerformanceMetricsLog.txt'
     #com_owner.mthDoDelete( #LF_rc )
     #Com_Owner.mthInsert( #LF_rc )
-    
+    #Com_Owner.mthAdd_Msg( OK ('Deleting the previous log file') ('') )
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_logfile_name) To_Get(#Lf_rc)
     #Com_Owner.mthExecuteSqlScript( #Lf_rc )
     Else
     #Com_Owner.mthAdd_Msg( OK ('Skipping test on this platform') ('') )
@@ -104,8 +106,6 @@
     Mthroutine Name(mthExecuteSqlScript)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     #LF_rc := OK
-    #LF_logfile_name := 'c:\program files (x86)\lansa\PerformanceMetricsLog.txt' /* This is purposely specifically written to the MSSQLS System so that the performance statistics for all the databases are gathered in 1 file */
-    
     Define Field(#LF_script) Reffld(#STD_STRNG)
     Define Field(#LF_Command) Reffld(#STD_STRNG)
     Define Field(#LF_parameters) Reffld(#STD_STRNG)
