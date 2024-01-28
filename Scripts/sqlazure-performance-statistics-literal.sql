@@ -20,4 +20,4 @@ BEGIN
     set @rowCount = @rowCount + 1;
 END
 
-PRINT 'AZURESQL, Literal, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ', milliseconds';
+PRINT 'SQLAZURE, Literal, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE()));

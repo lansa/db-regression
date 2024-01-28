@@ -16,4 +16,4 @@ BEGIN
     set @rowCount = @rowCount + 1;
 END
 
-PRINT 'AZURESQL, Bind, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE())) + ', milliseconds';
+PRINT 'SQLAZURE, Bind, ' + CONVERT(VARCHAR, DATEDIFF(MILLISECOND, @l_start, GETDATE()));
