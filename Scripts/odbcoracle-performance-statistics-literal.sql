@@ -21,9 +21,8 @@ DECLARE
             CLOSE l_rc;            
         END LOOP;
 
-        dbms_output.put_line('ORACLE, Literal, ' ||
-            to_number(to_char( to_timestamp( trunc( sysdate ) ) + ( systimestamp- l_start ), 'ff3' )) || ', milliseconds'
-        );
+        dbms_output.put_line('ODBCORACLE, Literal, ' ||
+            to_number(to_char( to_timestamp( trunc( sysdate ) ) + ( systimestamp- l_start ), 'ff3' )));
     END;
 /
 

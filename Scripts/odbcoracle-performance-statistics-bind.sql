@@ -20,8 +20,8 @@ DECLARE
             FETCH l_rc INTO l_description;
             CLOSE l_rc;            
         END LOOP;
-        dbms_output.put_line('ORACLE, Bind, ' ||
-            to_number(to_char( to_timestamp( trunc( sysdate ) ) + ( systimestamp- l_start ), 'ff3' )) || ', milliseconds'
+        dbms_output.put_line('ODBCORACLE, Bind, ' ||
+            to_number(to_char( to_timestamp( trunc( sysdate ) ) + ( systimestamp- l_start ), 'ff3' ))
         );
     END;
 /
