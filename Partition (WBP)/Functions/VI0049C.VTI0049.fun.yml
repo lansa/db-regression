@@ -113,19 +113,19 @@
     
     Case Of_Field(#LF_DB_Type)
     When Value_Is(= MSSQLS)
-    #LF_Command := 'mssql-performance-statistics.ps1'
+    #LF_Command := 'mssql-performance-metrics.ps1'
     
     When Value_Is(= SQLAZURE)
-    #LF_Command := 'sqlazure-performance-statistics.ps1'
+    #LF_Command := 'sqlazure-performance-metrics.ps1'
     
     When Value_Is(= ODBCORACLE)
-    #LF_Command := 'odbcoracle-performance-statistics.ps1'
+    #LF_Command := 'odbcoracle-performance-metrics.ps1'
     
     When Value_Is(= MYSQL)
-    #LF_Command := 'mysql-performance-statistics.ps1'
+    #LF_Command := 'mysql-performance-metrics.ps1'
     
     When Value_Is(= SQLANYWHERE)
-    #LF_command := 'sqlanywhere-performance-statistics.ps1'
+    #LF_command := 'sqlanywhere-performance-metrics.ps1'
     Endcase
     
     #Com_Owner.RunPowershellScript Scriptname(#LF_Command) Parameters('') Logname(#LF_logfile_name) Isignoreerrors(False) Returncode(#LF_ReturnCode)
