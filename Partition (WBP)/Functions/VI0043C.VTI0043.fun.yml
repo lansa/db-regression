@@ -351,9 +351,10 @@
     
     * Loop through the original list backwards and the DB list forwards (which has the BACKWARDS rows)
     #LF_j := 1
-    Begin_Loop Using(#LF_i) From((#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT) To(1) Step(-1)
+    #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
+    Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFA001C := #BIFA001C
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -362,7 +363,7 @@
     Leave
     Endif
     
-    If (#LF_BIFA001C <> #BIFA001C)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001C data mismatch') '' )
     #this_rc := ER
@@ -408,10 +409,11 @@
     
     * Loop through the original list backwards and the DB list forwards (which has the BACKWARDS rows)
     #LF_j := 1
-    Begin_Loop Using(#LF_i) From((#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT) To(1) Step(-1)
+    #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
+    Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFA001C := #BIFA001C
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFA001C *NE #LF_BIFC010A_key.Substring( 1 1 ))
     Continue
@@ -424,7 +426,7 @@
     Leave
     Endif
     
-    If (#LF_BIFA001C <> #BIFA001C)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA001C data mismatch') '' )
     #this_rc := ER
@@ -468,7 +470,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFU100C := #BIFU100C
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -477,7 +479,7 @@
     Leave
     Endif
     
-    If (#LF_BIFU100C <> #BIFU100C)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFU100C data mismatch') '' )
     #this_rc := ER
@@ -527,7 +529,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFU100C := #BIFU100C
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFU100C *NE LF_BIFC010A_key)
     Continue
@@ -540,7 +542,7 @@
     Leave
     Endif
     
-    If (#LF_BIFU100C <> #BIFU100C)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFU100C data mismatch') '' )
     #this_rc := ER
@@ -584,7 +586,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFNV100A := #BIFNV100A
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -593,7 +595,7 @@
     Leave
     Endif
     
-    If (#LF_BIFNV100A <> #BIFNV100A)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFNV100A data mismatch') '' )
     #this_rc := ER
@@ -643,7 +645,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFNV100A := #BIFNV100A
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFNV100A *NE LF_BIFC010A_key)
     Continue
@@ -656,7 +658,7 @@
     Leave
     Endif
     
-    If (#LF_BIFNV100A <> #BIFNV100A)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFNV100A data mismatch') '' )
     #this_rc := ER
@@ -700,7 +702,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFS100A := #BIFS100A
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -709,7 +711,7 @@
     Leave
     Endif
     
-    If (#LF_BIFS100A <> #BIFS100A)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFS100A data mismatch') '' )
     #this_rc := ER
@@ -723,7 +725,6 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
     Endif
     Endroutine
-    
     *
     * mthSelectSubsetString
     *
@@ -759,7 +760,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFS100A := #BIFS100A
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFS100A *NE LF_BIFC010A_key)
     Continue
@@ -772,7 +773,7 @@
     Leave
     Endif
     
-    If (#LF_BIFS100A <> #BIFS100A)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFS100A data mismatch') '' )
     #this_rc := ER
@@ -817,7 +818,7 @@
     
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFP6315S := #BIFP6315S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -826,7 +827,7 @@
     Leave
     Endif
     
-    If (#LF_BIFP6315S <> #BIFP6315S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP6315S data mismatch') '' )
     #this_rc := ER
@@ -877,7 +878,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFP6315S := #BIFP6315S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFP6315S *NE #LF_BIFC010A_key.Substring( 1 1 ).AsNumber)
     Continue
@@ -890,7 +891,7 @@
     Leave
     Endif
     
-    If (#LF_BIFP6315S <> #BIFP6315S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP6315S data mismatch') '' )
     #this_rc := ER
@@ -935,7 +936,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFINT1S := #BIFINT1S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -944,7 +945,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT1S <> #BIFINT1S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT1S data mismatch') '' )
     #this_rc := ER
@@ -994,6 +995,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFINT1S := #BIFINT1S
+    #LF_BIFN0700A := #BIFN0700A
     
     * Only check the matching rows
     If (#LF_BIFINT1S *NE #LF_numeric_key)
@@ -1007,7 +1009,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT1S <> #BIFINT1S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT1S data mismatch') '' )
     #this_rc := ER
@@ -1051,7 +1053,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFINT2S := #BIFINT2S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1060,7 +1062,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT2S <> #BIFINT2S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT2S data mismatch') '' )
     #this_rc := ER
@@ -1110,7 +1112,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFINT2S := #BIFINT2S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFINT2S *NE #LF_numeric_key)
     Continue
@@ -1123,7 +1125,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT2S <> #BIFINT2S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT2S data mismatch') '' )
     #this_rc := ER
@@ -1167,7 +1169,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFINT4S := #BIFINT4S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1176,7 +1178,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT4S <> #BIFINT4S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT4S data mismatch') '' )
     #this_rc := ER
@@ -1190,7 +1192,6 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
     Endif
     Endroutine
-    
     *
     * mthSelectSubsetInt4
     *
@@ -1225,6 +1226,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
+    #LF_BIFN0700A := #BIFN0700A
     #LF_BIFINT4S := #BIFINT4S
     
     * Only check the matching rows
@@ -1239,7 +1241,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT4S <> #BIFINT4S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT4S data mismatch') '' )
     #this_rc := ER
@@ -1283,7 +1285,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFINT8S := #BIFINT8S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1292,7 +1294,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT8S <> #BIFINT8S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT8S data mismatch') '' )
     #this_rc := ER
@@ -1306,7 +1308,6 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
     Endif
     Endroutine
-    
     *
     * mthSelectSubsetInt8
     *
@@ -1341,8 +1342,8 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
+    #LF_BIFN0700A := #BIFN0700A
     #LF_BIFINT8S := #BIFINT8S
-    
     * Only check the matching rows
     If (#LF_BIFINT8S *NE #LF_numeric_key)
     Continue
@@ -1355,7 +1356,7 @@
     Leave
     Endif
     
-    If (#LF_BIFINT8S <> #BIFINT8S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFINT8S data mismatch') '' )
     #this_rc := ER
@@ -1400,7 +1401,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFUINT1S := #BIFUINT1S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1409,7 +1410,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT1S <> #BIFUINT1S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT1S data mismatch') '' )
     #this_rc := ER
@@ -1459,7 +1460,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFUINT1S := #BIFUINT1S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFUINT1S *NE #LF_numeric_key)
     Continue
@@ -1472,7 +1473,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT1S <> #BIFUINT1S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT1S data mismatch') '' )
     #this_rc := ER
@@ -1516,7 +1517,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFUINT2S := #BIFUINT2S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1525,7 +1526,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT2S <> #BIFUINT2S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT2S data mismatch') '' )
     #this_rc := ER
@@ -1575,7 +1576,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFUINT2S := #BIFUINT2S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFUINT2S *NE #LF_numeric_key)
     Continue
@@ -1588,7 +1589,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT2S <> #BIFUINT2S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT2S data mismatch') '' )
     #this_rc := ER
@@ -1632,7 +1633,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFUINT4S := #BIFUINT4S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1641,7 +1642,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT4S <> #BIFUINT4S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT4S data mismatch') '' )
     #this_rc := ER
@@ -1691,7 +1692,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFUINT4S := #BIFUINT4S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFUINT4S *NE #LF_numeric_key)
     Continue
@@ -1704,7 +1705,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT4S <> #BIFUINT4S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT4S data mismatch') '' )
     #this_rc := ER
@@ -1748,7 +1749,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFUINT8S := #BIFUINT8S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1757,7 +1758,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT8S <> #BIFUINT8S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT8S data mismatch') '' )
     #this_rc := ER
@@ -1807,7 +1808,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFUINT8S := #BIFUINT8S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFUINT8S *NE #LF_numeric_key)
     Continue
@@ -1820,7 +1821,7 @@
     Leave
     Endif
     
-    If (#LF_BIFUINT8S <> #BIFUINT8S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFUINT8S data mismatch') '' )
     #this_rc := ER
@@ -1864,7 +1865,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFF0400S := #BIFF0400S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1873,7 +1874,7 @@
     Leave
     Endif
     
-    If (#LF_BIFF0400S <> #BIFF0400S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFF0400S data mismatch') '' )
     #this_rc := ER
@@ -1923,6 +1924,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFF0400S := #BIFF0400S
+    #LF_BIFN0700A := #BIFN0700A
     
     * Only check the matching rows
     If (#LF_BIFF0400S *NE #LF_numeric_key)
@@ -1936,7 +1938,7 @@
     Leave
     Endif
     
-    If (#LF_BIFF0400S <> #BIFF0400S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFF0400S data mismatch') '' )
     #this_rc := ER
@@ -1981,7 +1983,7 @@
     #LF_From := (#LF_BIFN0700A_ToCount - #LF_BIFN0700A_FromCount + 1) * #LF_BIFC010A_COUNT
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
-    #LF_BIFF0800S := #BIFF0800S
+    #LF_BIFN0700A := #BIFN0700A
     
     Get_Entry Number(#LF_j) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -1990,7 +1992,7 @@
     Leave
     Endif
     
-    If (#LF_BIFF0800S <> #BIFF0800S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFF0800S data mismatch') '' )
     #this_rc := ER
@@ -2040,7 +2042,7 @@
     Begin_Loop Using(#LF_i) From(#LF_From) To(1) Step(-1)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal) Ret_Status(#this_rc)
     #LF_BIFF0800S := #BIFF0800S
-    
+    #LF_BIFN0700A := #BIFN0700A
     * Only check the matching rows
     If (#LF_BIFF0800S *NE #LF_numeric_key)
     Continue
@@ -2053,7 +2055,7 @@
     Leave
     Endif
     
-    If (#LF_BIFF0800S <> #BIFF0800S)
+    If (#LF_BIFN0700A <> #BIFN0700A)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFF0800S data mismatch') '' )
     #this_rc := ER
