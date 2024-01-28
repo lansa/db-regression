@@ -19,5 +19,5 @@ BEGIN
     set rowCount = rowCount + 1;
   END LOOP;
 
-  MESSAGE 'SQLANYWHERE, Bind, ' + convert(varchar(50), DATEDIFF(ms, l_start, GETDATE())) + ', milliseconds' TYPE INFO TO CLIENT;
+  MESSAGE 'SQLANYWHERE, Bind, ' + convert(varchar(50), DATEDIFF(ms, l_start, GETDATE())) TYPE INFO TO CLIENT;
 END
