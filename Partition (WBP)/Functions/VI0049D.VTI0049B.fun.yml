@@ -17,7 +17,7 @@
     
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
-    
+    Def_List Name(#w_lTL) Fields(#BIFA256A #BIFA256B #BIFA256C) Counter(#LF_TL_Count) Type(*WORKING) Entrys(*MAX)
     Define Field(#LF_i) Reffld(#Std_Count)
     Define Field(#LF_Count) Reffld(#Std_Count)
     Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
@@ -35,7 +35,6 @@
     * Tests are only to be executed when run from within the MSSQL System.
     * Only on Windows 32 bit.
     * The MSSQL Test is only executed when its all local, not in SuperServer mode.
-    * All the other databases are ONLY run when running as a SuperServer Function (not local and not SuperServer IO)
     
     If (*OSBITNESS *EQ 32)
     If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS))
@@ -59,7 +58,7 @@
     
     * Transform List
     Define Field(#LF_TL_Count) Reffld(#Std_Count)
-    Def_List Name(#w_lTL) Fields(#BIFA256A #BIFA256B #BIFINT4A) Counter(#LF_TL_Count) Type(*WORKING)
+    
     #LF_rc := OK
     
     * The Log file exists in the absolute path
@@ -75,8 +74,8 @@
     If (#this_rc = EF)
     #Com_Owner.mthAdd_Msg( #this_rc ('#Successfully transformed the log file into a list ' + #this_rc) (*Quote + #LF_logfile_name + *Quote) )
     
-    * Transform the list into a table
-    Use Builtin(TRANSFORM_LIST) With_Args(#w_lTL #LF_TL_Output_File 'O') To_Get(#this_rc)
+    * Reformat the search list
+    #Com_Owner.mthFormatSearchList( #this_rc )
     
     If (#this_rc = OK)
     #Com_Owner.mthAdd_Msg( #this_rc ('#Successfully transformed the list into a log table: ' + #LF_TL_Output_File) ('') )
@@ -92,6 +91,49 @@
     Endroutine
     
     *
+    * Reformat the Search List and transform it into a Logtable file
+    *
+    Mthroutine Name(mthFormatSearchList)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define Field(#DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LANSA) Type(*CHAR) Length(32)
+    Define Field(#Literal) Type(*CHAR) Length(32)
+    Define Field(#Bind) Type(*CHAR) Length(32)
+    Def_List Name(#w_lTLSearchList) Fields(#DB_Type #Literal #Bind) Type(*WORKING) Entrys(*MAX)
+    Define Field(#LF_SearchList_Count) Reffld(#Std_Count)
+    Define Field(#Lf_j) Reffld(#std_Count)
+    
+    #DB_Type := 'DBTYPE'
+    #Literal := 'Literal'
+    #Bind := 'Bind'
+    Add_Entry To_List(#w_lTLSearchList)
+    * #LF_j := 0
+    
+    Begin_Loop Using(#LF_j) To(#LF_TL_Count)
+    Get_Entry Number(#LF_j) From_List(#w_lTL)
+    #DB_Type := #BIFA256A
+    
+    If (#BIFA256B = 'Literal')
+    #Literal := #BIFA256C
+    Endif
+    
+    If (#BIFA256B = 'Bind')
+    #Bind := #BIFA256C
+    Endif
+    
+    * Add the values to list in every 2 increments of the loop
+    If (#Lf_j.Mod( 2 ) = 0)
+    Add_Entry To_List(#w_lTLSearchList)
+    Endif
+    End_Loop
+    
+    #Com_Owner.mthAdd_Msg( OK ('Deleting the Performance Metrics logtable file if it already exists') ('') )
+    Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_TL_Output_File) To_Get(#Lf_rc)
+    
+    Use Builtin(TRANSFORM_LIST) With_Args(#w_lTLSearchList #LF_TL_Output_File 'O') To_Get(#this_rc)
+    
+    Endroutine
+    
     * Add a message to the Messages list
     *
     Mthroutine Name(mthAdd_Msg)

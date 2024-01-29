@@ -37,13 +37,16 @@
     * All the other databases are ONLY run when running as a SuperServer Function (not local and not SuperServer IO).
     *
     If (*OSBITNESS *EQ 32)
-    * If ((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS) OrIf (#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS))
     If (((#LF_Execution_Type *EQ W) *And (#LF_Local_Platform *EQ W) *And (#LF_DB_Type *EQ MSSQLS)) OrIf ((#LF_Execution_Type *EQ F) *And (#LF_Local_Platform *EQ W) *And (#LF_Remote_Platform *EQ W) *And (#LF_DB_Type *NE MSSQLS)))
     #LF_logfile_name := 'c:\program files (x86)\lansa\PerformanceMetricsLog.txt'
     #com_owner.mthDoDelete( #LF_rc )
     #Com_Owner.mthInsert( #LF_rc )
-    #Com_Owner.mthAdd_Msg( OK ('Deleting the previous log file') ('') )
+    
+    If ((#LF_DB_Type *EQ MSSQLS))
+    #Com_Owner.mthAdd_Msg( OK ('Deleting the Performance Metrics log file if it already exists') ('') )
     Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_logfile_name) To_Get(#Lf_rc)
+    Endif
+    
     #Com_Owner.mthExecuteSqlScript( #Lf_rc )
     Else
     #Com_Owner.mthAdd_Msg( OK ('Skipping test on this platform') ('') )
