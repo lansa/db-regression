@@ -94,57 +94,78 @@
     
     #Com_Owner.mthClear_Department_And_Employee_Tables( #this_rc )
     
-    * create Development team and add an employee to it
+    Begin_Loop Using(#LF_i) To(100)
+    If ((#LF_i *GE 1) *And (#LF_i *LE 25))
+    If (#LF_i *EQ 1)
+    * create Development team
     #XDEPTMENT := 'LNZ1'
-    #DEPTDESC := 'Development Team'
+    #DEPTDESC := 'Dev Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
     
-    #EMPID := 1
-    #SALARY := 2500
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 2500 + #LF_i
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
     
-    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
-    
-    * create QA team and add an employee to it
+    If ((#LF_i *GE 26) *And (#LF_i *LE 50))
+    If (#LF_i *EQ 26)
+    * create QA team
     #XDEPTMENT := 'LNZ2'
     #DEPTDESC := 'QA Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
     
-    #EMPID := 2
-    #SALARY := 3000
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 3000 + #LF_i
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
     
-    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
-    
-    * create Marketing team and add an employee to it
+    If ((#LF_i *GE 51) *And (#LF_i *LE 75))
+    If (#LF_i *EQ 51)
+    * create Management team
     #XDEPTMENT := 'LNZ3'
-    #DEPTDESC := 'Marketing Team'
+    #DEPTDESC := 'Mgmt Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
     
-    #EMPID := 3
-    #SALARY := 4500
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 3500 + #LF_i
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
+    
+    If ((#LF_i *GE 76) *And (#LF_i *LE 100))
+    If (#LF_i *EQ 51)
+    * create Finance team
+    #XDEPTMENT := 'LNZ4'
+    #DEPTDESC := 'Fin Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
+    
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 4000 + #LF_i
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
+    End_Loop
     
     #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
     
-    * rename Development team as Maintanence team
+    * rename Development team as Support team
     #XDEPTMENT := 'LNZ1'
-    #DEPTDESC := 'Maintanence Team'
+    #DEPTDESC := 'Support Team'
+    #Com_Owner.mthUpdate_Department_Description_Is_Successful( #this_rc )
+    
+    
+    * rename Development team as Support team
+    #XDEPTMENT := 'LNZ2'
+    #DEPTDESC := 'Test Team'
     #Com_Owner.mthUpdate_Department_Description_Is_Successful( #this_rc )
     
     #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
-    
-    * create Software Engineers team and add an employee to it
-    #XDEPTMENT := 'LNZ4'
-    #DEPTDESC := 'SWE Team'
-    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
-    
-    #EMPID := 4
-    #SALARY := 5000
-    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
-    
-    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
-    
     Endroutine
     
     
