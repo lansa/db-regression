@@ -57,7 +57,7 @@
     * Handle a before insert event
     When Value_Is('= BEFINS')
     Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFINS')
-    
+    *
     * Handle an after insert event
     When Value_Is('= AFTINS')
     Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTINS')

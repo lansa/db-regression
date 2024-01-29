@@ -58,7 +58,7 @@
     *
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
-    * #Com_Owner.mthClearData( #LF_rc )
+    #Com_Owner.mthClearData( #LF_rc )
     
     If (#LF_rc *EQ OK)
     #Com_Owner.mthTestTriggers( #LF_rc )

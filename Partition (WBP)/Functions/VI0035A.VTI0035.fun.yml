@@ -538,11 +538,11 @@
     * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
     * Endif
     
-    If (#LF_VTTEMP_Skip_Test_Case = False)
-    #Com_Owner.mthAddFunction( VI0035G )
-    Else
-    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    Endif
+    * If (#LF_VTTEMP_Skip_Test_Case = False)
+    * #Com_Owner.mthAddFunction( VI0035G )
+    * Else
+    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    * Endif
     
     If (#LF_VTTEMP_Skip_Test_Case = False)
     #Com_Owner.mthAddFunction( VI0035H )
