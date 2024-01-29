@@ -52,13 +52,13 @@
       Length:             11
       Decimals:           2
 
-  - XEMPLOYID:
-      Type:               Alphanumeric
-      Length:             10
+  - EMPID:
+      Type:               Decimal
+      Length:             7
       Decimals:           0
 
   Primary Keys:
-  - XEMPLOYID
+  - EMPID
 
   Virtual Fields:
 

@@ -27,7 +27,7 @@
     
     Define Field(#LF_Records_Count_Employee_Table) Reffld(#Std_Count)
     Define Field(#LF_Records_Count_Department_Table) Reffld(#Std_Count)
-    Def_List Name(#w_lEmployeeTable) Fields(#XEMPLOYID #XDEPTMENT #SALARY #I0041DeptDescPJC) Counter(#LF_Records_Count_Employee_Table) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#w_lEmployeeTable) Fields(#EMPID #XDEPTMENT #SALARY #I0041DeptDescPJC) Counter(#LF_Records_Count_Employee_Table) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#w_lDepartmentTable) Fields(#XDEPTMENT #DEPTDESC #I0041TotalSalaryPJC) Counter(#LF_Records_Count_Department_Table) Type(*WORKING) Entrys(*MAX)
     
     * Start testing.
@@ -99,7 +99,7 @@
     #DEPTDESC := 'Development Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
     
-    #XEMPLOYID := '001'
+    #EMPID := 1
     #SALARY := 2500
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
     
@@ -110,7 +110,7 @@
     #DEPTDESC := 'QA Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
     
-    #XEMPLOYID := '002'
+    #EMPID := 2
     #SALARY := 3000
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
     
@@ -121,7 +121,7 @@
     #DEPTDESC := 'Marketing Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
     
-    #XEMPLOYID := '003'
+    #EMPID := 3
     #SALARY := 4500
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
     
@@ -139,7 +139,7 @@
     #DEPTDESC := 'SWE Team'
     #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
     
-    #XEMPLOYID := '004'
+    #EMPID := 4
     #SALARY := 5000
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
     
@@ -155,12 +155,12 @@
     
     * create Development team and add an employee to it
     #XDEPTMENT := 'LNZ1'
-    #XEMPLOYID := '005'
+    #EMPID := 5
     #SALARY := 2400
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
     
     #XDEPTMENT := 'LNZ1'
-    #XEMPLOYID := '006'
+    #EMPID := 6
     #SALARY := 2400
     #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
     
@@ -270,7 +270,7 @@
     #Com_Owner.mthAdd_SubMsg( OK '-  Clear data from Employee table VTLI0041A' '' )
     
     Clr_List Named(#w_lEmployeeTable)
-    Select Fields(#XEMPLOYID) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#EMPID) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lEmployeeTable)
     Endselect
     
@@ -283,10 +283,10 @@
     Begin_Loop Using(#LF_i) To(#LF_Records_Count_Employee_Table)
     Get_Entry Number(#LF_i) From_List(#w_lEmployeeTable)
     
-    Delete From_File(VTLI0041A) With_Key(#XEMPLOYID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Delete From_File(VTLI0041A) With_Key(#EMPID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('Deleting on record ' + #XEMPLOYID) )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('Deleting on record ' + #EMPID.AsString) )
     #this_rc := ER
     Leave
     Endif
@@ -385,7 +385,7 @@
     Mthroutine Name(mthFetch_Record_From_Employee_Table_Is_Successful)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Verifying data from Employee table VTLI0041A. It must have the record with Key as Employee ID "' + #XEMPLOYID + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Verifying data from Employee table VTLI0041A. It must have the record with Key as Employee ID "' + #EMPID.AsString + '"') ('') )
     If (#Com_Owner.mthFetch_Record_From_Employee_Table( #this_rc ) *EQ FALSE)
     #Com_Owner.mthAdd_SubMsg( ER ('-  Record does not exist') ('') )
     Endif
@@ -395,11 +395,11 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetching record from Employee table VTLI0041A with Key as Employee ID "' + #XEMPLOYID + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetching record from Employee table VTLI0041A with Key as Employee ID "' + #EMPID.AsString + '"') ('') )
     #this_is_ok := false
-    Fetch Fields(*ALL) From_File(VTLI0041A) With_Key(#XEMPLOYID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Fetch Fields(*ALL) From_File(VTLI0041A) With_Key(#EMPID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetched record as Employee ID "' + #XEMPLOYID + '" Salary ' + #SALARY.AsString + ' Department Code "' + #XDEPTMENT + '" Department Description "' + #I0041DeptDescPJC + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetched record as Employee ID "' + #EMPID.AsString + '" Salary ' + #SALARY.AsString + ' Department Code "' + #XDEPTMENT + '" Department Description "' + #I0041DeptDescPJC + '"') ('') )
     #this_is_ok := true
     Endif
     Endroutine
@@ -408,7 +408,7 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Inserting record as Employee ID "' + #XEMPLOYID + '" Salary ' + #SALARY.AsString + ' into Employee table VTLI0041A') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Inserting record as Employee ID "' + #EMPID.AsString + '" Salary ' + #SALARY.AsString + ' into Employee table VTLI0041A') ('') )
     
     #this_is_ok := true
     Insert Fields(*ALL) To_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)

@@ -23,3 +23,6 @@
 
   - VTI0041:
       Type:               Process
+
+  - EMPID:
+      Type:               Field

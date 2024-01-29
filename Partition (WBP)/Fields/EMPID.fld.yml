@@ -1,0 +1,43 @@
+﻿Field:
+  Name:               EMPID
+  Type:               Packed
+  Length:             7
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Standard count"
+      Label:              "Standard count"
+      Heading1:           "Standard"
+      Heading2:           "count"
+
+  - ENG:
+      Description:        "Standard count"
+      Label:              "Standard count"
+      Heading1:           "Standard"
+      Heading2:           "count"
+
+  - FRA:
+      Description:        "Dénombrement standard"
+      Label:              "Nombre standard"
+      Heading1:           "Nomnre"
+      Heading2:           "Standard"
+
+  - JPN:
+      Description:        "Standard count"
+      Label:              "Standard count"
+      Heading1:           "Standard"
+      Heading2:           "count"
+
+  - TRK:
+      Description:        "Standard count"
+      Label:              "Standard count"
+      Heading1:           "Standard"
+      Heading2:           "count"
