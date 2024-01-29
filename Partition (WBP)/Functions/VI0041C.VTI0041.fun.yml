@@ -36,9 +36,9 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
-    #Com_Owner.mth_Tests_For_Lookup_Department_Description( #LF_rc )
+    #Com_Owner.mth_Validate_Lookup_For_Department_Description( #LF_rc )
     
-    #Com_Owner.mthTests_For_Total_Salaries_For_Each_Department( #LF_rc )
+    #Com_Owner.mth_Validate_Total_Salary_For_Each_Department( #LF_rc )
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -89,7 +89,7 @@
     Endwhile
     Endroutine
     
-    Mthroutine Name(mth_Tests_For_Lookup_Department_Description)
+    Mthroutine Name(mth_Validate_Lookup_For_Department_Description)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Tests for PJC type LOOKUP') '' )
@@ -176,7 +176,7 @@
     Endroutine
     
     
-    Mthroutine Name(mthTests_For_Total_Salaries_For_Each_Department)
+    Mthroutine Name(mth_Validate_Total_Salary_For_Each_Department)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     #Com_Owner.mthAdd_SubMsg( OK '-  Validating Total Salary in each Department' '' )
     
