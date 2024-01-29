@@ -59,8 +59,8 @@
 
   Access Routes:
   - I0041TOEMP:
-      Description:        New access route
-      File:               VTLI0041A
+      Description:        Total salary
+      File:               LI0041P1
       Library:            "*FIRST"
       Association Type:   Derive
       Association Rule:   Derive

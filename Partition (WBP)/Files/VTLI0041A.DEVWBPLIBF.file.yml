@@ -62,6 +62,36 @@
 
   Virtual Fields:
 
+  Logical Views:
+  - LI0041P1:
+      Identifier:         LI0041P1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0041P1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Department Code"
+
+      - ENG:
+          Description:        "Department Code"
+
+      - FRA:
+          Description:        "Department Code"
+
+      - JPN:
+          Description:        "Department Code"
+
+      - TRK:
+          Description:        "Department Code"
+
+      Keys:
+      - XDEPTMENT:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
   Access Routes:
   - I0041TODEP:
       Description:        To Department Table
