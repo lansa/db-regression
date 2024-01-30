@@ -1,0 +1,42 @@
+﻿Field:
+  Name:               I0041AvgSalaryPJC
+  Type:               Packed
+  Length:             11
+  Decimals:           0
+  Default Value:      "*ZEROS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  - ENG:
+      Description:        "Average Salary within a Department"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  - FRA:
+      Description:        "Département"
+      Label:              "Description . ."
+      Heading1:           "Description"
+      Heading2:           "Département"
+
+  - JPN:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"
+
+  - TRK:
+      Description:        "Department Description"
+      Label:              "Description...."
+      Heading1:           "Department"
+      Heading2:           "Description"

@@ -32,3 +32,9 @@
 
   - I0041MINS:
       Type:               Field
+
+  - I0041AVGS:
+      Type:               Field
+
+  - I0041CNTE:
+      Type:               Field

@@ -83,3 +83,9 @@
       - I0041MINS:
           PJF Type:           Minimum
           Source Field:       SALARY
+      - I0041AVGS:
+          PJF Type:           Average
+          Source Field:       SALARY
+      - I0041CNTE:
+          PJF Type:           Count
+          Source Field:       EMPID
