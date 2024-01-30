@@ -47,6 +47,7 @@
     Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_logfile_name) To_Get(#Lf_rc)
     Endif
     
+    #com_Owner.mthExecuteSqlInLansa( #Lf_rc )
     #Com_Owner.mthExecuteSqlScript( #Lf_rc )
     Else
     #Com_Owner.mthAdd_Msg( OK ('Skipping test on this platform') ('') )
@@ -138,6 +139,48 @@
     #this_rc := ER
     Endif
     
+    Endroutine
+    
+    *
+    * Execute SQL in LANSA and log the time
+    *
+    Mthroutine Name(mthExecuteSqlInLansa)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define Field(#Start) Type(*DEC) Length(10) Decimals(3)
+    Define Field(#Finish) Type(*DEC) Length(10) Decimals(3)
+    Define Field(#Duration) Type(*DEC) Length(7) Decimals(0)
+    Define Field(#DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LANSA) Type(*CHAR) Length(32)
+    Define Field(#LansaTime) Type(*CHAR) Length(32)
+    Def_List Name(#w_lLansaExecutionList) Fields(#DB_Type #LANSA #LansaTime) Type(*WORKING) Entrys(*MAX)
+    
+    #LF_rc := OK
+    #LANSA := ' ' + 'LANSA'
+    Case Of_Field(#LF_DB_Type)
+    When Value_Is(= MSSQLS = SQLAZURE = ODBCORACLE = MYSQL = SQLANYWHERE)
+    * Start Time
+    #Start := #STD_DTIMX.Now().AsSeconds
+    
+    Select Fields(#F157033K1) From_File(VTLI0049) Where(#F157033K2 <= 1000) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    * #Com_Owner.mthAdd_SubMsg( OK ('Fetching Row ' + #F157033K2.AsString) ('') )
+    Endselect
+    
+    * End Time
+    #Finish := #STD_DTIMX.Now().AsSeconds
+    #Duration := (#Finish - #Start) * 1000
+    
+    #DB_Type := #LF_DB_Type.AsValue
+    #LansaTime := ' ' + #Duration.AsString()
+    Add_Entry To_List(#w_lLansaExecutionList)
+    * Log the time to file
+    Use Builtin(TRANSFORM_LIST) With_Args(#w_lLansaExecutionList #LF_logfile_name 'O') To_Get(#this_rc)
+    Close /*close the log file*/
+    Endcase
+    
+    If (#this_rc = ER)
+    #Com_Owner.mthAdd_SubMsg( ER ('Sql Execution in LANSA returned error ' + #this_rc) ('') )
+    Return
+    Endif
     Endroutine
     
     *

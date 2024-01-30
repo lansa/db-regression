@@ -24,3 +24,7 @@
   - VI0049D:
       Type:               Funciton
       Qualifier:          VTI0049B
+
+  - VTLI0049:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
