@@ -38,7 +38,8 @@
     
     #Com_Owner.mth_Validate_Lookup_For_Department_Description( #LF_rc )
     
-    #Com_Owner.mth_Validate_Total_Salary_For_Each_Department( #LF_rc )
+    #Com_Owner.mth_Validate_Total_Max_Min_Salary_For_Each_Department( #LF_rc )
+    
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -176,7 +177,7 @@
     Endroutine
     
     
-    Mthroutine Name(mth_Validate_Total_Salary_For_Each_Department)
+    Mthroutine Name(mth_Validate_Total_Max_Min_Salary_For_Each_Department)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     #Com_Owner.mthAdd_SubMsg( OK '-  Validating Total Salary in each Department' '' )
     
@@ -185,10 +186,14 @@
     Define Field(#LF_DepartmentID_From_Department_Table) Type(*CHAR) Length(4)
     #LF_DepartmentID_From_Department_Table := #XDEPTMENT
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Department "' + #LF_DepartmentID_From_Department_Table + '" Total Salary computed as ' + #I0041TotalSalaryPJC.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Department "' + #LF_DepartmentID_From_Department_Table + '" Salaries computed as Total. ' + #I0041TotalSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Min. as ' + #I0041MinSalaryPJC.AsString) ('') )
     
     Define Field(#LF_Total_Salary) Reffld(#Std_Count)
     #LF_Total_Salary := 0
+    Define Field(#LF_Max_Salary) Reffld(#Std_Count)
+    #LF_Max_Salary := 0
+    Define Field(#LF_Min_Salary) Reffld(#Std_Count)
+    #LF_Min_Salary := 999999999
     
     Clr_List Named(#w_lEmployeeTable)
     Select Fields(*ALL) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
@@ -205,6 +210,14 @@
     #LF_DepartmentID_From_Employee_Table := #XDEPTMENT
     If (#LF_DepartmentID_From_Employee_Table *EQ #LF_DepartmentID_From_Department_Table)
     #LF_Total_Salary += #SALARY
+    
+    If (#SALARY *GT #LF_Max_Salary)
+    #LF_Max_Salary := #SALARY
+    Endif
+    
+    If (#SALARY *LT #LF_Min_Salary)
+    #LF_Min_Salary := #SALARY
+    Endif
     Endif
     End_Loop
     
@@ -214,6 +227,22 @@
     Leave
     Else
     #Com_Owner.mthAdd_SubMsg( OK ('-   Total Salary Computed correctly') ('') )
+    Endif
+    
+    If (#I0041MaxSalaryPJC *NE #LF_Max_Salary)
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Max. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Max. Salary ' + #LF_Max_Salary.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Max. Salary Computed correctly') ('') )
+    Endif
+    
+    If (#I0041MinSalaryPJC *NE #LF_Min_Salary)
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Min. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Min. Salary ' + #LF_Min_Salary.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Min. Salary Computed correctly') ('') )
     Endif
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
@@ -229,6 +258,7 @@
     Clr_List Named(#w_lDepartmentTable)
     Clr_List Named(#w_lEmployeeTable)
     Endroutine
+    
     
     *
     * This routine is responsible to clear the data from Employee and Department tables. i.e., VTLI0041A and VTLI0041B

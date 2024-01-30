@@ -59,7 +59,7 @@
 
   Access Routes:
   - I0041TOEMP:
-      Description:        Total salary
+      Description:        Access Salary
       File:               LI0041P1
       Library:            "*FIRST"
       Association Type:   Derive
@@ -76,4 +76,10 @@
       PJFs:
       - I0041TOTA:
           PJF Type:           Total
+          Source Field:       SALARY
+      - I0041MAXS:
+          PJF Type:           Maximum
+          Source Field:       SALARY
+      - I0041MINS:
+          PJF Type:           Minimum
           Source Field:       SALARY

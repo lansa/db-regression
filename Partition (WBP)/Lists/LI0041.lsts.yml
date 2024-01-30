@@ -26,3 +26,9 @@
 
   - EMPID:
       Type:               Field
+
+  - I0041MAXS:
+      Type:               Field
+
+  - I0041MINS:
+      Type:               Field
