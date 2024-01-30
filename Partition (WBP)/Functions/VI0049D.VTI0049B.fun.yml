@@ -99,19 +99,24 @@
     Define Field(#LANSA) Type(*CHAR) Length(32)
     Define Field(#Literal) Type(*CHAR) Length(32)
     Define Field(#Bind) Type(*CHAR) Length(32)
-    Def_List Name(#w_lTLSearchList) Fields(#DB_Type #Literal #Bind) Type(*WORKING) Entrys(*MAX)
-    Define Field(#LF_SearchList_Count) Reffld(#Std_Count)
+    Def_List Name(#w_lTLSearchList) Fields(#DB_Type #Lansa #Literal #Bind) Type(*WORKING) Entrys(*MAX)
+    
     Define Field(#Lf_j) Reffld(#std_Count)
     
     #DB_Type := 'DBTYPE'
     #Literal := 'Literal'
     #Bind := 'Bind'
+    #Lansa := 'LANSA'
     Add_Entry To_List(#w_lTLSearchList)
     * #LF_j := 0
     
     Begin_Loop Using(#LF_j) To(#LF_TL_Count)
     Get_Entry Number(#LF_j) From_List(#w_lTL)
+    
     #DB_Type := #BIFA256A
+    If (#BIFA256B = 'LANSA')
+    #LANSA := #BIFA256C
+    Endif
     
     If (#BIFA256B = 'Literal')
     #Literal := #BIFA256C
@@ -122,7 +127,7 @@
     Endif
     
     * Add the values to list in every 2 increments of the loop
-    If (#Lf_j.Mod( 2 ) = 0)
+    If (#Lf_j.Mod( 3 ) = 0)
     Add_Entry To_List(#w_lTLSearchList)
     Endif
     End_Loop
