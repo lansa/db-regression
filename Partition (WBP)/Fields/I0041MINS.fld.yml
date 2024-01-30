@@ -3,7 +3,8 @@
   Type:               Packed
   Length:             11
   Decimals:           0
-  Default Value:      "*ZEROS"
+  Default Value:      +999999999
+  Edit Mask:          1
   Enabled For RDMLX:  No
   System Field:       No
 
@@ -40,3 +41,13 @@
       Label:              "Description...."
       Heading1:           "Department"
       Heading2:           "Description"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(216) Width(422)
+    
+    End_Com
+    
+    End_Com
