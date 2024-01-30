@@ -16,6 +16,10 @@ $TableFiles =@(
  'vtli0049.dll'
 )
 
+$ScriptFiles = @(
+    '*.sql',
+    '*.ps1'
+)
 $SourceSystem = 'C:\Program Files (x86)\LANSA\X_WIN95\X_LANSA\x_wbp\'
 
 foreach ($TargetSystem in $TargetSystems) {
@@ -25,4 +29,8 @@ foreach ($TargetSystem in $TargetSystems) {
     foreach ($TableFile in $TableFiles) {
         Copy-Item "$($SourceSystem)DEVWBPLIBF\execute\$TableFile"  "$($TargetSystem)DEVWBPLIBF\execute\$TableFile"
     }
+    foreach ($ScriptFile in $ScriptFiles) {
+        Copy-Item "$($SourceSystem)..\..\..\lansa\versioncontrol\scripts\$ScriptFile"  "$($TargetSystem)..\..\..\lansa\versioncontrol\scripts"
+    }
+    
 }
