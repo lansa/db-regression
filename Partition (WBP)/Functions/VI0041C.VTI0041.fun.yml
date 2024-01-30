@@ -36,10 +36,9 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
-    #Com_Owner.mth_Validate_Lookup_For_Department_Description( #LF_rc )
+    #Com_Owner.mth_Generate_Test_Data_For_Department_and_Employees( #LF_rc )
     
-    #Com_Owner.mth_Validate_Min_Max_Total_Salaries_For_Each_Department( #LF_rc )
-    
+    #Com_Owner.mth_Validate_Lookup_Count_Min_Max_Total_Salaries_For_Each_Department( #LF_rc )
     
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
@@ -90,7 +89,7 @@
     Endwhile
     Endroutine
     
-    Mthroutine Name(mth_Validate_Lookup_For_Department_Description)
+    Mthroutine Name(mth_Generate_Test_Data_For_Department_and_Employees)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Tests for PJC type LOOKUP') '' )
@@ -156,37 +155,22 @@
     Endif
     End_Loop
     
-    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
-    
-    * rename Development team as Support team
-    #XDEPTMENT := 'LNZ1'
-    #DEPTDESC := 'Support Team'
-    #Com_Owner.mthUpdate_Department_Description_Is_Successful( #this_rc )
-    
-    
-    * rename Development team as Support team
-    #XDEPTMENT := 'LNZ2'
-    #DEPTDESC := 'Test Team'
-    #Com_Owner.mthUpdate_Department_Description_Is_Successful( #this_rc )
-    
-    #Com_Owner.mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped( #this_rc )
-    
     If (#this_rc = OK)
     #Com_Owner.mthAdd_SubMsg( OK ('-  Successful') ('') )
     Endif
     Endroutine
     
     
-    Mthroutine Name(mth_Validate_Min_Max_Total_Salaries_For_Each_Department)
+    Mthroutine Name(mth_Validate_Lookup_Count_Min_Max_Total_Salaries_For_Each_Department)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    #Com_Owner.mthAdd_SubMsg( OK '-  Validating Min. Max. and Total Salaris for each Department' '' )
+    #Com_Owner.mthAdd_SubMsg( OK '-  Validating Lookup, Count, Min, Max. and Total Salaries for each Department' '' )
     
     Clr_List Named(#w_lDepartmentTable)
     Select Fields(*ALL) From_File(VTLI0041B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Define Field(#LF_DepartmentID_From_Department_Table) Type(*CHAR) Length(4)
     #LF_DepartmentID_From_Department_Table := #XDEPTMENT
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Salaries computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" with Total Employees cnt ' + #I0041CntEmpPJC.AsString + ' are Min. ' + #I0041MinSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Avg. as ' + #I0041AvgSalaryPJC.AsString + ' Total. as ' + #I0041TotalSalaryPJC.AsString) ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Department info. ID "' + #LF_DepartmentID_From_Department_Table + ' Description "' + #DEPTDESC + '" Total Employees ' + #I0041CntEmpPJC.AsString + ' Salaries Min. ' + #I0041MinSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Avg. as ' + #I0041AvgSalaryPJC.AsString + ' Total ' + #I0041TotalSalaryPJC.AsString) ('') )
     
     Define Field(#LF_Total_Salary) Reffld(#Std_Count)
     #LF_Total_Salary := 0
@@ -214,6 +198,12 @@
     If (#LF_DepartmentID_From_Employee_Table *EQ #LF_DepartmentID_From_Department_Table)
     #LF_Emp_Cnt_Within_Department += 1
     
+    If (#I0041DeptDescPJC *NE #DEPTDESC)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrectly mapped Department Description for Employee with ID ' + #EMPID.AsString + ' as "' + #I0041DeptDescPJC + '"') ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    
     If (#SALARY *LT #LF_Min_Salary)
     #LF_Min_Salary := #SALARY
     Endif
@@ -228,45 +218,45 @@
     
     
     If (#I0041CntEmpPJC *NE #LF_Emp_Cnt_Within_Department)
-    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Number of employees computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Employees ' + #LF_Emp_Cnt_Within_Department.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Number of employees computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Employees ' + #LF_Emp_Cnt_Within_Department.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-   Total employees count is Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Total employees count is Computed correctly') ('') )
     Endif
     
     If (#I0041MinSalaryPJC *NE #LF_Min_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Min. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Min. Salary ' + #LF_Min_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Min. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Min. Salary ' + #LF_Min_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-   Min. Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Min. Salary Computed correctly') ('') )
     Endif
     
     If (#I0041MaxSalaryPJC *NE #LF_Max_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Max. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Max. Salary ' + #LF_Max_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Max. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Max. Salary ' + #LF_Max_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-   Max. Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Max. Salary Computed correctly') ('') )
     Endif
     
     Define Field(#LF_Avg_Salary) Reffld(#Std_Count)
     #LF_Avg_Salary := #LF_Total_Salary / #LF_Emp_Cnt_Within_Department
     If (#I0041AvgSalaryPJC *NE #LF_Avg_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Avg Salary ' + #LF_Avg_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Avg Salary ' + #LF_Avg_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-   Avg. Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Avg. Salary Computed correctly') ('') )
     Endif
     
     If (#I0041TotalSalaryPJC *NE #LF_Total_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Salary ' + #LF_Total_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Salary ' + #LF_Total_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-   Total Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Total Salary Computed correctly') ('') )
     Endif
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
