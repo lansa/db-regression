@@ -7,6 +7,8 @@ try {
     foreach ($Root in $Roots) {
         Set-Location "$Root\lansa\VersionControl"
         Get-Location | Write-Host
+        git reset --hard HEAD | Write-Host
+        git checkout debug/paas | Write-Host
         git pull | Write-Host
         Write-Host
     }
