@@ -23,6 +23,30 @@
       Description:        "Verifier Test Template"
 
   Functions:
+  - KM_KCL3:
+      Name:               KM_KCOL3
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "RDMLX Keyed Collection"
+
+      - ENG:
+          Description:        "RDMLX Keyed Collection"
+
+      - FRA:
+          Description:        "RDMLX Keyed Collection"
+
+      - JPN:
+          Description:        "RDMLX Keyed Collection"
+
+      - TRK:
+          Description:        "RDMLX Keyed Collection"
+
+      Allowed Next Functions:
+      - "*ANY"
+
   - VTFUNC1:
       Name:               VTFUNC1
       Display on Menu:    No

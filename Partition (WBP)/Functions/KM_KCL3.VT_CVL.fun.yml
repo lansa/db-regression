@@ -1,0 +1,96 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT)
+    
+    * The Reusable Part KM_KCOL2 is essential of course. This creates the objects that the Keyed Collection and the List Collection contain.
+    * Thus for a new object type a new RP is required containing the appropriate Fields that each of your objects requires. Its the equivalent of what the DEF_LIST declares.
+    * And matching AddEntry and GetEntry methods are required to construct each object and retrieve the values of each object.
+    * The collections can be traversed using For Each and properties queried
+    * Parallel lists are also declared showing how the collections map to a def_list. This might be required to output the collection to a File using TRANSFORM_LIST which requires a def_list kind of list.
+    
+    Define_Com Class(#KM_KCOL2) Name(#EmployeeInstance) Reference(*DYNAMIC)
+    
+    Define_Com Class(#prim_kcol<#km_kcol2 #xEmployeeIdentification>) Name(#Sorted) /* Sorted by Employee Id */
+    
+    Define_Com Class(#prim_lcol<#km_kcol2>) Name(#Unsorted) /* Sorted by the order of the Table Index - Surname for the Index xemployee2 */
+    
+    Def_List Name(#SortedById) Fields(#xEmployeeIdentification #xEmployeeTitle #xEmployeeSurname #xEmployeeGivenNames) Type(*WORKING)
+    Def_List Name(#SortedBySurname) Fields(#xEmployeeIdentification #xEmployeeTitle #xEmployeeSurname #xEmployeeGivenNames) Type(*WORKING)
+    
+    Select Fields(*ALL) From_File(xemployee2)
+    
+    #Sorted<#xEmployeeIdentification.UpperCase> <= #Com_Owner.AddEmployee
+    
+    #Unsorted.Insert( #Sorted<#xEmployeeIdentification.UpperCase> )
+    
+    Endselect
+    
+    * Example key search for an employee and returning the surname property
+    #xEmployeeIdentification := '100066'
+    #xEmployeeSurname := #Sorted<#xEmployeeIdentification>.pSurname
+    
+    * How to obtain an entire Employee Instance
+    #EmployeeInstance <= #Sorted<#xEmployeeIdentification>
+    #xEmployeeSurname := #EmployeeInstance.pSurname
+    
+    Return
+    
+    Mthroutine Name(AddEmployee)
+    Define_Map For(*RESULT) Class(#km_kcol2) Name(#a) Pass(*BY_REFERENCE)
+    
+    #a <= *New #km_kcol2
+    
+    * key
+    #a.pID := #xEmployeeIdentification.UpperCase
+    
+    * Attributes
+    #a.pTitle := #xEmployeeTitle
+    #a.pSurname := #xEmployeeSurname
+    #a.pGivennames := #xEmployeeGivenNames
+    
+    Endroutine
+    
+    
+    Mthroutine Name(GetEmployee)
+    Define_Map For(*INPUT) Class(#km_kcol2) Name(#a) Pass(*BY_REFERENCE)
+    
+    * key
+    #xEmployeeIdentification := #a.pID
+    
+    * Attributes
+    #xEmployeeTitle := #a.pTitle
+    #xEmployeeSurname := #a.pSurname
+    #xEmployeeGivenNames := #a.pGivennames
+    
+    Endroutine
+    
+    Mthroutine Name(SortedById)
+    
+    Clr_List Named(#SortedById)
+    
+    For Each(#Employee) In(#Sorted)
+    
+    #Com_Owner.GetEmployee( #Employee )
+    
+    Add_Entry To_List(#SortedById)
+    
+    Endfor
+    
+    Endroutine
+    
+    Mthroutine Name(SortedBySurname)
+    
+    Clr_List Named(#SortedBySurname)
+    
+    For Each(#Employee) In(#Unsorted)
+    
+    #Com_Owner.GetEmployee( #Employee )
+    
+    Add_Entry To_List(#SortedBySurname)
+    
+    Endfor
+    
+    Endroutine
+    
