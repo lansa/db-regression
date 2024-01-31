@@ -64,7 +64,7 @@
     * The Log file exists in the absolute path
     #LF_logfile_name := 'c:\program files (x86)\Lansa\PerformanceMetricsLog.txt'
     * Log table File
-    #LF_TL_Output_File := 'c:\program files (x86)\Lansa\PerformanceMetricsLogTable.txt'
+    #LF_TL_Output_File := 'c:\program files (x86)\Lansa\PerformanceMetricsTable.txt'
     
     #Com_Owner.mthAdd_Msg( #this_rc ('#Started Transforming the log file into a list: ' + #LF_logfile_name) ('') )
     * Transform the log file into a list
@@ -91,7 +91,7 @@
     Endroutine
     
     *
-    * Reformat the Search List and transform it into a Logtable file
+    * Reformat the Search List and transform it into a Performance Metrics table file
     *
     Mthroutine Name(mthFormatSearchList)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
@@ -104,9 +104,9 @@
     Define Field(#Lf_j) Reffld(#std_Count)
     
     #DB_Type := 'DBTYPE'
-    #Literal := 'Literal'
-    #Bind := 'Bind'
-    #Lansa := 'LANSA'
+    #Literal := ' ' + 'Literal'
+    #Bind := ' ' + 'Bind'
+    #Lansa := ' ' + 'LANSA'
     Add_Entry To_List(#w_lTLSearchList)
     * #LF_j := 0
     
@@ -115,15 +115,15 @@
     
     #DB_Type := #BIFA256A
     If (#BIFA256B = 'LANSA')
-    #LANSA := #BIFA256C
+    #LANSA := ' ' + #BIFA256C
     Endif
     
     If (#BIFA256B = 'Literal')
-    #Literal := #BIFA256C
+    #Literal := ' ' + #BIFA256C
     Endif
     
     If (#BIFA256B = 'Bind')
-    #Bind := #BIFA256C
+    #Bind := ' ' + #BIFA256C
     Endif
     
     * Add the values to list in every 2 increments of the loop
@@ -132,7 +132,7 @@
     Endif
     End_Loop
     
-    #Com_Owner.mthAdd_Msg( OK ('Deleting the Performance Metrics logtable file if it already exists') ('') )
+    #Com_Owner.mthAdd_Msg( OK ('Deleting the Performance Metrics table file if it already exists') ('') )
     Use Builtin(OV_File_Service) With_Args(REMOVE_FILE #LF_TL_Output_File) To_Get(#Lf_rc)
     
     Use Builtin(TRANSFORM_LIST) With_Args(#w_lTLSearchList #LF_TL_Output_File 'O') To_Get(#this_rc)

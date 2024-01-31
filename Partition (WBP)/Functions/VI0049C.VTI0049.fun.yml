@@ -154,7 +154,7 @@
     Def_List Name(#w_lLansaExecutionList) Fields(#LF_DB_Type #LANSA #LansaTime) Type(*WORKING) Entrys(*MAX)
     
     #LF_rc := OK
-    #LANSA := 'LANSA'
+    #LANSA := ' ' + 'LANSA'
     Case Of_Field(#LF_DB_Type)
     * Start Time
     #Start := #STD_DTIMX.Now().AsSeconds
@@ -166,7 +166,7 @@
     #Finish := #STD_DTIMX.Now().AsSeconds
     #Duration := (#Finish - #Start) * 1000
     
-    #LansaTime := #Duration.AsString()
+    #LansaTime := ' ' + #Duration.AsString()
     Add_Entry To_List(#w_lLansaExecutionList)
     
     * Log the time to file
