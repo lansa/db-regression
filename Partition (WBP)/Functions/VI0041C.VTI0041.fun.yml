@@ -172,13 +172,13 @@
     
     #Com_Owner.mthAdd_SubMsg( OK ('-  Department info. ID "' + #LF_DepartmentID_From_Department_Table + ' Description "' + #DEPTDESC + '" Total Employees ' + #I0041CntEmpPJC.AsString + ' Salaries Min. ' + #I0041MinSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Avg. as ' + #I0041AvgSalaryPJC.AsString + ' Total ' + #I0041TotalSalaryPJC.AsString) ('') )
     
-    Define Field(#LF_Total_Salary) Reffld(#Std_Count)
+    Define Field(#LF_Total_Salary) Reffld(#SALARY)
     #LF_Total_Salary := 0
-    Define Field(#LF_Max_Salary) Reffld(#Std_Count)
+    Define Field(#LF_Max_Salary) Reffld(#SALARY)
     #LF_Max_Salary := 0
-    Define Field(#LF_Min_Salary) Reffld(#Std_Count)
+    Define Field(#LF_Min_Salary) Reffld(#SALARY)
     #LF_Min_Salary := 999999999
-    Define Field(#LF_Emp_Cnt_Within_Department) Reffld(#Std_Count)
+    Define Field(#LF_Emp_Cnt_Within_Department) Reffld(#I0041CntEmpPJC)
     #LF_Emp_Cnt_Within_Department := 0
     
     
