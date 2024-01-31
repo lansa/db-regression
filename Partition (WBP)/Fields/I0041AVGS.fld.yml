@@ -1,8 +1,8 @@
 ﻿Field:
   Name:               I0041AvgSalaryPJC
   Type:               Packed
-  Length:             11
-  Decimals:           2
+  Length:             15
+  Decimals:           4
   Default Value:      "*ZEROS"
   Enabled For RDMLX:  No
   System Field:       No
