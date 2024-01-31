@@ -104,9 +104,9 @@
     Define Field(#Lf_j) Reffld(#std_Count)
     
     #DB_Type := 'DBTYPE'
-    #Literal := ' ' + 'Literal'
-    #Bind := ' ' + 'Bind'
-    #Lansa := ' ' + 'LANSA'
+    #Literal := 'Literal'
+    #Bind := 'Bind'
+    #Lansa := 'LANSA'
     Add_Entry To_List(#w_lTLSearchList)
     * #LF_j := 0
     
@@ -115,15 +115,15 @@
     
     #DB_Type := #BIFA256A
     If (#BIFA256B = 'LANSA')
-    #LANSA := ' ' + #BIFA256C
+    #LANSA := #BIFA256C
     Endif
     
     If (#BIFA256B = 'Literal')
-    #Literal := ' ' + #BIFA256C
+    #Literal := #BIFA256C
     Endif
     
     If (#BIFA256B = 'Bind')
-    #Bind := ' ' + #BIFA256C
+    #Bind := #BIFA256C
     Endif
     
     * Add the values to list in every 2 increments of the loop
