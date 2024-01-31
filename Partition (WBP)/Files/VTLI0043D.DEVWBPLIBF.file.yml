@@ -60,3 +60,62 @@
   Primary Keys:
   - BIFC010A
   - BIFN0700A
+
+  Logical Views:
+  - LI0043DI2:
+      Identifier:         LI0043DI2
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0043DI2
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key : BIFINT2S"
+
+      - ENG:
+          Description:        "Key : BIFINT2S"
+
+      - FRA:
+          Description:        "Key : BIFINT2S"
+
+      - JPN:
+          Description:        "Key : BIFINT2S"
+
+      - TRK:
+          Description:        "Key : BIFINT2S"
+
+      Keys:
+      - BIFINT2S:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  - LI0043DI2D:
+      Identifier:         LI0043DI2D
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0043DI2D
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Key : BIFINT2S DESC"
+
+      - ENG:
+          Description:        "Key : BIFINT2S DESC"
+
+      - FRA:
+          Description:        "Key : BIFINT2S DESC"
+
+      - JPN:
+          Description:        "Key : BIFINT2S DESC"
+
+      - TRK:
+          Description:        "v"
+
+      Keys:
+      - BIFINT2S:
+          Key Order:          Descending
+          Numeric Ordering:   Signed

@@ -37,10 +37,11 @@
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
     Define Field(#LF_Test_Result_Generic_Integer2_Count) Reffld(#Std_Count)
-    Define Field(#LF_Test_Result_LI0043DI2) Reffld(#STD_COUNT)
-    Def_List Name(#wLTestResultGenericInteger2) Fields(#BIFINT2S) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
-    Def_List Name(#wLTestResultGenericInteger2Backwards) Fields(#BIFINT2S) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
-    Def_List Name(#wLTestResultGenericInteger2ForwardsDescending) Fields(#BIFINT2S) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Define Field(#LF_Test_Result_LI0043DI2) Reffld(#Std_Count)
+    Define Field(#LF_Func_LI0043DI2) Reffld(#Std_Count)
+    Def_List Name(#wLTestResultGenericInteger2) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger2Backwards) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger2ForwardsDescending) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -115,15 +116,15 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 320
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 206
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 206
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     
@@ -135,15 +136,15 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 160
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 46
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 46
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     
@@ -155,15 +156,15 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 16
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 30
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 30
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * *****************************************************************************
@@ -174,15 +175,15 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 336
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 190
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 190
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * *****************************************************************************
@@ -193,15 +194,15 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 176
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 30
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 30
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * *****************************************************************************
@@ -212,15 +213,15 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 14
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 14
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
-    #LF_Test_Result_LI0043DI2 := 0
+    #LF_Test_Result_LI0043DI2 := 14
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     Endroutine
@@ -275,10 +276,121 @@
     * Search.
     *
     Mthroutine Name(mthDoSearch)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    Endroutine
     
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#this_rc = OK)
+    Begin_Loop Using(#LF_i) To(#LF_Test_Key_Count)
+    Get_Entry Number(#LF_i) From_List(#wLTestKey)
+    * Note that #LF_TraceData has just been set globally
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('<' + #LF_i.AsString + '> Search Test: ' + *Quote + #LF_Test_Data.asString + *Quote) '' )
+    #Com_Owner.mthFunc_GenericSearch_Integer2_Endwhere( '*** SELECT GENERIC Key: Int(2)' #LF_Test_Data #this_rc )
+    
+    * REMOVE THIS - JUST TO ADD TEST DATA IN ONE SHOT THIS IS WRITTEN
+    #this_rc := OK
+    
+    If (#this_rc *NE OK)
+    Leave
+    Endif
+    End_Loop
+    Endif
+    
+    Endroutine
     *
+    * mthFunc_GenericSearch_Integer2_Endwhere
+    *
+    Mthroutine Name(mthFunc_GenericSearch_Integer2_Endwhere)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
+    Define_Map For(*INPUT) Class(#BIFINT2S) Name(#this_test_value)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #LF_View_Type := ' Key: INTEGER 2'
+    #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
+    
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS mthFunc_GenericSearch_Integer2_Endwhere' )
+    Change Field(#LF_Func_LI0043DI2) To(*NULL)
+    If (#LF_i > #LF_Test_Result_Generic_Integer2_Count)
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Test result ' + #LF_i.asString + ' missing from Test Result List') )
+    Return
+    Else
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2)
+    Endif
+    
+    * ****************************************************************************
+    * *FORWARDS
+    * ****************************************************************************
+    
+    Select Fields(#BIFINT2S) From_File(LI0043DI2) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*ENDWHERE)
+    #LF_Func_LI0043DI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2 *FORWARDS. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *BACKWARDS
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS mthFunc_Search_Generic_Integer2' )
+    Change Field(#LF_Func_LI0043DI2) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2Backwards)
+    
+    Select Fields(#BIFINT2S) From_File(LI0043DI2) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS *ENDWHERE)
+    #LF_Func_LI0043DI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2 *BACKWARDS. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    * ****************************************************************************
+    * *FORWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Integer2' )
+    Change Field(#LF_Func_LI0043DI2) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2ForwardsDescending)
+    
+    Select Fields(#BIFINT2S) From_File(LI0043DI2D) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*ENDWHERE)
+    #LF_Func_LI0043DI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2D *FORWARDS DESC. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * REPORT ON THE FINDING.
+    If (#LF_Total_Errors > 0)
+    #this_rc := ER
+    Endif
+    #Com_Owner.mthDoTestResult( #this_operation #this_rc )
+    
+    Endroutine
     * mthDoTestResult
     *
     * Requires results (#LF_Test_Result_*) to have been appropriately populated from the Test Result lists
@@ -287,6 +399,15 @@
     Mthroutine Name(mthDoTestResult)
     Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_operation)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    If (#LF_Total_Errors > 0)
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Total errors: ' + #LF_Total_Errors.asString) )
+    #this_rc := ER
+    Else
+    If ((#LF_Test_Result_LI0043DI2 <> #LF_Func_LI0043DI2))
+    #this_rc := ER
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation ('Go through log above to see which result is mis-matched') )
+    Endif
+    Endif
     Endroutine
     
     * Add a message to the Return Message List.
