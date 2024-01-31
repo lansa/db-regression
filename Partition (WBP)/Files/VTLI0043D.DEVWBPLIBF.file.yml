@@ -40,3 +40,23 @@
 
   - TRK:
       Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+  Real Fields:
+  - BIFC010A:
+      Type:               Char
+      Length:             10
+      Decimals:           0
+
+  - BIFN0700A:
+      Type:               Signed
+      Length:             7
+      Decimals:           0
+
+  - BIFINT2S:
+      Type:               Integer
+      Length:             2
+      Decimals:           0
+
+  Primary Keys:
+  - BIFC010A
+  - BIFN0700A
