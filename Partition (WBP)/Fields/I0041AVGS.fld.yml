@@ -1,10 +1,10 @@
 ﻿Field:
   Name:               I0041AvgSalaryPJC
-  Type:               Float
-  Length:             4
-  Decimals:           0
+  Type:               Packed
+  Length:             11
+  Decimals:           2
   Default Value:      "*ZEROS"
-  Enabled For RDMLX:  Yes
+  Enabled For RDMLX:  No
   System Field:       No
 
   Input Attributes:
