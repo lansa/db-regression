@@ -52,23 +52,88 @@
       Length:             32
       Decimals:           0
 
+  - BIFN0702A:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+
+  - BIFN0702B:
+      Type:               Signed
+      Length:             7
+      Decimals:           2
+
+  - BIFDT26C:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
+  - BIFDT26D:
+      Type:               Date Time
+      Length:             26
+      Decimals:           0
+
   Primary Keys:
   - BIFN0700A
 
   File Level Triggers:
-  - BIFN0700A:
-    - All points:
+  - BIFA032A:
+    - Conditional Table Trigger INS:
+        Function:           VI035AB
+        Trigger Points:
+        - Before Insert
+        - After Insert
+        Conditions:
+        - Field:              BIFA032A
+          Operator:           EQ
+          Compare Value:      "'INSERT'"
+        - And/Or:             And
+          Field:              BIFA032A
+          Operator:           NE
+          Compare Value:      "*BLANK"
+
+  - BIFN0702A:
+    - Conditional Multiple Condition:
         Function:           VI035AA
         Trigger Points:
-        - Before Open
-        - Before Close
         - Before Read
-        - Before Insert
-        - Before Update
-        - Before Delete
-        - After Open
-        - After Close
         - After Read
-        - After Insert
+        Conditions:
+        - Field:              BIFN0702A
+          Operator:           LT
+          Compare Value:      +20
+        - And/Or:             And
+          Field:              BIFN0702A
+          Operator:           EQ
+          Compare Value:      +10
+        - And/Or:             And
+          Field:              BIFN0702A
+          Operator:           NE
+          Compare Value:      +6
+        - And/Or:             And
+          Field:              BIFN0702A
+          Operator:           GT
+          Compare Value:      +0
+
+  - BIFN0702B:
+    - Conditional Table Trigger UPD:
+        Function:           VI035AC
+        Trigger Points:
+        - Before Update
         - After Update
-        - After Delete
+        Conditions:
+        - Field:              BIFN0702B
+          Operator:           REF
+        - And/Or:             And
+          Field:              BIFN0702B
+          Operator:           GEP
+          Compare Value:      BIFN0702B
+
+  - BIFDT26C:
+    - Trigger NE:
+        Function:           VI035AD
+        Trigger Points:
+        - Before Delete
+        Conditions:
+        - Field:              BIFDT26C
+          Operator:           NE
+          Compare Value:      BIFDT26D

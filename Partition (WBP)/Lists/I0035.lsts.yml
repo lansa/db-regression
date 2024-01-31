@@ -3,9 +3,6 @@
   Stored As:          User
 
   Objects:
-  - VTI0035:
-      Type:               Process
-
   - VI0035C:
       Type:               Funciton
       Qualifier:          VTI0035
@@ -65,3 +62,18 @@
   - VTLI0035H:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - VTI0035:
+      Type:               Process
+
+  - VI035AB:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AC:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AD:
+      Type:               Funciton
+      Qualifier:          VTI0035

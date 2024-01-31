@@ -514,35 +514,35 @@
     Clr_List Named(#wl_VTTEMP_Function)
     
     
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VI0035C )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
-    *
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VI0035D )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
-    *
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VI0035E )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
-    *
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VI0035F )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( VI0035C )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
     
-    * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( VI0035G )
-    * Else
-    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    * Endif
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( VI0035D )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( VI0035E )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( VI0035F )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( VI0035G )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
     
     If (#LF_VTTEMP_Skip_Test_Case = False)
     #Com_Owner.mthAddFunction( VI0035H )

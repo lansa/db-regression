@@ -5,7 +5,7 @@
     * =======================================================
     * Copyright .....: (C) LANSA PTY LTD, 1992
     * Process .......: VTI0035
-    * Function ......: VI0035AA
+    * Function ......: VI0035AC
     * Type ..........: VTLI0035H File Level Trigger
     * Created by ....:
     * Created on ....: 24/01/28 at 00:23:04
@@ -24,19 +24,19 @@
     Def_List Name(#TRIG_LIST) Type(*WORKING) Entrys(2)
     
     * =======================================================
-    * Function Mainline : VI0035AA
+    * Function Mainline : VI0035AC
     * =======================================================
     * Assume a "good" return initially
     Change Field(#TRIG_RETC) To('OK')
     
     Case Of_Field(#TRIG_OPER)
     * Handle a before read event
-    When Value_Is('= BEFRED')
-    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFRED LT EQ NE GT')
+    When Value_Is('= BEFUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFUPD REF GEP')
     
     * Handle an after read event
-    When Value_Is('= AFTRED')
-    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTRED LT EQ NE GT')
+    When Value_Is('= AFTUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTUPD REF GEP')
     
     * Handle an event not catered for
     Otherwise

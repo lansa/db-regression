@@ -47,102 +47,6 @@
       Allowed Next Functions:
       - "*ANY"
 
-  - VI0035A:
-      Name:               VI0035A
-      Display on Menu:    Yes
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "#35 Test Case Driver"
-
-      - ENG:
-          Description:        "#35 Test Case Driver"
-
-      - FRA:
-          Description:        "#35 Test Case Driver"
-
-      - JPN:
-          Description:        "#35 Test Case Driver"
-
-      - TRK:
-          Description:        "#35 Test Case Driver"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035A:
-      Name:               VI0035A
-      Display on Menu:    Yes
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "#35 Test Case Driver"
-
-      - ENG:
-          Description:        "#35 Test Case Driver"
-
-      - FRA:
-          Description:        "#35 Test Case Driver"
-
-      - JPN:
-          Description:        "#35 Test Case Driver"
-
-      - TRK:
-          Description:        "#35 Test Case Driver"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035C:
-      Name:               VI0035C
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Rules"
-
-      - ENG:
-          Description:        "Simple Rules"
-
-      - FRA:
-          Description:        "Simple Rules"
-
-      - JPN:
-          Description:        "Simple Rules"
-
-      - TRK:
-          Description:        "Simple Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035C:
-      Name:               VI0035C
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Rules"
-
-      - ENG:
-          Description:        "Simple Rules"
-
-      - FRA:
-          Description:        "Simple Rules"
-
-      - JPN:
-          Description:        "Simple Rules"
-
-      - TRK:
-          Description:        "Simple Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
   - VI0035C:
       Name:               VI0035C
       Display on Menu:    No
@@ -191,54 +95,6 @@
       Allowed Next Functions:
       - "*ANY"
 
-  - VI0035D:
-      Name:               VI0035D
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Numeric Rules"
-
-      - ENG:
-          Description:        "Simple Numeric Rules"
-
-      - FRA:
-          Description:        "Simple Numeric Rules"
-
-      - JPN:
-          Description:        "Simple Numeric Rules"
-
-      - TRK:
-          Description:        "Simple Numeric Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035D:
-      Name:               VI0035D
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Numeric Rules"
-
-      - ENG:
-          Description:        "Simple Numeric Rules"
-
-      - FRA:
-          Description:        "Simple Numeric Rules"
-
-      - JPN:
-          Description:        "Simple Numeric Rules"
-
-      - TRK:
-          Description:        "Simple Numeric Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
   - VI0035E:
       Name:               VI0035E
       Display on Menu:    No
@@ -259,102 +115,6 @@
 
       - TRK:
           Description:        "Simple Date Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035E:
-      Name:               VI0035E
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Date Rules"
-
-      - ENG:
-          Description:        "Simple Date Rules"
-
-      - FRA:
-          Description:        "Simple Date Rules"
-
-      - JPN:
-          Description:        "Simple Date Rules"
-
-      - TRK:
-          Description:        "Simple Date Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035E:
-      Name:               VI0035E
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Date Rules"
-
-      - ENG:
-          Description:        "Simple Date Rules"
-
-      - FRA:
-          Description:        "Simple Date Rules"
-
-      - JPN:
-          Description:        "Simple Date Rules"
-
-      - TRK:
-          Description:        "Simple Date Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035F:
-      Name:               VI0035F
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Check Rules"
-
-      - ENG:
-          Description:        "Check Rules"
-
-      - FRA:
-          Description:        "Check Rules"
-
-      - JPN:
-          Description:        "Check Rules"
-
-      - TRK:
-          Description:        "Check Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035F:
-      Name:               VI0035F
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Check Rules"
-
-      - ENG:
-          Description:        "Check Rules"
-
-      - FRA:
-          Description:        "Check Rules"
-
-      - JPN:
-          Description:        "Check Rules"
-
-      - TRK:
-          Description:        "Check Rules"
 
       Allowed Next Functions:
       - "*ANY"
@@ -455,105 +215,9 @@
       Allowed Next Functions:
       - "*ANY"
 
-  - VI0035G:
-      Name:               VI0035G
+  - VI0035H:
+      Name:               VI0035H
       Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Triggers"
-
-      - ENG:
-          Description:        "Triggers"
-
-      - FRA:
-          Description:        "Triggers"
-
-      - JPN:
-          Description:        "Triggers"
-
-      - TRK:
-          Description:        "Triggers"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035G:
-      Name:               VI0035G
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Triggers"
-
-      - ENG:
-          Description:        "Triggers"
-
-      - FRA:
-          Description:        "Triggers"
-
-      - JPN:
-          Description:        "Triggers"
-
-      - TRK:
-          Description:        "Triggers"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035H:
-      Name:               VI0035H
-      Display on Menu:    Yes
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Conditional Table Trigger Points"
-
-      - ENG:
-          Description:        "Conditional Table Trigger Points"
-
-      - FRA:
-          Description:        "Conditional Table Trigger Points"
-
-      - JPN:
-          Description:        "Conditional Table Trigger Points"
-
-      - TRK:
-          Description:        "Conditional Table Trigger Points"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035H:
-      Name:               VI0035H
-      Display on Menu:    Yes
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Conditional Table Trigger Points"
-
-      - ENG:
-          Description:        "Conditional Table Trigger Points"
-
-      - FRA:
-          Description:        "Conditional Table Trigger Points"
-
-      - JPN:
-          Description:        "Conditional Table Trigger Points"
-
-      - TRK:
-          Description:        "Conditional Table Trigger Points"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035H:
-      Name:               VI0035H
-      Display on Menu:    Yes
       Next Function:      MENU
 
       Multilingual Details:
@@ -599,122 +263,98 @@
       Allowed Next Functions:
       - "*ANY"
 
-  - VI0035T:
-      Name:               VI0035T
+  - VI035AA:
+      Name:               VI035AA
       Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger"
 
       - ENG:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger"
 
       - FRA:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger"
 
       - JPN:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger"
 
       - TRK:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger"
 
       Allowed Next Functions:
       - "*ANY"
 
-  - VI0035T:
-      Name:               VI0035T
+  - VI035AB:
+      Name:               VI035AB
       Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - ENG:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - FRA:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - JPN:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - TRK:
-          Description:        "File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       Allowed Next Functions:
       - "*ANY"
 
-  - VI035AA:
-      Name:               VI035AA
-      Display on Menu:    Yes
+  - VI035AC:
+      Name:               VI035AC
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Update"
 
       - ENG:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Update"
 
       - FRA:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Update"
 
       - JPN:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Update"
 
       - TRK:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Update"
 
       Allowed Next Functions:
       - "*ANY"
 
-  - VI035AA:
-      Name:               VI035AA
-      Display on Menu:    Yes
+  - VI035AD:
+      Name:               VI035AD
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - ENG:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - FRA:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - JPN:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       - TRK:
-          Description:        "Conditional Table File Trigger"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI035AA:
-      Name:               VI035AA
-      Display on Menu:    Yes
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Conditional Table File Trigger"
-
-      - ENG:
-          Description:        "Conditional Table File Trigger"
-
-      - FRA:
-          Description:        "Conditional Table File Trigger"
-
-      - JPN:
-          Description:        "Conditional Table File Trigger"
-
-      - TRK:
-          Description:        "Conditional Table File Trigger"
+          Description:        "Conditional Table File Trigger Insert"
 
       Allowed Next Functions:
       - "*ANY"
