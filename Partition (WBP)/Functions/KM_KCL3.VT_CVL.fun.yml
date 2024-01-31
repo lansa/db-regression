@@ -31,7 +31,7 @@
     #xEmployeeIdentification := '100066'
     #xEmployeeSurname := #Sorted<#xEmployeeIdentification>.pSurname
     
-    * How to obtain an entire Employee Instance
+    * How to obtain an entire Employee Instance. And then get the surname property
     #EmployeeInstance <= #Sorted<#xEmployeeIdentification>
     #xEmployeeSurname := #EmployeeInstance.pSurname
     
