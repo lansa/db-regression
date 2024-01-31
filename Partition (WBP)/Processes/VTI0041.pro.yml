@@ -49,24 +49,24 @@
 
   - VI0041C:
       Name:               VI0041C
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
       - DAN:
-          Description:        "Tests for PJC type LOOKUP"
+          Description:        "Tests for PJC types"
 
       - ENG:
-          Description:        "Tests for PJC type LOOKUP"
+          Description:        "Tests for PJC types"
 
       - FRA:
-          Description:        "Tests for PJC type LOOKUP"
+          Description:        "Tests for PJC types"
 
       - JPN:
-          Description:        "Tests for PJC type LOOKUP"
+          Description:        "Tests for PJC types"
 
       - TRK:
-          Description:        "Tests for PJC type LOOKUP"
+          Description:        "Tests for PJC types"
 
       Allowed Next Functions:
       - "*ANY"

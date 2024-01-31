@@ -92,9 +92,9 @@
     Mthroutine Name(mth_Generate_Test_Data_For_Department_and_Employees)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Tests for PJC type LOOKUP') '' )
-    
     #Com_Owner.mthClear_Department_And_Employee_Tables( #this_rc )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Generating test data for Departments and Employees into table VTLI0041B & VTLI0041A') ('') )
     
     Define Field(#LF_i) Reffld(#Std_Count)
     Begin_Loop Using(#LF_i) To(201)
@@ -163,14 +163,14 @@
     
     Mthroutine Name(mth_Validate_Lookup_Count_Min_Max_Total_Salaries_For_Each_Department)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    #Com_Owner.mthAdd_SubMsg( OK '-  Validating Lookup, Count, Min, Max. and Total Salaries for each Department' '' )
+    #Com_Owner.mthAdd_SubMsg( OK '- Validating Lookup, Count, Min, Max. and Total Salaries for each Department' '' )
     
     Clr_List Named(#w_lDepartmentTable)
     Select Fields(*ALL) From_File(VTLI0041B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Define Field(#LF_DepartmentID_From_Department_Table) Type(*CHAR) Length(4)
     #LF_DepartmentID_From_Department_Table := #XDEPTMENT
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Department info. ID "' + #LF_DepartmentID_From_Department_Table + ' Description "' + #DEPTDESC + '" Total Employees ' + #I0041CntEmpPJC.AsString + ' Salaries Min. ' + #I0041MinSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Avg. as ' + #I0041AvgSalaryPJC.AsString + ' Total ' + #I0041TotalSalaryPJC.AsString) ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Department info. ID "' + #LF_DepartmentID_From_Department_Table + ' Description "' + #DEPTDESC + '" Total Employees ' + #I0041CntEmpPJC.AsString + ' Salaries Min. ' + #I0041MinSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Avg. as ' + #I0041AvgSalaryPJC.AsString + ' Total ' + #I0041TotalSalaryPJC.AsString) ('') )
     
     Define Field(#LF_Total_Salary) Reffld(#Std_Count)
     #LF_Total_Salary := 0
@@ -221,41 +221,41 @@
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Total employees count is Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Total employees count is Computed correctly') ('') )
     Endif
     
     If (#I0041MinSalaryPJC *NE #LF_Min_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Min. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Min. Salary ' + #LF_Min_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Min. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Min. Salary ' + #LF_Min_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Min. Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Min. Salary Computed correctly') ('') )
     Endif
     
     If (#I0041MaxSalaryPJC *NE #LF_Max_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Max. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Max. Salary ' + #LF_Max_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Max. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Max. Salary ' + #LF_Max_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Max. Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Max. Salary Computed correctly') ('') )
     Endif
     
     Define Field(#LF_Avg_Salary) Reffld(#I0041AvgSalaryPJC)
     #LF_Avg_Salary := #LF_Total_Salary / #LF_Emp_Cnt_Within_Department
     If (#I0041AvgSalaryPJC *NE #LF_Avg_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Avg Salary ' + #LF_Avg_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Avg Salary ' + #LF_Avg_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Avg. Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Avg. Salary Computed correctly') ('') )
     Endif
     
     If (#I0041TotalSalaryPJC *NE #LF_Total_Salary)
-    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Salary ' + #LF_Total_Salary.AsString + '"') ('') )
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Salary ' + #LF_Total_Salary.AsString + '"') ('') )
     #this_rc := ER
     Leave
     Else
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Total Salary Computed correctly') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Total Salary Computed correctly') ('') )
     Endif
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
@@ -294,7 +294,6 @@
     Mthroutine Name(mthAdd_Record_To_Department_Table_Is_Successful)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Department Table VTLI0041B') ('') )
     If (#Com_Owner.mthAdd_Record_To_Department_Table( #this_rc ) *EQ false)
     #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
     Endif
@@ -303,7 +302,6 @@
     Mthroutine Name(mthAdd_Record_To_Employee_Table_Is_Successful)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Adding a Record to Employee Table VTLI0041A') ('') )
     If (#Com_Owner.mthAdd_Record_To_Employee_Table( #this_rc ) *EQ false)
     #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
     Endif
@@ -465,11 +463,10 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Inserting record as Department Code "' + #XDEPTMENT + '" Department Description "' + #DEPTDESC + '" into Department table VTLI0041B') ('') )
-    
     #this_is_ok := true
     Insert Fields(*ALL) To_File(VTLI0041B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Insertion failed into Department table VTLI0041B, for record as Department Code "' + #XDEPTMENT + '" Description "' + #DEPTDESC + '"') ('') )
     #this_is_ok := false
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
@@ -502,11 +499,10 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
     
-    #Com_Owner.mthAdd_SubMsg( OK ('-  Inserting record as Employee ID "' + #EMPID.AsString + '" Salary ' + #SALARY.AsString + ' into Employee table VTLI0041A') ('') )
-    
     #this_is_ok := true
     Insert Fields(*ALL) To_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Insertion failed into Employee table VTLI0041A as Employee ID "' + #EMPID.AsString + '" Salary ' + #SALARY.AsString) ('') )
     #this_is_ok := false
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
