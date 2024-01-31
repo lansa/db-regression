@@ -1,0 +1,40 @@
+﻿List:
+  Name:               I0041
+  Stored As:          User
+
+  Objects:
+  - VTLI0041A:
+      Type:               File
+
+  - VTLI0041B:
+      Type:               File
+
+  - I0041DEPT:
+      Type:               Field
+
+  - I0041TOTA:
+      Type:               Field
+
+  - VI0041A:
+      Type:               Funciton
+
+  - VI0041C:
+      Type:               Funciton
+
+  - VTI0041:
+      Type:               Process
+
+  - EMPID:
+      Type:               Field
+
+  - I0041MAXS:
+      Type:               Field
+
+  - I0041MINS:
+      Type:               Field
+
+  - I0041AVGS:
+      Type:               Field
+
+  - I0041CNTE:
+      Type:               Field

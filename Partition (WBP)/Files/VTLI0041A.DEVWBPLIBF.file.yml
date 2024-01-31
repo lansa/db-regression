@@ -1,0 +1,114 @@
+﻿File:
+  Name:                           VTLI0041A
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTLI0041A
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Employee"
+
+  - ENG:
+      Description:        "Employee"
+
+  - FRA:
+      Description:        "Employee"
+
+  - JPN:
+      Description:        "Employee"
+
+  - TRK:
+      Description:        "Employee"
+
+  Real Fields:
+  - XDEPTMENT:
+      Type:               Alphanumeric
+      Length:             4
+      Decimals:           0
+
+  - SALARY:
+      Type:               Decimal
+      Length:             11
+      Decimals:           2
+
+  - EMPID:
+      Type:               Decimal
+      Length:             7
+      Decimals:           0
+
+  Primary Keys:
+  - EMPID
+
+  Virtual Fields:
+
+  Logical Views:
+  - LI0041P1:
+      Identifier:         LI0041P1
+      Unique Key:         No
+      Access Path:        Immediate
+      Record Format:      LI0041P1
+      Dynamic Select:     No
+      Parameters:         LVLCHK(*YES)
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Department Code"
+
+      - ENG:
+          Description:        "Department Code"
+
+      - FRA:
+          Description:        "Department Code"
+
+      - JPN:
+          Description:        "Department Code"
+
+      - TRK:
+          Description:        "Department Code"
+
+      Keys:
+      - XDEPTMENT:
+          Key Order:          Ascending
+          Numeric Ordering:   Unsigned
+
+  Access Routes:
+  - I0041TODEP:
+      Description:        To Department Table
+      File:               VTLI0041B
+      Library:            "*FIRST"
+      Association Type:   Derive
+      Association Rule:   Derive
+      Documentation Only: No
+      Maximum Records:    1
+      Default Action:     Dummy
+      Keep Last:          0
+      Derivation:         After Virtual Fields
+
+      Keys:
+      - XDEPTMENT
+
+      PJFs:
+      - I0041DEPT:
+          PJF Type:           Lookup
+          Source Field:       DEPTDESC

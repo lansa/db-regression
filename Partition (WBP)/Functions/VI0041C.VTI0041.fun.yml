@@ -1,0 +1,514 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    Function Options(*DIRECT) Rcv_List(#wLKData #wLRet)
+    
+    * ****************************************************************************************************************
+    * Test Case Description
+    * Issue #41 Predetermined Join Columns
+    * This module contains unit tests validating the functionality of PJC Type LOOKUP, COUNT, Min, Max, Total and Avg
+    * ****************************************************************************************************************
+    
+    * Unique Key Data.
+    Def_List Name(#wLKData) Fields(#VTF_KEY1 #VTF_KEY2 #VTF_KEY3) Type(*WORKING) Entrys(1)
+    
+    * Return messages.
+    Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    
+    Define Field(#LF_rc) Reffld(#BIFA002A)
+    Define Field(#LF_DB_Type) Type(*CHAR) Length(32)
+    Define Field(#LF_Tmp_Records_Count) Reffld(#Std_Count)
+    Define Field(#LF_Records_Count) Reffld(#Std_Count)
+    Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    Define Field(#LF_DataShown) Reffld(#BIFB001B)
+    
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    
+    Define Field(#LF_Records_Count_Employee_Table) Reffld(#Std_Count)
+    Define Field(#LF_Records_Count_Department_Table) Reffld(#Std_Count)
+    Def_List Name(#w_lEmployeeTable) Fields(#EMPID #XDEPTMENT #SALARY #I0041DeptDescPJC) Counter(#LF_Records_Count_Employee_Table) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#w_lDepartmentTable) Fields(#XDEPTMENT #DEPTDESC #I0041TotalSalaryPJC) Counter(#LF_Records_Count_Department_Table) Type(*WORKING) Entrys(*MAX)
+    Define Field(#LF_Records_Count_Department_Total_Salary) Reffld(#Std_Count)
+    Def_List Name(#w_lDepartmentTotalSalary) Fields(#XDEPTMENT #SALARY) Counter(#LF_Records_Count_Department_Total_Salary) Type(*WORKING) Entrys(*MAX)
+    
+    * Start testing.
+    Clr_List Named(#wLRet)
+    #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    
+    #Com_Owner.mth_Generate_Test_Data_For_Department_and_Employees( #LF_rc )
+    
+    #Com_Owner.mth_Validate_Lookup_Count_Min_Max_Total_Salaries_For_Each_Department( #LF_rc )
+    
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    
+    
+    * Add a message to the Return Message List.
+    Mthroutine Name(mthAdd_Msg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    * Add a sub message to the Return Message List.
+    Mthroutine Name(mthAdd_SubMsg)
+    Define_Map For(*INPUT) Class(#BIFMSGC) Name(#this_msg_code)
+    Define_Map For(*INPUT) Class(#BIFMSG1) Name(#this_msg1)
+    Define_Map For(*INPUT) Class(#BIFMSG2) Name(#this_msg2)
+    
+    #BIFMSGC := #this_msg_code
+    #BIFMSG1 := ' ' + #this_msg1
+    #BIFMSG2 := #this_msg2
+    Add_Entry To_List(#wLRet)
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine
+    
+    Mthroutine Name(mth_Generate_Test_Data_For_Department_and_Employees)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthClear_Department_And_Employee_Tables( #this_rc )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Generating test data for Departments and Employees into table VTLI0041B & VTLI0041A') ('') )
+    
+    Define Field(#LF_i) Reffld(#Std_Count)
+    Begin_Loop Using(#LF_i) To(201)
+    If ((#LF_i *GE 1) *And (#LF_i *LE 50))
+    If (#LF_i *EQ 1)
+    * create Development team
+    #XDEPTMENT := 'LNZ1'
+    #DEPTDESC := 'Dev Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
+    
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 2500 + #LF_i
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
+    
+    If ((#LF_i *GE 51) *And (#LF_i *LE 100))
+    If (#LF_i *EQ 51)
+    * create QA team
+    #XDEPTMENT := 'LNZ2'
+    #DEPTDESC := 'QA Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
+    
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 3000 + #LF_i
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
+    
+    If ((#LF_i *GE 101) *And (#LF_i *LE 150))
+    If (#LF_i *EQ 101)
+    * create Management team
+    #XDEPTMENT := 'LNZ3'
+    #DEPTDESC := 'Mgmt Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
+    
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 3500 + #LF_i
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
+    
+    If ((#LF_i *GE 151) *And (#LF_i *LE 200))
+    If (#LF_i *EQ 151)
+    * create Finance team
+    #XDEPTMENT := 'LNZ4'
+    #DEPTDESC := 'Fin Team'
+    #Com_Owner.mthAdd_Record_To_Department_Table_Is_Successful( #this_rc )
+    Endif
+    
+    * add an employee to it
+    #EMPID := #LF_i
+    #SALARY := 4000 + #LF_i
+    #Com_Owner.mthAdd_Record_To_Employee_Table_Is_Successful( #this_rc )
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Successful') ('') )
+    Endif
+    Endroutine
+    
+    
+    Mthroutine Name(mth_Validate_Lookup_Count_Min_Max_Total_Salaries_For_Each_Department)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( OK '- Validating Lookup, Count, Min, Max. and Total Salaries for each Department' '' )
+    
+    Clr_List Named(#w_lDepartmentTable)
+    Select Fields(*ALL) From_File(VTLI0041B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Define Field(#LF_DepartmentID_From_Department_Table) Type(*CHAR) Length(4)
+    #LF_DepartmentID_From_Department_Table := #XDEPTMENT
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Department info. ID "' + #LF_DepartmentID_From_Department_Table + ' Description "' + #DEPTDESC + '" Total Employees ' + #I0041CntEmpPJC.AsString + ' Salaries Min. ' + #I0041MinSalaryPJC.AsString + ' Max. ' + #I0041MaxSalaryPJC.AsString + ' Avg. as ' + #I0041AvgSalaryPJC.AsString + ' Total ' + #I0041TotalSalaryPJC.AsString) ('') )
+    
+    Define Field(#LF_Total_Salary) Reffld(#SALARY)
+    #LF_Total_Salary := 0
+    Define Field(#LF_Max_Salary) Reffld(#SALARY)
+    #LF_Max_Salary := 0
+    Define Field(#LF_Min_Salary) Reffld(#SALARY)
+    #LF_Min_Salary := 999999999
+    Define Field(#LF_Emp_Cnt_Within_Department) Reffld(#I0041CntEmpPJC)
+    #LF_Emp_Cnt_Within_Department := 0
+    
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Select Fields(*ALL) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lEmployeeTable)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count_Employee_Table)
+    Get_Entry Number(#LF_i) From_List(#w_lEmployeeTable)
+    
+    Define Field(#LF_DepartmentID_From_Employee_Table) Type(*CHAR) Length(4)
+    #LF_DepartmentID_From_Employee_Table := #XDEPTMENT
+    If (#LF_DepartmentID_From_Employee_Table *EQ #LF_DepartmentID_From_Department_Table)
+    #LF_Emp_Cnt_Within_Department += 1
+    
+    If (#I0041DeptDescPJC *NE #DEPTDESC)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrectly mapped Department Description for Employee with ID ' + #EMPID.AsString + ' as "' + #I0041DeptDescPJC + '"') ('') )
+    #this_rc := ER
+    Leave
+    Endif
+    
+    If (#SALARY *LT #LF_Min_Salary)
+    #LF_Min_Salary := #SALARY
+    Endif
+    
+    If (#SALARY *GT #LF_Max_Salary)
+    #LF_Max_Salary := #SALARY
+    Endif
+    
+    #LF_Total_Salary += #SALARY
+    Endif
+    End_Loop
+    
+    If (#I0041CntEmpPJC *NE #LF_Emp_Cnt_Within_Department)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrect Number of employees computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Employees ' + #LF_Emp_Cnt_Within_Department.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Total employees count is Computed correctly') ('') )
+    Endif
+    
+    If (#I0041MinSalaryPJC *NE #LF_Min_Salary)
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Min. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Min. Salary ' + #LF_Min_Salary.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Min. Salary Computed correctly') ('') )
+    Endif
+    
+    If (#I0041MaxSalaryPJC *NE #LF_Max_Salary)
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Max. Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Max. Salary ' + #LF_Max_Salary.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Max. Salary Computed correctly') ('') )
+    Endif
+    
+    Define Field(#LF_Avg_Salary) Reffld(#I0041AvgSalaryPJC)
+    #LF_Avg_Salary := #LF_Total_Salary / #LF_Emp_Cnt_Within_Department
+    If (#I0041AvgSalaryPJC *NE #LF_Avg_Salary)
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Avg Salary ' + #LF_Avg_Salary.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Avg. Salary Computed correctly') ('') )
+    Endif
+    
+    If (#I0041TotalSalaryPJC *NE #LF_Total_Salary)
+    #Com_Owner.mthAdd_SubMsg( ER ('-   Incorrect Salary computed for the Department "' + #LF_DepartmentID_From_Department_Table + '" Total Salary ' + #LF_Total_Salary.AsString + '"') ('') )
+    #this_rc := ER
+    Leave
+    Else
+    #Com_Owner.mthAdd_SubMsg( OK ('-   Total Salary Computed correctly') ('') )
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    Endselect
+    
+    If (#this_rc <> EF)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lDepartmentTable)
+    Clr_List Named(#w_lEmployeeTable)
+    Endroutine
+    
+    
+    *
+    * This routine is responsible to clear the data from Employee and Department tables. i.e., VTLI0041A and VTLI0041B
+    *
+    Mthroutine Name(mthClear_Department_And_Employee_Tables)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK '- Clear data from tables' '' )
+    
+    #Com_Owner.mthClearDataFromEmployeeTable( #this_rc )
+    #Com_Owner.mthClearDataFromDepartmentTable( #this_rc )
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Failed') '' )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthAdd_Record_To_Department_Table_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#Com_Owner.mthAdd_Record_To_Department_Table( #this_rc ) *EQ false)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthAdd_Record_To_Employee_Table_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    If (#Com_Owner.mthAdd_Record_To_Employee_Table( #this_rc ) *EQ false)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Record exists') ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthCheck_For_Each_Employee_Department_Description_Is_Correctly_Mapped)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Check for each Employee, Department Description is correctly mapped') ('') )
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Select Fields(*ALL) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Fetch Fields(#DEPTDESC) From_File(VTLI0041B) With_Key(#XDEPTMENT)
+    If (#I0041DeptDescPJC *EQ #DEPTDESC)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Correctly mapped Department Description as "' + #I0041DeptDescPJC + '"') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Incorrectly mapped Department Description as "' + #I0041DeptDescPJC + '"') ('') )
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Endroutine
+    
+    
+    Mthroutine Name(mthUpdate_Department_Description_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Updating Department Description of table VTLI0041B') ('') )
+    If (#Com_Owner.mthUpdate_Record_From_Department_Table( #this_rc ) *EQ FALSE)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Record does not exist') ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthUpdate_Record_From_Department_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Updating record of table VTLI0041B for Key #XDEPTMENT ' + #XDEPTMENT + ' with Description as Department Description "' + #DEPTDESC + '"') ('') )
+    #this_is_ok := true
+    Update Fields(#DEPTDESC) In_File(VTLI0041B) With_Key(#XDEPTMENT) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    
+    Mthroutine Name(mthClearDataFromEmployeeTable)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( OK '-  Clear data from Employee table VTLI0041A' '' )
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Select Fields(#EMPID) From_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lEmployeeTable)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('-  ' + #LF_Records_Count_Employee_Table.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count_Employee_Table > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Records_Count_Employee_Table)
+    Get_Entry Number(#LF_i) From_List(#w_lEmployeeTable)
+    
+    Delete From_File(VTLI0041A) With_Key(#EMPID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('Deleting on record ' + #EMPID.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Ok') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lEmployeeTable)
+    Endroutine
+    
+    Mthroutine Name(mthClearDataFromDepartmentTable)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    #Com_Owner.mthAdd_SubMsg( OK '-  Clear data from Department table VTLI0041A' '' )
+    
+    Clr_List Named(#w_lDepartmentTable)
+    Select Fields(#XDEPTMENT) From_File(VTLI0041B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lDepartmentTable)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('-  ' + #LF_Records_Count_Department_Table.AsString + ' record(s) found') '' )
+    
+    If (#LF_Records_Count_Department_Table > 0)
+    Define Field(#LF_j) Reffld(#Std_Count)
+    Begin_Loop Using(#LF_j) To(#LF_Records_Count_Department_Table)
+    Get_Entry Number(#LF_j) From_List(#w_lDepartmentTable)
+    
+    Delete From_File(VTLI0041B) With_Key(#XDEPTMENT) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('Deleting on record ' + #XDEPTMENT) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Ok') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lDepartmentTable)
+    Endroutine
+    
+    
+    Mthroutine Name(mthFetch_Record_From_Department_Table_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Verifying data from Department table VTLI0041B. It must have the record with Key as Department Code "' + #XDEPTMENT + '"') ('') )
+    If (#Com_Owner.mthFetch_Record_From_Department_Table( #this_rc ) *EQ FALSE)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Record does not exist') ('') )
+    Endif
+    Endroutine
+    
+    
+    Mthroutine Name(mthFetch_Record_From_Department_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetching record from Department table VTLI0041B with Key as Department Code "' + #XDEPTMENT + '"') ('') )
+    #this_is_ok := false
+    Fetch Fields(#DEPTDESC #I0041TotalSalaryPJC) From_File(VTLI0041B) With_Key(#XDEPTMENT) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetched record as Department Code "' + #XDEPTMENT + '" Department Description "' + #DEPTDESC + '"  Total Salary ' + #I0041TotalSalaryPJC.AsString) ('') )
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthAdd_Record_To_Department_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := true
+    Insert Fields(*ALL) To_File(VTLI0041B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Insertion failed into Department table VTLI0041B, for record as Department Code "' + #XDEPTMENT + '" Description "' + #DEPTDESC + '"') ('') )
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthFetch_Record_From_Employee_Table_Is_Successful)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Verifying data from Employee table VTLI0041A. It must have the record with Key as Employee ID "' + #EMPID.AsString + '"') ('') )
+    If (#Com_Owner.mthFetch_Record_From_Employee_Table( #this_rc ) *EQ FALSE)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Record does not exist') ('') )
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthFetch_Record_From_Employee_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetching record from Employee table VTLI0041A with Key as Employee ID "' + #EMPID.AsString + '"') ('') )
+    #this_is_ok := false
+    Fetch Fields(*ALL) From_File(VTLI0041A) With_Key(#EMPID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('-  Fetched record as Employee ID "' + #EMPID.AsString + '" Salary ' + #SALARY.AsString + ' Department Code "' + #XDEPTMENT + '" Department Description "' + #I0041DeptDescPJC + '"') ('') )
+    #this_is_ok := true
+    Endif
+    Endroutine
+    
+    Mthroutine Name(mthAdd_Record_To_Employee_Table)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*RESULT) Class(#BIFB001A) Name(#this_is_ok)
+    
+    #this_is_ok := true
+    Insert Fields(*ALL) To_File(VTLI0041A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Insertion failed into Employee table VTLI0041A as Employee ID "' + #EMPID.AsString + '" Salary ' + #SALARY.AsString) ('') )
+    #this_is_ok := false
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('-  Unexpected ' + #this_rc) ('') )
+    Endif
+    Endroutine
+    
+    
+    
+    
