@@ -15,6 +15,7 @@
     
     * Return messages.
     Def_List Name(#wLRet) Fields(#BIFMSGC #BIFMSG1 #BIFMSG2) Counter(#BIFMSGCNT) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#w_lLansaExecutionList) Fields(#LF_DB_Type #LANSA #LansaTime) Type(*WORKING) Entrys(*MAX)
     
     Define Field(#LF_i) Reffld(#Std_Count)
     Define Field(#LF_Count) Reffld(#Std_Count)
@@ -151,9 +152,18 @@
     Define Field(#Duration) Type(*DEC) Length(7) Decimals(0)
     Define Field(#LANSA) Type(*CHAR) Length(32)
     Define Field(#LansaTime) Type(*CHAR) Length(32)
-    Def_List Name(#w_lLansaExecutionList) Fields(#LF_DB_Type #LANSA #LansaTime) Type(*WORKING) Entrys(*MAX)
     
     #LF_rc := OK
+    
+    * Check if a file exists and then Transform the current contents of the logfile into the List
+    Use Builtin(OV_FILE_SERVICE) With_Args(CHECK_FILE #LF_logfile_name) To_Get(#this_rc)
+    If (#this_rc *EQ OK)
+    Use Builtin(TRANSFORM_FILE) With_Args(#w_lLansaExecutionList #LF_logfile_name 'O') To_Get(#this_rc)
+    Endif
+    If (#this_rc = EF)
+    #Com_Owner.mthAdd_Msg( #this_rc ('#Successfully transformed the log file into a list ' + #this_rc) (*Quote + #LF_logfile_name + *Quote) )
+    Endif
+    
     #LANSA := ' ' + 'LANSA'
     Case Of_Field(#LF_DB_Type)
     * Start Time
@@ -335,6 +345,7 @@
     Use Builtin(transform_list) With_Args(#Cmd #CommandFile T *Default *Default '.') To_Get(#LF_rc)
     
     #Com_Owner.mthAdd_SubMsg( OK ('Running ' + #CommandFile + ' logged to ' + #LogFileName) ('') )
+    
     
     Use Builtin(SYSTEM_COMMAND) With_Args(B (#CommandFile + ' >> "' + #LogFileName + '" 2>&1')) To_Get(#ReturnCode)
     
