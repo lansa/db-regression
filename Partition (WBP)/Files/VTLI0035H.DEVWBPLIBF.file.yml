@@ -137,3 +137,14 @@
         - Field:              BIFDT26C
           Operator:           NE
           Compare Value:      BIFDT26D
+
+  - BIFDT26D:
+    - Conditional Trigger:
+        Function:           VI035AE
+        Trigger Points:
+        - After Delete
+        Conditions:
+        - And/Or:             And
+          Field:              BIFN0702A
+          Operator:           EQ
+          Compare Value:      BIFN0702B

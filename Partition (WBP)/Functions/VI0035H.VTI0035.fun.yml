@@ -64,6 +64,11 @@
     #Com_Owner.mthTestTriggers( #LF_rc )
     Endif
     
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthTestUnMatchTriggers( #LF_rc )
+    Endif
+    
+    
     #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
     Use Builtin(CLR_MESSAGES)
     Return
@@ -361,6 +366,87 @@
     Endif
     Endroutine
     
+    * TEST**********************************
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Insert_UnMatch_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert Trigger') ('') )
+    
+    Insert Fields(*ALL) To_File(VTLI0035H) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
+    
+    If (#this_rc = NO)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Update_UnMatch_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Update Trigger') ('') )
+    
+    Update Fields(*ALL) In_File(VTLI0035H) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
+    
+    If (#this_rc = NO)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Fetch_UnMatch_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Fetch Trigger') ('') )
+    
+    Fetch Fields(*ALL) From_File(VTLI0035H) Where(#BIFN0700A > 2) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
+    
+    If (#this_rc = NO)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
+    Endif
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthCheck_Delete_UnMatch_Trigger)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc_expected) Mandatory(VE)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Delete Trigger') ('') )
+    
+    Delete From_File(VTLI0035H) With_Key(#BIFN0700A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
+    
+    If (#this_rc = NO)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
+    Endif
+    Endroutine
+    
+    * Test
+    
     *
     *
     *
@@ -433,4 +519,78 @@
     
     Endroutine
     
+    
+    
+    *
+    *
+    *
+    Mthroutine Name(mthTestUnMatchTriggers)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    *
+    * Insert
+    *
+    #BIFN0700A := 1
+    #BIFN0702A := 10
+    #BIFN0702B := 200
+    #BIFA032A := 'WRONGDATA'
+    #BIFDT26C := *DATETIME
+    #BIFDT26D := #BIFDT26C.Date.Adjust( 20 )
+    
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFINS EQ INSERT'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTINS EQ INSERT'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Insert_UnMatch_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Update
+    *
+    #BIFA032A := *BLANK
+    #BIFN0702A := 50
+    #BIFN0702B := -1
+    #BIFDT26C := *DATETIME
+    #BIFDT26D := #BIFDT26C
+    
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFUPD REF GEP'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTUPD REF GEP'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Update_UnMatch_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Fetch
+    *
+    
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'BEFRED LT EQ NE GT'
+    Add_Entry To_List(#w_lMessages)
+    #BIFC256A := 'AFTRED LT EQ NE GT'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Fetch_UnMatch_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    *
+    * Delete
+    *
+    
+    Use Builtin(CLR_MESSAGES)
+    Clr_List Named(#w_lMessages)
+    #BIFC256A := 'AFTDLT EQ DATE'
+    Add_Entry To_List(#w_lMessages)
+    
+    #Com_Owner.mthCheck_Delete_UnMatch_Trigger( #this_rc OK )
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    
+    Endroutine
     

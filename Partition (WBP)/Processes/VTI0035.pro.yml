@@ -358,3 +358,27 @@
 
       Allowed Next Functions:
       - "*ANY"
+
+  - VI035AE:
+      Name:               VI035AE
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Table File Trigger Insert"
+
+      - ENG:
+          Description:        "Conditional Table File Trigger Insert"
+
+      - FRA:
+          Description:        "Conditional Table File Trigger Insert"
+
+      - JPN:
+          Description:        "Conditional Table File Trigger Insert"
+
+      - TRK:
+          Description:        "Conditional Table File Trigger Insert"
+
+      Allowed Next Functions:
+      - "*ANY"
