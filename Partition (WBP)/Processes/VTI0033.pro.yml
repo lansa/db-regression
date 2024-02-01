@@ -94,3 +94,27 @@
 
       Allowed Next Functions:
       - "*ANY"
+
+  - VI0033E:
+      Name:               VI0033E
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Virtual Column Calculation/Code Fragment"
+
+      - ENG:
+          Description:        "Virtual Column Calculation/Code Fragment"
+
+      - FRA:
+          Description:        "Virtual Column Calculation/Code Fragment"
+
+      - JPN:
+          Description:        "Virtual Column Calculation/Code Fragment"
+
+      - TRK:
+          Description:        "Virtual Column Calculation/Code Fragment"
+
+      Allowed Next Functions:
+      - "*ANY"

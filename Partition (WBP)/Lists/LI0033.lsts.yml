@@ -21,3 +21,17 @@
   - VTLI0033D:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - BIFP0702C:
+      Type:               Field
+
+  - BIFP0702B:
+      Type:               Field
+
+  - VI0033E:
+      Type:               Funciton
+      Qualifier:          VTI0033
+
+  - VTLI0033E:
+      Type:               File
+      Qualifier:          DEVWBPLIBF

@@ -1,0 +1,55 @@
+﻿Field:
+  Name:               BIFP0702C
+  Type:               Packed
+  Length:             7
+  Decimals:           3
+  Default Value:      "*ZERO"
+  Edit Mask:          J
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Decimal (7,3)"
+      Label:              "Decimal (7,3)"
+      Heading1:           "Decimal"
+      Heading2:           "(7,3)"
+
+  - ENG:
+      Description:        "BIF Data Packed (7,3)"
+      Label:              "BIF Data Packed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Packed (7,3)"
+
+  - FRA:
+      Description:        "Decimal (7,3)"
+      Label:              "Decimal (7,3)"
+      Heading1:           "Decimal"
+      Heading2:           "(7,3)"
+
+  - JPN:
+      Description:        "Decimal (7,3)"
+      Label:              "Decimal (7,3)"
+      Heading1:           "Decimal"
+      Heading2:           "(7,3)"
+
+  - TRK:
+      Description:        "Decimal (7,3)"
+      Label:              "Decimal (7,3)"
+      Heading1:           "Decimal"
+      Heading2:           "(7,3)"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(335)
+    
+    End_Com
+    
+    End_Com
