@@ -38,3 +38,9 @@
 
   - I0041CNTE:
       Type:               Field
+
+  - SALARY:
+      Type:               Field
+
+  - DEPTDESC:
+      Type:               Field
