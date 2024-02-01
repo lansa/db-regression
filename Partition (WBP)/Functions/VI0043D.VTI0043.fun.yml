@@ -32,7 +32,7 @@
     Define Field(#LF_Total_Warnings) Reffld(#Std_Count)
     Define Field(#LF_Execution_Type) Reffld(#Std_Alpha)
     Define Field(#LF_Remote_Platform) Reffld(#BIFA001A)
-    
+    Define Field(#LF_DetailedLog) Reffld(#Std_Count)
     Define Field(#LF_Operation_Name) Reffld(#BIFMSG1)
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
@@ -42,6 +42,10 @@
     Def_List Name(#wLTestResultGenericInteger2) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#wLTestResultGenericInteger2Backwards) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#wLTestResultGenericInteger2ForwardsDescending) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#wLTestResultGenericInteger2BackwardsDescending) Fields(#LF_Test_Result_LI0043DI2) Counter(#LF_Test_Result_Generic_Integer2_Count) Type(*WORKING) Entrys(*MAX)
+    
+    * Change this variable to non-zero to be able to see the values of the keys returned from select statements
+    #LF_DetailedLog := 0
     
     * Start testing.
     Clr_List Named(#wLRet)
@@ -107,6 +111,7 @@
     Clr_List Named(#wLTestResultGenericInteger2)
     Clr_List Named(#wLTestResultGenericInteger2Backwards)
     Clr_List Named(#wLTestResultGenericInteger2ForwardsDescending)
+    Clr_List Named(#wLTestResultGenericInteger2BackwardsDescending)
     
     * *****************************************************************************
     * Search <1>
@@ -127,6 +132,9 @@
     #LF_Test_Result_LI0043DI2 := 206
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_LI0043DI2 := 320
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
     
     * *****************************************************************************
     * Search <2>
@@ -147,6 +155,9 @@
     #LF_Test_Result_LI0043DI2 := 46
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_LI0043DI2 := 160
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
     
     * *****************************************************************************
     * Search <3>
@@ -167,6 +178,10 @@
     #LF_Test_Result_LI0043DI2 := 30
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_LI0043DI2 := 16
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
+    
     * *****************************************************************************
     * Search <4>
     * *****************************************************************************
@@ -185,6 +200,10 @@
     * FORWARDS DESCENDING
     #LF_Test_Result_LI0043DI2 := 190
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
+    
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_LI0043DI2 := 336
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
     
     * *****************************************************************************
     * Search <5>
@@ -205,6 +224,10 @@
     #LF_Test_Result_LI0043DI2 := 30
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_LI0043DI2 := 176
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
+    
     * *****************************************************************************
     * Search <6>
     * *****************************************************************************
@@ -223,6 +246,10 @@
     * FORWARDS DESCENDING
     #LF_Test_Result_LI0043DI2 := 14
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
+    
+    * BACKWARDS DESCENDING
+    #LF_Test_Result_LI0043DI2 := 14
+    Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
     
     Endroutine
     
@@ -326,6 +353,11 @@
     Select Fields(#BIFINT2S) From_File(LI0043DI2) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*ENDWHERE)
     #LF_Func_LI0043DI2 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    
+    * Log the Key values selected to the Verifier Log
+    If (#LF_DetailedLog <> 0)
+    #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
+    Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2 *FORWARDS. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -351,6 +383,11 @@
     Select Fields(#BIFINT2S) From_File(LI0043DI2) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS *ENDWHERE)
     #LF_Func_LI0043DI2 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    
+    * Log the Key values selected to the Verifier Log
+    If (#LF_DetailedLog <> 0)
+    #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
+    Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2 *BACKWARDS. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
@@ -376,8 +413,37 @@
     Select Fields(#BIFINT2S) From_File(LI0043DI2D) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*ENDWHERE)
     #LF_Func_LI0043DI2 += 1
     #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    
+    * Log the Key values selected to the Verifier Log
+    If (#LF_DetailedLog <> 0)
+    #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
+    Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2D *FORWARDS DESC. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
+    If ((#this_rc = ER) *Or (#this_rc = VE))
+    #LF_Total_Errors += 1
+    Else
+    #this_rc := OK
+    Endif
+    
+    * ****************************************************************************
+    * *BACKWARDS DESCENDING
+    * ****************************************************************************
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Integer2' )
+    Change Field(#LF_Func_LI0043DI2) To(*NULL)
+    Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2BackwardsDescending)
+    
+    Select Fields(#BIFINT2S) From_File(LI0043DI2D) Where(((#BIFINT2S *LE 111) *And (#BIFN0700A *LE 190)) *Or ((#BIFINT2S *GE -111) *And (#BIFN0700A *LE 510))) With_Key(#this_test_value) Nbr_Keys(*COMPUTE) Generic(*YES) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT) Options(*BACKWARDS *ENDWHERE)
+    #LF_Func_LI0043DI2 += 1
+    #Com_Owner.mthAdd_TraceMsg( #this_rc '' ('Result: ' + #BIFINT2S.asString) )
+    
+    * Log the Key values selected to the Verifier Log
+    If (#LF_DetailedLog <> 0)
+    #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
+    Endif
+    Endselect
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2D *BACKWARDS DESC. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
     If ((#this_rc = ER) *Or (#this_rc = VE))
     #LF_Total_Errors += 1
     Else
