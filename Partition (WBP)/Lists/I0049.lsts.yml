@@ -1,0 +1,30 @@
+﻿List:
+  Name:               I0049
+  Stored As:          User
+
+  Objects:
+  - VTI0049:
+      Type:               Process
+
+  - VI0049A:
+      Type:               Funciton
+      Qualifier:          VTI0049
+
+  - VI0049C:
+      Type:               Funciton
+      Qualifier:          VTI0049
+
+  - VTI0049B:
+      Type:               Process
+
+  - VI0049B:
+      Type:               Funciton
+      Qualifier:          VTI0049B
+
+  - VI0049D:
+      Type:               Funciton
+      Qualifier:          VTI0049B
+
+  - VTLI0049:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
