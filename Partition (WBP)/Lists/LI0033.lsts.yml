@@ -35,3 +35,6 @@
   - VTLI0033E:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - BIFP0702D:
+      Type:               Field

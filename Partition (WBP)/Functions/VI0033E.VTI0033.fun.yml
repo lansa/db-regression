@@ -30,13 +30,14 @@
     
     * Local Copies of Table Columns - matches following List fields
     Define Field(#LF_BIFP0300A) Reffld(#BIFP0300A)
-    Define Field(#LF_BIFP0702c) Reffld(#BIFP0702C)
+    Define Field(#LF_BIFP0702C) Reffld(#BIFP0702C)
     Define Field(#LF_BIFP0700A) Reffld(#BIFP0700A)
     Define Field(#LF_BIFP0702B) Reffld(#BIFP0702B)
+    Define Field(#LF_BIFP0702D) Reffld(#BIFP0702D)
     
     * #XG_ALL includes all Fields in the Table
     Group_By Name(#XG_ALLREAL) Fields(#BIFP0300A #BIFP0702C #BIFP0700A)
-    Group_By Name(#XG_ALLVIRT) Fields(#BIFP0702B)
+    Group_By Name(#XG_ALLVIRT) Fields(#BIFP0702B #BIFP0702D)
     Group_By Name(#XG_ALL) Fields(#XG_ALLREAL #XG_ALLVIRT)
     
     Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING)
@@ -57,10 +58,6 @@
     
     If (#LF_rc *EQ OK)
     #Com_Owner.mthInsert( #LF_rc )
-    Endif
-    
-    If (#LF_rc *EQ OK)
-    #Com_Owner.mthUpdate( #LF_rc )
     Endif
     
     If (#LF_rc *EQ OK)
@@ -174,6 +171,7 @@
     #BIFP0702C := 10.00
     #BIFP0700A := 8
     #BIFP0702B := 10.80
+    #BIFP0702D := 10.80
     Add_Entry To_List(#w_lOriginal)
     
     #BIFP0300A := #LF_i
@@ -181,6 +179,7 @@
     #BIFP0702C := 0
     #BIFP0700A := 17
     #BIFP0702B := 0
+    #BIFP0702D := 0
     Add_Entry To_List(#w_lOriginal)
     
     #BIFP0300A := #LF_i
@@ -188,6 +187,7 @@
     #BIFP0702C := 99.90
     #BIFP0700A := 10
     #BIFP0702B := 109.89
+    #BIFP0702D := 109.89
     Add_Entry To_List(#w_lOriginal)
     
     #BIFP0300A := #LF_i
@@ -195,6 +195,7 @@
     #BIFP0702C := 999.9
     #BIFP0700A := 10
     #BIFP0702B := 1099.89
+    #BIFP0702D := 1099.89
     Add_Entry To_List(#w_lOriginal)
     
     #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
@@ -213,28 +214,6 @@
     Endif
     Endroutine
     
-    *
-    * mthUpdate
-    *
-    Mthroutine Name(mthUpdate)
-    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('Update: ' + #LF_Original_Count.AsString + ' record(s)') '' )
-    
-    Selectlist Named(#w_lOriginal)
-    #BIFA256A := 'Update'
-    Update Fields(*ALL) In_File(VTLI0033D) With_Key(#BIFP0300A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    If (#this_rc <> OK)
-    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Updating record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
-    Leave
-    Endif
-    Endselect
-    
-    If (#this_rc = OK)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
-    Endif
-    Endroutine
     
     *
     * mthSelect
@@ -267,7 +246,7 @@
     #LF_BIFP0702C := #BIFP0702C
     #LF_BIFP0700A := #BIFP0700A
     #LF_BIFP0702B := #BIFP0702B
-    
+    #LF_BIFP0702D := #BIFP0702D
     
     Get_Entry Number(#LF_i) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -299,7 +278,12 @@
     Endif
     If (#LF_BIFP0702B <> #BIFP0702B)
     #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFA010D data mismatch') '' )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702B data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFP0702D <> #BIFP0702D)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702B data mismatch') '' )
     #this_rc := ER
     Endif
     
@@ -339,6 +323,9 @@
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0702B "' + #LF_BIFP0702B.asString + '"') '' )
     #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0702B "' + #BIFP0702B.asString + '"') '' )
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0702D "' + #LF_BIFP0702D.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0702D "' + #BIFP0702D.asString + '"') '' )
     
     Endif
     

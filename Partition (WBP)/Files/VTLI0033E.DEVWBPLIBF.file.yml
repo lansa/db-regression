@@ -5,7 +5,7 @@
   Record Format Name:             VTLI0033E
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
-  Enabled For RDMLX:              No
+  Enabled For RDMLX:              Yes
   Enabled For Long Names:         Yes
   Share Data Path:                No
   Secure From File Overrides:     Yes
@@ -80,3 +80,14 @@
         Operator:           Add
         Factor 2:           "*WORKTAX01"
         Result:             BIFP0702B
+
+  - BIFP0702D:
+      Type:               Decimal
+      Length:             7
+      Decimals:           3
+      Virtual Field Type: Code Fragment
+      Derive On Input:    Yes
+      Derive On Output:   No
+      Input Fragment: |
+        * RDML Code Fragment to derive value for field BIFP0702B
+        #BIFP0702D := #BIFP0702C + ((#BIFP0702C / 100) * #BIFP0700A)
