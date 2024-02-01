@@ -332,6 +332,11 @@
     Define_Map For(*INPUT) Class(#BIFINT2S) Name(#this_test_value)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    Define Field(#LF_Where_Clause) Reffld(#BIFS100A)
+    #LF_Where_Clause := 'Where(((#BIFINT2S *LE 111) *And (#this_test_value *GE 0)) *Or ((#BIFINT2S *GE -111) *And (#this_test_value *LE 0)))'
+    
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation #LF_Where_Clause )
+    
     #LF_View_Type := ' Key: INTEGER 2'
     #Com_Owner.mthAdd_Msg( #this_rc (#LF_View_Type) ('Key Value:' + #this_test_value.asString) )
     
