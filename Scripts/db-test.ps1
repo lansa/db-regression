@@ -379,7 +379,11 @@ try {
         $TestList.Add( $(New-Tuple "VTI0033",  "VI0033A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0034",  "VI0034A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0035",  "VI0035A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0039",  "VI0039A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0041",  "VI0041A") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0043",  "VI0043A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0049",  "VI0049A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0049B", "VI0049B") ) | Out-Null # VTI0049B is part of running test I0049 and must be run after process VTI0049
 
         Write-Host( "$(Log-Date) Run tests in EVERY environment." )
         Write-Host( "$(Log-Date) Only the Primary environment is configured to run IBM i and SuperServer tests" )
