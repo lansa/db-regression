@@ -81,3 +81,49 @@
   - VI035AE:
       Type:               Funciton
       Qualifier:          VTI0035
+
+  - TRGA032A:
+      Type:               Field
+
+  - TRGDT26A:
+      Type:               Field
+
+  - TRGDT26B:
+      Type:               Field
+
+  - TRGN0700A:
+      Type:               Field
+
+  - TRGN0702A:
+      Type:               Field
+
+  - TRGN0702B:
+      Type:               Field
+
+  - VI035AF:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AG:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AH:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AI:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AJ:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VTLI0035I:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0035I:
+      Type:               Funciton
+      Qualifier:          VTI0035

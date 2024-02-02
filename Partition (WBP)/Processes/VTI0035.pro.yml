@@ -239,6 +239,30 @@
       Allowed Next Functions:
       - "*ANY"
 
+    - VI0035I:
+      Name:               VI0035I
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field Trigger Points"
+
+      - ENG:
+          Description:        "Conditional Field Trigger Points"
+
+      - FRA:
+          Description:        "Conditional Field Trigger Points"
+
+      - JPN:
+          Description:        "Conditional Field Trigger Points"
+
+      - TRK:
+          Description:        "Conditional Field Trigger Points"
+
+      Allowed Next Functions:
+      - "*ANY"
+
   - VI0035T:
       Name:               VI0035T
       Display on Menu:    No
@@ -379,6 +403,126 @@
 
       - TRK:
           Description:        "Conditional Table File Trigger Insert"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+    - VI035AF:
+      Name:               VI035AF
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field File Trigger"
+
+      - ENG:
+          Description:        "Conditional Field File Trigger"
+
+      - FRA:
+          Description:        "Conditional Field File Trigger"
+
+      - JPN:
+          Description:        "Conditional Field File Trigger"
+
+      - TRK:
+          Description:        "Conditional Field File Trigger"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+    - VI035AG:
+      Name:               VI035AG
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field File Trigger"
+
+      - ENG:
+          Description:        "Conditional Field File Trigger"
+
+      - FRA:
+          Description:        "Conditional Field File Trigger"
+
+      - JPN:
+          Description:        "Conditional Field File Trigger"
+
+      - TRK:
+          Description:        "Conditional Field File Trigger"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+    - VI035AJ:
+      Name:               VI035AJ
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field File Trigger"
+
+      - ENG:
+          Description:        "Conditional Field File Trigger"
+
+      - FRA:
+          Description:        "Conditional Field File Trigger"
+
+      - JPN:
+          Description:        "Conditional Field File Trigger"
+
+      - TRK:
+          Description:        "Conditional Field File Trigger"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+    - VI035AH:
+      Name:               VI035AH
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field File Trigger"
+
+      - ENG:
+          Description:        "Conditional Field File Trigger"
+
+      - FRA:
+          Description:        "Conditional Field File Trigger"
+
+      - JPN:
+          Description:        "Conditional Field File Trigger"
+
+      - TRK:
+          Description:        "Conditional Field File Trigger"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+    - VI035AI:
+      Name:               VI035AI
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field File Trigger"
+
+      - ENG:
+          Description:        "Conditional Field File Trigger"
+
+      - FRA:
+          Description:        "Conditional Field File Trigger"
+
+      - JPN:
+          Description:        "Conditional Field File Trigger"
+
+      - TRK:
+          Description:        "Conditional Field File Trigger"
 
       Allowed Next Functions:
       - "*ANY"

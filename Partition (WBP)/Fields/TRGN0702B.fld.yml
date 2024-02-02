@@ -1,0 +1,74 @@
+﻿Field:
+  Name:               TRGN0702B
+  Type:               Signed
+  Length:             7
+  Decimals:           2
+  Default Value:      "*ZERO"
+  Edit Mask:          2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - ENG:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - FRA:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - JPN:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - TRK:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  Triggers:
+  - Conditional Field Trigger:
+      Function:           VI035AH
+      Trigger Points:
+      - Before Update
+      - After Update
+      Conditions:
+      - And/Or:             And
+        Field:              TRGN0702B
+        Operator:           REF
+      - And/Or:             And
+        Field:              TRGN0702B
+        Operator:           GEP
+        Compare Value:      +20
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(320)
+    
+    End_Com
+    
+    End_Com
