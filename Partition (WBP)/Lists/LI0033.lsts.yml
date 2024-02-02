@@ -38,3 +38,7 @@
 
   - BIFP0702D:
       Type:               Field
+
+  - VTLI0033C:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
