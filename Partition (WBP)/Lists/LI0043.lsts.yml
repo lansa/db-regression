@@ -17,3 +17,14 @@
   - VTLI0043C:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - VI0043D:
+      Type:               Funciton
+      Qualifier:          VTI0043
+
+  - VTLI0043D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - BIFNV100A:
+      Type:               Field
