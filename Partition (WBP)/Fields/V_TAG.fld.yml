@@ -1,0 +1,38 @@
+﻿Field:
+  Name:               V_TAG
+  Type:               Char
+  Length:             36
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - GUID
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_TAG"
+      Label:              "V_TAG"
+      Heading1:           "V_TAG"
+
+  - ENG:
+      Description:        "V_TAG"
+      Label:              "V_TAG"
+      Heading1:           "V_TAG"
+
+  - FRA:
+      Description:        "V_TAG"
+      Label:              "V_TAG"
+      Heading1:           "V_TAG"
+
+  - JPN:
+      Description:        "V_TAG"
+      Label:              "V_TAG"
+      Heading1:           "V_TAG"
+
+  - TRK:
+      Description:        "V_TAG"
+      Label:              "V_TAG"
+      Heading1:           "V_TAG"

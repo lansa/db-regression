@@ -1,0 +1,37 @@
+﻿Field:
+  Name:               V_DATE
+  Type:               DateTime
+  Length:             23
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_DATE"
+      Label:              "V_DATE"
+      Heading1:           "V_DATE"
+
+  - ENG:
+      Description:        "V_DATE"
+      Label:              "V_DATE"
+      Heading1:           "V_DATE"
+
+  - FRA:
+      Description:        "V_DATE"
+      Label:              "V_DATE"
+      Heading1:           "V_DATE"
+
+  - JPN:
+      Description:        "V_DATE"
+      Label:              "V_DATE"
+      Heading1:           "V_DATE"
+
+  - TRK:
+      Description:        "V_DATE"
+      Label:              "V_DATE"
+      Heading1:           "V_DATE"

@@ -1,0 +1,37 @@
+﻿Field:
+  Name:               V_SALARY
+  Type:               Float
+  Length:             8
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SALARY"
+      Label:              "V_SALARY"
+      Heading1:           "V_SALARY"
+
+  - ENG:
+      Description:        "V_SALARY"
+      Label:              "V_SALARY"
+      Heading1:           "V_SALARY"
+
+  - FRA:
+      Description:        "V_SALARY"
+      Label:              "V_SALARY"
+      Heading1:           "V_SALARY"
+
+  - JPN:
+      Description:        "V_SALARY"
+      Label:              "V_SALARY"
+      Heading1:           "V_SALARY"
+
+  - TRK:
+      Description:        "V_SALARY"
+      Label:              "V_SALARY"
+      Heading1:           "V_SALARY"
