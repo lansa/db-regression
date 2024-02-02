@@ -47,6 +47,54 @@
       Allowed Next Functions:
       - "*ANY"
 
+  - VI0043A:
+      Name:               VI0043A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "#43 Test Case Driver"
+
+      - ENG:
+          Description:        "#43 Test Case Driver"
+
+      - FRA:
+          Description:        "#43 Test Case Driver"
+
+      - JPN:
+          Description:        "#43 Test Case Driver"
+
+      - TRK:
+          Description:        "#43 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043A:
+      Name:               VI0043A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "#43 Test Case Driver"
+
+      - ENG:
+          Description:        "#43 Test Case Driver"
+
+      - FRA:
+          Description:        "#43 Test Case Driver"
+
+      - JPN:
+          Description:        "#43 Test Case Driver"
+
+      - TRK:
+          Description:        "#43 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
   - VI0043C:
       Name:               VI0043C
       Display on Menu:    No
@@ -67,6 +115,126 @@
 
       - TRK:
           Description:        "SELECT *BACKWARDS"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043C:
+      Name:               VI0043C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SELECT *BACKWARDS"
+
+      - ENG:
+          Description:        "SELECT *BACKWARDS"
+
+      - FRA:
+          Description:        "SELECT *BACKWARDS"
+
+      - JPN:
+          Description:        "SELECT *BACKWARDS"
+
+      - TRK:
+          Description:        "SELECT *BACKWARDS"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043C:
+      Name:               VI0043C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SELECT *BACKWARDS"
+
+      - ENG:
+          Description:        "SELECT *BACKWARDS"
+
+      - FRA:
+          Description:        "SELECT *BACKWARDS"
+
+      - JPN:
+          Description:        "SELECT *BACKWARDS"
+
+      - TRK:
+          Description:        "SELECT *BACKWARDS"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043D:
+      Name:               VI0043D
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - ENG:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - FRA:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - JPN:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - TRK:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043D:
+      Name:               VI0043D
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - ENG:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - FRA:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - JPN:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - TRK:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0043D:
+      Name:               VI0043D
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - ENG:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - FRA:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - JPN:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
+
+      - TRK:
+          Description:        "SELECT *STARTKEY *ENDWHERE *ENDWHERESQL"
 
       Allowed Next Functions:
       - "*ANY"
