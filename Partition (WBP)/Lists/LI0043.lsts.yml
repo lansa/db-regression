@@ -25,3 +25,6 @@
   - VTLI0043D:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - BIFNV100A:
+      Type:               Field

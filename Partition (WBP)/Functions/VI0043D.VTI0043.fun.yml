@@ -364,7 +364,7 @@
     * Log the Key values selected to the Verifier Log
     If (#LF_DetailedLog)
     #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
-    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
+    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and ' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
     Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2 *FORWARDS. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
@@ -395,7 +395,7 @@
     * Log the Key values selected to the Verifier Log
     If (#LF_DetailedLog)
     #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
-    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
+    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and ' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
     Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2 *BACKWARDS. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
@@ -426,7 +426,7 @@
     * Log the Key values selected to the Verifier Log
     If (#LF_DetailedLog)
     #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
-    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
+    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and ' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
     Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2D *FORWARDS DESC. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
@@ -440,7 +440,7 @@
     * *BACKWARDS DESCENDING
     * ****************************************************************************
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*FORWARDS DESCENDING mthFunc_Search_Generic_Integer2' )
+    #Com_Owner.mthAdd_SubMsg( #this_rc #this_operation '*BACKWARDS DESCENDING mthFunc_Search_Generic_Integer2' )
     Change Field(#LF_Func_LI0043DI2) To(*NULL)
     Get_Entry Number(#LF_i) From_List(#wLTestResultGenericInteger2BackwardsDescending)
     
@@ -451,7 +451,7 @@
     * Log the Key values selected to the Verifier Log
     If (#LF_DetailedLog)
     #Com_Owner.mthAdd_SubMsg( OK ' + Selected Data' (#BIFINT2S.AsString) )
-    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
+    #Com_Owner.mthAdd_SubMsg( OK (' Evaluated Condition : Where (' + (#BIFINT2S.AsString) + ' < 111 and ' + #this_test_value.AsString + ' > 0 ) or ( ' + (#BIFINT2S.AsString) + ' > -111 and ' + #this_test_value.AsString + ' < 0 )') '' )
     Endif
     Endselect
     #Com_Owner.mthAdd_SubMsg( #this_rc ('On LV LI0043DI2D *BACKWARDS DESC. Rows = ' + #LF_Func_LI0043DI2.asString + ' Expected = ' + #LF_Test_Result_LI0043DI2.asString) '' )
