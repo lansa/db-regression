@@ -1,5 +1,5 @@
 ﻿Field:
-  Name:               VMMDDYYYY
+  Name:               VMMDDYY
   Type:               Alpha
   Length:             10
   Decimals:           0
@@ -12,46 +12,36 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "VIRTUAL DATE FIELD MMDDYYYY"
+      Description:        "VIRTUAL DATE FIELD MMDDYY"
       Label:              "VIRTUAL DATE FI"
       Heading1:           "VIRTUAL"
       Heading2:           "DATE"
       Heading3:           "FIELD"
 
   - ENG:
-      Description:        "VIRTUAL DATE FIELD MMDDYYYY"
+      Description:        "VIRTUAL DATE FIELD MMDDYY"
       Label:              "VIRTUAL DATE FI"
       Heading1:           "VIRTUAL"
       Heading2:           "DATE"
       Heading3:           "FIELD"
 
   - FRA:
-      Description:        "VIRTUAL DATE FIELD MMDDYYYY"
+      Description:        "VIRTUAL DATE FIELD MMDDYY"
       Label:              "VIRTUAL DATE FI"
       Heading1:           "VIRTUAL"
       Heading2:           "DATE"
       Heading3:           "FIELD"
 
   - JPN:
-      Description:        "VIRTUAL DATE FIELD MMDDYYYY"
+      Description:        "VIRTUAL DATE FIELD MMDDYY"
       Label:              "VIRTUAL DATE FI"
       Heading1:           "VIRTUAL"
       Heading2:           "DATE"
       Heading3:           "FIELD"
 
   - TRK:
-      Description:        "VIRTUAL DATE FIELD MMDDYYYY"
+      Description:        "VIRTUAL DATE FIELD MMDDYY"
       Label:              "VIRTUAL DATE FI"
       Heading1:           "VIRTUAL"
       Heading2:           "DATE"
       Heading3:           "FIELD"
-
-  Source: |
-    *
-    Begin_Com Role(*EXTENDS #PRIM_OBJT)
-    
-    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Marginleft(210) Width(370)
-    
-    End_Com
-    
-    End_Com

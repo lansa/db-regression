@@ -47,18 +47,106 @@
       Length:             3
       Decimals:           0
 
+  - RDDMMYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RMMDDYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
   - RDDMMYYYY:
-      Type:               Signed
-      Length:             8
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RMMDDYYYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RYYYYMMDD:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RYYYYDDMM:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RYYMM:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RMMYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RYYYYMM:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RMMYYYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RSYSFMT8:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+
+  - RSYSFMT:
+      Type:               Alphanumeric
+      Length:             10
       Decimals:           0
 
   Primary Keys:
   - BIFP0300A
 
   Virtual Fields:
+  - VDDMMYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RMMDDYY
+      Source Date Format: MMDDYY
+      Target Date Format: DDMMYY
+
+  - VMMDDYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RDDMMYY
+      Source Date Format: DDMMYY
+      Target Date Format: MMDDYY
+
+  - VDDMMYYYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RMMDDYYYY
+      Source Date Format: MMDDYYYY
+      Target Date Format: DDMMYYYY
+
   - VMMDDYYYY:
       Type:               Alphanumeric
-      Length:             8
+      Length:             10
       Decimals:           0
       Virtual Field Type: Date Conversion
       Derive On Input:    Yes
@@ -66,3 +154,91 @@
       Source Field:       RDDMMYYYY
       Source Date Format: DDMMYYYY
       Target Date Format: MMDDYYYY
+
+  - VYYYYMMDD:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RYYYYDDMM
+      Source Date Format: SYSFMT
+      Target Date Format: YYYYMMDD
+
+  - VYYYYDDMM:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RYYYYMMDD
+      Source Date Format: YYYYMMDD
+      Target Date Format: SYSFMT
+
+  - VYYMM:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RMMYY
+      Source Date Format: MMYY
+      Target Date Format: YYMM
+
+  - VMMYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RYYMM
+      Source Date Format: YYMM
+      Target Date Format: MMYY
+
+  - VYYYYMM:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RMMYYYY
+      Source Date Format: MMYYYY
+      Target Date Format: YYYYMM
+
+  - VMMYYYY:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RYYYYMM
+      Source Date Format: YYYYMM
+      Target Date Format: MMYYYY
+
+  - VSYSFMT8:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       RSYSFMT
+      Source Date Format: SYSFMT
+      Target Date Format: SYSFMT8
+
+  - VSYSFMT:
+      Type:               Alphanumeric
+      Length:             10
+      Decimals:           0
+      Virtual Field Type: Date Conversion
+      Derive On Input:    Yes
+      Derive On Output:   Yes
+      Source Field:       VSYSFMT8
+      Source Date Format: SYSFMT8
+      Target Date Format: SYSFMT

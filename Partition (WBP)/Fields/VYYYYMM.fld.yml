@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VYYYYMM
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "VIRTRUAL FIELD VYYYYMM"
+      Label:              "VIRTRUAL FIELD"
+      Heading1:           "VIRTRUAL"
+      Heading2:           "FIELD"
+      Heading3:           "VYYYYMM"
+
+  - ENG:
+      Description:        "VIRTRUAL FIELD VYYYYMM"
+      Label:              "VIRTRUAL FIELD"
+      Heading1:           "VIRTRUAL"
+      Heading2:           "FIELD"
+      Heading3:           "VYYYYMM"
+
+  - FRA:
+      Description:        "VIRTRUAL FIELD VYYYYMM"
+      Label:              "VIRTRUAL FIELD"
+      Heading1:           "VIRTRUAL"
+      Heading2:           "FIELD"
+      Heading3:           "VYYYYMM"
+
+  - JPN:
+      Description:        "VIRTRUAL FIELD VYYYYMM"
+      Label:              "VIRTRUAL FIELD"
+      Heading1:           "VIRTRUAL"
+      Heading2:           "FIELD"
+      Heading3:           "VYYYYMM"
+
+  - TRK:
+      Description:        "VIRTRUAL FIELD VYYYYMM"
+      Label:              "VIRTRUAL FIELD"
+      Heading1:           "VIRTRUAL"
+      Heading2:           "FIELD"
+      Heading3:           "VYYYYMM"

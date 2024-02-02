@@ -1,7 +1,7 @@
 ﻿Field:
   Name:               RDDMMYYYY
   Type:               Alpha
-  Length:             8
+  Length:             10
   Decimals:           0
   Default Value:      "*BLANKS"
   Enabled For RDMLX:  No

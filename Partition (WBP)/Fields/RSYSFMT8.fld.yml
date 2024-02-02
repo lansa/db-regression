@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               RSYSFMT8
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "REAL FIELD SYSFMT8"
+      Label:              "REAL FIELD SYSF"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "SYSFMT8"
+
+  - ENG:
+      Description:        "REAL FIELD SYSFMT8"
+      Label:              "REAL FIELD SYSF"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "SYSFMT8"
+
+  - FRA:
+      Description:        "REAL FIELD SYSFMT8"
+      Label:              "REAL FIELD SYSF"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "SYSFMT8"
+
+  - JPN:
+      Description:        "REAL FIELD SYSFMT8"
+      Label:              "REAL FIELD SYSF"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "SYSFMT8"
+
+  - TRK:
+      Description:        "REAL FIELD SYSFMT8"
+      Label:              "REAL FIELD SYSF"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "SYSFMT8"

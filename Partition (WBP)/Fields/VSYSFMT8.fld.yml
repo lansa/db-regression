@@ -1,0 +1,42 @@
+﻿Field:
+  Name:               VSYSFMT8
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "VIRTUALFIELD VSYSFMT8"
+      Label:              "VIRTUALFIELD VS"
+      Heading1:           "VIRTUALFIELD"
+      Heading2:           "VSYSFMT8"
+
+  - ENG:
+      Description:        "VIRTUALFIELD VSYSFMT8"
+      Label:              "VIRTUALFIELD VS"
+      Heading1:           "VIRTUALFIELD"
+      Heading2:           "VSYSFMT8"
+
+  - FRA:
+      Description:        "VIRTUALFIELD VSYSFMT8"
+      Label:              "VIRTUALFIELD VS"
+      Heading1:           "VIRTUALFIELD"
+      Heading2:           "VSYSFMT8"
+
+  - JPN:
+      Description:        "VIRTUALFIELD VSYSFMT8"
+      Label:              "VIRTUALFIELD VS"
+      Heading1:           "VIRTUALFIELD"
+      Heading2:           "VSYSFMT8"
+
+  - TRK:
+      Description:        "VIRTUALFIELD VSYSFMT8"
+      Label:              "VIRTUALFIELD VS"
+      Heading1:           "VIRTUALFIELD"
+      Heading2:           "VSYSFMT8"

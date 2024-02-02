@@ -1,0 +1,57 @@
+﻿Field:
+  Name:               RDDMMYY
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Real Date Field DDMMYY"
+      Label:              "Real Date Field"
+      Heading1:           "Real"
+      Heading2:           "Date"
+      Heading3:           "Field"
+
+  - ENG:
+      Description:        "Real Date Field DDMMYY"
+      Label:              "Real Date Field"
+      Heading1:           "Real"
+      Heading2:           "Date"
+      Heading3:           "Field"
+
+  - FRA:
+      Description:        "Real Date Field DDMMYY"
+      Label:              "Real Date Field"
+      Heading1:           "Real"
+      Heading2:           "Date"
+      Heading3:           "Field"
+
+  - JPN:
+      Description:        "Real Date Field DDMMYY"
+      Label:              "Real Date Field"
+      Heading1:           "Real"
+      Heading2:           "Date"
+      Heading3:           "Field"
+
+  - TRK:
+      Description:        "Real Date Field DDMMYY"
+      Label:              "Real Date Field"
+      Heading1:           "Real"
+      Heading2:           "Date"
+      Heading3:           "Field"
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(304)
+    
+    End_Com
+    
+    End_Com

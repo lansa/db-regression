@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               VDDMMYYYY
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "VIRTUAL FIELD DDMMYYYY"
+      Label:              "VIRTUAL FIELD D"
+      Heading1:           "VIRTUAL"
+      Heading2:           "FIELD"
+      Heading3:           "DDMMYYYY"
+
+  - ENG:
+      Description:        "VIRTUAL FIELD DDMMYYYY"
+      Label:              "VIRTUAL FIELD D"
+      Heading1:           "VIRTUAL"
+      Heading2:           "FIELD"
+      Heading3:           "DDMMYYYY"
+
+  - FRA:
+      Description:        "VIRTUAL FIELD DDMMYYYY"
+      Label:              "VIRTUAL FIELD D"
+      Heading1:           "VIRTUAL"
+      Heading2:           "FIELD"
+      Heading3:           "DDMMYYYY"
+
+  - JPN:
+      Description:        "VIRTUAL FIELD DDMMYYYY"
+      Label:              "VIRTUAL FIELD D"
+      Heading1:           "VIRTUAL"
+      Heading2:           "FIELD"
+      Heading3:           "DDMMYYYY"
+
+  - TRK:
+      Description:        "VIRTUAL FIELD DDMMYYYY"
+      Label:              "VIRTUAL FIELD D"
+      Heading1:           "VIRTUAL"
+      Heading2:           "FIELD"
+      Heading3:           "DDMMYYYY"
