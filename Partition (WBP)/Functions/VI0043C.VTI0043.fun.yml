@@ -31,7 +31,6 @@
     Define Field(#LF_BIFC010A_Count) Reffld(#std_count) Default(5)
     Define Field(#LF_WorkingCount) Reffld(#std_count)
     
-    
     * Local Copies of Table Columns - matches following List fields
     Define Field(#LF_BIFN0700A) Reffld(#BIFN0700A)
     Define Field(#LF_BIFC010A_key) Reffld(#BIFC010A)
@@ -66,7 +65,7 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
-    Get_Entry Number(1) From_List(#wLKData)
+    #COM_OWNER.mthGetExecutionType()
     
     *
     * Add your test case here
@@ -191,11 +190,12 @@
     #Com_Owner.mthSelectSubsetNVarChar( #LF_rc )
     Endif
     
-    If (#LF_rc *EQ OK)
+    * SKip these tests on IBMi
+    If ((#LF_rc *EQ OK) And (#LF_Remote_Platform *NE I))
     #Com_Owner.mthSelectAllString( #LF_rc )
     Endif
     
-    If (#LF_rc *EQ OK)
+    If ((#LF_rc *EQ OK) And (#LF_Remote_Platform *NE I))
     #Com_Owner.mthSelectSubsetString( #LF_rc )
     Endif
     
@@ -2134,3 +2134,32 @@
     Add_Entry To_List(#w_lDB)
     Endselect
     Endroutine
+    
+    *
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
+    Endroutine
+    

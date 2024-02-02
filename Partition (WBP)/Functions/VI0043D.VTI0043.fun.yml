@@ -30,8 +30,6 @@
     Define Field(#LF_j) Reffld(#Std_Count)
     Define Field(#LF_Total_Errors) Reffld(#Std_Count)
     Define Field(#LF_Total_Warnings) Reffld(#Std_Count)
-    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha)
-    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A)
     Define Field(#LF_DetailedLog) Reffld(#BIFB001B)
     Define Field(#LF_Operation_Name) Reffld(#BIFMSG1)
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
@@ -51,9 +49,9 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
-    Get_Entry Number(1) From_List(#wLKData)
-    #LF_Execution_Type := #VTF_KEY1
-    #LF_Remote_Platform := #VTF_KEY2
+    * Get Execution Platform Details
+    #Com_Owner.mthGetExecutionType()
+    
     
     * Debug code to only run on a particular platform
     * Local Windows execution = *BLANKS
@@ -148,11 +146,19 @@
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 176
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 176
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * BACKWARDS DESCENDING
@@ -171,11 +177,19 @@
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 32
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2Backwards)
     
     * FORWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 32
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * BACKWARDS DESCENDING
@@ -213,7 +227,11 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 176
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
@@ -225,7 +243,11 @@
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 176
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
     
     * *****************************************************************************
@@ -236,7 +258,11 @@
     Add_Entry To_List(#wLTestKey)
     
     * Generic Forwards
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 32
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2)
     
     * BACKWARDS
@@ -248,7 +274,11 @@
     Add_Entry To_List(#wLTestResultGenericInteger2ForwardsDescending)
     
     * BACKWARDS DESCENDING
+    If (#LF_Remote_Platform *EQ I)
+    #LF_Test_Result_LI0043DI2 := 16
+    Else
     #LF_Test_Result_LI0043DI2 := 32
+    Endif
     Add_Entry To_List(#wLTestResultGenericInteger2BackwardsDescending)
     
     Endroutine
@@ -520,4 +550,22 @@
     If (#LF_TraceData)
     #Com_Owner.mthAdd_SubMsg( #this_msg_code #this_msg1 #this_msg2 )
     Endif
+    Endroutine
+    
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
     Endroutine
