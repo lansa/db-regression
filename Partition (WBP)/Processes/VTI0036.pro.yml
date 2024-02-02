@@ -1,0 +1,23 @@
+﻿Process:
+  Name:                      VTI0036
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - ENG:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - FRA:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - JPN:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - TRK:
+      Description:        "OAM Test With Import Table Definitions"

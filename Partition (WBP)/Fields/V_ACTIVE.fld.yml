@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               V_ACTIVE
+  Type:               Signed
+  Length:             1
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_ACTIVE"
+      Label:              "V_ACTIVE"
+      Heading1:           "V_ACTIVE"
+
+  - ENG:
+      Description:        "V_ACTIVE"
+      Label:              "V_ACTIVE"
+      Heading1:           "V_ACTIVE"
+
+  - FRA:
+      Description:        "V_ACTIVE"
+      Label:              "V_ACTIVE"
+      Heading1:           "V_ACTIVE"
+
+  - JPN:
+      Description:        "V_ACTIVE"
+      Label:              "V_ACTIVE"
+      Heading1:           "V_ACTIVE"
+
+  - TRK:
+      Description:        "V_ACTIVE"
+      Label:              "V_ACTIVE"
+      Heading1:           "V_ACTIVE"

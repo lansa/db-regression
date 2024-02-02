@@ -1,0 +1,37 @@
+﻿Field:
+  Name:               V_SURNAME
+  Type:               Char
+  Length:             10
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SURNAME"
+      Label:              "V_SURNAME"
+      Heading1:           "V_SURNAME"
+
+  - ENG:
+      Description:        "V_SURNAME"
+      Label:              "V_SURNAME"
+      Heading1:           "V_SURNAME"
+
+  - FRA:
+      Description:        "V_SURNAME"
+      Label:              "V_SURNAME"
+      Heading1:           "V_SURNAME"
+
+  - JPN:
+      Description:        "V_SURNAME"
+      Label:              "V_SURNAME"
+      Heading1:           "V_SURNAME"
+
+  - TRK:
+      Description:        "V_SURNAME"
+      Label:              "V_SURNAME"
+      Heading1:           "V_SURNAME"

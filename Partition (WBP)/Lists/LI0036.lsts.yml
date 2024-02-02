@@ -1,0 +1,53 @@
+﻿List:
+  Name:               I0036
+  Stored As:          User
+
+  Objects:
+  - VTI0036:
+      Type:               Process
+
+  - VTLI0036A:
+      Type:               File
+      Qualifier:          DBO
+
+  - V_ID:
+      Type:               Field
+
+  - V_NAME:
+      Type:               Field
+
+  - V_SURNAME:
+      Type:               Field
+
+  - V_LASTNAM:
+      Type:               Field
+
+  - V_SALARY:
+      Type:               Field
+
+  - V_DATE:
+      Type:               Field
+
+  - V_ACTIVE:
+      Type:               Field
+
+  - V_DESC:
+      Type:               Field
+
+  - V_TAG:
+      Type:               Field
+
+  - V_TIME:
+      Type:               Field
+
+  - V_RAWDATA:
+      Type:               Field
+
+  - V_DATA:
+      Type:               Field
+
+  - V_CODE:
+      Type:               Field
+
+  - V_XML:
+      Type:               Field
