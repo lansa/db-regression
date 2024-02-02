@@ -51,3 +51,11 @@
 
   - V_XML:
       Type:               Field
+
+  - VI0036A:
+      Type:               Funciton
+      Qualifier:          VTI0036
+
+  - VI0036C:
+      Type:               Funciton
+      Qualifier:          VTI0036
