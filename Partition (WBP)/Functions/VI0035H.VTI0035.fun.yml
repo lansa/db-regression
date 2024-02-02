@@ -42,10 +42,9 @@
     Def_List Name(#w_lMessages) Fields(#BIFC256A) Counter(#LF_Message_Count) Type(*WORKING) Entrys(*MAX)
     
     * #XG_ALL includes all Fields in the Table
-    Group_By Name(#XG_ALL) Fields(#BIFN0700A #BIFA032A)
+    Group_By Name(#XG_ALL) Fields(#BIFN0700A #BIFA032A #BIFN0702A #BIFN0702B #BIFDT26C #BIFDT26D)
     
     Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING) Entrys(*MAX)
-    Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING) Entrys(*MAX)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
@@ -125,7 +124,6 @@
     #Com_Owner.mthAdd_SubMsg( OK 'Clearing Data' '' )
     
     Clr_List Named(#w_lOriginal)
-    Clr_List Named(#w_lDB)
     
     Select Fields(#XG_ALL) From_File(VTLI0035H) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lOriginal)
@@ -366,8 +364,6 @@
     Endif
     Endroutine
     
-    * TEST**********************************
-    
     *
     *
     *
@@ -381,7 +377,8 @@
     #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
     
     If (#this_rc = NO)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Looking for no triggers being fired and thus no messages') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (' - 0 messages were found') )
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
     Endif
@@ -400,7 +397,8 @@
     #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
     
     If (#this_rc = NO)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Looking for no triggers being fired and thus no messages') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (' - 0 messages were found') )
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
     Endif
@@ -419,7 +417,8 @@
     #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
     
     If (#this_rc = NO)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Looking for no triggers being fired and thus no messages') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (' - 0 messages were found') )
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
     Endif
@@ -439,14 +438,12 @@
     #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
     
     If (#this_rc = NO)
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Looking for no triggers being fired and thus no messages') ('') )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (' - 0 messages were found') )
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('Incorrect message returned') '' )
     Endif
     Endroutine
-    
-    * Test
-    
     *
     *
     *
@@ -463,7 +460,6 @@
     
     #BIFDT26C := *DATETIME
     #BIFDT26D := #BIFDT26C.Date.Adjust( 20 )
-    
     
     Use Builtin(CLR_MESSAGES)
     Clr_List Named(#w_lMessages)
@@ -505,7 +501,6 @@
     #Com_Owner.mthCheck_Fetch_Trigger( #this_rc OK )
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     
-    
     *
     * Delete
     *
@@ -518,9 +513,6 @@
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     
     Endroutine
-    
-    
-    
     *
     *
     *
