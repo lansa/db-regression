@@ -118,8 +118,8 @@
       Virtual Field Type: Date Conversion
       Derive On Input:    Yes
       Derive On Output:   Yes
-      Source Field:       RMMDDYY
-      Source Date Format: MMDDYY
+      Source Field:       RSYSFMT
+      Source Date Format: SYSFMT
       Target Date Format: DDMMYY
 
   - VMMDDYY:
@@ -140,8 +140,8 @@
       Virtual Field Type: Date Conversion
       Derive On Input:    Yes
       Derive On Output:   Yes
-      Source Field:       RMMDDYYYY
-      Source Date Format: MMDDYYYY
+      Source Field:       RSYSFMT8
+      Source Date Format: SYSFMT8
       Target Date Format: DDMMYYYY
 
   - VMMDDYYYY:
@@ -228,8 +228,8 @@
       Virtual Field Type: Date Conversion
       Derive On Input:    Yes
       Derive On Output:   Yes
-      Source Field:       RSYSFMT
-      Source Date Format: SYSFMT
+      Source Field:       RMMDDYYYY
+      Source Date Format: MMDDYYYY
       Target Date Format: SYSFMT8
 
   - VSYSFMT:
@@ -239,6 +239,6 @@
       Virtual Field Type: Date Conversion
       Derive On Input:    Yes
       Derive On Output:   Yes
-      Source Field:       VSYSFMT8
-      Source Date Format: SYSFMT8
+      Source Field:       RMMDDYY
+      Source Date Format: MMDDYY
       Target Date Format: SYSFMT

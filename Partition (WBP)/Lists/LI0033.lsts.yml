@@ -42,3 +42,75 @@
   - VTLI0033C:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - VDDMMYY:
+      Type:               Field
+
+  - VMMDDYYYY:
+      Type:               Field
+
+  - VMMDDYY:
+      Type:               Field
+
+  - VMMYY:
+      Type:               Field
+
+  - VMMYYYY:
+      Type:               Field
+
+  - VSYSFMT:
+      Type:               Field
+
+  - VSYSFMT8:
+      Type:               Field
+
+  - VDDMMYYYY:
+      Type:               Field
+
+  - VYYMM:
+      Type:               Field
+
+  - VYYYYDDMM:
+      Type:               Field
+
+  - VYYYYMM:
+      Type:               Field
+
+  - VYYYYMMDD:
+      Type:               Field
+
+  - RMMDDYY:
+      Type:               Field
+
+  - RMMDDYYYY:
+      Type:               Field
+
+  - RMMYY:
+      Type:               Field
+
+  - RMMYYYY:
+      Type:               Field
+
+  - RSYSFMT:
+      Type:               Field
+
+  - RSYSFMT8:
+      Type:               Field
+
+  - RYYMM:
+      Type:               Field
+
+  - RYYYYDDMM:
+      Type:               Field
+
+  - RYYYYMM:
+      Type:               Field
+
+  - RYYYYMMDD:
+      Type:               Field
+
+  - RDDMMYY:
+      Type:               Field
+
+  - RDDMMYYYY:
+      Type:               Field

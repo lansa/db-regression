@@ -222,7 +222,7 @@
     #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
     Selectlist Named(#w_lOriginal)
-    Insert Fields(*ALL) To_File(VTLI0033C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Insert Fields(#BIFP0300A #XG_ALLVIRT) To_File(VTLI0033C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
@@ -309,117 +309,67 @@
     #this_rc := ER
     Endif
     
-    If (#LF_RDDMMYY <> #RDDMMYY)
+    If (#RDDMMYY <> #VDDMMYY)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RDDMMYY data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VDDMMYY <> #VDDMMYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VDDMMYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RMMDDYY <> #RMMDDYY)
+    
+    If (#RMMDDYY <> #VMMDDYY)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMDDYY data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VMMDDYY <> #VMMDDYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VMMDDYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RDDMMYYYY <> #RDDMMYYYY)
+    
+    If (#RDDMMYYYY <> #VDDMMYYYY)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RDDMMYYYY data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VDDMMYYYY <> #VDDMMYYYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VDDMMYYYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RMMDDYYYY <> #RMMDDYYYY)
+    
+    If (#RMMDDYYYY <> #VMMDDYYYY)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMDDYYYY data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VMMDDYYYY <> #VMMDDYYYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VMMDDYYYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    * If (#LF_RYYYYMMDD <> #RYYYYMMDD)
+    
+    * If (#RYYYYMMDD <> #VYYYYMMDD)
     * #Com_Owner.mthShowData( #this_rc )
     * #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYYYMMDD data mismatch') '' )
     * #this_rc := ER
     * Endif
-    * If (#LF_VYYYYMMDD <> #VYYYYMMDD)
-    * #Com_Owner.mthShowData( #this_rc )
-    * #Com_Owner.mthAdd_SubMsg( ER ('- Field #VYYYYMMDD data mismatch') '' )
-    * #this_rc := ER
-    * Endif
-    * If (#LF_RYYYYDDMM <> #RYYYYDDMM)
+    * If (#RYYYYDDMM <> #VYYYYDDMM)
     * #Com_Owner.mthShowData( #this_rc )
     * #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYYYDDMM data mismatch') '' )
     * #this_rc := ER
     * Endif
-    * If (#LF_VYYYYDDMM <> #VYYYYDDMM)
-    * #Com_Owner.mthShowData( #this_rc )
-    * #Com_Owner.mthAdd_SubMsg( ER ('- Field #VYYYYDDMM data mismatch') '' )
-    * #this_rc := ER
-    * Endif
-    If (#LF_RYYMM <> #RYYMM)
+    
+    If (#RYYMM <> #VYYMM)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYMM data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VYYMM <> #VYYMM)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VYYMM data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RMMYY <> #RMMYY)
+    If (#RMMYY <> #VMMYY)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMYY data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VMMYY <> #VMMYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VMMYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RYYYYMM <> #RYYYYMM)
+    If (#RYYYYMM <> #VYYYYMM)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYYYMM data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VYYYYMM <> #VYYYYMM)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VYYYYMM data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RMMYYYY <> #RMMYYYY)
+    If (#RMMYYYY <> #VMMYYYY)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMYYYY data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VMMYYYY <> #VMMYYYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VMMYYYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RSYSFMT <> #RSYSFMT)
+    If (#RSYSFMT <> #VSYSFMT)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RSYSFMT data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_VSYSFMT <> #VSYSFMT)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #VSYSFMT data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#LF_RSYSFMT8 <> #RSYSFMT8)
+    If (#RSYSFMT8 <> #VSYSFMT8)
     #Com_Owner.mthShowData( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #RSYSFMT8 data mismatch') '' )
     #this_rc := ER
@@ -452,77 +402,43 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0300A "' + #LF_BIFP0300A.asString + '"') '' )
     #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0300A "' + #BIFP0300A.asString + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RDDMMYY "' + #LF_RDDMMYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RDDMMYY "' + #RDDMMYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RDDMMYY "' + #RDDMMYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  VDDMMYY "' + #VDDMMYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VDDMMYY "' + #LF_VDDMMYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VDDMMYY "' + #VDDMMYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RMMDDYY "' + #LF_RMMDDYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RMMDDYY "' + #RMMDDYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMDDYY "' + #RMMDDYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMDDYY "' + #VMMDDYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VMMDDYY "' + #LF_VMMDDYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VMMDDYY "' + #VMMDDYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RDDMMYYYY "' + #LF_RDDMMYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RDDMMYYYY "' + #RDDMMYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RDDMMYYYY "' + #RDDMMYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VDDMMYYYY "' + #VDDMMYYYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VDDMMYYYY "' + #LF_VDDMMYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VDDMMYYYY "' + #VDDMMYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMDDYYYY "' + #RMMDDYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMDDYYYY "' + #VMMDDYYYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RMMDDYYYY "' + #LF_RMMDDYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RMMDDYYYY "' + #RMMDDYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYYYMMDD "' + #RYYYYMMDD + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYYYMMDD "' + #VYYYYMMDD + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VMMDDYYYY "' + #LF_VMMDDYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VMMDDYYYY "' + #VMMDDYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYYYDDMM "' + #RYYYYDDMM + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYYYDDMM "' + #VYYYYDDMM + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RYYYYMMDD "' + #LF_RYYYYMMDD + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RYYYYMMDD "' + #RYYYYMMDD + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYMM "' + #RYYMM + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYMM "' + #VYYMM + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VYYYYMMDD "' + #LF_VYYYYMMDD + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VYYYYMMDD "' + #VYYYYMMDD + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMYY "' + #RMMYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMYY "' + #VMMYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RYYYYDDMM "' + #LF_RYYYYDDMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RYYYYDDMM "' + #RYYYYDDMM + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYYYMM "' + #RYYYYMM + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYYYMM "' + #VYYYYMM + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VYYYYDDMM "' + #LF_VYYYYDDMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VYYYYDDMM "' + #VYYYYDDMM + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMYYYY "' + #RMMYYYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMYYYY "' + #VMMYYYY + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RYYMM "' + #LF_RYYMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RYYMM "' + #RYYMM + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RSYSFMT "' + #RSYSFMT + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VSYSFMT "' + #VSYSFMT + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VYYMM "' + #LF_VYYMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VYYMM "' + #VYYMM + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RMMYY "' + #LF_RMMYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RMMYY "' + #RMMYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VMMYY "' + #LF_VMMYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VMMYY "' + #VMMYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RYYYYMM "' + #LF_RYYYYMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RYYYYMM "' + #RYYYYMM + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VYYYYMM "' + #LF_VYYYYMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VYYYYMM "' + #VYYYYMM + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RMMYYYY "' + #LF_RMMYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RMMYYYY "' + #RMMYYYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VMMYYYY "' + #LF_VMMYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VMMYYYY "' + #VMMYYYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RSYSFMT "' + #LF_RSYSFMT + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RSYSFMT "' + #RSYSFMT + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VSYSFMT "' + #LF_VSYSFMT + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VSYSFMT "' + #VSYSFMT + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #RSYSFMT8 "' + #LF_RSYSFMT8 + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #RSYSFMT8 "' + #RSYSFMT8 + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #VSYSFMT8 "' + #LF_VSYSFMT8 + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #VSYSFMT8 "' + #VSYSFMT8 + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RSYSFMT8 "' + #RSYSFMT8 + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VSYSFMT8 "' + #VSYSFMT8 + '"') '' )
     
     Endif
     
@@ -567,7 +483,6 @@
     #RMMYY #VMMYY := #LF_MM + #LF_YY
     #RYYYYMM #VYYYYMM := #LF_CC + #LF_YY + #LF_MM
     #RMMYYYY #VMMYYYY := #LF_MM + #LF_CC + #LF_YY
-    #RSYSFMT #VSYSFMT := #LF_CC + #LF_DD + #LF_MM
-    #RSYSFMT8 #VSYSFMT8 := #LF_CC + #LF_YY + #LF_DD + #LF_MM
-    
+    #RSYSFMT #VSYSFMT := #LF_MM + #LF_DD + #LF_YY
+    #RSYSFMT8 #VSYSFMT8 := #LF_MM + #LF_DD + #LF_CC + #LF_YY
     Endroutine
