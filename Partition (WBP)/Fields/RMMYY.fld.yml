@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               RMMYY
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "REAL FIELD RMMYY"
+      Label:              "REAL FIELD RMMY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RMMYY"
+
+  - ENG:
+      Description:        "REAL FIELD RMMYY"
+      Label:              "REAL FIELD RMMY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RMMYY"
+
+  - FRA:
+      Description:        "REAL FIELD RMMYY"
+      Label:              "REAL FIELD RMMY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RMMYY"
+
+  - JPN:
+      Description:        "REAL FIELD RMMYY"
+      Label:              "REAL FIELD RMMY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RMMYY"
+
+  - TRK:
+      Description:        "REAL FIELD RMMYY"
+      Label:              "REAL FIELD RMMY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RMMYY"

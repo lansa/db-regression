@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               RYYYYMMDD
+  Type:               Alpha
+  Length:             10
+  Decimals:           0
+  Default Value:      "*BLANKS"
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+
+  Multilingual Details:
+  - DAN:
+      Description:        "REAL FIELD RYYYYMMDD"
+      Label:              "REAL FIELD RYYY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RYYYYMMDD"
+
+  - ENG:
+      Description:        "REAL FIELD RYYYYMMDD"
+      Label:              "REAL FIELD RYYY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RYYYYMMDD"
+
+  - FRA:
+      Description:        "REAL FIELD RYYYYMMDD"
+      Label:              "REAL FIELD RYYY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RYYYYMMDD"
+
+  - JPN:
+      Description:        "REAL FIELD RYYYYMMDD"
+      Label:              "REAL FIELD RYYY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RYYYYMMDD"
+
+  - TRK:
+      Description:        "REAL FIELD RYYYYMMDD"
+      Label:              "REAL FIELD RYYY"
+      Heading1:           "REAL"
+      Heading2:           "FIELD"
+      Heading3:           "RYYYYMMDD"

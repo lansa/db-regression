@@ -28,41 +28,16 @@
     Define Field(#LF_DB_Count) Reffld(#Std_Count)
     Define Field(#LF_DataShown) Reffld(#BIFB001B)
     
-    Define Field(#LF_MM) Reffld(#BIFC010A)
-    Define Field(#LF_DD) Reffld(#BIFC010A)
-    Define Field(#LF_YY) Reffld(#BIFC010A)
-    Define Field(#LF_CC) Reffld(#BIFC010A)
-    
     * Local Copies of Table Columns - matches following List fields
     Define Field(#LF_BIFP0300A) Reffld(#BIFP0300A)
-    Define Field(#LF_RDDMMYY) Reffld(#RDDMMYY)
-    Define Field(#LF_VDDMMYY) Reffld(#VDDMMYY)
-    Define Field(#LF_RMMDDYY) Reffld(#RMMDDYY)
-    Define Field(#LF_VMMDDYY) Reffld(#VMMDDYY)
-    Define Field(#LF_RDDMMYYYY) Reffld(#RDDMMYYYY)
-    Define Field(#LF_VDDMMYYYY) Reffld(#VDDMMYYYY)
-    Define Field(#LF_RMMDDYYYY) Reffld(#RMMDDYYYY)
-    Define Field(#LF_VMMDDYYYY) Reffld(#VMMDDYYYY)
-    Define Field(#LF_RYYYYMMDD) Reffld(#RYYYYMMDD)
-    Define Field(#LF_VYYYYMMDD) Reffld(#VYYYYMMDD)
-    Define Field(#LF_RYYYYDDMM) Reffld(#RYYYYDDMM)
-    Define Field(#LF_VYYYYDDMM) Reffld(#VYYYYDDMM)
-    Define Field(#LF_RYYMM) Reffld(#RYYMM)
-    Define Field(#LF_VYYMM) Reffld(#VYYMM)
-    Define Field(#LF_RMMYY) Reffld(#RMMYY)
-    Define Field(#LF_VMMYY) Reffld(#VMMYY)
-    Define Field(#LF_RYYYYMM) Reffld(#RYYYYMM)
-    Define Field(#LF_VYYYYMM) Reffld(#VYYYYMM)
-    Define Field(#LF_RMMYYYY) Reffld(#RMMYYYY)
-    Define Field(#LF_VMMYYYY) Reffld(#VMMYYYY)
-    Define Field(#LF_RSYSFMT) Reffld(#RSYSFMT)
-    Define Field(#LF_VSYSFMT) Reffld(#VSYSFMT)
-    Define Field(#LF_RSYSFMT8) Reffld(#RSYSFMT8)
-    Define Field(#LF_VSYSFMT8) Reffld(#VSYSFMT8)
+    Define Field(#LF_BIFP0702C) Reffld(#BIFP0702C)
+    Define Field(#LF_BIFP0700A) Reffld(#BIFP0700A)
+    Define Field(#LF_BIFP0702B) Reffld(#BIFP0702B)
+    Define Field(#LF_BIFP0702D) Reffld(#BIFP0702D)
     
     * #XG_ALL includes all Fields in the Table
-    Group_By Name(#XG_ALLREAL) Fields(#BIFP0300A #RDDMMYY #RMMDDYY #RDDMMYYYY #RMMDDYYYY #RYYYYMMDD #RYYYYDDMM #RYYMM #RMMYY #RYYYYMM #RMMYYYY #RSYSFMT8 #RSYSFMT)
-    Group_By Name(#XG_ALLVIRT) Fields(#VDDMMYY #VMMDDYY #VDDMMYYYY #VMMDDYYYY #VYYYYMMDD #VYYYYDDMM #VYYMM #VMMYY #VYYYYMM #VMMYYYY #VSYSFMT8 #VSYSFMT)
+    Group_By Name(#XG_ALLREAL) Fields(#BIFP0300A #BIFP0702C #BIFP0700A)
+    Group_By Name(#XG_ALLVIRT) Fields(#BIFP0702B #BIFP0702D)
     Group_By Name(#XG_ALL) Fields(#XG_ALLREAL #XG_ALLVIRT)
     
     Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING)
@@ -147,7 +122,7 @@
     Clr_List Named(#w_lOriginal)
     Clr_List Named(#w_lDB)
     
-    Select Fields(#BIFP0300A) From_File(VTLI0033C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(#BIFP0300A) From_File(VTLI0033E) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lOriginal)
     Endselect
     
@@ -159,7 +134,7 @@
     Begin_Loop Using(#LF_i) To(#LF_Original_Count)
     Get_Entry Number(#LF_i) From_List(#w_lOriginal)
     
-    Delete From_File(VTLI0033C) With_Key(#BIFP0300A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Delete From_File(VTLI0033E) With_Key(#BIFP0300A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #BIFP0300A.AsString) )
@@ -187,42 +162,46 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     * Create Test Data list
-    Clr_List Named(#w_lOriginal)
+    
     * Real Fields: #BIFP0300A #BIFA256A #BIFA010A #BIFA010C #BIFA010D #BIFP0702A #BIFN0702A
     #LF_i := 1
     
     #BIFP0300A := #LF_i
     #LF_i += 1
-    #LF_DD := '27'
-    #LF_MM := '12'
-    #LF_CC := '19'
-    #LF_yy := '59'
-    #COM_OWNER.mthPopulateData()
+    #BIFP0702C := 10.00
+    #BIFP0700A := 8
+    #BIFP0702B := 10.80
+    #BIFP0702D := 10.80
     Add_Entry To_List(#w_lOriginal)
     
     #BIFP0300A := #LF_i
     #LF_i += 1
-    #LF_DD := '01'
-    #LF_MM := '01'
-    #LF_CC := '20'
-    #LF_yy := '99'
-    #COM_OWNER.mthPopulateData()
+    #BIFP0702C := 0
+    #BIFP0700A := 17
+    #BIFP0702B := 0
+    #BIFP0702D := 0
     Add_Entry To_List(#w_lOriginal)
     
     #BIFP0300A := #LF_i
     #LF_i += 1
-    #LF_DD := '31'
-    #LF_MM := '12'
-    #LF_CC := '25'
-    #LF_yy := '00'
-    #COM_OWNER.mthPopulateData()
+    #BIFP0702C := 99.90
+    #BIFP0700A := 10
+    #BIFP0702B := 109.89
+    #BIFP0702D := 109.89
     Add_Entry To_List(#w_lOriginal)
     
+    #BIFP0300A := #LF_i
+    #LF_i += 1
+    #BIFP0702C := 999.9
+    #BIFP0700A := 10
+    #BIFP0702B := 1099.89
+    #BIFP0702D := 1099.89
+    Add_Entry To_List(#w_lOriginal)
     
     #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
     Selectlist Named(#w_lOriginal)
-    Insert Fields(#BIFP0300A #XG_ALLVIRT) To_File(VTLI0033C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Insert Fields(*ALL) To_File(VTLI0033E) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc <> OK)
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
@@ -246,7 +225,7 @@
     
     Clr_List Named(#w_lDB)
     #XG_ALL := *NULL
-    Select Fields(*ALL) From_File(VTLI0033C) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Select Fields(*ALL) From_File(VTLI0033E) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lDB)
     Endselect
     
@@ -264,31 +243,10 @@
     #LF_i := 1
     Selectlist Named(#w_lOriginal)
     #LF_BIFP0300A := #BIFP0300A
-    #LF_BIFP0300A := #BIFP0300A
-    #LF_RDDMMYY := #RDDMMYY
-    #LF_VDDMMYY := #VDDMMYY
-    #LF_RMMDDYY := #RMMDDYY
-    #LF_VMMDDYY := #VMMDDYY
-    #LF_RDDMMYYYY := #RDDMMYYYY
-    #LF_VDDMMYYYY := #VDDMMYYYY
-    #LF_RMMDDYYYY := #RMMDDYYYY
-    #LF_VMMDDYYYY := #VMMDDYYYY
-    #LF_RYYYYMMDD := #RYYYYMMDD
-    #LF_VYYYYMMDD := #VYYYYMMDD
-    #LF_RYYYYDDMM := #RYYYYDDMM
-    #LF_VYYYYDDMM := #VYYYYDDMM
-    #LF_RYYMM := #RYYMM
-    #LF_VYYMM := #VYYMM
-    #LF_RMMYY := #RMMYY
-    #LF_VMMYY := #VMMYY
-    #LF_RYYYYMM := #RYYYYMM
-    #LF_VYYYYMM := #VYYYYMM
-    #LF_RMMYYYY := #RMMYYYY
-    #LF_VMMYYYY := #VMMYYYY
-    #LF_RSYSFMT := #RSYSFMT
-    #LF_VSYSFMT := #VSYSFMT
-    #LF_RSYSFMT8 := #RSYSFMT8
-    #LF_VSYSFMT8 := #VSYSFMT8
+    #LF_BIFP0702C := #BIFP0702C
+    #LF_BIFP0700A := #BIFP0700A
+    #LF_BIFP0702B := #BIFP0702B
+    #LF_BIFP0702D := #BIFP0702D
     
     Get_Entry Number(#LF_i) From_List(#w_lDB) Ret_Status(#this_rc)
     If (#this_rc <> OK)
@@ -308,72 +266,27 @@
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0300A data mismatch') '' )
     #this_rc := ER
     Endif
-    
-    If (#RDDMMYY <> #VDDMMYY)
+    If (#LF_BIFP0702C <> #BIFP0702C)
     #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RDDMMYY data mismatch') '' )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702C data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFP0700A <> #BIFP0700A)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0700A data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFP0702B <> #BIFP0702B)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702B data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_BIFP0702D <> #BIFP0702D)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #BIFP0702B data mismatch') '' )
     #this_rc := ER
     Endif
     
-    If (#RMMDDYY <> #VMMDDYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMDDYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    
-    If (#RDDMMYYYY <> #VDDMMYYYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RDDMMYYYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    
-    If (#RMMDDYYYY <> #VMMDDYYYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMDDYYYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    
-    * If (#RYYYYMMDD <> #VYYYYMMDD)
-    * #Com_Owner.mthShowData( #this_rc )
-    * #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYYYMMDD data mismatch') '' )
-    * #this_rc := ER
-    * Endif
-    * If (#RYYYYDDMM <> #VYYYYDDMM)
-    * #Com_Owner.mthShowData( #this_rc )
-    * #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYYYDDMM data mismatch') '' )
-    * #this_rc := ER
-    * Endif
-    
-    If (#RYYMM <> #VYYMM)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYMM data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#RMMYY <> #VMMYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#RYYYYMM <> #VYYYYMM)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RYYYYMM data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#RMMYYYY <> #VMMYYYY)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RMMYYYY data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#RSYSFMT <> #VSYSFMT)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RSYSFMT data mismatch') '' )
-    #this_rc := ER
-    Endif
-    If (#RSYSFMT8 <> #VSYSFMT8)
-    #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( ER ('- Field #RSYSFMT8 data mismatch') '' )
-    #this_rc := ER
-    Endif
     If (#this_rc <> OK)
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Comparing record ' + #BIFP0300A.AsString + ', ' + #BIFA256A) )
     Leave
@@ -402,43 +315,17 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0300A "' + #LF_BIFP0300A.asString + '"') '' )
     #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0300A "' + #BIFP0300A.asString + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RDDMMYY "' + #RDDMMYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  VDDMMYY "' + #VDDMMYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0702C "' + #LF_BIFP0702C.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0702C "' + #BIFP0702C.asString + '"') '' )
     
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0700A "' + #LF_BIFP0700A.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0700A "' + #BIFP0700A.asString + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMDDYY "' + #RMMDDYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMDDYY "' + #VMMDDYY + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0702B "' + #LF_BIFP0702B.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0702B "' + #BIFP0702B.asString + '"') '' )
     
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RDDMMYYYY "' + #RDDMMYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VDDMMYYYY "' + #VDDMMYYYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMDDYYYY "' + #RMMDDYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMDDYYYY "' + #VMMDDYYYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYYYMMDD "' + #RYYYYMMDD + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYYYMMDD "' + #VYYYYMMDD + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYYYDDMM "' + #RYYYYDDMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYYYDDMM "' + #VYYYYDDMM + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYMM "' + #RYYMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYMM "' + #VYYMM + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMYY "' + #RMMYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMYY "' + #VMMYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RYYYYMM "' + #RYYYYMM + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VYYYYMM "' + #VYYYYMM + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RMMYYYY "' + #RMMYYYY + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VMMYYYY "' + #VMMYYYY + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RSYSFMT "' + #RSYSFMT + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VSYSFMT "' + #VSYSFMT + '"') '' )
-    
-    #Com_Owner.mthAdd_SubMsg( OK ('- REAL  #RSYSFMT8 "' + #RSYSFMT8 + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- VIRT  #VSYSFMT8 "' + #VSYSFMT8 + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #BIFP0702D "' + #LF_BIFP0702D.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #BIFP0702D "' + #BIFP0702D.asString + '"') '' )
     
     Endif
     
@@ -469,20 +356,4 @@
     #LF_DecimalPart := #LF_WorkString.Substring( (#LF_DecimalPosn + 1) #LF_DecimalCount ).RightTrim.LeftMost( #LF_DecimalCount '0' )
     Endif
     #this_string := #LF_IntegerPart + #LF_DecimalPart
-    Endroutine
-    
-    Mthroutine Name(mthPopulateData)
-    
-    #RDDMMYY #VDDMMYY := #LF_DD + #LF_MM + #LF_YY
-    #RMMDDYY #VMMDDYY := #LF_MM + #LF_DD + #LF_YY
-    #RDDMMYYYY #VDDMMYYYY := #LF_DD + #LF_MM + #LF_CC + #LF_YY
-    #RMMDDYYYY #VMMDDYYYY := #LF_MM + #LF_DD + #LF_CC + #LF_YY
-    #RYYYYMMDD #VYYYYMMDD := #LF_CC + #LF_YY + #LF_MM + #LF_DD
-    #RYYYYDDMM #VYYYYDDMM := #LF_CC + #LF_YY + #LF_DD + #LF_MM
-    #RYYMM #VYYMM := #LF_YY + #LF_MM
-    #RMMYY #VMMYY := #LF_MM + #LF_YY
-    #RYYYYMM #VYYYYMM := #LF_CC + #LF_YY + #LF_MM
-    #RMMYYYY #VMMYYYY := #LF_MM + #LF_CC + #LF_YY
-    #RSYSFMT #VSYSFMT := #LF_MM + #LF_DD + #LF_YY
-    #RSYSFMT8 #VSYSFMT8 := #LF_MM + #LF_DD + #LF_CC + #LF_YY
     Endroutine

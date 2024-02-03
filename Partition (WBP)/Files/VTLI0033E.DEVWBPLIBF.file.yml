@@ -1,0 +1,93 @@
+﻿File:
+  Name:                           VTLI0033E
+  File Type:                      LANSA File
+  Library:                        DEVWBPLIBF
+  Record Format Name:             VTLI0033E
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            Yes
+  Create RRNO Column:             Yes
+  Auto RRNO Is Fixed:             Yes
+  Convert Special Characters:     No
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "Virtual Column Calculation/ Code Fragmen"
+
+  - ENG:
+      Description:        "Virtual Column Calculation/ Code Fragmen"
+
+  - FRA:
+      Description:        "Virtual Column Calculation/ Code Fragmen"
+
+  - JPN:
+      Description:        "Virtual Column Calculation/ Code Fragmen"
+
+  - TRK:
+      Description:        "Virtual Column Calculation/ Code Fragmen"
+
+  Real Fields:
+  - BIFP0300A:
+      Type:               Decimal
+      Length:             3
+      Decimals:           0
+
+  - BIFP0702C:
+      Type:               Decimal
+      Length:             7
+      Decimals:           3
+
+  - BIFP0700A:
+      Type:               Decimal
+      Length:             7
+      Decimals:           0
+
+  Primary Keys:
+  - BIFP0300A
+
+  Virtual Fields:
+  - BIFP0702B:
+      Type:               Decimal
+      Length:             7
+      Decimals:           3
+      Virtual Field Type: Calculation
+      Derive On Input:    Yes
+      Operations:
+      - Factor 1:           BIFP0702C
+        Operator:           Divide
+        Factor 2:           +100
+        Result:             "*WORKNET01"
+      - Factor 1:           "*WORKNET01"
+        Operator:           Multiply
+        Factor 2:           BIFP0700A
+        Result:             "*WORKTAX01"
+      - Factor 1:           BIFP0702C
+        Operator:           Add
+        Factor 2:           "*WORKTAX01"
+        Result:             BIFP0702B
+
+  - BIFP0702D:
+      Type:               Decimal
+      Length:             7
+      Decimals:           3
+      Virtual Field Type: Code Fragment
+      Derive On Input:    Yes
+      Derive On Output:   No
+      Input Fragment: |
+        * RDML Code Fragment to derive value for field BIFP0702B
+        #BIFP0702D := #BIFP0702C + ((#BIFP0702C / 100) * #BIFP0700A)
