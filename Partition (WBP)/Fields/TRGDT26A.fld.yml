@@ -1,0 +1,66 @@
+﻿Field:
+  Name:               TRGDT26A
+  Type:               DateTime
+  Length:             26
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - FE
+  - ISO
+  - SUTC
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+
+  - ENG:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+
+  - FRA:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+
+  - JPN:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+
+  - TRK:
+      Description:        "BIF DateTime(26)"
+      Label:              "BIF DateTime(26"
+      Heading1:           "BIF"
+      Heading2:           "DateTime(26)"
+
+  Triggers:
+  - Conditional Field Trigger- ETY:
+      Function:           VI035AI
+      Trigger Points:
+      - Before Delete
+      - After Delete
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVDT) Name(#VisualDateTime) Defaultvisual(True) Componentversion(1) Height(21) Width(581)
+    
+    End_Com
+    
+    Begin_Com Role(*Weblet 'std_datetimepicker.std_datetimepicker') Name(#WebletTemplate) Defaultweblet(True)
+    
+    End_Com
+    
+    End_Com

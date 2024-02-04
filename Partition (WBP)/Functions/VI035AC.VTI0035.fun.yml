@@ -1,0 +1,50 @@
+﻿Function:
+  Enabled For RDMLX:  Yes
+
+  Source: |
+    * =======================================================
+    * Copyright .....: (C) LANSA PTY LTD, 1992
+    * Process .......: VTI0035
+    * Function ......: VI0035AC
+    * Type ..........: VTLI0035H File Level Trigger
+    * Created by ....:
+    * Created on ....: 24/01/28 at 00:23:04
+    * Description ...: File Trigger
+    * =======================================================
+    Function Options(*DIRECT *LIGHTUSAGE *MLOPTIMISE) Rcv_List(#TRIG_LIST) Trigger(*FILE VTLI0035H)
+    * =======================================================
+    * Working fields, lists and groups
+    * =======================================================
+    * At entry #TRIG_LIST will contain 0,1 or 2
+    * entries representing current and previous
+    * record images of file VTLI0035H. Refer to the
+    * Technical Guide for details and examples.
+    * Do NOT define any fields in this list. They
+    * are automatically included by the compiler.
+    Def_List Name(#TRIG_LIST) Type(*WORKING) Entrys(2)
+    
+    * =======================================================
+    * Function Mainline : VI0035AC
+    * =======================================================
+    * Assume a "good" return initially
+    Change Field(#TRIG_RETC) To('OK')
+    
+    Case Of_Field(#TRIG_OPER)
+    * Handle a before read event
+    When Value_Is('= BEFUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'BEFUPD REF GEP')
+    
+    * Handle an after read event
+    When Value_Is('= AFTUPD')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default 'AFTUPD REF GEP')
+    
+    * Handle an event not catered for
+    Otherwise
+    * Abort Msgtxt('File VTLI0035H trigger function invalidly invoked/ used.')
+    Use Builtin(ISSUEMESSAGE) With_Args('*TOPGMQ' M DCM9898 'DC@M01' *Default ('File VTLI0035H in trigger function ' + *FUNCTION_DESC + ' invalidly invoked/used.'))
+    #TRIG_RETC := ER
+    
+    Endcase
+    * Return control to the invoker
+    Return
+    

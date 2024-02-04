@@ -3,9 +3,6 @@
   Stored As:          User
 
   Objects:
-  - VTI0035:
-      Type:               Process
-
   - VI0035C:
       Type:               Funciton
       Qualifier:          VTI0035
@@ -54,6 +51,79 @@
       Type:               Funciton
       Qualifier:          VTI0035
 
-  - VI00351:
+  - VI035AA:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI0035H:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VTLI0035H:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTI0035:
+      Type:               Process
+
+  - VI035AB:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AC:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AD:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AE:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - TRGA032A:
+      Type:               Field
+
+  - TRGDT26A:
+      Type:               Field
+
+  - TRGDT26B:
+      Type:               Field
+
+  - TRGN0700A:
+      Type:               Field
+
+  - TRGN0702A:
+      Type:               Field
+
+  - TRGN0702B:
+      Type:               Field
+
+  - VI035AF:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AG:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AH:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AI:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VI035AJ:
+      Type:               Funciton
+      Qualifier:          VTI0035
+
+  - VTLI0035I:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VI0035I:
       Type:               Funciton
       Qualifier:          VTI0035

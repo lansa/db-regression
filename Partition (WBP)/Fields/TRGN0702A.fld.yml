@@ -1,0 +1,83 @@
+﻿Field:
+  Name:               TRGN0702A
+  Type:               Signed
+  Length:             7
+  Decimals:           2
+  Default Value:      "*ZERO"
+  Edit Mask:          2
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - FE
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - ENG:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - FRA:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - JPN:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  - TRK:
+      Description:        "BIF Data Signed(7,2)"
+      Label:              "BIF Data Signed"
+      Heading1:           "BIF"
+      Heading2:           "Data"
+      Heading3:           "Signed(7,0)"
+
+  Triggers:
+  - Conditional Field Trigger:
+      Function:           VI035AF
+      Trigger Points:
+      - Before Read
+      - After Read
+      Conditions:
+      - And/Or:             And
+        Field:              TRGN0702A
+        Operator:           LT
+        Compare Value:      +20
+      - And/Or:             And
+        Field:              TRGN0702A
+        Operator:           EQ
+        Compare Value:      +10
+      - And/Or:             And
+        Field:              TRGN0702A
+        Operator:           NE
+        Compare Value:      +6
+      - And/Or:             And
+        Field:              TRGN0702A
+        Operator:           GT
+        Compare Value:      +0
+
+  Source: |
+    *
+    Begin_Com Role(*EXTENDS #PRIM_OBJT)
+    
+    Begin_Com Role(*Visual #PRIM_EVEF) Name(#VisualEdit) Defaultvisual(True) Usepicklist(False) Componentversion(1) Height(21) Width(320)
+    
+    End_Com
+    
+    End_Com
