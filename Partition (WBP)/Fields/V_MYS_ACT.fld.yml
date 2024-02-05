@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               V_MYS_ACTIVE
+  Type:               Integer
+  Length:             1
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_ACTIVE"
+      Label:              "V_MYS_ACTIVE"
+      Heading1:           "V_MYS_ACTIVE"
+
+  - ENG:
+      Description:        "V_MYS_ACTIVE"
+      Label:              "V_MYS_ACTIVE"
+      Heading1:           "V_MYS_ACTIVE"
+
+  - FRA:
+      Description:        "V_MYS_ACTIVE"
+      Label:              "V_MYS_ACTIVE"
+      Heading1:           "V_MYS_ACTIVE"
+
+  - JPN:
+      Description:        "V_MYS_ACTIVE"
+      Label:              "V_MYS_ACTIVE"
+      Heading1:           "V_MYS_ACTIVE"
+
+  - TRK:
+      Description:        "V_MYS_ACTIVE"
+      Label:              "V_MYS_ACTIVE"
+      Heading1:           "V_MYS_ACTIVE"

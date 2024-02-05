@@ -54,19 +54,19 @@
 
       Multilingual Details:
       - DAN:
-          Description:        "MSSQLS - OAM - Table Import Definitions"
+          Description:        "OAM - Table Import Definitions"
 
       - ENG:
-          Description:        "MSSQLS - OAM - Table Import Definitions"
+          Description:        "OAM - Table Import Definitions"
 
       - FRA:
-          Description:        "MSSQLS - OAM - Table Import Definitions"
+          Description:        "OAM - Table Import Definitions"
 
       - JPN:
-          Description:        "MSSQLS - OAM - Table Import Definitions"
+          Description:        "OAM - Table Import Definitions"
 
       - TRK:
-          Description:        "MSSQLS - OAM - Table Import Definitions"
+          Description:        "OAM - Table Import Definitions"
 
       Allowed Next Functions:
       - "*ANY"

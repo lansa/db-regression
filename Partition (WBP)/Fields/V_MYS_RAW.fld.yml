@@ -1,0 +1,37 @@
+﻿Field:
+  Name:               V_MYS_RAWDATA
+  Type:               Binary
+  Length:             50
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_RAWDATA"
+      Label:              "V_MYS_RAWDATA"
+      Heading1:           "V_MYS_RAWDATA"
+
+  - ENG:
+      Description:        "V_MYS_RAWDATA"
+      Label:              "V_MYS_RAWDATA"
+      Heading1:           "V_MYS_RAWDATA"
+
+  - FRA:
+      Description:        "V_MYS_RAWDATA"
+      Label:              "V_MYS_RAWDATA"
+      Heading1:           "V_MYS_RAWDATA"
+
+  - JPN:
+      Description:        "V_MYS_RAWDATA"
+      Label:              "V_MYS_RAWDATA"
+      Heading1:           "V_MYS_RAWDATA"
+
+  - TRK:
+      Description:        "V_MYS_RAWDATA"
+      Label:              "V_MYS_RAWDATA"
+      Heading1:           "V_MYS_RAWDATA"

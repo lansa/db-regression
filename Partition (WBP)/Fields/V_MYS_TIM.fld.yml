@@ -1,0 +1,37 @@
+﻿Field:
+  Name:               V_MYS_TIME
+  Type:               Time
+  Length:             8
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_TIME"
+      Label:              "V_MYS_TIME"
+      Heading1:           "V_MYS_TIME"
+
+  - ENG:
+      Description:        "V_MYS_TIME"
+      Label:              "V_MYS_TIME"
+      Heading1:           "V_MYS_TIME"
+
+  - FRA:
+      Description:        "V_MYS_TIME"
+      Label:              "V_MYS_TIME"
+      Heading1:           "V_MYS_TIME"
+
+  - JPN:
+      Description:        "V_MYS_TIME"
+      Label:              "V_MYS_TIME"
+      Heading1:           "V_MYS_TIME"
+
+  - TRK:
+      Description:        "V_MYS_TIME"
+      Label:              "V_MYS_TIME"
+      Heading1:           "V_MYS_TIME"
