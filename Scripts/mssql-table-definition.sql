@@ -1,5 +1,3 @@
-/*USE [LANSA]
-GO*/
 
 /****** Object:  Table [dbo].[VTLI0036A]    Script Date: 2/2/2024 4:08:28 AM ******/
 SET ANSI_NULLS ON
