@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               V_MYS_CODE
+  Type:               Signed
+  Length:             18
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_CODE"
+      Label:              "V_MYS_CODE"
+      Heading1:           "V_MYS_CODE"
+
+  - ENG:
+      Description:        "V_MYS_CODE"
+      Label:              "V_MYS_CODE"
+      Heading1:           "V_MYS_CODE"
+
+  - FRA:
+      Description:        "V_MYS_CODE"
+      Label:              "V_MYS_CODE"
+      Heading1:           "V_MYS_CODE"
+
+  - JPN:
+      Description:        "V_MYS_CODE"
+      Label:              "V_MYS_CODE"
+      Heading1:           "V_MYS_CODE"
+
+  - TRK:
+      Description:        "V_MYS_CODE"
+      Label:              "V_MYS_CODE"
+      Heading1:           "V_MYS_CODE"

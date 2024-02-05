@@ -1,0 +1,38 @@
+﻿Field:
+  Name:               V_MYS_XML
+  Type:               CLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_XML"
+      Label:              "V_MYS_XML"
+      Heading1:           "V_MYS_XML"
+
+  - ENG:
+      Description:        "V_MYS_XML"
+      Label:              "V_MYS_XML"
+      Heading1:           "V_MYS_XML"
+
+  - FRA:
+      Description:        "V_MYS_XML"
+      Label:              "V_MYS_XML"
+      Heading1:           "V_MYS_XML"
+
+  - JPN:
+      Description:        "V_MYS_XML"
+      Label:              "V_MYS_XML"
+      Heading1:           "V_MYS_XML"
+
+  - TRK:
+      Description:        "V_MYS_XML"
+      Label:              "V_MYS_XML"
+      Heading1:           "V_MYS_XML"

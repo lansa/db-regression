@@ -1,0 +1,37 @@
+﻿Field:
+  Name:               V_MYS_TAG
+  Type:               Char
+  Length:             36
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_TAG"
+      Label:              "V_MYS_TAG"
+      Heading1:           "V_MYS_TAG"
+
+  - ENG:
+      Description:        "V_MYS_TAG"
+      Label:              "V_MYS_TAG"
+      Heading1:           "V_MYS_TAG"
+
+  - FRA:
+      Description:        "V_MYS_TAG"
+      Label:              "V_MYS_TAG"
+      Heading1:           "V_MYS_TAG"
+
+  - JPN:
+      Description:        "V_MYS_TAG"
+      Label:              "V_MYS_TAG"
+      Heading1:           "V_MYS_TAG"
+
+  - TRK:
+      Description:        "V_MYS_TAG"
+      Label:              "V_MYS_TAG"
+      Heading1:           "V_MYS_TAG"

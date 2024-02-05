@@ -63,3 +63,49 @@
   - VTLI0036B:
       Type:               File
       Qualifier:          DBO
+
+  - VTLI0036D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - V_MYS_ACT:
+      Type:               Field
+
+  - V_MYS_COD:
+      Type:               Field
+
+  - V_MYS_DA1:
+      Type:               Field
+
+  - V_MYS_DAT:
+      Type:               Field
+
+  - V_MYS_DES:
+      Type:               Field
+
+  - V_MYS_ID:
+      Type:               Field
+
+  - V_MYS_LAS:
+      Type:               Field
+
+  - V_MYS_NAM:
+      Type:               Field
+
+  - V_MYS_RAW:
+      Type:               Field
+
+  - V_MYS_SAL:
+      Type:               Field
+
+  - V_MYS_SUR:
+      Type:               Field
+
+  - V_MYS_TAG:
+      Type:               Field
+
+  - V_MYS_TIM:
+      Type:               Field
+
+  - V_MYS_XML:
+      Type:               Field
