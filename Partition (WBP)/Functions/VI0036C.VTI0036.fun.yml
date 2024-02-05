@@ -7,6 +7,12 @@
     * ******************************************************************************************************
     * Test Case Description
     * Issue #36 Test the OAM after importing of the table definition into LANSA
+    * Sql scripts need to be executed to create the tables before the Function can execute correctly, use the below commandline and change credential
+    * MSSQLS       - SQLCMD.exe -S Localhost -d LANSA -U $sql_username -P $sql_password -i mssql-table-definition.sql
+    * SQLAZURE     - SQLCMD.exe -S $ODBC.server -d $ODBC.database -U $sql_username -P $sql_password -i sqlazure-table-definition.sql
+    * ODBCORACLE   - sqlplus -s -NOLOGINTIME $sql_username/$sql_password@ora19cdb @odbcoracle-table-definition.sql
+    * MYSQL        - get-content mysql-table-definition.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
+    * SQLANYWHERE  - dbisql -c "UID=$sql_username;PWD=$sql_password;DSN=SQLANYWHERE" -onerror exit -nogui "sqlanywhere-table-definition.sql"
     * ******************************************************************************************************
     
     * Unique Key Data.
@@ -46,15 +52,46 @@
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
+    #Com_Owner.mthGetExecutionType()
+    
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
+    #Com_Owner.mthAdd_SubMsg( OK 'Database Type' (#LF_DB_Type) )
     
     Get_Entry Number(1) From_List(#wLKData)
     
     *
     * Add your test case here
     * It should be a list of method calls so its easy to read whats being tested.
+    If (#LF_Remote_Platform *EQ I)
+    #Com_Owner.mthAdd_Msg( OK ('Skipping IBMi Test as this is only for Windows.') ('') )
+    Else
+    Case Of_Field(#LF_DB_Type)
+    When Value_Is(= MSSQLS)
+    #Com_Owner.mthExecuteMSSQLS( #LF_rc )
+    When Value_Is(= SQLAZURE)
+    #Com_Owner.mthExecuteAZURESQL( #LF_rc )
+    When Value_Is(= ODBCORACLE)
+    #Com_Owner.mthExecuteORACLE( #LF_rc )
+    When Value_Is(= MYSQL)
+    
+    When Value_Is(= SQLANYWHERE)
+    
+    Endcase
+    Endif
+    
+    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
+    Use Builtin(CLR_MESSAGES)
+    Return
+    
+    *
+    * Execute tests on MSSQLS
+    *
+    Mthroutine Name(mthExecuteMSSQLS)
+    Define_Map For(*BOTH) Class(#BIFA002A)
+    #LF_rc := OK
+    
     #Com_Owner.mthClearData( #LF_rc )
     
     If (#LF_rc *EQ OK)
@@ -69,9 +106,55 @@
     #Com_Owner.mthSelect( #LF_rc )
     Endif
     
-    #Com_Owner.mthAdd_Msg( #LF_rc *Function 'End' )
-    Use Builtin(CLR_MESSAGES)
-    Return
+    Endroutine
+    
+    *
+    * Execute tests on Azure SQL
+    *
+    Mthroutine Name(mthExecuteAZURESQL)
+    Define_Map For(*BOTH) Class(#BIFA002A)
+    #LF_rc := OK
+    
+    #Com_Owner.mthAzureClearData( #LF_rc )
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthAzureInsert( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthAzureUpdate( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    #Com_Owner.mthAzureSelect( #LF_rc )
+    Endif
+    
+    Endroutine
+    
+    *
+    * Execute tests on Oracle
+    *
+    Mthroutine Name(mthExecuteORACLE)
+    Define_Map For(*BOTH) Class(#BIFA002A)
+    #LF_rc := OK
+    
+    * #Com_Owner.mthOracleClearData( #LF_rc )
+    
+    If (#LF_rc *EQ OK)
+    * #Com_Owner.mthOracleInsert( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    * #Com_Owner.mthAzureUpdate( #LF_rc )
+    Endif
+    
+    If (#LF_rc *EQ OK)
+    * #Com_Owner.mthAzureSelect( #LF_rc )
+    Endif
+    
+    Endroutine
+    
+    
     
     * Add a message to the Return Message List.
     Mthroutine Name(mthAdd_Msg)
@@ -182,7 +265,7 @@
     #V_DATA := 'Stored Data'
     #V_CODE := 1234567897
     #V_xml := *Sqlnull
-    #V_RAWDATA := 'RAWDATA'
+    #V_RAWDATA := rawdataone
     #V_DESC := *SYS_DIR + 'x_txtfra.dat'
     #V_TAG := #LF_TagValue
     
@@ -200,7 +283,7 @@
     #V_DATA := 'My Data'
     #V_CODE := 1234567897
     #V_xml := *Sqlnull
-    #V_RAWDATA := 'TestData'
+    #V_RAWDATA := rawdatasecond
     #V_DESC := *SYS_DIR + 'x_txtfra.dat'
     #V_TAG := #LF_TagValue
     
@@ -251,10 +334,281 @@
     Mthroutine Name(mthSelect)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    Define Field(#LF_RawInfo) Type(*STRING) Length(50)
+    Define Field(#LF_v_RawInfo) Type(*STRING) Length(50)
+    
     #Com_Owner.mthAdd_SubMsg( OK ('Compare: ' + #LF_Original_Count.AsString + ' record(s)') '' )
     
     Clr_List Named(#w_lDB)
     Select Fields(*ALL) From_File(VTLI0036A) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lDB)
+    Endselect
+    
+    If (#this_rc *EQ ER)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Selecting record ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    If (#LF_Original_Count *NE #LF_DB_Count)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Expected # rows ' + #LF_Original_Count.asString) ('Actual rows ' + #LF_DB_Count.AsString) )
+    Return
+    Endif
+    
+    #LF_i := 1
+    Selectlist Named(#w_lOriginal)
+    #LF_V_ID := #V_ID
+    #LF_V_NAME := #V_NAME
+    * #LF_V_SURNAME := #V_SURNAME
+    #LF_V_LASTNAME := #V_LASTNAME
+    #LF_V_DATE := #V_DATE
+    #LF_V_SALARY := #V_SALARY
+    #LF_V_ACTIVE := #V_ACTIVE
+    #LF_V_TAG := #V_TAG
+    #LF_V_TIME := #V_TIME
+    #LF_V_RAWDATA := #V_RAWDATA
+    #LF_V_DATA := #V_DATA
+    #LF_V_CODE := #V_CODE
+    #LF_V_xml := #V_xml
+    
+    #LF_RawInfo := #V_RAWDATA.AsString
+    #LF_v_RawInfo := #LF_V_RAWDATA.AsString
+    
+    Get_Entry Number(#LF_i) From_List(#w_lDB) Ret_Status(#this_rc)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Entry Number ' + #LF_i.AsString + ' may not exist in list LF_lDB') )
+    Leave
+    Endif
+    
+    * Compare all the fields in the 2 lists
+    #LF_DataShown := False
+    
+    * Debug line - needs to be removed once the test is fully working
+    * #Com_Owner.mthShowData( #this_rc )
+    
+    If (#LF_V_ID <> #V_ID)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #LF_V_ID data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_NAME <> #V_NAME)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #LF_V_NAME data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_SURNAME <> #V_SURNAME)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_SURNAME data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_LASTNAME <> #V_LASTNAME)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_LASTNAME data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_DATE <> #V_DATE)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_DATE data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_SALARY <> #V_SALARY)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_SALARY data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_ACTIVE <> #V_ACTIVE)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_ACTIVE data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_DESC <> #V_DESC)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_DESC data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_TAG <> #V_TAG)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_TAG data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_TIME <> #V_TIME)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_TIME data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_v_RawInfo <> #LF_RawInfo)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Field #V_RAWDATA data ' + #V_RAWDATA.AsString) '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_DATA <> #V_DATA)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_DATA data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_CODE <> #V_CODE)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_CODE data mismatch') '' )
+    #this_rc := ER
+    Endif
+    If (#LF_V_xml <> #V_xml)
+    #Com_Owner.mthShowData( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_xml data mismatch') '' )
+    #this_rc := ER
+    Endif
+    
+    If (#this_rc <> OK)
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Comparing record ' + #V_ID.AsString + ', ' + #BIFA256A) )
+    Leave
+    Endif
+    
+    #LF_i += 1
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    * AZURE Database
+    *
+    *
+    *
+    Mthroutine Name(mthAzureClearData)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK 'Clear Data' '' )
+    
+    Clr_List Named(#w_lOriginal)
+    Clr_List Named(#w_lDB)
+    
+    Select Fields(#V_ID) From_File(VTLI0036B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lOriginal)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- ' + #LF_Original_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Original_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Original_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lOriginal)
+    
+    Delete From_File(VTLI0036B) With_Key(#V_ID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #V_ID.AsString) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
+    Clr_List Named(#w_lOriginal)
+    Endroutine
+    
+    *
+    *
+    *
+    Mthroutine Name(mthAzureInsert)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    * Create Test Data list
+    
+    #LF_i := 1
+    #V_ID := #LF_i
+    #LF_i += 1
+    #V_NAME := 'TESTERDATA'
+    #V_SURNAME := 'JJJ'
+    #V_LASTNAME := 'kkkk'
+    #V_DATE := *DATE
+    #V_TIME := *TIME
+    #V_SALARY := 10000
+    #V_ACTIVE := 1
+    #V_DATA := 'Stored Data'
+    #V_CODE := 1234567897
+    #V_xml := *Sqlnull
+    #V_RAWDATA := 'RAWDATA'
+    #V_DESC := *SYS_DIR + 'x_txtfra.dat'
+    #V_TAG := #LF_TagValue
+    
+    Add_Entry To_List(#w_lOriginal)
+    
+    #V_ID := #LF_i
+    #LF_i += 1
+    #V_NAME := 'Hello'
+    #V_SURNAME := 'World'
+    #V_LASTNAME := 'MR'
+    #V_DATE := *DATE
+    #V_TIME := *TIME
+    #V_SALARY := 23232
+    #V_ACTIVE := 0
+    #V_DATA := 'My Data'
+    #V_CODE := 1234567897
+    #V_xml := *Sqlnull
+    #V_RAWDATA := 'TestD'
+    #V_DESC := *SYS_DIR + 'x_txtfra.dat'
+    #V_TAG := #LF_TagValue
+    
+    Add_Entry To_List(#w_lOriginal)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Insert: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Selectlist Named(#w_lOriginal)
+    Insert Fields(*ALL) To_File(VTLI0036B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Inserting record ' + #V_ID.AsString + ', ' + #BIFA256A) )
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    * mthUpdate
+    *
+    Mthroutine Name(mthAzureUpdate)
+    Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Update: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Selectlist Named(#w_lOriginal)
+    #V_SURNAME := 'Update'
+    Update Fields(*ALL) In_File(VTLI0036B) With_Key(#V_ID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Updating record ' + #V_ID.AsString + ', ' + #V_SURNAME) )
+    Leave
+    Endif
+    Endselect
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endroutine
+    
+    *
+    * mthSelect
+    *
+    Mthroutine Name(mthAzureSelect)
+    Define_Map For(*BOTH) Class(#BIFA002B) Name(#this_rc)
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('Compare: ' + #LF_Original_Count.AsString + ' record(s)') '' )
+    
+    Clr_List Named(#w_lDB)
+    Select Fields(*ALL) From_File(VTLI0036B) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     Add_Entry To_List(#w_lDB)
     Endselect
     
@@ -348,11 +702,8 @@
     #Com_Owner.mthAdd_SubMsg( ER ('- Field #V_TIME data mismatch') '' )
     #this_rc := ER
     Endif
-    If (#LF_V_RAWDATA <> #V_RAWDATA)
-    * #V_RAWDATA is an binary field, condition will not be valid only print the original and DB value
-    * #Com_Owner.mthShowData( #this_rc )
-    #Com_Owner.mthAdd_SubMsg( OK ('- Field Original #V_RAWDATA data ' + #V_RAWDATA.AsString) '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- Field DB #LF_V_RAWDATA data ' + #LF_V_RAWDATA.AsString) '' )
+    If (#LF_V_RAWDATA.AsHexString <> #V_RAWDATA.AsHexString)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Field #V_RAWDATA data ' + #V_RAWDATA.AsHexString) '' )
     Endif
     If (#LF_V_DATA <> #V_DATA)
     #Com_Owner.mthShowData( #this_rc )
@@ -425,8 +776,8 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Original #V_TIME "' + #LF_V_TIME.asString + '"') '' )
     #Com_Owner.mthAdd_SubMsg( OK ('- DB       #V_TIME "' + #V_TIME.asString + '"') '' )
     
-    #Com_Owner.mthAdd_SubMsg( OK ('- Original #V_RAWDATA "' + #LF_V_RAWDATA.asString + '"') '' )
-    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #V_RAWDATA "' + #V_RAWDATA.asString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- Original #V_RAWDATA "' + #LF_V_RAWDATA.AsHexString + '"') '' )
+    #Com_Owner.mthAdd_SubMsg( OK ('- DB       #V_RAWDATA "' + #V_RAWDATA.AsHexString + '"') '' )
     
     #Com_Owner.mthAdd_SubMsg( OK ('- Original #V_DATA "' + #LF_V_DATA + '"') '' )
     #Com_Owner.mthAdd_SubMsg( OK ('- DB       #V_DATA "' + #V_DATA + '"') '' )
@@ -437,6 +788,32 @@
     #Com_Owner.mthAdd_SubMsg( OK ('- Original #V_xml "' + #V_xml + '"') '' )
     #Com_Owner.mthAdd_SubMsg( OK ('- DB       #V_xml "' + #V_xml + '"') '' )
     Endif
+    Endroutine
     
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
+    
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
+    
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
     Endroutine
     

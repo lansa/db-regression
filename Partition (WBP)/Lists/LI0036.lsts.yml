@@ -6,10 +6,6 @@
   - VTI0036:
       Type:               Process
 
-  - VTLI0036A:
-      Type:               File
-      Qualifier:          DBO
-
   - V_ID:
       Type:               Field
 
@@ -59,3 +55,11 @@
   - VI0036C:
       Type:               Funciton
       Qualifier:          VTI0036
+
+  - VTLI0036A:
+      Type:               File
+      Qualifier:          DBO
+
+  - VTLI0036B:
+      Type:               File
+      Qualifier:          DBO
