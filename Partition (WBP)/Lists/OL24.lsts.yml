@@ -1,0 +1,57 @@
+﻿List:
+  Name:               Import 2024/02/06 06:19:49
+  Stored As:          User
+
+  Objects:
+  - V_SQA_ACT:
+      Type:               Field
+
+  - V_SQA_COD:
+      Type:               Field
+
+  - V_SQA_DA1:
+      Type:               Field
+
+  - V_SQA_DAT:
+      Type:               Field
+
+  - V_SQA_DES:
+      Type:               Field
+
+  - V_SQA_ID:
+      Type:               Field
+
+  - V_SQA_LAS:
+      Type:               Field
+
+  - V_SQA_NAM:
+      Type:               Field
+
+  - V_SQA_RAW:
+      Type:               Field
+
+  - V_SQA_SAL:
+      Type:               Field
+
+  - V_SQA_SUR:
+      Type:               Field
+
+  - V_SQA_TAG:
+      Type:               Field
+
+  - V_SQA_TIM:
+      Type:               Field
+
+  - V_SQA_XML:
+      Type:               Field
+
+  - VTLI0036E:
+      Type:               File
+      Qualifier:          LANSA
+
+  - VI0036C:
+      Type:               Funciton
+      Qualifier:          VTI0036
+
+  - VTI0036:
+      Type:               Process

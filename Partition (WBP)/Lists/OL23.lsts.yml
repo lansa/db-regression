@@ -1,0 +1,57 @@
+﻿List:
+  Name:               Import 2024/02/06 06:13:04
+  Stored As:          User
+
+  Objects:
+  - V_MYS_ACT:
+      Type:               Field
+
+  - V_MYS_COD:
+      Type:               Field
+
+  - V_MYS_DA1:
+      Type:               Field
+
+  - V_MYS_DAT:
+      Type:               Field
+
+  - V_MYS_DES:
+      Type:               Field
+
+  - V_MYS_ID:
+      Type:               Field
+
+  - V_MYS_LAS:
+      Type:               Field
+
+  - V_MYS_NAM:
+      Type:               Field
+
+  - V_MYS_RAW:
+      Type:               Field
+
+  - V_MYS_SAL:
+      Type:               Field
+
+  - V_MYS_SUR:
+      Type:               Field
+
+  - V_MYS_TAG:
+      Type:               Field
+
+  - V_MYS_TIM:
+      Type:               Field
+
+  - V_MYS_XML:
+      Type:               Field
+
+  - VTLI0036E:
+      Type:               File
+      Qualifier:          LANSA
+
+  - VI0036C:
+      Type:               Funciton
+      Qualifier:          VTI0036
+
+  - VTI0036:
+      Type:               Process

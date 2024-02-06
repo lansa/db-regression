@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               V_SQA_DESC
+  Type:               CLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SQA_DESC"
+      Label:              "V_SQA_DESC"
+      Heading1:           "V_SQA_DESC"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_SQA_DESC"
+      Label:              "V_SQA_DESC"
+      Heading1:           "V_SQA_DESC"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_SQA_DESC"
+      Label:              "V_SQA_DESC"
+      Heading1:           "V_SQA_DESC"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_SQA_DESC"
+      Label:              "V_SQA_DESC"
+      Heading1:           "V_SQA_DESC"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_SQA_DESC"
+      Label:              "V_SQA_DESC"
+      Heading1:           "V_SQA_DESC"
+      Heading2:           " "
+      Heading3:           " "

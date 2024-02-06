@@ -1,8 +1,8 @@
 ﻿File:
-  Name:                           VTLI0036A
+  Name:                           VTLI0036E
   File Type:                      PC Other File
-  Library:                        DBO
-  Record Format Name:             VTLI0036A
+  Library:                        LANSA
+  Record Format Name:             VTLI0036E
   Module Library:                 Same Library As File
   File Uses SQL on IBM i:         No
   Enabled For RDMLX:              Yes
@@ -27,28 +27,28 @@
 
   Multilingual Details:
   - DAN:
-      Description:        "VTLI0036A in MSSQLS"
+      Description:        "VTLI0036E in SQLANYWHERE"
 
   - ENG:
-      Description:        "VTLI0036A"
+      Description:        "VTLI0036E in SQLANYWHERE"
 
   - FRA:
-      Description:        "VTLI0036A in MSSQLS"
+      Description:        "VTLI0036E in SQLANYWHERE"
 
   - JPN:
-      Description:        "VTLI0036A in MSSQLS"
+      Description:        "VTLI0036E in SQLANYWHERE"
 
   - TRK:
-      Description:        "VTLI0036A in MSSQLS"
+      Description:        "VTLI0036E in SQLANYWHERE"
 
   Real Fields:
-  - V_ID:
+  - V_SQA_ID:
       Type:               Integer
       Length:             4
       Decimals:           0
 
       PC Column Data:
-        Name:               V_ID
+        Name:               V_SQA_ID
         Data Type:          4
         Precision:          10
         Length:             4
@@ -56,13 +56,13 @@
         Radix:              10
         Nullable:           0
 
-  - V_NAME:
+  - V_SQA_NAM:
       Type:               NVarChar
       Length:             50
       Decimals:           0
 
       PC Column Data:
-        Name:               V_NAME
+        Name:               V_SQA_NAME
         Data Type:          -9
         Precision:          50
         Length:             100
@@ -70,27 +70,27 @@
         Radix:              -1
         Nullable:           1
 
-  - V_SURNAME:
-      Type:               Char
+  - V_SQA_SUR:
+      Type:               String
       Length:             10
       Decimals:           0
 
       PC Column Data:
-        Name:               V_SURNAME
-        Data Type:          1
+        Name:               V_SQA_SURNAME
+        Data Type:          12
         Precision:          10
         Length:             10
         Scale:              -1
         Radix:              -1
         Nullable:           1
 
-  - V_LASTNAM:
+  - V_SQA_LAS:
       Type:               NVarChar
       Length:             10
       Decimals:           0
 
       PC Column Data:
-        Name:               V_LASTNAME
+        Name:               V_SQA_LASTNAME
         Data Type:          -8
         Precision:          10
         Length:             20
@@ -98,97 +98,97 @@
         Radix:              -1
         Nullable:           1
 
-  - V_DATE:
+  - V_SQA_DAT:
       Type:               Date Time
-      Length:             23
+      Length:             26
       Decimals:           0
 
       PC Column Data:
-        Name:               V_DATE
+        Name:               V_SQA_DATE
         Data Type:          93
-        Precision:          23
+        Precision:          26
         Length:             16
-        Scale:              3
+        Scale:              6
         Radix:              -1
         Nullable:           1
 
-  - V_SALARY:
+  - V_SQA_SAL:
       Type:               Float
-      Length:             8
+      Length:             4
       Decimals:           0
 
       PC Column Data:
-        Name:               V_SALARY
-        Data Type:          6
-        Precision:          53
-        Length:             8
+        Name:               V_SQA_SALARY
+        Data Type:          7
+        Precision:          7
+        Length:             4
         Scale:              -1
         Radix:              2
         Nullable:           1
 
-  - V_ACTIVE:
+  - V_SQA_ACT:
       Type:               Signed
       Length:             1
       Decimals:           0
 
       PC Column Data:
-        Name:               V_ACTIVE
+        Name:               V_SQA_ACTIVE
         Data Type:          -7
         Precision:          1
         Length:             1
         Scale:              -1
-        Radix:              -1
+        Radix:              10
         Nullable:           1
 
-  - V_DESC:
+  - V_SQA_DES:
       Type:               CLOB
       Length:             -1
       Decimals:           0
 
       PC Column Data:
-        Name:               V_DESC
+        Name:               V_SQA_DESC
         Data Type:          -1
         Precision:          2147483647
-        Length:             2147483647
+        Length:             32767
         Scale:              -1
         Radix:              -1
         Nullable:           1
 
-  - V_TAG:
+  - V_SQA_TAG:
       Type:               Char
       Length:             36
       Decimals:           0
 
       PC Column Data:
-        Name:               V_TAG
+        Name:               V_SQA_TAG
         Data Type:          -11
         Precision:          36
-        Length:             16
+        Length:             36
         Scale:              -1
         Radix:              -1
         Nullable:           1
 
-  - V_TIME:
+  - V_SQA_TIM:
       Type:               Time
       Length:             8
       Decimals:           0
 
       PC Column Data:
-        Name:               V_TIME
-        Data Type:          -154
-        Precision:          16
-        Length:             12
-        Scale:              7
+        Name:               V_SQA_TIME
+        Data Type:          92
+        Precision:          8
+        Length:             6
+        Scale:              -1
         Radix:              -1
         Nullable:           1
 
-  - V_RAWDATA:
+  - V_SQA_RAW:
       Type:               Binary
       Length:             50
       Decimals:           0
 
       PC Column Data:
-        Name:               V_RAWDATA
+        Name:               V_SQA_RAWDATA
         Data Type:          -2
         Precision:          50
         Length:             50
@@ -196,13 +196,13 @@
         Radix:              -1
         Nullable:           1
 
-  - V_DATA:
+  - V_SQA_DA1:
       Type:               String
       Length:             50
       Decimals:           0
 
       PC Column Data:
-        Name:               V_DATA
+        Name:               V_SQA_DATA
         Data Type:          12
         Precision:          50
         Length:             50
@@ -210,13 +210,13 @@
         Radix:              -1
         Nullable:           1
 
-  - V_CODE:
+  - V_SQA_COD:
       Type:               Signed
       Length:             18
       Decimals:           0
 
       PC Column Data:
-        Name:               V_CODE
+        Name:               V_SQA_CODE
         Data Type:          2
         Precision:          18
         Length:             20
@@ -224,37 +224,36 @@
         Radix:              10
         Nullable:           1
 
-  - V_XML:
+  - V_SQA_XML:
       Type:               CLOB
       Length:             -1
       Decimals:           0
 
       PC Column Data:
-        Name:               V_XML
-        Data Type:          -152
-        Precision:          0
-        Length:             0
+        Name:               V_SQA_XML
+        Data Type:          -1
+        Precision:          2147483647
+        Length:             32767
         Scale:              -1
         Radix:              -1
         Nullable:           1
 
   Primary Keys:
-  - V_ID
+  - V_SQA_ID
 
   Other File Definition:
-    Table:              VTLI0036A
-    Owner:              dbo
-    Database Type:      MSSQLS
-    Qualifier:          LANSA
-    Data Source:        LANSA
+    Table:              VTLI0036E
+    Owner:              lansa
+    Database Type:      SQLANYWHERE
+    Data Source:        SQLANYWHERE
     Encrypted:          Yes
     Read-only File:     No
     Add LOB Columns:    No
     Quote Character:    "\""
 
     Connection Parameters: |
-      EAFDB45B0F67640C1A6D106A338FD69C16A70708A2F2D0C717CE250C66E73118763156472428CE2CE1A174A3863BB79DC0C1
-      46A9C26B7F855B2094459F6F6C6817632B95B22604AE4A85DA719BB5B4E4D14056A47D9D8595D14056A47D9D8595D14056A4
+      F2E4ECA13B9FC6386C2D0FF02604FC37D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
       7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
       8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
       D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140

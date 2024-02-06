@@ -7,24 +7,24 @@ GO
 GO
 
 
-CREATE TABLE [dbo].[VTLI0036E](
-	[V_ID] int NOT NULL,
-	[V_NAME] nvarchar(50) NULL,
-	[V_SURNAME] char(10) NULL,
-	[V_LASTNAME] nchar(10) NULL,
-	[V_DATE] datetime NULL,
-	[V_SALARY] float NULL,
-	[V_ACTIVE] bit NULL,
-	[V_DESC] text NULL,
-	[V_TAG] uniqueidentifier NULL,
-	[V_TIME] time(7) NULL,
-	[V_RAWDATA] binary(50) NULL,
-	[V_DATA] varchar(50) NULL,
-	[V_CODE] numeric(18, 0) NULL,
-	[V_XML] xml NULL,
+CREATE TABLE [VTLI0036E](
+	[V_SQA_ID] int NOT NULL,
+	[V_SQA_NAME] nvarchar(50) NULL,
+	[V_SQA_SURNAME] char(10) NULL,
+	[V_SQA_LASTNAME] nchar(10) NULL,
+	[V_SQA_DATE] datetime NULL,
+	[V_SQA_SALARY] float NULL,
+	[V_SQA_ACTIVE] bit NULL,
+	[V_SQA_DESC] text NULL,
+	[V_SQA_TAG] uniqueidentifier NULL,
+	[V_SQA_TIME] time NULL,
+	[V_SQA_RAWDATA] binary(50) NULL,
+	[V_SQA_DATA] varchar(50) NULL,
+	[V_SQA_CODE] numeric(18, 0) NULL,
+	[V_SQA_XML] xml NULL,
  CONSTRAINT [PK_VTLI0036E] PRIMARY KEY 
 (
-	[V_ID] ASC
+	[V_SQA_ID] ASC
 ) 
-) 
+)  
 GO

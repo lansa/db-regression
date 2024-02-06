@@ -1,0 +1,49 @@
+﻿Field:
+  Name:               V_SQA_XML
+  Type:               CLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - ASQN
+  - SUNI
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SQA_XML"
+      Label:              "V_SQA_XML"
+      Heading1:           "V_SQA_XML"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_SQA_XML"
+      Label:              "V_SQA_XML"
+      Heading1:           "V_SQA_XML"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_SQA_XML"
+      Label:              "V_SQA_XML"
+      Heading1:           "V_SQA_XML"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_SQA_XML"
+      Label:              "V_SQA_XML"
+      Heading1:           "V_SQA_XML"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_SQA_XML"
+      Label:              "V_SQA_XML"
+      Heading1:           "V_SQA_XML"
+      Heading2:           " "
+      Heading3:           " "
