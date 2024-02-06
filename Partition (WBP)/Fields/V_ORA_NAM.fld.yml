@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               V_ORA_NAME
+  Type:               NVarChar
+  Length:             50
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_ORA_NAME"
+      Label:              "V_ORA_NAME"
+      Heading1:           "V_ORA_NAME"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_ORA_NAME"
+      Label:              "V_ORA_NAME"
+      Heading1:           "V_ORA_NAME"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_ORA_NAME"
+      Label:              "V_ORA_NAME"
+      Heading1:           "V_ORA_NAME"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_ORA_NAME"
+      Label:              "V_ORA_NAME"
+      Heading1:           "V_ORA_NAME"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_ORA_NAME"
+      Label:              "V_ORA_NAME"
+      Heading1:           "V_ORA_NAME"
+      Heading2:           " "
+      Heading3:           " "

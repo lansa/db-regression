@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               V_ORA_ID
+  Type:               Signed
+  Length:             10
+  Decimals:           0
+  Default Value:      "*ZERO"
+  Edit Mask:          3
+  Enabled For RDMLX:  No
+  System Field:       No
+
+  Input Attributes:
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_ORA_ID"
+      Label:              "V_ORA_ID"
+      Heading1:           "V_ORA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_ORA_ID"
+      Label:              "V_ORA_ID"
+      Heading1:           "V_ORA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_ORA_ID"
+      Label:              "V_ORA_ID"
+      Heading1:           "V_ORA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_ORA_ID"
+      Label:              "V_ORA_ID"
+      Heading1:           "V_ORA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_ORA_ID"
+      Label:              "V_ORA_ID"
+      Heading1:           "V_ORA_ID"
+      Heading2:           " "
+      Heading3:           " "

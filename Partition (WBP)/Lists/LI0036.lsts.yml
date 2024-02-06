@@ -155,3 +155,46 @@
   - VTLI0036E:
       Type:               File
       Qualifier:          LANSA
+
+  - V_ORA_ACT:
+      Type:               Field
+
+  - V_ORA_COD:
+      Type:               Field
+
+  - V_ORA_DA1:
+      Type:               Field
+
+  - V_ORA_DAT:
+      Type:               Field
+
+  - V_ORA_DES:
+      Type:               Field
+
+  - V_ORA_ID:
+      Type:               Field
+
+  - V_ORA_LAS:
+      Type:               Field
+
+  - V_ORA_NAM:
+      Type:               Field
+
+  - V_ORA_RAW:
+      Type:               Field
+
+  - V_ORA_SAL:
+      Type:               Field
+
+  - V_ORA_SUR:
+      Type:               Field
+
+  - V_ORA_TAG:
+      Type:               Field
+
+  - V_ORA_TIM:
+      Type:               Field
+
+  - VTLI0036C:
+      Type:               File
+      Qualifier:          LANSA
