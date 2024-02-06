@@ -114,9 +114,9 @@
     * Start testing.
     Clr_List Named(#wLRet)
     
-    #Com_Owner.mthGetExecutionType()
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     #Com_Owner.mthAdd_SubMsg( OK 'Database Type' (#LF_DB_Type) )
+    #Com_Owner.mthGetExecutionType()
     
     *
     * Add your test case here
