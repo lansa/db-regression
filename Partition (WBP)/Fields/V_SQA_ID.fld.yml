@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               V_SQA_ID
+  Type:               Integer
+  Length:             4
+  Decimals:           0
+  Default Value:      "*NULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SQA_ID"
+      Label:              "V_SQA_ID"
+      Heading1:           "V_SQA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_SQA_ID"
+      Label:              "V_SQA_ID"
+      Heading1:           "V_SQA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_SQA_ID"
+      Label:              "V_SQA_ID"
+      Heading1:           "V_SQA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_SQA_ID"
+      Label:              "V_SQA_ID"
+      Heading1:           "V_SQA_ID"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_SQA_ID"
+      Label:              "V_SQA_ID"
+      Heading1:           "V_SQA_ID"
+      Heading2:           " "
+      Heading3:           " "

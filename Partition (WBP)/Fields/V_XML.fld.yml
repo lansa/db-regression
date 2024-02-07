@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               V_XML
+  Type:               CLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - ASQN
+  - SUNI
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_XML"
+      Label:              "V_XML"
+      Heading1:           "V_XML"
+
+  - ENG:
+      Description:        "V_XML"
+      Label:              "V_XML"
+      Heading1:           "V_XML"
+
+  - FRA:
+      Description:        "V_XML"
+      Label:              "V_XML"
+      Heading1:           "V_XML"
+
+  - JPN:
+      Description:        "V_XML"
+      Label:              "V_XML"
+      Heading1:           "V_XML"
+
+  - TRK:
+      Description:        "V_XML"
+      Label:              "V_XML"
+      Heading1:           "V_XML"

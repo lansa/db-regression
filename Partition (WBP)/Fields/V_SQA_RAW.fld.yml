@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               V_SQA_RAWDATA
+  Type:               Binary
+  Length:             50
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SQA_RAWDATA"
+      Label:              "V_SQA_RAWDATA"
+      Heading1:           "V_SQA_RAWDATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_SQA_RAWDATA"
+      Label:              "V_SQA_RAWDATA"
+      Heading1:           "V_SQA_RAWDATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_SQA_RAWDATA"
+      Label:              "V_SQA_RAWDATA"
+      Heading1:           "V_SQA_RAWDATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_SQA_RAWDATA"
+      Label:              "V_SQA_RAWDATA"
+      Heading1:           "V_SQA_RAWDATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_SQA_RAWDATA"
+      Label:              "V_SQA_RAWDATA"
+      Heading1:           "V_SQA_RAWDATA"
+      Heading2:           " "
+      Heading3:           " "

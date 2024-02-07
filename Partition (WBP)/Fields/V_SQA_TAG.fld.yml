@@ -1,0 +1,48 @@
+﻿Field:
+  Name:               V_SQA_TAG
+  Type:               Char
+  Length:             36
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - GUID
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SQA_TAG"
+      Label:              "V_SQA_TAG"
+      Heading1:           "V_SQA_TAG"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_SQA_TAG"
+      Label:              "V_SQA_TAG"
+      Heading1:           "V_SQA_TAG"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_SQA_TAG"
+      Label:              "V_SQA_TAG"
+      Heading1:           "V_SQA_TAG"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_SQA_TAG"
+      Label:              "V_SQA_TAG"
+      Heading1:           "V_SQA_TAG"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_SQA_TAG"
+      Label:              "V_SQA_TAG"
+      Heading1:           "V_SQA_TAG"
+      Heading2:           " "
+      Heading3:           " "

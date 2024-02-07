@@ -1,0 +1,39 @@
+﻿Field:
+  Name:               V_CODE
+  Type:               Signed
+  Length:             18
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_CODE"
+      Label:              "V_CODE"
+      Heading1:           "V_CODE"
+
+  - ENG:
+      Description:        "V_CODE"
+      Label:              "V_CODE"
+      Heading1:           "V_CODE"
+
+  - FRA:
+      Description:        "V_CODE"
+      Label:              "V_CODE"
+      Heading1:           "V_CODE"
+
+  - JPN:
+      Description:        "V_CODE"
+      Label:              "V_CODE"
+      Heading1:           "V_CODE"
+
+  - TRK:
+      Description:        "V_CODE"
+      Label:              "V_CODE"
+      Heading1:           "V_CODE"

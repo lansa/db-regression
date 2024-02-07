@@ -1,0 +1,289 @@
+﻿File:
+  Name:                           VTLI0036C
+  File Type:                      PC Other File
+  Library:                        LANSA
+  Record Format Name:             VTLI0036C
+  Module Library:                 Same Library As File
+  File Uses SQL on IBM i:         No
+  Enabled For RDMLX:              Yes
+  Enabled For Long Names:         Yes
+  Share Data Path:                No
+  Secure From File Overrides:     Yes
+  Strip Debug On Compile:         Yes
+  Suppress IOM0034 Message:       No
+  Ignore Decimal Data Error:      No
+  Create I/O Module:              Yes
+  Create Batch Control:           No
+  IBM i High Speed Table:         No
+  Auto RRN Generation:            No
+  Create RRNO Column:             No
+  Auto RRNO Is Fixed:             No
+  Convert Special Characters:     Yes
+  Enable Commitment Control:      No
+  Auto Commit:                    No
+  Parameters:                     SIZE( 10000 2000 3) LVLCHK(*YES)
+  Read-only Access:               No
+  Enable Database Triggers:       No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "VTLI0036C in ODBCORACLE"
+
+  - ENG:
+      Description:        "VTLI0036C in ODBCORACLE"
+
+  - FRA:
+      Description:        "VTLI0036C in ODBCORACLE"
+
+  - JPN:
+      Description:        "VTLI0036C in ODBCORACLE"
+
+  - TRK:
+      Description:        "VTLI0036C in ODBCORACLE"
+
+  Real Fields:
+  - V_ORA_ID:
+      Type:               Signed
+      Length:             10
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_ID
+        Data Type:          3
+        Precision:          10
+        Length:             12
+        Scale:              0
+        Radix:              10
+        Nullable:           0
+
+  - V_ORA_NAM:
+      Type:               NVarChar
+      Length:             50
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_NAME
+        Data Type:          -9
+        Precision:          50
+        Length:             100
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_SUR:
+      Type:               Char
+      Length:             10
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_SURNAME
+        Data Type:          1
+        Precision:          10
+        Length:             10
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_LAS:
+      Type:               NVarChar
+      Length:             10
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_LASTNAME
+        Data Type:          -8
+        Precision:          10
+        Length:             20
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_DAT:
+      Type:               Date Time
+      Length:             19
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_DATE
+        Data Type:          93
+        Precision:          19
+        Length:             11
+        Scale:              3
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_SAL:
+      Type:               Float
+      Length:             4
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_SALARY
+        Data Type:          8
+        Precision:          15
+        Length:             8
+        Scale:              -1
+        Radix:              10
+        Nullable:           1
+
+  - V_ORA_ACT:
+      Type:               Signed
+      Length:             1
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_ACTIVE
+        Data Type:          3
+        Precision:          1
+        Length:             3
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  - V_ORA_DES:
+      Type:               CLOB
+      Length:             -1
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_DESC
+        Data Type:          -1
+        Precision:          2147483647
+        Length:             2147483647
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_TAG:
+      Type:               Char
+      Length:             36
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_TAG
+        Data Type:          1
+        Precision:          36
+        Length:             36
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_TIM:
+      Type:               Date Time
+      Length:             19
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_TIME
+        Data Type:          93
+        Precision:          19
+        Length:             11
+        Scale:              7
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_RAW:
+      Type:               VarBinary
+      Length:             50
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_RAWDATA
+        Data Type:          -3
+        Precision:          50
+        Length:             50
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_DA1:
+      Type:               String
+      Length:             50
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_DATA
+        Data Type:          12
+        Precision:          50
+        Length:             50
+        Scale:              -1
+        Radix:              -1
+        Nullable:           1
+
+  - V_ORA_COD:
+      Type:               Signed
+      Length:             18
+      Decimals:           0
+
+      PC Column Data:
+        Name:               V_ORA_CODE
+        Data Type:          3
+        Precision:          18
+        Length:             20
+        Scale:              0
+        Radix:              10
+        Nullable:           1
+
+  Primary Keys:
+  - V_ORA_ID
+
+  Logical Views:
+  - PK_VTI0036C:
+      Identifier:         PKXVTI0036
+      Unique Key:         Yes
+      Access Path:        Immediate
+      Dynamic Select:     No
+      Parameters:         " "
+
+      Multilingual Details:
+      - DAN:
+          Description:        "External File, 'VTLI0036C'"
+
+      - ENG:
+          Description:        "External File, 'VTLI0036C'"
+
+      - FRA:
+          Description:        "External File, 'VTLI0036C'"
+
+      - JPN:
+          Description:        "External File, 'VTLI0036C'"
+
+      - TRK:
+          Description:        "External File, 'VTLI0036C'"
+
+      Keys:
+      - V_ORA_ID:
+          Key Order:          Ascending
+          Numeric Ordering:   Signed
+
+  Other File Definition:
+    Table:              VTLI0036C
+    Owner:              LANSA
+    Database Type:      ODBCORACLE
+    Data Source:        ORACLE
+    Encrypted:          Yes
+    Read-only File:     No
+    Add LOB Columns:    No
+    Quote Character:    "\""
+
+    Connection Parameters: |
+      8024E19D67E6A7DEC7BAF0377EDE752F51230A95072989939007D75375BC63A80D31202E1FD6BFC1A713F24DD75A2412E430
+      60025BF9D6EF3741079F081CE44403F8261BE0F3E5F94E9DF68402E824D8B4467464AD761F63F291EA73DB5CCFCD62F4EBC8
+      9208D7A9A6A74EB43116BD67EEC1452BA10576C18331EA48E47DE0E48330E418B31830D96AF5D9A64C83986FBE691341A6CC
+      8AD09DAF8094E539E50B47A163959A43A7CB50E9445687D1DCEBAC60C7E9F1158B59C08F8BE5DE942AC63ABE96AB24D908B4
+      4E1C243FD6B287AA4DEFE0985C21F44CBB1ED9DCC9834D2AC513095DA5D77BD6D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595
+      D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D140
+      56A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A4
+      7D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D
+      8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595D14056A47D9D8595

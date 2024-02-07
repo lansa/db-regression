@@ -1,0 +1,38 @@
+﻿Field:
+  Name:               V_DESC
+  Type:               CLOB
+  Length:             0
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - LC
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_DESC"
+      Label:              "V_DESC"
+      Heading1:           "V_DESC"
+
+  - ENG:
+      Description:        "V_DESC"
+      Label:              "V_DESC"
+      Heading1:           "V_DESC"
+
+  - FRA:
+      Description:        "V_DESC"
+      Label:              "V_DESC"
+      Heading1:           "V_DESC"
+
+  - JPN:
+      Description:        "V_DESC"
+      Label:              "V_DESC"
+      Heading1:           "V_DESC"
+
+  - TRK:
+      Description:        "V_DESC"
+      Label:              "V_DESC"
+      Heading1:           "V_DESC"

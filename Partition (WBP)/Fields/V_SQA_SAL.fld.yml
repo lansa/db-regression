@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               V_SQA_SALARY
+  Type:               Float
+  Length:             4
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_SQA_SALARY"
+      Label:              "V_SQA_SALARY"
+      Heading1:           "V_SQA_SALARY"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_SQA_SALARY"
+      Label:              "V_SQA_SALARY"
+      Heading1:           "V_SQA_SALARY"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_SQA_SALARY"
+      Label:              "V_SQA_SALARY"
+      Heading1:           "V_SQA_SALARY"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_SQA_SALARY"
+      Label:              "V_SQA_SALARY"
+      Heading1:           "V_SQA_SALARY"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_SQA_SALARY"
+      Label:              "V_SQA_SALARY"
+      Heading1:           "V_SQA_SALARY"
+      Heading2:           " "
+      Heading3:           " "

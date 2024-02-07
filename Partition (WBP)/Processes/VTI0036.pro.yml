@@ -1,0 +1,72 @@
+﻿Process:
+  Name:                      VTI0036
+  Menu Style:                SAA/CUA
+  Anticipated Usage:         Light
+  Optimize For Remote Comms: No
+  Enable For Web:            No
+  Generate XML:              No
+
+  Multilingual Details:
+  - DAN:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - ENG:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - FRA:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - JPN:
+      Description:        "OAM Test With Import Table Definitions"
+
+  - TRK:
+      Description:        "OAM Test With Import Table Definitions"
+
+  Functions:
+  - VI0036A:
+      Name:               VI0036A
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Issue #36 Test Case Driver"
+
+      - ENG:
+          Description:        "Issue #36 Test Case Driver"
+
+      - FRA:
+          Description:        "Issue #36 Test Case Driver"
+
+      - JPN:
+          Description:        "Issue #36 Test Case Driver"
+
+      - TRK:
+          Description:        "Issue #36 Test Case Driver"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI0036C:
+      Name:               VI0036C
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "OAM - Table Import Definitions"
+
+      - ENG:
+          Description:        "OAM - Table Import Definitions"
+
+      - FRA:
+          Description:        "OAM - Table Import Definitions"
+
+      - JPN:
+          Description:        "OAM - Table Import Definitions"
+
+      - TRK:
+          Description:        "OAM - Table Import Definitions"
+
+      Allowed Next Functions:
+      - "*ANY"

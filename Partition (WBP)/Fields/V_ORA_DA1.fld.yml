@@ -1,0 +1,47 @@
+﻿Field:
+  Name:               V_ORA_DATA
+  Type:               String
+  Length:             50
+  Decimals:           0
+  Default Value:      "*SQLNULL"
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - ASQN
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_ORA_DATA"
+      Label:              "V_ORA_DATA"
+      Heading1:           "V_ORA_DATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - ENG:
+      Description:        "V_ORA_DATA"
+      Label:              "V_ORA_DATA"
+      Heading1:           "V_ORA_DATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - FRA:
+      Description:        "V_ORA_DATA"
+      Label:              "V_ORA_DATA"
+      Heading1:           "V_ORA_DATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - JPN:
+      Description:        "V_ORA_DATA"
+      Label:              "V_ORA_DATA"
+      Heading1:           "V_ORA_DATA"
+      Heading2:           " "
+      Heading3:           " "
+
+  - TRK:
+      Description:        "V_ORA_DATA"
+      Label:              "V_ORA_DATA"
+      Heading1:           "V_ORA_DATA"
+      Heading2:           " "
+      Heading3:           " "

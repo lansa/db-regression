@@ -1,0 +1,38 @@
+﻿Field:
+  Name:               V_MYS_ID
+  Type:               Integer
+  Length:             4
+  Decimals:           0
+  Default Value:      "*NULL"
+  Edit Mask:          3
+  Enabled For RDMLX:  Yes
+  System Field:       No
+
+  Input Attributes:
+  - RB
+
+  Multilingual Details:
+  - DAN:
+      Description:        "V_MYS_ID"
+      Label:              "V_MYS_ID"
+      Heading1:           "V_MYS_ID"
+
+  - ENG:
+      Description:        "V_MYS_ID"
+      Label:              "V_MYS_ID"
+      Heading1:           "V_MYS_ID"
+
+  - FRA:
+      Description:        "V_MYS_ID"
+      Label:              "V_MYS_ID"
+      Heading1:           "V_MYS_ID"
+
+  - JPN:
+      Description:        "V_MYS_ID"
+      Label:              "V_MYS_ID"
+      Heading1:           "V_MYS_ID"
+
+  - TRK:
+      Description:        "V_MYS_ID"
+      Label:              "V_MYS_ID"
+      Heading1:           "V_MYS_ID"
