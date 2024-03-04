@@ -90,3 +90,7 @@
   - VTLI0038C:
       Type:               File
       Qualifier:          DEVWBPLIBF
+
+  - KM_KCL3:
+      Type:               Funciton
+      Qualifier:          VT_CVL
