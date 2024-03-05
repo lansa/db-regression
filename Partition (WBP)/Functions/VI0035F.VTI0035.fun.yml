@@ -23,6 +23,7 @@
     Define Field(#LF_j) Reffld(#Std_Count)
     Define Field(#LF_Original_Count) Reffld(#Std_Count)
     Define Field(#LF_DB_Count) Reffld(#Std_Count)
+    Define Field(#LF_Lookup_Count) Reffld(#Std_Count)
     Define Field(#LF_DataShown) Reffld(#BIFB001B)
     
     Define Field(#LF_Alphabet) Reffld(#BIFA009A) Default('ABCDE')
@@ -43,6 +44,7 @@
     
     Def_List Name(#w_lOriginal) Fields(#XG_ALL) Counter(#LF_Original_Count) Type(*WORKING) Entrys(*MAX)
     Def_List Name(#w_lDB) Fields(#XG_ALL) Counter(#LF_DB_Count) Type(*WORKING) Entrys(*MAX)
+    Def_List Name(#w_lLookup) Fields(#xProductID) Counter(#LF_Lookup_Count) Type(*WORKING) Entrys(*MAX)
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     
@@ -149,7 +151,38 @@
     #this_rc := ER
     Endif
     
+    Select Fields(#xProductID) From_File(VTLI0035J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    Add_Entry To_List(#w_lLookup)
+    Endselect
+    
+    If (#this_rc = EF)
+    #this_rc := OK
+    #Com_Owner.mthAdd_SubMsg( OK ('- Lookup ' + #LF_Lookup_Count.AsString + ' record(s) found') '' )
+    
+    If (#LF_Lookup_Count > 0)
+    Begin_Loop Using(#LF_i) To(#LF_Lookup_Count)
+    Get_Entry Number(#LF_i) From_List(#w_lLookup)
+    
+    Delete From_File(VTLI0035J) With_Key(#xProductID) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc <> OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) ('Deleting on record ' + #xProductID) )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
+    
+    If (#this_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') '' )
+    Endif
+    Endif
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + #this_rc) '' )
+    #this_rc := ER
+    Endif
+    
     Clr_List Named(#w_lOriginal)
+    Clr_List Named(#w_lLookup)
     Endroutine
     
     *
@@ -187,16 +220,19 @@
     
     Define Field(#LF_msg_txt_actual) Reffld(#BIFMSG1)
     Define Field(#LF_msg_num) Reffld(#BIFA010A)
+    Define Field(#LF_sub_rc) Reffld(#BIFA002A)
     
     If ((#this_rc <> OK) *And (#this_rc <> VE))
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('Unexpected ' + #this_rc) '' )
     Else
     
+    #LF_msg_txt_actual := #Com_Owner.mthGet_Msg_Txt( #LF_sub_rc #LF_msg_num )
+    
     If (#this_rc = VE)
     #this_rc := OK
-    #LF_msg_txt_actual := #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
-    If (#this_rc = OK)
+    
+    If (#LF_sub_rc = OK)
     #Com_Owner.mthAdd_SubMsg( OK ('- Received message text "' + #LF_msg_txt_actual + '", ' + #LF_msg_num) '' )
     If (#this_msg_txt_expected *NE #LF_msg_txt_actual)
     #this_rc := ER
@@ -205,9 +241,18 @@
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('Calling mthGet_Msg_Txt()') '' )
     Endif
+    Else
+    * Did not receive a VE message when it was expected. Its an error either way
+    If (#LF_sub_rc = OK)
+    * Received a message yet did not get VE
+    #Com_Owner.mthAdd_SubMsg( ER ('- VE expected but not received yet received message text "' + #LF_msg_txt_actual + '", ' + #LF_msg_num) '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- VE expected but not received and no message text') '' )
     Endif
     
     Endif
+    Endif
+    
     Endroutine
     
     *
@@ -337,6 +382,28 @@
     Mthroutine Name(mthTestRules)
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
+    * VTLI0035J table of xProductId field has been referenced here for lookup validation
+    
+    * #Com_Owner.mthAdd_SubMsg( OK ('Create Lookup File test data in VTLI0035J') ('') )
+    
+    #xProductID := '1004'
+    Insert Fields(#xProductID) To_File(VTLI0035J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc *NE OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('Error creating test data in VTLI0035J') (#xProductID) )
+    Endif
+    
+    #xProductID := '1001'
+    Insert Fields(#xProductID) To_File(VTLI0035J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc *NE OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('Error creating test data in VTLI0035J') (#xProductID) )
+    Endif
+    
+    #xProductID := '1006'
+    Insert Fields(#xProductID) To_File(VTLI0035J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    If (#this_rc *NE OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc ('Error creating test data in VTLI0035J') (#xProductID) )
+    Endif
+    
     * *********************************************************************************************
     * New list check
     
@@ -448,7 +515,6 @@
     
     * *********************************************************************************************
     * Lookup check
-    * xPRODUCT table of xProductId field has been referenced here for lookup validation
     
     #BIFN0700A := 1
     #BIFA032A := 'ABC321'

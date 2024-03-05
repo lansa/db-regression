@@ -187,16 +187,19 @@
     
     Define Field(#LF_msg_txt_actual) Reffld(#BIFMSG1)
     Define Field(#LF_msg_num) Reffld(#BIFA010A)
+    Define Field(#LF_sub_rc) Reffld(#BIFA002A)
     
     If ((#this_rc <> OK) *And (#this_rc <> VE))
     #Com_Owner.mthIssue_Runtime_Message( #this_rc )
     #Com_Owner.mthAdd_SubMsg( ER ('Unexpected ' + #this_rc) '' )
     Else
     
+    #LF_msg_txt_actual := #Com_Owner.mthGet_Msg_Txt( #LF_sub_rc #LF_msg_num )
+    
     If (#this_rc = VE)
     #this_rc := OK
-    #LF_msg_txt_actual := #Com_Owner.mthGet_Msg_Txt( #this_rc #LF_msg_num )
-    If (#this_rc = OK)
+    
+    If (#LF_sub_rc = OK)
     #Com_Owner.mthAdd_SubMsg( OK ('- Received message text "' + #LF_msg_txt_actual + '", ' + #LF_msg_num) '' )
     If (#this_msg_txt_expected *NE #LF_msg_txt_actual)
     #this_rc := ER
@@ -205,10 +208,20 @@
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('Calling mthGet_Msg_Txt()') '' )
     Endif
+    Else
+    * Did not receive a VE message when it was expected. Its an error either way
+    If (#LF_sub_rc = OK)
+    * Received a message yet did not get VE
+    #Com_Owner.mthAdd_SubMsg( ER ('- VE expected but not received yet received message text "' + #LF_msg_txt_actual + '", ' + #LF_msg_num) '' )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- VE expected but not received and no message text') '' )
     Endif
     
     Endif
+    Endif
+    
     Endroutine
+    
     
     *
     * mthCheck_Msg_txt

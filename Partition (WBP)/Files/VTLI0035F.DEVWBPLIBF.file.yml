@@ -138,7 +138,7 @@
   - BIFA10A:
     - Lookup Check:
         Description:        "New lookup check"
-        File:               XPRODUCT
+        File:               VTLI0035J
         Keys:
         - BIFA10A
         When Inserting:     Always

@@ -4,7 +4,7 @@
 
   Objects:
   - KM_KCOL1:
-      Type:               Form
+      Type:               Field
 
   - KM_KCOL2:
-      Type:               Reusable Part
+      Type:               Field
