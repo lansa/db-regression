@@ -2155,6 +2155,9 @@
     #BIFINT1A #BIFINT2A #BIFINT4A #BIFINT8A #BIFP1500A #BIFP1504A #BIFN0700A #BIFN0702A := #LF_Test_Data
     Insert Fields(*ALL) To_File(VTL157033F) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F157033K1 + '/' + #F157033K2.AsString) )
+    #F157033K2 -= 1
     #this_rc := ER
     Leave
     Endif
@@ -6927,4 +6930,23 @@
     If (#LF_TraceData)
     #Com_Owner.mthAdd_SubMsg( #this_msg_code #this_msg1 #this_msg2 )
     Endif
+    Endroutine
+    
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
     Endroutine

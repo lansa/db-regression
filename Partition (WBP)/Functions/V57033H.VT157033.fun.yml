@@ -195,41 +195,58 @@
     
     Insert Fields(*ALL) To_File(VTL157033H) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F1570331 + '/' + #F1570331_VARCHAR) )
     #this_rc := ER
     Leave
     Endif
     
     Insert Fields(*ALL) To_File(VTL157033I) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F1570338.AsNativeString + '/' + #F1570338_NCHAR.AsNativeString) )
     #this_rc := ER
     Leave
     Endif
     
     Insert Fields(*ALL) To_File(VTL157033J) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F1570339.AsNativeString + '/' + #F1570339_NVARCHAR.AsNativeString) )
     #this_rc := ER
     Leave
     Endif
     
     Insert Fields(*ALL) To_File(VTL157033K) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F157033A + '/' + #F157033A_ALPHA) )
     #this_rc := ER
     Leave
     Endif
     
     Insert Fields(*ALL) To_File(VTL157033L) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F157033H + '/' + #F157033H_CHAR) )
     #this_rc := ER
     Leave
     Endif
     
     Insert Fields(*ALL) To_File(VTL157033N) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F157033U + '/' + #F157033U_SUNI) )
     #this_rc := ER
     Leave
     Endif
     
     End_Loop
+    
+    If (#this_rc = ER)
+    #F157033K2 -= 1
+    Endif
+    
     Endif
     
     #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data' (#F157033K2.AsString + ' / ' + #LF_Test_Data_Count.AsString + ' records inserted') )
@@ -2355,4 +2372,21 @@
     Add_Entry To_List(#wLRet)
     Endroutine
     
+    *
+    * Log the runtime messages produced by BIFs.
+    * N.B. Only expected to be called when there is an error.
+    * If it was always called the log would be swamped with irrelevant messages
+    *
+    Mthroutine Name(mthIssue_Runtime_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
     
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthAdd_SubMsg( #this_rc (#LF_msg_text) ('') )
+    Endif
+    Endwhile
+    Endroutine

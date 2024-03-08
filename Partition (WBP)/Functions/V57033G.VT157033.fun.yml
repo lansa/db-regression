@@ -741,6 +741,9 @@
     
     Insert Fields(*ALL) To_File(VTL157033G) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
     If (#this_rc *NE OK)
+    #COM_OWNER.mthIssue_Runtime_Message( #this_rc )
+    #Com_Owner.mthAdd_SubMsg( #this_rc 'Insert Data failed' (#F157033K1 + '/' + #F157033K2.AsString) )
+    #F157033K2 -= 1
     #this_rc := ER
     Leave
     Endif
