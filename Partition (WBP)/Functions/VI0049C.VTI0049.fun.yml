@@ -165,7 +165,7 @@
     Endif
     
     #LANSA := ' ' + 'LANSA'
-    Case Of_Field(#LF_DB_Type)
+    
     * Start Time
     #Start := #STD_DTIMX.Now().AsSeconds
     
@@ -181,8 +181,6 @@
     
     * Log the time to file
     Use Builtin(TRANSFORM_LIST) With_Args(#w_lLansaExecutionList #LF_logfile_name 'O') To_Get(#this_rc)
-    Close /*close the log file*/
-    Endcase
     
     If (#this_rc = ER)
     #Com_Owner.mthAdd_SubMsg( ER ('Sql Execution in LANSA returned error ' + #this_rc) ('') )
