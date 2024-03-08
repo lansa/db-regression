@@ -22,7 +22,7 @@ try {
     foreach ($Root in $Roots) {
         Set-Location "$Root\lansa\VersionControl"
         Get-Location | Write-Host
-        Write-Host "Clean out current get state so that following operations can succeed."
+        Write-Host "Clean out current git state so that following operations can succeed."
         git reset --hard HEAD | Write-Host
         git clean -f | Write-Host
         Write-Host "Get current remote state, including any new branches"
