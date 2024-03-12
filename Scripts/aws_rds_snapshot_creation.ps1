@@ -11,17 +11,17 @@ if ($DBTYPE -EQ 'MYSQL' -OR ($DBTYPE -EQ 'ALL') ) {
    $MYSQL_DB_IDENTIFIER = "mysql" + $lansa_version
    $MYSQL_DB_SNAPSHOT_IDENTIFIER = "mysql" + $lansa_version
    Write-Host "Finding MYSQL RDS snapshot with Lansa version tag = $lansa_version"
-   Write-Host "If Snapshot does not exist the exception System.InvalidOperationException will be thrown. This is an expected state."
+   # If Snapshot does not exist the exception System.InvalidOperationException will be thrown. This is an expected state.
    try
    {
-      $MYSQL_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_DB_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
+      $MYSQL_SNAPSHOT_COUNT = (@((Get-RDSDBSnapshot -DBSnapshotIdentifier $MYSQL_DB_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn)).count
       if ($MYSQL_SNAPSHOT_COUNT -eq 1)
       {
-         Write-Host "Found 1 snapshot for lansa version tag = $lansa_version"
+         Write-Host "Found 1 snapshot with identifier $MYSQL_DB_SNAPSHOT_IDENTIFIER"
       }
       else
       {
-         throw "Found more than 1 snapshot with lansa version tag = $lansa_version"
+         throw "Found $MYSQL_SNAPSHOT_COUNT snapshots with identifier $MYSQL_DB_SNAPSHOT_IDENTIFIER"
       }
    }
    catch [System.InvalidOperationException]
@@ -48,18 +48,18 @@ if ($DBTYPE -EQ 'ODBCORACLE' -OR ($DBTYPE -EQ 'ALL') ) {
    $ORACLE_DB_IDENTIFIER = "ora" + $lansa_version
    $ORACLE_DB_SNAPSHOT_IDENTIFIER = "ora" + $lansa_version
    Write-Host "Finding ORACLE RDS snapshot with Lansa version tag = $lansa_version"
-   Write-Host "If Snapshot does not exist the exception System.InvalidOperationException will be thrown. This is an expected state."
+   # If Snapshot does not exist the exception System.InvalidOperationException will be thrown. This is an expected state.
 
    try
    {
-      $ORACLE_SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_DB_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
+      $ORACLE_SNAPSHOT_COUNT = (@((Get-RDSDBSnapshot -DBSnapshotIdentifier $ORACLE_DB_SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn)).count
       if ($ORACLE_SNAPSHOT_COUNT -eq 1)
       {
-         Write-Host "Found 1 snapshot for lansa version tag = $lansa_version"
+         Write-Host "Found 1 snapshot with identifier $ORACLE_DB_SNAPSHOT_IDENTIFIER"
       }
       else
       {
-         Write-Host "Found more than 1 snapshot for lansa version tag = $lansa_version"
+         throw "Found $ORACLE_SNAPSHOT_COUNT snapshots with identifier $ORACLE_DB_SNAPSHOT_IDENTIFIER"
       }
    }
    catch [System.InvalidOperationException]
