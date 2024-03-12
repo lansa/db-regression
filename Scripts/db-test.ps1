@@ -313,6 +313,7 @@ try {
                 Compile $Root 'L157033A'
                 Compile $Root 'L157033B'
                 Compile $Root 'L157033C'
+                Compile $Root 'L157033D'
                 $CompileCount++
             }
             Compile $Root 'LCompile'
