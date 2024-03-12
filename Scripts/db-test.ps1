@@ -249,15 +249,6 @@ try {
     $RootList
     Write-Host
 
-    # if ($Import) {
-    #     $ImportBasePath = "\\$syd6\ccs\tests\Test-Materials"
-    #     Write-Host( "$(Log-Date) Check if directory $ImportBasePath exists")
-    #     if (-not (Test-Path -Path $ImportBasePath) ) {
-    #         Write-Host "$(Log-Date) $ImportBasePath does not exist"
-    #         throw
-    #     }
-    # }
-
     # All may be false when testing the summary logging code.
     if ( $Import -or $Compile -or $Test) {
         # Delete Old Log Files
@@ -279,69 +270,17 @@ try {
         }
     }
 
-    # if ( $Import ) {
-    #     foreach ($Root in $RootList ){
-    #         Set-Location $Root
-    #         Write-Host( "$(Log-Date) Working directory is $($pwd.Path)" )
-
-    #         $lansatempdir = Join-Path $root "tmp"
-
-    #         Write-Host( "$(Log-Date) Check if this current directory is a Visual LANSA Root Directory")
-    #         $BuildFile = Join-Path $root 'build.dat'
-    #         if (-not (Test-Path -Path $BuildFile) ) {
-    #             Write-Host "$(Log-Date) Current directory must be a Visual LANSA IDE root directory"
-    #             throw
-    #         }
-
-    #         Write-Host ("$(Log-Date) Importing Base Test Cases")
-    #         Write-Host ("$(Log-Date) Importing BIF Fields")
-    #         Import $Root (Join-Path $ImportBasePath "BIF Field") (Join-Path $lansatempdir 'BIFField.log')
-
-    #         Write-Host ("$(Log-Date) Importing VT_CVL and its Functions")
-    #         Import $Root (Join-Path $ImportBasePath "VT_CVL") (Join-Path $lansatempdir 'VT_CVL.log')
-
-    #         Write-Host ("$(Log-Date) Importing CVL_R")
-    #         Import $Root (Join-Path $ImportBasePath "CVL_R - Re-usable Parts") (Join-Path $lansatempdir 'CVL_R.log')
-
-            # Write-Host ("$(Log-Date) Copy UserLists for compiling")
-            # # UserLists are yml files in the git repo which are loaded into the correct location for the IDE when either
-            # # the IDE is run or compile.cmd is run (which does a VCS get)
-
-            # # UserLists are in the git repo root directory called UserLists
-            # # Needs to be copied to <Root>\LANSA\<Current User\LX_NodeName>\UserLists\<Partition>
-            # # That is <Root>\LANSA\LANSA\UserLists\WBP
-            # $TestPath = Join-Path $Root "LANSA\lansa\UserLists"
-            # if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
-            # $TestPath = Join-Path $TestPath $Partition
-            # if ( -not (Test-Path $TestPath) ) { New-Item $TestPath -Type Directory}
-            # Copy-Item (Join-Path $ImportBasePath "UserLists\*") $TestPath
-
-    #         $CCSImports = @("\\$syd6\CCS\Tests\157000-157999\157033",
-    #                         "\\$syd6\CCS\Tests\156000-156999\156118",
-    #                         "\\$syd6\CCS\Tests\159000-159999\159821",
-    #                         "\\$syd6\CCS\Tests\157000-157999\157722",
-    #                         "\\$syd6\CCS\Tests\160000-160999\160466",
-    #                         "\\$syd6\CCS\Tests\156000-156999\156710",
-    #                         "\\$syd6\CCS\Tests\161000-161999\161348",
-    #                         "\\$syd6\CCS\Tests\159000-159999\159434",
-    #                         "\\$syd6\CCS\Tests\159000-159999\159585",
-    #                         "\\$syd6\CCS\Tests\158000-158999\158011",
-    #                         "\\$syd6\CCS\Tests\159000-159999\159138",
-    #                         "\\$syd6\CCS\Tests\159000-159999\159138\User Provided File",
-    #                         "\\$syd6\CCS\Tests\160000-160999\160553")
-    #         foreach ($CCSImport in $CCSImports) {
-    #             $CCSNumber = Split-path $CCSImport -Leaf
-    #             Write-Host ("$(Log-Date) Importing $CCSNumber to $Root")
-    #             Import $Root $CCSImport (Join-Path $lansatempdir "$CCSNumber.log")
-    #             Write-Host ("$(Log-Date) ************************************************************")
-    #         }
-    #     }
-    # }
+    # N.B. The compile is very unreliable. e.g. 157033 has been split into 3 separate lists as this works reliably
+    # If a Function is in a list, the process must also be specified otherwise the compile will hang.
+    # If "too many" tables, table builds will randomly fail.
+    # Splitting many tables into separate lists is not enough. Adding a RUP to the list made it reliable. Proc and Func in list may also assist with reliability.
 
     [System.Collections.ArrayList]$TestList = @()
     $TestList.Add( $(New-Tuple "VT156118", "V56118A", "L156118") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT156710", "V56710A", "L156710") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT157033", "V57033A", "L157033") ) | Out-Null
+    $TestList.Add( $(New-Tuple "VT157033", "V57033A", "L157033A") ) | Out-Null
+    $TestList.Add( $(New-Tuple "", "", "L157033B") ) | Out-Null
+    $TestList.Add( $(New-Tuple "", "", "L157033C") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT157722", "V57722A", "L157722") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT157726", "V57726A", "L157726") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT158011", "V58011A", "L158011") ) | Out-Null
@@ -366,7 +305,17 @@ try {
         Write-Host "$(Log-Date) Compile all the Tests"
 
         foreach ($Root in $RootList ){
-            Compile $Root 'Support'
+            Write-Host ("$(Log-Date) Compile supporting code in $Root")
+
+            $CompileCount = 0
+            while (0 -eq 0 ) {
+                Write-Host "CompileCount = $CompileCount"
+                Compile $Root 'L157033A'
+                Compile $Root 'L157033B'
+                Compile $Root 'L157033C'
+                $CompileCount++
+            }
+            Compile $Root 'LCompile'
 
             Write-Host ("$(Log-Date) Compiling all objects in every list in $Root")
 
@@ -396,19 +345,21 @@ try {
         foreach ($Root in $RootList ){
             Write-Host ("$(Log-Date) Testing $Root")
             foreach ($TestItem in $TestList ) {
-                Write-Host ("$(Log-Date) Testing $Root $($TestItem.Item1) $($TestItem.Item2)")
-                if ( $Bit32 ) {
-                    Test $Root $TestItem.Item1 $TestItem.Item2
-                }
+                if ( -not [string]::IsNullOrEmpty( $TestItem.Item1) ) {
+                    Write-Host ("$(Log-Date) Testing $Root $($TestItem.Item1) $($TestItem.Item2)")
+                    if ( $Bit32 ) {
+                        Test $Root $TestItem.Item1 $TestItem.Item2
+                    }
 
-                if ( $Bit64 ) {
-                    # 157726 and 158011 are not setup for 64 testing, though they could be.
-                    # The rest are defects that should get fixed.
-                    If ( -not ( $TestItem.Item1 -eq 'VT157726' -or $TestItem.Item1 -eq 'VT158011' `
-                    -or $TestItem.Item1 -eq 'VT156118' -or $TestItem.Item1 -eq 'VT159434') ) {
-                        Test $Root $TestItem.Item1 $TestItem.Item2 -Bit64
-                    } else {
-                        Write-Host( "Skipping 64 bit test" )
+                    if ( $Bit64 ) {
+                        # 157726 and 158011 are not setup for 64 testing, though they could be.
+                        # The rest are defects that should get fixed.
+                        If ( -not ( $TestItem.Item1 -eq 'VT157726' -or $TestItem.Item1 -eq 'VT158011' `
+                        -or $TestItem.Item1 -eq 'VT156118' -or $TestItem.Item1 -eq 'VT159434') ) {
+                            Test $Root $TestItem.Item1 $TestItem.Item2 -Bit64
+                        } else {
+                            Write-Host( "Skipping 64 bit test" )
+                        }
                     }
                 }
             }

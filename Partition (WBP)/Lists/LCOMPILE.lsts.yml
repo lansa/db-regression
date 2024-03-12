@@ -1,0 +1,23 @@
+﻿List:
+  Name:               Compilable Support
+  Stored As:          User
+
+  Objects:
+  - VTSSRV:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTSSRF4:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VTMSG:
+      Type:               Funciton
+      Qualifier:          VT_CVL
+
+  - VT_CVL:
+      Type:               Process
+
+  - VTKDATA:
+      Type:               Funciton
+      Qualifier:          VT_CVL
