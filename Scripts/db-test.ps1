@@ -270,7 +270,8 @@ try {
         }
     }
 
-    # N.B. The compile is very unreliable. e.g. 157033 has been split into 3 separate lists as this works reliably
+    # N.B. The compile was very unreliable. e.g. 157033 has been split into 3 separate lists as this works reliably
+    # That has now been fixed but the separate lists may still be used to compile if necessary.
     # If a Function is in a list, the process must also be specified otherwise the compile will hang.
     # If "too many" tables, table builds will randomly fail.
     # Splitting many tables into separate lists is not enough. Adding a RUP to the list made it reliable. Proc and Func in list may also assist with reliability.
@@ -305,26 +306,19 @@ try {
         Write-Host "$(Log-Date) Compile all the Tests"
 
         foreach ($Root in $RootList ){
-            Write-Host ("$(Log-Date) Compile supporting code in $Root")
 
-            $CompileCount = 0
-            while (0 -eq 0 ) {
-                Write-Host "CompileCount = $CompileCount"
-                Compile $Root 'L157033A'
-                Compile $Root 'L157033B'
-                Compile $Root 'L157033C'
-                Compile $Root 'L157033D'
-                $CompileCount++
-            }
-            Compile $Root 'LCompile'
+            Compile $Root
 
-            Write-Host ("$(Log-Date) Compiling all objects in every list in $Root")
+            # Write-Host ("$(Log-Date) Compile supporting code in $Root")
+            # Compile $Root 'LCompile'
 
-            foreach ($TestItem in $TestList ) {
-                if ( -not [string]::IsNullOrEmpty( $TestItem.Item3) ) {
-                    Compile $Root $TestItem.Item3
-                }
-            }
+            # Write-Host ("$(Log-Date) Compiling all objects in every list in $Root")
+
+            # foreach ($TestItem in $TestList ) {
+            #     if ( -not [string]::IsNullOrEmpty( $TestItem.Item3) ) {
+            #         Compile $Root $TestItem.Item3
+            #     }
+            # }
 
             Write-Host ("$(Log-Date) ************************************************************")
         }
