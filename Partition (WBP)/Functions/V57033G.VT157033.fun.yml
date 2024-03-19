@@ -82,8 +82,6 @@
     Define Field(#LF_TraceData) Reffld(#BIFB001E) Default(False)
     Define Field(#LF_View_Type) Reffld(#BIFMSG1)
     
-    * Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
-    
     * Start testing.
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
@@ -1769,6 +1767,9 @@
     #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
     #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
     #LF_DB_Type := #VTF_KEY3
+    If (#LF_DB_TYPE *EQ *BLANKS)
+    Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
+    Endif
     
     If (#LF_Local_Platform *EQ '')
     #LF_Local_Platform := #LF_Execution_Type
