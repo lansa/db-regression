@@ -518,6 +518,7 @@
     Clr_List Named(#wLKData)
     #VTF_KEY1 := #this_test
     #VTF_KEY2 := #this_remote_platform
+    #VTF_KEY3 := #this_DBUT
     Add_Entry To_List(#wlKData)
     
     If (#this_ssct = *Blanks)
