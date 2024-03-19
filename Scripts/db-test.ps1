@@ -203,10 +203,13 @@ function Remove-Logs{
         Get-ChildItem -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
     }
 
-    Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
-    Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
-    Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
-
+    if ( $Bit64 -and $Bit32 -or (-not $Bit64 -and $Bit32)) {
+        Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
+        Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
+        Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
+    } else {
+        Write-Host "$(Log-Date) Skipping test result removal so that MSSQLS results, which run separately as 32 bit and 64 bit test runs, are concatenated into one result file and not overwritten."
+    }
 }
 
 # =============================================================================
