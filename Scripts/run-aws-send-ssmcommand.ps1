@@ -68,11 +68,11 @@ Write-Host
 Write-Host "$localComment"
 Write-Host "Executing $ScriptPath $ScriptParameters on VM $lansaVersion"
 
-# Timeout 3 hours
+# Timeout 6 hours = 21600. Temporarily set much higher to ensure it actually finishes
 $runPSCommandID = (Send-SSMCommand `
         -DocumentName "AWS-RunPowerShellScript" `
         -Comment $localComment `
-        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {Write-Host 'Error running script'; exit 1}" ); 'executionTimeout' = '10800'} `
+        -Parameter @{'commands' = @("try { & '$ScriptPath' $scriptParameters} catch {Write-Host 'Error running script'; exit 1}" ); 'executionTimeout' = '43200'} `
         -Target @( @{Key="tag:LansaVersion"; Values = "$LansaVersion"}) `
         -OutputS3BucketName $OutputS3BucketName `
         -OutputS3KeyPrefix $OutputS3KeyPrefix/$dbtype).CommandId
