@@ -24,12 +24,15 @@ $SourceSystem = 'C:\Program Files (x86)\LANSA\X_WIN95\X_LANSA\x_wbp\'
 
 foreach ($TargetSystem in $TargetSystems) {
     foreach ($ExecuteFile in $ExecuteFiles) {
+        Write-Host "$($SourceSystem)execute\$ExecuteFile  to $($TargetSystem)execute\$ExecuteFile"
         Copy-Item "$($SourceSystem)execute\$ExecuteFile"  "$($TargetSystem)execute\$ExecuteFile"
     }
     foreach ($TableFile in $TableFiles) {
+        Write-Host "$($SourceSystem)DEVWBPLIBF\execute\$TableFile to $($TargetSystem)DEVWBPLIBF\execute\$TableFile"
         Copy-Item "$($SourceSystem)DEVWBPLIBF\execute\$TableFile"  "$($TargetSystem)DEVWBPLIBF\execute\$TableFile"
     }
     foreach ($ScriptFile in $ScriptFiles) {
+        Write-Host "$($SourceSystem)..\..\..\lansa\versioncontrol\scripts\$ScriptFile to $($TargetSystem)..\..\..\lansa\versioncontrol\scripts"
         Copy-Item "$($SourceSystem)..\..\..\lansa\versioncontrol\scripts\$ScriptFile"  "$($TargetSystem)..\..\..\lansa\versioncontrol\scripts"
     }
     
