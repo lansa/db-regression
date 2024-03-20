@@ -18,7 +18,7 @@
     Def_List Name(#w_lLansaExecutionList) Fields(#LF_DB_Type #LANSA #LansaTime) Type(*WORKING) Entrys(*MAX)
     
     Define Field(#LF_i) Reffld(#Std_Count)
-    Define Field(#LF_Count) Reffld(#Std_Count)
+    Define Field(#LF_Count) Reffld(#Std_Count) Default(1000)
     Define Field(#LF_rc) Reffld(#BIFA002A) Default(OK)
     Define Field(#LF_logfile_name) Reffld(#BIFA256A)
     
@@ -85,7 +85,6 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     #F157033K1 := #VTF_KEY1 + #VTF_KEY2 + #VTF_KEY3
     #F157033K2 := 0
-    #Lf_Count := 1000
     
     If (#this_rc = OK)
     Begin_Loop Using(#LF_i) To(#Lf_Count)
@@ -169,8 +168,16 @@
     * Start Time
     #Start := #STD_DTIMX.Now().AsSeconds
     
-    Select Fields(#F157033K1) From_File(VTLI0049) Where(#F157033K2 <= 1000) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
-    Endselect
+    Begin_Loop Using(#LF_i) To(#Lf_Count)
+    #F157033K2 += 1
+    Fetch Fields(#F157033K1) From_File(VTLI0049) With_Key(#LF_i) Io_Status(#this_rc) Io_Error(*NEXT) Val_Error(*NEXT)
+    
+    If (#this_rc *NE OK)
+    #Com_Owner.mthIssue_Runtime_Message( #this_rc )
+    #this_rc := ER
+    Leave
+    Endif
+    End_Loop
     
     * End Time
     #Finish := #STD_DTIMX.Now().AsSeconds
