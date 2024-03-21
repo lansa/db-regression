@@ -33,7 +33,9 @@ param (
     [boolean] $Secondary = $false,
     [boolean] $Bit32 = $true,
     [boolean] $Bit64 = $false,
-    [switch] $GitReset
+    [switch] $GitReset,
+    [ValidateSet("All", "Main", "Second", "Third")]
+    [string]$Batch = "All"
 )
 # Write-Host "Map drives to LPC network"
 # & 'C:\ssh\ServerMappings.bat'
@@ -278,34 +280,44 @@ try {
     # If a Function is in a list, the process must also be specified otherwise the compile will hang.
     
     [System.Collections.ArrayList]$TestList = @()
-    $TestList.Add( $(New-Tuple "VT156118", "V56118A", "L156118") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT156710", "V56710A", "L156710") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT157033", "V57033A", "L157033A") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT157033", "V57033B", "") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT157033", "V57033Y", "") ) | Out-Null
-    $TestList.Add( $(New-Tuple "", "", "L157033B") ) | Out-Null
-    $TestList.Add( $(New-Tuple "", "", "L157033C") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT157722", "V57722A", "L157722") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT157726", "V57726A", "L157726") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT158011", "V58011A", "L158011") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT159434", "V59434A", "L159434") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT159585", "V59585A", "L159585") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT159821", "V59821A", "L159821") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT159138", "V59138A", "L159138") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT160466", "V60466A", "L160466") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT160553", "V60553A", "L160553") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT161348", "V61348A", "L161348") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT986925", "V86925A", "L986925") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0033",  "VI0033A", "LI0033") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0034",  "VI0034A", "LI0034") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0035",  "VI0035A", "I0035") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0039",  "VI0039A", "LI0039") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0041",  "VI0041A", "LI0041") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0043",  "VI0043A", "LI0043") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0049",  "VI0049A", "I0049") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VTI0049B", "VI0049B", "") ) | Out-Null # VTI0049B is part of running test I0049 and must be run after process VTI0049
+    if ( $Batch -eq "All" -or $Batch -eq "Second") {
+        $TestList.Add( $(New-Tuple "VT157033", "V57033B", "") ) | Out-Null
+    }
 
-    if ( $Compile ) {
+    if ( $Batch -eq "All" -or $Batch -eq "Third") {
+        $TestList.Add( $(New-Tuple "VT157033", "V57033Y", "") ) | Out-Null
+    }
+
+    if ( $Batch -eq "All" -or $Batch -eq "Main") {
+        $TestList.Add( $(New-Tuple "VT157033", "V57033A", "L157033A") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT156118", "V56118A", "L156118") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT156710", "V56710A", "L156710") ) | Out-Null
+        $TestList.Add( $(New-Tuple "", "", "L157033B") ) | Out-Null
+        $TestList.Add( $(New-Tuple "", "", "L157033C") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT157722", "V57722A", "L157722") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT157726", "V57726A", "L157726") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT158011", "V58011A", "L158011") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159434", "V59434A", "L159434") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159585", "V59585A", "L159585") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159821", "V59821A", "L159821") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT159138", "V59138A", "L159138") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT160466", "V60466A", "L160466") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT160553", "V60553A", "L160553") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT161348", "V61348A", "L161348") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VT986925", "V86925A", "L986925") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0033",  "VI0033A", "LI0033") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0034",  "VI0034A", "LI0034") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0035",  "VI0035A", "I0035") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0039",  "VI0039A", "LI0039") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0041",  "VI0041A", "LI0041") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0043",  "VI0043A", "LI0043") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0049",  "VI0049A", "I0049") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0049B", "VI0049B", "") ) | Out-Null # VTI0049B is part of running test I0049 and must be run after process VTI0049
+    }
+    Write-Host "$(Log-Date) Test List $Batch"
+    $TestList | Write-Host
+
+    if ( $Compile -and ($Batch -eq "All" -or $Batch -eq "Main") ) {
         Write-Host "$(Log-Date) Compile all the Tests"
 
         foreach ($Root in $RootList ){
@@ -328,7 +340,7 @@ try {
     }
 
     if ( $Test ){
-        if ( -not $Compile ) {
+        if ( -not $Compile -and ($Batch -eq "All" -or $Batch -eq "Main")) {
             Write-Host "$(Log-Date) Compile Tests that must be compiled each time its tested"
 
             foreach ($Root in $RootList ){
