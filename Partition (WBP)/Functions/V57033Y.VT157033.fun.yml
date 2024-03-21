@@ -461,23 +461,24 @@
     Clr_List Named(#wl_VTTEMP_Function)
     
     * *****
-    * N.B. Functions are run by V570533B/Y as well as this driver
+    * N.B. Functions are run by V570533A/B as well as this driver
     * *****
-    #Com_Owner.mthAddFunction( V57033C )
     
-    If (#LF_VTTEMP_Skip_Test_Case = False)
-    #Com_Owner.mthAddFunction( V57033D )
-    Else
-    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    Endif
-    
-    
-    If (#LF_VTTEMP_Skip_Test_Case = False)
-    #Com_Owner.mthAddFunction( V57033E )
-    Else
-    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    Endif
-    
+    * #Com_Owner.mthAddFunction( V57033C )
+    *
+    * If (#LF_VTTEMP_Skip_Test_Case = False)
+    * #Com_Owner.mthAddFunction( V57033D )
+    * Else
+    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    * Endif
+    *
+    *
+    * If (#LF_VTTEMP_Skip_Test_Case = False)
+    * #Com_Owner.mthAddFunction( V57033E )
+    * Else
+    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    * Endif
+    *
     
     * If (#LF_VTTEMP_Skip_Test_Case = False)
     * #Com_Owner.mthAddFunction( V57033F )
@@ -485,23 +486,23 @@
     * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
     * Endif
     
-    If (#LF_VTTEMP_Skip_Test_Case = False)
-    #Com_Owner.mthAddFunction( V57033G )
-    Else
-    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    Endif
-    
-    If (#LF_VTTEMP_Skip_Test_Case = False)
-    #Com_Owner.mthAddFunction( V57033H )
-    Else
-    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
-    Endif
-    
     * If (#LF_VTTEMP_Skip_Test_Case = False)
-    * #Com_Owner.mthAddFunction( V57033I )
+    * #Com_Owner.mthAddFunction( V57033G )
     * Else
     * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
     * Endif
+    *
+    * If (#LF_VTTEMP_Skip_Test_Case = False)
+    * #Com_Owner.mthAddFunction( V57033H )
+    * Else
+    * #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    * Endif
+    
+    If (#LF_VTTEMP_Skip_Test_Case = False)
+    #Com_Owner.mthAddFunction( V57033I )
+    Else
+    #LF_VTTEMP_Number_Of_Skipped_Test_Case += 1
+    Endif
     
     * Log all the test functions.
     If (#LF_VTTEMP_Function_Count > 0)

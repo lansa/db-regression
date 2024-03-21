@@ -113,7 +113,7 @@ function Test{
 
     # DEVF X_DEVFLAG_IMPORT_CHANGE_FILE_LIB_TO_PARTDTALIB | X_DEVFLAG_IMPORT_ALLOW_NAME_CHANGES | X_DEVFLAG_IMPORT_FORCE_NAME_CHANGES
     # 2 + 16 + 4096
-    [String[]] $StdArguments = @(  "PROC=$Process", "INST=NO", "QUET=Y", "MODE=B", "ALSC=NO", "BPQS=Y", "LOCK=NO", "PART=$Partition", "LANG=ENG")
+    [String[]] $StdArguments = @(  "PROC=$Process", "FUNC=$Function", "INST=NO", "QUET=Y", "MODE=B", "ALSC=NO", "BPQS=Y", "LOCK=NO", "PART=$Partition", "LANG=ENG")
 
     $x_err = (Join-Path -Path $lansaRoot -ChildPath 'tmp\x_err.log')
     Remove-Item $x_err -Force -ErrorAction SilentlyContinue | Out-Default | Write-Host
@@ -273,16 +273,16 @@ try {
         }
     }
 
-    # N.B. The compile was very unreliable. e.g. 157033 has been split into 3 separate lists as this works reliably
+    # N.B. The compile was very unreliable. e.g. 157033 has been split into 3 separate lists as this works more reliably. Still on slow systems like AZURESQL it fails.
     # That has now been fixed but the separate lists may still be used to compile if necessary.
     # If a Function is in a list, the process must also be specified otherwise the compile will hang.
-    # If "too many" tables, table builds will randomly fail.
-    # Splitting many tables into separate lists is not enough. Adding a RUP to the list made it reliable. Proc and Func in list may also assist with reliability.
-
+    
     [System.Collections.ArrayList]$TestList = @()
     $TestList.Add( $(New-Tuple "VT156118", "V56118A", "L156118") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT156710", "V56710A", "L156710") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT157033", "V57033A", "L157033A") ) | Out-Null
+    $TestList.Add( $(New-Tuple "VT157033", "V57033B", "") ) | Out-Null
+    $TestList.Add( $(New-Tuple "VT157033", "V57033Y", "") ) | Out-Null
     $TestList.Add( $(New-Tuple "", "", "L157033B") ) | Out-Null
     $TestList.Add( $(New-Tuple "", "", "L157033C") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT157722", "V57722A", "L157722") ) | Out-Null
@@ -291,10 +291,10 @@ try {
     $TestList.Add( $(New-Tuple "VT159434", "V59434A", "L159434") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT159585", "V59585A", "L159585") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT159821", "V59821A", "L159821") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT160466", "V60466A", "L160466") ) | Out-Null
-    $TestList.Add( $(New-Tuple "VT161348", "V61348A", "L161348") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT159138", "V59138A", "L159138") ) | Out-Null
+    $TestList.Add( $(New-Tuple "VT160466", "V60466A", "L160466") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT160553", "V60553A", "L160553") ) | Out-Null
+    $TestList.Add( $(New-Tuple "VT161348", "V61348A", "L161348") ) | Out-Null
     $TestList.Add( $(New-Tuple "VT986925", "V86925A", "L986925") ) | Out-Null
     $TestList.Add( $(New-Tuple "VTI0033",  "VI0033A", "LI0033") ) | Out-Null
     $TestList.Add( $(New-Tuple "VTI0034",  "VI0034A", "LI0034") ) | Out-Null

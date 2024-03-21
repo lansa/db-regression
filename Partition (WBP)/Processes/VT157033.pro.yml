@@ -47,6 +47,30 @@
       Allowed Next Functions:
       - "*ANY"
 
+  - V57033B:
+      Name:               V57033B
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 157033 Test Case Driver Part II"
+
+      - ENG:
+          Description:        "CCS 157033 Test Case Driver Part II"
+
+      - FRA:
+          Description:        "CCS 157033 Test Case Driver Part II"
+
+      - JPN:
+          Description:        "CCS 157033 Test Case Driver Part II"
+
+      - TRK:
+          Description:        "CCS 157033 Test Case Driver Part II"
+
+      Allowed Next Functions:
+      - "*ANY"
+
   - V57033C:
       Name:               V57033C
       Display on Menu:    No
@@ -193,7 +217,7 @@
 
   - V57033I:
       Name:               V57033I
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -211,6 +235,30 @@
 
       - TRK:
           Description:        "Generic Numeric Search on Physical"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - V57033Y:
+      Name:               V57033Y
+      Display on Menu:    Yes
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "CCS 157033 Test Case Driver Part III"
+
+      - ENG:
+          Description:        "CCS 157033 Test Case Driver Part III"
+
+      - FRA:
+          Description:        "CCS 157033 Test Case Driver Part III"
+
+      - JPN:
+          Description:        "CCS 157033 Test Case Driver Part III"
+
+      - TRK:
+          Description:        "CCS 157033 Test Case Driver Part III"
 
       Allowed Next Functions:
       - "*ANY"
