@@ -35,7 +35,8 @@ param (
     [boolean] $Bit64 = $false,
     [switch] $GitReset,
     [ValidateSet("All", "Main", "Second", "Third")]
-    [string]$Batch = "All"
+    [string]$Batch = "All",
+    [switch] $KeepVerifierLog
 )
 # Write-Host "Map drives to LPC network"
 # & 'C:\ssh\ServerMappings.bat'
@@ -205,12 +206,12 @@ function Remove-Logs{
         Get-ChildItem -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
     }
 
-    if ( $Bit64 -and $Bit32 -or (-not $Bit64 -and $Bit32)) {
+    if ( -not $KeepVerifierLog ) {
         Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
         Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
         Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
     } else {
-        Write-Host "$(Log-Date) Skipping test result removal so that MSSQLS results, which run separately as 32 bit and 64 bit test runs, are concatenated into one result file and not overwritten."
+        Write-Host "$(Log-Date) Skipping test result removal so that MSSQLS and SuperServer results, which run separately as 32 bit and 64 bit test runs and multiple IBMi test runs, are concatenated into one result file and not overwritten."
     }
 }
 
