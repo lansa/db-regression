@@ -312,9 +312,14 @@ try {
         $TestList.Add( $(New-Tuple "VTI0039",  "VI0039A", "LI0039") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0041",  "VI0041A", "LI0041") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0043",  "VI0043A", "LI0043") ) | Out-Null
+    }
+
+    # Performance Test must not be run with the IBMi Tests as it clears the results
+    if ( $Batch -eq "All") {
         $TestList.Add( $(New-Tuple "VTI0049",  "VI0049A", "I0049") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0049B", "VI0049B", "") ) | Out-Null # VTI0049B is part of running test I0049 and must be run after process VTI0049
     }
+
     Write-Host "$(Log-Date) Test List $Batch"
     $TestList | Write-Host
 
