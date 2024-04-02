@@ -50,7 +50,7 @@
     Clr_List Named(#wLRet)
     #Com_Owner.mthAdd_Msg( OK *Function ('Start - ' + *Function_Desc) )
     
-    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthGetExecutionType()
     
     *
     * Add your test case here
@@ -487,7 +487,14 @@
     
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEC.AsString) #BIFC256B )
     
+    If ((#LF_Execution_Type = Q) *AndIf (#LF_Local_Platform = W) *AndIf (#LF_Remote_Platform = I))
+    * Superserver IO to IBMi. The IBMi in Sydney may be a day ahead of the local Windows VM in N.Virginia
+    * So use today's date + 1
+    #BIFDATEC := #BIFDATEC.Adjust( 21 )
+    Else
+    * Otherwise use today's date. Its important to test the edge case where we can.
     #BIFDATEC := #BIFDATEC.Adjust( 20 )
+    Endif
     #Com_Owner.mthCheck_Insert_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDATEC.AsString) #BIFC256B 'OK' )
     
     #BIFDATEC := #BIFDATEC.Adjust( -30 )
@@ -530,6 +537,38 @@
     
     Endroutine
     
+    *
+    * Local Function
+    *    #LF_Execution_Type= W, #LF_Local_Platform W, #LF_Remote_Platform=
+    * SuperServer Function Call
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= F, #LF_Local_Platform W, #LF_Remote_Platform= I
+    * SuperServer IO Call
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= W
+    *    #LF_Execution_Type= Q, #LF_Local_Platform W, #LF_Remote_Platform= I
+    *
+    * For remote DB Type, need to add it to the list. Find this line in the Test Driver:
+    * #VTF_KEY2 := #this_remote_platform
+    * And add this line after it:
+    * #VTF_KEY3 := #this_DBUT
+    * Note that obtaining DBUT this way its ALWAYS the database against which the IO is being executed
+    *
+    Mthroutine Name(mthGetExecutionType)
+    Define Field(#LF_Execution_Type) Reffld(#Std_Alpha) /* W = Windows, I = IBMi, F = SuperServer Function Call, Q = SuperServer IO */
+    Define Field(#LF_Local_Platform) Reffld(#BIFA001A) /* W = Windows, I = IBMi */
+    Define Field(#LF_Remote_Platform) Reffld(#BIFA001A) /* Blank is not remote, W = Windows, I = IBMi */
     
+    Get_Entry Number(1) From_List(#wLKData)
+    #Com_Owner.mthAdd_Msg( OK ('VTF_KEY1= ' + #VTF_KEY1 + ', VTF_KEY2= ' + #VTF_KEY2 + ', VTF_KEY3= ' + #VTF_KEY3) '' )
     
+    #LF_Execution_Type := #VTF_KEY1
+    #LF_Local_Platform := #VTF_KEY1.Substring( 4 1 )
+    #LF_Remote_Platform := #VTF_KEY1.Substring( 9 1 )
+    #LF_DB_Type := #VTF_KEY3
+    
+    If (#LF_Local_Platform *EQ '')
+    #LF_Local_Platform := #LF_Execution_Type
+    Endif
+    #Com_Owner.mthAdd_Msg( OK ('#LF_Execution_Type= ' + #LF_Execution_Type + ', #LF_Local_Platform ' + #LF_Local_Platform + ', #LF_Remote_Platform= ' + #LF_Remote_Platform) '' )
+    Endroutine
     
