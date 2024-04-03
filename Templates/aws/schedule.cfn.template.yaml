@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  ServiceInstanceScheduleServiceTokenARN:
+    Type: String
+    Description: (Required) service token arn taken from InstanceScheduler outputs
+Metadata:
+  'AWS::CloudFormation::Designer': {}
+Resources:
+  SampleSchedule1:
+    Type: 'Custom::ServiceInstanceSchedule'
+    Properties:
+      ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
+      NoStackPrefix: 'False'
+      Name: KEEP_STOPPED
+      Description: Keep instances stopped, particularly RDS instances
+      RetainRunning: 'True'
+      StopNewInstances: 'True'
+      UseMaintenanceWindow: 'True'
+      Periods:
+      - Description: Stop at midnight on Sunday
+        EndTime: '00:00'
+        WeekDays: 'Sun'
