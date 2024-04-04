@@ -10,13 +10,15 @@ Resources:
     Type: 'Custom::ServiceInstanceSchedule'
     Properties:
       ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
-      NoStackPrefix: 'False'
+      NoStackPrefix: 'True'
       Name: KEEP_STOPPED
       Description: Keep instances stopped, particularly RDS instances
       RetainRunning: 'True'
       StopNewInstances: 'True'
       UseMaintenanceWindow: 'True'
+      Enforced: 'True'
       Periods:
-      - Description: Stop at midnight on Sunday
+      - Description: Stop at all times
+        BeginTime: '00:00'
         EndTime: '00:00'
-        WeekDays: 'Sun'
+        WeekDays: Mon,Tue,Wed,Thu,Fri,Sat,Sun
