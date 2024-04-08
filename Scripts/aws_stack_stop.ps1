@@ -34,6 +34,9 @@ try {
 
 Write-Host "Stopping the ORACLE RDS"
 try {
+   $DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_INSTANCE_IDENTIFIER}).DBInstanceArn
+   Add-RDSTagsToResource -ResourceName $DB_ARN -Tag  @(@{Key="Schedule"; Value='KEEP_STOPPED'})
+
    Stop-RDSDBInstance -DBInstanceIdentifier $ORACLE_DB_INSTANCE_IDENTIFIER -Force
    $RetryCount = 60
    while (((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$ORACLE_DB_INSTANCE_IDENTIFIER}).DBInstanceStatus -ne "stopped" )  -and ($RetryCount -gt 0) ){
@@ -53,6 +56,9 @@ try {
 
 Write-Host "Stopping the MYSQL RDS"
 try {
+   $DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_INSTANCE_IDENTIFIER}).DBInstanceArn
+   Add-RDSTagsToResource -ResourceName $DB_ARN -Tag  @(@{Key="Schedule"; Value='KEEP_STOPPED'})
+
    Stop-RDSDBInstance -DBInstanceIdentifier $MYSQL_DB_INSTANCE_IDENTIFIER -Force
    $RetryCount = 60
    while (((Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$MYSQL_DB_INSTANCE_IDENTIFIER}).DBInstanceStatus -ne "stopped" )  -and ($RetryCount -gt 0) )

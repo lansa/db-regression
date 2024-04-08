@@ -191,7 +191,7 @@ function provision_database
             {
                Write-Host "Creating $STACK_NAME stack"
                $SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-               New-CFNStack -StackName $STACK_NAME -TemplateBody $TEMPLATE_BODY -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="SNAPSHOTARN"; ParameterValue=$SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}, @{Key="RDS_KEEP_STOPPED"; Value='YES'}) | Out-Default | Write-Host
+               New-CFNStack -StackName $STACK_NAME -TemplateBody $TEMPLATE_BODY -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="SNAPSHOTARN"; ParameterValue=$SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}) | Out-Default | Write-Host
             }
 
             $RETRY_COUNT = cfn_stack_status $STACK_NAME
