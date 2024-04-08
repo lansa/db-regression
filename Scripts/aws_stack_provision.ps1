@@ -134,9 +134,13 @@ function provision_database
    {
       Write-Host "RDS $DB_IDENTIFIER already exists"
       $DB_STATUS = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER}).DBInstanceStatus
+      $DB_ARN = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER}).DBInstanceArn
 
       if ($DB_STATUS -eq "stopped")
       {
+         # Remove any scheduler tag that may be keeping the instance stopped
+         Remove-RDSTagFromResource -ResourceName $DB_ARN -TagKey "Schedule" -Force
+
          Start-RDSDBInstance -DBInstanceIdentifier $DB_IDENTIFIER | Out-Default | Write-Host
          Write-Host "Waiting for RDS $DB_IDENTIFIER to be in Available state"
 
