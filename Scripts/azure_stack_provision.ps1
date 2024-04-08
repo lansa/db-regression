@@ -14,6 +14,8 @@ param (
 	[string]$sql_password
 )
 
+$ErrorActionPreference = "Stop"
+
 if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 	$clone_lansa_version = $lansa_version
  }
@@ -21,16 +23,21 @@ if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version) ) {
 #####Server Name############
 $sql_server = "db-regression-$lansa_version" #only accepting lower case
 
-#######################Retriving Azure Resources using Tags #####################
-#$db = "test"
-$azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$lansa_version}).Name
-###############Geting the sourceserver name##################
-$sourceserver = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Name
-#-------------------#-----------------------#
-###############Import database from storage account if the clone lansa version or lansaVersion server does not exist##################
-$storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
-$storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
-$storage_uri = "$storage_url/$clone_lansa_version/$clone_lansa_version.bacpac"
+try {
+    #######################Retriving Azure Resources using Tags #####################
+    #$db = "test"
+    $azure_tags = (Get-AzResource -Tag @{ "LansaVersion"=$lansa_version}).Name
+    ###############Geting the sourceserver name##################
+    $sourceserver = (Get-AzResource -Tag @{ "LansaVersion"=$clone_lansa_version}).Name
+    #-------------------#-----------------------#
+    ###############Import database from storage account if the clone lansa version or lansaVersion server does not exist##################
+    $storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
+    $storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
+    $storage_uri = "$storage_url/$clone_lansa_version/$clone_lansa_version.bacpac"
+} catch {
+    $_ | Out-Default | Write-Host
+    throw 'Error Logging in to Azure'
+}
 
 ############Template path###############################
 $azure_stack_scriptpath = $MyInvocation.MyCommand.Path
