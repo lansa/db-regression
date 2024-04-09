@@ -10,6 +10,8 @@ if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version))
    $clone_lansa_version = $lansa_version
 }
 
+$ErrorActionPreference = 'Continue'
+
 $aws_stack_script_path = $MyInvocation.MyCommand.Path
 $stack_script = Split-Path $aws_stack_script_path
 $git_repo_root = Get-Item $stack_script\..\Templates\aws
@@ -128,7 +130,7 @@ function provision_database
       }
    }
 
-   $DB_COUNT = (Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER}).count
+   $DB_COUNT = (@(Get-RDSDBInstance -Filter @{Name="db-instance-id"; Values=$DB_IDENTIFIER})).Count
 
    if ($DB_COUNT -eq 1)
    {
@@ -165,13 +167,14 @@ function provision_database
    elseif ($DB_COUNT -eq 0)
    {
       Write-Host "RDS $DB_IDENTIFIER does not exist"
+      $STACK_NAME = "DB-Regression-$($FULL_DATABASE_TYPE)-RDS-" + $lansa_version
       try
       {
-         $SNAPSHOT_COUNT = ((Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn).count
+         $SNAPSHOT_COUNT = (@((Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn)).count
          if ($SNAPSHOT_COUNT -eq 1)
          {
             Write-Host "Found 1 snapshot for identifier $SNAPSHOT_IDENTIFIER"
-            $STACK_NAME = "DB-Regression-$($FULL_DATABASE_TYPE)-RDS-" + $lansa_version
+            
             try
             {
                Write-Host "If Stack $STACK_NAME does not exist the exception System.InvalidOperationException will be thrown. This is the expected state"
@@ -253,7 +256,7 @@ if ($EXISTING_INSTANCE_COUNT -eq 1 )
 {
    Write-Host "Found 1 VM with Lansa Version tag = $lansa_version"
    Write-Host "Checking the VM Status"
-   $INSTANCE_ID = ((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }).Instances).InstanceId
+   $INSTANCE_ID = ((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="running", "stopped"}).Instances).InstanceId
    $INSTANCE_STATE = (((Get-EC2InstanceStatus -IncludeAllInstance $true -InstanceId $INSTANCE_ID).InstanceState).Name).Value
 
    if ($INSTANCE_STATE -eq "running")
