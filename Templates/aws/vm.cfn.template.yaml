@@ -25,6 +25,13 @@ Parameters:
     Description: IAM Instance profile to be attached to VM (Default is in the Parameter Store).
 
 Resources:
+  LAUNCHTEMPLATE:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: "LaunchTemplate"
+      LaunchTemplateData: 
+        MetadataOptions: 
+          InstanceMetadataTags: "enabled"
   INSTANCE:
     Type: AWS::EC2::Instance
     Properties:
@@ -38,6 +45,9 @@ Resources:
       SecurityGroupIds:
         - !Ref SECURITYGROUPID
       PropagateTagsToVolumeOnCreation: true
+      LaunchTemplate:
+        LaunchTemplateName: "LaunchTemplate"
+        Version: '1'
       Tags:
         - Key: "Name"
           Value: !Join [ " ", [ "DB Regression Test", !Ref LANSAVERSION ] ]
