@@ -7,7 +7,7 @@ Description:
 Parameters:
   LANSAVERSION:
     Type: String
-    Description: LANSA Version that needs to be test
+    Description: LANSA Version that needs to be tested
   AMIID:
     Type: String
     Description: AMI_ID for provisioning the VM
@@ -29,7 +29,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref AMIID
-      InstanceType: "m6in.xlarge"
+      InstanceType: "m6in.2xlarge"
       KeyName: "AzureDevOps"
       SubnetId: !Ref SUBNETIDFORVM
       IamInstanceProfile: !Ref IAMROLEFORVM
@@ -41,11 +41,15 @@ Resources:
       Tags:
         - Key: "Name"
           Value: !Join [ " ", [ "DB Regression Test", !Ref LANSAVERSION ] ]
+        - Key: "LansaVersion"
+          Value: !Ref LANSAVERSION
+        - Key: "Environment"
+          Value: "Lansa-Prod"
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeType: gp3
-            # 250 GB disk size
-            VolumeSize: '250'
-            DeleteOnTermination: 'false'
+            # 350 GB disk size
+            VolumeSize: '350'
+            DeleteOnTermination: 'true'
             Encrypted: 'false'

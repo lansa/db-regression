@@ -233,9 +233,19 @@ function provision_database
 
 Write-Host "Searching for VM with Lansa Version tag = $lansa_version"
 
-$RUNNING_INSTANCE_COUNT = (((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="running"}).Instances).InstanceId).count
+$RUNNING_INSTANCE_COUNT = 0
+$RUNNING_INSTANCES = Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="running"}
+if ( $RUNNING_INSTANCES){
+   $RUNNING_INSTANCES.Instances | Out-Default | Write-Host
+   $RUNNING_INSTANCE_COUNT = $RUNNING_INSTANCES.instances.count
+}
 
-$STOPPED_INSTANCE_COUNT = (((Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="stopped"}).Instances).InstanceId).count
+$STOPPED_INSTANCE_COUNT = 0
+$STOPPED_INSTANCES = Get-EC2Instance -Filter @{ Name="tag:LansaVersion"; Values=$lansa_version }, @{Name="instance-state-name"; Values="stopped"}
+if ( $STOPPED_INSTANCES){
+   $STOPPED_INSTANCES.Instances | Out-Default | Write-Host
+   $STOPPED_INSTANCE_COUNT = $STOPPED_INSTANCES.Instances.Count
+}
 
 $EXISTING_INSTANCE_COUNT = $RUNNING_INSTANCE_COUNT + $STOPPED_INSTANCE_COUNT
 
