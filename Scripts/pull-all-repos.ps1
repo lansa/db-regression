@@ -20,6 +20,11 @@ try {
     Write-Host "Getting branch $Branch"
 
     foreach ($Root in $Roots) {
+        git show-ref --verify --quiet refs/heads/$branch
+        if ( $LASTEXITCODE -ne 0) {
+            Write-Host "$Branch branch does not exist. Switching to debug/paas"
+            $Branch = 'debug/paas'
+        }
         Set-Location "$Root\lansa\VersionControl"
         Get-Location | Write-Host
         Write-Host "Clean out current git state so that following operations can succeed."
