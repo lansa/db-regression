@@ -4,6 +4,7 @@ param (
 )
 Set-DefaultAWSRegion -Region 'us-east-1' -Scope Script
 
+Write-host "Get Azure DB UID/PWD from AWS Secret Manager"
 $storage_key = (Get-AzStorageAccountKey -ResourceGroupName "dbregressiontest" -StorageAccountName "stagingdpuseast").Value[0]
 $storage_url = "https://stagingdpuseast.blob.core.windows.net/azuresqlbackup"
 $storage_uri = "$storage_url/$lansa_version/$lansa_version.bacpac"
@@ -13,6 +14,7 @@ $sql_password = Get-SECSecretValue -SecretId "password/DBRegressionTest/SQLAZURE
 "##vso[task.setvariable variable=username]$sql_username"
 "##vso[task.setvariable variable=password]$sql_password"
 
+Write-Host "Exporting database to $storage_uri. An existing backup must be manually deleted first."
 $export = New-AzSqlDatabaseExport -ResourceGroupName dbregressiontest -ServerName "db-regression-$lansa_version" -DatabaseName $lansa_version -StorageKeyType "StorageAccessKey" -StorageKey $storage_key -StorageUri $storage_uri -AdministratorLogin $sql_username -AdministratorLoginPassword $sql_password
 
 $waitDelay = 10
