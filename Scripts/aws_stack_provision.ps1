@@ -296,7 +296,7 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
    $NO_OF_AMIS = (Get-EC2Image -Filter @{ Name="tag:LansaVersion"; Values=$clone_lansa_version } | Select-Object ImageId | Measure-Object | Select-Object Count).count
    if ($NO_OF_AMIS -eq 1)
    {
-      Write-Host "Found 1 AMI with Lansa vesion tag = $clone_lansa_version"
+      Write-Host "Found 1 AMI with Lansa version tag = $clone_lansa_version"
       $AMI_ID = (Get-EC2Image -Filter @{ Name="tag:LansaVersion"; Values=$clone_lansa_version }).ImageId
       $STACK_NAME = "DB-Regression-VM-" + $lansa_version
       try

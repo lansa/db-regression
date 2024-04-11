@@ -25,6 +25,7 @@ Resources:
       DBSnapshotIdentifier: !Ref SNAPSHOTARN
       DBInstanceClass: db.t3.large
       Engine: mysql
+      DBParameterGroupName: mysql-5-7-lansa
       VPCSecurityGroups:
         - !Ref SECURITYGROUPID
       EnablePerformanceInsights: true

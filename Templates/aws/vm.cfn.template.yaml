@@ -28,7 +28,6 @@ Resources:
   LAUNCHTEMPLATE:
     Type: AWS::EC2::LaunchTemplate
     Properties:
-      LaunchTemplateName: "LaunchTemplate"
       LaunchTemplateData: 
         MetadataOptions: 
           InstanceMetadataTags: "enabled"
@@ -46,7 +45,7 @@ Resources:
         - !Ref SECURITYGROUPID
       PropagateTagsToVolumeOnCreation: true
       LaunchTemplate:
-        LaunchTemplateName: "LaunchTemplate"
+        LaunchTemplateId: !Ref LAUNCHTEMPLATE
         Version: '1'
       Tags:
         - Key: "Name"
@@ -59,7 +58,6 @@ Resources:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeType: gp3
-            # 350 GB disk size
-            VolumeSize: '350'
+            VolumeSize: '375'
             DeleteOnTermination: 'true'
             Encrypted: 'false'
