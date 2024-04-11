@@ -194,16 +194,23 @@ function Remove-Logs{
     $dbTestParent = Join-Path $LansaRoot 'x_win95\x_lansa\X_WBP\Compile\DBTEST'
     if ( Test-Path -Path $dbTestParent ) {
         Write-Host "$(Log-Date) Removing all files in $dbTestParent"
-        Get-ChildItem -Path $dbTestParent | Out-Default | Write-Host
-        Get-ChildItem -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+        Get-ChildItem -File -Path $dbTestParent | Out-Default | Write-Host
+        Get-ChildItem -File -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
     }
 
-    $detailedResult = 'lansa/lansa/' + $database
+    $detailedResult = 'lansa/' + $database
     $detailedResultParent = Join-Path $LansaRoot $detailedResult
     if ( Test-Path -Path $detailedResultParent ) {
         Write-Host "$(Log-Date) Removing all files in $detailedResultParent"
-        Get-ChildItem -Path $dbTestParent | Out-Default | Write-Host
-        Get-ChildItem -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+        Get-ChildItem -File -Path $detailedResultParent | Out-Default | Write-Host
+        Get-ChildItem -File -Path $detailedResultParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+    }
+
+    $tmpdir = Join-Path $LansaRoot 'tmp/'
+    if ( Test-Path -Path $tmpdir ) {
+        Write-Host "$(Log-Date) Removing all files in $tmpdir"
+        Get-ChildItem -File -Path $tmpdir | Out-Default | Write-Host
+        Get-ChildItem -File -Path $tmpdir | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
     }
 
     if ( -not $KeepVerifierLog ) {
