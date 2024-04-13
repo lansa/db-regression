@@ -22,3 +22,20 @@ Resources:
         BeginTime: '00:00'
         EndTime: '00:00'
         WeekDays: Mon,Tue,Wed,Thu,Fri,Sat,Sun
+  SampleSchedule2:
+    Type: 'Custom::ServiceInstanceSchedule'
+    Properties:
+      ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
+      NoStackPrefix: 'True'
+      Name: RUN_WORKHOURS_ACDT
+      Description: Run instances during ACDT work hours
+      RetainRunning: 'True'
+      StopNewInstances: 'True'
+      UseMaintenanceWindow: 'True'
+      Enforced: 'True'
+      Timezone: Australia/Adelaide
+      Periods:
+      - Description: ACDT Workhours
+        BeginTime: '09:00'
+        EndTime: '21:00'
+        WeekDays: Mon,Tue,Wed,Thu,Fri,Sat
