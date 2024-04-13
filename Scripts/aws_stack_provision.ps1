@@ -2,7 +2,8 @@
 
 param (
 [parameter(Mandatory=$true)]    [string] $lansa_version,
-[parameter(Mandatory=$false)]   [string] $clone_lansa_version ## lansa version tag that would be used to create clone stack.
+[parameter(Mandatory=$false)]   [string] $clone_lansa_version, ## lansa version tag that would be used to create clone stack.
+[parameter(Mandatory=$false)]   [switch] $create_vm_only
 )
 
 if ( [string]::IsNullOrWhiteSpace( $clone_lansa_version))
@@ -349,9 +350,11 @@ else
    throw "Found more than 1 VM with Lansa Version tag = $lansa_version"
 }
 
-#******************************************************************************
-# Create Databases
-#******************************************************************************
+if (-not $create_vm_only) {
+   #******************************************************************************
+   # Create Databases
+   #******************************************************************************
 
-provision_database "ora"
-provision_database "mysql"
+   provision_database "ora"
+   provision_database "mysql"
+}
