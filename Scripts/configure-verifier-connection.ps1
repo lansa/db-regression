@@ -61,7 +61,8 @@ try {
         'C:\Program Files (x86)\Lansa',
         'C:\Program Files (x86)\AZURESQL',
         'C:\Program Files (x86)\ORACLE',
-        'C:\Program Files (x86)\SQLANYWHERE'
+        'C:\Program Files (x86)\SQLANYWHERE',
+        'C:\Program Files (x86)\MYSQL'
     )
     foreach ($Path in $Configuration_Paths) {
         $SourcePath = [IO.PATH]::Combine( $Path, 'x_win95\x_lansa\x_lansa.pro')
