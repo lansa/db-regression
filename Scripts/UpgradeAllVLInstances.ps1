@@ -10,12 +10,22 @@ $InstallSettingsPassword = Get-SECSecretValue -SecretId "password/DBRegressionTe
 
 $installer_file = "$DvdDir\Setup\FileTransfer.exe"
 
-[string[]] $TargetDB = @("MSSQLS", "MYSQL", "SQLAZURE", "SQLANYWHERE", "ODBCORACLE")
+[string[]] $TargetDB = @("MSSQLS", "MYSQL", "SQLANYWHERE", "ODBCORACLE", "SQLAZURE")
 
-foreach ($System in $TargetDB ){
-    $SettingsFile = "$stack_script\$($System)-Settings.cfg"
-    Write-Host "Settings File: $SettingsFile"
-    Write-Host "Password: $InstallSettingsPassword"
-    &$installer_file """$InstallSettingsPassword""" """$SettingsFile""" """E""" | Out-Default | Write-Host
+try {
+    foreach ($System in $TargetDB ){
+        $SettingsFile = "$stack_script\$($System)-Settings.cfg"
+        Write-Host "Settings File: $SettingsFile"
+        Write-Host "Password: $InstallSettingsPassword"
+        &$installer_file """$InstallSettingsPassword""" """$SettingsFile""" """E""" | Out-Default | Write-Host
+        if ($LASTEXITCODE -ne 0) {
+            throw
+        }
+        Write-Host "Successfully installed $System system"
+    }
+} catch {
+    $_ | Out-Default | Write-Host
+    Write-Host "Error $LASTEXITCODE installing $System. Check log files in $($ENV:TEMP)"
+    throw    
 }
-Write-Host "Finished Installs"
+Write-Host "Finished Installs successfully"
