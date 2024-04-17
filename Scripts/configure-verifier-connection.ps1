@@ -1,6 +1,9 @@
 param (
     [parameter(Mandatory=$false)]
-    [string[]] $dbTypes
+    [string[]] $dbTypes,
+    [Parameter(Mandatory = $false)]
+    [string]
+    $LansaVersion    
 )
 $ErrorActionPreference = "Stop"
 
@@ -8,8 +11,14 @@ try {
 
     Write-Host(" Modifying Verifier_Connection.dat file")
 
+    switch ($LansaVersion) {
+        "trunk" {$DB2ISERIES = "LANSA01_DEVPGMLIB"}
+        default {$DB2ISERIES = "LANSA01_P50PGMLIB"}
+    }
+    Write-Host "IBMi connection is to $DB2ISERIES"
+
     $DB_LU_Map = @{
-        DB2ISERIES = "LANSA01_P50PGMLIB"
+        DB2ISERIES = $DB2ISERIES
         MSSQLS = "TestPrimaryMSSQLS"
         SQLAZURE = "TestSecondaryAZUR"
         SQLANYWHERE = "TestSecondarySQLA"
@@ -19,7 +28,6 @@ try {
 
     $VerifierConnectionPath = "C:\Program Files (x86)\Lansa\Verifier_Connection.dat"
     $Content = [System.IO.File]::ReadAllLines($VerifierConnectionPath)
-
 
     Write-Host("Adding semicolon if not present with any db type in $VerifierConnectionPath")
 
@@ -32,7 +40,6 @@ try {
         }
         $Content | Set-Content -Path $VerifierConnectionPath
     }
-
 
     Write-Host("Configuring... $VerifierConnectionPath")
 
