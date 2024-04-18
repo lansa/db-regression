@@ -316,6 +316,7 @@ try {
         $TestList.Add( $(New-Tuple "VTI0033",  "VI0033A", "LI0033") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0034",  "VI0034A", "LI0034") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0035",  "VI0035A", "I0035") ) | Out-Null
+        $TestList.Add( $(New-Tuple "VTI0036",  "VI0036A", "I0036") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0039",  "VI0039A", "LI0039") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0041",  "VI0041A", "LI0041") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0043",  "VI0043A", "LI0043") ) | Out-Null
