@@ -94,3 +94,23 @@
   - KM_KCL3:
       Type:               Funciton
       Qualifier:          VT_CVL
+
+  - VTLI0036E:
+      Type:               File
+      Qualifier:          LANSA
+
+  - VTLI0036D:
+      Type:               File
+      Qualifier:          DEVWBPLIBF
+
+  - VTLI0036C:
+      Type:               File
+      Qualifier:          LANSA
+
+  - VTLI0036B:
+      Type:               File
+      Qualifier:          DBO
+
+  - VTLI0036A:
+      Type:               File
+      Qualifier:          DBO
