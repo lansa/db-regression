@@ -2,7 +2,7 @@ param (
     [string] $SourceRoot = "C:\dev\work\"
 )
 
-[string[]] $TargetRoots = @('C:\Program Files (x86)\lansa\')
+[string[]] $TargetRoots = @('C:\Program Files (x86)\lansa\', 'C:\Program Files (x86)\sqlanywhere\', 'C:\Program Files (x86)\mysql\', 'C:\Program Files (x86)\oracle\', 'C:\Program Files (x86)\azuresql\')
 
 Write-Host "Copy from $SourceRoot to All Pipeline systems"
 
@@ -18,7 +18,7 @@ foreach ($root in $TargetRoots ){
     # robocopy "$($SourceRoot)lansa\open" "$Root\lansa\open" *.dll *.exe /s /w:2
     # robocopy "$($SourceRoot)lansa\WebUtilities" "$Root\lansa\WebUtilities" *.dll *.exe /s /w:2
 
-    Write-Host "Copying "$($SourceRoot)x_win95\x_lansa\execute""
+    Write-Host "Copying '$($SourceRoot)x_win95\x_lansa\execute'"
     robocopy "$($SourceRoot)x_win95\x_lansa\execute" "$Root\x_win95\x_lansa\execute" *.dll *.exe *.bnd *.s /w:2
     robocopy "$($SourceRoot)x_win95\x_lansa\source" "$Root\x_win95\x_lansa\source" *.h *.s /w:2
     robocopy "$($SourceRoot)x_win95\x_lansa\web\tsp" "$Root\x_win95\x_lansa\web\tsp" *.xsl /w:2
