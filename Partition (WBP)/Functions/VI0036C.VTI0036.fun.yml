@@ -124,12 +124,10 @@
     If (#LF_Remote_Platform *EQ I)
     #Com_Owner.mthAdd_Msg( OK ('Skipping IBMi Test as this is only for Windows.') ('') )
     Else
-    If (#LF_DB_Type *EQ MSSQLS)
-    #Com_Owner.mthExecuteMSSQLS( #LF_rc )
-    Else
     If (#LF_Execution_Type *EQ Q)
     #Com_Owner.mthAdd_Msg( OK ('Skipping SuperServer IO Test as Local and remote DB must be the same for the test to work') ('') )
     Else
+    
     Case Of_Field(#LF_DB_Type)
     When Value_Is(= MSSQLS)
     #Com_Owner.mthExecuteMSSQLS( #LF_rc )
@@ -142,7 +140,6 @@
     When Value_Is(= SQLANYWHERE)
     #Com_Owner.mthExecuteSQLANYWHERE( #LF_rc )
     Endcase
-    Endif
     Endif
     Endif
     
