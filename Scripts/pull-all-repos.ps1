@@ -20,6 +20,9 @@ try {
     Write-Host "Getting branch $Branch"
 
     foreach ($Root in $Roots) {
+        Write-Host "Copy User Lists from MSSQLS IDE WRITE location to Compiler's READ location! "
+        robocopy "C:\Program Files (x86)\LANSA\LANSA\LANSA\UserLists\WBP" "$Root\lansa\UserLists\WBP" *.txt /w:2
+        
         git show-ref --verify --quiet refs/heads/$branch
         if ( $LASTEXITCODE -ne 0) {
             Write-Host "$Branch branch does not exist. Switching to debug/paas"
@@ -29,16 +32,22 @@ try {
         Get-Location | Write-Host
         Write-Host "Clean out current git state so that following operations can succeed."
         git reset --hard HEAD | Write-Host
+        if ( $LASTEXITCODE -ne 0) { throw }
         git clean -f | Write-Host
+        if ( $LASTEXITCODE -ne 0) { throw }
         Write-Host "Get current remote state, including any new branches"
         git fetch --all | Write-Host
+        if ( $LASTEXITCODE -ne 0) { throw }
         Write-Host "Get the requested branch, including if its a new branch in this local repo"
         git checkout $Branch | Write-Host
+        if ( $LASTEXITCODE -ne 0) { throw }
         Write-Host "Merge in any changes to an existing branch"
         git pull | Write-Host
+        if ( $LASTEXITCODE -ne 0) { throw }
         Write-Host
     }
 } catch {
+    $_ | Out-Default | Write-Host
     if ( $LASTEXITCODE -ne 0) {
         cmd /c exit $LASTEXITCODE
     } else {
