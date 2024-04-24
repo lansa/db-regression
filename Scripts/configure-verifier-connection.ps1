@@ -76,6 +76,11 @@ try {
         $TargetPath = [IO.PATH]::Combine( $Path, 'x_win64\x_lansa\x_lansa.pro')
         Write-Host("Copy from $SourcePath to $TargetPath")
         Copy-Item $SourcePath $TargetPath -Force | Write-Host
+
+        $SourcePath = [IO.PATH]::Combine( $Path, 'x_win95\x_lansa\x_dbmenv.dat')
+        $TargetPath = [IO.PATH]::Combine( $Path, 'x_win64\x_lansa\x_dbmenv.dat')
+        Write-Host("Copy from $SourcePath to $TargetPath")
+        Copy-Item $SourcePath $TargetPath -Force | Write-Host
     }
 } catch {
     $_ | Out-Default | Write-Host
