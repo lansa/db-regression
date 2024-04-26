@@ -4,6 +4,11 @@ param (
 
 [string[]] $TargetRoots = @('C:\Program Files (x86)\lansa\', 'C:\Program Files (x86)\sqlanywhere\', 'C:\Program Files (x86)\mysql\', 'C:\Program Files (x86)\oracle\', 'C:\Program Files (x86)\azuresql\')
 
+iisreset /Stop
+Write-Host "Copy debug build of Web Server to IIS"
+robocopy "$($SourceRoot)X_WIN95\X_LANSA\wpi\build\Debug" "$($SourceRoot)WebServer\IISPlugin\lansaweb"  *.dll /s /w:2
+robocopy "$($SourceRoot)X_WIN95\X_LANSA\wpi\build\x64\Debug" "$($SourceRoot)WebServer\IISPlugin\lansaweb64"  *.dll /s /w:2
+    
 Write-Host "Copy from $SourceRoot to All Pipeline systems"
 
 foreach ($root in $TargetRoots ){
@@ -37,7 +42,10 @@ foreach ($root in $TargetRoots ){
     # Remove-Item "$Root\x_win64\x_lansa\web\vl\vlweb.dat" -ErrorAction 'SilentlyContinue'
     robocopy "$($SourceRoot)x_win64\x_lansa\web\vl" "$Root\x_win64\x_lansa\web\vl"  *.* /xf compile.cmd /xd source minifier symbols* /s /w:2 /mir
     
-
+    Write-Host "Copy WebServer"
+    robocopy "$($SourceRoot)WebServer\IISPlugin" "$($Root)WebServer\IISPlugin"  *.dll /s /w:2
+    
     Write-Host "Start the Listener"
     & "$($Root)connect64\lcolist" -sstart
 }
+IISRESET /START
