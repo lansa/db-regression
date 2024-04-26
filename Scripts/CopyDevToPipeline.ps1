@@ -23,17 +23,19 @@ foreach ($root in $TargetRoots ){
     robocopy "$($SourceRoot)x_win95\x_lansa\source" "$Root\x_win95\x_lansa\source" *.h *.s /w:2
     robocopy "$($SourceRoot)x_win95\x_lansa\web\tsp" "$Root\x_win95\x_lansa\web\tsp" *.xsl /w:2
 
-    Remove-Item "$Root\x_win95\x_lansa\web\vl\lansa*" -recurse -force -ErrorAction 'SilentlyContinue'
-    Remove-Item "$Root\x_win95\x_lansa\web\vl\vlweb.dat" -ErrorAction 'SilentlyContinue'
-    robocopy "$($SourceRoot)x_win95\x_lansa\web\vl" "$Root\x_win95\x_lansa\web\vl"  *.* /xf compile.cmd /xd source minifier symbols* /s /w:2 
+    Write-Host "Remove all W32 vlweb versions that are not in Source system and update the rest. (/mir - mirror)"
+    # Remove-Item "$Root\x_win95\x_lansa\web\vl\lansa*" -recurse -force -ErrorAction 'SilentlyContinue'
+    # Remove-Item "$Root\x_win95\x_lansa\web\vl\vlweb.dat" -ErrorAction 'SilentlyContinue'
+    robocopy "$($SourceRoot)x_win95\x_lansa\web\vl" "$Root\x_win95\x_lansa\web\vl"  *.* /xf compile.cmd /xd source minifier symbols* /s /w:2 /mir
 
     Write-Host "Copying "$($SourceRoot)x_win64\x_lansa\execute""
     robocopy "$($SourceRoot)x_win64\x_lansa\execute" "$Root\x_win64\x_lansa\execute" *.dll *.exe *.bnd /w:2
     robocopy "$($SourceRoot)x_win64\x_lansa\web\tsp" "$Root\x_win64\x_lansa\web\tsp" *.xsl /w:2
 
-    Remove-Item "$Root\x_win64\x_lansa\web\vl\lansa*" -recurse -force -ErrorAction 'SilentlyContinue'
-    Remove-Item "$Root\x_win64\x_lansa\web\vl\vlweb.dat" -ErrorAction 'SilentlyContinue'
-    robocopy "$($SourceRoot)x_win64\x_lansa\web\vl" "$Root\x_win64\x_lansa\web\vl"  *.* /xf compile.cmd /xd source minifier symbols* /s /w:2 
+    Write-Host "Remove all x64 vlweb versions that are not in Source system and update the rest. (/mir - mirror)"
+    # Remove-Item "$Root\x_win64\x_lansa\web\vl\lansa*" -recurse -force -ErrorAction 'SilentlyContinue'
+    # Remove-Item "$Root\x_win64\x_lansa\web\vl\vlweb.dat" -ErrorAction 'SilentlyContinue'
+    robocopy "$($SourceRoot)x_win64\x_lansa\web\vl" "$Root\x_win64\x_lansa\web\vl"  *.* /xf compile.cmd /xd source minifier symbols* /s /w:2 /mir
     
 
     Write-Host "Start the Listener"
