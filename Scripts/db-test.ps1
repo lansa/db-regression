@@ -191,34 +191,51 @@ function Remove-Logs{
         [Parameter(Mandatory=$true)]
         [string] $LansaRoot
     )
-    $dbTestParent = Join-Path $LansaRoot 'x_win95\x_lansa\X_WBP\Compile\DBTEST'
-    if ( Test-Path -Path $dbTestParent ) {
-        Write-Host "$(Log-Date) Removing all files in $dbTestParent"
-        Get-ChildItem -File -Path $dbTestParent | Out-Default | Write-Host
-        Get-ChildItem -File -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+
+    try {
+        $dbTestParent = Join-Path $LansaRoot 'x_win95\x_lansa\X_WBP\Compile\DBTEST'
+        if ( Test-Path -Path $dbTestParent ) {
+            Write-Host "$(Log-Date) Removing all files in $dbTestParent"
+            Get-ChildItem -File -Path $dbTestParent | Out-Default | Write-Host
+            Get-ChildItem -File -Path $dbTestParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+        }
+    } catch {
+        # Ignore any terminating errors
     }
 
-    $detailedResult = 'lansa/' + $database
-    $detailedResultParent = Join-Path $LansaRoot $detailedResult
-    if ( Test-Path -Path $detailedResultParent ) {
-        Write-Host "$(Log-Date) Removing all files in $detailedResultParent"
-        Get-ChildItem -File -Path $detailedResultParent | Out-Default | Write-Host
-        Get-ChildItem -File -Path $detailedResultParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+    try {
+        $detailedResult = 'lansa/' + $database
+        $detailedResultParent = Join-Path $LansaRoot $detailedResult
+        if ( Test-Path -Path $detailedResultParent ) {
+            Write-Host "$(Log-Date) Removing all files in $detailedResultParent"
+            Get-ChildItem -File -Path $detailedResultParent | Out-Default | Write-Host
+            Get-ChildItem -File -Path $detailedResultParent | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+        }
+    } catch {
+      # Ignore any terminating errors
     }
 
-    $tmpdir = Join-Path $LansaRoot 'tmp/'
-    if ( Test-Path -Path $tmpdir ) {
-        Write-Host "$(Log-Date) Removing all files in $tmpdir"
-        Get-ChildItem -File -Path $tmpdir | Out-Default | Write-Host
-        Get-ChildItem -File -Path $tmpdir | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+    try {
+        $tmpdir = Join-Path $LansaRoot 'tmp/'
+        if ( Test-Path -Path $tmpdir ) {
+            Write-Host "$(Log-Date) Removing all files in $tmpdir"
+            Get-ChildItem -File -Path $tmpdir | Out-Default | Write-Host
+            Get-ChildItem -File -Path $tmpdir | ForEach-Object {$_.Delete()} | Out-Default | Write-Host
+        }
+    } catch {
+        # Ignore any terminating errors
     }
 
-    if ( -not $KeepVerifierLog ) {
-        Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
-        Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
-        Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
-    } else {
-        Write-Host "$(Log-Date) Skipping test result removal so that MSSQLS and SuperServer results, which run separately as 32 bit and 64 bit test runs and multiple IBMi test runs, are concatenated into one result file and not overwritten."
+    try {
+        if ( -not $KeepVerifierLog ) {
+            Remove-Item -Path (Join-Path $LansaRoot $TotalSummaryFile) -ErrorAction SilentlyContinue
+            Remove-Item -Path (Join-Path $LansaRoot $FullReportFile) -ErrorAction SilentlyContinue
+            Remove-Item -Path (Join-Path $LansaRoot $SummaryFile) -ErrorAction SilentlyContinue
+        } else {
+            Write-Host "$(Log-Date) Skipping test result removal so that MSSQLS and SuperServer results, which run separately as 32 bit and 64 bit test runs and multiple IBMi test runs, are concatenated into one result file and not overwritten."
+        }
+    } catch {
+        # Ignore any terminating errors
     }
 }
 
