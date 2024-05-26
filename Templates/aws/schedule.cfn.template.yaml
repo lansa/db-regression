@@ -27,15 +27,66 @@ Resources:
     Properties:
       ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
       NoStackPrefix: 'True'
-      Name: RUN_WORKHOURS_ACDT
-      Description: Run instances during ACDT work hours
+      Name: RUN_WORKHOURS_ACST
+      Description: Run instances during ACDT work hours Mon - Fri
       RetainRunning: 'True'
       StopNewInstances: 'True'
       UseMaintenanceWindow: 'True'
       Enforced: 'True'
       Timezone: Australia/Adelaide
       Periods:
-      - Description: ACDT Workhours
-        BeginTime: '09:00'
+      - Description: ACST Workhours
+        BeginTime: '08:00'
         EndTime: '21:00'
-        WeekDays: Mon,Tue,Wed,Thu,Fri,Sat
+        WeekDays: Mon,Tue,Wed,Thu,Fri
+  SampleSchedule3:
+    Type: 'Custom::ServiceInstanceSchedule'
+    Properties:
+      ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
+      NoStackPrefix: 'True'
+      Name: RUN_ALL_WEEK_ACST
+      Description: Run instances during ACDT daylight hours every day of the week
+      RetainRunning: 'True'
+      StopNewInstances: 'True'
+      UseMaintenanceWindow: 'True'
+      Enforced: 'True'
+      Timezone: Australia/Adelaide
+      Periods:
+      - Description: ACST Workhours
+        BeginTime: '08:00'
+        EndTime: '21:00'
+        WeekDays: Mon,Tue,Wed,Thu,Fri,Sat,Sun
+  SampleSchedule4:
+    Type: 'Custom::ServiceInstanceSchedule'
+    Properties:
+      ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
+      NoStackPrefix: 'True'
+      Name: RUN_WORKHOURS_AEST
+      Description: Run instances during AEST work hours Mon - Fri
+      RetainRunning: 'True'
+      StopNewInstances: 'True'
+      UseMaintenanceWindow: 'True'
+      Enforced: 'True'
+      Timezone: Australia/Sydney
+      Periods:
+      - Description: AEST Workhours
+        BeginTime: '08:00'
+        EndTime: '21:00'
+        WeekDays: Mon,Tue,Wed,Thu,Fri
+  SampleSchedule5:
+    Type: 'Custom::ServiceInstanceSchedule'
+    Properties:
+      ServiceToken: !Ref ServiceInstanceScheduleServiceTokenARN #do not edit this line
+      NoStackPrefix: 'True'
+      Name: RUN_ALL_WEEK_AEST
+      Description: Run instances during AEST daylight hours every day of the week
+      RetainRunning: 'True'
+      StopNewInstances: 'True'
+      UseMaintenanceWindow: 'True'
+      Enforced: 'True'
+      Timezone: Australia/Sydney
+      Periods:
+      - Description: AEST Workhours
+        BeginTime: '08:00'
+        EndTime: '21:00'
+        WeekDays: Mon,Tue,Wed,Thu,Fri,Sat,Sun        

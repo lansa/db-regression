@@ -3,7 +3,10 @@
 param (
 [parameter(Mandatory=$true)] [string] $lansa_version,
 [parameter(Mandatory=$false)] [switch] $RemoveSchedule,
-[parameter(Mandatory=$false)] [string] $SchedulePeriod = "RUN_WORKHOURS_ACDT"
+
+[parameter(Mandatory=$false)] 
+[ValidateSet('KEEP_STOPPED','RUN_WORKHOURS_AEST','RUN_WORKHOURS_ACST','RUN_ALL_WEEK_ACST','RUN_ALL_WEEK_AEST')]
+[string] $SchedulePeriod = "RUN_WORKHOURS_AEST"
 )
 
 Set-DefaultAWSRegion -Region 'us-east-1' -Scope Script
