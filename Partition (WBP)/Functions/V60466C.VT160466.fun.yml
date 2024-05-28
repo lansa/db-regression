@@ -32,9 +32,7 @@
     
     Use Builtin(Get_Session_Value) With_Args(DBUT) To_Get(#LF_DB_Type #LF_rc)
     If (#LF_DB_Type = 'MSSQLS')
-    * Temporarily skip this test for MSSQLS due to CCS 164065
-    
-    #Com_Owner.mthAdd_Msg( OK ('Skipping test ** TODO **') ('') )
+    #Com_Owner.mthAdd_Msg( OK ('Skipping MSSQLS test due to CCS 164065 ** TODO **') ('') )
     Return
     Endif
     
@@ -146,7 +144,10 @@
     #BIFP0700A := 0
     #BIFA100A := *JOBNBR + ' / ' + *JOBNAME
     #BIFA100B := *User
-    #BIFCLOBA := *SYS_DIR_SOURCE + 'x_funstr.h'
+    #BIFCLOBA := *SYS_DIR_SOURCE + 'u_bifnnn.mak'
+    * #BIFCLOBA := *SYS_DIR_SOURCE + 'x_funstr.h'
+    
+    #Com_Owner.mthAdd_SubMsg( OK ('#BIFCLOBA') (#BIFCLOBA.FileName) )
     
     Dowhile Cond(#BIFP0700A < #this_number_of_test_record)
     If (#BIFP0700A >= (#this_number_of_test_record - #this_number_of_sqlnull_record))
@@ -165,7 +166,12 @@
     
     If ((#this_rc <> ER) *And (#this_rc <> VA))
     #this_rc := OK
+    
+    If (#LF_Number_Of_Test_Record = #BIFP0700A)
     #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (#BIFP0700A.AsString + ' record(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Failed') (#BIFP0700A.AsString + ' record(s)') )
+    Endif
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + *Quote + #this_rc + *Quote) ('On record ' + #BIFP0700A.AsString) )
     #this_rc := ER
@@ -185,7 +191,8 @@
     Get_Entry Number(#LF_i) From_List(#w_lExistingData)
     
     If (#BIFCLOBA.IsSqlNull)
-    #BIFCLOBA := *SYS_DIR_SOURCE + 'x_funstr.h'
+    * #BIFCLOBA := *SYS_DIR_SOURCE + 'x_funstr.h'
+    #BIFCLOBA := *SYS_DIR_SOURCE + 'u_bifnnn.mak'
     #BIFA100A += ' (Set to a valid Clob)'
     Else
     #BIFCLOBA := *Sqlnull
@@ -203,7 +210,11 @@
     
     If ((#this_rc <> ER) *And (#this_rc <> VA))
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (#LF_Existing_Data_Count.AsString + ' record(s)') )
+    If (#LF_Number_Of_Test_Record = #LF_I - 1)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ((#LF_I - 1).AsString + ' record(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Failed') ((#LF_I - 1).AsString + ' record(s)') )
+    Endif
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + *Quote + #this_rc + *Quote) ('On record ' + #BIFP0700A.AsString) )
     #this_rc := ER
@@ -243,7 +254,11 @@
     
     If ((#this_rc <> ER) *And (#this_rc <> VA))
     #this_rc := OK
-    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') (#LF_Existing_Data_Count.AsString + ' record(s)') )
+    If (#LF_Number_Of_Test_Record = #LF_I - 1)
+    #Com_Owner.mthAdd_SubMsg( OK ('- Successful') ((#LF_I - 1).AsString + ' record(s)') )
+    Else
+    #Com_Owner.mthAdd_SubMsg( ER ('- Failed') ((#LF_I - 1).AsString + ' record(s)') )
+    Endif
     Else
     #Com_Owner.mthAdd_SubMsg( ER ('- Unexpected ' + *Quote + #this_rc + *Quote) ('On record ' + #BIFP0700A.AsString + #LF_Detail_Message) )
     #this_rc := ER
