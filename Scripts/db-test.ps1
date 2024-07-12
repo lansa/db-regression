@@ -134,7 +134,7 @@ function Test{
 
     if ( $p.ExitCode -ne 0 ) {
         $ErrorCount++
-        $ErrorMessage = "$(Log-Date) Test $Process returned error code $($p.ExitCode)."
+        $ErrorMessage = "$(Log-Date) Test $Process $Platform returned error code $($p.ExitCode)."
         Write-Host $ErrorMessage
         Add-Content -Path (Join-Path $LansaRoot $SummaryFile) -Value $ErrorMessage
         $global:TotalErrors++
@@ -142,7 +142,7 @@ function Test{
 
     if ( (Test-Path -Path $x_err) )
     {
-        $ErrorMessage = "$(Log-Date) Test $Process, $x_err exists and indicates a test error has occurred."
+        $ErrorMessage = "$(Log-Date) Test $Process $Platform, $x_err exists and indicates a test error has occurred."
         Write-Host $ErrorMessage
         Get-Content $x_err | Add-Content -Path (Join-Path $LansaRoot $SummaryFile)
         $global:TotalErrors++
