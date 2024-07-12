@@ -375,7 +375,7 @@
     #BIFDT19C := *SQLNULL
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDT19C.AsString) #BIFC256B )
     
-    #BIFDT19C := '2040-12-29'
+    #BIFDT19C := '2037-12-29'
     #Com_Owner.mthCheck_Update_Rule( #this_rc (#BIFC256A + ' Value ' + #BIFDT19C.AsString) #BIFC256B 'OK' )
     
     #Com_Owner.mthCheck_Fetch_Rule( #this_rc (#BIFC256A) #BIFC256B 'OK' )

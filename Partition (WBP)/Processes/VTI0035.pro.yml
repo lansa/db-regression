@@ -143,54 +143,6 @@
       Allowed Next Functions:
       - "*ANY"
 
-  - VI0035E:
-      Name:               VI0035E
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Simple Date Rules"
-
-      - ENG:
-          Description:        "Simple Date Rules"
-
-      - FRA:
-          Description:        "Simple Date Rules"
-
-      - JPN:
-          Description:        "Simple Date Rules"
-
-      - TRK:
-          Description:        "Simple Date Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-  - VI0035F:
-      Name:               VI0035F
-      Display on Menu:    No
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Check Rules"
-
-      - ENG:
-          Description:        "Check Rules"
-
-      - FRA:
-          Description:        "Check Rules"
-
-      - JPN:
-          Description:        "Check Rules"
-
-      - TRK:
-          Description:        "Check Rules"
-
-      Allowed Next Functions:
-      - "*ANY"
-
   - VI0035G:
       Name:               VI0035G
       Display on Menu:    No
@@ -239,7 +191,7 @@
       Allowed Next Functions:
       - "*ANY"
 
-    - VI0035I:
+  - VI0035I:
       Name:               VI0035I
       Display on Menu:    No
       Next Function:      MENU
@@ -385,7 +337,7 @@
 
   - VI035AE:
       Name:               VI035AE
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -407,9 +359,9 @@
       Allowed Next Functions:
       - "*ANY"
 
-    - VI035AF:
+  - VI035AF:
       Name:               VI035AF
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -431,9 +383,9 @@
       Allowed Next Functions:
       - "*ANY"
 
-    - VI035AG:
+  - VI035AG:
       Name:               VI035AG
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -455,33 +407,9 @@
       Allowed Next Functions:
       - "*ANY"
 
-    - VI035AJ:
-      Name:               VI035AJ
-      Display on Menu:    Yes
-      Next Function:      MENU
-
-      Multilingual Details:
-      - DAN:
-          Description:        "Conditional Field File Trigger"
-
-      - ENG:
-          Description:        "Conditional Field File Trigger"
-
-      - FRA:
-          Description:        "Conditional Field File Trigger"
-
-      - JPN:
-          Description:        "Conditional Field File Trigger"
-
-      - TRK:
-          Description:        "Conditional Field File Trigger"
-
-      Allowed Next Functions:
-      - "*ANY"
-
-    - VI035AH:
+  - VI035AH:
       Name:               VI035AH
-      Display on Menu:    Yes
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
@@ -503,9 +431,33 @@
       Allowed Next Functions:
       - "*ANY"
 
-    - VI035AI:
+  - VI035AI:
       Name:               VI035AI
-      Display on Menu:    Yes
+      Display on Menu:    No
+      Next Function:      MENU
+
+      Multilingual Details:
+      - DAN:
+          Description:        "Conditional Field File Trigger"
+
+      - ENG:
+          Description:        "Conditional Field File Trigger"
+
+      - FRA:
+          Description:        "Conditional Field File Trigger"
+
+      - JPN:
+          Description:        "Conditional Field File Trigger"
+
+      - TRK:
+          Description:        "Conditional Field File Trigger"
+
+      Allowed Next Functions:
+      - "*ANY"
+
+  - VI035AJ:
+      Name:               VI035AJ
+      Display on Menu:    No
       Next Function:      MENU
 
       Multilingual Details:
