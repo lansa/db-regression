@@ -58,6 +58,6 @@ Resources:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeType: gp3
-            VolumeSize: '375'
+            VolumeSize: '425'
             DeleteOnTermination: 'true'
             Encrypted: 'false'
