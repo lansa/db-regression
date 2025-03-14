@@ -212,6 +212,10 @@
     Exchange Fields(#VTF_SSC #VTF_SSCF #VTF_LU #VTF_SSCT #VTF_LU_NO #VTF_LU_EC)
     Call Process(*DIRECT) Function(VTSSRV)
     
+    If (#VTF_LU_EC *NE 0)
+    #COM_OWNER.mthIssue_Failure_Message( #LF_msg_rc )
+    Endif
+    
     #this_ssc := #VTF_SSC
     #this_ssc_auto := #VTF_SSCF
     #this_lu := #VTF_LU
@@ -220,6 +224,20 @@
     #this_lu_error_count := #VTF_LU_EC
     Endroutine
     
+    * Note that messages are left on message queue so that when Function is run manually the error is still available to be displayed on the final dialog
+    Mthroutine Name(mthIssue_Failure_Message) Options(*RECEIVES_MESSAGES)
+    Define_Map For(*INPUT) Class(#BIFA002A) Name(#this_rc)
+    
+    Define Field(#LF_msg_rc) Reffld(#BIFA002A) Default(OK)
+    Define Field(#LF_msg_text) Reffld(#BIFMSG1)
+    
+    Dowhile Cond(#LF_msg_rc = OK)
+    Use Builtin(GET_MESSAGE) With_Args('N') To_Get(#LF_msg_rc #LF_msg_text)
+    If Cond(#LF_msg_rc = OK)
+    #Com_Owner.mthLogEvent( ('*** Error: ' + #LF_msg_text) )
+    Endif
+    Endwhile
+    Endroutine
     *
     * Execute :- Execute a test case.
     *    - #this_exec: Execution Method. iSeries (I), Windows (W), SuperServer I/O queries (Q), SuperServer Function Call (F).

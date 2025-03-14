@@ -14,7 +14,9 @@
     
     #Com_Owner.mthGetSuperServerConnection( #VTF_Ssc #VTF_SscF #VTF_LU #VTF_SScT #VTF_LU_NO #VTF_LU_EC )
     
+    If (#VTF_LU_EC *EQ 0)
     Use Builtin(Clr_Messages)
+    Endif
     
     Return
     
@@ -174,5 +176,4 @@
     Endif
     Endif
     Endroutine
-    
     
