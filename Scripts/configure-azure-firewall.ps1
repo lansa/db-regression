@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 try {
     Write-Host( "Getting Azure Service Principle and Secret from AWS Secret Manager")
     $spappid = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select-Object -ExpandProperty UID
+    $sppassword = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select-Object -ExpandProperty PWD
     $sppassword = Get-SECSecretValue -SecretId "password/ServicePrincipalAzure" -Select SecretString | ConvertFrom-Json | Select-Object -ExpandProperty PWD | ConvertTo-SecureString -AsPlainText -Force
 
     $subscription = "739c4e86-bd75-4910-8d6e-d7eb23ab94f3"
@@ -33,9 +34,9 @@ try {
         # This will execute if the EC2 instance's IP address is NOT in the list of IP addresses of the SQL Server Firewall Rule
         if (!($ip_address_to_whitelist_on_Azure_SQLServer -in $StartIPAddressList)) {
 
-            $current_time = Get-Date -UFormat "%m-%d-%YT%R" # Example: "11-01-2022T14:21" -This will be appended in the Firewall Rule name 
+            $current_time = Get-Date -UFormat "%m-%d-%Y" # Example: "11-01-2022T14:21" -This will be appended in the Firewall Rule name 
 
-            Write-Host "Updating Azure SQL Server Firewall rule..."
+            Write-Host "Updating Azure SQL Server Firewall rule $env:computername-$current_time ..."
             
             New-AzSqlServerFirewallRule -ResourceGroupName dbregressiontest `
                                             -ServerName $azure_sql_server `
