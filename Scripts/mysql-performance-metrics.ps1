@@ -1,26 +1,35 @@
-$sql_username = Get-SECSecretValue -SecretId "password/DBRegressionTest/MYSQL" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty UID
-$sql_password = Get-SECSecretValue -SecretId "password/DBRegressionTest/MYSQL" -Select SecretString | ConvertFrom-Json | Select -ExpandProperty PWD #| ConvertTo-SecureString -AsPlainText -Force
+$ErrorActionPreference = "Stop"
+Set-StrictMode -Version Latest
 
-$ODBC = Get-OdbcDsn -Name "MYSQL" -Platform "32-bit" | Select-Object -Expandproperty Attribute
+$secret = Get-SECSecretValue `
+    -SecretId "password/DBRegressionTest/MYSQL" `
+    -Select SecretString | ConvertFrom-Json
 
-#remove if configuration file is exists
-$filecsv = "my.ini.lansa"
-if (Test-Path $filecsv) {
-        Remove-Item $filecsv -Force
-    }
+$sql_username = $secret.UID
+$sql_password = $secret.PWD
 
-#create mysql configuration file for database connection
-New-Item $filecsv -ItemType File -Value ("[client]" + [Environment]::NewLine) | Out-Null
-Add-Content $filecsv ("database="+ $ODBC.database)
-Add-Content $filecsv ("user=" + $sql_username)
-Add-Content $filecsv ("password=" + $sql_password)
-Add-Content $filecsv ("host="+ $ODBC.server)
+$odbc = Get-OdbcDsn -Name "MYSQL" -Platform "32-bit" | Select-Object -ExpandProperty Attribute
 
-#execute the performance statistics for both bind and literal
-get-content mysql-performance-metrics-literal.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
-get-content mysql-performance-metrics-bind.sql | & "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe" --defaults-file=my.ini.lansa --skip-column-names
+$mysqlExe = "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe"
+$defaultsFile = Join-Path $env:TEMP "mysql-dbreg-$PID.ini"
 
-#remove the configuration file 
-if (Test-Path $filecsv) {
-        Remove-Item $filecsv -Force
-    }
+try {
+    $content = @"
+[client]
+database=$($odbc.database)
+user=$sql_username
+password=$sql_password
+host=$($odbc.server)
+"@
+
+    Set-Content -Path $defaultsFile -Value $content -Encoding ASCII -NoNewline
+
+    # in lansa estrict access to the current user where possible - montana 
+    & icacls $defaultsFile /inheritance:r /grant:r "$env:USERNAME:(R,W)" | Out-Default | Write-Host
+
+    Get-Content mysql-performance-metrics-literal.sql | & $mysqlExe --defaults-extra-file=$defaultsFile --skip-column-names
+    Get-Content mysql-performance-metrics-bind.sql | & $mysqlExe --defaults-extra-file=$defaultsFile --skip-column-names
+}
+finally {
+    Remove-Item $defaultsFile -Force -ErrorAction SilentlyContinue
+}
