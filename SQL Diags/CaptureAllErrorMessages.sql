@@ -93,11 +93,10 @@ ev AS (
         x.value('(event/action[@name="attach_activity_id"]/value)[1]', 'varchar(50)')   AS activity_id
     FROM raw
 )
-SELECT utc_time, spid, error_number, severity, state,
-       message, sql_text, client_app, client_host, username,
-       database_name, activity_id
+SELECT event_name, utc_time, spid, username, database_name, error_number, severity, state,
+       message, sql_text, client_app, client_host, activity_id
 FROM ev
-WHERE event_name = 'error_reported'
+--WHERE event_name = 'error_reported'
 --  Widen to see the cursor API calls and completed statements as well:
 --WHERE event_name IN ('error_reported','rpc_completed','sql_statement_completed')
 --  Suppress routine severity-10 chatter (context / language / dbcc changes):
