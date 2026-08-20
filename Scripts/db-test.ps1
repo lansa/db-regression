@@ -136,6 +136,13 @@ function Test{
         $ErrorCount++
         $ErrorMessage = "$(Log-Date) Test $Process $Platform returned error code $($p.ExitCode)."
         Write-Host $ErrorMessage
+        if ($Process -eq 'VTI0036') {
+            Write-Host "If the current database type is either SQLAZURE or MSSQLS then the probable issue is that the column names are missing from the SQL."
+            Write-Host "This is caused by these two database types sharing the same column names. Known defect. "
+            Write-Host "Workaround is to delete the current table (VTLI0036A for MSSQLS, VTLI0036B for SQLAZURE) from the LANSA repo using the IDE"
+            Write-Host "and then use git to reset the file so its is re-loaded. This will fix it for the current table and break it for the other one."
+            Write-Host "Then compile just the OAM, keeping source code"
+        }
         Add-Content -Path (Join-Path $LansaRoot $SummaryFile) -Value $ErrorMessage
         $global:TotalErrors++
     }
