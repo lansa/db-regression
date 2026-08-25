@@ -6,3 +6,4 @@
 *.pol binary
 *.xslx binary
 *.lic binary
+*.yml text eol=crlf
