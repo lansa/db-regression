@@ -12,13 +12,11 @@ When originally written, started by only importing to the Primary environment, w
 .\db-test.ps1 -PrimaryOnly $true
 Now the tests in are in git and the git repo just needs to be setup. And then compiles can be run through this script for
 all environments and also run the tests (default is to run the tests):
-.\db-test.ps1 -Compile $true
-Then a second run to import and compile the Secondary environments with testing driven from the Primary environment:
-.\db-test.ps1
+.\db-test.ps1 -Compile $true -bit64 $true
 And when there is only a runtime change, you just want to run the tests:
-.\db-test.ps1 -Import $false -Compile $false
-And to re-compile because there has been a code generation change:
-.\db-test.ps1 -Import $false
+.\db-test.ps1 -bit64 $true
+And to re-compile as well as test because there has been a code generation change:
+.\db-test.ps1 -Compile $true -bit64 $true
 #>
 
 param (
