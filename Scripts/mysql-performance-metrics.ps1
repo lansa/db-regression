@@ -10,7 +10,7 @@ $sql_password = $secret.PWD #| ConvertTo-SecureString -AsPlainText -Force
 
 $odbc = Get-OdbcDsn -Name "MYSQL" -Platform "32-bit" | Select-Object -ExpandProperty Attribute
 
-$mysqlExe = "C:\Program Files\mysql\MySQL Workbench 8.0 CE\mysql.exe"
+$mysqlExe = "C:\Program Files\mysql\MySQL Workbench 8.0\mysql.exe"
 $defaultsFile = Join-Path $env:TEMP "mysql-dbreg-$PID.ini"
 
 try {
