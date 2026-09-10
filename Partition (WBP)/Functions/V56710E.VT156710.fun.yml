@@ -157,7 +157,7 @@
     Define_Map For(*BOTH) Class(#BIFA002A) Name(#this_rc)
     
     If (#this_rc *NE ER)
-    #LF_Where := #LF_DB_Quote + 'xEmployeeSalary' + #LF_DB_Quote + ' >= ALL (SELECT ' + #LF_DB_Quote + 'xEmployeeSalary' + #LF_DB_Quote + ' FROM ' + #LF_DB_Table_Qualifier + 'xEmployee' + #LF_DB_Quote + ' WHERE (' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ' <= 130000))'
+    #LF_Where := #LF_DB_Quote + 'xEmployeeSalary' + #LF_DB_Quote + ' >= ALL (SELECT ' + #LF_DB_Quote + 'xEmployeeSalary' + #LF_DB_Quote + ' FROM ' + #LF_DB_Table_Qualifier + 'xEmployee' + #LF_DB_Quote + ' WHERE (' + #LF_DB_Quote + 'xEmployeeIdentification' + #LF_DB_Quote + ' <= ''130000''))'
     
     #Com_Owner.mthAdd_SubMsg( OK 'Imbedded constructed SQL in the Where clause (2)' ('#LF_Where = ' + *Quote + #LF_Where + *Quote) )
     

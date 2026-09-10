@@ -182,13 +182,13 @@
     
     #Com_Owner.mthAdd_SubMsg( OK '- xEmployee: Long File & Field Names' 'Select_SQL Fields(#F1-LN #F2-LN) From_Files((L1-LN)) Where(((#F2-LN > a) AND (#F2-LN < b)) OR (#F1-LN > c))' )
     #LF_LN_Record_Counter := 0
-    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where('(((#xEmployeeSalary >= 80000) AND (#xEmployeeSalary <= 100000)) OR (#xEmployeeIdentification > 140000))')
+    Select_Sql Fields(#xEmployeeIdentification #xEmployeeSalary) From_Files((xEmployee)) Where('(((#xEmployeeSalary >= 80000) AND (#xEmployeeSalary <= 100000)) OR (#xEmployeeIdentification > ''140000''))')
     #LF_LN_Record_Counter += 1
     Endselect
     
     #Com_Owner.mthAdd_SubMsg( OK '- XEMPLOYEE: File & Field Id' 'Select_SQL Fields(#F1 #F2) From_Files((L)) Where(((#F2 > a) AND (#F2 < b)) OR (#F1 > c))' )
     #LF_ID_Record_Counter := 0
-    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where('(((#XSALARY >= 80000) AND (#XSALARY <= 100000)) OR (#XEMPLOYID > 140000))')
+    Select_Sql Fields(#XEMPLOYID #XSALARY) From_Files((XEMPLOYEE)) Where('(((#XSALARY >= 80000) AND (#XSALARY <= 100000)) OR (#XEMPLOYID > ''140000''))')
     #LF_ID_Record_Counter += 1
     Endselect
     
