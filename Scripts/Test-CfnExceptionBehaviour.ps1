@@ -156,7 +156,51 @@ if ($UseAwsTools) {
             Import-Module $needed -ErrorAction Stop
         } catch {
             Write-Host "Could not import ${needed}: $($_.Exception.Message)" -ForegroundColor Red
-            Write-Host 'Install the AWS.Tools modules on this machine, or drop -UseAwsTools.' -ForegroundColor Red
+            Write-Host ''
+            # "But I installed it" is the usual reaction, and the usual cause is that it was
+            # installed somewhere this process cannot see: -Scope CurrentUser puts it under the
+            # INSTALLING user's profile, not the agent service account's, and the pwsh module
+            # path (Documents\PowerShell) is never read by Windows PowerShell 5.1 at all. So
+            # report the identity, the search path, and where copies actually are on disk.
+            Write-Host "Running as   : $([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)" -ForegroundColor Yellow
+            Write-Host 'PSModulePath (only these directories are searched):' -ForegroundColor Yellow
+            $env:PSModulePath -split ';' | Where-Object { $_ } | ForEach-Object { Write-Host "   $_" }
+
+            Write-Host 'AWS.Tools copies found on disk:' -ForegroundColor Yellow
+            $roots = @(
+                (Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules')          # 5.1 AllUsers
+                (Join-Path $env:ProgramFiles 'PowerShell\Modules')                 # pwsh AllUsers
+                (Join-Path $env:ProgramFiles 'PowerShell\7\Modules')
+                "$env:SystemRoot\system32\config\systemprofile\Documents\WindowsPowerShell\Modules"
+                "$env:SystemRoot\SysWOW64\config\systemprofile\Documents\WindowsPowerShell\Modules"
+            )
+            # Every user profile, to catch an install done under an interactive logon while the
+            # agent service runs as somebody else.
+            Get-ChildItem "$env:SystemDrive\Users" -Directory -ErrorAction Ignore | ForEach-Object {
+                $roots += (Join-Path $_.FullName 'Documents\WindowsPowerShell\Modules')
+                $roots += (Join-Path $_.FullName 'Documents\PowerShell\Modules')
+            }
+            $found = $false
+            foreach ($root in ($roots | Select-Object -Unique)) {
+                $hit = Get-ChildItem (Join-Path $root 'AWS.Tools.*') -Directory -ErrorAction Ignore
+                foreach ($h in $hit) {
+                    $found = $true
+                    $onPath = ($env:PSModulePath -split ';') -contains $root
+                    # Documents\PowerShell is the pwsh-only path - visible to pwsh 7, invisible
+                    # to the 5.1 that this task always runs under.
+                    $note = if ($onPath) { 'on PSModulePath' }
+                            elseif ($root -like '*\Documents\PowerShell\Modules') { 'PWSH-ONLY PATH - 5.1 cannot see this' }
+                            else { 'NOT on this process PSModulePath' }
+                    Write-Host "   $($h.FullName)  [$note]"
+                }
+            }
+            if (-not $found) {
+                Write-Host '   None anywhere - they were never installed on this machine.'
+            }
+            Write-Host ''
+            Write-Host 'Install with -Scope AllUsers so both shells and every account see them:' -ForegroundColor Yellow
+            Write-Host "   Install-Module AWS.Tools.Common,AWS.Tools.CloudFormation -Scope AllUsers -Force" -ForegroundColor Yellow
+            Write-Host 'Or drop -UseAwsTools to measure the monolithic module instead.' -ForegroundColor Yellow
             exit 1
         }
     }
@@ -196,7 +240,13 @@ try {
     # unfiltered list too: the deleted entries are the specimens test 4c needs.
     $everyStack = @(Get-CFNStackSummary -ErrorAction Stop)
     $allStacks = @($everyStack | Where-Object { $_.StackStatus -notlike 'DELETE_*' })
-    $deletedStacks = @($everyStack | Where-Object { "$($_.StackStatus)" -eq 'DELETE_COMPLETE' })
+    # For 4c the name must be genuinely free. This pipeline deletes and recreates stacks under
+    # the SAME name, so a DELETE_COMPLETE summary very often has a live stack sharing its name -
+    # and testing that name would just re-measure the live one and report a meaningless $true.
+    $liveNames = @($allStacks | ForEach-Object { $_.StackName })
+    $deletedStacks = @($everyStack |
+                       Where-Object { "$($_.StackStatus)" -eq 'DELETE_COMPLETE' -and
+                                      $liveNames -notcontains $_.StackName })
     Write-Host "Credentials OK. $($allStacks.Count) live stack summaries readable in $Region." -ForegroundColor Green
 } catch {
     Write-Host 'Could not list stacks - credentials, region or connectivity are wrong.' -ForegroundColor Red
@@ -441,6 +491,7 @@ if ($stackForStatus) {
 Write-Host ''
 $deletedByName = 'NO DELETE_COMPLETE STACK AVAILABLE TO TEST'
 if ($deletedStacks.Count) {
+    # Guaranteed by the filter in the preflight to have no live stack sharing its name.
     $deletedName = $deletedStacks[0].StackName
     try {
         $ErrorActionPreference = 'Stop'
