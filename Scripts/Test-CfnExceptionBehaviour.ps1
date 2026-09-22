@@ -47,6 +47,10 @@
          b. Test-CFNStack with no -Status, which answers "does this stack exist" by RETURN VALUE
             and so needs no exception at all. If it returns $true for an existing stack (even one
             in ROLLBACK_COMPLETE) and $false for a missing one, the try/catch can go away.
+            The decisive case is a stack that has been DELETED and is looked up by name:
+            CloudFormation keeps those visible to ListStacks for 90 days while refusing
+            DescribeStacks on them, and aws_stack_provision.ps1 deletes a stack and then
+            immediately re-checks the same name.
 
 .PARAMETER Region
     Defaults to us-east-1, matching Set-DefaultAWSRegion in the real script.
@@ -153,9 +157,11 @@ Write-Section '1. Credential preflight (must pass, or every result below is mean
 $allStacks = $null
 try {
     # ListStacks reports deleted stacks for 90 days, and Get-CFNStack on one of those throws
-    # not-found - which would silently turn test 2 into a second copy of test 1.
-    $allStacks = @(Get-CFNStackSummary -ErrorAction Stop |
-                   Where-Object { $_.StackStatus -notlike 'DELETE_*' })
+    # not-found - which would silently turn test 2 into a second copy of test 1. Keep the
+    # unfiltered list too: the deleted entries are the specimens test 4c needs.
+    $everyStack = @(Get-CFNStackSummary -ErrorAction Stop)
+    $allStacks = @($everyStack | Where-Object { $_.StackStatus -notlike 'DELETE_*' })
+    $deletedStacks = @($everyStack | Where-Object { "$($_.StackStatus)" -eq 'DELETE_COMPLETE' })
     Write-Host "Credentials OK. $($allStacks.Count) live stack summaries readable in $Region." -ForegroundColor Green
 } catch {
     Write-Host 'Could not list stacks - credentials, region or connectivity are wrong.' -ForegroundColor Red
@@ -389,7 +395,40 @@ if ($stackForStatus) {
     }
 }
 
-# 4c. Opt-in: prove a credentials failure looks different. Run in a CHILD process so the bogus
+# 4c. The edge that decides whether 4b is actually safe: a stack that HAS been deleted, looked
+# up BY NAME. CloudFormation keeps deleted stacks visible to ListStacks for 90 days but refuses
+# DescribeStacks on them by name, so the answer depends entirely on which API Test-CFNStack uses
+# underneath - and 4b only measured a name that never existed at all. This matters because
+# aws_stack_provision.ps1 deletes a stack and then immediately re-checks the same name: if
+# Test-CFNStack reports a DELETE_COMPLETE stack as $true, a rewrite built on it would declare a
+# successful delete a failure, and would also send an existing-stack path at a stack that
+# Get-CFNStack cannot read.
+Write-Host ''
+$deletedByName = 'NO DELETE_COMPLETE STACK AVAILABLE TO TEST'
+if ($deletedStacks.Count) {
+    $deletedName = $deletedStacks[0].StackName
+    try {
+        $ErrorActionPreference = 'Stop'
+        $deletedResult = Test-CFNStack -StackName $deletedName
+        $deletedByName = "$deletedResult"
+        $colour = if ($deletedResult) { 'Red' } else { 'Green' }
+        Write-Host "  Test-CFNStack (no -Status), DELETED  stack by name -> $deletedResult  ($deletedName)" -ForegroundColor $colour
+        if ($deletedResult) {
+            Write-Host '    UNSAFE: a deleted stack reports as existing, so Test-CFNStack cannot' -ForegroundColor Red
+            Write-Host '    replace the post-delete verification.' -ForegroundColor Red
+        }
+    } catch {
+        $deletedByName = "THREW $($_.Exception.GetType().Name)"
+        Write-Host "  Test-CFNStack (no -Status), DELETED  stack by name -> $deletedByName  ($deletedName)" -ForegroundColor Red
+    } finally {
+        $ErrorActionPreference = 'Continue'
+    }
+} else {
+    Write-Host "  $deletedByName" -ForegroundColor Yellow
+    Write-Host '    (none in the last 90 days in this region - re-run after a delete.)'
+}
+
+# 4d. Opt-in: prove a credentials failure looks different. Run in a CHILD process so the bogus
 # keys cannot leak into this session and contaminate every test above.
 $badCredVerdict = 'NOT TESTED (pass -TestBadCredentials)'
 if ($TestBadCredentials) {
@@ -447,7 +486,7 @@ foreach ($r in $test1Results) {
 Write-Host "STACKSTATUS     : $statusVerdict"
 Write-Host "TEST-CFNSTACK   : $testCfnVerdict"
 Write-Host "MISSING ERRCODE : $missingErrorCode  (HTTP $missingHttpStatus)"
-Write-Host "EXISTS-CHECK    : Test-CFNStack no -Status -> missing=$existsMissing existing=$existsPresent"
+Write-Host "EXISTS-CHECK    : Test-CFNStack no -Status -> missing=$existsMissing existing=$existsPresent deleted-by-name=$deletedByName"
 Write-Host "BAD CREDENTIALS : $badCredVerdict"
 
 $continueRow = $test1Results | Where-Object { $_.Preference -eq 'Continue' }
