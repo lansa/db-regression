@@ -60,9 +60,16 @@
     account is used, read-only. Test 2 is skipped if the account has no stacks.
 
 .PARAMETER ProfileName
-    A stored AWS credential profile to use. Needed on the build agents, where an interactive
-    logon has no credentials of its own - the release pipeline supplies them. Run without it
-    first: if the preflight fails it lists the profiles and environment variables it can see.
+    A stored AWS credential profile to use. Defaults to 'mfa', which is what AWSMFALogin.ps1 in
+    the cookbooks repo writes on the dev box - so a plain run picks up an MFA session without
+    having to be launched from the same shell that created it.
+
+    The profile is applied ONLY IF IT EXISTS. In a pipeline it will not: the AWS task injects
+    AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_SESSION_TOKEN into the environment instead,
+    and an agent may fall back to EC2 instance metadata. Defaulting to a profile that is absent
+    there must not break those paths, so a missing profile is passed over silently rather than
+    erroring. Pass '' to ignore stored profiles entirely. If the preflight fails it lists every
+    profile and credential environment variable it can see.
 
 .PARAMETER UseAwsTools
     Explicitly import AWS.Tools.* before testing, so this run measures the MODULAR v5 module set
@@ -96,7 +103,7 @@
 param(
     [string]$Region = 'us-east-1',
     [string]$ExistingStackName,
-    [string]$ProfileName,
+    [string]$ProfileName = 'mfa',
     [switch]$UseAwsTools,
     [switch]$TestBadCredentials
 )
@@ -222,9 +229,17 @@ foreach ($cmdletName in 'Get-CFNStack', 'Test-CFNStack', 'Get-CFNStackSummary') 
 Set-DefaultAWSRegion -Region $Region -Scope Script
 Write-Host "Region    : $Region"
 
+# Apply the profile only if it is actually stored. The default is the dev box's 'mfa' profile,
+# which does not exist on an agent - there the pipeline injects credentials as environment
+# variables, and Set-AWSCredential on a missing profile would throw and mask that perfectly good
+# credential source. So: use it when present, say so when not, and let the preflight be the judge.
 if ($ProfileName) {
-    Set-AWSCredential -ProfileName $ProfileName -Scope Script
-    Write-Host "Profile   : $ProfileName"
+    if (Get-AWSCredential -ProfileName $ProfileName -ErrorAction Ignore) {
+        Set-AWSCredential -ProfileName $ProfileName -Scope Script
+        Write-Host "Profile   : $ProfileName"
+    } else {
+        Write-Host "Profile   : '$ProfileName' not stored here - falling back to the environment"
+    }
 }
 
 # --- Credential preflight ----------------------------------------------------------------------

@@ -216,9 +216,17 @@ function provision_database
          {
             Write-Host "Found 1 snapshot for identifier $SNAPSHOT_IDENTIFIER"
             
-            try
+            # Existence is decided by RETURN VALUE, not by an exception. This used to be a
+            # 'catch [System.InvalidOperationException]' around Get-CFNStack, which was unsafe:
+            # AWS raises that same exception for absent credentials, denied permissions and
+            # connectivity failures, so any of those was read as "the stack is not there" and
+            # answered with New-CFNStack. Measured on an agent under AWSPowerShell 4.1.554,
+            # Test-CFNStack returns $true for a stack in ANY status (ROLLBACK_COMPLETE included)
+            # and $false both for a name that never existed and for one whose stack has been
+            # deleted - so it answers the question the old catch was only approximating, and a
+            # credentials failure now stops the run instead of creating a duplicate stack.
+            if ( Test-CFNStack -StackName $STACK_NAME )
             {
-               Write-Host "If Stack $STACK_NAME does not exist the exception System.InvalidOperationException will be thrown. This is the expected state"
                $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
                Write-Host "CFN Stack $STACK_NAME exists and is in $EXISTING_CFN_STACK_STATUS state"
                $RETRY_COUNT = remove_cfn_stack $STACK_NAME
@@ -226,17 +234,16 @@ function provision_database
                {
                   throw "Timeout: 1 hour expired waiting to Delete CFN Stack $STACK_NAME"
                }
-               Write-Host "$STACK_NAME should by now have been deleted."
-               Write-Host "If Stack $STACK_NAME does not exist the exception System.InvalidOperationException will be thrown. This is the expected state"
-               Get-CFNStack -StackName $STACK_NAME | Out-Default | Write-Host
-               throw "CFN Stack still exists. It failed to delete"
+               if ( Test-CFNStack -StackName $STACK_NAME )
+               {
+                  throw "CFN Stack still exists. It failed to delete"
+               }
+               Write-Host "$STACK_NAME has been deleted."
             }
-            catch [System.InvalidOperationException]
-            {
-               Write-Host "Creating $STACK_NAME stack"
-               $SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
-               New-CFNStack -StackName $STACK_NAME -TemplateBody $TEMPLATE_BODY -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="SNAPSHOTARN"; ParameterValue=$SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}) | Out-Default | Write-Host
-            }
+
+            Write-Host "Creating $STACK_NAME stack"
+            $SNAPSHOT_IDENTIFIER_ARN =  (Get-RDSDBSnapshot -DBSnapshotIdentifier $SNAPSHOT_IDENTIFIER -SnapshotType manual).DBSnapshotArn
+            New-CFNStack -StackName $STACK_NAME -TemplateBody $TEMPLATE_BODY -Parameter @(@{ParameterKey="LANSAVERSION";ParameterValue=$lansa_version}, @{ParameterKey="SNAPSHOTARN"; ParameterValue=$SNAPSHOT_IDENTIFIER_ARN}) -Tag @(@{Key="LansaVersion"; Value=$lansa_version}) | Out-Default | Write-Host
 
             $RETRY_COUNT = cfn_stack_status $STACK_NAME
             if ( $RETRY_COUNT -le 0 )
@@ -340,25 +347,26 @@ elseif ($EXISTING_INSTANCE_COUNT -eq 0){
       Write-Host "Found 1 AMI with Lansa version tag = $clone_lansa_version"
       $AMI_ID = (Get-EC2Image -Filter @{ Name="tag:LansaVersion"; Values=$clone_lansa_version }).ImageId
       $STACK_NAME = "DB-Regression-VM-" + $lansa_version
-      try
+      # Existence by return value rather than by exception - see the equivalent block in the
+      # RDS branch above for why the old typed catch was unsafe.
+      if ( Test-CFNStack -StackName $STACK_NAME )
       {
-         Write-Host "If Stack does not exist the exception System.InvalidOperationException will be thrown. This is an expected state"
          $EXISTING_CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
-         Write-Host "CFN Stack with stack name = $STACK_NAME exist and is in $EXISTING_CFN_STACK_STATUS state"
+         Write-Host "CFN Stack with stack name = $STACK_NAME exists and is in $EXISTING_CFN_STACK_STATUS state"
          $RETRY_COUNT = remove_cfn_stack $STACK_NAME
          if ( $RETRY_COUNT -le 0 )
          {
             throw "Timeout: 30 minutes expired waiting to Delete CFN Stack $STACK_NAME"
          }
-         Write-Host "CFN Stack $STACK_NAME should have been deleted. If it has, than the exception System.InvalidOperationException will be thrown. This is an expected state"
-         Get-CFNStack -StackName $STACK_NAME
-         throw "CFN Stack still exist. It failed to delete"
+         if ( Test-CFNStack -StackName $STACK_NAME )
+         {
+            throw "CFN Stack still exists. It failed to delete"
+         }
+         Write-Host "CFN Stack $STACK_NAME has been deleted."
       }
-      catch [System.InvalidOperationException]
-      {
-         Write-Host "Creating $STACK_NAME stack"
-         New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @(@{ParameterKey="AMIID";ParameterValue=$AMI_ID}, @{ParameterKey="LANSAVERSION"; ParameterValue=$lansa_version}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
-      }
+
+      Write-Host "Creating $STACK_NAME stack"
+      New-CFNStack -StackName $STACK_NAME -TemplateBody $vm_template -Parameter @(@{ParameterKey="AMIID";ParameterValue=$AMI_ID}, @{ParameterKey="LANSAVERSION"; ParameterValue=$lansa_version}) -Tag @{Key="LansaVersion"; Value=$lansa_version}
 
       $RETRY_COUNT = cfn_stack_status $STACK_NAME
       if ( $RETRY_COUNT -le 0 )
