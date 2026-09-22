@@ -1,0 +1,308 @@
+<#
+.SYNOPSIS
+    Probes the CloudFormation behaviour that aws_stack_provision.ps1 depends on, so the v4 ->
+    v5 AWS Tools migration can be judged on measurement instead of assumption.
+
+.DESCRIPTION
+    READ-ONLY. Creates nothing, deletes nothing, modifies nothing. It only calls Get-CFNStack,
+    Test-CFNStack and Get-CFNStackSummary.
+
+    Run it on a machine with the OLD modules (an agent: Windows PowerShell 5.1 + monolithic
+    AWSPowerShell 4.1.554) and again on one with the NEW modules (dev box: AWS.Tools v5), then
+    diff the VERDICT lines. Anything that differs is a script change you must make.
+
+    Three behaviours are tested, all three load-bearing in aws_stack_provision.ps1:
+
+    1. Get-CFNStack on a MISSING stack.
+       Sites: lines 194 and 317, 'catch [System.InvalidOperationException]'. This is how the
+       script decides a stack does not exist and proceeds to create it. If the exception type
+       changes, the catch stops matching and the failure surfaces as an unhandled error in the
+       middle of a provision. Two sub-questions, both of which must hold:
+         a. is the error TERMINATING (so try/catch sees it at all), and
+         b. is it an InvalidOperationException (so the TYPED catch matches).
+       (a) matters more than it looks: aws_stack_provision.ps1 sets
+       $ErrorActionPreference = 'Continue' at line 14, so a merely non-terminating error would
+       skip the catch entirely and fall through with $null, and the script would then try to
+       delete a stack that is not there. The probe therefore runs under BOTH 'Continue' and
+       'Stop'.
+
+    2. (Get-CFNStack ...).StackStatus.Value on an EXISTING stack.
+       Sites: lines 52, 182, 306. If StackStatus becomes a plain string rather than a
+       ConstantClass, .Value silently yields $null, the CREATE_COMPLETE comparison never
+       matches, and cfn_stack_status spins for its full 180 x 20s = 1 hour before failing.
+       That is the same class of break as .ImageState -> .State in cookbooks e362488.
+
+    3. Test-CFNStack -Status DELETE_IN_PROGRESS on a MISSING stack.
+       Site: line 74, the remove_cfn_stack wait loop. It must RETURN $false for a stack that is
+       gone. If it throws instead, remove_cfn_stack dies rather than completing.
+
+.PARAMETER Region
+    Defaults to us-east-1, matching Set-DefaultAWSRegion in the real script.
+
+.PARAMETER ExistingStackName
+    A stack that DOES exist, used only for test 2. If omitted, the first stack found in the
+    account is used, read-only. Test 2 is skipped if the account has no stacks.
+
+.PARAMETER ProfileName
+    A stored AWS credential profile to use. Needed on the build agents, where an interactive
+    logon has no credentials of its own - the release pipeline supplies them. Run without it
+    first: if the preflight fails it lists the profiles and environment variables it can see.
+
+.EXAMPLE
+    # On the agent (old modules):
+    powershell -NoProfile -File .\Test-CfnExceptionBehaviour.ps1
+    # On the dev box (AWS.Tools v5):
+    pwsh -NoProfile -File .\Test-CfnExceptionBehaviour.ps1
+#>
+[CmdletBinding()]
+param(
+    [string]$Region = 'us-east-1',
+    [string]$ExistingStackName,
+    [string]$ProfileName
+)
+
+# Not 'Stop': the point is to observe the cmdlets' own behaviour, including whether they
+# terminate on their own. Individual probes set their own preference deliberately.
+$ErrorActionPreference = 'Continue'
+
+function Write-Section($text) {
+    Write-Host ''
+    Write-Host "=== $text ===" -ForegroundColor Cyan
+}
+
+function Get-ExceptionChain($exception) {
+    # The typed catch matches on the exception's own type and its base types, so the whole
+    # inner chain is worth seeing - a service exception wrapped in something else behaves
+    # very differently from the same exception thrown directly.
+    $chain = @()
+    $current = $exception
+    $guard = 0
+    while ($current -and $guard -lt 10) {
+        $chain += $current.GetType().FullName
+        $current = $current.InnerException
+        $guard++
+    }
+    return $chain
+}
+
+# --- Environment ------------------------------------------------------------------------------
+Write-Section '0. Environment'
+Write-Host "PSVersion : $($PSVersionTable.PSVersion)  ($($PSVersionTable.PSEdition))"
+Write-Host "Host exe  : $((Get-Process -Id $PID).Path)"
+
+foreach ($cmdletName in 'Get-CFNStack', 'Test-CFNStack', 'Get-CFNStackSummary') {
+    $cmd = Get-Command $cmdletName -ErrorAction Ignore
+    if ($cmd) {
+        Write-Host ("{0,-22} -> {1} {2}" -f $cmdletName, $cmd.ModuleName, $cmd.Module.Version)
+    } else {
+        Write-Host "$cmdletName -> NOT FOUND. Install the AWS modules before running this." -ForegroundColor Red
+        exit 1
+    }
+}
+
+Set-DefaultAWSRegion -Region $Region -Scope Script
+Write-Host "Region    : $Region"
+
+if ($ProfileName) {
+    Set-AWSCredential -ProfileName $ProfileName -Scope Script
+    Write-Host "Profile   : $ProfileName"
+}
+
+# --- Credential preflight ----------------------------------------------------------------------
+# This has to come first and has to be separate. A credentials or region failure can surface as
+# its own exception, and if that were mistaken for 'stack not found' the whole test would report
+# a confident, wrong answer. Get-CFNStackSummary lists stacks without naming one, so it cannot
+# fail with not-found - if it throws here, the problem is auth or connectivity, not the probe.
+Write-Section '1. Credential preflight (must pass, or every result below is meaningless)'
+$allStacks = $null
+try {
+    # ListStacks reports deleted stacks for 90 days, and Get-CFNStack on one of those throws
+    # not-found - which would silently turn test 2 into a second copy of test 1.
+    $allStacks = @(Get-CFNStackSummary -ErrorAction Stop |
+                   Where-Object { $_.StackStatus -notlike 'DELETE_*' })
+    Write-Host "Credentials OK. $($allStacks.Count) live stack summaries readable in $Region." -ForegroundColor Green
+} catch {
+    Write-Host 'Could not list stacks - credentials, region or connectivity are wrong.' -ForegroundColor Red
+    Write-Host "  $($_.Exception.GetType().FullName): $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host 'Fix that first; a not-found probe cannot be distinguished from an auth failure.' -ForegroundColor Red
+
+    # NOTE THE TYPE ABOVE. AWS raises InvalidOperationException for "no credentials" as well as
+    # for "no such stack", which is why this preflight exists as a separate, named step. The
+    # typed catch in aws_stack_provision.ps1 (lines 194 and 317) cannot tell the two apart: with
+    # broken credentials it concludes the stack is absent and calls New-CFNStack.
+    Write-Host ''
+    Write-Host 'Credential sources visible from HERE:' -ForegroundColor Yellow
+    $profiles = @(Get-AWSCredential -ListProfileDetail -ErrorAction Ignore)
+    if ($profiles) {
+        $profiles | ForEach-Object { Write-Host "  profile: $($_.ProfileName)  ($($_.StoreTypeName))" }
+        Write-Host '  Re-run with -ProfileName <name>.' -ForegroundColor Yellow
+    } else {
+        Write-Host '  No stored credential profiles for this user.'
+    }
+    foreach ($v in 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_SESSION_TOKEN', 'AWS_PROFILE', 'AWS_DEFAULT_REGION') {
+        $val = [Environment]::GetEnvironmentVariable($v)
+        if ($val) {
+            # Masked - never print a secret into a build log or a pasted transcript.
+            $shown = if ($v -like '*SECRET*' -or $v -like '*TOKEN*' -or $v -like '*KEY_ID*') {
+                "set, $($val.Length) chars"
+            } else { $val }
+            Write-Host "  env ${v}: $shown"
+        }
+    }
+    Write-Host ''
+    Write-Host 'On an agent, an interactive logon has no credentials of its own - the release' -ForegroundColor Yellow
+    Write-Host 'pipeline supplies them. Either pass -ProfileName, or run this as a step in the' -ForegroundColor Yellow
+    Write-Host 'pipeline itself, which is the more faithful test.' -ForegroundColor Yellow
+    exit 1
+}
+
+# A name that cannot exist. Random suffix so a real stack can never collide with it, and the
+# prefix makes it obvious in CloudTrail that this was a deliberate probe.
+$missingStack = "zz-probe-does-not-exist-$([guid]::NewGuid().ToString('N').Substring(0,12))"
+Write-Host "Missing-stack probe name: $missingStack"
+
+# --- Test 1: Get-CFNStack on a missing stack -----------------------------------------------------
+Write-Section '2. Get-CFNStack on a MISSING stack (drives catch [System.InvalidOperationException])'
+
+$test1Results = @()
+foreach ($eap in 'Continue', 'Stop') {
+    # 'Continue' is what aws_stack_provision.ps1 actually runs under (its line 14).
+    $label = "ErrorActionPreference = $eap"
+    $caughtTyped = $false
+    $caughtAtAll = $false
+    $exceptionType = $null
+    $chain = @()
+    $errorId = $null
+    $returned = $null
+
+    & {
+        $ErrorActionPreference = $eap
+        try {
+            $script:returned = Get-CFNStack -StackName $missingStack
+            # Reached only if the cmdlet did NOT terminate.
+        }
+        catch [System.InvalidOperationException] {
+            $script:caughtTyped = $true
+            $script:caughtAtAll = $true
+            $script:exceptionType = $_.Exception.GetType().FullName
+            $script:chain = Get-ExceptionChain $_.Exception
+            $script:errorId = $_.FullyQualifiedErrorId
+        }
+        catch {
+            $script:caughtAtAll = $true
+            $script:exceptionType = $_.Exception.GetType().FullName
+            $script:chain = Get-ExceptionChain $_.Exception
+            $script:errorId = $_.FullyQualifiedErrorId
+        }
+    }
+
+    Write-Host ''
+    Write-Host "  --- $label ---"
+    if (-not $caughtAtAll) {
+        # Non-terminating: try/catch never fires, execution falls straight through.
+        Write-Host '    Terminating?                     : NO - try/catch did NOT fire' -ForegroundColor Red
+        Write-Host "    Returned                         : $(if ($null -eq $returned) { '$null' } else { $returned.GetType().Name })"
+        if ($Error.Count) {
+            Write-Host "    Error stream                     : $($Error[0].Exception.GetType().FullName)"
+        }
+    } else {
+        Write-Host '    Terminating?                     : YES'
+        Write-Host "    Exception type                   : $exceptionType"
+        Write-Host "    Inner chain                      : $($chain -join ' -> ')"
+        Write-Host "    FullyQualifiedErrorId            : $errorId"
+        $colour = if ($caughtTyped) { 'Green' } else { 'Red' }
+        Write-Host "    catch [InvalidOperationException]: $(if ($caughtTyped) { 'MATCHES' } else { 'DOES NOT MATCH' })" -ForegroundColor $colour
+    }
+
+    $test1Results += [pscustomobject]@{
+        Preference  = $eap
+        Terminating = $caughtAtAll
+        TypedCatch  = $caughtTyped
+        Type        = $exceptionType
+    }
+}
+
+# --- Test 2: StackStatus.Value on an existing stack ------------------------------------------------
+Write-Section '3. (Get-CFNStack).StackStatus.Value on an EXISTING stack'
+
+$stackForStatus = $ExistingStackName
+if (-not $stackForStatus) {
+    if ($allStacks.Count) {
+        $stackForStatus = $allStacks[0].StackName
+        Write-Host "No -ExistingStackName given; using the first stack found: $stackForStatus"
+    } else {
+        Write-Host 'SKIPPED - no stacks in this account/region. Re-run with -ExistingStackName.' -ForegroundColor Yellow
+    }
+}
+
+$statusVerdict = 'SKIPPED'
+if ($stackForStatus) {
+    try {
+        $stack = Get-CFNStack -StackName $stackForStatus -ErrorAction Stop
+        $statusProperty = $stack.StackStatus
+        Write-Host "  Stack                 : $stackForStatus"
+        Write-Host "  StackStatus type      : $($statusProperty.GetType().FullName)"
+        Write-Host "  StackStatus (ToString): $statusProperty"
+
+        # The script reads .Value. On a ConstantClass that is the string; on a plain string
+        # there is no .Value and the expression silently yields $null.
+        $hasValue = $null -ne $statusProperty.PSObject.Properties['Value']
+        $valueRead = $statusProperty.Value
+        Write-Host "  Has a .Value property : $hasValue"
+        Write-Host "  .Value reads as       : $(if ($null -eq $valueRead) { '$null  <-- script comparisons will NEVER match' } else { $valueRead })"
+
+        if ($null -eq $valueRead) {
+            $statusVerdict = 'BROKEN - .StackStatus.Value is $null; use .StackStatus directly'
+            Write-Host "  RESULT: .Value is null - lines 52/182/306 must drop '.Value'" -ForegroundColor Red
+        } else {
+            $statusVerdict = 'OK - .StackStatus.Value still yields the status string'
+            Write-Host '  RESULT: .Value still works.' -ForegroundColor Green
+        }
+    } catch {
+        $statusVerdict = "ERROR - $($_.Exception.GetType().Name)"
+        Write-Host "  Could not read $stackForStatus : $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
+# --- Test 3: Test-CFNStack on a missing stack --------------------------------------------------------
+Write-Section '4. Test-CFNStack -Status DELETE_IN_PROGRESS on a MISSING stack (remove_cfn_stack loop)'
+
+$testCfnVerdict = $null
+try {
+    $ErrorActionPreference = 'Stop'
+    $testResult = Test-CFNStack -StackName $missingStack -Status 'DELETE_IN_PROGRESS'
+    $testCfnVerdict = "RETURNED $testResult"
+    if ($testResult -eq $false) {
+        Write-Host '  Returned $false - the remove_cfn_stack wait loop exits correctly.' -ForegroundColor Green
+    } else {
+        Write-Host "  Returned '$testResult' for a stack that does not exist - loop would not exit." -ForegroundColor Red
+    }
+} catch {
+    $testCfnVerdict = "THREW $($_.Exception.GetType().FullName)"
+    Write-Host "  THREW instead of returning: $($_.Exception.GetType().FullName)" -ForegroundColor Red
+    Write-Host "    $($_.Exception.Message)"
+    Write-Host '  remove_cfn_stack (line 74) would abort rather than complete.' -ForegroundColor Red
+} finally {
+    $ErrorActionPreference = 'Continue'
+}
+
+# --- Verdict ------------------------------------------------------------------------------------
+Write-Section '5. VERDICT (diff these lines between the old and new module sets)'
+$awsModule = (Get-Command Get-CFNStack).Module
+Write-Host "MODULE          : $($awsModule.Name) $($awsModule.Version)  [PS $($PSVersionTable.PSVersion) $($PSVersionTable.PSEdition)]"
+foreach ($r in $test1Results) {
+    Write-Host ("GET-CFNSTACK    : EAP={0,-8} terminating={1,-5} typedCatchMatches={2,-5} type={3}" -f `
+        $r.Preference, $r.Terminating, $r.TypedCatch, $r.Type)
+}
+Write-Host "STACKSTATUS     : $statusVerdict"
+Write-Host "TEST-CFNSTACK   : $testCfnVerdict"
+
+$continueRow = $test1Results | Where-Object { $_.Preference -eq 'Continue' }
+Write-Host ''
+if ($continueRow.Terminating -and $continueRow.TypedCatch) {
+    Write-Host "OVERALL: catch [System.InvalidOperationException] STILL WORKS under this module set." -ForegroundColor Green
+} else {
+    Write-Host "OVERALL: catch [System.InvalidOperationException] IS BROKEN under this module set." -ForegroundColor Red
+    Write-Host '         aws_stack_provision.ps1 lines 194 and 317 must be rewritten to catch' -ForegroundColor Red
+    Write-Host "         $($continueRow.Type) instead (or to test for the stack without relying on an exception)." -ForegroundColor Red
+}
