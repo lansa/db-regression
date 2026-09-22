@@ -64,6 +64,21 @@
     logon has no credentials of its own - the release pipeline supplies them. Run without it
     first: if the preflight fails it lists the profiles and environment variables it can see.
 
+.PARAMETER UseAwsTools
+    Explicitly import AWS.Tools.* before testing, so this run measures the MODULAR v5 module set
+    even on a machine that also has the monolithic AWSPowerShell installed.
+
+    The agents need both families: the cookbooks bake scripts import AWS.Tools.*, while the
+    'AWS Tools for Windows PowerShell Script' release task reinstalls the monolithic AWSPowerShell
+    to CurrentUser scope any time it does not find it. With both present every AWS cmdlet name is
+    exported twice, and which one an auto-loading script gets is decided by PSModulePath scan
+    order - not by anything in this repo. So run this script BOTH ways on the same agent and diff
+    the VERDICT blocks: without the switch you measure what aws_stack_provision.ps1 gets today,
+    with it you measure what it would get if the scan order ever changed.
+
+    An explicit Import-Module beats auto-loading, which is the whole point - it is also the fix
+    the real script should adopt once the two VERDICT blocks are known to agree.
+
 .PARAMETER TestBadCredentials
     Adds test 4c: repeat the probes in a CHILD process holding AWS's documented example keys, to
     prove a credentials failure is distinguishable from a missing stack. Off by default because
@@ -82,6 +97,7 @@ param(
     [string]$Region = 'us-east-1',
     [string]$ExistingStackName,
     [string]$ProfileName,
+    [switch]$UseAwsTools,
     [switch]$TestBadCredentials
 )
 
@@ -129,6 +145,25 @@ function Get-AwsServiceException($exception) {
 Write-Section '0. Environment'
 Write-Host "PSVersion : $($PSVersionTable.PSVersion)  ($($PSVersionTable.PSEdition))"
 Write-Host "Host exe  : $((Get-Process -Id $PID).Path)"
+
+if ($UseAwsTools) {
+    # Must happen before ANY AWS cmdlet is called, or auto-loading will already have bound the
+    # names to whichever family it found first and this run would silently measure that one.
+    # AWS.Tools.Common carries Set-DefaultAWSRegion and Set-AWSCredential; CloudFormation carries
+    # the three cmdlets under test.
+    foreach ($needed in 'AWS.Tools.Common', 'AWS.Tools.CloudFormation') {
+        try {
+            Import-Module $needed -ErrorAction Stop
+        } catch {
+            Write-Host "Could not import ${needed}: $($_.Exception.Message)" -ForegroundColor Red
+            Write-Host 'Install the AWS.Tools modules on this machine, or drop -UseAwsTools.' -ForegroundColor Red
+            exit 1
+        }
+    }
+    Write-Host 'Modules   : AWS.Tools.* imported EXPLICITLY (-UseAwsTools)'
+} else {
+    Write-Host 'Modules   : resolved by AUTO-LOADING, exactly as aws_stack_provision.ps1 does'
+}
 
 foreach ($cmdletName in 'Get-CFNStack', 'Test-CFNStack', 'Get-CFNStackSummary') {
     $cmd = Get-Command $cmdletName -ErrorAction Ignore
@@ -434,12 +469,16 @@ $badCredVerdict = 'NOT TESTED (pass -TestBadCredentials)'
 if ($TestBadCredentials) {
     Write-Host ''
     Write-Host '  --- with deliberately invalid credentials (child process) ---'
+    # The child must resolve the same family as its parent, or the two halves of this run would
+    # be measuring different modules.
+    $childImport = if ($UseAwsTools) { 'Import-Module AWS.Tools.Common, AWS.Tools.CloudFormation' } else { '' }
     # AWS's own documented example key pair, so nobody reading a build log mistakes it for real.
     $childScript = @"
 `$ErrorActionPreference = 'Stop'
 foreach (`$v in 'AWS_ACCESS_KEY_ID','AWS_SECRET_ACCESS_KEY','AWS_SESSION_TOKEN','AWS_PROFILE') {
     Remove-Item "env:`$v" -ErrorAction Ignore
 }
+$childImport
 Set-DefaultAWSRegion -Region '$Region' -Scope Script
 Set-AWSCredential -AccessKey 'AKIAIOSFODNN7EXAMPLE' ``
                   -SecretKey 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' -Scope Script
@@ -478,7 +517,8 @@ foreach (`$probe in 'Get-CFNStack','Test-CFNStack') {
 # --- Verdict ------------------------------------------------------------------------------------
 Write-Section '6. VERDICT (diff these lines between the old and new module sets)'
 $awsModule = (Get-Command Get-CFNStack).Module
-Write-Host "MODULE          : $($awsModule.Name) $($awsModule.Version)  [PS $($PSVersionTable.PSVersion) $($PSVersionTable.PSEdition)]"
+$resolution = if ($UseAwsTools) { 'explicit import' } else { 'auto-load' }
+Write-Host "MODULE          : $($awsModule.Name) $($awsModule.Version)  [PS $($PSVersionTable.PSVersion) $($PSVersionTable.PSEdition), $resolution]"
 foreach ($r in $test1Results) {
     Write-Host ("GET-CFNSTACK    : EAP={0,-8} terminating={1,-5} typedCatchMatches={2,-5} type={3}" -f `
         $r.Preference, $r.Terminating, $r.TypedCatch, $r.Type)
