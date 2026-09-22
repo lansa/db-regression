@@ -58,6 +58,11 @@ Resources:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeType: gp3
-            VolumeSize: '425'
+            # Must be >= the size of the AMI's root snapshot, or the instance fails to launch
+            # and CloudFormation rolls the whole stack back with:
+            #   Volume of size <this>GB is smaller than snapshot '<snap-id>', expect size >= 500GB
+            # Raised from 425 when the baked AMI's root volume grew to 500GB. EBS can only grow,
+            # so this has to be bumped again whenever the AMI does.
+            VolumeSize: '500'
             DeleteOnTermination: 'true'
             Encrypted: 'false'

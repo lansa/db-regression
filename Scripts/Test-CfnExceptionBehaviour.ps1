@@ -36,6 +36,18 @@
        Site: line 74, the remove_cfn_stack wait loop. It must RETURN $false for a stack that is
        gone. If it throws instead, remove_cfn_stack dies rather than completing.
 
+    4. How to tell "no such stack" apart from every OTHER failure.
+       Not a migration question - a defect that exists under v4 today. AWS raises
+       InvalidOperationException for missing credentials, denied permissions, throttling and
+       connectivity failures as well as for a missing stack, so the typed catch at lines 194 and
+       317 cannot distinguish them: on a credentials failure it concludes the stack is absent and
+       calls New-CFNStack. This test measures the two candidate discriminators:
+         a. the AWS ErrorCode carried by the inner Amazon service exception - present for a
+            service-side "does not exist", absent entirely for a client-side credentials error.
+         b. Test-CFNStack with no -Status, which answers "does this stack exist" by RETURN VALUE
+            and so needs no exception at all. If it returns $true for an existing stack (even one
+            in ROLLBACK_COMPLETE) and $false for a missing one, the try/catch can go away.
+
 .PARAMETER Region
     Defaults to us-east-1, matching Set-DefaultAWSRegion in the real script.
 
@@ -48,6 +60,13 @@
     logon has no credentials of its own - the release pipeline supplies them. Run without it
     first: if the preflight fails it lists the profiles and environment variables it can see.
 
+.PARAMETER TestBadCredentials
+    Adds test 4c: repeat the probes in a CHILD process holding AWS's documented example keys, to
+    prove a credentials failure is distinguishable from a missing stack. Off by default because
+    it deliberately provokes failed authentication attempts, which some accounts alert on. It
+    creates nothing and cannot affect this session's credentials - the keys only ever exist in
+    the child.
+
 .EXAMPLE
     # On the agent (old modules):
     powershell -NoProfile -File .\Test-CfnExceptionBehaviour.ps1
@@ -58,7 +77,8 @@
 param(
     [string]$Region = 'us-east-1',
     [string]$ExistingStackName,
-    [string]$ProfileName
+    [string]$ProfileName,
+    [switch]$TestBadCredentials
 )
 
 # Not 'Stop': the point is to observe the cmdlets' own behaviour, including whether they
@@ -83,6 +103,22 @@ function Get-ExceptionChain($exception) {
         $guard++
     }
     return $chain
+}
+
+function Get-AwsServiceException($exception) {
+    # Walk the inner chain for the AWS SDK's own exception - the one carrying ErrorCode. Matched
+    # by SHAPE, not by type name: the SDK assembly and namespace differ between the monolithic
+    # v4 module and AWS.Tools v5, and this script has to give comparable answers on both.
+    $current = $exception
+    $guard = 0
+    while ($current -and $guard -lt 10) {
+        if ($current.PSObject.Properties['ErrorCode'] -and $current.GetType().FullName -like 'Amazon.*') {
+            return $current
+        }
+        $current = $current.InnerException
+        $guard++
+    }
+    return $null
 }
 
 # --- Environment ------------------------------------------------------------------------------
@@ -286,8 +322,122 @@ try {
     $ErrorActionPreference = 'Continue'
 }
 
+# --- Test 4: discriminating "no such stack" from every other failure --------------------------------
+Write-Section '5. Telling "no such stack" apart from a credentials/permissions/network failure'
+
+# 4a. Does the missing-stack exception carry an AWS ErrorCode?
+# A service-side "does not exist" is an AmazonCloudFormationException with ErrorCode
+# 'ValidationError'. A client-side credentials failure never reaches the service, so it has no
+# Amazon exception in its chain at all - which makes the presence of ErrorCode a discriminator
+# where the .NET exception type is not.
+$missingErrorCode = 'NONE'
+$missingHttpStatus = 'n/a'
+try {
+    $ErrorActionPreference = 'Stop'
+    Get-CFNStack -StackName $missingStack | Out-Null
+} catch {
+    $svc = Get-AwsServiceException $_.Exception
+    if ($svc) {
+        $missingErrorCode = $svc.ErrorCode
+        if ($svc.PSObject.Properties['StatusCode']) { $missingHttpStatus = $svc.StatusCode }
+        Write-Host "  AWS exception         : $($svc.GetType().FullName)"
+        Write-Host "  ErrorCode             : $missingErrorCode" -ForegroundColor Green
+        Write-Host "  HTTP status           : $missingHttpStatus"
+        Write-Host "  Message               : $($svc.Message)"
+    } else {
+        Write-Host '  No Amazon service exception in the chain - the call never reached AWS.' -ForegroundColor Red
+        Write-Host "  Outer message         : $($_.Exception.Message)"
+    }
+} finally {
+    $ErrorActionPreference = 'Continue'
+}
+
+# 4b. Test-CFNStack with NO -Status: an existence check by RETURN VALUE rather than by exception.
+# This is the candidate replacement for the try/catch at lines 194 and 317. It has to be right in
+# BOTH directions, and the existing-stack case matters most: the stack this account has right now
+# is in ROLLBACK_COMPLETE, and if Test-CFNStack treats "exists but unhealthy" as $false the
+# rewrite would delete-and-recreate where the current code merely recreates.
+Write-Host ''
+$existsMissing = 'n/a'
+$existsPresent = 'n/a'
+try {
+    $ErrorActionPreference = 'Stop'
+    $existsMissing = Test-CFNStack -StackName $missingStack
+    Write-Host "  Test-CFNStack (no -Status), MISSING  stack -> $existsMissing"
+} catch {
+    $existsMissing = "THREW $($_.Exception.GetType().Name)"
+    Write-Host "  Test-CFNStack (no -Status), MISSING  stack -> $existsMissing" -ForegroundColor Red
+} finally {
+    $ErrorActionPreference = 'Continue'
+}
+
+if ($stackForStatus) {
+    try {
+        $ErrorActionPreference = 'Stop'
+        $existsPresent = Test-CFNStack -StackName $stackForStatus
+        $colour = if ($existsPresent) { 'Green' } else { 'Red' }
+        Write-Host "  Test-CFNStack (no -Status), EXISTING stack -> $existsPresent  ($stackForStatus, $statusProperty)" -ForegroundColor $colour
+        if (-not $existsPresent) {
+            Write-Host '    NOTE: $false for a stack that exists - Test-CFNStack is filtering on' -ForegroundColor Red
+            Write-Host '    status, so it cannot be used as a bare existence check.' -ForegroundColor Red
+        }
+    } catch {
+        $existsPresent = "THREW $($_.Exception.GetType().Name)"
+        Write-Host "  Test-CFNStack (no -Status), EXISTING stack -> $existsPresent" -ForegroundColor Red
+    } finally {
+        $ErrorActionPreference = 'Continue'
+    }
+}
+
+# 4c. Opt-in: prove a credentials failure looks different. Run in a CHILD process so the bogus
+# keys cannot leak into this session and contaminate every test above.
+$badCredVerdict = 'NOT TESTED (pass -TestBadCredentials)'
+if ($TestBadCredentials) {
+    Write-Host ''
+    Write-Host '  --- with deliberately invalid credentials (child process) ---'
+    # AWS's own documented example key pair, so nobody reading a build log mistakes it for real.
+    $childScript = @"
+`$ErrorActionPreference = 'Stop'
+foreach (`$v in 'AWS_ACCESS_KEY_ID','AWS_SECRET_ACCESS_KEY','AWS_SESSION_TOKEN','AWS_PROFILE') {
+    Remove-Item "env:`$v" -ErrorAction Ignore
+}
+Set-DefaultAWSRegion -Region '$Region' -Scope Script
+Set-AWSCredential -AccessKey 'AKIAIOSFODNN7EXAMPLE' ``
+                  -SecretKey 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' -Scope Script
+foreach (`$probe in 'Get-CFNStack','Test-CFNStack') {
+    try {
+        & `$probe -StackName '$missingStack' | Out-Null
+        Write-Output "`$probe|NO EXCEPTION|"
+    } catch {
+        `$svc = `$_.Exception
+        `$code = ''
+        `$guard = 0
+        while (`$svc -and `$guard -lt 10) {
+            if (`$svc.PSObject.Properties['ErrorCode'] -and `$svc.GetType().FullName -like 'Amazon.*') {
+                `$code = `$svc.ErrorCode; break
+            }
+            `$svc = `$svc.InnerException; `$guard++
+        }
+        Write-Output "`$probe|`$(`$_.Exception.GetType().FullName)|`$code"
+    }
+}
+"@
+    $childLines = @(& (Get-Process -Id $PID).Path -NoProfile -Command $childScript 2>&1)
+    foreach ($line in $childLines) {
+        $text = "$line"
+        if ($text -match '^\S+\|') {
+            $parts = $text -split '\|'
+            $codeShown = if ($parts[2]) { $parts[2] } else { '(no AWS ErrorCode - never reached AWS)' }
+            Write-Host ("    {0,-14} {1}  ErrorCode={2}" -f $parts[0], $parts[1], $codeShown)
+        }
+    }
+    # The headline: same .NET type as a missing stack, different (or absent) ErrorCode.
+    $badCredVerdict = ($childLines | Where-Object { "$_" -match '^Get-CFNStack\|' }) -join ''
+    if (-not $badCredVerdict) { $badCredVerdict = 'child process produced no parsable result' }
+}
+
 # --- Verdict ------------------------------------------------------------------------------------
-Write-Section '5. VERDICT (diff these lines between the old and new module sets)'
+Write-Section '6. VERDICT (diff these lines between the old and new module sets)'
 $awsModule = (Get-Command Get-CFNStack).Module
 Write-Host "MODULE          : $($awsModule.Name) $($awsModule.Version)  [PS $($PSVersionTable.PSVersion) $($PSVersionTable.PSEdition)]"
 foreach ($r in $test1Results) {
@@ -296,6 +446,9 @@ foreach ($r in $test1Results) {
 }
 Write-Host "STACKSTATUS     : $statusVerdict"
 Write-Host "TEST-CFNSTACK   : $testCfnVerdict"
+Write-Host "MISSING ERRCODE : $missingErrorCode  (HTTP $missingHttpStatus)"
+Write-Host "EXISTS-CHECK    : Test-CFNStack no -Status -> missing=$existsMissing existing=$existsPresent"
+Write-Host "BAD CREDENTIALS : $badCredVerdict"
 
 $continueRow = $test1Results | Where-Object { $_.Preference -eq 'Continue' }
 Write-Host ''

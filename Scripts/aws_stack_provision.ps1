@@ -39,6 +39,42 @@ function fetch_vm_password
     return $RetryCount
 }
 
+function show_cfn_failure_reason
+{
+   Param
+   (
+      [Parameter(Mandatory=$true)] [String]$STACK_ID
+   )
+   # A stack status such as ROLLBACK_IN_PROGRESS says that the stack failed but never why. The
+   # reason lives in the stack events, and by the time anyone reads the build log the next run
+   # has usually deleted the stack - at which point it can only be reached by its ID, not by its
+   # name. So log the ID as well, and dump the events here while they are still cheap to get.
+   Write-Host "Stack ID: $STACK_ID"
+   Write-Host "Failed CloudFormation events (earliest first - the FIRST one is the root cause;"
+   Write-Host "everything after it is usually just the rollback tidying up):"
+   try
+   {
+      $FAILED_EVENTS = @(Get-CFNStackEvent -StackName $STACK_ID -ErrorAction Stop |
+                         Where-Object { $_.ResourceStatus -like "*FAILED*" } |
+                         Sort-Object Timestamp)
+      if ( $FAILED_EVENTS.Count -eq 0 )
+      {
+         Write-Host "   None reported yet - the rollback may still be in progress."
+      }
+      foreach ( $CFN_EVENT in $FAILED_EVENTS )
+      {
+         Write-Host ("   {0:HH:mm:ss} {1} ({2}) {3}" -f $CFN_EVENT.Timestamp, $CFN_EVENT.LogicalResourceId, $CFN_EVENT.ResourceType, $CFN_EVENT.ResourceStatus)
+         Write-Host "      $($CFN_EVENT.ResourceStatusReason)"
+      }
+   }
+   catch
+   {
+      # Diagnostics must never replace the real failure - swallow anything that goes wrong here
+      # so the caller's throw is still what surfaces.
+      Write-Host "   Could not read stack events: $($_.Exception.Message)"
+   }
+}
+
 function cfn_stack_status
 {
    Param
@@ -49,8 +85,12 @@ function cfn_stack_status
    $RetryCount = 180
    do
    {
-      $CFN_STACK_STATUS = ((Get-CFNStack -StackName $STACK_NAME).StackStatus).Value
+      # Keep the whole stack, not just the status: StackId is needed to read the events back
+      # after the stack has been deleted.
+      $CFN_STACK = Get-CFNStack -StackName $STACK_NAME
+      $CFN_STACK_STATUS = ($CFN_STACK.StackStatus).Value
       if ( $CFN_STACK_STATUS -eq "ROLLBACK_COMPLETE" -or $CFN_STACK_STATUS -eq "CREATE_FAILED" -or $CFN_STACK_STATUS -eq "DELETE_COMPLETE" -or $CFN_STACK_STATUS -eq "DELETE_FAILED" -or $CFN_STACK_STATUS -eq "ROLLBACK_FAILED" -or $CFN_STACK_STATUS -eq "ROLLBACK_IN_PROGRESS" -or $CFN_STACK_STATUS -eq "UPDATE_FAILED" -or $CFN_STACK_STATUS -eq "UPDATE_ROLLBACK_FAILED" -or $CFN_STACK_STATUS -eq "UPDATE_ROLLBACK_IN_PROGRESS" -or $CFN_STACK_STATUS -eq "IMPORT_ROLLBACK_FAILED" ) {
+         show_cfn_failure_reason $CFN_STACK.StackId
          throw "CFN $STACK_NAME stack is in the invalid state '$CFN_STACK_STATUS' state"
       }
       if ($CFN_STACK_STATUS -ne "CREATE_COMPLETE") {
