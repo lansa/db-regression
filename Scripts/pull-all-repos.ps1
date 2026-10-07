@@ -9,20 +9,58 @@ param (
 
 Push-Location
 
-whoami
-"Is64BitProcess: " + [Environment]::Is64BitProcess
-"HOME=$env:HOME"; "USERPROFILE=$env:USERPROFILE"; "GIT_SSH=$env:GIT_SSH"; "GIT_SSH_COMMAND=$env:GIT_SSH_COMMAND"
-[Environment]::GetEnvironmentVariable('HOME','Machine')
-where.exe git; where.exe ssh
-git --version
-git config --show-origin --list | Select-String -Pattern 'ssh|sshCommand|include'
-$sp = 'C:\Windows\System32\config\systemprofile\.ssh', 'C:\Windows\SysWOW64\config\systemprofile\.ssh', 'C:\ProgramData\ssh', 'C:\Program Files\Git\etc\ssh'
-foreach ($d in $sp) { "== $d"; if (Test-Path $d) { Get-ChildItem $d | Select-Object Name, Length, LastWriteTime | Format-Table -AutoSize | Out-String } }
-# Which ssh git actually invokes, and which known_hosts files it checks
-$env:GIT_TRACE = 1
-$env:GIT_SSH_COMMAND = $null
-git ls-remote git@github.com:lansa/lansa.git HEAD 2>&1 | Select-Object -First 15
-ssh -G github.com | Select-String 'knownhostsfile|stricthostkeychecking|identityfile'
+$ErrorActionPreference = 'Continue'
+
+function Show($label, $value) { Write-Host "$label : $value" }
+
+function Run($title, [scriptblock]$sb) {
+    Write-Host ""
+    Write-Host "==== $title ===="
+    try {
+        & $sb 2>&1 | ForEach-Object { Write-Host ("$_") }
+    } catch {
+        Write-Host "ERROR: $_"
+    }
+}
+
+Write-Host "==== Identity / environment ===="
+Show 'whoami'               (whoami)
+Show 'Is64BitProcess'       ([Environment]::Is64BitProcess)
+Show 'HOME (process)'       $env:HOME
+Show 'HOME (Machine)'       ([Environment]::GetEnvironmentVariable('HOME','Machine'))
+Show 'USERPROFILE'          $env:USERPROFILE
+Show 'GIT_SSH'              $env:GIT_SSH
+Show 'GIT_SSH_COMMAND'      $env:GIT_SSH_COMMAND
+Show 'PATH'                 $env:PATH
+
+Run 'where git' { where.exe git }
+Run 'where ssh' { where.exe ssh }
+Run 'git --version' { git --version }
+Run 'git config (ssh related)' { git config --show-origin --list | Select-String -Pattern 'ssh|include' }
+
+$dirs = @(
+    'C:\Windows\System32\config\systemprofile\.ssh',
+    'C:\Windows\SysWOW64\config\systemprofile\.ssh',
+    'C:\ProgramData\ssh',
+    'C:\Program Files\Git\etc\ssh'
+)
+foreach ($d in $dirs) {
+    Run "dir $d" {
+        if (Test-Path $d) {
+            Get-ChildItem $d -Force | ForEach-Object { "{0,-30} {1,8} {2}" -f $_.Name, $_.Length, $_.LastWriteTime }
+        } else { "(does not exist)" }
+    }
+}
+
+Run 'ssh -G github.com' { ssh -G github.com | Select-String 'knownhostsfile|stricthostkeychecking|identityfile' }
+
+# Replace with a repo pull-all-repos.ps1 actually pulls
+$repo = 'git@github.com:lansa/db-regression.git'
+$env:GIT_TRACE = '1'
+Run "git ls-remote $repo" { git ls-remote $repo HEAD | Select-Object -First 20 }
+Remove-Item Env:\GIT_TRACE
+
+Run 'ssh -v -T git@github.com' { ssh -v -T -o BatchMode=yes git@github.com }
 
 Write-Host "Pulling all repos..."
 
