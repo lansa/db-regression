@@ -8,6 +8,22 @@ param (
 #[string[]] $Roots = @("C:\Program Files (x86)\ORACLE")
 
 Push-Location
+
+whoami
+"Is64BitProcess: " + [Environment]::Is64BitProcess
+"HOME=$env:HOME"; "USERPROFILE=$env:USERPROFILE"; "GIT_SSH=$env:GIT_SSH"; "GIT_SSH_COMMAND=$env:GIT_SSH_COMMAND"
+[Environment]::GetEnvironmentVariable('HOME','Machine')
+where.exe git; where.exe ssh
+git --version
+git config --show-origin --list | Select-String -Pattern 'ssh|sshCommand|include'
+$sp = 'C:\Windows\System32\config\systemprofile\.ssh', 'C:\Windows\SysWOW64\config\systemprofile\.ssh', 'C:\ProgramData\ssh', 'C:\Program Files\Git\etc\ssh'
+foreach ($d in $sp) { "== $d"; if (Test-Path $d) { Get-ChildItem $d | Select-Object Name, Length, LastWriteTime | Format-Table -AutoSize | Out-String } }
+# Which ssh git actually invokes, and which known_hosts files it checks
+$env:GIT_TRACE = 1
+$env:GIT_SSH_COMMAND = $null
+git ls-remote git@github.com:lansa/lansa.git HEAD 2>&1 | Select-Object -First 15
+ssh -G github.com | Select-String 'knownhostsfile|stricthostkeychecking|identityfile'
+
 Write-Host "Pulling all repos..."
 
 try {
