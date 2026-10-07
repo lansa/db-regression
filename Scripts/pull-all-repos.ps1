@@ -20,8 +20,9 @@ try {
     Write-Host "Getting branch $Branch"
 
     foreach ($Root in $Roots) {
-        Write-Host "Copy User Lists from MSSQLS IDE WRITE location to Compiler's READ location! "
-        robocopy "C:\Program Files (x86)\LANSA\LANSA\LANSA\UserLists\WBP" "$Root\lansa\UserLists\WBP" *.txt /w:2 /xo
+        # Is this actually needed?
+        # Write-Host "Copy User Lists from MSSQLS IDE WRITE location to Compiler's READ location! "
+        # robocopy "C:\Program Files (x86)\LANSA\LANSA\LANSA\UserLists\WBP" "$Root\lansa\UserLists\WBP" *.txt /w:2 /xo
         
         Set-Location "$Root\lansa\VersionControl"
         Get-Location | Write-Host
