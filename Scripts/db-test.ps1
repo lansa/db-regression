@@ -306,6 +306,7 @@ try {
             Set-Location (Join-Path $Root "LANSA\VersionControl")
             if ( $GitReset ){
                 git reset --hard HEAD
+                git pull
             } else {
                 Write-Host("Skipping Git Reset")
             }
