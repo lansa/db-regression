@@ -32,7 +32,7 @@ param (
     [boolean] $Bit32 = $true,
     [boolean] $Bit64 = $false,
     [switch] $GitReset,
-    [ValidateSet("All", "Main", "Second", "Third")]
+    [ValidateSet("All", "Main", "Second", "Third", "157726")]
     [string]$Batch = "All",
     [switch] $KeepVerifierLog
 )
@@ -348,6 +348,10 @@ try {
     if ( $Batch -eq "All") {
         $TestList.Add( $(New-Tuple "VTI0049",  "VI0049A", "I0049") ) | Out-Null
         $TestList.Add( $(New-Tuple "VTI0049B", "VI0049B", "") ) | Out-Null # VTI0049B is part of running test I0049 and must be run after process VTI0049
+    }
+
+    if ( $Batch -eq "157726") {
+        $TestList.Add( $(New-Tuple "VT157726", "V57726A", "L157726") ) | Out-Null        
     }
 
     Write-Host "$(Log-Date) Test List $Batch"
