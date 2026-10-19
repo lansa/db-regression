@@ -392,7 +392,7 @@ try {
             Write-Host "$(Log-Date) Compile Tests that must be compiled each time its tested"
 
             foreach ($Root in $RootList ){
-                Write-Host ("$(Log-Date) Compiling $CompileItem for $Root")
+                Write-Host ("$(Log-Date) Compiling L157726 for $Root")
                 Compile $Root 'L157726'
                 Write-Host ("$(Log-Date) ************************************************************")
             }
