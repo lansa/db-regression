@@ -67,7 +67,9 @@ function Import{
     $Arguments = $StdArguments + @("EXPR=""$ImportFolder""", "EXPM=""$ImportLog""")
 
     Write-Host "$(Log-Date) Arguments $Arguments"
-    $p = Start-Process -FilePath $installer_file -ArgumentList $Arguments -Wait -PassThru
+    $p = Start-Process -FilePath $installer_file -ArgumentList $Arguments -PassThru
+    # Only wait for the process to end, not its descendants, vctip.exe hangs around when run as NT AUTHORITY\SYSTEM
+    $p.WaitForExit()
 
     if ( $p.ExitCode -ne 0 ) {
         $ErrorMessage = "$(Log-Date) Import returned error code $($p.ExitCode)."
@@ -128,7 +130,9 @@ function Test{
     $Arguments = $StdArguments
 
     Write-Host "$(Log-Date) $installer_file $Arguments"
-    $p = Start-Process -FilePath $installer_file -ArgumentList $Arguments -Wait -PassThru
+    $p = Start-Process -FilePath $installer_file -ArgumentList $Arguments -PassThru
+    # Only wait for the process to end, not its descendants, vctip.exe hangs around when run as NT AUTHORITY\SYSTEM
+    $p.WaitForExit()
 
     if ( $p.ExitCode -ne 0 ) {
         $ErrorCount++
@@ -144,6 +148,9 @@ function Test{
         Add-Content -Path (Join-Path $LansaRoot $SummaryFile) -Value $ErrorMessage
         $global:TotalErrors++
     }
+
+    # Kill vctip.exe at the end of each test to ensure its not hanging around.
+    Stop-Process -Name vctip -Force -ErrorAction SilentlyContinue
 
     if ( (Test-Path -Path $x_err) )
     {
