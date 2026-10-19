@@ -13,7 +13,9 @@ try {
 
     switch ($LansaVersion) {
         "trunk" {$DB2ISERIES = "LANSA01_DEVPGMLIB"}
-        default {$DB2ISERIES = "LANSA01_P50PGMLIB"}
+        "160000"{$DB2ISERIES = "LANSA01_P60PGMLIB"}
+        "150000"{$DB2ISERIES = "LANSA01_P50PGMLIB"}
+        default {$DB2ISERIES = "LANSA01_DEVPGMLIB"}
     }
     Write-Host "IBMi connection is to $DB2ISERIES"
 
@@ -35,6 +37,9 @@ try {
     {
         Write-Host("String being searched is '$string'")
         if($string.Length -gt 0 -and $string.Substring(0, 1) -ne ";"){
+            if (-not ($Content -match $string)) {
+                throw "String '$string' was not found in $VerifierConnectionPath"
+            }
             $newString = ";" + $string
             $Content = $Content -replace $string,$newString
         }
