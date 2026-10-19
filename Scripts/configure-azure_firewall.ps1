@@ -24,6 +24,11 @@ param (
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
+# Az must be imported BEFORE any AWS.Tools cmdlet (Get-SECSecretValue) runs. If the AWS SDK assemblies
+# load first, Connect-AzAccount fails in Windows PowerShell 5.1 with a TypeLoadException / MSAL type
+# initializer error (assembly version conflict).
+Import-Module Az.Accounts, Az.Sql -ErrorAction Stop
+
 function Get-PublicIPAddress {
     # Prefer EC2 instance metadata (IMDSv2) - we are on AWS, this is the authoritative source
     try {
