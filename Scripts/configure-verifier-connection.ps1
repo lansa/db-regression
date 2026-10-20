@@ -9,7 +9,9 @@ $ErrorActionPreference = "Stop"
 
 try {
 
-    Write-Host(" Modifying Verifier_Connection.dat file")
+    Write-Host( "Modifying Verifier_Connection.dat file")
+    Write-Host( "dbTypes = $dbTypes")
+    Write-Host( "LansaVersion = $LansaVersion")
 
     switch ($LansaVersion) {
         "trunk" {$DB2ISERIES = "LANSA01_DEVPGMLIB"}
